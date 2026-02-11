@@ -51,10 +51,10 @@
 
 | Tier | Target | Hosting | Identity | Key Features |
 |------|--------|---------|----------|--------------|
-| **GitHub Free** | Individuals / OSS | Cloud (github.com) | GitHub.com account | Public & private repos, basic Actions |
-| **GitHub Team** | Small teams | Cloud (github.com) | GitHub.com account | Protected branches, code owners, 3,000 Actions min/mo |
-| **GitHub Enterprise Cloud (GHEC)** | Large orgs | Cloud (github.com) | GitHub.com or EMU (IdP-managed) | Enterprise account, SAML SSO, audit log streaming, GHAS, 50,000 Actions min/mo |
-| **GitHub Enterprise Server (GHES)** | Regulated / on-prem | Self-hosted (your infra) | Built-in or SAML/LDAP | Full air-gap support, data residency, appliance model |
+| **GitHub Free** | Individuals / OSS | Cloud (github.com) | GitHub.com account | Public & private repos, basic Actions (2,000 min/mo) |
+| **GitHub Team** | Small teams (5–50) | Cloud (github.com) | GitHub.com account | Protected branches, code owners, 3,000 Actions min/mo |
+| **GitHub Enterprise Cloud (GHEC)** | Large orgs (50+) | Cloud (github.com) | GitHub.com or EMU (IdP-managed) | Enterprise account, SAML SSO, audit log streaming, GHAS, 50,000 Actions min/mo |
+| **GitHub Enterprise Server (GHES)** | Regulated / on-prem | Self-hosted (your infra) | Built-in or SAML/LDAP | Full air-gap support, data residency, VM appliance model |
 
 > **Presenter Note**: *This is the landscape. Most enterprise conversations center on GHEC — either standard or with EMU — and GHES for on-prem. The key differentiators are identity management, data residency, and compliance requirements. Let's note that GHEC with EMU is a fundamentally different identity model than standard GHEC — we'll dig into that in Scenario 1.*
 
@@ -73,9 +73,11 @@
 | **Inner Source** | ✅ Internal repos visible across orgs | ✅ Internal repos visible across orgs |
 | **Personal Repos** | ✅ Users have personal repos | ⚠️ Can own repos within enterprise (if policy allows), but not outside it |
 | **Gists** | ✅ Users can create gists | ✗ EMU accounts cannot create gists |
-| **Identity Lifecycle** | Manual — user manages own account | Automated — provision/deprovision via IdP |
+| **Guest Collaborators** | N/A — outside collaborators invited directly | ✅ Guest collaborator role for external users (limited repo access, provisioned via IdP with restricted role) |
+| **Identity Lifecycle** | Manual — user manages own account, admin manages access | Automated — provision/deprovision via IdP SCIM |
+| **Account Deprovisioning** | Admin removes from org (account persists) | IdP deprovisions → account suspended/removed |
 
-> **Presenter Note**: *This is one of the most important slides. EMU gives you complete lifecycle control — when someone leaves the company, their account is deprovisioned automatically. But the trade-off is significant: EMU accounts live in a walled garden. They can't contribute to open source, can't fork public repos, can't create gists, and can't use their account outside the enterprise. However, they CAN own private repos within the enterprise if your enterprise policy allows it. For organizations that need external collaborators on EMU-owned repos, there's a "guest collaborator" role that doesn't require IdP provisioning. For many organizations, this is the right trade-off for security and compliance. For others — especially those with active open-source contributors — standard GHEC with SAML SSO is the better choice.*
+> **Presenter Note**: *This is one of the most important slides. EMU gives you complete lifecycle control — when someone leaves the company, their account is deprovisioned automatically. But the trade-off is significant: EMU accounts live in a walled garden. They can't contribute to open source, can't fork public repos, can't create gists, and can't use their account outside the enterprise. However, they CAN own private repos within the enterprise if your enterprise policy allows it. For organizations that need external collaborators on EMU-owned repos, there's a "guest collaborator" role — these are provisioned via the IdP like all managed user accounts, but receive a restricted role with limited, repo-scoped access. For many organizations, this is the right trade-off for security and compliance. For others — especially those with active open-source contributors — standard GHEC with SAML SSO is the better choice.*
 
 ---
 
@@ -197,10 +199,10 @@
 | Enterprise owns all accounts — no data leakage risk | No personal forks of public repos, no gists | SAML SSO configured with IdP |
 | Username follows enterprise naming convention (`user_shortcode`) | Users cannot reuse existing GitHub.com accounts | GitHub Enterprise Cloud license |
 | Team membership synced from IdP groups | Separate personal GitHub.com account needed for OSS work | IdP group structure mapped to GitHub teams |
-| Centralized policy enforcement (Enterprise → Org → Repo) | Namespace collisions possible if shortcode overlaps | Enterprise shortcode selected (appended as username suffix — cannot be changed) |
-| Simplified audit — all activity tied to corporate identity | Learning curve — EMU accounts behave differently | Admin team trained on EMU-specific behaviors |
-| No "orphaned accounts" — clean offboarding | Cannot convert existing standard GHEC enterprise to EMU | New enterprise creation (EMU is set at creation time) |
-| IP allow list enforcement at enterprise level | Limited marketplace app compatibility | Network/firewall rules for SCIM endpoints |
+| Centralized policy enforcement (Enterprise → Org → Repo) | Learning curve — EMU accounts behave differently | Enterprise shortcode selected (appended as username suffix — cannot be changed later) |
+| Simplified audit — all activity tied to corporate identity | Cannot convert existing standard GHEC enterprise to EMU | New enterprise creation (EMU is set at creation time) |
+| No "orphaned accounts" — clean offboarding | Limited marketplace app compatibility | Admin team trained on EMU-specific behaviors |
+| IP allow list enforcement at enterprise level | Namespace collisions possible if shortcode overlaps | Network/firewall rules for SCIM endpoints |
 
 > **Presenter Note**: *The biggest win here is identity lifecycle. The biggest trade-off is the walled garden. EMU accounts are enterprise-scoped — they simply cannot exist outside the enterprise boundary. This is a security feature for some orgs and a deal-breaker for others. Also note: you cannot convert an existing standard GHEC enterprise to EMU — it's a new enterprise. So this is a forward-looking decision.*
 
@@ -208,17 +210,20 @@
 
 ## Slide 10: EMU — Identity Flow Deep Dive
 
-| Step | Action | Where |
-|------|--------|-------|
-| 1 | Admin configures SAML SSO and SCIM in IdP | Entra ID / Okta |
-| 2 | IdP provisions users into EMU enterprise | Automatic via SCIM |
-| 3 | IdP groups map to GitHub teams | Automatic via SCIM |
-| 4 | User authenticates via IdP to access GitHub | SAML SSO |
-| 5 | User assigned to Orgs/Teams based on IdP group membership | Automatic |
-| 6 | User leaves company → IdP deprovisions account | Automatic via SCIM |
-| 7 | All repos, issues, PRs associated with user are retained | Enterprise retains data |
+| Step | Action | Where | Automated? |
+|------|--------|-------|------------|
+| 1 | Admin configures SAML SSO and SCIM in IdP | Entra ID / Okta | Manual (one-time setup) |
+| 2 | IdP provisions users into EMU enterprise | GitHub via SCIM | ✅ Automatic |
+| 3 | IdP groups map to GitHub teams | GitHub via SCIM | ✅ Automatic |
+| 4 | User authenticates via IdP to access GitHub | SAML SSO | ✅ Automatic |
+| 5 | User assigned to Orgs/Teams based on IdP group membership | GitHub | ✅ Automatic |
+| 6 | User changes role/department → IdP updates groups | GitHub via SCIM | ✅ Automatic |
+| 7 | User leaves company → IdP deprovisions account | GitHub via SCIM | ✅ Automatic |
+| 8 | All repos, issues, PRs associated with deprovisioned user are retained | GitHub | Enterprise retains data |
 
-> **Presenter Note**: *The beauty here is steps 2, 3, 5, and 6 are fully automated. No GitHub admin has to manually add or remove users. The IdP drives everything. But — and this is important — you need to get your IdP group structure right before rolling this out. Changing group-to-team mappings after the fact can be disruptive.*
+Steps 2–7 are fully automated. This is the core value of EMU: **zero manual user management**.
+
+> **Presenter Note**: *The beauty here is steps 2–7 are fully automated. No GitHub admin has to manually add or remove users. The IdP drives everything. But — and this is important — you need to get your IdP group structure right before rolling this out. Changing group-to-team mappings after the fact can be disruptive.*
 
 ---
 
@@ -238,7 +243,7 @@
 - ⚠️ You use GitHub Marketplace apps that don't support EMU
 - ⚠️ You need flexibility for contractors or external collaborators
 
-> 💡 **Guest Collaborators**: EMU does support a **Guest Collaborator** role that lets you invite outside users to specific repositories without full IdP provisioning. This can address limited contractor/vendor scenarios — but they are scoped to repo-level access only. Evaluate whether Guest Collaborator meets your needs before dismissing EMU over external collaboration.
+> 💡 **Guest Collaborators**: EMU does support a **Guest Collaborator** role for external users. Guest collaborators are provisioned via your IdP like all managed user accounts, but receive a restricted role with limited, repo-scoped access. They cannot see internal repositories unless explicitly added as organization members. Evaluate whether Guest Collaborator meets your needs before dismissing EMU over external collaboration.
 
 > **Presenter Note**: *EMU is the right choice for security-conscious, compliance-first organizations — think financial services, healthcare, government contractors. If your primary concern is "I need to know exactly who has access and automatically revoke it," EMU is your answer. But if you have developers who contribute to upstream open-source projects as part of their job, you'll need a plan for that — typically a separate personal GitHub.com account.*
 
@@ -299,7 +304,7 @@
 | ✅ Pros | ✗ Cons | 📋 Requirements |
 |---------|--------|------------------|
 | Clear isolation between business units / teams | Cross-org collaboration requires internal repos or cross-org teams | GitHub Enterprise Cloud license |
-| Each org can have its own SSO/IdP configuration | Users may need accounts/access in multiple orgs | Enterprise Account created (contact GitHub Sales) |
+| Each org can have its own SSO/IdP configuration | Users may need accounts/access in multiple orgs | Enterprise Account created (requires GitHub Sales) |
 | Consolidated billing under one Enterprise Account | More administrative overhead managing multiple orgs | At least one Organization configured |
 | Enterprise-level policies cascade to all orgs | No single "search all orgs" without Enterprise search | SAML SSO configured per org (or enterprise-level) |
 | Supports inner source via internal repo visibility | Team duplication across orgs if people work cross-functionally | Org naming convention and ownership model defined |
@@ -314,13 +319,15 @@
 
 ## Slide 15: Multi-Org — Common Organization Strategies
 
-| Strategy | Example Structure | Best For |
-|----------|-------------------|----------|
-| **Org per Business Unit** | `contoso-finance`, `contoso-engineering`, `contoso-marketing` | Large enterprises with distinct BUs and separate leadership |
-| **Org per Environment / Stage** | `contoso-production`, `contoso-staging`, `contoso-sandbox` | Organizations wanting environment isolation (less common) |
-| **Org per Compliance Tier** | `contoso-regulated`, `contoso-general`, `contoso-opensource` | Enterprises with mixed compliance requirements (FedRAMP, SOC2, etc.) |
-| **Org per Acquisition** | `contoso-core`, `acquired-company-a`, `acquired-company-b` | Post-M&A integration — keep acquired company repos separate initially |
-| **Shared Platform Org** | `contoso-platform` alongside BU orgs | CI/CD templates, shared libraries, inner source — accessible to all |
+| Strategy | Example Structure | Best For | Trade-offs |
+|----------|-------------------|----------|------------|
+| **Org per Business Unit** | `contoso-finance`, `contoso-engineering`, `contoso-marketing` | Large enterprises with distinct BUs and separate leadership | Cross-BU collaboration requires cross-org access |
+| **Org per Compliance Tier** | `contoso-regulated`, `contoso-general`, `contoso-opensource` | Enterprises with mixed compliance requirements (FedRAMP, SOC2, HIPAA) | Developers may need access to multiple orgs |
+| **Org per Acquisition** | `contoso-core`, `acquired-company-a`, `acquired-company-b` | Post-M&A integration — keep acquired company repos separate initially | Can lead to org sprawl if not consolidated over time |
+| **Shared Platform Org** | `contoso-platform` alongside BU orgs | CI/CD templates, shared libraries, inner source — accessible to all | Governance of shared org requires clear ownership |
+| **Org per Environment** | `contoso-production`, `contoso-staging`, `contoso-sandbox` | Organizations wanting environment isolation | Uncommon; environments are better separated at repo/branch level |
+
+**Most common pattern**: Org-per-BU + a shared platform org for CI/CD templates, reusable Actions, and inner source libraries.
 
 > **Presenter Note**: *There's no single right answer here. The most common pattern we see is org-per-BU plus a shared platform org. The compliance-tier approach is growing — especially in regulated industries where you want different policy sets for regulated vs. non-regulated code. Post-acquisition is interesting because it lets you bring an acquired company onto your enterprise billing without immediately reorganizing their repos.*
 
@@ -349,7 +356,7 @@
         └── Copilot ────────────────────────── "Enabled" (inherited)
 ```
 
-> **Presenter Note**: *This is critical to understand. Enterprise policies set the FLOOR. Organizations can be MORE restrictive, but they cannot be LESS restrictive. If the enterprise says "forking is allowed," an org can disable it. But if the enterprise says "forking is disabled," no org can re-enable it. This is the governance model that prevents standards drift — you set your security baseline at the enterprise level and let orgs tighten where needed.*
+> **Presenter Note**: *This is critical to understand. Enterprise policies use a binary enforce/don't-enforce model. When an enterprise ENFORCES a policy, it locks in a specific value — organizations cannot change it, effectively setting a floor. If the enterprise enforces "forking is disabled," no org can re-enable it. When a policy is NOT enforced, orgs have full autonomy. This is the governance model that prevents standards drift — enforce your security baseline at the enterprise level and let orgs tighten where needed.*
 
 ---
 
@@ -448,10 +455,10 @@
 | ✅ Pros | ✗ Cons | 📋 Requirements |
 |---------|--------|------------------|
 | Data residency — regulated code stays on-premises | Two platforms to manage, patch, and secure | GHEC license + GHES license (bundled with GHE) |
-| Air-gap capable — GHES can run fully disconnected | GHES requires infrastructure: VMs, storage, backups | On-prem infrastructure (VMs, storage, networking) |
+| Air-gap capable — GHES can run fully disconnected | GHES requires infrastructure: VMs, storage, backups, HA | On-prem infrastructure (VMs, storage, networking) |
 | GitHub Connect bridges cloud ↔ on-prem | Copilot, Codespaces, and other cloud-only features unavailable on GHES | Dedicated admin team for GHES operations |
 | Unified search across both environments (with Connect) | Developer experience split — different UIs, different versions | GitHub Connect configured (outbound HTTPS 443) |
-| Unified contribution graph (with Connect) | GHES version may lag behind GHEC feature set | GHES upgrade schedule (quarterly releases) |
+| Unified contribution graph (with Connect) | GHES version may lag behind GHEC feature set | GHES upgrade schedule and patching process |
 | Compliance — meet regulatory requirements (FedRAMP, ITAR, etc.) | Actions on GHES requires self-hosted runners | Self-hosted runners for on-prem Actions |
 | GHAS available on both cloud and on-prem | No single audit log — separate for GHEC and GHES | Backup/DR plan for GHES appliance |
 | License sync between GHEC and GHES (with Connect) | Higher total cost of ownership (infra + ops + licensing) | Network connectivity for GitHub Connect |
@@ -484,15 +491,16 @@
 - ✅ Different teams have different compliance levels — cloud is fine for some, on-prem required for others
 - ✅ You're in a gradual cloud migration — GHES today, GHEC tomorrow
 
-> **🟣 Consider GHE.com first**: If data residency (not air-gap) is the primary driver, evaluate **GHEC with data residency on GHE.com** before committing to GHES. GHE.com offers regional data storage (EU, Australia, US, Japan) with full cloud features — including Copilot — and avoids GHES operational overhead.
+> **🟣 Consider GHE.com first**: If data residency (not air-gap) is the primary driver, evaluate **GHEC with data residency on GHE.com** before committing to GHES. GHE.com offers regional data storage (EU, Australia, US, Japan) with full cloud features — including Copilot and GitHub Actions hosted runners — and avoids the operational overhead of self-hosted infrastructure. All GHE.com enterprises use EMU by default.
 >
-> ⚠️ **Note**: Codespaces is **not available** on GHE.com. If Codespaces is a hard requirement, standard GHEC is the only option.
+> **Note**: Codespaces is now available on GHE.com in **public preview**. Check the [GHE.com feature overview](https://docs.github.com/en/enterprise-cloud@latest/admin/data-residency/feature-overview-for-github-enterprise-cloud-with-data-residency) for current status and any limitations.
 
 **Think twice if:**
 - ⚠️ "On-prem" is driven by perception rather than actual regulatory requirement
 - ⚠️ You don't have the ops team to manage GHES upgrades, backups, and infrastructure
 - ⚠️ Copilot and Codespaces are critical for your developer experience (not available on GHES)
 - ⚠️ Total cost of ownership for GHES infrastructure exceeds the risk mitigation value
+- ⚠️ GHEC's built-in controls (EMU, IP allow lists, data residency on GHE.com, audit logging) already meet your compliance needs
 
 > **Presenter Note**: *I want to be honest here: we see a lot of organizations running GHES because "security says we need on-prem" when the actual regulatory requirement could be met with GHEC's built-in controls. The key question is: do you need AIR-GAP, or do you need DATA RESIDENCY? If it's data residency, point them to GHE.com — GHEC with data residency. It gives them regional data storage in the EU, Australia, US, or Japan with full cloud features including Copilot. If they truly need air-gap or disconnected operation, then yes, GHES is the right call. Make sure the on-prem requirement is tied to a specific regulation or certification — not just organizational inertia.*
 
@@ -605,9 +613,9 @@
 
 | Hybrid Pattern | Description | When to Use |
 |----------------|-------------|-------------|
-| **EMU + Multi-Org** | EMU enterprise with multiple orgs per BU | Security-first enterprise with distinct business units — most common pattern |
-| **EMU + Non-EMU Org** | EMU enterprise for work + separate non-EMU org for OSS | Developers who contribute to open source on company time |
-| **Multi-Org + GHES** | GHEC multi-org with GHES for regulated workloads | Mixed compliance — some code can be cloud, some must be on-prem |
+| **EMU + Multi-Org** | EMU enterprise with multiple orgs per business unit | Security-first enterprise with distinct business units — most common enterprise pattern |
+| **EMU + Non-EMU Org** | EMU enterprise for corporate work + separate non-EMU org for open-source | Developers who contribute to upstream OSS as part of their job |
+| **Multi-Org + GHES** | GHEC multi-org with GHES for regulated workloads via Connect | Mixed compliance tiers — some code cloud-OK, some must be on-prem |
 | **Any base + ADO** | ADO integration layered on any pattern above | Organizations with significant ADO Board/Pipeline investment |
 
 > **Presenter Note**: *Real-world architectures are often hybrids. The most common hybrid we see is EMU + Multi-Org — you get lifecycle control AND organizational isolation. Notice the last row: ADO integration is always an "add-on" — it works with any base pattern. An EMU enterprise with ADO integration. A Mixed cloud+GHES deployment with ADO integration. These are all valid combinations.*
@@ -619,10 +627,10 @@
 | Organization Profile | Recommended Base Pattern | + ADO Integration? | Key Reason |
 |----------------------|--------------------------|---------------------|------------|
 | **Startup / Scale-up** | 🟢 Multi-Org (standard GHEC) | No — go all-in on GitHub | Simple, flexible, lowest admin overhead |
-| **Mid-size Enterprise** | 🔵 EMU + Multi-Org | Only if ADO Boards investment is significant | Identity control + org isolation |
-| **Large Enterprise (no regulation)** | 🔵 EMU + Multi-Org | If migrating from ADO gradually | Full lifecycle automation at scale |
-| **Regulated Enterprise (finance, healthcare)** | 🔵 EMU Only, 🟣 GHE.com (data residency), or 🟠 Mixed + EMU | If ADO Boards/Test Plans are entrenched | Data control, compliance; evaluate GHE.com before GHES |
-| **Government / Defense** | 🟠 Mixed (GHEC + GHES air-gapped) or 🟣 GHE.com (if no air-gap needed) | Rarely — ADO is also cloud | Data sovereignty, air-gap requirements |
+| **Mid-size Enterprise (500–5,000)** | 🔵 EMU + Multi-Org | Only if ADO Boards investment is significant | Identity control + org isolation, scales well |
+| **Large Enterprise (5,000+, no regulation)** | 🔵 EMU + Multi-Org | If migrating from ADO gradually | Full lifecycle automation at scale |
+| **Regulated Enterprise (finance, healthcare)** | 🔵 EMU Only, 🟣 GHE.com (data residency), or 🟠 Mixed + EMU | If ADO Boards/Test Plans are entrenched | Data control, compliance, audit trail; evaluate GHE.com before GHES |
+| **Government / Defense** | 🟠 Mixed (GHEC + GHES air-gapped) or 🟣 GHE.com (if no air-gap needed) | Rarely — ADO is also cloud | Data sovereignty, air-gap requirements, ITAR |
 | **ADO-Heavy Enterprise** | 🔵 EMU or 🟢 Multi-Org | ✅ Yes — this is the primary use case | Preserve ADO investments, adopt Copilot/GHAS |
 | **Acquisitive Enterprise (M&A)** | 🟢 Multi-Org (org per acquisition) | If acquired companies use ADO | Onboard acquired companies without disruption |
 | **OSS-Heavy Enterprise** | 🟢 Multi-Org (standard, no EMU) | Uncommon | Developers need public GitHub.com access |
@@ -646,7 +654,9 @@
 
 **Key Concept: ADO integration is NOT a standalone architecture.**
 
-Azure DevOps integration sits **on top of** whichever base GitHub architecture you chose in the previous section:
+Azure DevOps integration sits **on top of** whichever base GitHub architecture you chose in the previous section.
+
+**You still need a base pattern.** ADO does not replace your GitHub architecture — it augments it.
 
 | Base Architecture | + ADO Integration = |
 |-------------------|---------------------|
@@ -696,7 +706,7 @@ Azure DevOps integration sits **on top of** whichever base GitHub architecture y
 │   │  └───────────────────────┘  │  │                              │ │
 │   │                             │  │  ┌────────────────────────┐ │ │
 │   │  ┌───────────────────────┐  │  │  │  🔧 Pipelines          │ │ │
-│   │  │  🔒 GHAS              │  │  │  │  (Build/Release — or   │ │ │
+│   │  │  🔒 GHAS              │  │  │  │  (Existing — or        │ │ │
 │   │  │  (Secret scanning,   │  │  │  │   migrate to Actions)  │ │ │
 │   │  │   Code scanning,     │  │  │  └────────────────────────┘ │ │
 │   │  │   Dependabot)        │  │  │                              │ │
@@ -723,11 +733,11 @@ Azure DevOps integration sits **on top of** whichever base GitHub architecture y
 
 | Feature | Description |
 |---------|-------------|
-| **AB# Syntax** | In any GitHub commit message or PR, type `AB#12345` to link to ADO work item #12345 |
+| **AB# Syntax** | In a GitHub commit message, PR description, or issue description, type `AB#12345` to link to ADO work item #12345. Note: `AB#` in PR titles or comments does **not** create a link. |
 | **How it works** | GitHub sends a webhook to ADO, which creates a hyperlink on the work item |
 | **Setup** | Install the **Azure Boards** GitHub App on your GitHub org |
 | **Supported directions** | GitHub → ADO (commits, PRs, branches linked to work items) |
-| **State transitions** | Configure ADO to auto-transition work items when PRs are merged (e.g., `Fixes AB#12345` → moves to Done) |
+| **State transitions** | Configure ADO to auto-transition work items when PRs are merged **into the default branch** (e.g., `Fixes AB#12345` → moves to Done). State transitions do not apply for merges into non-default branches. |
 | **Visibility** | ADO work items show linked GitHub PRs, commits, and branches in the Development section |
 
 **Example Workflow:**
@@ -743,17 +753,17 @@ Azure DevOps integration sits **on top of** whichever base GitHub architecture y
 
 ## Slide 33: What Goes Where — Capability Split
 
-| Capability | GitHub ✅ | Azure DevOps ✅ | Notes |
-|------------|-----------|------------------|-------|
-| **Source Code** | ✅ Primary | ⚠️ Existing repos (migrate over time) | GitHub for all new repos; migrate ADO Repos to GH gradually |
+| Capability | GitHub ✅ | Azure DevOps ✅ | Recommendation |
+|------------|-----------|------------------|----------------|
+| **Source Code** | ✅ Primary | ⚠️ Legacy repos | All new repos in GitHub; migrate ADO Repos gradually |
 | **Code Review (PRs)** | ✅ Primary | N/A | All code review happens in GitHub |
-| **AI Code Assistance** | ✅ Copilot | ✗ | Copilot only works with GitHub repos |
-| **Security Scanning** | ✅ GHAS (includes Secret Protection + Code Security) | ⚠️ Defender for DevOps | GitHub Advanced Security (secret scanning, code scanning, Dependabot) is best-in-class |
-| **CI/CD** | ✅ Actions (new work) | ✅ Pipelines (existing) | Migrate pipelines over time; new projects use Actions |
+| **AI Code Assistance** | ✅ Copilot | ✗ Not available | Copilot only works with GitHub repos |
+| **Security Scanning** | ✅ GHAS (includes Secret Protection + Code Security) | ⚠️ Defender for DevOps | GitHub Advanced Security for comprehensive coverage |
+| **CI/CD** | ✅ Actions (new projects) | ✅ Pipelines (existing) | New projects → Actions; existing → migrate over time |
 | **Work Tracking** | ⚠️ Issues / Projects | ✅ Boards (primary) | ADO Boards for enterprise PM; GitHub Issues for dev-level tracking |
-| **Test Management** | ✗ | ✅ Test Plans | ADO remains the leader for manual test management |
-| **Artifact Management** | ⚠️ Packages | ✅ Artifacts (existing) | Use whichever you've standardized on |
-| **Wiki / Docs** | ✅ (repo-based) | ✅ Wiki | GitHub repos + Markdown for docs-as-code |
+| **Test Management** | ✗ | ✅ Test Plans | ADO remains the test management leader |
+| **Artifacts** | ⚠️ Packages | ✅ Artifacts | Use whichever you've standardized on |
+| **Wiki / Documentation** | ✅ Repo-based Markdown | ✅ Wiki | GitHub repos + Markdown for docs-as-code |
 
 > **Presenter Note**: *The general principle: GitHub for code + security + AI, ADO for project management + testing + existing pipelines. Over time, many organizations migrate more to GitHub — pipelines become Actions, ADO Repos become GitHub Repos — but ADO Boards often stays because the investment in work item types, queries, and dashboards is significant.*
 
@@ -764,7 +774,7 @@ Azure DevOps integration sits **on top of** whichever base GitHub architecture y
 | ✅ Pros | ✗ Cons | 📋 Requirements |
 |---------|--------|------------------|
 | Leverage best of both platforms | Two platforms = dual admin, dual training, dual cost | GitHub Enterprise Cloud license |
-| Adopt Copilot + GHAS without full migration | AB# linking is one-directional (GH → ADO references) | Azure DevOps organization + project |
+| Adopt Copilot + GHAS without full migration | AB# linking is GitHub → ADO (not fully bidirectional) | Azure DevOps organization + project |
 | Preserve ADO Boards investment (sprints, queries, dashboards) | Developer context-switching between two systems | Azure Boards GitHub App installed |
 | Gradual migration — move at your own pace | Unified reporting requires custom dashboards (Power BI, etc.) | Entra ID for shared SSO (strongly recommended) |
 | Shared identity via Entra ID | Audit logging split across two systems | Network connectivity between GH and ADO |
@@ -790,7 +800,7 @@ Azure DevOps integration sits **on top of** whichever base GitHub architecture y
 - ⚠️ You're starting fresh — go all-in on GitHub from the start
 - ⚠️ You can replace ADO Boards with GitHub Projects V2 (simpler stack = less overhead)
 - ⚠️ Total cost of running both platforms exceeds the one-time migration cost
-- ⚠️ Developers strongly prefer a single tool — context-switching is a productivity killer
+- ⚠️ Developers strongly prefer a single tool — context-switching harms productivity
 
 > **Presenter Note**: *If you're a greenfield organization, don't set up coexistence — just go GitHub. This integration add-on is for organizations with significant ADO investment that want a pragmatic path to modernization. The end state might be full GitHub, or it might be permanent coexistence with ADO Boards. Both are valid.*
 
@@ -804,14 +814,16 @@ Azure DevOps integration sits **on top of** whichever base GitHub architecture y
 
 **Let's discuss:**
 
-1. **Where does your organization fit** in the decision flowchart? Which base pattern fits best?
-2. **What are your biggest identity/access management challenges** today?
-3. **Do you have genuine on-prem requirements**, or is it organizational inertia?
-4. **Do you need the ADO integration add-on?** How much ADO investment do you have?
-5. **What's your open-source contribution story?** Do developers need public GitHub.com access?
-6. **What compliance frameworks** are you subject to (SOC2, FedRAMP, HIPAA, ITAR, etc.)?
+1. **Identity & Access**: Do you need complete IdP-based account lifecycle control, or is SAML SSO sufficient?
+2. **Data Residency**: Do you have genuine regulatory requirements for on-premises data storage? Which regulation?
+3. **Open Source**: Do your developers contribute to public open-source projects as part of their work?
+4. **Base Architecture**: Based on the three patterns we covered, which one fits your organization?
+5. **ADO Integration Add-On**: Do you have significant Azure DevOps investment? What's the appetite and budget for migration vs. coexistence?
+6. **Developer Experience**: Is Copilot a priority? How important is a unified developer experience across all teams?
+7. **Compliance**: What compliance frameworks apply (SOC2, FedRAMP, HIPAA, ITAR, GDPR)?
+8. **Timeline**: Is this a "decide now" or a "plan for next year" decision?
 
-> **Presenter Note**: *Open this up for discussion. Frame it as two decisions: (1) which base architecture? and (2) do you need ADO integration on top? Expect the most debate around "do we really need on-prem?" and "can we replace ADO Boards?" — those are the highest-stakes decisions.*
+> **Presenter Note**: *Open this up for discussion. Frame it as two decisions: (1) which base architecture? and (2) do you need ADO integration on top? Expect the most debate around "do we really need on-prem?" and "can we replace ADO Boards?" — those are the highest-stakes decisions. Use these questions to help the audience self-identify the right pattern.*
 
 ---
 
@@ -824,6 +836,8 @@ Azure DevOps integration sits **on top of** whichever base GitHub architecture y
 | GitHub Enterprise Server Documentation | `https://docs.github.com/en/enterprise-server@latest` |
 | GitHub Connect Documentation | `https://docs.github.com/en/enterprise-server@latest/admin/configuration/configuring-github-connect` |
 | Azure Boards + GitHub Integration | `https://learn.microsoft.com/en-us/azure/devops/boards/github/` |
+| GitHub Actions Documentation | `https://docs.github.com/en/actions` |
+| GHAS Overview (Secret Protection + Code Security) | `https://docs.github.com/en/enterprise-cloud@latest/code-security/getting-started/github-security-features` |
 | GitHub Enterprise Cloud Ebook | See `docs/GitHub-Enterprise-Cloud_ebook.pdf` |
 | GitHub ESSP Ebook | See `docs/2025-05-28-GitHub-ESSP-Ebook-EZ-Version012.pdf` |
 
