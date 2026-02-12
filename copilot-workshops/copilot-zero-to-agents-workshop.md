@@ -103,7 +103,8 @@ Each section builds on the previous one, showing how Copilot can be progressivel
 3. Show the ERD diagram in `api/ERD.png`
 4. Point out the `.github/` directory structure — prompts, agents (no instructions yet, no skills yet — we'll build those)
 
-### 🧪 Hands-On: Environment Setup (10 min)
+<details>
+<summary><h3>🧪 Hands-On: Environment Setup (10 min)</h3></summary>
 
 **Step 1: Fork & Clone**
 
@@ -133,6 +134,8 @@ npm run dev
 - VS Code: Open Command Palette → type "Copilot" → verify extension is active
 
 > **Codespaces Alternative**: If using Codespaces, ensure API port (3000) visibility is set to `public` to avoid CORS errors.
+
+</details>
 
 ### Discussion Points
 
@@ -213,7 +216,8 @@ When you select Agent mode, a second picker lets you choose the agent type — c
 
 **Talking point**: "Agent mode is your pair programmer. It can read files, write files, run terminal commands, and iterate until things work. It's the mode you'll use most in this workshop."
 
-### 🧪 Hands-On: Try All Three Modes (8 min)
+<details>
+<summary><h3>🧪 Hands-On: Try All Three Modes (8 min)</h3></summary>
 
 **Exercise 1 — Ask Mode**:
 - Ask Copilot: `What testing framework does this project use and what's the current test coverage?`
@@ -227,6 +231,8 @@ When you select Agent mode, a second picker lets you choose the agent type — c
 **Exercise 3 — Agent Mode**:
 - If your app isn't running, use Agent mode: `Build and run the project`
 - Then: `Open the Swagger documentation page for the API`
+
+</details>
 
 ### Success Criteria
 
@@ -331,7 +337,8 @@ gh issue create --title "Improve API error handling" --body "Standardize error r
 
 **Talking point**: "The CLI is your power-user interface to GitHub. Everything you can do in the browser, you can script and automate from here. And with `gh copilot`, you don't even need to memorize the commands."
 
-### 🧪 Hands-On: Try the GitHub CLI (10 min)
+<details>
+<summary><h3>🧪 Hands-On: Try the GitHub CLI (10 min)</h3></summary>
 
 **Exercise 1 — Verify Setup**:
 - Confirm the CLI is installed: `gh --version`
@@ -362,6 +369,8 @@ gh issue create --title "Add input validation to Product API" --body "The POST /
 **Exercise 5 — PR Workflow** (Bonus):
 - List open pull requests: `gh pr list`
 - Check current branch PR status: `gh pr status`
+
+</details>
 
 ### Success Criteria
 
@@ -460,7 +469,8 @@ This is the power demo — teaching Copilot about a framework it has NEVER seen.
 
 > **Note**: The generated code won't compile because TAO is fictional. That's intentional — it demonstrates that custom instructions override Copilot's training data.
 
-### 🧪 Hands-On: Create Your Instructions (12 min)
+<details>
+<summary><h3>🧪 Hands-On: Create Your Instructions (12 min)</h3></summary>
 
 **Step 1: Establish a Baseline (Before Instructions)**
 
@@ -544,6 +554,8 @@ For React components in this project:
 
 2. Open a file in `src/` and ask Copilot about building a new component — observe the Tailwind and TypeScript guidance in the response
 
+</details>
+
 ### Success Criteria
 
 - ✅ `.github/copilot-instructions.md` exists in your repo
@@ -622,7 +634,8 @@ Define what "done" looks like.
 
 **Talking point**: "Prompt files can reference external documentation via URLs. Copilot will fetch and incorporate live data."
 
-### 🧪 Hands-On: Create and Run Prompt Files (12 min)
+<details>
+<summary><h3>🧪 Hands-On: Create and Run Prompt Files (12 min)</h3></summary>
 
 **Exercise 1 — Explore the Existing Prompts**
 
@@ -706,6 +719,8 @@ Key tips for writing good prompts:
 - Tell Copilot what NOT to do (constraints)
 - Reference existing files as patterns to follow
 - Choose the right `mode` — use `agent` for tasks that need to create/edit files, `ask` for analysis-only
+
+</details>
 
 ### Success Criteria
 
@@ -793,7 +808,8 @@ Be direct and opinionated. Don't say "consider" — say "change this to..."
 
 Show the new agent appearing in the mode picker immediately.
 
-### 🧪 Hands-On: Create a Custom Agent (10 min)
+<details>
+<summary><h3>🧪 Hands-On: Create a Custom Agent (10 min)</h3></summary>
 
 **Exercise 1 — Explore the Existing Agent**
 
@@ -900,6 +916,8 @@ README structure, API doc format, code comment standards...]
 ```
 
 Fill in the behavior instructions with your own rules, then test the agent with a real task.
+
+</details>
 
 ### Success Criteria
 
@@ -1010,7 +1028,8 @@ Show attendees where to find community skills:
 
 **Talking point**: "Skills are an open standard. You can use skills from the community or write your own."
 
-### 🧪 Hands-On: Create an Agent Skill (12 min)
+<details>
+<summary><h3>🧪 Hands-On: Create an Agent Skill (12 min)</h3></summary>
 
 **Exercise 1 — Create an API Route Creation Skill**
 
@@ -1107,6 +1126,8 @@ Follow this process when creating new React components:
 ```
 
 Test it by asking Copilot: `Create a Warehouses page that shows a list of all warehouses with their addresses`
+
+</details>
 
 ### Where to Find More Skills
 
@@ -1214,7 +1235,8 @@ The repo's `.vscode/mcp.json`:
 
 **Talking point**: "You just managed your GitHub project without leaving VS Code. The GitHub MCP server gives Copilot full access to issues, PRs, and repo data."
 
-### 🧪 Hands-On: MCP Servers — Playwright + GitHub (15 min)
+<details>
+<summary><h3>🧪 Hands-On: MCP Servers — Playwright + GitHub (15 min)</h3></summary>
 
 **Exercise 1 — Start the MCP Servers**
 
@@ -1306,6 +1328,8 @@ This is where things get powerful — use Playwright to find a bug, then use Git
 Browse to http://localhost:5137 and test all the navigation links. If any pages are missing or broken, create a GitHub Issue for each problem you find.
 ```
 
+</details>
+
 ### Success Criteria
 
 - ✅ Both MCP servers are running (green status in `MCP: List servers`)
@@ -1378,7 +1402,8 @@ NavBar that shows the number of items in the Cart.
 
 **Talking point**: "From a PNG image to a working cart feature in minutes. Copilot read the design, planned the architecture, and implemented across multiple files. This is what 'agentic' means — it's not autocomplete, it's a collaborator."
 
-### 🧪 Hands-On: Vision + Agent Mode — Image to Implementation (15 min)
+<details>
+<summary><h3>🧪 Hands-On: Vision + Agent Mode — Image to Implementation (15 min)</h3></summary>
 
 **Exercise 1 — Add a New Product Using Vision**
 
@@ -1459,6 +1484,8 @@ Using Playwright, browse to http://localhost:5137, add three different products 
 cart, navigate to the cart page, and verify that all three products appear with the
 correct prices and quantities.
 ```
+
+</details>
 
 ### Success Criteria
 

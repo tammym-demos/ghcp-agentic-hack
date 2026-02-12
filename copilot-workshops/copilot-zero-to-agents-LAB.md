@@ -25,7 +25,8 @@ This lab guide contains all the hands-on exercises from the **GitHub Copilot: Ze
 
 ---
 
-## Lab 1: Environment Setup (10 min)
+<details>
+<summary><h2>Lab 1: Environment Setup (10 min)</h2></summary>
 
 > **Workshop Section**: 1 — Welcome, Objectives & Environment Setup
 
@@ -68,9 +69,12 @@ npm run dev
 - ✅ Frontend is running on `http://localhost:5137`
 - ✅ Copilot extension is active in VS Code
 
+</details>
+
 ---
 
-## Lab 2: Try All Three Chat Modes (8 min)
+<details>
+<summary><h2>Lab 2: Try All Three Chat Modes (8 min)</h2></summary>
 
 > **Workshop Section**: 2 — Copilot Chat Modes: Ask, Agent, Plan
 
@@ -130,9 +134,12 @@ Open the Swagger documentation page for the API
 - ✅ Agent mode has created or edited files and run terminal commands
 - ✅ Your app is running (API on :3000, Frontend on :5137)
 
+</details>
+
 ---
 
-## Lab 3: GitHub CLI — Copilot in the Terminal (10 min)
+<details>
+<summary><h2>Lab 3: GitHub CLI — Copilot in the Terminal (10 min)</h2></summary>
 
 > **Workshop Section**: 3 — GitHub CLI: Copilot in the Terminal & Project Management
 
@@ -243,9 +250,12 @@ gh pr status
 - ✅ You've created an issue from the terminal with `gh issue create`
 - ✅ You've viewed the issue in the browser with `gh issue view --web`
 
+</details>
+
 ---
 
-## Lab 4: Create Custom Instructions (12 min)
+<details>
+<summary><h2>Lab 4: Create Custom Instructions (12 min)</h2></summary>
 
 > **Workshop Section**: 4 — Custom Instructions
 
@@ -363,9 +373,12 @@ For React components in this project:
 - ✅ You've compared Copilot's responses before and after adding instructions and noticed the difference
 - ✅ You understand that instructions are always-on background context
 
+</details>
+
 ---
 
-## Lab 5: Create and Run Prompt Files (12 min)
+<details>
+<summary><h2>Lab 5: Create and Run Prompt Files (12 min)</h2></summary>
 
 > **Workshop Section**: 5 — Custom Prompt Files
 
@@ -487,9 +500,12 @@ Key tips for writing good prompts:
 - ✅ You've created `security-review.prompt.md` and run it successfully
 - ✅ You understand the three ways to invoke a prompt file
 
+</details>
+
 ---
 
-## Lab 6: Create a Custom Agent (10 min)
+<details>
+<summary><h2>Lab 6: Create a Custom Agent (10 min)</h2></summary>
 
 > **Workshop Section**: 6 — Custom Agents / Chat Modes
 
@@ -634,9 +650,12 @@ Fill in the behavior instructions with your own rules, then test the agent with 
 - ✅ You've created your own custom agent and it appears in the chat mode picker
 - ✅ You understand that agents persist for the entire chat session, unlike prompts
 
+</details>
+
 ---
 
-## Lab 7: Create an Agent Skill (12 min)
+<details>
+<summary><h2>Lab 7: Create an Agent Skill (12 min)</h2></summary>
 
 > **Workshop Section**: 7 — Agent Skills
 
@@ -783,9 +802,12 @@ You can also create **personal skills** that apply across all your repos:
 - ✅ You've tested the skill by asking Copilot to create a new entity and observed it following your steps
 - ✅ You understand the difference: instructions = always-on, skills = auto-selected, prompts = manually invoked
 
+</details>
+
 ---
 
-## Lab 8: MCP Servers — Playwright + GitHub (15 min)
+<details>
+<summary><h2>Lab 8: MCP Servers — Playwright + GitHub (15 min)</h2></summary>
 
 > **Workshop Section**: 8 — MCP Servers — Playwright + GitHub
 
@@ -910,9 +932,12 @@ Browse to http://localhost:5137 and test all the navigation links. If any pages 
 - ✅ You've used GitHub MCP to create or list issues from Copilot Chat
 - ✅ You understand that MCP connects Copilot to the real world beyond just code files
 
+</details>
+
 ---
 
-## Lab 9: Vision + Agent Mode — Image to Implementation (15 min)
+<details>
+<summary><h2>Lab 9: Vision + Agent Mode — Image to Implementation (15 min)</h2></summary>
 
 > **Workshop Section**: 9 — Vision + Agent Mode Deep Dive
 
@@ -1040,6 +1065,8 @@ correct prices and quantities.
 - ✅ You've used the Plan → Implement → Verify workflow for the cart feature
 - ✅ The Cart page is functional (or you've made significant progress on it)
 - ✅ You understand how Vision, Agent mode, and MCP work together as a complete workflow
+
+</details>
 
 ---
 
