@@ -388,7 +388,7 @@ gh issue create --title "Add input validation to Product API" --body "The POST /
 
 ---
 
-## 4. Custom Instructions (20 min)
+## 4. Custom Instructions (25 min)
 
 ### Key Points
 
@@ -565,7 +565,7 @@ For React components in this project:
 
 ---
 
-## 5. Custom Prompt Files (20 min)
+## 5. Custom Prompt Files (25 min)
 
 ### Key Points
 
@@ -731,7 +731,7 @@ Key tips for writing good prompts:
 
 ---
 
-## 6. Custom Agents / Chat Modes (20 min)
+## 6. Custom Agents (Chat Modes) (25 min)
 
 ### Key Points
 
@@ -928,7 +928,7 @@ Fill in the behavior instructions with your own rules, then test the agent with 
 
 ---
 
-## 7. Agent Skills (20 min)
+## 7. Agent Skills (25 min)
 
 ### Key Points
 
@@ -1149,7 +1149,7 @@ You can also create **personal skills** that apply across all your repos:
 
 ---
 
-## 8. MCP Servers — Playwright + GitHub (25 min)
+## 8. MCP Servers (Playwright + GitHub) (30 min)
 
 ### Key Points
 
@@ -1340,7 +1340,7 @@ Browse to http://localhost:5137 and test all the navigation links. If any pages 
 
 ---
 
-## 9. Vision + Agent Mode Deep Dive — Cart Page (25 min)
+## 9. Vision + Agent Mode Deep Dive (Cart Page) (30 min)
 
 ### Key Points
 

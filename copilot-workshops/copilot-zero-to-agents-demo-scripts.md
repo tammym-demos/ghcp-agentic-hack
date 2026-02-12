@@ -3,7 +3,7 @@
 ## Instructor Reference
 
 **Duration**: 4 hours  
-**Total Demo Time**: ~128 minutes (including hands-on)  
+**Total Demo Time**: ~164 minutes (including hands-on)  
 **Environment**: VS Code + GitHub Browser + Terminal  
 **Repo**: [microsoft/GitHubCopilot_Customized](https://github.com/microsoft/GitHubCopilot_Customized)
 
@@ -161,7 +161,7 @@ If Copilot is slow/unresponsive:
 ## Demo 2: GitHub CLI (Section 3)
 
 **Objective**: Show `gh copilot` for AI-powered terminal assistance and `gh issue` for project management  
-**Duration**: 5 min demo + 5 min hands-on = 10 min  
+**Duration**: 5 min demo + 10 min hands-on = 15 min  
 **After Slide**: 13
 
 ### Setup Before Demo
@@ -223,14 +223,16 @@ If Copilot is slow/unresponsive:
 5. **Show**: The issue appearing in the list
 6. **Talking point**: "Project management from your terminal. And this connects directly to Coding Agent — later we'll assign an issue to Copilot and it will code the solution autonomously."
 
-### Hands-On Instructions (5 min)
+### Hands-On Instructions (10 min)
 
 > "Your turn! Try these in the terminal:
 > 1. `gh copilot suggest "show me the most recent commits on main with a graph"` — then run the suggested command
-> 2. `gh issue list` — see what issues exist
-> 3. `gh issue create --title "Test issue from CLI" --body "Created during workshop."` — create your own issue
+> 2. `gh copilot explain "git log --oneline --graph --all --decorate"` — understand a complex command
+> 3. `gh issue list` — see what issues exist
+> 4. `gh issue create --title "Test issue from CLI" --body "Created during workshop."` — create your own issue
+> 5. Verify your issue: `gh issue view --web`
 >
-> **Bonus**: Try `gh extension browse` to explore community extensions."
+> **Bonus**: Try `gh pr list` and `gh pr status` to explore PR workflows."
 
 ### Key Points to Emphasize
 
@@ -256,7 +258,7 @@ If `gh` is not installed at all:
 ## Demo 3: Custom Instructions (Section 4)
 
 **Objective**: Show how custom instructions change Copilot's behavior, including internal frameworks  
-**Duration**: 5 min demo + 5 min hands-on = 10 min  
+**Duration**: 5 min demo + 12 min hands-on = 17 min  
 **After Slide**: 17
 
 ### Setup Before Demo
@@ -322,13 +324,16 @@ If `gh` is not installed at all:
 6. **Talking point**: "TAO doesn't exist anywhere on the internet. Copilot has never seen it in training data. But because we told it about TAO in our instructions, it generates perfect TAO code. Imagine this for YOUR company's internal frameworks."
 7. **Acknowledge**: "This code won't compile — that's the point. It shows instructions override training data."
 
-### Hands-On Instructions (5 min)
+### Hands-On Instructions (12 min)
 
-> "Two tasks:
-> 1. Use the Gear icon → 'Generate Agent Instructions' to create your `.github/copilot-instructions.md`
-> 2. Create `.github/instructions/API.instructions.md` with the `applyTo: 'api/**'` frontmatter
+> "Five steps — take your time:
+> 1. **Baseline**: Ask Copilot in Ask mode: `How should I add a new API endpoint to this project?` — note the response
+> 2. Use the Gear icon → 'Generate Agent Instructions' to create your `.github/copilot-instructions.md`
+> 3. Create `.github/instructions/API.instructions.md` with the `applyTo: 'api/**'` frontmatter
+> 4. **Compare**: Open a file in `api/src/routes/` and re-ask the same question — notice how the response is now more specific
+> 5. **Bonus**: Create a Frontend scoped instruction for `src/**` with Tailwind and React conventions
 > 
-> Then test it: Ask Copilot a question about the project and see if the response reflects your instructions."
+> You have 12 minutes. I'll walk around to help."
 
 ### Key Points to Emphasize
 
@@ -351,7 +356,7 @@ If the Gear icon → "Generate Agent Instructions" isn't available:
 ## Demo 4: Custom Prompt Files (Section 5)
 
 **Objective**: Walk through existing prompts and run the unit test prompt live  
-**Duration**: 6 min demo + 7 min hands-on = 13 min  
+**Duration**: 6 min demo + 12 min hands-on = 18 min  
 **After Slide**: 21
 
 ### Setup Before Demo
@@ -394,17 +399,19 @@ If the Gear icon → "Generate Agent Instructions" isn't available:
 5. **Show the test results** — all passing
 6. **Talking point**: "One click. The prompt told Copilot exactly what to do, what pattern to follow, and how to verify. If tests failed, it read the errors and fixed them. That's the self-healing loop."
 
-### Hands-On Instructions (7 min)
+### Hands-On Instructions (12 min)
 
-> "Create your own prompt file. I recommend a security review prompt:
+> "Four exercises:
+> 1. **Explore**: Look at the existing prompts in `.github/prompts/` — read the frontmatter and instructions
+> 2. **Run**: Open `Unit-Test-Coverage.prompt.md` and click the Run button — watch the self-healing loop
+> 3. **Create**: Build your own `.github/prompts/security-review.prompt.md` with:
+>    - `mode: 'agent'`
+>    - Tools: `codebase`, `search`, `editFiles`, `changes`
+>    - Instructions to check for XSS, injection, CORS, and hardcoded credentials
+>    - Run it and see what Copilot finds
+> 4. **Bonus**: Design a prompt for documentation, refactoring, or API design — anything that encodes a repeatable workflow.
 > 
-> Create `.github/prompts/security-review.prompt.md` with:
-> - `mode: 'agent'`
-> - Tools: `codebase`, `search`, `editFiles`, `changes`
-> - Instructions to check for XSS, injection, CORS, and hardcoded credentials
-> - Run it and see what Copilot finds
-> 
-> If you want a different prompt, go for it — documentation, refactoring, API design, anything that encodes a repeatable workflow."
+> You have 12 minutes. Start with exploring, then create your own."
 
 ### Key Points to Emphasize
 
@@ -423,10 +430,10 @@ If the Unit Test prompt takes too long:
 
 ---
 
-## Demo 5: Custom Agents / Chat Modes (Section 6)
+## Demo 5: Custom Agents (Chat Modes) (Section 6)
 
 **Objective**: Show agents as persistent personas and demonstrate delegation to Coding Agent  
-**Duration**: 4 min demo + 5 min hands-on = 9 min  
+**Duration**: 4 min demo + 10 min hands-on = 14 min  
 **After Slide**: 25
 
 ### Setup Before Demo
@@ -478,14 +485,16 @@ If the Unit Test prompt takes too long:
 2. **Show** the new agent appearing in the mode picker immediately (no restart needed)
 3. **Talking point**: "One Markdown file. Appears instantly. Your whole team can use it by committing to `.github/agents/`."
 
-### Hands-On Instructions (5 min)
+### Hands-On Instructions (10 min)
 
-> "Create your own agent in `.github/agents/`. Ideas:
-> - `APIDesigner.agent.md` — designs REST endpoints following existing patterns
-> - `TestEngineer.agent.md` — focuses on test coverage and quality
-> - `DocWriter.agent.md` — generates documentation from code
+> "Four exercises:
+> 1. **Explore**: Read the ImplementationIdeas agent file — notice the model, tools, and delegation to Coding Agent
+> 2. **Build**: Create `.github/agents/CodeReviewer.agent.md` with the template from the demo
+> 3. **Test**: Select CodeReviewer in the mode picker and ask it to review a route handler
+> 4. **Create your own**: Build an APIDesigner, TestEngineer, or DocWriter agent
 > 
-> Use the frontmatter: `tools`, `description`, `model`. Write 5-10 lines of persona instructions."
+> Use the frontmatter: `tools`, `description`, `model`. Write 5-10 lines of persona instructions.
+> You have 10 minutes. I'll walk around to help."
 
 ### Key Points to Emphasize
 
@@ -506,7 +515,7 @@ If the mode picker doesn't show the new agent:
 ## Demo 6: Agent Skills (Section 7)
 
 **Objective**: Create a skill from scratch and show auto-selection  
-**Duration**: 5 min demo + 7 min hands-on = 12 min  
+**Duration**: 5 min demo + 12 min hands-on = 17 min  
 **After Slide**: 29
 
 ### Setup Before Demo
@@ -570,19 +579,16 @@ If the mode picker doesn't show the new agent:
 2. **Mention** [anthropics/skills](https://github.com/anthropics/skills)
 3. **Talking point**: "Skills are an open standard. You can use community skills or write your own. Check these repos for inspiration."
 
-### Hands-On Instructions (7 min)
+### Hands-On Instructions (12 min)
 
-> "Create a skill for the OctoCAT Supply project.
+> "Three exercises:
+> 1. **Create an `api-route-creation` skill**:
+>    `mkdir -p .github/skills/api-route-creation`
+>    Create a SKILL.md that teaches Copilot how to create new API routes following the project's Express patterns (model, route, register, Swagger, tests).
+> 2. **Test it**: Ask Copilot to add a new 'Warehouse' entity with name, address, city, state, zipCode, and capacity — watch the skill activate
+> 3. **Bonus**: Create a `react-component-creation` skill for frontend components (functional components, Tailwind CSS, TypeScript)
 > 
-> **Option A — `api-route-creation` skill**:
-> `mkdir -p .github/skills/api-route-creation`
-> Create a SKILL.md that teaches Copilot how to create new API routes following the project's Express patterns.
-> 
-> **Option B — `react-component-creation` skill**:
-> `mkdir -p .github/skills/react-component-creation`
-> Create a SKILL.md for React component conventions (functional components, Tailwind CSS, TypeScript).
-> 
-> Then test it: Ask Copilot something that should trigger your skill."
+> You have 12 minutes. Focus on getting the first skill created and tested."
 
 ### Key Points to Emphasize
 
@@ -604,7 +610,7 @@ If auto-selection doesn't visibly work:
 ## Demo 7: Playwright MCP Server (Section 8, Part A)
 
 **Objective**: Show browser-based testing from natural language prompts  
-**Duration**: 5 min demo + 8 min hands-on = 13 min  
+**Duration**: 5 min demo + 15 min hands-on = 20 min  
 **After Slide**: 34 (combined with Demo 8)
 
 ### Setup Before Demo
@@ -664,14 +670,17 @@ If auto-selection doesn't visibly work:
    ```
 3. **Talking point**: "From natural language to Gherkin test scenarios. A QA engineer can describe what to test in English, and Copilot generates the formal test specification."
 
-### Hands-On Instructions (8 min)
+### Hands-On Instructions (15 min)
 
-> "Start the Playwright MCP server and try these:
-> 1. `Browse to http://localhost:5137, go to Products, and verify all products have images and prices displayed`
-> 2. Try navigating to different pages and describing what you see
-> 3. Generate a `.feature` file for a specific page
+> "Six exercises covering both MCP servers:
+> 1. **Start** both MCP servers from the Command Palette → `MCP: List servers`
+> 2. **Browse**: Ask Copilot to navigate to `http://localhost:5137` and describe what it sees
+> 3. **Test**: Ask Copilot to verify all products have images and prices displayed
+> 4. **BDD**: Generate a Gherkin `.feature` file for the Products page
+> 5. **GitHub MCP**: Use GitHub MCP to list or create issues from Copilot Chat
+> 6. **Bonus**: Combine both — use Playwright to find bugs and GitHub MCP to file issues
 > 
-> **Bonus**: Ask Copilot to execute the feature file using Playwright"
+> You have 15 minutes. Start with Playwright, then try GitHub MCP."
 
 ### Key Points to Emphasize
 
@@ -748,10 +757,10 @@ If GitHub MCP fails:
 
 ---
 
-## Demo 9: Vision + Agent Mode — Cart Page (Section 9)
+## Demo 9: Vision + Agent Mode Deep Dive (Cart Page) (Section 9)
 
 **Objective**: Build a working cart feature from a design image  
-**Duration**: 7 min demo + 10 min hands-on = 17 min  
+**Duration**: 7 min demo + 15 min hands-on = 22 min  
 **After Slide**: 37
 
 > **This is the capstone demo.** Take your time. The audience needs to see the full Plan → Agent → Working Feature arc.
@@ -826,21 +835,20 @@ If GitHub MCP fails:
    - Total updates correctly
 5. **Talking point**: "From a PNG image to a working cart feature. Copilot read the design, planned the architecture, and implemented across multiple files. That's agentic development."
 
-### Hands-On Instructions (10 min)
+### Hands-On Instructions (15 min)
 
-> "Your turn! Use the MonaFigurine design image to add a new product.
-> 
-> 1. Open Agent mode
-> 2. Drag `docs/design/MonaFigurine.png` into the chat
-> 3. Enter:
+> "Three exercises:
+> 1. **Add a product**: Drag `docs/design/MonaFigurine.png` into Agent mode and enter:
 >    ```
 >    Using the image, create a new product offering on the OctoCAT Supply website.
 >    Price is $32.99, SKU is MONA-001, and description is 'A beautiful handcrafted
 >    figurine inspired by the Mona Lisa.'
 >    ```
-> 4. Accept the changes and verify in your running app
+>    Accept the changes and verify in your running app.
+> 2. **Build the cart**: Use Plan mode with `docs/design/cart.png`, review the plan, then switch to Agent to implement
+> 3. **Bonus**: Use Playwright MCP to validate the cart feature works end-to-end
 > 
-> **Bonus**: Try the Plan → Agent workflow: start in Plan mode with the image, review the plan, then switch to Agent to implement."
+> You have 15 minutes. Start with the MonaFigurine product — it's simpler."
 
 ### Key Points to Emphasize
 
@@ -862,7 +870,7 @@ If the app doesn't hot-reload:
 
 ---
 
-## Demo 10: Cloud Agents — Coding Agent + PR Review (Section 10)
+## Demo 10: Cloud Agents: Coding Agent + PR Review Agent (Section 10)
 
 **Objective**: Show the autonomous development loop: Issue → Coding Agent → PR → Code Review  
 **Duration**: 15 min demo (no hands-on — observe only)  
@@ -972,24 +980,24 @@ If Coding Agent isn't available or takes too long:
 | Demo | Section | Demo Time | Hands-On | Total |
 |------|---------|-----------|----------|-------|
 | 1 | Chat Modes | 5 min | 8 min | 13 min |
-| 2 | GitHub CLI | 5 min | 5 min | 10 min |
-| 3 | Custom Instructions | 5 min | 5 min | 10 min |
-| 4 | Custom Prompt Files | 6 min | 7 min | 13 min |
-| 5 | Custom Agents | 4 min | 5 min | 9 min |
-| 6 | Agent Skills | 5 min | 7 min | 12 min |
-| 7 | Playwright MCP | 5 min | 8 min | 13 min |
+| 2 | GitHub CLI | 5 min | 10 min | 15 min |
+| 3 | Custom Instructions | 5 min | 12 min | 17 min |
+| 4 | Custom Prompt Files | 6 min | 12 min | 18 min |
+| 5 | Custom Agents | 4 min | 10 min | 14 min |
+| 6 | Agent Skills | 5 min | 12 min | 17 min |
+| 7 | Playwright MCP | 5 min | 15 min | 20 min |
 | 8 | GitHub MCP | 4 min | — | 4 min |
-| 9 | Vision + Cart Page | 7 min | 10 min | 17 min |
+| 9 | Vision + Cart Page | 7 min | 15 min | 22 min |
 | 10 | Cloud Agents | 15 min | — | 15 min |
-| | | **61 min** | **55 min** | **116 min** |
+| | | **61 min** | **94 min** | **155 min** |
 
 **Remaining time budget**:
-- Slide presentation: ~80 min
+- Slide presentation: ~76 min
 - Breaks: 30 min (3 × 10 min)
-- Wrap-up/Q&A: 12 min
-- Buffer: ~12 min
+- Wrap-up/Q&A: 10 min
+- Buffer: ~9 min
 
-**Grand total**: ~250 min (~4h 10min)
+**Grand total**: ~280 min (~4h 40min)
 
 ---
 

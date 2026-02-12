@@ -277,8 +277,8 @@ Custom instructions are the **simplest and highest-impact** way to personalize C
 | Coding standards (naming, style) | Entire API documentation |
 | Internal framework references | Step-by-step tutorials |
 | Architecture patterns to follow | Complete code examples |
-| Security requirements | Long prose explanations |
-| Testing conventions | Business logic rules |
+| Security requirements (no hardcoded creds) | Business logic rules |
+| Testing conventions | Long prose explanations |
 
 > **Note**: Keep instructions concise. They're loaded on every interaction and consume context window space. Think bullet points, not paragraphs.
 
@@ -507,7 +507,7 @@ Key tips for writing good prompts:
 <details>
 <summary><h2>Lab 6: Create a Custom Agent (10 min)</h2></summary>
 
-> **Workshop Section**: 6 — Custom Agents / Chat Modes
+> **Workshop Section**: 6 — Custom Agents (Chat Modes)
 
 ### Why This Matters
 
@@ -807,9 +807,9 @@ You can also create **personal skills** that apply across all your repos:
 ---
 
 <details>
-<summary><h2>Lab 8: MCP Servers — Playwright + GitHub (15 min)</h2></summary>
+<summary><h2>Lab 8: MCP Servers (Playwright + GitHub) (15 min)</h2></summary>
 
-> **Workshop Section**: 8 — MCP Servers — Playwright + GitHub
+> **Workshop Section**: 8 — MCP Servers (Playwright + GitHub)
 
 ### Why This Matters
 
@@ -937,9 +937,9 @@ Browse to http://localhost:5137 and test all the navigation links. If any pages 
 ---
 
 <details>
-<summary><h2>Lab 9: Vision + Agent Mode — Image to Implementation (15 min)</h2></summary>
+<summary><h2>Lab 9: Vision + Agent Mode Deep Dive — Image to Implementation (15 min)</h2></summary>
 
-> **Workshop Section**: 9 — Vision + Agent Mode Deep Dive
+> **Workshop Section**: 9 — Vision + Agent Mode Deep Dive (Cart Page)
 
 ### Why This Matters
 
@@ -1070,23 +1070,6 @@ correct prices and quantities.
 
 ---
 
-## Lab Summary: What You Built
-
-| Lab | File / Artifact Created | Workshop Section |
-|-----|------------------------|------------------|
-| 1 | Environment setup & running app | §1 |
-| 2 | Explored Ask, Agent, and Plan modes | §2 |
-| 3 | GitHub CLI issue | §3 |
-| 4 | `.github/copilot-instructions.md` | §4 |
-| 4 | `.github/instructions/API.instructions.md` | §4 |
-| 5 | `.github/prompts/security-review.prompt.md` | §5 |
-| 6 | `.github/agents/<YourAgent>.agent.md` | §6 |
-| 7 | `.github/skills/*/SKILL.md` | §7 |
-| 8 | MCP server integration (Playwright + GitHub) | §8 |
-| 9 | Cart page or Mona figurine product (Vision) | §9 |
-
----
-
 ## Troubleshooting
 
 | Issue | Solution |
@@ -1117,6 +1100,7 @@ correct prices and quantities.
 | MCP Servers | https://docs.github.com/en/copilot/how-tos/using-extensions/using-mcp-in-copilot |
 | Copilot Coding Agent | https://docs.github.com/en/copilot/using-github-copilot/using-copilot-coding-agent |
 | Copilot Code Review | https://docs.github.com/en/copilot/using-github-copilot/code-review |
+| Copilot Trust Center | https://resources.github.com/copilot-trust-center/ |
 | OctoCAT Supply Repo | https://github.com/microsoft/GitHubCopilot_Customized |
 | Community Skills | https://github.com/github/awesome-copilot |
 

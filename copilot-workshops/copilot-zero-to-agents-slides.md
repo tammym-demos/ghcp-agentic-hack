@@ -38,15 +38,15 @@
 | 25 min | Copilot Chat Modes (Ask, Agent, Plan) |
 | 15 min | GitHub CLI: Copilot in the Terminal & Project Management |
 | ☕ 10 min | Break |
-| 20 min | Custom Instructions |
-| 20 min | Custom Prompt Files |
-| 20 min | Custom Agents (Chat Modes) |
+| 25 min | Custom Instructions |
+| 25 min | Custom Prompt Files |
+| 25 min | Custom Agents (Chat Modes) |
 | 🍽️ 10 min | Break |
-| 20 min | Agent Skills |
-| 25 min | MCP Servers (Playwright + GitHub) |
+| 25 min | Agent Skills |
+| 30 min | MCP Servers (Playwright + GitHub) |
 | ☕ 10 min | Break |
-| 25 min | Vision + Agent Mode Deep Dive |
-| 20 min | Cloud Agents (Coding Agent + PR Review) |
+| 30 min | Vision + Agent Mode Deep Dive (Cart Page) |
+| 20 min | Cloud Agents: Coding Agent + PR Review Agent |
 | 10 min | Wrap-Up & Q&A |
 
 ---
@@ -316,11 +316,11 @@ gh pr create --title "..."        # Create a PR
 - Use `gh copilot suggest` to generate a command
 - Create an issue from the terminal with `gh issue create`
 
-*Then: Try the CLI yourself (5 min)*
+*Then: Try the CLI yourself (10 min)*
 
 ---
 
-> **Presenter Note**: 🖥️ **SWITCH TO DEMO 2**. Verify auth → `gh copilot suggest` → `gh copilot explain` → create an issue. Then 5 min hands-on. ~10 min total.
+> **Presenter Note**: 🖥️ **SWITCH TO DEMO 2**. Verify auth → `gh copilot suggest` → `gh copilot explain` → create an issue. Then 10 min hands-on. ~15 min total.
 
 ---
 
@@ -414,11 +414,11 @@ import { Measure, Trace, Log } from '@tao/core';
 - Create scoped `API.instructions.md`
 - TAO observability example
 
-*Then: Create your own instructions (5 min)*
+*Then: Create your own instructions (12 min)*
 
 ---
 
-> **Presenter Note**: 🖥️ **SWITCH TO DEMO 3**. Generate instructions → create scoped instructions → TAO demo. Then 5 min hands-on. ~15 min total.
+> **Presenter Note**: 🖥️ **SWITCH TO DEMO 3**. Generate instructions → create scoped instructions → TAO demo. Then 12 min hands-on. ~20 min total.
 
 ---
 
@@ -515,11 +515,11 @@ Markdown instructions for what Copilot should do.
 - Run the unit test prompt live
 - Show self-healing on test failures
 
-*Then: Create your own prompt file (7 min)*
+*Then: Create your own prompt file (12 min)*
 
 ---
 
-> **Presenter Note**: 🖥️ **SWITCH TO DEMO 4**. Walk through prompts → run unit test prompt → show self-healing. Then 7 min hands-on to create a security-review prompt. ~13 min total.
+> **Presenter Note**: 🖥️ **SWITCH TO DEMO 4**. Walk through prompts → run unit test prompt → show self-healing. Then 12 min hands-on to create a security-review prompt. ~18 min total.
 
 ---
 
@@ -609,11 +609,11 @@ IDE Agent (research + plan)
 - Show it in the chat mode picker
 - Create a CodeReviewer agent live
 
-*Then: Create your own agent (5 min)*
+*Then: Create your own agent (10 min)*
 
 ---
 
-> **Presenter Note**: 🖥️ **SWITCH TO DEMO 5**. Review existing agent → show mode picker → create CodeReviewer agent. Then 5 min hands-on. ~15 min total.
+> **Presenter Note**: 🖥️ **SWITCH TO DEMO 5**. Review existing agent → show mode picker → create CodeReviewer agent. Then 10 min hands-on. ~17 min total.
 
 ---
 
@@ -701,11 +701,11 @@ Can reference scripts and files in the same directory.
 - Show auto-selection in action
 - Reference community skill collections
 
-*Then: Create a skill for OctoCAT Supply (7 min)*
+*Then: Create a skill for OctoCAT Supply (12 min)*
 
 ---
 
-> **Presenter Note**: 🖥️ **SWITCH TO DEMO 6**. Create github-actions-debugging skill → trigger it with a prompt → show auto-selection. Then 7 min hands-on. ~13 min total.
+> **Presenter Note**: 🖥️ **SWITCH TO DEMO 6**. Create github-actions-debugging skill → trigger it with a prompt → show auto-selection. Then 12 min hands-on. ~18 min total.
 
 ---
 
@@ -834,11 +834,11 @@ List open PRs and summarize their status.
 - Playwright: Browse and test the app
 - GitHub: Create and manage issues from chat
 
-*Then: Use Playwright MCP to test the app (8 min)*
+*Then: Use Playwright MCP to test the app (15 min)*
 
 ---
 
-> **Presenter Note**: 🖥️ **SWITCH TO DEMOS 7 & 8**. Start servers → Playwright browser test → GitHub issue creation. Then 8 min hands-on with Playwright. ~17 min total.
+> **Presenter Note**: 🖥️ **SWITCH TO DEMOS 7 & 8**. Start servers → Playwright browser test → GitHub issue creation. Then 15 min hands-on with Playwright. ~24 min total.
 
 ---
 
@@ -902,11 +902,11 @@ Phase 1: PLAN                          Phase 2: AGENT
 - Agent mode: Implement across multiple files
 - Verify: Working cart in the running app
 
-*Then: Add MonaFigurine product from image (10 min)*
+*Then: Add MonaFigurine product from image (15 min)*
 
 ---
 
-> **Presenter Note**: 🖥️ **SWITCH TO DEMO 9**. This is the capstone demo — take your time. Plan with cart image → implement with Agent → show working cart. Then 10 min hands-on with MonaFigurine. ~15 min total.
+> **Presenter Note**: 🖥️ **SWITCH TO DEMO 9**. This is the capstone demo — take your time. Plan with cart image → implement with Agent → show working cart. Then 15 min hands-on with MonaFigurine. ~22 min total.
 
 ---
 
@@ -1115,11 +1115,12 @@ Phase 1: PLAN                          Phase 2: AGENT
 | Custom Instructions | docs.github.com/en/copilot/how-tos/configure-custom-instructions |
 | Prompt Files | docs.github.com/en/copilot/how-tos/copilot-prompts |
 | Agent Skills | docs.github.com/en/copilot/concepts/agents/about-agent-skills |
-| MCP in Copilot | docs.github.com/en/copilot/how-tos/using-extensions/using-mcp-in-copilot |
-| Coding Agent | docs.github.com/en/copilot/using-github-copilot/using-copilot-coding-agent |
+| MCP Servers | docs.github.com/en/copilot/how-tos/using-extensions/using-mcp-in-copilot |
+| Copilot Coding Agent | docs.github.com/en/copilot/using-github-copilot/using-copilot-coding-agent |
 | Copilot Code Review | docs.github.com/en/copilot/using-github-copilot/code-review |
+| Copilot Trust Center | resources.github.com/copilot-trust-center/ |
 | Community Skills | github.com/github/awesome-copilot |
-| Demo Repo | github.com/microsoft/GitHubCopilot_Customized |
+| OctoCAT Supply Repo | github.com/microsoft/GitHubCopilot_Customized |
 
 ---
 
@@ -1167,19 +1168,19 @@ Phase 1: PLAN                          Phase 2: AGENT
 | After Slide | Demo | Duration |
 |-------------|------|----------|
 | 10 | Chat Modes (Ask/Agent/Plan) + Hands-on | 15 min |
-| 13 | GitHub CLI (suggest/explain/issue) + Hands-on | 10 min |
-| 17 | Custom Instructions + TAO + Hands-on | 15 min |
-| 21 | Prompt Files + Run unit test prompt + Hands-on | 13 min |
-| 25 | Agents + ImplementationIdeas review + Hands-on | 15 min |
-| 29 | Agent Skills + Create skill + Hands-on | 13 min |
-| 34 | MCP Servers (Playwright + GitHub) + Hands-on | 17 min |
-| 37 | Vision + Agent (Cart page) + Hands-on | 15 min |
+| 13 | GitHub CLI (suggest/explain/issue) + Hands-on | 15 min |
+| 17 | Custom Instructions + TAO + Hands-on | 20 min |
+| 21 | Prompt Files + Run unit test prompt + Hands-on | 18 min |
+| 25 | Agents + ImplementationIdeas review + Hands-on | 17 min |
+| 29 | Agent Skills + Create skill + Hands-on | 18 min |
+| 34 | MCP Servers (Playwright + GitHub) + Hands-on | 24 min |
+| 37 | Vision + Agent (Cart page) + Hands-on | 22 min |
 | 42 | Cloud Agents (Coding Agent + PR Review) | 15 min |
 
-**Total demo + hands-on time**: ~128 minutes  
-**Total slide/concept time**: ~80 minutes  
+**Total demo + hands-on time**: ~164 minutes  
+**Total slide/concept time**: ~76 minutes  
 **Breaks**: ~30 minutes  
-**Buffer/Q&A**: ~12 minutes
+**Buffer/Q&A**: ~10 minutes
 
 ## Backup URLs
 
