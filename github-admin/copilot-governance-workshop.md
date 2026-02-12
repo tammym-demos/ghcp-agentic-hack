@@ -51,10 +51,10 @@ This session provides engineering teams with a practical understanding of GitHub
 | Code completions | ✓ | ✓ |
 | Chat in IDE | ✓ | ✓ |
 | CLI support | ✓ | ✓ |
+| Chat on github.com (PR summaries) | ✗ | ✓ |
 | Knowledge bases | ✗ | ✓ |
-| Fine-tuned models | ✗ | ✓ |
 | Enterprise policy controls | Limited | Full |
-| SAML/SSO enforcement | Org-level | Enterprise-level |
+| Content exclusions (enterprise) | ✗ | ✓ |
 
 ---
 
@@ -75,9 +75,9 @@ This session provides engineering teams with a practical understanding of GitHub
 
 ### 🖥️ Demo: Seat Assignment
 
-**Location**: GitHub Enterprise Settings → Policies → Copilot
+**Location**: Enterprise → **AI controls** tab → **Copilot**
 
-1. Navigate to enterprise settings
+1. Navigate to enterprise → click the **AI controls** tab at the top of the page
 2. Show Copilot access management panel
 3. Demonstrate seat assignment at enterprise level
 4. Show policy inheritance: Enterprise → Org → Repo
@@ -101,16 +101,17 @@ This session provides engineering teams with a practical understanding of GitHub
 
 ### Content Exclusions
 
-Prevent sensitive repositories from being included in Copilot context:
+Prevent sensitive code from being included in Copilot context.
+
+**Configuration**: Organization → Settings → Copilot → **Content exclusion**
+
+Example exclusion patterns to add in the UI:
 
 ```
-# Example: .github/copilot-content-exclusion.yaml
-# Excludes specific paths from Copilot suggestions
-
-exclusions:
-  - "**/*.env"
-  - "**/secrets/**"
-  - "**/internal-api/**"
+**/*.env              → All .env files
+**/secrets/**         → Any secrets folder
+**/internal-api/**    → Internal API code
+src/crypto/**         → Cryptography implementations
 ```
 
 **Use cases**:
@@ -150,6 +151,12 @@ exclusions:
 - IP allowlisting considerations
 - Firewall rules for Copilot endpoints
 
+### Discussion Points
+
+- What code or data would you want excluded from Copilot context?
+- Is the public code filter a priority for your compliance requirements?
+- How do you currently handle IP protection in your development workflow?
+
 ---
 
 ## 4. Policy Configuration (15 min)
@@ -179,7 +186,9 @@ Repository Settings (lowest precedence)
 
 ### 🖥️ Demo: Policy Configuration
 
-1. Enterprise Settings → Policies → Copilot
+**Location**: Enterprise → **AI controls** tab → **Copilot**
+
+1. Navigate to enterprise → **AI controls** tab → **Copilot** in sidebar
 2. Walk through each policy option
 3. Show "Enforce" vs. "Allow" vs. "No Policy" settings
 4. Demonstrate org-level override (where permitted)
@@ -195,10 +204,6 @@ For VS Code, organizations can push settings via MDM or settings sync:
     "*": true,
     "plaintext": false,
     "markdown": true
-  },
-  "github.copilot.advanced": {
-    "length": 500,
-    "temperature": ""
   }
 }
 ```
@@ -224,6 +229,12 @@ Create org-wide coding standards with `.github/copilot-instructions.md`:
 - Include unit tests for all new functions
 - Minimum 80% code coverage
 ```
+
+### Discussion Points
+
+- Which Copilot policies would you enforce at the enterprise level vs. delegate?
+- Do you have existing coding standards that should be reflected in custom instructions?
+- How would you approach knowledge base setup for your internal documentation?
 
 ---
 
@@ -277,6 +288,12 @@ If a security concern arises:
 3. **Scope**: Identify affected users/repos via usage data
 4. **Remediate**: Update policies, re-enable with restrictions
 5. **Document**: Create incident report for compliance
+
+### Discussion Points
+
+- What roles are involved in Copilot governance at your organization?
+- How would you handle a security concern related to Copilot suggestions?
+- What metrics would be most valuable for your leadership reporting?
 
 ---
 
@@ -332,7 +349,7 @@ Phase 3: Enterprise-Wide
 
 | Resource | URL |
 |----------|-----|
-| Enterprise Copilot Settings | `github.com/enterprises/[name]/settings/copilot` |
+| Enterprise Copilot (AI Controls) | `github.com/enterprises/[name]/settings/copilot` |
 | Org Copilot Settings | `github.com/organizations/[name]/settings/copilot` |
 | Usage Dashboard | `github.com/enterprises/[name]/settings/copilot/usage` |
 | Audit Log | `github.com/enterprises/[name]/settings/audit-log` |
@@ -382,7 +399,7 @@ Phase 3: Enterprise-Wide
    ```
    - Click your profile avatar (top-right) → "Your enterprises"
    - Select your enterprise
-   - Left sidebar: Settings → Copilot → Policies
+   - Click the **AI controls** tab at the top of the page → **Copilot** in the sidebar
 
 2. **Show the Policy Options**
    - Point out the three policy states:
@@ -395,7 +412,7 @@ Phase 3: Enterprise-Wide
    ```
    URL: https://github.com/enterprises/[YOUR-ENTERPRISE]/settings/copilot/seat_management
    ```
-   - Left sidebar: Copilot → Seat management
+   - AI controls tab → Copilot → **Seat management**
 
 4. **Show Seat Assignment Options**
    - Demonstrate the two assignment models:
@@ -484,7 +501,7 @@ Phase 3: Enterprise-Wide
 
 #### Step-by-Step Script
 
-1. **Navigate to Enterprise Copilot Policies**
+1. **Navigate to Enterprise AI Controls → Copilot**
    ```
    URL: https://github.com/enterprises/[YOUR-ENTERPRISE]/settings/copilot/policies
    ```
@@ -526,7 +543,7 @@ Phase 3: Enterprise-Wide
 
 #### Step-by-Step Script
 
-1. **Navigate to Enterprise Policies**
+1. **Navigate to Enterprise AI Controls → Copilot**
    ```
    URL: https://github.com/enterprises/[YOUR-ENTERPRISE]/settings/copilot/policies
    ```
@@ -580,7 +597,7 @@ Phase 3: Enterprise-Wide
    ```
    URL: https://github.com/enterprises/[YOUR-ENTERPRISE]/settings/copilot/usage
    ```
-   - Enterprise Settings → Copilot → Usage
+   - Enterprise → AI controls tab → Copilot → Usage
 
 2. **Tour the Dashboard Sections**
 

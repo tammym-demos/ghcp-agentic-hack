@@ -31,12 +31,12 @@
 
 | Time | Topic |
 |------|-------|
-| 5 min | Why Governance Matters |
+| 5 min | Opening & Context Setting |
 | 10 min | Licensing & Seat Management |
-| 15 min | Security Controls |
+| 15 min | Security Controls & IP Protection |
 | 15 min | Policy Configuration |
 | 10 min | Operational Governance |
-| 5 min | Rollout Best Practices |
+| 5 min | Rollout Best Practices & Wrap-up |
 
 **Format**: Concepts → Live Demo → Discussion (repeat)
 
@@ -97,11 +97,11 @@ AI Assistants require ongoing governance:
 |------------|:--------:|:----------:|
 | Code completions | ✓ | ✓ |
 | Chat in IDE | ✓ | ✓ |
+| Chat on github.com (PR summaries) | ✗ | ✓ |
 | **Enterprise-level policies** | ✗ | ✓ |
 | **Knowledge bases** | ✗ | ✓ |
 | **Content exclusions** | Org only | Enterprise |
 | **Centralized seat management** | ✗ | ✓ |
-| **EMU integration** | ✗ | ✓ |
 
 ---
 
@@ -651,7 +651,7 @@ Phase 3: ENTERPRISE-WIDE
 ## Backup URLs
 
 ```
-Enterprise Settings:
+Enterprise AI Controls (Copilot):
 https://github.com/enterprises/[NAME]/settings/copilot/policies
 
 Org Settings:

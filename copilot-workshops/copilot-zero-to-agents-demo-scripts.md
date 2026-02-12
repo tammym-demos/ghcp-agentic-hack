@@ -3,7 +3,7 @@
 ## Instructor Reference
 
 **Duration**: 4 hours  
-**Total Demo Time**: ~118 minutes (including hands-on)  
+**Total Demo Time**: ~128 minutes (including hands-on)  
 **Environment**: VS Code + GitHub Browser + Terminal  
 **Repo**: [microsoft/GitHubCopilot_Customized](https://github.com/microsoft/GitHubCopilot_Customized)
 
@@ -34,6 +34,13 @@ Run through this **the day before** and again **30 minutes before** the workshop
 - [ ] Signed in to Copilot (check: `Cmd/Ctrl + Shift + P` → "Copilot: Sign In")
 - [ ] Agent mode is available in chat mode picker
 - [ ] Multiple models available (Claude Sonnet 4, GPT-4o, etc.)
+
+### GitHub CLI
+
+- [ ] `gh` installed and on PATH (`gh --version` returns 2.x+)
+- [ ] Authenticated (`gh auth status` shows logged in)
+- [ ] `gh copilot` extension installed (`gh extension list` shows `github/gh-copilot`)
+- [ ] If not installed: `gh extension install github/gh-copilot`
 
 ### MCP Servers
 
@@ -153,11 +160,106 @@ If Copilot is slow/unresponsive:
 
 ---
 
-## Demo 2: Custom Instructions (Section 3)
+## Demo 2: GitHub CLI (Section 3)
+
+**Objective**: Show `gh copilot` for AI-powered terminal assistance and `gh issue` for project management  
+**Duration**: 5 min demo + 5 min hands-on = 10 min  
+**After Slide**: 13
+
+### Setup Before Demo
+
+- VS Code integrated terminal open
+- `gh` CLI installed and authenticated
+- `gh copilot` extension installed
+- Current directory is the project root
+
+### Step-by-Step Script
+
+#### Part A: Verify CLI Setup (30 sec)
+
+1. **Open** the VS Code integrated terminal
+2. **Run**:
+   ```bash
+   gh --version
+   gh auth status
+   ```
+3. **Show**: Version number and authenticated user
+4. **Talking point**: "The GitHub CLI is GitHub's official command-line tool. If you don't have it yet, install it from cli.github.com."
+
+#### Part B: Copilot Suggest (1.5 min)
+
+1. **Run**:
+   ```bash
+   gh copilot suggest "list all open issues assigned to me in this repo"
+   ```
+2. **Show**: Copilot generating the appropriate `gh issue list` command
+3. **Point out**: The suggested command, the option to execute it directly or copy it
+4. **Run another suggestion**:
+   ```bash
+   gh copilot suggest "find all TypeScript files modified in the last week"
+   ```
+5. **Show**: Copilot generating a `git`/`find` command
+6. **Talking point**: "You don't need to memorize commands. Describe what you want in English, and Copilot generates the command for you."
+
+#### Part C: Copilot Explain (1 min)
+
+1. **Run**:
+   ```bash
+   gh copilot explain "gh api repos/{owner}/{repo}/branches/main/protection --method PUT"
+   ```
+2. **Show**: Copilot breaking down the command into plain English
+3. **Talking point**: "Found a complex command in a README or Stack Overflow? Paste it into `explain` before you run it. No more running commands you don't understand."
+
+#### Part D: Create an Issue from the CLI (2 min)
+
+1. **Run**:
+   ```bash
+   gh issue create --title "Improve API error handling" --body "Standardize error responses across all API endpoints with proper HTTP status codes and error messages."
+   ```
+2. **Show**: The issue being created, the URL returned
+3. **Open the repo in browser** → Show the new issue exists
+4. **Run**:
+   ```bash
+   gh issue list
+   ```
+5. **Show**: The issue appearing in the list
+6. **Talking point**: "Project management from your terminal. And this connects directly to Coding Agent — later we'll assign an issue to Copilot and it will code the solution autonomously."
+
+### Hands-On Instructions (5 min)
+
+> "Your turn! Try these in the terminal:
+> 1. `gh copilot suggest "show me the most recent commits on main with a graph"` — then run the suggested command
+> 2. `gh issue list` — see what issues exist
+> 3. `gh issue create --title "Test issue from CLI" --body "Created during workshop."` — create your own issue
+>
+> **Bonus**: Try `gh extension browse` to explore community extensions."
+
+### Key Points to Emphasize
+
+- `gh copilot suggest` = natural language → shell command
+- `gh copilot explain` = shell command → plain English
+- `gh issue create` connects to the Coding Agent workflow (Section 10)
+- The CLI complements the IDE — use both
+
+### Backup Plan
+
+If `gh copilot` is not installed:
+1. Show `gh extension install github/gh-copilot` to install it
+2. If extension install is blocked, skip to the `gh issue` commands (those don't require the extension)
+3. Show the CLI docs page: `cli.github.com` as reference
+
+If `gh` is not installed at all:
+1. Explain the concept using the slides
+2. Show the CLI website: `cli.github.com`
+3. Move on to the next section and have attendees install during the break
+
+---
+
+## Demo 3: Custom Instructions (Section 4)
 
 **Objective**: Show how custom instructions change Copilot's behavior, including internal frameworks  
 **Duration**: 5 min demo + 5 min hands-on = 10 min  
-**After Slide**: 14
+**After Slide**: 17
 
 ### Setup Before Demo
 
@@ -248,11 +350,11 @@ If the Gear icon → "Generate Agent Instructions" isn't available:
 
 ---
 
-## Demo 3: Custom Prompt Files (Section 4)
+## Demo 4: Custom Prompt Files (Section 5)
 
 **Objective**: Walk through existing prompts and run the unit test prompt live  
 **Duration**: 6 min demo + 7 min hands-on = 13 min  
-**After Slide**: 18
+**After Slide**: 21
 
 ### Setup Before Demo
 
@@ -323,11 +425,11 @@ If the Unit Test prompt takes too long:
 
 ---
 
-## Demo 4: Custom Agents / Chat Modes (Section 5)
+## Demo 5: Custom Agents / Chat Modes (Section 6)
 
 **Objective**: Show agents as persistent personas and demonstrate delegation to Coding Agent  
 **Duration**: 4 min demo + 5 min hands-on = 9 min  
-**After Slide**: 22
+**After Slide**: 25
 
 ### Setup Before Demo
 
@@ -403,11 +505,11 @@ If the mode picker doesn't show the new agent:
 
 ---
 
-## Demo 5: Agent Skills (Section 6)
+## Demo 6: Agent Skills (Section 7)
 
 **Objective**: Create a skill from scratch and show auto-selection  
 **Duration**: 5 min demo + 7 min hands-on = 12 min  
-**After Slide**: 26
+**After Slide**: 29
 
 ### Setup Before Demo
 
@@ -501,11 +603,11 @@ If auto-selection doesn't visibly work:
 
 ---
 
-## Demo 6: Playwright MCP Server (Section 7, Part A)
+## Demo 7: Playwright MCP Server (Section 8, Part A)
 
 **Objective**: Show browser-based testing from natural language prompts  
 **Duration**: 5 min demo + 8 min hands-on = 13 min  
-**After Slide**: 31 (combined with Demo 7)
+**After Slide**: 34 (combined with Demo 8)
 
 ### Setup Before Demo
 
@@ -589,11 +691,11 @@ If Playwright MCP fails to start:
 
 ---
 
-## Demo 7: GitHub MCP Server (Section 7, Part B)
+## Demo 8: GitHub MCP Server (Section 8, Part B)
 
 **Objective**: Show GitHub interactions from Copilot Chat  
-**Duration**: 4 min demo (combined with Demo 6 hands-on)  
-**After Slide**: 31 (part of combined MCP demo)
+**Duration**: 4 min demo (combined with Demo 7 hands-on)  
+**After Slide**: 34 (part of combined MCP demo)
 
 ### Setup Before Demo
 
@@ -648,11 +750,11 @@ If GitHub MCP fails:
 
 ---
 
-## Demo 8: Vision + Agent Mode — Cart Page (Section 8)
+## Demo 9: Vision + Agent Mode — Cart Page (Section 9)
 
 **Objective**: Build a working cart feature from a design image  
 **Duration**: 7 min demo + 10 min hands-on = 17 min  
-**After Slide**: 34
+**After Slide**: 37
 
 > **This is the capstone demo.** Take your time. The audience needs to see the full Plan → Agent → Working Feature arc.
 
@@ -762,11 +864,11 @@ If the app doesn't hot-reload:
 
 ---
 
-## Demo 9: Cloud Agents — Coding Agent + PR Review (Section 9)
+## Demo 10: Cloud Agents — Coding Agent + PR Review (Section 10)
 
 **Objective**: Show the autonomous development loop: Issue → Coding Agent → PR → Code Review  
 **Duration**: 15 min demo (no hands-on — observe only)  
-**After Slide**: 39
+**After Slide**: 42
 
 ### Setup Before Demo
 
@@ -872,23 +974,24 @@ If Coding Agent isn't available or takes too long:
 | Demo | Section | Demo Time | Hands-On | Total |
 |------|---------|-----------|----------|-------|
 | 1 | Interaction Modes | 5 min | 8 min | 13 min |
-| 2 | Custom Instructions | 5 min | 5 min | 10 min |
-| 3 | Custom Prompt Files | 6 min | 7 min | 13 min |
-| 4 | Custom Agents | 4 min | 5 min | 9 min |
-| 5 | Agent Skills | 5 min | 7 min | 12 min |
-| 6 | Playwright MCP | 5 min | 8 min | 13 min |
-| 7 | GitHub MCP | 4 min | — | 4 min |
-| 8 | Vision + Cart Page | 7 min | 10 min | 17 min |
-| 9 | Cloud Agents | 15 min | — | 15 min |
-| | | **56 min** | **50 min** | **106 min** |
+| 2 | GitHub CLI | 5 min | 5 min | 10 min |
+| 3 | Custom Instructions | 5 min | 5 min | 10 min |
+| 4 | Custom Prompt Files | 6 min | 7 min | 13 min |
+| 5 | Custom Agents | 4 min | 5 min | 9 min |
+| 6 | Agent Skills | 5 min | 7 min | 12 min |
+| 7 | Playwright MCP | 5 min | 8 min | 13 min |
+| 8 | GitHub MCP | 4 min | — | 4 min |
+| 9 | Vision + Cart Page | 7 min | 10 min | 17 min |
+| 10 | Cloud Agents | 15 min | — | 15 min |
+| | | **61 min** | **55 min** | **116 min** |
 
 **Remaining time budget**:
-- Slide presentation: ~77 min
+- Slide presentation: ~80 min
 - Breaks: 30 min (3 × 10 min)
-- Wrap-up/Q&A: 10 min
+- Wrap-up/Q&A: 12 min
 - Buffer: ~12 min
 
-**Grand total**: ~235 min (~3h 55min)
+**Grand total**: ~250 min (~4h 10min)
 
 ---
 
@@ -898,6 +1001,8 @@ If a demo is completely blocked:
 
 1. **Show pre-captured screenshots** from a previous run
 2. **Switch to GitHub Docs** walkthrough for that feature:
+   - GitHub CLI: `cli.github.com`
+   - Copilot in CLI: `docs.github.com/en/copilot/github-copilot-in-the-cli`
    - Custom Instructions: `docs.github.com/en/copilot/how-tos/configure-custom-instructions`
    - Prompt Files: `docs.github.com/en/copilot/how-tos/copilot-prompts`
    - Agent Skills: `docs.github.com/en/copilot/concepts/agents/about-agent-skills`
@@ -912,6 +1017,8 @@ If a demo is completely blocked:
 |-------|-----------|
 | Copilot not responding | Check internet connection, verify sign-in status |
 | Agent mode unavailable | Update VS Code + Copilot extensions to latest |
+| `gh` CLI not found | Install from cli.github.com, then run `gh auth login` |
+| `gh copilot` not available | Run `gh extension install github/gh-copilot` |
 | MCP server won't start | `MCP: List servers` → check status → restart |
 | Playwright browser doesn't appear | Verify running locally (not Codespaces) |
 | GitHub MCP auth fails | Re-authenticate: `MCP: List servers` → `github` → restart |

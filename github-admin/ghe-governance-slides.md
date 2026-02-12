@@ -5,7 +5,7 @@
 **Duration**: 3 hours (with breaks)  
 **Format**: Presentation + Live Demos (intermixed)  
 **Audience**: Enterprise Admins, Org Owners, Security Teams, Engineering Managers  
-**Slides**: 60+
+**Slides**: 76
 
 ---
 
@@ -56,7 +56,7 @@
 | 10 min | Enterprise Architecture Overview |
 | 20 min | Identity, Authentication & SSO |
 | 15 min | Enterprise & Org Structure |
-| 20 min | Repository Governance & Rulesets |
+| 20 min | Repository Governance & Branch Policies |
 | ☕ 10 min | Break |
 | 20 min | GitHub Advanced Security |
 | 20 min | GitHub Copilot Governance |
@@ -998,10 +998,10 @@ AI coding assistants:
 | Code completions | ✓ | ✓ |
 | Chat in IDE | ✓ | ✓ |
 | CLI integration | ✓ | ✓ |
+| Chat on github.com (PR summaries) | ✗ | ✓ |
 | **Knowledge bases** | ✗ | ✓ |
 | **Enterprise-level policies** | ✗ | ✓ |
 | **Content exclusions (enterprise)** | ✗ | ✓ |
-| **EMU integration** | ✗ | ✓ |
 
 ---
 
@@ -1045,8 +1045,11 @@ AI coding assistants:
 - Compliance-restricted content
 - Third-party licensed code
 
-```yaml
-# Example exclusion patterns
+**Configuration**: Organization → Settings → Copilot → **Content exclusion**
+
+Example exclusion patterns:
+
+```
 **/secrets/**         → Any secrets folder
 **/*.env              → All .env files
 **/internal-api/**    → Internal API code

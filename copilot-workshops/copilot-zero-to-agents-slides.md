@@ -36,6 +36,7 @@
 |------|-------|
 | 20 min | Welcome & Environment Setup |
 | 25 min | Copilot Interaction Modes (Ask, Edit, Agent) |
+| 15 min | GitHub CLI: Copilot in the Terminal & Project Management |
 | ☕ 10 min | Break |
 | 20 min | Custom Instructions |
 | 20 min | Custom Prompt Files |
@@ -65,7 +66,7 @@
   Interaction       Instructions          MCP Servers         Vision + Agent
   Modes             Prompt Files          (Playwright,        Coding Agent
   (Ask/Edit/Agent)  Agents/Chat Modes     GitHub)             PR Review Agent
-                    Agent Skills
+  GitHub CLI        Agent Skills
 ```
 
 **Each layer builds on the last.**
@@ -238,11 +239,86 @@ Copilot will: read config → install deps → build → start → verify.
 
 ---
 
+# SECTION: GitHub CLI
+
+---
+
+## Slide 11: GitHub CLI — Your Power-User Interface
+
+### `gh` — GitHub from the Terminal
+
+| Command | What It Does |
+|---------|-------------|
+| `gh copilot suggest` | AI-generated shell commands from natural language |
+| `gh copilot explain` | Plain-English explanations of complex commands |
+| `gh issue create/list` | Manage issues without leaving the terminal |
+| `gh pr create/list/view` | Manage pull requests from the command line |
+| `gh repo clone/fork` | Clone and fork repos instantly |
+| `gh extension` | Extend `gh` with community plugins |
+
+### Why CLI Matters for This Workshop
+
+- CLI skills connect to **Coding Agent** (assign issues via `gh`)
+- CLI + MCP = two ways to manage GitHub from your dev environment
+- `gh copilot` brings AI assistance to your terminal, not just your IDE
+
+---
+
+> **Presenter Note**: "The GitHub CLI is your power-user interface. Everything you can do in the browser — issues, PRs, repo management — you can do faster from the terminal. And with `gh copilot`, you don't even need to memorize the commands."
+
+---
+
+## Slide 12: Copilot in the CLI
+
+### AI-Powered Command Assistance
+
+```bash
+# Describe what you want → Copilot generates the command
+gh copilot suggest "find all TypeScript files modified in the last week"
+
+# Paste a command you don't understand → Copilot explains it
+gh copilot explain "git log --oneline --graph --all --decorate"
+```
+
+### Essential `gh` Commands
+
+```bash
+gh auth status                    # Check authentication
+gh issue list                     # List issues in current repo
+gh issue create --title "..."     # Create an issue
+gh pr list                        # List pull requests
+gh pr create --title "..."        # Create a PR
+```
+
+---
+
+> **Presenter Note**: "`suggest` and `explain` are the two Copilot CLI commands. `suggest` turns natural language into shell commands. `explain` does the reverse — takes a command and tells you what it does in plain English. Both support follow-up refinements."
+
+---
+
+## Slide 13: Demo Time
+
+# 🖥️ LIVE DEMO
+
+### GitHub CLI
+
+- Verify `gh auth status`
+- Use `gh copilot suggest` to generate a command
+- Create an issue from the terminal with `gh issue create`
+
+*Then: Try the CLI yourself (5 min)*
+
+---
+
+> **Presenter Note**: 🖥️ **SWITCH TO DEMO 2**. Verify auth → `gh copilot suggest` → `gh copilot explain` → create an issue. Then 5 min hands-on. ~10 min total.
+
+---
+
 # SECTION: Custom Instructions
 
 ---
 
-## Slide 11: Why Custom Instructions?
+## Slide 14: Why Custom Instructions?
 
 ### The Problem
 
@@ -264,7 +340,7 @@ Loaded into **every single interaction**, invisibly.
 
 ---
 
-## Slide 12: Two Types of Instructions
+## Slide 15: Two Types of Instructions
 
 ### Project-Wide vs Scoped
 
@@ -294,7 +370,7 @@ applyTo: "api/**"
 
 ---
 
-## Slide 13: The Power of Internal Frameworks
+## Slide 16: The Power of Internal Frameworks
 
 ### TAO: Teaching Copilot About Things It's Never Seen
 
@@ -318,7 +394,7 @@ import { Measure, Trace, Log } from '@tao/core';
 
 ---
 
-## Slide 14: Demo Time
+## Slide 17: Demo Time
 
 # 🖥️ LIVE DEMO
 
@@ -332,7 +408,7 @@ import { Measure, Trace, Log } from '@tao/core';
 
 ---
 
-> **Presenter Note**: 🖥️ **SWITCH TO DEMO 2**. Generate instructions → create scoped instructions → TAO demo. Then 5 min hands-on. ~15 min total.
+> **Presenter Note**: 🖥️ **SWITCH TO DEMO 3**. Generate instructions → create scoped instructions → TAO demo. Then 5 min hands-on. ~15 min total.
 
 ---
 
@@ -340,7 +416,7 @@ import { Measure, Trace, Log } from '@tao/core';
 
 ---
 
-## Slide 15: Prompts vs Instructions
+## Slide 18: Prompts vs Instructions
 
 ### Different Tools for Different Jobs
 
@@ -359,7 +435,7 @@ import { Measure, Trace, Log } from '@tao/core';
 
 ---
 
-## Slide 16: Anatomy of a Prompt File
+## Slide 19: Anatomy of a Prompt File
 
 ### `.github/prompts/my-prompt.prompt.md`
 
@@ -396,7 +472,7 @@ Markdown instructions for what Copilot should do.
 
 ---
 
-## Slide 17: Prompts in This Repo
+## Slide 20: Prompts in This Repo
 
 ### Three Ready-to-Run Prompts
 
@@ -419,7 +495,7 @@ Markdown instructions for what Copilot should do.
 
 ---
 
-## Slide 18: Demo Time
+## Slide 21: Demo Time
 
 # 🖥️ LIVE DEMO
 
@@ -433,7 +509,7 @@ Markdown instructions for what Copilot should do.
 
 ---
 
-> **Presenter Note**: 🖥️ **SWITCH TO DEMO 3**. Walk through prompts → run unit test prompt → show self-healing. Then 7 min hands-on to create a security-review prompt. ~13 min total.
+> **Presenter Note**: 🖥️ **SWITCH TO DEMO 4**. Walk through prompts → run unit test prompt → show self-healing. Then 7 min hands-on to create a security-review prompt. ~13 min total.
 
 ---
 
@@ -441,7 +517,7 @@ Markdown instructions for what Copilot should do.
 
 ---
 
-## Slide 19: Agents — Persistent Personas
+## Slide 22: Agents — Persistent Personas
 
 ### What Makes Agents Different
 
@@ -461,7 +537,7 @@ Markdown instructions for what Copilot should do.
 
 ---
 
-## Slide 20: Anatomy of an Agent
+## Slide 23: Anatomy of an Agent
 
 ### `.github/agents/MyAgent.agent.md`
 
@@ -489,7 +565,7 @@ This text defines WHO the agent IS, not just what it does.
 
 ---
 
-## Slide 21: Agents Can Delegate
+## Slide 24: Agents Can Delegate
 
 ### The ImplementationIdeas Agent
 
@@ -513,7 +589,7 @@ IDE Agent (research + plan)
 
 ---
 
-## Slide 22: Demo Time
+## Slide 25: Demo Time
 
 # 🖥️ LIVE DEMO
 
@@ -527,7 +603,7 @@ IDE Agent (research + plan)
 
 ---
 
-> **Presenter Note**: 🖥️ **SWITCH TO DEMO 4**. Review existing agent → show mode picker → create CodeReviewer agent. Then 5 min hands-on. ~15 min total.
+> **Presenter Note**: 🖥️ **SWITCH TO DEMO 5**. Review existing agent → show mode picker → create CodeReviewer agent. Then 5 min hands-on. ~15 min total.
 
 ---
 
@@ -535,7 +611,7 @@ IDE Agent (research + plan)
 
 ---
 
-## Slide 23: Skills — The Auto-Pilot Layer
+## Slide 26: Skills — The Auto-Pilot Layer
 
 ### How Skills Differ from Everything Else
 
@@ -554,7 +630,7 @@ IDE Agent (research + plan)
 
 ---
 
-## Slide 24: Skill Structure
+## Slide 27: Skill Structure
 
 ### `.github/skills/my-skill/SKILL.md`
 
@@ -584,7 +660,7 @@ Can reference scripts and files in the same directory.
 
 ---
 
-## Slide 25: Skills vs Instructions — When to Use Each
+## Slide 28: Skills vs Instructions — When to Use Each
 
 ### The Decision
 
@@ -605,7 +681,7 @@ Can reference scripts and files in the same directory.
 
 ---
 
-## Slide 26: Demo Time
+## Slide 29: Demo Time
 
 # 🖥️ LIVE DEMO
 
@@ -619,7 +695,7 @@ Can reference scripts and files in the same directory.
 
 ---
 
-> **Presenter Note**: 🖥️ **SWITCH TO DEMO 5**. Create github-actions-debugging skill → trigger it with a prompt → show auto-selection. Then 7 min hands-on. ~13 min total.
+> **Presenter Note**: 🖥️ **SWITCH TO DEMO 6**. Create github-actions-debugging skill → trigger it with a prompt → show auto-selection. Then 7 min hands-on. ~13 min total.
 
 ---
 
@@ -627,7 +703,7 @@ Can reference scripts and files in the same directory.
 
 ---
 
-## Slide 27: What is MCP?
+## Slide 30: What is MCP?
 
 ### Model Context Protocol — Copilot's Extension Layer
 
@@ -652,7 +728,7 @@ Can reference scripts and files in the same directory.
 
 ---
 
-## Slide 28: MCP Configuration
+## Slide 31: MCP Configuration
 
 ### `.vscode/mcp.json`
 
@@ -688,7 +764,7 @@ Can reference scripts and files in the same directory.
 
 ---
 
-## Slide 29: Playwright MCP — Browser Testing from Chat
+## Slide 32: Playwright MCP — Browser Testing from Chat
 
 ### What You Can Do
 
@@ -714,7 +790,7 @@ Generate a Gherkin .feature file for the Products page.
 
 ---
 
-## Slide 30: GitHub MCP — GitHub from Chat
+## Slide 33: GitHub MCP — GitHub from Chat
 
 ### What You Can Do
 
@@ -738,7 +814,7 @@ List open PRs and summarize their status.
 
 ---
 
-## Slide 31: Demo Time
+## Slide 34: Demo Time
 
 # 🖥️ LIVE DEMO
 
@@ -752,7 +828,7 @@ List open PRs and summarize their status.
 
 ---
 
-> **Presenter Note**: 🖥️ **SWITCH TO DEMOS 6 & 7**. Start servers → Playwright browser test → GitHub issue creation. Then 8 min hands-on with Playwright. ~17 min total.
+> **Presenter Note**: 🖥️ **SWITCH TO DEMOS 7 & 8**. Start servers → Playwright browser test → GitHub issue creation. Then 8 min hands-on with Playwright. ~17 min total.
 
 ---
 
@@ -760,7 +836,7 @@ List open PRs and summarize their status.
 
 ---
 
-## Slide 32: Vision — Copilot Sees Images
+## Slide 35: Vision — Copilot Sees Images
 
 ### What Copilot Vision Can Do
 
@@ -783,7 +859,7 @@ List open PRs and summarize their status.
 
 ---
 
-## Slide 33: The Plan → Agent Workflow
+## Slide 36: The Plan → Agent Workflow
 
 ### Two-Phase Development
 
@@ -806,7 +882,7 @@ Phase 1: PLAN                          Phase 2: AGENT
 
 ---
 
-## Slide 34: Demo Time
+## Slide 37: Demo Time
 
 # 🖥️ LIVE DEMO
 
@@ -820,7 +896,7 @@ Phase 1: PLAN                          Phase 2: AGENT
 
 ---
 
-> **Presenter Note**: 🖥️ **SWITCH TO DEMO 8**. This is the capstone demo — take your time. Plan with cart image → implement with Agent → show working cart. Then 10 min hands-on with MonaFigurine. ~15 min total.
+> **Presenter Note**: 🖥️ **SWITCH TO DEMO 9**. This is the capstone demo — take your time. Plan with cart image → implement with Agent → show working cart. Then 10 min hands-on with MonaFigurine. ~15 min total.
 
 ---
 
@@ -828,7 +904,7 @@ Phase 1: PLAN                          Phase 2: AGENT
 
 ---
 
-## Slide 35: The Autonomous Development Loop
+## Slide 38: The Autonomous Development Loop
 
 ### From Issue to Merged PR — AI-Assisted at Every Step
 
@@ -857,7 +933,7 @@ Phase 1: PLAN                          Phase 2: AGENT
 
 ---
 
-## Slide 36: Coding Agent — Autonomous PRs
+## Slide 39: Coding Agent — Autonomous PRs
 
 ### How It Works
 
@@ -887,7 +963,7 @@ Phase 1: PLAN                          Phase 2: AGENT
 
 ---
 
-## Slide 37: PR Review Agent — AI Code Review
+## Slide 40: PR Review Agent — AI Code Review
 
 ### How It Works
 
@@ -918,7 +994,7 @@ Phase 1: PLAN                          Phase 2: AGENT
 
 ---
 
-## Slide 38: Agent Mode vs Coding Agent
+## Slide 41: Agent Mode vs Coding Agent
 
 ### When to Use Each
 
@@ -938,7 +1014,7 @@ Phase 1: PLAN                          Phase 2: AGENT
 
 ---
 
-## Slide 39: Demo Time
+## Slide 42: Demo Time
 
 # 🖥️ LIVE DEMO
 
@@ -951,7 +1027,7 @@ Phase 1: PLAN                          Phase 2: AGENT
 
 ---
 
-> **Presenter Note**: 🖥️ **SWITCH TO DEMO 9**. Assign issue to Copilot → show session starting → open a PR → add Copilot as reviewer → walk through review comments. ~15 min total (no hands-on for this section — cloud agents are observe-only).
+> **Presenter Note**: 🖥️ **SWITCH TO DEMO 10**. Assign issue to Copilot → show session starting → open a PR → add Copilot as reviewer → walk through review comments. ~15 min total (no hands-on for this section — cloud agents are observe-only).
 
 ---
 
@@ -959,12 +1035,13 @@ Phase 1: PLAN                          Phase 2: AGENT
 
 ---
 
-## Slide 40: What You Built Today
+## Slide 43: What You Built Today
 
 ### Your Customization Stack
 
 | File | Section |
 |------|---------|
+| GitHub CLI issue | GitHub CLI |
 | `.github/copilot-instructions.md` | Custom Instructions |
 | `.github/instructions/API.instructions.md` | Scoped Instructions |
 | `.github/prompts/security-review.prompt.md` | Custom Prompt Files |
@@ -980,17 +1057,18 @@ Phase 1: PLAN                          Phase 2: AGENT
 
 ---
 
-## Slide 41: Key Takeaways
+## Slide 44: Key Takeaways
 
-### Seven Things to Remember
+### Eight Things to Remember
 
 1. **Modes** → Ask to understand, Edit for precision, Agent to build
-2. **Instructions** → Encode tribal knowledge (internal frameworks, standards)
-3. **Prompt Files** → Reusable task templates for consistency
-4. **Agents** → Persistent personas that change Copilot's behavior
-5. **Skills** → Auto-selected expertise loaded when relevant
-6. **MCP** → Connect Copilot to any external tool
-7. **Cloud Agents** → Issue → Code → PR → Review — all AI-assisted
+2. **GitHub CLI** → `gh copilot` for command assistance, `gh issue`/`gh pr` for project management
+3. **Instructions** → Encode tribal knowledge (internal frameworks, standards)
+4. **Prompt Files** → Reusable task templates for consistency
+5. **Agents** → Persistent personas that change Copilot's behavior
+6. **Skills** → Auto-selected expertise loaded when relevant
+7. **MCP** → Connect Copilot to any external tool
+8. **Cloud Agents** → Issue → Code → PR → Review — all AI-assisted
 
 ---
 
@@ -998,7 +1076,7 @@ Phase 1: PLAN                          Phase 2: AGENT
 
 ---
 
-## Slide 42: Your Action Items
+## Slide 45: Your Action Items
 
 ### What to Do Next
 
@@ -1015,17 +1093,21 @@ Phase 1: PLAN                          Phase 2: AGENT
 
 ---
 
-## Slide 43: Resources
+## Slide 46: Resources
 
 ### Learn More
 
 | Resource | URL |
 |----------|-----|
 | GitHub Copilot Docs | docs.github.com/en/copilot |
+| GitHub CLI | cli.github.com |
+| Copilot in the CLI | docs.github.com/en/copilot/github-copilot-in-the-cli |
 | Custom Instructions | docs.github.com/en/copilot/how-tos/configure-custom-instructions |
+| Prompt Files | docs.github.com/en/copilot/how-tos/copilot-prompts |
 | Agent Skills | docs.github.com/en/copilot/concepts/agents/about-agent-skills |
 | MCP in Copilot | docs.github.com/en/copilot/how-tos/using-extensions/using-mcp-in-copilot |
 | Coding Agent | docs.github.com/en/copilot/using-github-copilot/using-copilot-coding-agent |
+| Copilot Code Review | docs.github.com/en/copilot/using-github-copilot/code-review |
 | Community Skills | github.com/github/awesome-copilot |
 | Demo Repo | github.com/microsoft/GitHubCopilot_Customized |
 
@@ -1035,7 +1117,7 @@ Phase 1: PLAN                          Phase 2: AGENT
 
 ---
 
-## Slide 44: Q&A
+## Slide 47: Q&A
 
 # Questions?
 
@@ -1046,6 +1128,7 @@ Phase 1: PLAN                          Phase 2: AGENT
 - How do skills interact with instructions?
 - Does Coding Agent respect branch protection?
 - How do we measure ROI on customization?
+- Can we use custom instructions with Copilot in github.com (not just IDE)?
 
 ---
 
@@ -1053,7 +1136,7 @@ Phase 1: PLAN                          Phase 2: AGENT
 
 ---
 
-## Slide 45: Thank You
+## Slide 48: Thank You
 
 # Thank You
 
@@ -1074,18 +1157,19 @@ Phase 1: PLAN                          Phase 2: AGENT
 | After Slide | Demo | Duration |
 |-------------|------|----------|
 | 10 | Interaction Modes (Ask/Edit/Agent) + Hands-on | 15 min |
-| 14 | Custom Instructions + TAO + Hands-on | 15 min |
-| 18 | Prompt Files + Run unit test prompt + Hands-on | 13 min |
-| 22 | Agents + ImplementationIdeas review + Hands-on | 15 min |
-| 26 | Agent Skills + Create skill + Hands-on | 13 min |
-| 31 | MCP Servers (Playwright + GitHub) + Hands-on | 17 min |
-| 34 | Vision + Agent (Cart page) + Hands-on | 15 min |
-| 39 | Cloud Agents (Coding Agent + PR Review) | 15 min |
+| 13 | GitHub CLI (suggest/explain/issue) + Hands-on | 10 min |
+| 17 | Custom Instructions + TAO + Hands-on | 15 min |
+| 21 | Prompt Files + Run unit test prompt + Hands-on | 13 min |
+| 25 | Agents + ImplementationIdeas review + Hands-on | 15 min |
+| 29 | Agent Skills + Create skill + Hands-on | 13 min |
+| 34 | MCP Servers (Playwright + GitHub) + Hands-on | 17 min |
+| 37 | Vision + Agent (Cart page) + Hands-on | 15 min |
+| 42 | Cloud Agents (Coding Agent + PR Review) | 15 min |
 
-**Total demo + hands-on time**: ~118 minutes  
-**Total slide/concept time**: ~77 minutes  
+**Total demo + hands-on time**: ~128 minutes  
+**Total slide/concept time**: ~80 minutes  
 **Breaks**: ~30 minutes  
-**Buffer/Q&A**: ~10 minutes
+**Buffer/Q&A**: ~12 minutes
 
 ## Backup URLs
 
@@ -1093,6 +1177,8 @@ Phase 1: PLAN                          Phase 2: AGENT
 Demo Repo: https://github.com/microsoft/GitHubCopilot_Customized
 API Swagger: http://localhost:3000/api-docs
 Frontend: http://localhost:5137
+GitHub CLI: https://cli.github.com
+Copilot in CLI Docs: https://docs.github.com/en/copilot/github-copilot-in-the-cli
 GitHub Copilot Docs: https://docs.github.com/en/copilot
 Agent Skills Docs: https://docs.github.com/en/copilot/concepts/agents/about-agent-skills
 MCP Docs: https://docs.github.com/en/copilot/how-tos/using-extensions/using-mcp-in-copilot

@@ -399,6 +399,12 @@ openapi.yaml            @org/api-team
 - Use `CONTRIBUTING.md` for contribution guidelines
 - Set up discovery with topics and repository descriptions
 
+### Discussion Points
+
+- What naming conventions do you use for repositories today?
+- Are you using branch protection rules or rulesets currently?
+- How do you manage code review requirements across teams?
+
 ---
 
 ## 5. GitHub Advanced Security (GHAS) (20 min)
@@ -411,13 +417,13 @@ GitHub Advanced Security provides three key capabilities:
 ┌───────────────────────────────────────────────────────┐
 │              GitHub Advanced Security                 │
 ├──────────────┬──────────────────┬─────────────────────┤
-│   Code       │   Secret         │   Dependency        │
-│   Scanning   │   Scanning       │   Review            │
-│              │                  │                     │
-│  CodeQL      │  200+ patterns   │  License compliance │
-│  analysis    │  Custom patterns │  Vulnerability      │
-│  Custom      │  Push protection │  alerts             │
-│  queries     │  Validity checks │  Auto-fix PRs       │
+│   SECRET        │   CODE          │   DEPENDENCY       │
+│   SCANNING      │   SCANNING      │   MANAGEMENT       │
+│                 │                 │                    │
+│  200+ patterns  │  CodeQL engine  │  Dependabot alerts │
+│  Custom regex   │  Custom queries │  Security updates  │
+│  Push protect   │  Default setup  │  Version updates   │
+│  Validity check │  Merge blocking │  License review    │
 └──────────────┴──────────────────┴─────────────────────┘
 ```
 
@@ -547,6 +553,12 @@ updates:
 | Security campaigns | Target high-risk repos first | Risk-based approach |
 | Gradual rollout | Enable per team, measure, expand | Change management |
 
+### Discussion Points
+
+- Which GHAS features are you most interested in enabling first?
+- Do you have a process for triaging security alerts today?
+- What compliance requirements drive your security scanning needs?
+
 ---
 
 ## 6. GitHub Copilot Governance (20 min)
@@ -558,10 +570,10 @@ updates:
 | Code completions | ✓ | ✓ |
 | Chat in IDE | ✓ | ✓ |
 | CLI support | ✓ | ✓ |
+| Chat on github.com (PR summaries) | ✗ | ✓ |
 | Knowledge bases | ✗ | ✓ |
-| Fine-tuned models | ✗ | ✓ |
 | Enterprise policy controls | Limited | Full |
-| SAML/SSO enforcement | Org-level | Enterprise-level |
+| Content exclusions (enterprise) | ✗ | ✓ |
 
 ### Security Architecture
 
@@ -572,16 +584,18 @@ updates:
 
 ### Content Exclusions
 
-Prevent sensitive code from being included in Copilot context:
+Prevent sensitive code from being included in Copilot context.
 
-```yaml
-# .github/copilot-content-exclusion.yaml
-exclusions:
-  - "**/*.env"
-  - "**/secrets/**"
-  - "**/internal-api/**"
-  - "src/crypto/**"
-  - "**/vendor/**"
+**Configuration**: Organization → Settings → Copilot → **Content exclusion** (not a file in the repo)
+
+Example exclusion patterns to add in the UI:
+
+```
+**/*.env              → All .env files
+**/secrets/**         → Any secrets folder
+**/internal-api/**    → Internal API code
+src/crypto/**         → Cryptography implementations
+**/vendor/**          → Third-party code
 ```
 
 ### 🖥️ Demo: Content Exclusions
@@ -660,6 +674,12 @@ Create org-wide coding standards for Copilot with `.github/copilot-instructions.
 - Code review cycle time changes
 - Onboarding time for new team members
 - Developer satisfaction scores
+
+### Discussion Points
+
+- What concerns does your security team have about AI-assisted coding?
+- Are there specific code areas you would want to exclude from Copilot context?
+- How do you plan to measure Copilot ROI in your organization?
 
 ---
 

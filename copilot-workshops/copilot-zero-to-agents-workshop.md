@@ -15,6 +15,7 @@ This session takes developers from casual Copilot usage to full agentic developm
 ### Learning Objectives
 
 - Master Copilot's three interaction modes: Ask, Edit, and Agent
+- Use the GitHub CLI (`gh`) for Copilot-powered terminal assistance and project management
 - Create custom instructions that encode team standards and internal frameworks
 - Build reusable prompt files and custom agents (chat modes) for repeatable workflows
 - Author Agent Skills that Copilot auto-selects based on task relevance
@@ -33,6 +34,7 @@ This session takes developers from casual Copilot usage to full agentic developm
 | **npm** | Latest version recommended |
 | **Docker/Podman** | Optional — required for local GitHub MCP server |
 | **Git** | For cloning the demo repository |
+| **GitHub CLI** | `gh` — install from [cli.github.com](https://cli.github.com) |
 
 ---
 
@@ -42,19 +44,20 @@ This session takes developers from casual Copilot usage to full agentic developm
 |---------|-------|------|
 | 1 | Welcome, Objectives & Environment Setup | 20 min |
 | 2 | Copilot Interaction Modes: Ask, Edit, Agent | 25 min |
+| 3 | GitHub CLI: Copilot in the Terminal & Project Management | 15 min |
 | ☕ | Break | 10 min |
-| 3 | Custom Instructions | 20 min |
-| 4 | Custom Prompt Files | 20 min |
-| 5 | Custom Agents (Chat Modes) | 20 min |
+| 4 | Custom Instructions | 20 min |
+| 5 | Custom Prompt Files | 20 min |
+| 6 | Custom Agents (Chat Modes) | 20 min |
 | 🍽️ | Break | 10 min |
-| 6 | Agent Skills | 20 min |
-| 7 | MCP Servers (Playwright + GitHub) | 25 min |
+| 7 | Agent Skills | 20 min |
+| 8 | MCP Servers (Playwright + GitHub) | 25 min |
 | ☕ | Break | 10 min |
-| 8 | Vision + Agent Mode Deep Dive (Cart Page) | 25 min |
-| 9 | Cloud Agents: Coding Agent + PR Review Agent | 20 min |
-| 10 | Wrap-Up, Customization Hierarchy Recap & Q&A | 10 min |
+| 9 | Vision + Agent Mode Deep Dive (Cart Page) | 25 min |
+| 10 | Cloud Agents: Coding Agent + PR Review Agent | 20 min |
+| 11 | Wrap-Up, Customization Hierarchy Recap & Q&A | 10 min |
 
-**Total: ~235 min (~3h 55min)**
+**Total: ~250 min (~4h 10min)**
 
 ---
 
@@ -67,7 +70,7 @@ ZERO                    CUSTOMIZE                   EXTEND                    AG
 ───────────────────►  ───────────────────────────► ──────────────────────►  ─────────────────►
 Interaction Modes      Instructions → Prompts →     MCP Servers              Vision + Agent
 (Ask, Edit, Agent)     Agents → Skills              (Playwright, GitHub)     Coding Agent
-                                                                             PR Review Agent
+GitHub CLI                                                                   PR Review Agent
 ```
 
 Each section builds on the previous one, showing how Copilot can be progressively customized from a general assistant to a specialized, autonomous development partner.
@@ -135,7 +138,7 @@ npm run dev
 ### Discussion Points
 
 - Who has used Copilot Chat before? What modes have you tried?
-- What's your biggest frustration with Copilot today? (Common answer: "It doesn't know our internal stuff" — tease Section 3)
+- What's your biggest frustration with Copilot today? (Common answer: "It doesn't know our internal stuff" — tease Section 4)
 
 ---
 
@@ -199,7 +202,7 @@ npm run dev
 
 **Exercise 1 — Ask Mode**:
 - Ask Copilot: `What testing framework does this project use and what's the current test coverage?`
-- Note the answer for later (we'll generate tests in Section 4)
+- Note the answer for later (we'll generate tests in Section 5)
 
 **Exercise 2 — Edit Mode**:
 - Open any route file in `api/src/routes/`
@@ -218,7 +221,129 @@ npm run dev
 
 ---
 
-## 3. Custom Instructions (20 min)
+## 3. GitHub CLI: Copilot in the Terminal & Project Management (15 min)
+
+### Key Points
+
+- The GitHub CLI (`gh`) is GitHub's official command-line tool — it brings GitHub workflows into your terminal
+- `gh copilot` integrates Copilot AI directly into the command line for command suggestions and explanations
+- The CLI complements VS Code Copilot: use the IDE for coding, the CLI for automation and project management
+- CLI skills are essential for Coding Agent workflows (Section 10) — issues, PRs, and repo management all flow through `gh`
+
+### Why GitHub CLI Matters for Copilot Developers
+
+| Capability | How It Helps |
+|------------|-------------|
+| `gh copilot suggest` | AI-generated shell commands from natural language |
+| `gh copilot explain` | Plain-English explanations of complex commands |
+| `gh issue` / `gh pr` | Manage issues and PRs without leaving the terminal |
+| `gh repo` | Clone, fork, create repos from the command line |
+| `gh extension` | Extend `gh` with community-built plugins |
+
+### Copilot in the CLI — AI-Powered Command Assistance
+
+```bash
+# Ask Copilot to suggest a command
+gh copilot suggest "find all TypeScript files modified in the last week"
+
+# Ask Copilot to explain a command you found online
+gh copilot explain "git log --oneline --graph --all --decorate"
+```
+
+**How it works**:
+- `suggest` — Describe what you want to do in plain English → Copilot generates the shell command
+- `explain` — Paste a command you don't understand → Copilot explains it step by step
+- Both support follow-up refinements ("make it recursive", "add a date filter")
+
+### Essential `gh` Commands for This Workshop
+
+```bash
+# Check your authentication status
+gh auth status
+
+# List issues in the current repo
+gh issue list
+
+# Create an issue (we'll use this in Section 10 for Coding Agent)
+gh issue create --title "Add input validation" --body "Add Zod validation to POST /api/products"
+
+# List pull requests
+gh pr list
+
+# View PR details and diff
+gh pr view 1 --web
+
+# Create a PR from your current branch
+gh pr create --title "Add cart feature" --body "Implements cart page from design mockup"
+
+# Clone a repo (what you did in Section 1)
+gh repo clone microsoft/GitHubCopilot_Customized
+```
+
+### 🖥️ Demo: Copilot in the CLI
+
+1. Open the VS Code integrated terminal
+2. Verify CLI is installed and authenticated:
+
+```bash
+gh --version
+gh auth status
+```
+
+3. Use `gh copilot suggest`:
+
+```bash
+gh copilot suggest "list all open issues assigned to me in this repo"
+```
+
+4. Show Copilot generating the appropriate `gh issue list` command
+5. Use `gh copilot explain`:
+
+```bash
+gh copilot explain "gh api repos/{owner}/{repo}/branches/main/protection --method PUT"
+```
+
+6. Show Copilot breaking down the GitHub API command
+7. Create an issue from the terminal:
+
+```bash
+gh issue create --title "Improve API error handling" --body "Standardize error responses across all API endpoints with proper HTTP status codes and error messages."
+```
+
+8. Show the issue appearing in the GitHub repo
+
+**Talking point**: "The CLI is your power-user interface to GitHub. Everything you can do in the browser, you can script and automate from here. And with `gh copilot`, you don't even need to memorize the commands."
+
+### 🧪 Hands-On: Try the GitHub CLI (5 min)
+
+**Exercise 1 — Copilot Suggest**:
+- Run: `gh copilot suggest "show me the most recent commits on main with a graph"`
+- Execute the suggested command
+
+**Exercise 2 — Issue Management**:
+- List issues: `gh issue list`
+- Create a test issue: `gh issue create --title "Test issue from CLI" --body "Created during the workshop hands-on exercise."`
+- Verify it exists: `gh issue list`
+
+**Exercise 3 — Explore Extensions** (Bonus):
+- Browse available extensions: `gh extension browse`
+- Or search for a specific one: `gh extension search copilot`
+
+### Success Criteria
+
+- ✅ `gh auth status` shows you are authenticated
+- ✅ You've used `gh copilot suggest` to generate a command
+- ✅ You've created an issue from the terminal with `gh issue create`
+
+### Discussion Points
+
+- How could you integrate `gh` commands into your CI/CD pipelines?
+- What repetitive GitHub tasks could you automate with CLI scripts?
+- How does `gh copilot suggest` compare to asking Copilot Chat in VS Code?
+
+---
+
+## 4. Custom Instructions (20 min)
 
 ### Key Points
 
@@ -313,7 +438,7 @@ This is the power demo — teaching Copilot about a framework it has NEVER seen.
 
 ---
 
-## 4. Custom Prompt Files (20 min)
+## 5. Custom Prompt Files (20 min)
 
 ### Key Points
 
@@ -430,7 +555,7 @@ Run the prompt and observe the results.
 
 ---
 
-## 5. Custom Agents / Chat Modes (20 min)
+## 6. Custom Agents / Chat Modes (20 min)
 
 ### Key Points
 
@@ -522,7 +647,7 @@ Create a custom agent for a workflow relevant to the project. Ideas:
 
 ---
 
-## 6. Agent Skills (20 min)
+## 7. Agent Skills (20 min)
 
 ### Key Points
 
@@ -650,7 +775,7 @@ Create `SKILL.md` that teaches Copilot the project's React component conventions
 
 ---
 
-## 7. MCP Servers — Playwright + GitHub (25 min)
+## 8. MCP Servers — Playwright + GitHub (25 min)
 
 ### Key Points
 
@@ -752,7 +877,7 @@ The repo's `.vscode/mcp.json`:
 
 ---
 
-## 8. Vision + Agent Mode Deep Dive — Cart Page (25 min)
+## 9. Vision + Agent Mode Deep Dive — Cart Page (25 min)
 
 ### Key Points
 
@@ -838,7 +963,7 @@ figurine inspired by the Mona Lisa."
 
 ---
 
-## 9. Cloud Agents: Coding Agent + PR Review Agent (20 min)
+## 10. Cloud Agents: Coding Agent + PR Review Agent (20 min)
 
 ### Key Points
 
@@ -893,7 +1018,7 @@ figurine inspired by the Mona Lisa."
 
 ### 🖥️ Demo: Show the Custom Agent → Coding Agent Handoff
 
-1. Recall the `ImplementationIdeas.agent.md` from Section 5
+1. Recall the `ImplementationIdeas.agent.md` from Section 6
 2. Show the key line: `call GitHub's create_pull_request_with_copilot`
 3. Explain: "Custom agents (IDE-level) can delegate to the Coding Agent (cloud-level). Your IDE agent researches and plans, then hands off implementation to run autonomously."
 
@@ -938,7 +1063,7 @@ figurine inspired by the Mona Lisa."
 
 ---
 
-## 10. Wrap-Up, Customization Hierarchy Recap & Q&A (10 min)
+## 11. Wrap-Up, Customization Hierarchy Recap & Q&A (10 min)
 
 ### The Full Customization Stack
 
@@ -979,35 +1104,44 @@ You've now built every layer:
 ┌────────────────────────────▼───────────────────────────────┐
 │                  INTERACTION MODES                           │
 │  Ask (explore) → Edit (refactor) → Agent (build)           │
+└────────────────────────────┬───────────────────────────────┘
+                             │
+┌────────────────────────────▼───────────────────────────────┐
+│                  GITHUB CLI                                 │
+│  gh copilot (AI commands) + gh issue/pr (project mgmt)     │
 └────────────────────────────────────────────────────────────┘
 ```
 
 ### Key Takeaways
 
 1. **Modes are your foundation** — Ask for understanding, Edit for precision, Agent for building
-2. **Custom Instructions encode tribal knowledge** — internal frameworks, standards, architecture patterns
-3. **Prompt Files create consistency** — reusable templates that any team member can run
-4. **Agents are persistent personas** — they change how Copilot behaves for an entire session
-5. **Skills are auto-selected** — Copilot loads them when relevant, no manual invocation needed
-6. **MCP extends Copilot's reach** — connect it to browsers, APIs, databases, and any external tool
-7. **Cloud agents close the loop** — from issue to PR to code review, all AI-assisted
+2. **GitHub CLI is your power-user interface** — `gh copilot` for command assistance, `gh issue`/`gh pr` for project management
+3. **Custom Instructions encode tribal knowledge** — internal frameworks, standards, architecture patterns
+4. **Prompt Files create consistency** — reusable templates that any team member can run
+5. **Agents are persistent personas** — they change how Copilot behaves for an entire session
+6. **Skills are auto-selected** — Copilot loads them when relevant, no manual invocation needed
+7. **MCP extends Copilot's reach** — connect it to browsers, APIs, databases, and any external tool
+8. **Cloud agents close the loop** — from issue to PR to code review, all AI-assisted
 
 ### What You Built Today
 
 | File | Section |
 |------|---------|
-| `.github/copilot-instructions.md` | §3 — Custom Instructions |
-| `.github/instructions/API.instructions.md` | §3 — Scoped Instructions |
-| `.github/prompts/security-review.prompt.md` | §4 — Custom Prompt Files |
-| `.github/agents/CodeReviewer.agent.md` | §5 — Custom Agents |
-| `.github/skills/*/SKILL.md` | §6 — Agent Skills |
-| Cart page implementation | §8 — Vision + Agent |
+| GitHub CLI issue | §3 — GitHub CLI |
+| `.github/copilot-instructions.md` | §4 — Custom Instructions |
+| `.github/instructions/API.instructions.md` | §4 — Scoped Instructions |
+| `.github/prompts/security-review.prompt.md` | §5 — Custom Prompt Files |
+| `.github/agents/CodeReviewer.agent.md` | §6 — Custom Agents |
+| `.github/skills/*/SKILL.md` | §7 — Agent Skills |
+| Cart page implementation | §9 — Vision + Agent |
 
 ### Resources
 
 | Resource | URL |
 |----------|-----|
 | GitHub Copilot Docs | https://docs.github.com/en/copilot |
+| GitHub CLI | https://cli.github.com |
+| Copilot in the CLI | https://docs.github.com/en/copilot/github-copilot-in-the-cli |
 | Custom Instructions | https://docs.github.com/en/copilot/how-tos/configure-custom-instructions |
 | Prompt Files | https://docs.github.com/en/copilot/how-tos/copilot-prompts |
 | Agent Skills | https://docs.github.com/en/copilot/concepts/agents/about-agent-skills |
@@ -1101,6 +1235,8 @@ license: 'MIT'                # Optional
 | Agent mode not available | Update VS Code and Copilot extension to latest |
 | Skills not loading | Verify `SKILL.md` filename (case-sensitive), check description matches prompt |
 | Custom instructions ignored | Verify file is in `.github/` root, check for syntax errors |
+| `gh` CLI not found | Install from [cli.github.com](https://cli.github.com), then run `gh auth login` |
+| `gh copilot` not available | Run `gh extension install github/gh-copilot` to install the extension |
 
 ---
 
