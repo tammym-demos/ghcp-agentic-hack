@@ -32,7 +32,6 @@ This session takes developers from casual Copilot usage to full agentic developm
 | **Copilot Extension** | GitHub Copilot + GitHub Copilot Chat extensions installed |
 | **Node.js** | Version 18 or higher |
 | **npm** | Latest version recommended |
-| **Docker/Podman** | Optional — required for local GitHub MCP server |
 | **Git** | For cloning the demo repository |
 | **GitHub CLI** | `gh` — install from [cli.github.com](https://cli.github.com) |
 
@@ -46,18 +45,18 @@ This session takes developers from casual Copilot usage to full agentic developm
 | 2 | Copilot Interaction Modes: Ask, Edit, Agent | 25 min |
 | 3 | GitHub CLI: Copilot in the Terminal & Project Management | 15 min |
 | ☕ | Break | 10 min |
-| 4 | Custom Instructions | 20 min |
-| 5 | Custom Prompt Files | 20 min |
-| 6 | Custom Agents (Chat Modes) | 20 min |
+| 4 | Custom Instructions | 25 min |
+| 5 | Custom Prompt Files | 25 min |
+| 6 | Custom Agents (Chat Modes) | 25 min |
 | 🍽️ | Break | 10 min |
-| 7 | Agent Skills | 20 min |
-| 8 | MCP Servers (Playwright + GitHub) | 25 min |
+| 7 | Agent Skills | 25 min |
+| 8 | MCP Servers (Playwright + GitHub) | 30 min |
 | ☕ | Break | 10 min |
-| 9 | Vision + Agent Mode Deep Dive (Cart Page) | 25 min |
+| 9 | Vision + Agent Mode Deep Dive (Cart Page) | 30 min |
 | 10 | Cloud Agents: Coding Agent + PR Review Agent | 20 min |
 | 11 | Wrap-Up, Customization Hierarchy Recap & Q&A | 10 min |
 
-**Total: ~250 min (~4h 10min)**
+**Total: ~280 min (~4h 40min)**
 
 ---
 
@@ -314,26 +313,45 @@ gh issue create --title "Improve API error handling" --body "Standardize error r
 
 **Talking point**: "The CLI is your power-user interface to GitHub. Everything you can do in the browser, you can script and automate from here. And with `gh copilot`, you don't even need to memorize the commands."
 
-### 🧪 Hands-On: Try the GitHub CLI (5 min)
+### 🧪 Hands-On: Try the GitHub CLI (10 min)
 
-**Exercise 1 — Copilot Suggest**:
+**Exercise 1 — Verify Setup**:
+- Confirm the CLI is installed: `gh --version`
+- Confirm you're authenticated: `gh auth status`
+
+> **Note**: If `gh auth status` shows you're not authenticated, run `gh auth login` and follow the prompts.
+
+**Exercise 2 — Copilot Suggest**:
 - Run: `gh copilot suggest "show me the most recent commits on main with a graph"`
 - Execute the suggested command
+- Try another: `gh copilot suggest "find all TypeScript files modified in the last week"`
 
-**Exercise 2 — Issue Management**:
+**Exercise 3 — Copilot Explain**:
+- Explain a git command: `gh copilot explain "git log --oneline --graph --all --decorate"`
+- Explain a GitHub API command: `gh copilot explain "gh api repos/{owner}/{repo}/branches/main/protection --method PUT"`
+
+**Exercise 4 — Issue Management**:
 - List issues: `gh issue list`
-- Create a test issue: `gh issue create --title "Test issue from CLI" --body "Created during the workshop hands-on exercise."`
-- Verify it exists: `gh issue list`
+- Create an issue (we'll use this later for Coding Agent):
 
-**Exercise 3 — Explore Extensions** (Bonus):
-- Browse available extensions: `gh extension browse`
-- Or search for a specific one: `gh extension search copilot`
+```bash
+gh issue create --title "Add input validation to Product API" --body "The POST /api/products endpoint accepts any payload without validation. Add schema validation for required fields (name, price, supplierId)."
+```
+
+- Verify it exists: `gh issue list`
+- View it in the browser: `gh issue view --web`
+
+**Exercise 5 — PR Workflow** (Bonus):
+- List open pull requests: `gh pr list`
+- Check current branch PR status: `gh pr status`
 
 ### Success Criteria
 
 - ✅ `gh auth status` shows you are authenticated
-- ✅ You've used `gh copilot suggest` to generate a command
+- ✅ You've used `gh copilot suggest` to generate a command from natural language
+- ✅ You've used `gh copilot explain` to understand a command
 - ✅ You've created an issue from the terminal with `gh issue create`
+- ✅ You've viewed the issue in the browser with `gh issue view --web`
 
 ### Discussion Points
 
@@ -424,17 +442,96 @@ This is the power demo — teaching Copilot about a framework it has NEVER seen.
 
 > **Note**: The generated code won't compile because TAO is fictional. That's intentional — it demonstrates that custom instructions override Copilot's training data.
 
-### 🧪 Hands-On: Create Your Instructions (5 min)
+### 🧪 Hands-On: Create Your Instructions (12 min)
 
-1. Use the Gear icon → "Generate Agent Instructions" to create `.github/copilot-instructions.md` (if you haven't already)
-2. Create `.github/instructions/API.instructions.md` with API-specific guidelines
-3. Test it: Ask Copilot a question about the project before and after adding instructions — notice the difference
+**Step 1: Establish a Baseline (Before Instructions)**
+
+1. Open Copilot Chat in **Ask** mode
+2. Ask the following question and note the response:
+
+```
+How should I add a new API endpoint to this project?
+```
+
+3. Pay attention to: Does Copilot mention Swagger? Does it reference existing patterns? Does it know about the project's entity model structure?
+
+**Step 2: Generate Project-Wide Instructions**
+
+1. Open Copilot Chat → click the **Gear** icon (⚙️) in the chat window
+2. Select **"Generate Agent Instructions"**
+3. Watch Copilot analyze the entire repo — it will scan the architecture, dependencies, build config, and conventions
+4. Review the generated content. It should reference:
+   - The project name and tech stack (TypeScript, React, Express)
+   - Build commands (`npm install && npm run build`)
+   - Testing framework (`vitest`)
+   - Project structure and architecture patterns
+5. Save the file to `.github/copilot-instructions.md`
+6. Open the saved file and read through it — this is Copilot's understanding of your project
+
+**Step 3: Create Scoped API Instructions**
+
+Scoped instructions activate only when you're editing files that match a glob pattern. This lets you give Copilot different guidance for different parts of the codebase.
+
+1. Create the directory: `.github/instructions/`
+2. Create the file `.github/instructions/API.instructions.md` with the following content:
+
+```markdown
+---
+applyTo: "api/**"
+---
+# API Development Instructions
+
+For REST APIs in this project:
+- Use descriptive endpoint naming following REST conventions
+- Add Swagger/OpenAPI docs for all API methods
+- Implement proper error handling with appropriate HTTP status codes
+- Follow the entity pattern established in existing routes
+- Include input validation for all POST/PUT endpoints
+```
+
+> **Note**: The `applyTo` field uses glob patterns. `api/**` means these instructions load whenever you have any file under the `api/` folder open.
+
+**Step 4: Test the Difference (After Instructions)**
+
+1. Open a file in `api/src/routes/` (e.g., `product.ts`)
+2. In Copilot Chat (**Ask** mode), ask the same question from Step 1:
+
+```
+How should I add a new API endpoint to this project?
+```
+
+3. Compare the response to your baseline. You should notice:
+   - More specific references to the project's patterns
+   - Mentions of Swagger documentation
+   - References to error handling conventions
+   - Awareness of the entity model structure
+
+**Step 5: Create a Frontend Scoped Instruction** (Bonus)
+
+1. Create `.github/instructions/Frontend.instructions.md`:
+
+```markdown
+---
+applyTo: "src/**"
+---
+# Frontend Development Instructions
+
+For React components in this project:
+- Use functional components with TypeScript
+- Use Tailwind CSS for all styling — no inline styles or CSS modules
+- Follow the existing component structure in src/components/
+- Use React hooks for state management
+- All components should be exported as default exports
+```
+
+2. Open a file in `src/` and ask Copilot about building a new component — observe the Tailwind and TypeScript guidance in the response
 
 ### Success Criteria
 
 - ✅ `.github/copilot-instructions.md` exists in your repo
 - ✅ `.github/instructions/API.instructions.md` exists with `applyTo: "api/**"`
-- ✅ You've observed a behavioral difference in Copilot responses with instructions vs. without
+- ✅ You've compared Copilot's responses before and after adding instructions and noticed the difference
+- ✅ You understand that instructions are always-on background context
 
 ---
 
@@ -507,9 +604,39 @@ Define what "done" looks like.
 
 **Talking point**: "Prompt files can reference external documentation via URLs. Copilot will fetch and incorporate live data."
 
-### 🧪 Hands-On: Create a Prompt File (7 min)
+### 🧪 Hands-On: Create and Run Prompt Files (12 min)
 
-Create a new prompt file: `.github/prompts/security-review.prompt.md`
+**Exercise 1 — Explore the Existing Prompts**
+
+Before creating your own, look at what's already in the repo:
+
+1. Open `.github/prompts/` in the file explorer
+2. Open `Unit-Test-Coverage.prompt.md` and read through it:
+   - Notice the YAML frontmatter — `mode: 'agent'` with a comprehensive tool list
+   - Notice how it describes the current state ("only 1 test file exists")
+   - Notice the detailed requirements — which entities to test, which patterns to follow
+   - Notice the success criteria with checkboxes
+3. Open `plan.prompt.md` and compare:
+   - This one explicitly says "DO NOT SHOW CODE CHANGES — only the overview"
+   - It forces Copilot to think before coding
+   - It saves the plan as a Markdown file
+4. Key takeaway: **Prompts can control not just what Copilot does, but how it thinks**
+
+**Exercise 2 — Run an Existing Prompt**
+
+1. Open `.github/prompts/Unit-Test-Coverage.prompt.md`
+2. Click the ▶️ **Run** button at the top of the file
+3. Watch Agent mode activate and observe Copilot:
+   - Reading existing test files to understand patterns
+   - Generating new test files for entities without tests
+   - Running the tests to verify they pass
+   - If tests fail, watch the self-healing: Copilot reads the errors and fixes them
+4. Let it run for a couple minutes — you can stop it early if needed
+
+**Exercise 3 — Create Your Own Prompt: Security Review**
+
+1. Create a new file: `.github/prompts/security-review.prompt.md`
+2. Add the following content:
 
 ```yaml
 ---
@@ -545,13 +672,29 @@ For each vulnerability found:
 - Create a summary report at the end
 ```
 
-Run the prompt and observe the results.
+3. Run the prompt using any of the three methods (Run button, Command Palette, or `/` in chat)
+4. Review the findings — Copilot will scan the codebase and report vulnerabilities
+
+**Exercise 4 — Design Your Own Prompt** (Bonus)
+
+Think about a repetitive task in your own work. Create a prompt for it. Ideas:
+
+- **`code-review.prompt.md`** — reviews the current changes for best practices
+- **`api-documentation.prompt.md`** — generates Swagger docs for undocumented endpoints
+- **`refactor-suggestions.prompt.md`** — identifies code that could be simplified
+
+Key tips for writing good prompts:
+- Be specific about what "done" looks like (success criteria)
+- Tell Copilot what NOT to do (constraints)
+- Reference existing files as patterns to follow
+- Choose the right `mode` — use `agent` for tasks that need to create/edit files, `ask` for analysis-only
 
 ### Success Criteria
 
-- ✅ You understand the YAML frontmatter fields (mode, description, tools)
-- ✅ You've watched the unit test prompt run and generate tests
-- ✅ You've created your own prompt file and run it successfully
+- ✅ You've explored the existing prompt files and understand their structure
+- ✅ You've run a prompt and watched Copilot execute a multi-step task
+- ✅ You've created `security-review.prompt.md` and run it successfully
+- ✅ You understand the three ways to invoke a prompt file
 
 ---
 
@@ -632,18 +775,120 @@ Be direct and opinionated. Don't say "consider" — say "change this to..."
 
 Show the new agent appearing in the mode picker immediately.
 
-### 🧪 Hands-On: Create Your Own Agent (5 min)
+### 🧪 Hands-On: Create a Custom Agent (10 min)
 
-Create a custom agent for a workflow relevant to the project. Ideas:
-- `APIDesigner.agent.md` — designs REST endpoints following existing patterns
-- `TestEngineer.agent.md` — focuses on test coverage and quality
-- `DocWriter.agent.md` — generates documentation from code
+**Exercise 1 — Explore the Existing Agent**
+
+1. Open `.github/agents/ImplementationIdeas.agent.md`
+2. Read through the file and notice:
+   - The **tools** list includes `github/*` and `playwright/*` — MCP server tools
+   - The **model** is specified — the agent picks its own model (`Claude Sonnet 4.5`)
+   - The behavior instructions tell it to research deeply, use parallel searches, and delegate to Coding Agent
+   - Key line: `call GitHub's create_pull_request_with_copilot` — this agent can trigger other agents!
+3. Open the Copilot Chat mode picker (dropdown at the top) and find "ImplementationIdeas" in the list
+
+**Exercise 2 — Build a Code Reviewer Agent**
+
+1. Create `.github/agents/CodeReviewer.agent.md` with the following content:
+
+```yaml
+---
+tools: ['codebase', 'search', 'usages', 'problems']
+description: Review code for security, performance, and best practices
+model: Claude Sonnet 4
+---
+
+You are an expert code reviewer specializing in TypeScript and React applications.
+
+When reviewing code:
+
+1. **Security**: Check for XSS, injection, insecure data handling
+2. **Performance**: Identify N+1 queries, unnecessary re-renders, memory leaks
+3. **Best Practices**: Verify error handling, input validation, type safety
+4. **Maintainability**: Check naming, code organization, DRY violations
+
+Always provide:
+- Severity level (Critical / Warning / Suggestion)
+- Specific file and line references
+- Concrete fix recommendations with code examples
+
+Be direct and opinionated. Don't say "consider" — say "change this to..."
+```
+
+2. Check the mode picker — "CodeReviewer" should appear immediately (no reload needed)
+
+**Exercise 3 — Test Your Agent**
+
+1. Select **CodeReviewer** from the mode picker
+2. Ask it to review a specific file:
+
+```
+Review the product route handler for security and performance issues
+```
+
+3. Notice how the agent stays in character — every response follows the review format you defined
+4. Ask a follow-up question:
+
+```
+Now review the error handling across all API routes
+```
+
+5. The agent maintains its persona across the entire conversation
+
+**Exercise 4 — Create Your Own Agent**
+
+Choose a persona that would be useful for this project and create it:
+
+**Option A: `APIDesigner.agent.md`**
+
+```yaml
+---
+tools: ['codebase', 'search', 'editFiles', 'runCommands']
+description: Design and implement REST API endpoints following project patterns
+model: Claude Sonnet 4
+---
+
+You are an API architect specializing in Express.js and TypeScript.
+[Add behavior instructions: how to design endpoints, which patterns to follow,
+how to handle validation, what Swagger docs to generate...]
+```
+
+**Option B: `TestEngineer.agent.md`**
+
+```yaml
+---
+tools: ['codebase', 'search', 'editFiles', 'runCommands', 'problems', 'findTestFiles']
+description: Design and write comprehensive test suites
+model: Claude Sonnet 4
+---
+
+You are a test engineering expert focused on TypeScript applications using vitest.
+[Add behavior instructions: what to test, coverage targets, testing patterns,
+how to handle mocking, edge cases to consider...]
+```
+
+**Option C: `DocWriter.agent.md`**
+
+```yaml
+---
+tools: ['codebase', 'search', 'editFiles']
+description: Generate and maintain project documentation from code
+model: Claude Sonnet 4
+---
+
+You are a technical writer who creates clear, concise documentation.
+[Add behavior instructions: documentation style, what to document,
+README structure, API doc format, code comment standards...]
+```
+
+Fill in the behavior instructions with your own rules, then test the agent with a real task.
 
 ### Success Criteria
 
-- ✅ You understand the difference between prompt files and agent files
-- ✅ You've seen the ImplementationIdeas agent delegate to Coding Agent
-- ✅ You've created a custom agent and it appears in the chat mode picker
+- ✅ You've explored the existing ImplementationIdeas agent and understand how it's structured
+- ✅ You've created the CodeReviewer agent and tested it with a review request
+- ✅ You've created your own custom agent and it appears in the chat mode picker
+- ✅ You understand that agents persist for the entire chat session, unlike prompts
 
 ---
 
@@ -747,31 +992,121 @@ Show attendees where to find community skills:
 
 **Talking point**: "Skills are an open standard. You can use skills from the community or write your own."
 
-### 🧪 Hands-On: Create a Skill for OctoCAT Supply (7 min)
+### 🧪 Hands-On: Create an Agent Skill (12 min)
 
-Create a skill relevant to the project. Recommended:
+**Exercise 1 — Create an API Route Creation Skill**
 
-**Option A: `api-route-creation` skill**
+1. Create the directory structure:
 
 ```bash
 mkdir -p .github/skills/api-route-creation
 ```
 
-Create `SKILL.md` that teaches Copilot how to create new API routes following the project's patterns (reference existing routes as templates).
+2. Create `.github/skills/api-route-creation/SKILL.md` with the following content:
 
-**Option B: `react-component-creation` skill**
+```yaml
+---
+name: api-route-creation
+description: Guide for creating new API routes in the Express.js backend.
+  Use this when asked to add new endpoints, entities, or REST resources.
+---
+
+Follow this process when creating new API routes:
+
+1. **Create the entity model** in `api/src/models/`
+   - Follow the TypeScript interface pattern from existing models
+   - Include all required and optional fields with proper types
+
+2. **Create the route file** in `api/src/routes/`
+   - Follow the pattern from `api/src/routes/product.ts`
+   - Implement full CRUD: GET (list), GET (by ID), POST, PUT, DELETE
+   - Add proper error handling with try/catch and appropriate HTTP status codes
+
+3. **Register the route** in `api/src/index.ts`
+   - Import the new route module
+   - Add it to the Express app with the correct base path
+
+4. **Add Swagger documentation**
+   - Add JSDoc annotations with @swagger tags on each endpoint
+   - Include request/response schemas, parameters, and example values
+
+5. **Create tests** in `api/src/routes/<entity>.test.ts`
+   - Follow the pattern from existing test files
+   - Test all CRUD operations and error scenarios
+   - Use vitest as the test framework
+```
+
+**Exercise 2 — Test the Skill Auto-Selection**
+
+The key difference between skills and prompts is that **you don't invoke skills manually** — Copilot selects them based on your prompt matching the skill's `description` field.
+
+1. Switch to **Agent** mode in Copilot Chat
+2. Enter a prompt that should trigger the skill:
+
+```
+I need to add a new "Warehouse" entity and API endpoints for managing warehouses. Each warehouse has a name, address, city, state, zipCode, and capacity.
+```
+
+3. Watch Copilot work — it should follow the steps from your skill: create the model, create the route, register it, add Swagger docs
+4. Check whether the generated code follows the patterns you specified
+
+**Exercise 3 — Create a Second Skill** (Bonus)
+
+Create a `react-component-creation` skill:
 
 ```bash
 mkdir -p .github/skills/react-component-creation
 ```
 
-Create `SKILL.md` that teaches Copilot the project's React component conventions (functional components, Tailwind CSS, TypeScript).
+Create `.github/skills/react-component-creation/SKILL.md`:
+
+```yaml
+---
+name: react-component-creation
+description: Guide for creating new React components in the frontend.
+  Use this when asked to add new pages, UI components, or frontend features.
+---
+
+Follow this process when creating new React components:
+
+1. **Create the component file** in `src/components/` or `src/pages/`
+   - Use functional components with TypeScript (.tsx)
+   - Use Tailwind CSS for all styling — no inline styles or CSS modules
+   - Export the component as the default export
+
+2. **Add routing** (if it's a page)
+   - Add the route to the router configuration
+   - Add a navigation link if appropriate
+
+3. **Connect to the API** (if needed)
+   - Use fetch or the existing API utility for data fetching
+   - Handle loading, error, and empty states
+   - Add TypeScript interfaces for API response types
+
+4. **Follow existing patterns**
+   - Reference `src/pages/Products.tsx` for page structure
+   - Reference `src/components/` for reusable component patterns
+```
+
+Test it by asking Copilot: `Create a Warehouses page that shows a list of all warehouses with their addresses`
+
+### Where to Find More Skills
+
+- [anthropics/skills](https://github.com/anthropics/skills) — Anthropic's reference skills
+- [github/awesome-copilot](https://github.com/github/awesome-copilot) — community-curated collection
+
+### Personal Skills
+
+You can also create **personal skills** that apply across all your repos:
+- Location: `~/.copilot/skills/*/SKILL.md`
+- These are private to your machine — not shared via git
+- Great for personal coding preferences or tools only you use
 
 ### Success Criteria
 
-- ✅ You've created a `.github/skills/` directory with a working SKILL.md
-- ✅ You understand skills vs instructions (auto-selected vs always-on)
-- ✅ You've seen Copilot auto-select a skill based on your prompt
+- ✅ You've created `.github/skills/api-route-creation/SKILL.md` with a complete step-by-step guide
+- ✅ You've tested the skill by asking Copilot to create a new entity and observed it following your steps
+- ✅ You understand the difference: instructions = always-on, skills = auto-selected, prompts = manually invoked
 
 ---
 
@@ -861,19 +1196,105 @@ The repo's `.vscode/mcp.json`:
 
 **Talking point**: "You just managed your GitHub project without leaving VS Code. The GitHub MCP server gives Copilot full access to issues, PRs, and repo data."
 
-### 🧪 Hands-On: Use Playwright MCP (8 min)
+### 🧪 Hands-On: MCP Servers — Playwright + GitHub (15 min)
 
-1. Start the Playwright MCP server
-2. Ask Copilot to browse to your running app and test a feature:
-   - `Browse to http://localhost:5137, go to Products, and verify all products have images and prices displayed`
-3. Try generating a `.feature` file for a specific page
-4. (Bonus) Ask Copilot to execute the feature file
+**Exercise 1 — Start the MCP Servers**
+
+1. Open `.vscode/mcp.json` in the editor — you'll see a HUD display above each server with a **Start** button. Click **Start** for both servers.
+
+   > **Alternative**: Open the Command Palette (`Ctrl+Shift+P`) → type `MCP: List servers` → start each server from the list.
+
+2. For the **GitHub** server: The first time you start it, you'll see an OAuth authentication flow. Follow the prompts to authorize Copilot to access your GitHub account.
+
+3. Verify both servers are running: Command Palette → `MCP: List servers` — both should show a green status.
+
+**Exercise 2 — Browse Your App with Playwright**
+
+1. Switch to **Agent** mode in Copilot Chat
+2. Ask Copilot to explore your running application:
+
+```
+Browse to http://localhost:5137 and describe what you see on the home page
+```
+
+3. Watch Copilot:
+   - Launch a browser window (you'll see it open)
+   - Navigate to the URL
+   - Take a screenshot and analyze the page
+   - Describe the UI elements it finds
+4. Now ask it to interact with the app:
+
+```
+Navigate to the Products page and click on the first product. Describe the product details you see.
+```
+
+5. Copilot will click through the UI, read the content, and report back
+
+**Exercise 3 — Functional Testing with Natural Language**
+
+1. Ask Copilot to verify specific functionality:
+
+```
+Browse to http://localhost:5137, go to Products, and verify that:
+1. All products have images displayed
+2. All products show a price
+3. The "Add to Cart" button is visible on each product
+Report any issues you find.
+```
+
+2. Review the results — Copilot will check each condition and report pass/fail
+3. Try a more specific test:
+
+```
+Go to the Products page, click "Add to Cart" on any product, and tell me what happens
+```
+
+**Exercise 4 — Generate BDD Test Scenarios**
+
+1. Ask Copilot to create a formal test specification:
+
+```
+Based on what you've seen in the app, generate a Gherkin .feature file that tests the Products page functionality including viewing products, viewing product details, and the add-to-cart behavior
+```
+
+2. Review the generated `.feature` file — it should contain scenarios like:
+   - `Given I navigate to the Products page`
+   - `Then I should see a list of products`
+   - `When I click on a product`
+   - `Then I should see the product details`
+
+**Exercise 5 — GitHub MCP: Manage Issues from Chat**
+
+1. With the GitHub MCP server running, ask Copilot:
+
+```
+Check which issues are currently open in this repo
+```
+
+2. Copilot will fetch issues via the GitHub API — no terminal needed
+3. Create an issue directly from chat:
+
+```
+Create a GitHub Issue titled "Add product search functionality" with a description that includes acceptance criteria for searching products by name and category
+```
+
+4. Verify the issue was created by checking in your browser or asking: `Show me the issue you just created`
+
+**Exercise 6 — Combine Both MCP Servers** (Bonus)
+
+This is where things get powerful — use Playwright to find a bug, then use GitHub to file an issue:
+
+```
+Browse to http://localhost:5137 and test all the navigation links. If any pages are missing or broken, create a GitHub Issue for each problem you find.
+```
 
 ### Success Criteria
 
-- ✅ Both MCP servers are running (check via `MCP: List servers`)
-- ✅ You've seen Playwright navigate your app from a chat prompt
-- ✅ You've seen GitHub MCP create an issue in your repo
+- ✅ Both MCP servers are running (green status in `MCP: List servers`)
+- ✅ You've seen Playwright navigate your app and describe what it sees
+- ✅ You've run a natural-language functional test against your running app
+- ✅ You've used GitHub MCP to create or list issues from Copilot Chat
+- ✅ You understand that MCP connects Copilot to the real world beyond just code files
 
 ---
 
@@ -939,13 +1360,15 @@ NavBar that shows the number of items in the Cart.
 
 **Talking point**: "From a PNG image to a working cart feature in minutes. Copilot read the design, planned the architecture, and implemented across multiple files. This is what 'agentic' means — it's not autocomplete, it's a collaborator."
 
-### 🧪 Hands-On: Add a Product from an Image (10 min)
+### 🧪 Hands-On: Vision + Agent Mode — Image to Implementation (15 min)
 
-Use the Mona Figurine design image to add a new product:
+**Exercise 1 — Add a New Product Using Vision**
 
-1. Open Agent mode
-2. Drag `docs/design/MonaFigurine.png` into the chat
-3. Enter:
+1. Make sure your app is running (`npm run dev`)
+2. Open the Products page in your browser (`http://localhost:5137`) — note the current products
+3. Open Copilot Chat → switch to **Agent** mode
+4. Drag `docs/design/MonaFigurine.png` into the chat (or use the paperclip icon)
+5. Enter the following prompt:
 
 ```
 Using the image, create a new product offering on the OctoCAT Supply website.
@@ -953,13 +1376,79 @@ Price is $32.99, SKU is MONA-001, and description is "A beautiful handcrafted
 figurine inspired by the Mona Lisa."
 ```
 
-4. Accept the changes and verify in the running app
+6. Watch Copilot:
+   - Analyze the image (identifying the figurine, its appearance, colors)
+   - Determine which files need to change (product data, possibly images)
+   - Make the changes across the codebase
+7. Review and accept the changes
+8. Verify in the browser: Refresh the Products page — the Mona Figurine should appear
+
+**Exercise 2 — Build the Cart Page (Plan → Agent)**
+
+This is the full design-to-implementation workflow:
+
+**Phase 1: Plan**
+
+1. Open a **new** Copilot Chat session (click the + icon for a fresh conversation)
+2. Drag `docs/design/cart.png` into the chat
+3. Enter:
+
+```
+I need to implement a simple Cart Page based on this design. I also want a
+Cart icon in the NavBar that shows the number of items in the Cart.
+Please analyze the design and create a detailed implementation plan before
+writing any code.
+```
+
+4. Review the plan Copilot proposes. It should include:
+   - Which new files need to be created (CartPage, CartIcon, CartContext)
+   - Which existing files need to be modified (NavBar, routes)
+   - The state management approach (React Context, local state)
+   - The UI components and their relationships
+5. If you want to adjust the scope, tell Copilot:
+   - `Remove the discount code feature — keep it simple`
+   - `Use local state instead of Context for now`
+   - `Don't worry about the checkout button — just show the cart contents`
+
+**Phase 2: Implement**
+
+1. Once you're happy with the plan, enter:
+
+```
+Implement the changes based on the plan.
+```
+
+2. Watch Copilot work across multiple files:
+   - Creating new React components
+   - Modifying the NavBar
+   - Updating route configuration
+   - Adding state management
+3. Copilot may iterate — if it encounters errors, it will read them and fix them automatically
+
+**Phase 3: Verify**
+
+1. Open the app in your browser (`http://localhost:5137`)
+2. Navigate to Products → click "Add to Cart" on several products
+3. Check the NavBar — the cart icon should show the item count
+4. Click the Cart icon → verify the Cart page shows your items with quantities and totals
+
+**Exercise 3 — Use Playwright to Validate** (Bonus)
+
+If you have Playwright MCP running from Lab 8, combine Vision output with browser testing:
+
+```
+Using Playwright, browse to http://localhost:5137, add three different products to the
+cart, navigate to the cart page, and verify that all three products appear with the
+correct prices and quantities.
+```
 
 ### Success Criteria
 
-- ✅ You've used Vision (dragging an image into chat)
-- ✅ You've used the Plan → Agent workflow
-- ✅ Cart page is working in your app (or the Mona figurine product is added)
+- ✅ You've attached an image to Copilot Chat using drag-and-drop or the paperclip icon
+- ✅ The Mona Figurine product appears on the Products page
+- ✅ You've used the Plan → Implement → Verify workflow for the cart feature
+- ✅ The Cart page is functional (or you've made significant progress on it)
+- ✅ You understand how Vision, Agent mode, and MCP work together as a complete workflow
 
 ---
 
