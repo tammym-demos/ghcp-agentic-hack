@@ -72,9 +72,9 @@ Run through this **the day before** and again **30 minutes before** the workshop
 
 ---
 
-## Demo 1: Copilot Interaction Modes (Section 2)
+## Demo 1: Copilot Chat Modes (Section 2)
 
-**Objective**: Show the three interaction modes and when to use each  
+**Objective**: Show the three chat modes and when to use each  
 **Duration**: 5 min demo + 8 min hands-on = 13 min  
 **After Slide**: 10
 
@@ -106,19 +106,17 @@ Run through this **the day before** and again **30 minutes before** the workshop
    ```
 6. **Show response**: Copilot typically identifies missing features like authentication, proper error handling, or cart functionality (which we'll build later!)
 
-#### Part B: Edit Mode (1.5 min)
+#### Part B: Plan Mode (1.5 min)
 
-1. **Open** `api/src/routes/product.ts`
-2. **Select** a route handler function (e.g., the GET route)
-3. **Switch** to **Edit** mode in the chat dropdown
-4. **Enter prompt**:
+1. **Open Copilot Chat** → switch to **Plan** mode from the mode dropdown
+2. **Enter prompt**:
    ```
-   Add JSDoc comments to this function with parameter descriptions and return type
+   I want to add input validation to the Product API POST endpoint. What's the best approach?
    ```
-5. **Show** the inline diff preview appearing in the editor
-6. **Point out**: The green/red diff markers, the accept/reject buttons
-7. **Accept** the change
-8. **Talking point**: "Edit mode is surgical. It shows you exactly what will change before you accept. Great for refactoring."
+3. **Show** Copilot analyzing the codebase and proposing a structured implementation plan
+4. **Point out**: The plan lists which files need to change, what approach to take, step-by-step instructions
+5. **Highlight**: Plan mode does NOT create or modify any files — it only proposes
+6. **Talking point**: "Plan mode is your architect. It reads your codebase, analyzes the problem, and proposes a plan — without touching any code. You review the plan, then switch to Agent mode to implement."
 
 #### Part C: Agent Mode (1.5 min)
 
@@ -139,7 +137,7 @@ Run through this **the day before** and again **30 minutes before** the workshop
 Tell attendees:
 > "Try all three modes. Here are prompts to start with:
 > - **Ask**: `What testing framework does this project use and what's the current test coverage?`
-> - **Edit**: Open any route file, select a function, and ask Edit mode to add error handling
+> - **Plan**: `How should I add comprehensive error handling to the API routes?` — note it doesn't change any files
 > - **Agent**: `Build and run the project` (if not already running)
 > 
 > You have 8 minutes. I'll walk around to help."
@@ -147,8 +145,8 @@ Tell attendees:
 ### Key Points to Emphasize
 
 - Ask = read-only intelligence (safe for production exploration)
-- Edit = surgical diffs with preview (safe for targeted changes)
-- Agent = full codebase access + terminal (the power mode)
+- Plan = architectural planning without code changes (think before you build)
+- Agent = full codebase access + terminal + file editing (the power mode)
 - Mode selection matters more than prompt quality
 
 ### Backup Plan
@@ -448,7 +446,7 @@ If the Unit Test prompt takes too long:
    - **Behavior**: "FIRST deeply research... THEN implement via Coding Agent"
    - **Key line**: "call GitHub's `create_pull_request_with_copilot`" — "This agent delegates to an autonomous agent"
 3. **Show the mode picker**: Click the mode dropdown in Copilot Chat
-4. **Point out** "ImplementationIdeas" appearing alongside Ask/Edit/Agent
+4. **Point out** "ImplementationIdeas" appearing alongside Ask/Agent/Plan
 5. **Talking point**: "Agents are personas, not tasks. When you select this agent, it changes how Copilot thinks for your entire session."
 
 #### Part B: Create a CodeReviewer Agent Live (2 min)
@@ -973,7 +971,7 @@ If Coding Agent isn't available or takes too long:
 
 | Demo | Section | Demo Time | Hands-On | Total |
 |------|---------|-----------|----------|-------|
-| 1 | Interaction Modes | 5 min | 8 min | 13 min |
+| 1 | Chat Modes | 5 min | 8 min | 13 min |
 | 2 | GitHub CLI | 5 min | 5 min | 10 min |
 | 3 | Custom Instructions | 5 min | 5 min | 10 min |
 | 4 | Custom Prompt Files | 6 min | 7 min | 13 min |

@@ -10,11 +10,11 @@
 
 ## Workshop Overview
 
-This session takes developers from casual Copilot usage to full agentic development. Starting with interaction modes and progressing through customization layers—instructions, prompts, agents, skills, and MCP servers—attendees build a complete understanding of how to tailor Copilot to their teams and workflows. The session culminates with Vision-powered agentic coding and fully autonomous cloud agents (Coding Agent + PR Review Agent).
+This session takes developers from casual Copilot usage to full agentic development. Starting with chat modes and progressing through customization layers—instructions, prompts, agents, skills, and MCP servers—attendees build a complete understanding of how to tailor Copilot to their teams and workflows. The session culminates with Vision-powered agentic coding and fully autonomous cloud agents (Coding Agent + PR Review Agent).
 
 ### Learning Objectives
 
-- Master Copilot's three interaction modes: Ask, Edit, and Agent
+- Master Copilot's three chat modes: Ask, Agent, and Plan
 - Use the GitHub CLI (`gh`) for Copilot-powered terminal assistance and project management
 - Create custom instructions that encode team standards and internal frameworks
 - Build reusable prompt files and custom agents (chat modes) for repeatable workflows
@@ -42,7 +42,7 @@ This session takes developers from casual Copilot usage to full agentic developm
 | Section | Topic | Time |
 |---------|-------|------|
 | 1 | Welcome, Objectives & Environment Setup | 20 min |
-| 2 | Copilot Interaction Modes: Ask, Edit, Agent | 25 min |
+| 2 | Copilot Chat Modes: Ask, Agent, Plan | 25 min |
 | 3 | GitHub CLI: Copilot in the Terminal & Project Management | 15 min |
 | ☕ | Break | 10 min |
 | 4 | Custom Instructions | 25 min |
@@ -67,8 +67,8 @@ This workshop follows a deliberate progression:
 ```
 ZERO                    CUSTOMIZE                   EXTEND                    AGENTS
 ───────────────────►  ───────────────────────────► ──────────────────────►  ─────────────────►
-Interaction Modes      Instructions → Prompts →     MCP Servers              Vision + Agent
-(Ask, Edit, Agent)     Agents → Skills              (Playwright, GitHub)     Coding Agent
+Chat Modes             Instructions → Prompts →     MCP Servers              Vision + Agent
+(Ask, Agent, Plan)     Agents → Skills              (Playwright, GitHub)     Coding Agent
 GitHub CLI                                                                   PR Review Agent
 ```
 
@@ -141,28 +141,29 @@ npm run dev
 
 ---
 
-## 2. Copilot Interaction Modes: Ask, Edit, Agent (25 min)
+## 2. Copilot Chat Modes: Ask, Agent, Plan (25 min)
 
 ### Key Points
 
-- Copilot has three core interaction modes — each optimized for different tasks
+- Copilot has three chat modes — each optimized for different tasks
 - Most developers only use one or two — understanding all three unlocks the full value
-- Modes are selected in the Copilot Chat panel (dropdown at the top)
+- Modes are selected from the Copilot Chat mode picker (dropdown at the top)
+- Agent mode also offers sub-types: Local, Background, Cloud, and Claude — controlling where and how the agent runs
 
 ### Mode Comparison
 
 | Mode | Best For | Context | Output |
 |------|----------|---------|--------|
 | **Ask** | Exploring, learning, understanding code | Reads codebase, open files, `@workspace` | Text explanations, code snippets in chat |
-| **Edit** | Targeted inline changes, refactoring | Selected code, current file | Inline diff applied to file |
-| **Agent** | Multi-file tasks, building features, running commands | Full codebase, terminal, tools | Creates/edits multiple files, runs commands |
+| **Agent** | Building features, editing code, running commands | Full codebase, terminal, tools | Creates/edits files (single or multi-file), runs commands |
+| **Plan** | Analyzing, planning, proposing changes | Reads codebase, images, context | Implementation plans and proposals (no file changes) |
 
 ### When to Use Each Mode — Decision Framework
 
 ```
 "I need to understand something"          → Ask
-"I need to change specific code"          → Edit
-"I need to build/fix/create something"    → Agent
+"I need to build/fix/change something"    → Agent
+"I need to plan before implementing"      → Plan
 ```
 
 ### 🖥️ Demo: Ask Mode
@@ -175,15 +176,30 @@ npm run dev
 
 **Talking point**: "Ask mode is your read-only expert. It understands your entire codebase but doesn't change anything. Perfect for onboarding or exploring unfamiliar code."
 
-### 🖥️ Demo: Edit Mode
+### Agent Sub-Types
 
-1. Open `api/src/routes/product.ts`
-2. Select a route handler function
-3. Switch to **Edit** mode
-4. Enter: `Add JSDoc comments to this function with parameter descriptions and return type`
-5. Show the inline diff preview — accept or reject
+When you select Agent mode, a second picker lets you choose the agent type — controlling where and how the agent runs:
 
-**Talking point**: "Edit mode is surgical. It works on the code you've selected and shows you exactly what it wants to change before applying."
+| Type | Where It Runs | Best For |
+|------|---------------|----------|
+| **Local** | Your IDE, interactive | Day-to-day coding, exploring, building features |
+| **Background** | Your IDE, non-blocking | Longer tasks you want to run while continuing other work |
+| **Cloud** | GitHub servers | Autonomous coding from GitHub Issues (see Section 10) |
+| **Claude** | Claude model via IDE | Tasks benefiting from Claude's specific capabilities |
+
+> **Note**: Throughout this workshop, we primarily use the **Local** agent type. Section 10 covers the **Cloud** agent type (Coding Agent) in detail.
+
+### 🖥️ Demo: Plan Mode
+
+1. Open Copilot Chat → select **Plan** mode
+2. Enter: `I want to add input validation to the Product API POST endpoint. What's the best approach?`
+3. Show Copilot analyzing the codebase and proposing a detailed implementation plan:
+   - Which files need to change
+   - What validation library to use
+   - Step-by-step approach
+4. Show that Plan mode does NOT create or modify any files — it only proposes
+
+**Talking point**: "Plan mode is your architect. It reads your codebase, analyzes the problem, and proposes a plan — without touching any code. We'll use this extensively in Section 9 when we build a feature from a design mockup."
 
 ### 🖥️ Demo: Agent Mode
 
@@ -203,9 +219,10 @@ npm run dev
 - Ask Copilot: `What testing framework does this project use and what's the current test coverage?`
 - Note the answer for later (we'll generate tests in Section 5)
 
-**Exercise 2 — Edit Mode**:
-- Open any route file in `api/src/routes/`
-- Select a function and ask Edit mode to add error handling or input validation
+**Exercise 2 — Plan Mode**:
+- Switch to **Plan** mode
+- Enter: `How should I add comprehensive error handling to the API routes?`
+- Review the plan Copilot proposes — note it doesn't change any files
 
 **Exercise 3 — Agent Mode**:
 - If your app isn't running, use Agent mode: `Build and run the project`
@@ -213,9 +230,10 @@ npm run dev
 
 ### Success Criteria
 
-- ✅ You can switch between Ask, Edit, and Agent modes
+- ✅ You can switch between Ask, Agent, and Plan modes
 - ✅ You've received a codebase-aware answer from Ask mode
-- ✅ You've applied an inline edit and accepted/rejected it
+- ✅ You've seen Plan mode propose changes without modifying files
+- ✅ Agent mode has created or edited files and run terminal commands
 - ✅ Your app is running (API on :3000, Frontend on :5137)
 
 ---
@@ -548,7 +566,7 @@ For React components in this project:
 
 ```yaml
 ---
-mode: 'agent'                    # Which mode to use (ask, edit, agent)
+mode: 'agent'                    # Which mode to use (ask, agent, plan)
 description: 'Description here'  # Shows in the prompt picker
 tools: ['changes', 'codebase',   # Which tools the agent can use
   'editFiles', 'runCommands',
@@ -703,7 +721,7 @@ Key tips for writing good prompts:
 ### Key Points
 
 - Agents are persistent chat personas stored in `.github/agents/*.agent.md`
-- They appear in the Copilot Chat mode picker alongside Ask, Edit, and Agent
+- They appear in the Copilot Chat mode picker alongside Ask, Agent, and Plan
 - Each agent can specify its own model, tool set, and behavior
 - Agents vs Prompts:
 
@@ -1591,8 +1609,8 @@ You've now built every layer:
 └────────────────────────────┬───────────────────────────────┘
                              │
 ┌────────────────────────────▼───────────────────────────────┐
-│                  INTERACTION MODES                           │
-│  Ask (explore) → Edit (refactor) → Agent (build)           │
+│                      CHAT MODES                              │
+│  Ask (explore) → Plan (design) → Agent (build)             │
 └────────────────────────────┬───────────────────────────────┘
                              │
 ┌────────────────────────────▼───────────────────────────────┐
@@ -1603,7 +1621,7 @@ You've now built every layer:
 
 ### Key Takeaways
 
-1. **Modes are your foundation** — Ask for understanding, Edit for precision, Agent for building
+1. **Modes are your foundation** — Ask for understanding, Plan for design, Agent for building
 2. **GitHub CLI is your power-user interface** — `gh copilot` for command assistance, `gh issue`/`gh pr` for project management
 3. **Custom Instructions encode tribal knowledge** — internal frameworks, standards, architecture patterns
 4. **Prompt Files create consistency** — reusable templates that any team member can run
@@ -1684,7 +1702,7 @@ You've now built every layer:
 
 ```yaml
 ---
-mode: 'agent'              # 'ask', 'edit', or 'agent'
+mode: 'agent'              # 'ask', 'agent', or 'plan'
 description: 'Text'        # Shown in the prompt picker
 tools: ['tool1', 'tool2']  # Available tools for agent mode
 ---

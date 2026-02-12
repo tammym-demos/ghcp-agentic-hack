@@ -70,17 +70,17 @@ npm run dev
 
 ---
 
-## Lab 2: Try All Three Interaction Modes (8 min)
+## Lab 2: Try All Three Chat Modes (8 min)
 
-> **Workshop Section**: 2 — Copilot Interaction Modes: Ask, Edit, Agent
+> **Workshop Section**: 2 — Copilot Chat Modes: Ask, Agent, Plan
 
 ### Mode Reference
 
 | Mode | Best For | Output |
 |------|----------|--------|
 | **Ask** | Exploring, learning, understanding code | Text explanations, code snippets in chat |
-| **Edit** | Targeted inline changes, refactoring | Inline diff applied to file |
-| **Agent** | Multi-file tasks, building features, running commands | Creates/edits multiple files, runs commands |
+| **Agent** | Building features, editing code, running commands | Creates/edits files (single or multi-file), runs commands |
+| **Plan** | Analyzing, planning, proposing changes | Implementation plans and proposals (no file changes) |
 
 ### Steps
 
@@ -95,13 +95,17 @@ What testing framework does this project use and what's the current test coverag
 
 3. Note the answer — you'll use this information in Lab 5 when generating tests
 
-**Exercise 2 — Edit Mode**:
+**Exercise 2 — Plan Mode**:
 
-1. Open any route file in `api/src/routes/` (e.g., `product.ts`)
-2. Select a function in the file
-3. Switch to **Edit** mode
-4. Ask Edit mode to add error handling or input validation to the selected function
-5. Review the inline diff preview — accept or reject the change
+1. Switch to **Plan** mode from the mode dropdown
+2. Enter the following prompt:
+
+```
+How should I add comprehensive error handling to the API routes?
+```
+
+3. Review the plan Copilot proposes — notice it lists which files need to change, what approach to take, and step-by-step instructions
+4. Importantly, Plan mode does NOT create or modify any files — it only proposes
 
 **Exercise 3 — Agent Mode**:
 
@@ -120,9 +124,10 @@ Open the Swagger documentation page for the API
 
 ### Success Criteria
 
-- ✅ You can switch between Ask, Edit, and Agent modes
+- ✅ You can switch between Ask, Agent, and Plan modes
 - ✅ You've received a codebase-aware answer from Ask mode
-- ✅ You've applied an inline edit and accepted/rejected it
+- ✅ You've seen Plan mode propose changes without modifying files
+- ✅ Agent mode has created or edited files and run terminal commands
 - ✅ Your app is running (API on :3000, Frontend on :5137)
 
 ---
@@ -372,7 +377,7 @@ Prompt files are **reusable task templates** that encode complex workflows into 
 
 ```yaml
 ---
-mode: 'agent'                    # Which mode to use (ask, edit, agent)
+mode: 'agent'                    # Which mode to use (ask, agent, plan)
 description: 'Description here'  # Shows in the prompt picker
 tools: ['changes', 'codebase',   # Which tools the agent can use
   'editFiles', 'runCommands',
@@ -1043,7 +1048,7 @@ correct prices and quantities.
 | Lab | File / Artifact Created | Workshop Section |
 |-----|------------------------|------------------|
 | 1 | Environment setup & running app | §1 |
-| 2 | Explored Ask, Edit, and Agent modes | §2 |
+| 2 | Explored Ask, Agent, and Plan modes | §2 |
 | 3 | GitHub CLI issue | §3 |
 | 4 | `.github/copilot-instructions.md` | §4 |
 | 4 | `.github/instructions/API.instructions.md` | §4 |

@@ -35,7 +35,7 @@
 | Time | Topic |
 |------|-------|
 | 20 min | Welcome & Environment Setup |
-| 25 min | Copilot Interaction Modes (Ask, Edit, Agent) |
+| 25 min | Copilot Chat Modes (Ask, Agent, Plan) |
 | 15 min | GitHub CLI: Copilot in the Terminal & Project Management |
 | ☕ 10 min | Break |
 | 20 min | Custom Instructions |
@@ -63,10 +63,10 @@
   ZERO              CUSTOMIZE             EXTEND              AGENTS
   ─────►           ──────────►           ─────────►          ─────────►
 
-  Interaction       Instructions          MCP Servers         Vision + Agent
-  Modes             Prompt Files          (Playwright,        Coding Agent
-  (Ask/Edit/Agent)  Agents/Chat Modes     GitHub)             PR Review Agent
-  GitHub CLI        Agent Skills
+  Chat Modes         Instructions          MCP Servers         Vision + Agent
+  (Ask/Agent/Plan)   Prompt Files          (Playwright,        Coding Agent
+                     Agents/Chat Modes     GitHub)             PR Review Agent
+  GitHub CLI         Agent Skills
 ```
 
 **Each layer builds on the last.**
@@ -125,31 +125,31 @@ npm install && npm run dev
 
 ---
 
-# SECTION: Interaction Modes
+# SECTION: Chat Modes
 
 ---
 
 ## Slide 6: Three Ways to Talk to Copilot
 
-### Ask, Edit, Agent
+### Ask, Agent, Plan
 
 | Mode | Purpose | Scope | Changes Files? |
 |------|---------|-------|:--------------:|
 | **Ask** | Explore, learn, understand | Entire codebase | No |
-| **Edit** | Targeted inline changes | Selected code / current file | Yes (with preview) |
-| **Agent** | Build features, run commands | Full codebase + terminal | Yes (multi-file) |
+| **Agent** | Build features, edit code, run commands | Full codebase + terminal | Yes (single or multi-file) |
+| **Plan** | Analyze, plan, propose changes | Entire codebase + images | No |
 
 ### Decision Framework
 
 ```
 "I need to understand something"     → Ask
-"I need to change specific code"     → Edit
-"I need to build/fix/create"         → Agent
+"I need to build/fix/change"         → Agent
+"I need to plan before building"     → Plan
 ```
 
 ---
 
-> **Presenter Note**: "Most of you have probably used completions. Some of you have used chat. But the mode you select dramatically affects what Copilot can do. Let me show you the difference."
+> **Presenter Note**: "Most of you have probably used completions. Some of you have used chat. But the mode you select dramatically affects what Copilot can do. Let me show you the difference. Note that Agent mode now also has sub-types — Local, Background, Cloud, and Claude — which control where and how the agent runs."
 
 ---
 
@@ -176,25 +176,25 @@ Are there any core features missing?
 
 ---
 
-## Slide 8: Edit Mode — Surgical Changes
+## Slide 8: Plan Mode — Think Before You Build
 
-### What Edit Mode Does
+### What Plan Mode Does
 
-- Works on selected code or the current file
-- Shows inline diffs before applying
-- Accept/reject individual changes
-- **Targeted, precise, reviewable**
+- Analyzes your codebase, images, and context
+- Proposes implementation plans and architectural approaches
+- Identifies which files need to change and what steps to take
+- **Never modifies** any files — planning only
 
 ### Great For
 
-- Adding JSDoc/documentation to functions
-- Refactoring variable names
-- Adding error handling to a specific block
-- Converting between patterns
+- Planning complex features before implementation
+- Analyzing design mockups (Vision + Plan)
+- Getting architectural guidance before writing code
+- Creating implementation roadmaps for multi-step tasks
 
 ---
 
-> **Presenter Note**: "Edit mode is your scalpel. Select code, tell it what to change, review the diff. It's the safest mode for production code because you see every change before it lands."
+> **Presenter Note**: "Plan mode is your architect. It reads your codebase, analyzes the problem, and proposes a plan — without touching any code. We'll use this extensively when we build the cart feature from a design image."
 
 ---
 
@@ -203,9 +203,19 @@ Are there any core features missing?
 ### What Agent Mode Does
 
 - Reads and writes multiple files
+- Handles both targeted inline edits and multi-file changes
 - Runs terminal commands (build, test, lint)
 - Iterates until the task works (self-healing)
 - Uses tools: file search, web fetch, code analysis
+
+### Agent Sub-Types
+
+| Type | Where It Runs | Best For |
+|------|---------------|----------|
+| **Local** | Your IDE, interactive | Day-to-day coding, building features |
+| **Background** | Your IDE, non-blocking | Longer tasks while you continue working |
+| **Cloud** | GitHub servers | Autonomous coding from Issues (Section 10) |
+| **Claude** | Claude model via IDE | Tasks benefiting from Claude's capabilities |
 
 ### The Power Move
 
@@ -225,17 +235,17 @@ Copilot will: read config → install deps → build → start → verify.
 
 # 🖥️ LIVE DEMO
 
-### Copilot Interaction Modes
+### Copilot Chat Modes
 
 - Ask: Explore the API architecture
-- Edit: Add JSDoc to a route handler
+- Plan: Plan how to add input validation
 - Agent: Build and run the project
 
 *Then: Your turn to try all three (8 min)*
 
 ---
 
-> **Presenter Note**: 🖥️ **SWITCH TO DEMO 1**. Run through Ask → Edit → Agent demos. Then give attendees 8 minutes to try each mode. Walk around and help. ~15 min total for demo + hands-on.
+> **Presenter Note**: 🖥️ **SWITCH TO DEMO 1**. Run through Ask → Plan → Agent demos. Then give attendees 8 minutes to try each mode. Walk around and help. ~15 min total for demo + hands-on.
 
 ---
 
@@ -441,7 +451,7 @@ import { Measure, Trace, Log } from '@tao/core';
 
 ```yaml
 ---
-mode: 'agent'                    # ask, edit, or agent
+mode: 'agent'                    # ask, agent, or plan
 description: 'What this does'    # Shows in the picker
 tools: ['codebase', 'editFiles', # What tools agent can use
   'runCommands', 'search']
@@ -1061,7 +1071,7 @@ Phase 1: PLAN                          Phase 2: AGENT
 
 ### Eight Things to Remember
 
-1. **Modes** → Ask to understand, Edit for precision, Agent to build
+1. **Modes** → Ask to understand, Plan to design, Agent to build
 2. **GitHub CLI** → `gh copilot` for command assistance, `gh issue`/`gh pr` for project management
 3. **Instructions** → Encode tribal knowledge (internal frameworks, standards)
 4. **Prompt Files** → Reusable task templates for consistency
@@ -1156,7 +1166,7 @@ Phase 1: PLAN                          Phase 2: AGENT
 
 | After Slide | Demo | Duration |
 |-------------|------|----------|
-| 10 | Interaction Modes (Ask/Edit/Agent) + Hands-on | 15 min |
+| 10 | Chat Modes (Ask/Agent/Plan) + Hands-on | 15 min |
 | 13 | GitHub CLI (suggest/explain/issue) + Hands-on | 10 min |
 | 17 | Custom Instructions + TAO + Hands-on | 15 min |
 | 21 | Prompt Files + Run unit test prompt + Hands-on | 13 min |
