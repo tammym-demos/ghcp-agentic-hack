@@ -1,6 +1,6 @@
 # GitHub Copilot Admin, Licensing & Governance Workshop
 
-**Duration**: 1 hour  
+**Duration**: 1 hour 20 minutes  
 **Format**: Presentation + Live Demo  
 **Audience**: Mixed engineering teams (Admins + Managers)  
 **Focus**: GitHub Copilot Enterprise
@@ -15,6 +15,7 @@ This session provides engineering teams with a practical understanding of GitHub
 
 - Understand Copilot Enterprise licensing and seat management strategies
 - Configure security controls including content exclusions and public code filters
+- Understand Copilot's data protection architecture, trust guarantees, and compliance resources
 - Navigate the policy hierarchy (Enterprise → Org → Repo)
 - Use usage analytics for operational governance and compliance readiness
 
@@ -27,9 +28,10 @@ This session provides engineering teams with a practical understanding of GitHub
 | 1 | Opening & Context Setting | 5 min |
 | 2 | Licensing & Seat Management | 10 min |
 | 3 | Security Controls & IP Protection | 15 min |
-| 4 | Policy Configuration | 15 min |
-| 5 | Operational Governance | 10 min |
-| 6 | Rollout Best Practices & Wrap-up | 5 min |
+| 4 | Data Protection & Trust Architecture | 20 min |
+| 5 | Policy Configuration | 15 min |
+| 6 | Operational Governance | 10 min |
+| 7 | Rollout Best Practices & Wrap-up | 5 min |
 
 ---
 
@@ -159,7 +161,128 @@ src/crypto/**         → Cryptography implementations
 
 ---
 
-## 4. Policy Configuration (15 min)
+## 4. Data Protection & Trust Architecture (20 min)
+
+### Key Points
+
+This section covers how GitHub Copilot protects enterprise data end-to-end — from the moment a prompt leaves a developer's IDE to the suggestion returned. Understanding this architecture is essential for security review boards, vendor assessments, and regulatory compliance.
+
+### Copilot Data Flow Architecture
+
+```
+┌──────────────┐         TLS 1.2+          ┌─────────────────────┐
+│              │ ────────────────────────►  │   Copilot Proxy     │
+│   IDE /      │    Prompt + context        │   (GitHub-hosted)   │
+│   Editor     │                            │                     │
+│              │  ◄──────────────────────── │   ┌───────────────┐ │
+│              │    Suggestion response     │   │ Azure OpenAI  │ │
+└──────────────┘         TLS 1.2+          │   │ Service       │ │
+                                            │   └───────────────┘ │
+                                            └─────────────────────┘
+                                                      │
+                                            ┌─────────▼─────────┐
+                                            │  NOT transmitted:  │
+                                            │  • Training pipeline│
+                                            │  • Other customers │
+                                            │  • Long-term store │
+                                            └────────────────────┘
+```
+
+**Key guarantees for Business & Enterprise**:
+- Prompts and suggestions are **encrypted in transit** (TLS 1.2+) and **encrypted at rest**
+- Prompts and suggestions are **NOT retained** beyond the request lifecycle (no persistent storage)
+- Enterprise code is **NOT used to train** GitHub Copilot models or any successor models
+- Data is processed in **isolated tenant boundaries** — no cross-customer data sharing
+
+### Data Categories
+
+Copilot processes four categories of data, each with specific handling rules:
+
+| Data Category | What It Includes | Retained for Training? | Retention (Business/Enterprise) |
+|---------------|------------------|:----------------------:|--------------------------------|
+| **Prompts** | Code context, chat messages, file snippets sent to generate suggestions | ✗ | Not retained beyond request |
+| **Suggestions** | AI-generated code completions, chat responses | ✗ | Not retained beyond request |
+| **Feedback Data** | Thumbs up/down reactions, optional comments, support tickets | ✗ | Used for quality improvement only |
+| **User Engagement Data** | Pseudonymous interaction metrics (accepted/dismissed completions, errors, usage patterns) | ✗ | Aggregated for product analytics |
+
+> **Note**: For Individual (Free/Pro) plans, prompts and suggestions may be retained for up to 28 days for quality improvement. Business and Enterprise plans have **zero retention** for prompts and suggestions.
+
+### Data Residency
+
+- Copilot processes data in **Microsoft Azure data centers**
+- Enterprise customers can configure data residency preferences where available
+- EU Data Boundary options are available for organizations with European regulatory requirements
+- Data processing locations are documented in the [GitHub Copilot Trust Center](https://copilot.github.trust.page/)
+
+### Multi-Model Data Guarantees
+
+When users select alternative models (e.g., Claude by Anthropic, Gemini by Google):
+
+- Third-party model providers are **contractually bound** to not train on customer data
+- Third-party providers do **not retain customer code** or prompts beyond the request
+- The same enterprise data protection guarantees apply regardless of model selection
+- GitHub acts as a unified data processor — customers maintain a single governance relationship
+
+### GitHub as Data Processor
+
+- For Business and Enterprise customers, GitHub operates as a **data processor** (not controller) under GDPR
+- GitHub's Data Protection Agreement (DPA) covers Copilot data processing
+- Third-party **subprocessors** are disclosed and governed by the same contractual protections
+- **Agentic features** (Coding Agent, MCP integrations, extensions) inherit the same data protection guarantees — no separate data flow or weaker protections for agent-mode operations
+
+### Trust Center & Compliance Resources
+
+The [GitHub Copilot Trust Center](https://copilot.github.trust.page/) is the primary resource for security review boards and vendor assessments. It provides:
+
+**Compliance Certifications**:
+
+| Certification | Scope |
+|---------------|-------|
+| SOC 1 Type II | Financial reporting controls |
+| SOC 2 Type II | Security, availability, confidentiality |
+| SOC 3 | Public-facing SOC 2 summary |
+| ISO 27001:2013 | Information security management |
+| CSA STAR Level 2 | Cloud security assurance |
+| TISAX | Automotive industry information security |
+
+**Available Audit Artifacts** (downloadable from Trust Center):
+- SOC 1 and SOC 2 Type II reports (full audit reports)
+- SOC 2 bridge letters (covering periods between audits)
+- SOC 3 public report
+- Bug bounty due diligence letters
+
+**IP Indemnification**: GitHub provides intellectual property indemnification for Copilot Business and Enterprise customers, provided the public code filter is enabled and content is not generated from disallowed uses.
+
+### Using the Trust Center for Security Reviews
+
+When presenting to a security review board or completing a vendor assessment:
+
+1. **Start with the Overview** — high-level data handling commitments
+2. **Download SOC 2 report** — detailed control descriptions and auditor attestations
+3. **Review the FAQ sections** — Security, Privacy, IP & Open Source, and Commercial FAQ categories address the most common vendor assessment questions
+4. **Check Updates** — demonstrates GitHub's ongoing transparency and compliance posture
+5. **Reference the DPA** — contractual commitments for data processing
+
+### 🖥️ Demo: Trust Center Walkthrough (~3 min)
+
+**URL**: [https://copilot.github.trust.page/](https://copilot.github.trust.page/)
+
+1. Open the Trust Center and tour the main sections (Overview, Resources, FAQ, Updates, Media)
+2. Show compliance certification badges (SOC 1/2/3, ISO 27001, CSA STAR, TISAX)
+3. Navigate to Resources — show available SOC reports and bridge letters
+4. Open the FAQ — expand Security and Privacy sections to show depth of coverage
+5. Highlight the "Updates" feed — demonstrates ongoing transparency
+
+### Discussion Points
+
+- How would you present Copilot's data protection guarantees to your security review board?
+- Which compliance certifications are most critical for your organization's vendor assessment?
+- How does the multi-model data handling (Claude, Gemini) affect your risk posture compared to a single-provider approach?
+- What additional data residency requirements does your organization have?
+
+---
+
+## 5. Policy Configuration (15 min)
 
 ### Policy Hierarchy
 
@@ -238,7 +361,7 @@ Create org-wide coding standards with `.github/copilot-instructions.md`:
 
 ---
 
-## 5. Operational Governance (10 min)
+## 6. Operational Governance (10 min)
 
 ### Role-Based Administration
 
@@ -297,7 +420,7 @@ If a security concern arises:
 
 ---
 
-## 6. Rollout Best Practices & Wrap-up (5 min)
+## 7. Rollout Best Practices & Wrap-up (5 min)
 
 ### Phased Enablement Strategy
 
@@ -537,7 +660,64 @@ Phase 3: Enterprise-Wide
 
 ---
 
-### Demo 4: Full Policy Walkthrough (Section 4)
+### Demo 4: Trust Center Walkthrough (Section 4)
+
+**Objective**: Show how to navigate the Copilot Trust Center for security reviews and vendor assessments
+
+#### Setup Before Demo
+- Open [https://copilot.github.trust.page/](https://copilot.github.trust.page/) in a browser tab
+- Ensure you can access the Resources page (some reports require NDA/access request)
+
+#### Step-by-Step Script
+
+1. **Open the Trust Center Overview**
+   ```
+   URL: https://copilot.github.trust.page/
+   ```
+   - Show the main sections: Overview, Resources, FAQ, Updates, Media
+   - Point out the compliance certification badges (SOC 1, SOC 2, SOC 3, ISO 27001, CSA STAR, TISAX)
+   - **Talking point**: "This is your one-stop shop for security review materials. Powered by Vanta, it provides everything your security team needs for vendor assessments."
+
+2. **Navigate to Resources**
+   ```
+   URL: https://copilot.github.trust.page/resources
+   ```
+   - Show the downloadable reports:
+     - SOC 1 Type 2 Report
+     - SOC 2 Type 2 Report
+     - SOC 3 Report
+     - Bridge letters for inter-audit periods
+     - Bug bounty due diligence letters
+   - **Talking point**: "SOC 2 Type II is usually what your auditors want. Bridge letters cover gaps between audit periods so you always have current attestation."
+
+3. **Tour the FAQ Sections**
+   ```
+   URL: https://copilot.github.trust.page/faq
+   ```
+   - Expand 2-3 questions from the **Security** section:
+     - "How is Copilot data encrypted and protected during transit?"
+     - "What third party testing and certifications does GitHub Copilot have?"
+   - Expand 1-2 from the **Privacy** section:
+     - "Does GitHub Copilot use any of your code to train the GitHub's model?"
+     - "How long does GitHub retain Copilot data for Business and Enterprise customers?"
+   - **Talking point**: "These FAQ answers map directly to common security questionnaire items. You can reference these when filling out vendor assessments."
+
+4. **Show the Updates Feed**
+   ```
+   URL: https://copilot.github.trust.page/updates
+   ```
+   - Show recent updates
+   - **Talking point**: "The updates feed demonstrates ongoing transparency. Subscribe to get notified of compliance changes — useful for continuous monitoring requirements."
+
+#### Key Points to Emphasize
+- The Trust Center is the authoritative source for Copilot security and compliance information
+- SOC reports are available for download (some may require access request via NDA)
+- FAQ sections cover the most common vendor assessment questions across Security, Privacy, IP/Open Source, and Commercial categories
+- Subscribe to updates for ongoing compliance monitoring
+
+---
+
+### Demo 5: Full Policy Walkthrough (Section 5)
 
 **Objective**: Tour all Copilot policy settings and explain each option
 
@@ -587,7 +767,7 @@ Phase 3: Enterprise-Wide
 
 ---
 
-### Demo 5: Usage Analytics Dashboard (Section 5)
+### Demo 6: Usage Analytics Dashboard (Section 6)
 
 **Objective**: Show how to monitor Copilot adoption and ROI metrics
 
@@ -638,7 +818,7 @@ Phase 3: Enterprise-Wide
 
 ---
 
-### Demo 6: Audit Log Review (Section 5)
+### Demo 7: Audit Log Review (Section 6)
 
 **Objective**: Show where to find Copilot-related audit events
 

@@ -3,7 +3,7 @@
 ## Instructor Reference
 
 **Duration**: 4 hours  
-**Total Demo Time**: ~164 minutes (including hands-on)  
+**Total Demo Time**: ~162 minutes (including hands-on)  
 **Environment**: VS Code + GitHub Browser + Terminal  
 **Repo**: [microsoft/GitHubCopilot_Customized](https://github.com/microsoft/GitHubCopilot_Customized)
 
@@ -161,8 +161,8 @@ If Copilot is slow/unresponsive:
 ## Demo 2: GitHub CLI (Section 3)
 
 **Objective**: Show `gh copilot` for AI-powered terminal assistance and `gh issue` for project management  
-**Duration**: 5 min demo + 10 min hands-on = 15 min  
-**After Slide**: 13
+**Duration**: 7 min demo + 10 min hands-on = 17 min  
+**After Slide**: 14
 
 ### Setup Before Demo
 
@@ -223,6 +223,42 @@ If Copilot is slow/unresponsive:
 5. **Show**: The issue appearing in the list
 6. **Talking point**: "Project management from your terminal. And this connects directly to Coding Agent — later we'll assign an issue to Copilot and it will code the solution autonomously."
 
+#### Part E: Type Hints — Steering Suggestions (1 min)
+
+1. **Run without type hint**:
+   ```bash
+   gh copilot suggest "show me which branches have been merged into main"
+   ```
+2. **Show**: Copilot might suggest a `gh api` command or a `git` command — unpredictable
+3. **Run with type hint**:
+   ```bash
+   gh copilot suggest -t git "show me which branches have been merged into main"
+   ```
+4. **Show**: Now it returns a `git branch --merged main` command — precisely targeted
+5. **Run one more**:
+   ```bash
+   gh copilot suggest -t gh "find PRs that haven't been reviewed yet"
+   ```
+6. **Talking point**: "The `-t` flag steers Copilot to the right category: `-t shell` for OS commands, `-t git` for git commands, `-t gh` for GitHub CLI commands. Use it when the default suggestion is the wrong type."
+
+#### Part F: Structured Output with `--json` / `--jq` (1 min)
+
+1. **Run**:
+   ```bash
+   gh issue list --json number,title,assignees
+   ```
+2. **Show**: Machine-readable JSON output instead of the usual table format
+3. **Run**:
+   ```bash
+   gh issue list --json title --jq '.[].title'
+   ```
+4. **Show**: Just the titles — filtered and clean
+5. **Run** (if PRs exist):
+   ```bash
+   gh pr list --json number,title,reviewDecision
+   ```
+6. **Talking point**: "`--json` and `--jq` turn the GitHub CLI into a scriptable data pipeline. Use this for CI scripts, dashboards, or any automation that needs GitHub data."
+
 ### Hands-On Instructions (10 min)
 
 > "Your turn! Try these in the terminal:
@@ -231,6 +267,8 @@ If Copilot is slow/unresponsive:
 > 3. `gh issue list` — see what issues exist
 > 4. `gh issue create --title "Test issue from CLI" --body "Created during workshop."` — create your own issue
 > 5. Verify your issue: `gh issue view --web`
+> 6. Try type hints: `gh copilot suggest -t git "show branches merged into main"` — compare to without `-t`
+> 7. Try structured output: `gh issue list --json number,title --jq '.[].title'`
 >
 > **Bonus**: Try `gh pr list` and `gh pr status` to explore PR workflows."
 
@@ -259,7 +297,7 @@ If `gh` is not installed at all:
 
 **Objective**: Show how custom instructions change Copilot's behavior, including internal frameworks  
 **Duration**: 5 min demo + 12 min hands-on = 17 min  
-**After Slide**: 17
+**After Slide**: 18
 
 ### Setup Before Demo
 
@@ -357,7 +395,7 @@ If the Gear icon → "Generate Agent Instructions" isn't available:
 
 **Objective**: Walk through existing prompts and run the unit test prompt live  
 **Duration**: 6 min demo + 12 min hands-on = 18 min  
-**After Slide**: 21
+**After Slide**: 22
 
 ### Setup Before Demo
 
@@ -434,7 +472,7 @@ If the Unit Test prompt takes too long:
 
 **Objective**: Show agents as persistent personas and demonstrate delegation to Coding Agent  
 **Duration**: 4 min demo + 10 min hands-on = 14 min  
-**After Slide**: 25
+**After Slide**: 26
 
 ### Setup Before Demo
 
@@ -516,7 +554,7 @@ If the mode picker doesn't show the new agent:
 
 **Objective**: Create a skill from scratch and show auto-selection  
 **Duration**: 5 min demo + 12 min hands-on = 17 min  
-**After Slide**: 29
+**After Slide**: 30
 
 ### Setup Before Demo
 
@@ -611,7 +649,7 @@ If auto-selection doesn't visibly work:
 
 **Objective**: Show browser-based testing from natural language prompts  
 **Duration**: 5 min demo + 15 min hands-on = 20 min  
-**After Slide**: 34 (combined with Demo 8)
+**After Slide**: 35 (combined with Demo 8)
 
 ### Setup Before Demo
 
@@ -702,7 +740,7 @@ If Playwright MCP fails to start:
 
 **Objective**: Show GitHub interactions from Copilot Chat  
 **Duration**: 4 min demo (combined with Demo 7 hands-on)  
-**After Slide**: 34 (part of combined MCP demo)
+**After Slide**: 35 (part of combined MCP demo)
 
 ### Setup Before Demo
 
@@ -761,7 +799,7 @@ If GitHub MCP fails:
 
 **Objective**: Build a working cart feature from a design image  
 **Duration**: 7 min demo + 15 min hands-on = 22 min  
-**After Slide**: 37
+**After Slide**: 38
 
 > **This is the capstone demo.** Take your time. The audience needs to see the full Plan → Agent → Working Feature arc.
 
@@ -874,7 +912,7 @@ If the app doesn't hot-reload:
 
 **Objective**: Show the autonomous development loop: Issue → Coding Agent → PR → Code Review  
 **Duration**: 15 min demo (no hands-on — observe only)  
-**After Slide**: 42
+**After Slide**: 43
 
 ### Setup Before Demo
 
@@ -975,12 +1013,89 @@ If Coding Agent isn't available or takes too long:
 
 ---
 
+## Demo 11: Copilot SDK Walkthrough (Section 11)
+
+**Objective**: Show the Copilot SDK architecture and how to embed Copilot capabilities into custom tools  
+**Duration**: 5 min walkthrough (no hands-on — conceptual overview)  
+**After Slide**: 46
+
+> **Note**: This is a code-walkthrough demo, not a live coding exercise. Walk through pre-prepared code samples to illustrate the SDK architecture.
+
+### Setup Before Demo
+
+- Have the SDK GitHub repo open in a browser tab: `https://github.com/github/copilot-sdk`
+- Have a sample SDK script ready (or use the one below)
+- No installation required — this is a conceptual walkthrough
+
+### Step-by-Step Script
+
+#### Part A: Why the SDK Exists (1 min)
+
+1. **Open** the Copilot SDK repo in browser
+2. **Show** the README overview — multi-language support (TypeScript, Python, Go, .NET)
+3. **Talking point**: "Everything we've built today — custom instructions, agents, MCP servers — runs inside the editor. But what if you want Copilot intelligence in your own CLI tools, internal platforms, or CI pipelines? That's what the SDK is for."
+
+#### Part B: Architecture Overview (1.5 min)
+
+1. **Show** this architecture diagram (on slide or whiteboard):
+   ```
+   Your App → SDK Client → Copilot CLI (server mode) → GitHub Copilot API
+                              ↕ JSON-RPC
+   ```
+2. **Explain**: "The SDK wraps the Copilot CLI running in server mode. Your app talks to the SDK client via JSON-RPC. The CLI handles auth, token management, and API calls."
+3. **Show** the install command:
+   ```bash
+   npm install @github/copilot-sdk
+   ```
+4. **Talking point**: "It's a thin wrapper — most of the heavy lifting is done by the Copilot CLI you already have installed."
+
+#### Part C: Code Walkthrough (2 min)
+
+1. **Show** this sample code (pre-prepared in editor or on slide):
+   ```typescript
+   import { CopilotClient } from '@github/copilot-sdk';
+
+   const client = new CopilotClient();
+   const session = await client.createSession();
+
+   // Define a custom tool the model can call
+   session.defineTool('getWeather', {
+     description: 'Get current weather for a city',
+     parameters: { city: { type: 'string' } },
+     handler: async ({ city }) => {
+       return await fetchWeatherAPI(city);
+     }
+   });
+
+   // Stream a response
+   const stream = await session.chat('What is the weather in Seattle?');
+   for await (const chunk of stream) {
+     process.stdout.write(chunk.text);
+   }
+   ```
+2. **Walk through** each section:
+   - `createSession()` — establishes connection to Copilot CLI
+   - `defineTool()` — register tools the model can invoke (like MCP, but in your app)
+   - `session.chat()` — streaming response with tool-calling built in
+3. **Talking point**: "Notice how similar this is to MCP tools? Same concept — you define tools the model can call — but now it's embedded in YOUR application, not in VS Code."
+
+#### Part D: Use Cases & Wrap-Up (30 sec)
+
+1. **Show** 3 example use cases:
+   - Internal CLI tool that answers questions about your codebase
+   - Slack bot that creates PRs from natural language
+   - CI pipeline step that auto-generates release notes
+2. **Talking point**: "The SDK is in Technical Preview — `v0.1.x`. It's stable enough to prototype with, but the API will evolve. Check the repo for updates."
+3. **Transition**: "And that completes our journey from zero to agents — and beyond. Let's wrap up."
+
+---
+
 ## Timing Summary
 
 | Demo | Section | Demo Time | Hands-On | Total |
 |------|---------|-----------|----------|-------|
 | 1 | Chat Modes | 5 min | 8 min | 13 min |
-| 2 | GitHub CLI | 5 min | 10 min | 15 min |
+| 2 | GitHub CLI + Type Hints/JSON | 7 min | 10 min | 17 min |
 | 3 | Custom Instructions | 5 min | 12 min | 17 min |
 | 4 | Custom Prompt Files | 6 min | 12 min | 18 min |
 | 5 | Custom Agents | 4 min | 10 min | 14 min |
@@ -989,15 +1104,16 @@ If Coding Agent isn't available or takes too long:
 | 8 | GitHub MCP | 4 min | — | 4 min |
 | 9 | Vision + Cart Page | 7 min | 15 min | 22 min |
 | 10 | Cloud Agents | 15 min | — | 15 min |
-| | | **61 min** | **94 min** | **155 min** |
+| 11 | Copilot SDK | 5 min | — | 5 min |
+| | | **68 min** | **94 min** | **162 min** |
 
 **Remaining time budget**:
-- Slide presentation: ~76 min
+- Slide presentation: ~82 min
 - Breaks: 30 min (3 × 10 min)
 - Wrap-up/Q&A: 10 min
 - Buffer: ~9 min
 
-**Grand total**: ~280 min (~4h 40min)
+**Grand total**: ~293 min (~4h 53min)
 
 ---
 
@@ -1014,6 +1130,7 @@ If a demo is completely blocked:
    - Agent Skills: `docs.github.com/en/copilot/concepts/agents/about-agent-skills`
    - MCP: `docs.github.com/en/copilot/how-tos/using-extensions/using-mcp-in-copilot`
    - Coding Agent: `docs.github.com/en/copilot/using-github-copilot/using-copilot-coding-agent`
+   - Copilot SDK: `github.com/github/copilot-sdk`
 3. **Engage the audience** with Q&A while troubleshooting
 4. **Skip to the next section** and come back if time permits
 

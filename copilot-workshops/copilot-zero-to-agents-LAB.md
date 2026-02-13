@@ -139,7 +139,7 @@ Open the Swagger documentation page for the API
 ---
 
 <details>
-<summary><h2>Lab 3: GitHub CLI — Copilot in the Terminal (10 min)</h2></summary>
+<summary><h2>Lab 3: GitHub CLI — Copilot in the Terminal (15 min)</h2></summary>
 
 > **Workshop Section**: 3 — GitHub CLI: Copilot in the Terminal & Project Management
 
@@ -242,6 +242,60 @@ gh pr list
 gh pr status
 ```
 
+**Exercise 6 — Type Hints**:
+
+1. Run a suggest command WITHOUT a type hint:
+
+```bash
+gh copilot suggest "show me which branches have been merged into main"
+```
+
+2. Notice the suggestion type — it might be `gh`, `git`, or `shell`
+
+3. Now run the SAME prompt WITH a type hint:
+
+```bash
+gh copilot suggest -t git "show me which branches have been merged into main"
+```
+
+4. Compare the two results — the `-t git` flag steers Copilot to a `git` command
+
+5. Try steering to a `gh` command:
+
+```bash
+gh copilot suggest -t gh "find PRs that haven't been reviewed yet"
+```
+
+> **Type hint values**: `-t shell` (OS commands), `-t git` (git commands), `-t gh` (GitHub CLI commands)
+
+**Exercise 7 — Structured Output with `--json` / `--jq`**:
+
+1. List issues as JSON:
+
+```bash
+gh issue list --json number,title,assignees
+```
+
+2. Extract just the titles using `--jq`:
+
+```bash
+gh issue list --json title --jq '.[].title'
+```
+
+3. Try with PRs (if any exist):
+
+```bash
+gh pr list --json number,title,reviewDecision
+```
+
+4. Combine to get a compact summary:
+
+```bash
+gh issue list --json number,title --jq '.[] | "#\(.number): \(.title)"'
+```
+
+> **Pro tip**: Use `gh issue list --json` (no fields) to see all available JSON fields.
+
 ### Success Criteria
 
 - ✅ `gh auth status` shows you are authenticated
@@ -249,6 +303,8 @@ gh pr status
 - ✅ You've used `gh copilot explain` to understand a command
 - ✅ You've created an issue from the terminal with `gh issue create`
 - ✅ You've viewed the issue in the browser with `gh issue view --web`
+- ✅ You've used `-t` type hints to steer `suggest` to a specific command category
+- ✅ You've used `--json` and `--jq` to get structured output from the CLI
 
 </details>
 
@@ -1101,6 +1157,7 @@ correct prices and quantities.
 | Copilot Coding Agent | https://docs.github.com/en/copilot/using-github-copilot/using-copilot-coding-agent |
 | Copilot Code Review | https://docs.github.com/en/copilot/using-github-copilot/code-review |
 | Copilot Trust Center | https://resources.github.com/copilot-trust-center/ |
+| Copilot SDK | https://github.com/github/copilot-sdk |
 | OctoCAT Supply Repo | https://github.com/microsoft/GitHubCopilot_Customized |
 | Community Skills | https://github.com/github/awesome-copilot |
 

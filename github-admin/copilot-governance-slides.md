@@ -2,7 +2,7 @@
 
 ## Slide Deck with Presenter Notes
 
-**Duration**: 1 hour  
+**Duration**: 1 hour 20 minutes  
 **Format**: Presentation + Live Demos (intermixed)  
 **Audience**: Mixed engineering teams (Admins + Managers)
 
@@ -34,6 +34,7 @@
 | 5 min | Opening & Context Setting |
 | 10 min | Licensing & Seat Management |
 | 15 min | Security Controls & IP Protection |
+| 20 min | Data Protection & Trust Architecture |
 | 15 min | Policy Configuration |
 | 10 min | Operational Governance |
 | 5 min | Rollout Best Practices & Wrap-up |
@@ -323,11 +324,137 @@ src/crypto/**        → Cryptography implementations
 
 ---
 
+# SECTION: Data Protection & Trust
+
+---
+
+## Slide 16: Copilot Data Flow Architecture
+
+### How Your Data Is Protected End-to-End
+
+```
+┌──────────────┐         TLS 1.2+          ┌─────────────────────┐
+│              │ ────────────────────────►  │   Copilot Proxy     │
+│   IDE /      │    Prompt + context        │   (GitHub-hosted)   │
+│   Editor     │                            │                     │
+│              │  ◄──────────────────────── │   ┌───────────────┐ │
+│              │    Suggestion response     │   │ Azure OpenAI  │ │
+└──────────────┘         TLS 1.2+          │   │ Service       │ │
+                                            │   └───────────────┘ │
+                                            └─────────────────────┘
+                                                      │
+                                            ┌─────────▼─────────┐
+                                            │  NOT transmitted:  │
+                                            │  • Training pipeline│
+                                            │  • Other customers │
+                                            │  • Long-term store │
+                                            └────────────────────┘
+```
+
+**Enterprise Guarantees**:
+- **Encrypted** in transit (TLS 1.2+) and at rest
+- **NOT retained** beyond the request lifecycle
+- **NOT used for training** — contractual guarantee
+- **Isolated tenant boundaries** — no cross-customer sharing
+
+---
+
+> **Presenter Note**: *"This is the slide your CISO cares about most. Walk through the data flow left to right: prompt leaves the IDE encrypted, hits the Copilot proxy, processed by Azure OpenAI, response comes back encrypted. Nothing persists. Nothing trains. Nothing leaks to other customers."*
+
+---
+
+## Slide 17: Data Categories & Retention
+
+### What Copilot Collects and How It's Handled
+
+| Data Category | What It Includes | Retained? | Used for Training? |
+|---------------|------------------|:---------:|:------------------:|
+| **Prompts** | Code context, chat messages | ✗ | ✗ |
+| **Suggestions** | Generated completions, chat responses | ✗ | ✗ |
+| **Feedback** | Thumbs up/down, comments | Limited | ✗ |
+| **Engagement** | Accepted/dismissed metrics, errors | Aggregated | ✗ |
+
+> **Note**: Individual (Free/Pro) plans may retain prompts up to 28 days. Business & Enterprise have **zero retention**.
+
+---
+
+> **Presenter Note**: *"Four categories of data, zero training usage across all of them. The key differentiator for Business and Enterprise is zero retention on prompts and suggestions. This is the answer to 'what happens to my code?' — it's processed and discarded."*
+
+---
+
+## Slide 18: Trust Center & Compliance
+
+### Your Security Review Toolkit
+
+**Certifications**:
+
+| Certification | Scope |
+|---------------|-------|
+| SOC 1/2/3 Type II | Financial controls, security, availability |
+| ISO 27001:2013 | Information security management |
+| CSA STAR Level 2 | Cloud security assurance |
+| TISAX | Automotive industry security |
+
+**Trust Center**: [copilot.github.trust.page](https://copilot.github.trust.page/)
+- Downloadable SOC 1 & 2 Type II audit reports
+- Bridge letters covering inter-audit periods
+- Security, Privacy, IP & Commercial FAQs
+- Ongoing updates feed for transparency
+
+---
+
+> **Presenter Note**: *"Bookmark the Trust Center URL — it's powered by Vanta and has everything your security team needs for vendor assessments. SOC 2 reports are downloadable, the FAQ covers the most common security questionnaire items, and the Updates feed shows GitHub's ongoing compliance posture."*
+
+---
+
+## Slide 19: Multi-Model Data Guarantees
+
+### Third-Party Models Follow the Same Rules
+
+When users select Claude (Anthropic) or Gemini (Google):
+
+- Providers are **contractually bound** to not train on customer data
+- **No code or prompt retention** beyond the request
+- GitHub remains the **single data processor** — unified governance
+- **IP indemnification** covers Business & Enterprise (with public code filter enabled)
+
+### GitHub's Processing Role
+
+| Aspect | Commitment |
+|--------|------------|
+| GDPR role | **Processor** (not controller) |
+| DPA coverage | Includes Copilot processing |
+| Subprocessors | Disclosed, contractually bound |
+| Agentic features | Same protections (Coding Agent, MCP, extensions) |
+
+---
+
+> **Presenter Note**: *"Common concern: 'If I switch to Claude or Gemini, does my data go somewhere new with different rules?' No. GitHub is always the processor. Third-party providers have the same contractual obligations. And agentic features — Coding Agent, MCP servers — inherit identical protections."*
+
+---
+
+## Slide 20: Demo Time
+
+# 🖥️ LIVE DEMO
+
+### Trust Center Walkthrough
+
+- Navigate [copilot.github.trust.page](https://copilot.github.trust.page/)
+- Show compliance certifications and SOC reports
+- Tour FAQ sections (Security, Privacy)
+- Highlight the Updates feed
+
+---
+
+> **Presenter Note**: 🖥️ **SWITCH TO DEMO** — Open the Trust Center in your browser. Tour the main page, click into Resources to show downloadable reports, then open the FAQ and expand 2-3 questions from the Security and Privacy sections. ~3 minutes.
+
+---
+
 # SECTION: Policy Configuration
 
 ---
 
-## Slide 16: Available Policy Controls
+## Slide 21: Available Policy Controls
 
 ### What You Can Configure
 
@@ -345,7 +472,7 @@ src/crypto/**        → Cryptography implementations
 
 ---
 
-## Slide 17: Policy Decision Framework
+## Slide 22: Policy Decision Framework
 
 ### When to Enforce vs Delegate
 
@@ -365,7 +492,7 @@ src/crypto/**        → Cryptography implementations
 
 ---
 
-## Slide 18: Knowledge Bases
+## Slide 23: Knowledge Bases
 
 ### Enterprise-Only Feature
 
@@ -385,7 +512,7 @@ src/crypto/**        → Cryptography implementations
 
 ---
 
-## Slide 19: Custom Instructions
+## Slide 24: Custom Instructions
 
 ### Org-Wide Coding Standards
 
@@ -408,7 +535,7 @@ Copilot incorporates these into every suggestion
 
 ---
 
-## Slide 20: Demo Time
+## Slide 25: Demo Time
 
 # 🖥️ LIVE DEMO
 
@@ -428,7 +555,7 @@ Copilot incorporates these into every suggestion
 
 ---
 
-## Slide 21: Roles & Responsibilities
+## Slide 26: Roles & Responsibilities
 
 ### Who Manages What
 
@@ -445,7 +572,7 @@ Copilot incorporates these into every suggestion
 
 ---
 
-## Slide 22: Usage Analytics
+## Slide 27: Usage Analytics
 
 ### Metrics That Matter
 
@@ -467,7 +594,7 @@ Copilot incorporates these into every suggestion
 
 ---
 
-## Slide 23: Compliance & Audit
+## Slide 28: Compliance & Audit
 
 ### Audit Trail Coverage
 
@@ -486,7 +613,7 @@ Copilot incorporates these into every suggestion
 
 ---
 
-## Slide 24: Demo Time
+## Slide 29: Demo Time
 
 # 🖥️ LIVE DEMO
 
@@ -506,7 +633,7 @@ Copilot incorporates these into every suggestion
 
 ---
 
-## Slide 25: Phased Approach
+## Slide 30: Phased Approach
 
 ### Don't Boil the Ocean
 
@@ -533,7 +660,7 @@ Phase 3: ENTERPRISE-WIDE
 
 ---
 
-## Slide 26: Common Pitfalls
+## Slide 31: Common Pitfalls
 
 ### What Goes Wrong
 
@@ -550,7 +677,7 @@ Phase 3: ENTERPRISE-WIDE
 
 ---
 
-## Slide 27: Success Factors
+## Slide 32: Success Factors
 
 ### What Works
 
@@ -570,7 +697,7 @@ Phase 3: ENTERPRISE-WIDE
 
 ---
 
-## Slide 28: Your Action Items
+## Slide 33: Your Action Items
 
 ### What to Do Next
 
@@ -587,7 +714,7 @@ Phase 3: ENTERPRISE-WIDE
 
 ---
 
-## Slide 29: Resources
+## Slide 34: Resources
 
 ### Learn More
 
@@ -602,7 +729,7 @@ Phase 3: ENTERPRISE-WIDE
 
 ---
 
-## Slide 30: Q&A
+## Slide 35: Q&A
 
 # Questions?
 
@@ -619,7 +746,7 @@ Phase 3: ENTERPRISE-WIDE
 
 ---
 
-## Slide 31: Thank You
+## Slide 36: Thank You
 
 # Thank You
 
@@ -641,11 +768,12 @@ Phase 3: ENTERPRISE-WIDE
 |-------------|------|----------|
 | 10 | Seat Assignment | 3-4 min |
 | 15 | Content Exclusions + Public Code | 5-6 min |
-| 20 | Policy Configuration | 5 min |
-| 24 | Usage + Audit | 4 min |
+| 20 | Trust Center Walkthrough | 3 min |
+| 25 | Policy Configuration | 5 min |
+| 29 | Usage + Audit | 4 min |
 
-**Total demo time**: ~17-19 minutes  
-**Total slide time**: ~35-40 minutes  
+**Total demo time**: ~20-22 minutes  
+**Total slide time**: ~45-50 minutes  
 **Buffer/Q&A**: ~5 minutes
 
 ## Backup URLs
