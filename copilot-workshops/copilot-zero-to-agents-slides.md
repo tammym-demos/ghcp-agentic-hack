@@ -150,7 +150,7 @@ npm install && npm run dev
 
 ---
 
-> **Presenter Note**: "Most of you have probably used completions. Some of you have used chat. But the mode you select dramatically affects what Copilot can do. Let me show you the difference. Note that Agent mode now also has sub-types — Local, Background, Cloud, and Claude — which control where and how the agent runs."
+> **Presenter Note**: "Most of you have probably used completions. Some of you have used chat. But the mode you select dramatically affects what Copilot can do. Let me show you the difference. Note that Agent mode now also has sub-types — Local, Background, and Cloud — which control where and how the agent runs."
 
 ---
 
@@ -216,7 +216,6 @@ Are there any core features missing?
 | **Local** | Your IDE, interactive | Day-to-day coding, building features |
 | **Background** | Your IDE, non-blocking | Longer tasks while you continue working |
 | **Cloud** | GitHub servers | Autonomous coding from Issues (Section 9) |
-| **Claude** | Claude model via IDE | Tasks benefiting from Claude's capabilities |
 
 ### The Power Move
 

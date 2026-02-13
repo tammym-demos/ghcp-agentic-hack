@@ -147,7 +147,7 @@ npm run dev
 - Copilot has three chat modes — each optimized for different tasks
 - Most developers only use one or two — understanding all three unlocks the full value
 - Modes are selected from the Copilot Chat mode picker (dropdown at the top)
-- Agent mode also offers sub-types: Local, Background, Cloud, and Claude — controlling where and how the agent runs
+- Agent mode also offers sub-types: Local, Background, and Cloud — controlling where and how the agent runs
 
 ### Mode Comparison
 
@@ -194,7 +194,6 @@ When you select Agent mode, a second picker lets you choose the agent type — c
 | **Local** | Your IDE, interactive | Day-to-day coding, exploring, building features |
 | **Background** | Your IDE, non-blocking | Longer tasks you want to run while continuing other work |
 | **Cloud** | GitHub servers | Autonomous coding from GitHub Issues (see Section 9) |
-| **Claude** | Claude model via IDE | Tasks benefiting from Claude's specific capabilities |
 
 > **Note**: Throughout this workshop, we primarily use the **Local** agent type. Section 9 covers the **Cloud** agent type (Coding Agent) in detail.
 
