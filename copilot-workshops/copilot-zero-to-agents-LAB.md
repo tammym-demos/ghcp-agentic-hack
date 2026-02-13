@@ -1,6 +1,6 @@
 # GitHub Copilot: Zero to Agents — Hands-On Lab Guide
 
-**Duration**: ~90 minutes of hands-on exercises (across a ~4.5-hour workshop) + ~23 min extended learning  
+**Duration**: ~90 minutes of hands-on exercises (across a ~4-hour workshop) + ~23 min extended learning  
 **Format**: Step-by-step lab exercises  
 **Audience**: Developers with basic Copilot exposure (completions/chat)  
 **Repo**: [microsoft/GitHubCopilot_Customized](https://github.com/microsoft/GitHubCopilot_Customized) (OctoCAT Supply)

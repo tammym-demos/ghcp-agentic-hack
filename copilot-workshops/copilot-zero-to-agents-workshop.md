@@ -1,6 +1,6 @@
 # GitHub Copilot: Zero to Agents Workshop
 
-**Duration**: 4 hours  
+**Duration**: ~4 hours  
 **Format**: Presentation + Live Demo + Hands-On  
 **Audience**: Developers with basic Copilot exposure (completions/chat)  
 **Focus**: Copilot customization, agentic workflows, and cloud agents  
@@ -44,13 +44,10 @@ This session takes developers from casual Copilot usage to full agentic developm
 | 1 | Welcome, Objectives & Environment Setup | 20 min |
 | 2 | Copilot Chat Modes: Ask, Agent, Plan | 25 min |
 | 3 | Custom Instructions | 25 min |
-| ☕ | Break | 10 min |
 | 4 | Custom Prompt Files | 25 min |
 | 5 | Custom Agents (Chat Modes) | 25 min |
-| 🍽️ | Break | 10 min |
 | 6 | Agent Skills | 25 min |
 | 7 | MCP Servers (Playwright + GitHub) | 30 min |
-| ☕ | Break | 10 min |
 | 8 | Vision + Agent Mode Deep Dive (Cart Page) | 30 min |
 | 9 | Cloud Agents: Coding Agent + PR Review Agent | 20 min |
 | 10 | Wrap-Up, Customization Hierarchy Recap & Q&A | 10 min |
@@ -58,7 +55,7 @@ This session takes developers from casual Copilot usage to full agentic developm
 | E1 | GitHub CLI: Copilot in the Terminal & Project Management | 20 min |
 | E2 | Copilot SDK: Building Your Own AI-Powered Tools | 8 min |
 
-**Total: ~265 min core (~4h 25min) + 28 min extended learning**
+**Total: ~235 min core (~3h 55min) + 28 min extended learning**
 
 ---
 

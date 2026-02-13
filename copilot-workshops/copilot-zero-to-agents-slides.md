@@ -2,7 +2,7 @@
 
 ## Slide Deck with Presenter Notes
 
-**Duration**: ~4.5 hours (265 min core + 28 min extended learning)  
+**Duration**: ~4 hours (235 min core + 28 min extended learning)  
 **Format**: Presentation + Live Demos + Hands-On (intermixed)  
 **Audience**: Developers with basic Copilot exposure  
 **Repo**: [microsoft/GitHubCopilot_Customized](https://github.com/microsoft/GitHubCopilot_Customized)
@@ -37,13 +37,10 @@
 | 20 min | Welcome & Environment Setup |
 | 25 min | Copilot Chat Modes (Ask, Agent, Plan) |
 | 25 min | Custom Instructions |
-| ☕ 10 min | Break |
 | 25 min | Custom Prompt Files |
 | 25 min | Custom Agents (Chat Modes) |
-| 🍽️ 10 min | Break |
 | 25 min | Agent Skills |
 | 30 min | MCP Servers (Playwright + GitHub) |
-| ☕ 10 min | Break |
 | 30 min | Vision + Agent Mode Deep Dive (Cart Page) |
 | 20 min | Cloud Agents: Coding Agent + PR Review Agent |
 | 10 min | Wrap-Up & Q&A |
@@ -1269,7 +1266,6 @@ session.defineTool({
 
 **Total demo + hands-on time**: ~149 minutes  
 **Total slide/concept time**: ~76 minutes  
-**Breaks**: ~30 minutes  
 **Buffer/Q&A**: ~10 minutes
 
 ## Backup URLs

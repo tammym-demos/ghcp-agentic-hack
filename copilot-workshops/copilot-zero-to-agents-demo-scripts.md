@@ -2,7 +2,7 @@
 
 ## Instructor Reference
 
-**Duration**: ~4.5 hours (core workshop ~265 min + optional extended learning ~28 min)  
+**Duration**: ~4 hours (core workshop ~235 min + optional extended learning ~28 min)  
 **Total Demo Time**: ~140 min core (including hands-on) + ~22 min extended  
 **Environment**: VS Code + GitHub Browser + Terminal  
 **Repo**: [microsoft/GitHubCopilot_Customized](https://github.com/microsoft/GitHubCopilot_Customized)
@@ -899,12 +899,12 @@ If Coding Agent isn't available or takes too long:
 **Core time budget**:
 - Slide presentation: ~82 min
 - Demo + hands-on: ~140 min
-- Breaks: 30 min (3 × 10 min)
+
 - Wrap-up/Q&A: 10 min
 - Buffer: ~3 min
 
-**Core total**: ~265 min (~4h 25min)  
-**With extended learning**: ~293 min (~4h 53min)
+**Core total**: ~235 min (~3h 55min)  
+**With extended learning**: ~263 min (~4h 23min)
 
 ---
 
