@@ -2,10 +2,10 @@
 
 ## Slide Deck — Presenter Guide
 
-**Duration**: 1.5–2 hours  
+**Duration**: ~1.5 hours  
 **Format**: Presentation + Discussion + Architecture Diagrams  
 **Audience**: Enterprise Admins, IT Decision Makers, Engineering Managers, Tech Leads  
-**Focus**: GitHub Architecture Patterns, Deployment Topologies & Integration Strategies  
+**Focus**: GitHub Architecture Patterns, Deployment Topologies & Decision Framework  
 
 ---
 
@@ -15,7 +15,7 @@
 
 **Choosing the Right GitHub Topology for Your Organization**
 
-> **Presenter Note**: *Welcome everyone. Today we're going to walk through the different ways you can set up and configure GitHub for your organization. Whether you're going all-in on cloud, have on-prem requirements, or need to integrate with Azure DevOps — we'll cover the pros, cons, and requirements of each approach so you can make an informed decision.*
+> **Presenter Note**: *Welcome everyone. Today we're going to walk through the different ways you can set up and configure GitHub for your organization. Whether you're going all-in on cloud or have on-prem requirements — we'll cover the pros, cons, and requirements of each approach so you can make an informed decision.*
 
 ---
 
@@ -29,10 +29,9 @@
 | 4 | Scenario 3: Mixed GitHub Enterprise Cloud + On-Prem (GHES) | 20 min |
 | 5 | ☕ Break | 10 min |
 | 6 | Architecture Decision Framework & Comparison | 15 min |
-| 7 | Integration Add-On: GitHub + Azure DevOps | 20 min |
-| 8 | Q&A & Discussion | 15 min |
+| 7 | Q&A & Discussion | 15 min |
 
-> **Presenter Note**: *We'll cover three base architecture patterns — EMU, Multi-Org, and Mixed Cloud + On-Prem — each with its own diagrams, pros/cons tables, and requirements. After a break, we'll use a decision framework to help you choose the right base pattern. Then we'll cover Azure DevOps integration as an add-on layer that works with any of the three base patterns. We'll wrap up with Q&A.*
+> **Presenter Note**: *We'll cover three base architecture patterns — EMU, Multi-Org, and Mixed Cloud + On-Prem — each with its own diagrams, pros/cons tables, and requirements. After a break, we'll use a decision framework to help you choose the right base pattern. We'll wrap up with Q&A.*
 
 ---
 
@@ -86,8 +85,8 @@
 > **Important — Data Residency Update**: GitHub now offers **GHEC with data residency** (hosted on GHE.com), providing regional data storage (EU, Australia, US, Japan) with full cloud features including Copilot. This is a compelling alternative to GHES when data sovereignty — not air-gap — is the driver. All enterprises on GHE.com use Enterprise Managed Users.
 
 ```
-  STEP 1: Choose Your Base GitHub Architecture
-  ─────────────────────────────────────────────
+  Choose Your Base GitHub Architecture
+  ─────────────────────────────────────
 
                     ┌─────────────────────────┐
                     │  Do you have regulatory  │
@@ -113,28 +112,9 @@
           │ GHES     │ │ Residency│ │ EMU +    │ │ (Std     │
           │          │ │ (GHE.com)│ │ Multi-Org│ │  GHEC)   │
           └──────────┘ └──────────┘ └──────────┘ └──────────┘
-
-  STEP 2: Add Integration Layer (if needed)
-  ──────────────────────────────────────────
-
-                    ┌─────────────────────────┐
-                    │  Do you have significant │
-                    │  Azure DevOps investment │
-                    │  you want to preserve?   │
-                    └─────────┬───────────────┘
-                         ┌────┴────┐
-                        Yes        No
-                         │          │
-                         ▼          ▼
-                  ┌──────────────┐  ┌──────────────┐
-                  │ + ADO        │  │ GitHub-only  │
-                  │ Integration  │  │ (no ADO      │
-                  │ (on top of   │  │  needed)     │
-                  │  base arch)  │  │              │
-                  └──────────────┘  └──────────────┘
 ```
 
-> **Presenter Note**: *Notice this is a TWO-STEP decision. Step 1: choose your base GitHub architecture — that's the core decision. Step 2: decide whether to add Azure DevOps integration ON TOP of whichever base you chose. ADO is not an alternative to EMU, Multi-Org, or Mixed — it's an integration layer. You still need one of the three base patterns underneath. Note the NEW branch: for data residency requirements where air-gap isn't needed, GHEC with data residency on GHE.com is now the recommended path — it gives full cloud features including Copilot. We'll cover the base patterns first, then the decision framework, and finally ADO integration.*
+> **Presenter Note**: *This decision tree is the core framework. On-prem requirements push you to Mixed, identity control pushes you to EMU, otherwise Multi-Org is the default. Note the branch for data residency requirements where air-gap isn't needed — GHEC with data residency on GHE.com is the recommended path there, giving full cloud features including Copilot. We'll cover each base pattern first, then the decision framework.*
 
 ---
 
@@ -514,7 +494,7 @@ Steps 2–7 are fully automated. This is the core value of EMU: **zero manual us
 
 # ☕ 10-Minute Break
 
-> **Presenter Note**: *Good time for a break. When we come back, we'll start with the decision framework — a side-by-side comparison of the three base patterns you just learned — and then cover Azure DevOps integration as an add-on layer.*
+> **Presenter Note**: *Good time for a break. When we come back, we'll start with the decision framework — a side-by-side comparison of the three base patterns you just learned.*
 
 ---
 
@@ -548,15 +528,15 @@ Steps 2–7 are fully automated. This is the core value of EMU: **zero manual us
 | **Migration Effort** | 🟡 Medium (new enterprise) | 🟢 Low | 🔴 High |
 | **Best For** | Regulated / security-first orgs | Most enterprises | Data sovereignty / air-gap |
 
-> **Presenter Note**: *This is your cheat sheet for the three base patterns. Notice ADO is not shown here — it's an add-on layer we'll cover next, not a peer-level architecture. No pattern is universally best — each optimizes for different constraints. For most enterprises without specific regulatory requirements, Multi-Org or EMU Only is the right starting point. Mixed is for genuine on-prem needs.*
+> **Presenter Note**: *This is your cheat sheet for the three base patterns. No pattern is universally best — each optimizes for different constraints. For most enterprises without specific regulatory requirements, Multi-Org or EMU Only is the right starting point. Mixed is for genuine on-prem needs.*
 
 ---
 
-## Slide 26: Decision Flowchart — Two-Step Process
+## Slide 26: Decision Flowchart
 
 ```
-  STEP 1: Choose Your Base GitHub Architecture
-  ─────────────────────────────────────────────
+  Choose Your Base GitHub Architecture
+  ─────────────────────────────────────
 
                         ┌────────────────────────────┐
                         │  Starting Point:            │
@@ -585,27 +565,9 @@ Steps 2–7 are fully automated. This is the core value of EMU: **zero manual us
                               │  or EMU +    │  │  Org (Std    │
                               │  Multi-Org   │  │  GHEC)       │
                               └──────────────┘  └──────────────┘
-
-  STEP 2: Add Integration Layer (if needed)
-  ──────────────────────────────────────────
-
-                    ┌─────────────────────────┐
-                    │  Do you have significant │
-                    │  Azure DevOps investment │
-                    │  you want to preserve?   │
-                    └─────────┬───────────────┘
-                         ┌────┴────┐
-                        YES        No
-                         │          │
-                         ▼          ▼
-                  ┌──────────────┐  ┌──────────────┐
-                  │ + ADO        │  │ GitHub-only  │
-                  │ Integration  │  │ (no ADO      │
-                  │ Add-On       │  │  needed)     │
-                  └──────────────┘  └──────────────┘
 ```
 
-> **Presenter Note**: *This is a TWO-STEP decision. Step 1: choose your base GitHub architecture — on-prem needs push you to Mixed, identity control pushes you to EMU, otherwise Multi-Org. Step 2: decide whether to add ADO integration on top. ADO is not an alternative to these three — it's an integration layer. We'll cover it in the next section.*
+> **Presenter Note**: *This is the core decision. On-prem needs push you to Mixed, identity control pushes you to EMU, otherwise Multi-Org is the default for most enterprises.*
 
 ---
 
@@ -616,201 +578,32 @@ Steps 2–7 are fully automated. This is the core value of EMU: **zero manual us
 | **EMU + Multi-Org** | EMU enterprise with multiple orgs per business unit | Security-first enterprise with distinct business units — most common enterprise pattern |
 | **EMU + Non-EMU Org** | EMU enterprise for corporate work + separate non-EMU org for open-source | Developers who contribute to upstream OSS as part of their job |
 | **Multi-Org + GHES** | GHEC multi-org with GHES for regulated workloads via Connect | Mixed compliance tiers — some code cloud-OK, some must be on-prem |
-| **Any base + ADO** | ADO integration layered on any pattern above | Organizations with significant ADO Board/Pipeline investment |
 
-> **Presenter Note**: *Real-world architectures are often hybrids. The most common hybrid we see is EMU + Multi-Org — you get lifecycle control AND organizational isolation. Notice the last row: ADO integration is always an "add-on" — it works with any base pattern. An EMU enterprise with ADO integration. A Mixed cloud+GHES deployment with ADO integration. These are all valid combinations.*
+> **Presenter Note**: *Real-world architectures are often hybrids. The most common hybrid we see is EMU + Multi-Org — you get lifecycle control AND organizational isolation. These combinations give you the flexibility to tailor GitHub to your organization's specific needs.*
 
 ---
 
 ## Slide 28: Recommendations by Organization Profile
 
-| Organization Profile | Recommended Base Pattern | + ADO Integration? | Key Reason |
-|----------------------|--------------------------|---------------------|------------|
-| **Startup / Scale-up** | 🟢 Multi-Org (standard GHEC) | No — go all-in on GitHub | Simple, flexible, lowest admin overhead |
-| **Mid-size Enterprise (500–5,000)** | 🔵 EMU + Multi-Org | Only if ADO Boards investment is significant | Identity control + org isolation, scales well |
-| **Large Enterprise (5,000+, no regulation)** | 🔵 EMU + Multi-Org | If migrating from ADO gradually | Full lifecycle automation at scale |
-| **Regulated Enterprise (finance, healthcare)** | 🔵 EMU Only, 🟣 GHE.com (data residency), or 🟠 Mixed + EMU | If ADO Boards/Test Plans are entrenched | Data control, compliance, audit trail; evaluate GHE.com before GHES |
-| **Government / Defense** | 🟠 Mixed (GHEC + GHES air-gapped) or 🟣 GHE.com (if no air-gap needed) | Rarely — ADO is also cloud | Data sovereignty, air-gap requirements, ITAR |
-| **ADO-Heavy Enterprise** | 🔵 EMU or 🟢 Multi-Org | ✅ Yes — this is the primary use case | Preserve ADO investments, adopt Copilot/GHAS |
-| **Acquisitive Enterprise (M&A)** | 🟢 Multi-Org (org per acquisition) | If acquired companies use ADO | Onboard acquired companies without disruption |
-| **OSS-Heavy Enterprise** | 🟢 Multi-Org (standard, no EMU) | Uncommon | Developers need public GitHub.com access |
+| Organization Profile | Recommended Base Pattern | Key Reason |
+|----------------------|--------------------------|------------|
+| **Startup / Scale-up** | 🟢 Multi-Org (standard GHEC) | Simple, flexible, lowest admin overhead |
+| **Mid-size Enterprise (500–5,000)** | 🔵 EMU + Multi-Org | Identity control + org isolation, scales well |
+| **Large Enterprise (5,000+, no regulation)** | 🔵 EMU + Multi-Org | Full lifecycle automation at scale |
+| **Regulated Enterprise (finance, healthcare)** | 🔵 EMU Only, 🟣 GHE.com (data residency), or 🟠 Mixed + EMU | Data control, compliance, audit trail; evaluate GHE.com before GHES |
+| **Government / Defense** | 🟠 Mixed (GHEC + GHES air-gapped) or 🟣 GHE.com (if no air-gap needed) | Data sovereignty, air-gap requirements, ITAR |
+| **Acquisitive Enterprise (M&A)** | 🟢 Multi-Org (org per acquisition) | Onboard acquired companies without disruption |
+| **OSS-Heavy Enterprise** | 🟢 Multi-Org (standard, no EMU) | Developers need public GitHub.com access |
 
-> **Presenter Note**: *Notice the new column: "+ ADO Integration?" — this reinforces that ADO is a decision layered on top of the base architecture. For most organizations, the base pattern decision comes first. ADO integration is driven by one question: "Do you have significant ADO investment you can't sunset?"*
-
----
-
-# SECTION 6: Integration Add-On — GitHub + Azure DevOps
+> **Presenter Note**: *This table gives you the quick recommendation by organization profile. For most organizations, the base pattern decision is driven by identity control, compliance requirements, and open-source participation.*
 
 ---
 
-## Slide 29: Section Divider — Integration Add-On
-
-# Integration Add-On: GitHub + Azure DevOps
-### A Layer on Top of Any Base Architecture — Not a Standalone Pattern
+# SECTION 6: Q&A & Discussion
 
 ---
 
-## Slide 30: ADO as an Integration Layer — Not a Standalone Pattern
-
-**Key Concept: ADO integration is NOT a standalone architecture.**
-
-Azure DevOps integration sits **on top of** whichever base GitHub architecture you chose in the previous section.
-
-**You still need a base pattern.** ADO does not replace your GitHub architecture — it augments it.
-
-| Base Architecture | + ADO Integration = |
-|-------------------|---------------------|
-| 🔵 EMU Only | EMU enterprise with ADO Boards/Pipelines for work tracking and legacy CI |
-| 🟢 Multi-Org | Multi-Org enterprise with ADO Boards for project management layer |
-| 🟠 Mixed Cloud + GHES | Hybrid GitHub deployment with ADO for PM and existing pipelines |
-
-**You still need a base pattern.** ADO does not replace your GitHub architecture — it augments it.
-
-**Why coexistence?**
-- Many enterprises have **years of investment** in Azure DevOps (Boards, Pipelines, Repos, Artifacts)
-- Migrating everything at once is **risky, expensive, and disruptive**
-- GitHub excels at **source code management, Copilot, GHAS, and developer experience**
-- Azure DevOps excels at **work item tracking (Boards), complex pipeline orchestration, and Test Plans**
-
-> **Presenter Note**: *This is the important reframe. We covered three base architectures — EMU, Multi-Org, and Mixed. ADO integration is NOT a fourth alternative. It's an add-on layer. You pick your base GitHub architecture first, then you decide whether to add ADO integration on top. Think of it like choosing a house (the base) and then deciding whether to add a garage (the integration).*
-
----
-
-## Slide 31: Integration Architecture Overview
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                                                                      │
-│                       DEVELOPER WORKFLOW                             │
-│                                                                      │
-│   ┌─────────────────────────────┐  ┌──────────────────────────────┐ │
-│   │  GITHUB (Base Architecture) │  │  AZURE DEVOPS (Add-On)       │ │
-│   │  🔵 EMU / 🟢 Multi-Org /   │  │                              │ │
-│   │  🟠 Mixed                   │  │                              │ │
-│   │                             │  │                              │ │
-│   │  ┌───────────────────────┐  │  │  ┌────────────────────────┐ │ │
-│   │  │  📦 Repos             │──┼──┼──│  📋 Boards             │ │ │
-│   │  │  (Source of truth)    │  │  │  │  (Work items, sprints)  │ │ │
-│   │  └───────────────────────┘  │  │  └────────────────────────┘ │ │
-│   │           │   AB# Linking   │  │           │                  │ │
-│   │           ▼                 │  │           ▼                  │ │
-│   │  ┌───────────────────────┐  │  │  ┌────────────────────────┐ │ │
-│   │  │  🔄 Pull Requests     │  │  │  │  🧪 Test Plans         │ │ │
-│   │  │  (Code review, CI)    │  │  │  │  (Manual/automated)    │ │ │
-│   │  └───────────────────────┘  │  │  └────────────────────────┘ │ │
-│   │           │                 │  │                              │ │
-│   │           ▼                 │  │  ┌────────────────────────┐ │ │
-│   │  ┌───────────────────────┐  │  │  │  📦 Artifacts          │ │ │
-│   │  │  🤖 Copilot           │  │  │  │  (Packages, feeds)     │ │ │
-│   │  │  (AI code assistance) │  │  │  └────────────────────────┘ │ │
-│   │  └───────────────────────┘  │  │                              │ │
-│   │                             │  │  ┌────────────────────────┐ │ │
-│   │  ┌───────────────────────┐  │  │  │  🔧 Pipelines          │ │ │
-│   │  │  🔒 GHAS              │  │  │  │  (Existing — or        │ │ │
-│   │  │  (Secret scanning,   │  │  │  │   migrate to Actions)  │ │ │
-│   │  │   Code scanning,     │  │  │  └────────────────────────┘ │ │
-│   │  │   Dependabot)        │  │  │                              │ │
-│   │  └───────────────────────┘  │  │                              │ │
-│   │                             │  │                              │ │
-│   │  ┌───────────────────────┐  │  │                              │ │
-│   │  │  ⚡ Actions            │  │  │                              │ │
-│   │  │  (CI/CD — new work)   │  │  │                              │ │
-│   │  └───────────────────────┘  │  │                              │ │
-│   └─────────────────────────────┘  └──────────────────────────────┘ │
-│                                                                      │
-│   ┌──────────────────────────────────────────────────────────────┐   │
-│   │                   ENTRA ID (Shared Identity)                  │   │
-│   │       Single sign-on across both GitHub and Azure DevOps      │   │
-│   └──────────────────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
-> **Presenter Note**: *Notice the left side now explicitly calls out that it's your base architecture — whichever of the three patterns you chose. On the right, ADO provides work tracking, test plans, artifact feeds, and existing pipelines. The key integration point is AB# linking. And at the bottom, Entra ID provides shared identity across both.*
-
----
-
-## Slide 32: Key Integration Point — AB# Linking
-
-| Feature | Description |
-|---------|-------------|
-| **AB# Syntax** | In a GitHub commit message, PR description, or issue description, type `AB#12345` to link to ADO work item #12345. Note: `AB#` in PR titles or comments does **not** create a link. |
-| **How it works** | GitHub sends a webhook to ADO, which creates a hyperlink on the work item |
-| **Setup** | Install the **Azure Boards** GitHub App on your GitHub org |
-| **Supported directions** | GitHub → ADO (commits, PRs, branches linked to work items) |
-| **State transitions** | Configure ADO to auto-transition work items when PRs are merged **into the default branch** (e.g., `Fixes AB#12345` → moves to Done). State transitions do not apply for merges into non-default branches. |
-| **Visibility** | ADO work items show linked GitHub PRs, commits, and branches in the Development section |
-
-**Example Workflow:**
-1. Developer picks up work item `AB#4567` in ADO Boards
-2. Creates branch in GitHub: `feature/AB#4567-add-login`
-3. Commits with message: `Add OAuth login flow AB#4567`
-4. Opens PR in GitHub — ADO work item shows the linked PR
-5. PR merged → ADO work item transitions to "Done"
-
-> **Presenter Note**: *AB# linking is the integration everyone needs to set up first. It's lightweight — just a GitHub App — and it gives you bidirectional visibility. Your project managers see dev activity on ADO work items, and developers reference work items directly in their commits and PRs.*
-
----
-
-## Slide 33: What Goes Where — Capability Split
-
-| Capability | GitHub ✅ | Azure DevOps ✅ | Recommendation |
-|------------|-----------|------------------|----------------|
-| **Source Code** | ✅ Primary | ⚠️ Legacy repos | All new repos in GitHub; migrate ADO Repos gradually |
-| **Code Review (PRs)** | ✅ Primary | N/A | All code review happens in GitHub |
-| **AI Code Assistance** | ✅ Copilot | ✗ Not available | Copilot only works with GitHub repos |
-| **Security Scanning** | ✅ GHAS (includes Secret Protection + Code Security) | ⚠️ Defender for DevOps | GitHub Advanced Security for comprehensive coverage |
-| **CI/CD** | ✅ Actions (new projects) | ✅ Pipelines (existing) | New projects → Actions; existing → migrate over time |
-| **Work Tracking** | ⚠️ Issues / Projects | ✅ Boards (primary) | ADO Boards for enterprise PM; GitHub Issues for dev-level tracking |
-| **Test Management** | ✗ | ✅ Test Plans | ADO remains the test management leader |
-| **Artifacts** | ⚠️ Packages | ✅ Artifacts | Use whichever you've standardized on |
-| **Wiki / Documentation** | ✅ Repo-based Markdown | ✅ Wiki | GitHub repos + Markdown for docs-as-code |
-
-> **Presenter Note**: *The general principle: GitHub for code + security + AI, ADO for project management + testing + existing pipelines. Over time, many organizations migrate more to GitHub — pipelines become Actions, ADO Repos become GitHub Repos — but ADO Boards often stays because the investment in work item types, queries, and dashboards is significant.*
-
----
-
-## Slide 34: ADO Integration — Pros, Cons & Requirements
-
-| ✅ Pros | ✗ Cons | 📋 Requirements |
-|---------|--------|------------------|
-| Leverage best of both platforms | Two platforms = dual admin, dual training, dual cost | GitHub Enterprise Cloud license |
-| Adopt Copilot + GHAS without full migration | AB# linking is GitHub → ADO (not fully bidirectional) | Azure DevOps organization + project |
-| Preserve ADO Boards investment (sprints, queries, dashboards) | Developer context-switching between two systems | Azure Boards GitHub App installed |
-| Gradual migration — move at your own pace | Unified reporting requires custom dashboards (Power BI, etc.) | Entra ID for shared SSO (strongly recommended) |
-| Shared identity via Entra ID | Audit logging split across two systems | Network connectivity between GH and ADO |
-| ADO Pipelines can build from GitHub repos (service connection) | Artifact management may be split across both platforms | Service connection configured (for ADO Pipelines) |
-| New projects start on GitHub; legacy stays in ADO | Governance complexity — policies in two places | Team training on AB# workflow |
-| Works with ANY base GitHub architecture (EMU, Multi-Org, Mixed) | License cost for both platforms during coexistence | |
-
-> **Presenter Note**: *Coexistence is pragmatic but not free. You're paying for two platforms, training on two platforms, and managing policies in two places. The value proposition is: "Get Copilot and GHAS today without the risk of a big-bang migration." Over time, you tilt more toward GitHub, but ADO Boards may remain the long-term work tracking tool — and that's fine.*
-
----
-
-## Slide 35: When to Add ADO Integration
-
-**Add ADO Integration when:**
-- ✅ You have significant ADO Boards investment (custom work items, queries, dashboards)
-- ✅ You want to adopt Copilot and GHAS without disrupting existing workflows
-- ✅ You're doing a gradual migration from ADO Repos to GitHub Repos
-- ✅ Your project managers and stakeholders live in ADO Boards
-- ✅ You use ADO Test Plans and can't easily replace them
-- ✅ You're already on Entra ID (makes SSO across both platforms seamless)
-
-**Skip ADO Integration if:**
-- ⚠️ You're starting fresh — go all-in on GitHub from the start
-- ⚠️ You can replace ADO Boards with GitHub Projects V2 (simpler stack = less overhead)
-- ⚠️ Total cost of running both platforms exceeds the one-time migration cost
-- ⚠️ Developers strongly prefer a single tool — context-switching harms productivity
-
-> **Presenter Note**: *If you're a greenfield organization, don't set up coexistence — just go GitHub. This integration add-on is for organizations with significant ADO investment that want a pragmatic path to modernization. The end state might be full GitHub, or it might be permanent coexistence with ADO Boards. Both are valid.*
-
----
-
-# SECTION 7: Q&A & Discussion
-
----
-
-## Slide 36: Discussion Questions
+## Slide 29: Discussion Questions
 
 **Let's discuss:**
 
@@ -818,16 +611,15 @@ Azure DevOps integration sits **on top of** whichever base GitHub architecture y
 2. **Data Residency**: Do you have genuine regulatory requirements for on-premises data storage? Which regulation?
 3. **Open Source**: Do your developers contribute to public open-source projects as part of their work?
 4. **Base Architecture**: Based on the three patterns we covered, which one fits your organization?
-5. **ADO Integration Add-On**: Do you have significant Azure DevOps investment? What's the appetite and budget for migration vs. coexistence?
-6. **Developer Experience**: Is Copilot a priority? How important is a unified developer experience across all teams?
-7. **Compliance**: What compliance frameworks apply (SOC2, FedRAMP, HIPAA, ITAR, GDPR)?
-8. **Timeline**: Is this a "decide now" or a "plan for next year" decision?
+5. **Developer Experience**: Is Copilot a priority? How important is a unified developer experience across all teams?
+6. **Compliance**: What compliance frameworks apply (SOC2, FedRAMP, HIPAA, ITAR, GDPR)?
+7. **Timeline**: Is this a "decide now" or a "plan for next year" decision?
 
-> **Presenter Note**: *Open this up for discussion. Frame it as two decisions: (1) which base architecture? and (2) do you need ADO integration on top? Expect the most debate around "do we really need on-prem?" and "can we replace ADO Boards?" — those are the highest-stakes decisions. Use these questions to help the audience self-identify the right pattern.*
+> **Presenter Note**: *Open this up for discussion. Expect the most debate around "do we really need on-prem?" and identity lifecycle requirements — those are the highest-stakes decisions. Use these questions to help the audience self-identify the right pattern.*
 
 ---
 
-## Slide 37: Resources
+## Slide 30: Resources
 
 | Resource | Link |
 |----------|------|
@@ -835,7 +627,6 @@ Azure DevOps integration sits **on top of** whichever base GitHub architecture y
 | Enterprise Managed Users Overview | `https://docs.github.com/en/enterprise-cloud@latest/admin/identity-and-access-management/using-enterprise-managed-users-for-iam/about-enterprise-managed-users` |
 | GitHub Enterprise Server Documentation | `https://docs.github.com/en/enterprise-server@latest` |
 | GitHub Connect Documentation | `https://docs.github.com/en/enterprise-server@latest/admin/configuration/configuring-github-connect` |
-| Azure Boards + GitHub Integration | `https://learn.microsoft.com/en-us/azure/devops/boards/github/` |
 | GitHub Actions Documentation | `https://docs.github.com/en/actions` |
 | GHAS Overview (Secret Protection + Code Security) | `https://docs.github.com/en/enterprise-cloud@latest/code-security/getting-started/github-security-features` |
 | GitHub Enterprise Cloud Ebook | See `docs/GitHub-Enterprise-Cloud_ebook.pdf` |
@@ -845,7 +636,7 @@ Azure DevOps integration sits **on top of** whichever base GitHub architecture y
 
 ---
 
-## Slide 38: Thank You
+## Slide 31: Thank You
 
 # Thank You!
 
@@ -875,7 +666,6 @@ Azure DevOps integration sits **on top of** whichever base GitHub architecture y
 | GitHub Enterprise Admin Console | `https://github.com/enterprises/{enterprise}/settings` |
 | GitHub EMU Setup Guide | `https://docs.github.com/en/enterprise-cloud@latest/admin/identity-and-access-management/using-enterprise-managed-users-for-iam` |
 | GHES Releases | `https://enterprise.github.com/releases` |
-| Azure Boards GitHub App | `https://github.com/marketplace/azure-boards` |
 | GitHub Actions Documentation | `https://docs.github.com/en/actions` |
 | GHAS Overview (Secret Protection + Code Security) | `https://docs.github.com/en/enterprise-cloud@latest/code-security/getting-started/github-security-features` |
 
@@ -903,15 +693,6 @@ Azure DevOps integration sits **on top of** whichever base GitHub architecture y
 | Dependabot | ✅ | ✅ (with Connect) | Requires GitHub Connect for advisory DB |
 | Audit Log Streaming | ✅ | ✅ | Different streaming targets on GHES |
 | Repository Rulesets | ✅ | ✅ | Available on GHES 3.11+ |
-
-## Appendix E: ADO-to-GitHub Service Connection Setup (Summary)
-
-1. In Azure DevOps: **Project Settings** → **Service Connections** → **New** → **GitHub**
-2. Authentication: Use **GitHub App**, **OAuth**, or **PAT**
-3. Authorize the connection to the target GitHub org
-4. In ADO Pipelines: Reference the service connection to trigger builds from GitHub repos
-5. In ADO Boards: Install the **Azure Boards** GitHub App from the Marketplace
-6. Configure AB# linking and state transition rules
 
 ---
 
