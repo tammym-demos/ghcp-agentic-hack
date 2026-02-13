@@ -1,6 +1,6 @@
 # GitHub Copilot: Zero to Agents — Hands-On Lab Guide
 
-**Duration**: ~105 minutes of hands-on exercises (across a 4-hour workshop)  
+**Duration**: ~90 minutes of hands-on exercises (across a ~4.5-hour workshop) + ~23 min extended learning  
 **Format**: Step-by-step lab exercises  
 **Audience**: Developers with basic Copilot exposure (completions/chat)  
 **Repo**: [microsoft/GitHubCopilot_Customized](https://github.com/microsoft/GitHubCopilot_Customized) (OctoCAT Supply)
@@ -21,7 +21,7 @@ This lab guide contains all the hands-on exercises from the **GitHub Copilot: Ze
 | **Node.js** | Version 18 or higher |
 | **npm** | Latest version recommended |
 | **Git** | For cloning the demo repository |
-| **GitHub CLI** | `gh` — install from [cli.github.com](https://cli.github.com) |
+| **GitHub CLI** *(Optional)* | For Extended Learning exercises — install from [cli.github.com](https://cli.github.com) |
 
 ---
 
@@ -97,7 +97,7 @@ npm run dev
 What testing framework does this project use and what's the current test coverage?
 ```
 
-3. Note the answer — you'll use this information in Lab 5 when generating tests
+3. Note the answer — you'll use this information in Lab 4 when generating tests
 
 **Exercise 2 — Plan Mode**:
 
@@ -139,181 +139,9 @@ Open the Swagger documentation page for the API
 ---
 
 <details>
-<summary><h2>Lab 3: GitHub CLI — Copilot in the Terminal (15 min)</h2></summary>
+<summary><h2>Lab 3: Create Custom Instructions (12 min)</h2></summary>
 
-> **Workshop Section**: 3 — GitHub CLI: Copilot in the Terminal & Project Management
-
-### Quick Reference
-
-| Command | What It Does |
-|---------|-------------|
-| `gh copilot suggest "..."` | AI-generated shell command from natural language |
-| `gh copilot explain "..."` | Plain-English explanation of a command |
-| `gh issue list` | List issues in the current repo |
-| `gh issue create` | Create a new issue |
-| `gh pr list` | List pull requests |
-| `gh pr create` | Create a pull request |
-
-### Steps
-
-**Exercise 1 — Verify Setup**:
-
-1. Open the VS Code integrated terminal
-2. Confirm the CLI is installed and you're authenticated:
-
-```bash
-gh --version
-```
-
-```bash
-gh auth status
-```
-
-> **Note**: If `gh auth status` shows you're not authenticated, run `gh auth login` and follow the prompts.
-
-**Exercise 2 — Copilot Suggest**:
-
-1. Ask Copilot to generate a git command from plain English:
-
-```bash
-gh copilot suggest "show me the most recent commits on main with a graph"
-```
-
-2. Review the suggested command — Copilot will show it and ask if you want to run it
-3. Execute the suggested command
-4. Try another one — ask for something you'd normally have to look up:
-
-```bash
-gh copilot suggest "find all TypeScript files modified in the last week"
-```
-
-**Exercise 3 — Copilot Explain**:
-
-1. Paste a command you've seen but don't fully understand:
-
-```bash
-gh copilot explain "git log --oneline --graph --all --decorate"
-```
-
-2. Read the step-by-step breakdown Copilot provides
-3. Try explaining a GitHub API command:
-
-```bash
-gh copilot explain "gh api repos/{owner}/{repo}/branches/main/protection --method PUT"
-```
-
-**Exercise 4 — Issue Management**:
-
-1. List existing issues in your repo:
-
-```bash
-gh issue list
-```
-
-2. Create an issue — we'll use this in Lab 9 (Vision) or for Coding Agent later:
-
-```bash
-gh issue create --title "Add input validation to Product API" --body "The POST /api/products endpoint accepts any payload without validation. Add schema validation for required fields (name, price, supplierId)."
-```
-
-3. Verify it was created:
-
-```bash
-gh issue list
-```
-
-4. View the issue details in your browser:
-
-```bash
-gh issue view --web
-```
-
-**Exercise 5 — PR Workflow** (Bonus):
-
-1. List any open pull requests:
-
-```bash
-gh pr list
-```
-
-2. Check the status of the current branch's PR (if any):
-
-```bash
-gh pr status
-```
-
-**Exercise 6 — Type Hints**:
-
-1. Run a suggest command WITHOUT a type hint:
-
-```bash
-gh copilot suggest "show me which branches have been merged into main"
-```
-
-2. Notice the suggestion type — it might be `gh`, `git`, or `shell`
-
-3. Now run the SAME prompt WITH a type hint:
-
-```bash
-gh copilot suggest -t git "show me which branches have been merged into main"
-```
-
-4. Compare the two results — the `-t git` flag steers Copilot to a `git` command
-
-5. Try steering to a `gh` command:
-
-```bash
-gh copilot suggest -t gh "find PRs that haven't been reviewed yet"
-```
-
-> **Type hint values**: `-t shell` (OS commands), `-t git` (git commands), `-t gh` (GitHub CLI commands)
-
-**Exercise 7 — Structured Output with `--json` / `--jq`**:
-
-1. List issues as JSON:
-
-```bash
-gh issue list --json number,title,assignees
-```
-
-2. Extract just the titles using `--jq`:
-
-```bash
-gh issue list --json title --jq '.[].title'
-```
-
-3. Try with PRs (if any exist):
-
-```bash
-gh pr list --json number,title,reviewDecision
-```
-
-4. Combine to get a compact summary:
-
-```bash
-gh issue list --json number,title --jq '.[] | "#\(.number): \(.title)"'
-```
-
-> **Pro tip**: Use `gh issue list --json` (no fields) to see all available JSON fields.
-
-### Success Criteria
-
-- ✅ `gh auth status` shows you are authenticated
-- ✅ You've used `gh copilot suggest` to generate a command from natural language
-- ✅ You've used `gh copilot explain` to understand a command
-- ✅ You've created an issue from the terminal with `gh issue create`
-- ✅ You've viewed the issue in the browser with `gh issue view --web`
-- ✅ You've used `-t` type hints to steer `suggest` to a specific command category
-- ✅ You've used `--json` and `--jq` to get structured output from the CLI
-
-</details>
-
----
-
-<details>
-<summary><h2>Lab 4: Create Custom Instructions (12 min)</h2></summary>
-
-> **Workshop Section**: 4 — Custom Instructions
+> **Workshop Section**: 3 — Custom Instructions
 
 ### Why This Matters
 
@@ -434,9 +262,9 @@ For React components in this project:
 ---
 
 <details>
-<summary><h2>Lab 5: Create and Run Prompt Files (12 min)</h2></summary>
+<summary><h2>Lab 4: Create and Run Prompt Files (12 min)</h2></summary>
 
-> **Workshop Section**: 5 — Custom Prompt Files
+> **Workshop Section**: 4 — Custom Prompt Files
 
 ### Why This Matters
 
@@ -561,9 +389,9 @@ Key tips for writing good prompts:
 ---
 
 <details>
-<summary><h2>Lab 6: Create a Custom Agent (10 min)</h2></summary>
+<summary><h2>Lab 5: Create a Custom Agent (10 min)</h2></summary>
 
-> **Workshop Section**: 6 — Custom Agents (Chat Modes)
+> **Workshop Section**: 5 — Custom Agents (Chat Modes)
 
 ### Why This Matters
 
@@ -711,9 +539,9 @@ Fill in the behavior instructions with your own rules, then test the agent with 
 ---
 
 <details>
-<summary><h2>Lab 7: Create an Agent Skill (12 min)</h2></summary>
+<summary><h2>Lab 6: Create an Agent Skill (12 min)</h2></summary>
 
-> **Workshop Section**: 7 — Agent Skills
+> **Workshop Section**: 6 — Agent Skills
 
 ### Why This Matters
 
@@ -863,9 +691,9 @@ You can also create **personal skills** that apply across all your repos:
 ---
 
 <details>
-<summary><h2>Lab 8: MCP Servers (Playwright + GitHub) (15 min)</h2></summary>
+<summary><h2>Lab 7: MCP Servers (Playwright + GitHub) (15 min)</h2></summary>
 
-> **Workshop Section**: 8 — MCP Servers (Playwright + GitHub)
+> **Workshop Section**: 7 — MCP Servers (Playwright + GitHub)
 
 ### Why This Matters
 
@@ -993,9 +821,9 @@ Browse to http://localhost:5137 and test all the navigation links. If any pages 
 ---
 
 <details>
-<summary><h2>Lab 9: Vision + Agent Mode Deep Dive — Image to Implementation (15 min)</h2></summary>
+<summary><h2>Lab 8: Vision + Agent Mode Deep Dive — Image to Implementation (15 min)</h2></summary>
 
-> **Workshop Section**: 9 — Vision + Agent Mode Deep Dive (Cart Page)
+> **Workshop Section**: 8 — Vision + Agent Mode Deep Dive (Cart Page)
 
 ### Why This Matters
 
@@ -1099,7 +927,7 @@ Implement the changes based on the plan.
 
 **Exercise 3 — Use Playwright to Validate** (Bonus)
 
-If you have Playwright MCP running from Lab 8, combine Vision output with browser testing:
+If you have Playwright MCP running from Lab 7, combine Vision output with browser testing:
 
 ```
 Using Playwright, browse to http://localhost:5137, add three different products to the
@@ -1121,6 +949,245 @@ correct prices and quantities.
 - ✅ You've used the Plan → Implement → Verify workflow for the cart feature
 - ✅ The Cart page is functional (or you've made significant progress on it)
 - ✅ You understand how Vision, Agent mode, and MCP work together as a complete workflow
+
+</details>
+
+---
+
+## Extended Learning Labs
+
+> **Note**: These labs are optional self-paced exercises for after the workshop. They require the **GitHub CLI** (`gh`) — install from [cli.github.com](https://cli.github.com).
+
+<details>
+<summary><h3>Extended Lab E1: GitHub CLI — Copilot in the Terminal (15 min)</h3></summary>
+
+> **Workshop Section**: Extended Learning E1
+
+#### Why This Matters
+
+The GitHub CLI (`gh`) brings Copilot into your terminal, letting you generate commands from natural language, explain unfamiliar commands, and manage issues and PRs without leaving your workflow.
+
+#### Quick Reference
+
+| Command | What It Does |
+|---------|-------------|
+| `gh copilot suggest "..."` | AI-generated shell command from natural language |
+| `gh copilot explain "..."` | Plain-English explanation of a command |
+| `gh issue list` | List issues in the current repo |
+| `gh issue create` | Create a new issue |
+| `gh pr list` | List pull requests |
+| `gh pr create` | Create a pull request |
+
+#### Steps
+
+**Exercise 1 — Verify Setup**:
+
+1. Open the VS Code integrated terminal
+2. Confirm the CLI is installed and you're authenticated:
+
+```bash
+gh --version
+```
+
+```bash
+gh auth status
+```
+
+> **Note**: If `gh auth status` shows you're not authenticated, run `gh auth login` and follow the prompts.
+
+**Exercise 2 — Copilot Suggest**:
+
+1. Ask Copilot to generate a git command from plain English:
+
+```bash
+gh copilot suggest "show me the most recent commits on main with a graph"
+```
+
+2. Review the suggested command — Copilot will show it and ask if you want to run it
+3. Execute the suggested command
+4. Try another one — ask for something you'd normally have to look up:
+
+```bash
+gh copilot suggest "find all TypeScript files modified in the last week"
+```
+
+**Exercise 3 — Copilot Explain**:
+
+1. Paste a command you've seen but don't fully understand:
+
+```bash
+gh copilot explain "git log --oneline --graph --all --decorate"
+```
+
+2. Read the step-by-step breakdown Copilot provides
+3. Try explaining a GitHub API command:
+
+```bash
+gh copilot explain "gh api repos/{owner}/{repo}/branches/main/protection --method PUT"
+```
+
+**Exercise 4 — Issue Management**:
+
+1. List existing issues in your repo:
+
+```bash
+gh issue list
+```
+
+2. Create an issue — you can use this for Coding Agent later:
+
+```bash
+gh issue create --title "Add input validation to Product API" --body "The POST /api/products endpoint accepts any payload without validation. Add schema validation for required fields (name, price, supplierId)."
+```
+
+3. Verify it was created:
+
+```bash
+gh issue list
+```
+
+4. View the issue details in your browser:
+
+```bash
+gh issue view --web
+```
+
+**Exercise 5 — PR Workflow** (Bonus):
+
+1. List any open pull requests:
+
+```bash
+gh pr list
+```
+
+2. Check the status of the current branch's PR (if any):
+
+```bash
+gh pr status
+```
+
+**Exercise 6 — Type Hints**:
+
+1. Run a suggest command WITHOUT a type hint:
+
+```bash
+gh copilot suggest "show me which branches have been merged into main"
+```
+
+2. Notice the suggestion type — it might be `gh`, `git`, or `shell`
+
+3. Now run the SAME prompt WITH a type hint:
+
+```bash
+gh copilot suggest -t git "show me which branches have been merged into main"
+```
+
+4. Compare the two results — the `-t git` flag steers Copilot to a `git` command
+
+5. Try steering to a `gh` command:
+
+```bash
+gh copilot suggest -t gh "find PRs that haven't been reviewed yet"
+```
+
+> **Type hint values**: `-t shell` (OS commands), `-t git` (git commands), `-t gh` (GitHub CLI commands)
+
+**Exercise 7 — Structured Output with `--json` / `--jq`**:
+
+1. List issues as JSON:
+
+```bash
+gh issue list --json number,title,assignees
+```
+
+2. Extract just the titles using `--jq`:
+
+```bash
+gh issue list --json title --jq '.[].title'
+```
+
+3. Try with PRs (if any exist):
+
+```bash
+gh pr list --json number,title,reviewDecision
+```
+
+4. Combine to get a compact summary:
+
+```bash
+gh issue list --json number,title --jq '.[] | "#\(.number): \(.title)"'
+```
+
+> **Pro tip**: Use `gh issue list --json` (no fields) to see all available JSON fields.
+
+#### Success Criteria
+
+- ✅ `gh auth status` shows you are authenticated
+- ✅ You've used `gh copilot suggest` to generate a command from natural language
+- ✅ You've used `gh copilot explain` to understand a command
+- ✅ You've created an issue from the terminal with `gh issue create`
+- ✅ You've viewed the issue in the browser with `gh issue view --web`
+- ✅ You've used `-t` type hints to steer `suggest` to a specific command category
+- ✅ You've used `--json` and `--jq` to get structured output from the CLI
+
+</details>
+
+---
+
+<details>
+<summary><h3>Extended Lab E2: Copilot SDK — Build Your Own Agent (8 min)</h3></summary>
+
+> **Workshop Section**: Extended Learning E2
+
+#### Why This Matters
+
+The Copilot SDK lets you build custom AI agents powered by the same models behind GitHub Copilot. This is a read-and-explore exercise — you'll study SDK code patterns and optionally run a hello-world example.
+
+#### Steps
+
+**Exercise 1 — Understand the Key Components**:
+
+Review the SDK architecture. Every Copilot SDK agent has these components:
+
+| Component | Purpose |
+|-----------|---------|
+| **Model Adapter** | Connects to the AI model (Copilot, OpenAI, etc.) |
+| **`defineTool()`** | Registers tools/functions the agent can call |
+| **Prompt Function** | Formats the user's request with system instructions |
+| **Agent Loop** | Orchestrates tool calls, model responses, and follow-ups |
+
+**Exercise 2 — Read Through the SDK Example**:
+
+1. Visit the [Copilot SDK repository](https://github.com/github/copilot-sdk)
+2. Look at the `packages/` directory structure
+3. Find a sample agent and identify:
+   - Where `defineTool()` is used to register tools
+   - How the model adapter is configured
+   - How prompts are structured
+4. Note how the agent loop handles tool call results and feeds them back to the model
+
+**Exercise 3 — Clone and Explore** (Bonus):
+
+1. Clone the SDK repo:
+
+```bash
+git clone https://github.com/github/copilot-sdk.git
+cd copilot-sdk
+```
+
+2. Install dependencies and explore the examples:
+
+```bash
+npm install
+```
+
+3. Look for a hello-world or basic agent example and try running it
+
+#### Success Criteria
+
+- ✅ You can identify the four key components of a Copilot SDK agent
+- ✅ You've reviewed at least one SDK example and understand its structure
+- ✅ You understand how `defineTool()` connects custom functions to an AI agent
 
 </details>
 
