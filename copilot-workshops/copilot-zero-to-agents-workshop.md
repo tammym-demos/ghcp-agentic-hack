@@ -161,11 +161,9 @@ npm run dev
 
 ### When to Use Each Mode — Decision Framework
 
-```
 "I need to understand something"          → Ask
 "I need to build/fix/change something"    → Agent
 "I need to plan before implementing"      → Plan
-```
 
 ---
 
@@ -304,26 +302,45 @@ gh copilot explain "git log --oneline --graph --all --decorate"
 
 ### Essential `gh` Commands for This Workshop
 
+Check your authentication status:
+
 ```bash
-# Check your authentication status
 gh auth status
+```
 
-# List issues in the current repo
+List issues in the current repo:
+
+```bash
 gh issue list
+```
 
-# Create an issue (we'll use this in Section 10 for Coding Agent)
+Create an issue (we'll use this in Section 10 for Coding Agent):
+
+```bash
 gh issue create --title "Add input validation" --body "Add Zod validation to POST /api/products"
+```
 
-# List pull requests
+List pull requests:
+
+```bash
 gh pr list
+```
 
-# View PR details and diff
+View PR details and diff:
+
+```bash
 gh pr view 1 --web
+```
 
-# Create a PR from your current branch
+Create a PR from your current branch:
+
+```bash
 gh pr create --title "Add cart feature" --body "Implements cart page from design mockup"
+```
 
-# Clone a repo (what you did in Section 1)
+Clone a repo (what you did in Section 1):
+
+```bash
 gh repo clone microsoft/GitHubCopilot_Customized
 ```
 
