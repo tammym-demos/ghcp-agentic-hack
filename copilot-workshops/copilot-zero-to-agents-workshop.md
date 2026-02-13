@@ -173,9 +173,19 @@ npm run dev
 ### 🖥️ Demo: Ask Mode
 
 1. Open Copilot Chat → select **Ask** mode
-2. Enter: `Please give me details about the API of this project.`
+2. Enter:
+
+```
+Please give me details about the API of this project.
+```
+
 3. Show how Copilot references the architecture, Express routes, Swagger docs, and entity models
-4. Enter: `Are there any core features missing in my project?`
+4. Enter:
+
+```
+Are there any core features missing in my project?
+```
+
 5. Show Copilot analyzing the codebase and identifying gaps
 
 **Talking point**: "Ask mode is your read-only expert. It understands your entire codebase but doesn't change anything. Perfect for onboarding or exploring unfamiliar code."
@@ -196,7 +206,12 @@ When you select Agent mode, a second picker lets you choose the agent type — c
 ### 🖥️ Demo: Plan Mode
 
 1. Open Copilot Chat → select **Plan** mode
-2. Enter: `I want to add input validation to the Product API POST endpoint. What's the best approach?`
+2. Enter:
+
+```
+I want to add input validation to the Product API POST endpoint. What's the best approach?
+```
+
 3. Show Copilot analyzing the codebase and proposing a detailed implementation plan:
    - Which files need to change
    - What validation library to use
@@ -208,7 +223,12 @@ When you select Agent mode, a second picker lets you choose the agent type — c
 ### 🖥️ Demo: Agent Mode
 
 1. Switch to **Agent** mode
-2. Enter: `Please build and run my project so that I can see its existing state.`
+2. Enter:
+
+```
+Please build and run my project so that I can see its existing state.
+```
+
 3. Show Copilot:
    - Reading `package.json` and build configuration
    - Running `npm install` and `npm run dev` in the terminal
@@ -533,7 +553,12 @@ This is the power demo — teaching Copilot about a framework it has NEVER seen.
 - Configure initTAO() in the application entry point
 ```
 
-3. Switch to Agent mode and ask: `Add observability to the Supplier route using our internal standards`
+3. Switch to Agent mode and enter:
+
+```
+Add observability to the Supplier route using our internal standards
+```
+
 4. Show Copilot generating TAO import code (`import { Measure, Trace } from '@tao/core'`) — code that references a framework that doesn't exist publicly
 
 **Talking point**: "This is the real magic. Copilot has never seen TAO — it doesn't exist anywhere on the internet. But because we told it about TAO in our custom instructions, it generates code using our internal framework. Imagine this for YOUR company's internal libraries."
@@ -841,7 +866,11 @@ Markdown body with the agent's instructions, persona, and behavior rules.
    - **Key instruction**: `call GitHub's create_pull_request_with_copilot` — this agent delegates to the Coding Agent
 3. Show the agent appearing in the Copilot Chat mode picker
 4. Select the agent and give it a task:
-   - `Explore adding a wishlist feature where users can save products for later`
+
+```
+Explore adding a wishlist feature where users can save products for later
+```
+
 5. Show the agent:
    - Researching the codebase (parallel tool calls)
    - Creating a todo list with variations
@@ -1085,8 +1114,12 @@ To debug failing GitHub Actions workflows in a pull request, follow this process
    make sure it is fixed before committing your changes
 ```
 
-3. Show how Copilot auto-selects the skill:
-   - Ask Copilot: `Help me debug why the CI workflow is failing on my PR`
+3. Show how Copilot auto-selects the skill — enter:
+
+```
+Help me debug why the CI workflow is failing on my PR
+```
+
    - Show the skill being loaded (Copilot will reference the skill's instructions)
 
 **Talking point**: "You didn't invoke the skill — Copilot chose it because your prompt matched the skill's description. This is the key difference from prompt files."
@@ -1270,19 +1303,34 @@ The repo's `.vscode/mcp.json`:
 
 1. Ensure Playwright MCP server is running
 2. Switch to Agent mode
-3. Enter: `Browse to http://localhost:5137 and navigate to the Products page. Describe what you see.`
+3. Enter:
+
+```
+Browse to http://localhost:5137 and navigate to the Products page. Describe what you see.
+```
+
 4. Show Copilot:
    - Sending commands to the Playwright browser
    - Navigating to the site
    - Describing the UI elements it finds
-5. Follow up: `Click on one of the products and check if the product details are displayed correctly`
+5. Follow up:
+
+```
+Click on one of the products and check if the product details are displayed correctly
+```
+
 6. Show Copilot interacting with the page and reporting results
 
 **Talking point**: "You just ran a functional test using natural language. No test scripts, no selectors, no framework setup. Copilot uses Playwright behind the scenes to drive a real browser."
 
 ### 🖥️ Demo: Generate BDD Test Scenarios
 
-1. Enter: `Generate a Gherkin .feature file to test the Products page functionality`
+1. Enter:
+
+```
+Generate a Gherkin .feature file to test the Products page functionality
+```
+
 2. Show the generated `.feature` file with scenarios like:
    - `Given I navigate to the Products page`
    - `Then I should see a list of products`
@@ -1296,9 +1344,19 @@ The repo's `.vscode/mcp.json`:
 
 1. Ensure GitHub MCP server is running
 2. Switch to Agent mode
-3. Enter: `Check which issues are assigned to me in this repo`
+3. Enter:
+
+```
+Check which issues are assigned to me in this repo
+```
+
 4. Show Copilot fetching issues via the GitHub API
-5. Enter: `Create an Issue for enhancing test coverage in the API project and assign it to me`
+5. Enter:
+
+```
+Create an Issue for enhancing test coverage in the API project and assign it to me
+```
+
 6. Show the issue being created with:
    - Meaningful title and description
    - Appropriate labels
@@ -1457,7 +1515,12 @@ NavBar that shows the number of items in the Cart.
 **Step 2: Implement with Agent**
 
 1. Switch to **Agent** mode (keep the conversation context)
-2. Enter: `Implement the changes.`
+2. Enter:
+
+```
+Implement the changes.
+```
+
 3. Show Copilot:
    - Creating new React components (CartPage, CartIcon, CartContext)
    - Modifying the NavBar to include the cart icon
