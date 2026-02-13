@@ -65,13 +65,8 @@ This session takes developers from casual Copilot usage to full agentic developm
 
 This workshop follows a deliberate progression:
 
-```
-ZERO                    CUSTOMIZE                   EXTEND                    AGENTS                 EMBED
-───────────────────►  ───────────────────────────► ──────────────────────►  ─────────────────►     ──────────►
-Chat Modes             Instructions → Prompts →     MCP Servers              Vision + Agent         Copilot SDK
-(Ask, Agent, Plan)     Agents → Skills              (Playwright, GitHub)     Coding Agent           (Build your
-GitHub CLI                                                                   PR Review Agent        own tools)
-```
+<img src="../assets/ghcp-path.png" alt="Diagram" width="900" />
+
 
 Each section builds on the previous one, showing how Copilot can be progressively customized from a general assistant to a specialized, autonomous development partner — and ultimately embedded in your own applications.
 
@@ -97,7 +92,9 @@ Each section builds on the previous one, showing how Copilot can be progressivel
 | **Agent Skills** | `.github/skills/*/SKILL.md` | Auto-selected by relevance | Specialized task instructions |
 | **MCP Servers** | `.vscode/mcp.json` | When server is running | External tool integration |
 
-### 🖥️ Demo: The OctoCAT Supply App
+---
+
+### 🖥️ DEMO: The OctoCAT Supply App
 
 1. Show the [GitHub repo](https://github.com/microsoft/GitHubCopilot_Customized) in the browser
 2. Walk through the architecture: React 18+ frontend (Vite, Tailwind) + Express.js API (TypeScript, Swagger)
@@ -170,7 +167,9 @@ npm run dev
 "I need to plan before implementing"      → Plan
 ```
 
-### 🖥️ Demo: Ask Mode
+---
+
+### 🖥️ DEMO: Ask Mode
 
 1. Open Copilot Chat → select **Ask** mode
 2. Enter:
@@ -203,7 +202,9 @@ When you select Agent mode, a second picker lets you choose the agent type — c
 
 > **Note**: Throughout this workshop, we primarily use the **Local** agent type. Section 10 covers the **Cloud** agent type (Coding Agent) in detail.
 
-### 🖥️ Demo: Plan Mode
+---
+
+### 🖥️ DEMO: Plan Mode
 
 1. Open Copilot Chat → select **Plan** mode
 2. Enter:
@@ -220,7 +221,9 @@ I want to add input validation to the Product API POST endpoint. What's the best
 
 **Talking point**: "Plan mode is your architect. It reads your codebase, analyzes the problem, and proposes a plan — without touching any code. We'll use this extensively in Section 9 when we build a feature from a design mockup."
 
-### 🖥️ Demo: Agent Mode
+---
+
+### 🖥️ DEMO: Agent Mode
 
 1. Switch to **Agent** mode
 2. Enter:
@@ -324,7 +327,9 @@ gh pr create --title "Add cart feature" --body "Implements cart page from design
 gh repo clone microsoft/GitHubCopilot_Customized
 ```
 
-### 🖥️ Demo: Copilot in the CLI
+---
+
+### 🖥️ DEMO: Copilot in the CLI
 
 1. Open the VS Code integrated terminal
 2. Verify CLI is installed and authenticated:
@@ -501,7 +506,9 @@ gh issue list --json number,title,labels --jq '.[] | select(.labels | length > 0
 
 **Rule of thumb**: Keep it concise. Instructions are loaded on every interaction — they consume context window.
 
-### 🖥️ Demo: Generate Custom Instructions
+---
+
+### 🖥️ DEMO: Generate Custom Instructions
 
 1. Open Copilot Chat → click the **Gear** icon (⚙️) in the chat window
 2. Select **"Generate Agent Instructions"**
@@ -515,7 +522,9 @@ gh issue list --json number,title,labels --jq '.[] | select(.labels | length > 0
 
 **Talking point**: "Copilot just analyzed your entire repo and wrote its own instruction manual. This file will now be loaded into every interaction."
 
-### 🖥️ Demo: Create Scoped Instructions
+---
+
+### 🖥️ DEMO: Create Scoped Instructions
 
 1. Create `.github/instructions/API.instructions.md`:
 
@@ -537,7 +546,9 @@ For REST APIs in this project:
 
 **Talking point**: "Scoped instructions are like per-project `.editorconfig` for AI. They activate only when you're working in matching files."
 
-### 🖥️ Demo: The TAO Example (Internal Framework)
+---
+
+### 🖥️ DEMO: The TAO Example (Internal Framework)
 
 This is the power demo — teaching Copilot about a framework it has NEVER seen.
 
@@ -693,7 +704,9 @@ List specific requirements, patterns, and constraints.
 Define what "done" looks like.
 ```
 
-### 🖥️ Demo: Walk Through Existing Prompts
+---
+
+### 🖥️ DEMO: Walk Through Existing Prompts
 
 **Prompt 1: `Unit-Test-Coverage.prompt.md`** (Agent mode, test generation)
 
@@ -856,7 +869,9 @@ model: Claude Sonnet 4.5
 Markdown body with the agent's instructions, persona, and behavior rules.
 ```
 
-### 🖥️ Demo: Review the ImplementationIdeas Agent
+---
+
+### 🖥️ DEMO: Review the ImplementationIdeas Agent
 
 1. Open `.github/agents/ImplementationIdeas.agent.md`
 2. Walk through the structure:
@@ -878,7 +893,9 @@ Explore adding a wishlist feature where users can save products for later
 
 **Talking point**: "This agent doesn't just help you code — it researches, plans, and then hands off implementation to an autonomous agent. It's agents calling agents."
 
-### 🖥️ Demo: Create a Custom Agent
+---
+
+### 🖥️ DEMO: Create a Custom Agent
 
 Create `.github/agents/CodeReviewer.agent.md`:
 
@@ -1083,7 +1100,9 @@ Follow this process when creating new API routes:
 | **Project** | `.github/skills/` | This repo only | With collaborators via git |
 | **Personal** | `~/.copilot/skills/` | All your repos | Only on your machine |
 
-### 🖥️ Demo: Create a Skill from Scratch
+---
+
+### 🖥️ DEMO: Create a Skill from Scratch
 
 1. Create the directory structure:
 
@@ -1124,7 +1143,9 @@ Help me debug why the CI workflow is failing on my PR
 
 **Talking point**: "You didn't invoke the skill — Copilot chose it because your prompt matched the skill's description. This is the key difference from prompt files."
 
-### 🖥️ Demo: Reference External Skill Collections
+---
+
+### 🖥️ DEMO: Reference External Skill Collections
 
 Show attendees where to find community skills:
 - [anthropics/skills](https://github.com/anthropics/skills) — Anthropic's reference skills
@@ -1288,7 +1309,9 @@ The repo's `.vscode/mcp.json`:
 | **GitHub** | HTTP (remote) | OAuth (automatic) | Nothing extra |
 | **Playwright** | stdio (local) | None | Node.js, local VS Code |
 
-### 🖥️ Demo: Start MCP Servers
+---
+
+### 🖥️ DEMO: Start MCP Servers
 
 1. Open the Command Palette → `MCP: List servers`
 2. Show both servers listed
@@ -1297,7 +1320,9 @@ The repo's `.vscode/mcp.json`:
 
 **Alternative**: Open `.vscode/mcp.json` and use the HUD display above each server to start them.
 
-### 🖥️ Demo: Playwright MCP — Browser Testing from Natural Language
+---
+
+### 🖥️ DEMO: Playwright MCP — Browser Testing from Natural Language
 
 > **Prerequisite**: App must be running locally (`npm run dev`). Playwright MCP does NOT work in Codespaces.
 
@@ -1323,7 +1348,9 @@ Click on one of the products and check if the product details are displayed corr
 
 **Talking point**: "You just ran a functional test using natural language. No test scripts, no selectors, no framework setup. Copilot uses Playwright behind the scenes to drive a real browser."
 
-### 🖥️ Demo: Generate BDD Test Scenarios
+---
+
+### 🖥️ DEMO: Generate BDD Test Scenarios
 
 1. Enter:
 
@@ -1340,7 +1367,9 @@ Generate a Gherkin .feature file to test the Products page functionality
 
 **Talking point**: "MCP bridges the gap between Copilot and the real world. It's not just generating test code — it's running a browser and observing the results."
 
-### 🖥️ Demo: GitHub MCP — Interacting with GitHub from Chat
+---
+
+### 🖥️ DEMO: GitHub MCP — Interacting with GitHub from Chat
 
 1. Ensure GitHub MCP server is running
 2. Switch to Agent mode
@@ -1489,7 +1518,9 @@ Browse to http://localhost:5137 and test all the navigation links. If any pages 
   └─────────────────┘     └─────────────────┘     └─────────────────┘
 ```
 
-### 🖥️ Demo: Build the Cart Page from an Image
+---
+
+### 🖥️ DEMO: Build the Cart Page from an Image
 
 **Before State**: Show the Products page — clicking "Add to Cart" shows a toast message but there's no actual cart.
 
@@ -1667,7 +1698,9 @@ correct prices and quantities.
 - Branch protection rule on `main` requiring PR reviews
 - Copilot Coding Agent enabled in repo settings
 
-### 🖥️ Demo: Assign an Issue to Coding Agent
+---
+
+### 🖥️ DEMO: Assign an Issue to Coding Agent
 
 1. Open the GitHub repo in the browser
 2. Navigate to Issues → find Issue #1 (test coverage improvement) or create a new issue:
@@ -1684,7 +1717,9 @@ correct prices and quantities.
 
 **Talking point**: "You just delegated a code task to an autonomous agent. It'll read your instructions, your skills, your prompt files — everything we've set up today — and write code that follows your team's standards."
 
-### 🖥️ Demo: Show the Custom Agent → Coding Agent Handoff
+---
+
+### 🖥️ DEMO: Show the Custom Agent → Coding Agent Handoff
 
 1. Recall the `ImplementationIdeas.agent.md` from Section 6
 2. Show the key line: `call GitHub's create_pull_request_with_copilot`
@@ -1698,7 +1733,9 @@ correct prices and quantities.
 - Provides inline comments with severity levels and suggested fixes
 - Complementary to human review, not a replacement
 
-### 🖥️ Demo: Request Copilot Review on a PR
+---
+
+### 🖥️ DEMO: Request Copilot Review on a PR
 
 1. Open a PR in the repo (use one created by Coding Agent, or a pre-prepared PR)
 2. Click **Reviewers** → Add **Copilot** as a reviewer
