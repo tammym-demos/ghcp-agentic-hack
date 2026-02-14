@@ -344,7 +344,13 @@ For REST APIs in this project:
 - Include input validation for all POST/PUT endpoints
 ```
 
-2. Ask Copilot a question about the API — show how the scoped instructions influence the response
+2. Open a file in `api/src/routes/` (e.g., `product.ts`), then ask Copilot in **Ask** mode:
+
+```
+How should I add a new API endpoint to this project?
+```
+
+3. Show how the scoped instructions influence the response — Copilot should now reference Swagger docs, REST conventions, error handling patterns, and the entity model structure
 
 **Talking point**: "Scoped instructions are like per-project `.editorconfig` for AI. They activate only when you're working in matching files."
 
@@ -427,6 +433,17 @@ For REST APIs in this project:
 ```
 
 > **Note**: The `applyTo` field uses glob patterns. `api/**` means these instructions load whenever you have any file under the `api/` folder open.
+
+**Step 3b: Test Scoped Instructions**
+
+1. Open a file in `api/src/routes/` (e.g., `product.ts`)
+2. In Copilot Chat (**Ask** mode), enter:
+
+```
+How should I add a new API endpoint to this project?
+```
+
+3. Notice how the response references Swagger docs, REST conventions, error handling patterns, and the entity model structure — these come from the scoped instructions you just created
 
 **Step 4: Test the Difference (After Instructions)**
 
