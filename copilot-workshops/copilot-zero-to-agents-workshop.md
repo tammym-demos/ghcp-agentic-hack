@@ -239,17 +239,40 @@ Please build and run my project so that I can see its existing state.
 <summary><h3>🧪 Hands-On: Try All Three Modes (8 min)</h3></summary>
 
 **Exercise 1 — Ask Mode**:
-- Ask Copilot: `What testing framework does this project use and what's the current test coverage?`
-- Note the answer for later (we'll generate tests in Section 4)
+
+1. Open Copilot Chat → select **Ask** mode from the dropdown
+2. Enter the following prompt:
+
+```
+What testing framework does this project use and what's the current test coverage?
+```
+
+3. Note the answer for later (we'll generate tests in Section 4)
 
 **Exercise 2 — Plan Mode**:
-- Switch to **Plan** mode
-- Enter: `How should I add comprehensive error handling to the API routes?`
-- Review the plan Copilot proposes — note it doesn't change any files
+
+1. Switch to **Plan** mode from the mode dropdown
+2. Enter the following prompt:
+
+```
+How should I add comprehensive error handling to the API routes?
+```
+
+3. Review the plan Copilot proposes — note it doesn't change any files
 
 **Exercise 3 — Agent Mode**:
-- If your app isn't running, use Agent mode: `Build and run the project`
-- Then: `Open the Swagger documentation page for the API`
+
+1. If your app isn't running, switch to **Agent** mode and enter:
+
+```
+Build and run the project
+```
+
+2. Then enter:
+
+```
+Open the Swagger documentation page for the API
+```
 
 </details>
 
@@ -1849,47 +1872,132 @@ gh issue create --title "Improve API error handling" --body "Standardize error r
 <summary><h4>🧪 Hands-On: Try the GitHub CLI (10 min)</h4></summary>
 
 **Exercise 1 — Verify Setup**:
-- Confirm the CLI is installed: `gh --version`
-- Confirm you're authenticated: `gh auth status`
+
+1. Confirm the CLI is installed:
+
+```bash
+gh --version
+```
+
+2. Confirm you're authenticated:
+
+```bash
+gh auth status
+```
 
 > **Note**: If `gh auth status` shows you're not authenticated, run `gh auth login` and follow the prompts.
 
 **Exercise 2 — Copilot Suggest**:
-- Run: `gh copilot suggest "show me the most recent commits on main with a graph"`
-- Execute the suggested command
-- Try another: `gh copilot suggest "find all TypeScript files modified in the last week"`
+
+1. Run the following command:
+
+```bash
+gh copilot suggest "show me the most recent commits on main with a graph"
+```
+
+2. Execute the suggested command
+3. Try another:
+
+```bash
+gh copilot suggest "find all TypeScript files modified in the last week"
+```
 
 **Exercise 3 — Copilot Explain**:
-- Explain a git command: `gh copilot explain "git log --oneline --graph --all --decorate"`
-- Explain a GitHub API command: `gh copilot explain "gh api repos/{owner}/{repo}/branches/main/protection --method PUT"`
+
+1. Explain a git command:
+
+```bash
+gh copilot explain "git log --oneline --graph --all --decorate"
+```
+
+2. Explain a GitHub API command:
+
+```bash
+gh copilot explain "gh api repos/{owner}/{repo}/branches/main/protection --method PUT"
+```
 
 **Exercise 4 — Issue Management**:
-- List issues: `gh issue list`
-- Create an issue (you can use this later for Coding Agent):
+
+1. List issues:
+
+```bash
+gh issue list
+```
+
+2. Create an issue (you can use this later for Coding Agent):
 
 ```bash
 gh issue create --title "Add input validation to Product API" --body "The POST /api/products endpoint accepts any payload without validation. Add schema validation for required fields (name, price, supplierId)."
 ```
 
-- Verify it exists: `gh issue list`
-- View it in the browser: `gh issue view --web`
+3. Verify it exists:
+
+```bash
+gh issue list
+```
+
+4. View it in the browser:
+
+```bash
+gh issue view --web
+```
 
 **Exercise 5 — PR Workflow** (Bonus):
-- List open pull requests: `gh pr list`
-- Check current branch PR status: `gh pr status`
+
+1. List open pull requests:
+
+```bash
+gh pr list
+```
+
+2. Check current branch PR status:
+
+```bash
+gh pr status
+```
 
 **Exercise 6 — Type Hints**:
-- Try the same prompt with different type hints and compare results:
-  - `gh copilot suggest -t git "show me which branches have been merged into main"`
-  - `gh copilot suggest -t gh "show me which branches have been merged into main"`
-  - `gh copilot suggest -t shell "find all TypeScript files larger than 100KB"`
-- Notice how each type hint constrains the output to a different category of command
-- Try with your own prompt: `gh copilot suggest -t gh "find PRs that haven't been reviewed yet"`
+
+1. Try the same prompt with different type hints and compare results:
+
+```bash
+gh copilot suggest -t git "show me which branches have been merged into main"
+```
+
+```bash
+gh copilot suggest -t gh "show me which branches have been merged into main"
+```
+
+```bash
+gh copilot suggest -t shell "find all TypeScript files larger than 100KB"
+```
+
+2. Notice how each type hint constrains the output to a different category of command
+3. Try with your own prompt:
+
+```bash
+gh copilot suggest -t gh "find PRs that haven't been reviewed yet"
+```
 
 **Exercise 7 — Structured Output** (Bonus):
-- Get issues as JSON: `gh issue list --json number,title,assignees`
-- Filter to just titles: `gh issue list --json title --jq '.[].title'`
-- List PRs with review status: `gh pr list --json number,title,reviewDecision`
+
+1. Get issues as JSON:
+
+```bash
+gh issue list --json number,title,assignees
+```
+
+2. Filter to just titles:
+
+```bash
+gh issue list --json title --jq '.[].title'
+```
+
+3. List PRs with review status:
+
+```bash
+gh pr list --json number,title,reviewDecision
+```
 
 </details>
 

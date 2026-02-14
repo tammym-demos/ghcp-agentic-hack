@@ -135,12 +135,27 @@ Run through this **the day before** and again **30 minutes before** the workshop
 ### Hands-On Instructions (8 min)
 
 Tell attendees:
-> "Try all three modes. Here are prompts to start with:
-> - **Ask**: `What testing framework does this project use and what's the current test coverage?`
-> - **Plan**: `How should I add comprehensive error handling to the API routes?` — note it doesn't change any files
-> - **Agent**: `Build and run the project` (if not already running)
-> 
-> You have 8 minutes. I'll walk around to help."
+> "Try all three modes. Here are prompts to start with:"
+
+**Ask**:
+
+```
+What testing framework does this project use and what's the current test coverage?
+```
+
+**Plan** (note it doesn't change any files):
+
+```
+How should I add comprehensive error handling to the API routes?
+```
+
+**Agent** (if not already running):
+
+```
+Build and run the project
+```
+
+> "You have 8 minutes. I'll walk around to help."
 
 ### Key Points to Emphasize
 
@@ -227,14 +242,20 @@ If Copilot is slow/unresponsive:
 
 ### Hands-On Instructions (12 min)
 
-> "Five steps — take your time:
-> 1. **Baseline**: Ask Copilot in Ask mode: `How should I add a new API endpoint to this project?` — note the response
-> 2. Use the Gear icon → 'Generate Agent Instructions' to create your `.github/copilot-instructions.md`
-> 3. Create `.github/instructions/API.instructions.md` with the `applyTo: 'api/**'` frontmatter
-> 4. **Compare**: Open a file in `api/src/routes/` and re-ask the same question — notice how the response is now more specific
-> 5. **Bonus**: Create a Frontend scoped instruction for `src/**` with Tailwind and React conventions
-> 
-> You have 12 minutes. I'll walk around to help."
+> "Five steps — take your time:"
+
+1. **Baseline**: Ask Copilot in Ask mode — note the response:
+
+```
+How should I add a new API endpoint to this project?
+```
+
+2. Use the Gear icon → 'Generate Agent Instructions' to create your `.github/copilot-instructions.md`
+3. Create `.github/instructions/API.instructions.md` with the `applyTo: 'api/**'` frontmatter
+4. **Compare**: Open a file in `api/src/routes/` and re-ask the same question — notice how the response is now more specific
+5. **Bonus**: Create a Frontend scoped instruction for `src/**` with Tailwind and React conventions
+
+> "You have 12 minutes. I'll walk around to help."
 
 ### Key Points to Emphasize
 
@@ -482,14 +503,20 @@ If the mode picker doesn't show the new agent:
 
 ### Hands-On Instructions (12 min)
 
-> "Three exercises:
-> 1. **Create an `api-route-creation` skill**:
->    `mkdir -p .github/skills/api-route-creation`
->    Create a SKILL.md that teaches Copilot how to create new API routes following the project's Express patterns (model, route, register, Swagger, tests).
-> 2. **Test it**: Ask Copilot to add a new 'Warehouse' entity with name, address, city, state, zipCode, and capacity — watch the skill activate
-> 3. **Bonus**: Create a `react-component-creation` skill for frontend components (functional components, Tailwind CSS, TypeScript)
-> 
-> You have 12 minutes. Focus on getting the first skill created and tested."
+> "Three exercises:"
+
+1. **Create an `api-route-creation` skill**:
+
+```bash
+mkdir -p .github/skills/api-route-creation
+```
+
+   Create a SKILL.md that teaches Copilot how to create new API routes following the project's Express patterns (model, route, register, Swagger, tests).
+
+2. **Test it**: Ask Copilot to add a new 'Warehouse' entity with name, address, city, state, zipCode, and capacity — watch the skill activate
+3. **Bonus**: Create a `react-component-creation` skill for frontend components (functional components, Tailwind CSS, TypeScript)
+
+> "You have 12 minutes. Focus on getting the first skill created and tested."
 
 ### Key Points to Emphasize
 
@@ -1071,16 +1098,51 @@ npm run dev
 
 #### Hands-On Instructions (10 min)
 
-> "Your turn! Try these in the terminal:
-> 1. `gh copilot suggest "show me the most recent commits on main with a graph"` — then run the suggested command
-> 2. `gh copilot explain "git log --oneline --graph --all --decorate"` — understand a complex command
-> 3. `gh issue list` — see what issues exist
-> 4. `gh issue create --title "Test issue from CLI" --body "Created during workshop."` — create your own issue
-> 5. Verify your issue: `gh issue view --web`
-> 6. Try type hints: `gh copilot suggest -t git "show branches merged into main"` — compare to without `-t`
-> 7. Try structured output: `gh issue list --json number,title --jq '.[].title'`
->
-> **Bonus**: Try `gh pr list` and `gh pr status` to explore PR workflows."
+> "Your turn! Try these in the terminal:"
+
+1. Suggest a command — then run the suggested output:
+
+```bash
+gh copilot suggest "show me the most recent commits on main with a graph"
+```
+
+2. Understand a complex command:
+
+```bash
+gh copilot explain "git log --oneline --graph --all --decorate"
+```
+
+3. See what issues exist:
+
+```bash
+gh issue list
+```
+
+4. Create your own issue:
+
+```bash
+gh issue create --title "Test issue from CLI" --body "Created during workshop."
+```
+
+5. Verify your issue:
+
+```bash
+gh issue view --web
+```
+
+6. Try type hints — compare to without `-t`:
+
+```bash
+gh copilot suggest -t git "show branches merged into main"
+```
+
+7. Try structured output:
+
+```bash
+gh issue list --json number,title --jq '.[].title'
+```
+
+> **Bonus**: Try `gh pr list` and `gh pr status` to explore PR workflows.
 
 #### Key Points to Emphasize
 
