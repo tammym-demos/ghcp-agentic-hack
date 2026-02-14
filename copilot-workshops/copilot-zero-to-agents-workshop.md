@@ -41,19 +41,19 @@ This session takes developers from casual Copilot usage to full agentic developm
 
 | Section | Topic | Time |
 |---------|-------|------|
-| 1 | Welcome, Objectives & Environment Setup | 20 min |
-| 2 | Copilot Chat Modes: Ask, Agent, Plan | 25 min |
-| 3 | Custom Instructions | 25 min |
-| 4 | Custom Prompt Files | 25 min |
-| 5 | Custom Agents (Chat Modes) | 25 min |
-| 6 | Agent Skills | 25 min |
-| 7 | MCP Servers (Playwright + GitHub) | 30 min |
-| 8 | Vision + Agent Mode Deep Dive (Cart Page) | 30 min |
-| 9 | Cloud Agents: Coding Agent + PR Review Agent | 20 min |
-| 10 | Wrap-Up, Customization Hierarchy Recap & Q&A | 10 min |
+| 1 | [Welcome, Objectives & Environment Setup](#1-welcome-objectives--environment-setup-20-min) | 20 min |
+| 2 | [Copilot Chat Modes: Ask, Agent, Plan](#2-copilot-chat-modes-ask-agent-plan-25-min) | 25 min |
+| 3 | [Custom Instructions](#3-custom-instructions-25-min) | 25 min |
+| 4 | [Custom Prompt Files](#4-custom-prompt-files-25-min) | 25 min |
+| 5 | [Custom Agents (Chat Modes)](#5-custom-agents-chat-modes-25-min) | 25 min |
+| 6 | [Agent Skills](#6-agent-skills-25-min) | 25 min |
+| 7 | [MCP Servers (Playwright + GitHub)](#7-mcp-servers-playwright--github-30-min) | 30 min |
+| 8 | [Vision + Agent Mode Deep Dive (Cart Page)](#8-vision--agent-mode-deep-dive-cart-page-30-min) | 30 min |
+| 9 | [Cloud Agents: Coding Agent + PR Review Agent](#9-cloud-agents-coding-agent--pr-review-agent-20-min) | 20 min |
+| 10 | [Wrap-Up, Customization Hierarchy Recap & Q&A](#10-wrap-up-customization-hierarchy-recap--qa-10-min) | 10 min |
 | | **Extended Learning (Self-Paced)** | |
-| E1 | GitHub CLI: Copilot in the Terminal & Project Management | 20 min |
-| E2 | Copilot SDK: Building Your Own AI-Powered Tools | 8 min |
+| E1 | [GitHub CLI: Copilot in the Terminal & Project Management](#e1-github-cli-copilot-in-the-terminal--project-management-20-min) | 20 min |
+| E2 | [Copilot SDK: Building Your Own AI-Powered Tools](#e2-copilot-sdk--build-your-own-ai-tools-8-min) | 8 min |
 
 **Total: ~235 min core (~3h 55min) + 28 min extended learning**
 
