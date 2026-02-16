@@ -355,7 +355,7 @@ If the Unit Test prompt takes too long:
 
 ## Demo 4: Custom Agents (Chat Modes) (Section 5)
 
-**Objective**: Show agents as persistent personas — from simple local doers to advanced delegation  
+**Objective**: Show agents as persistent personas — from simple local workers to advanced delegation  
 **Duration**: 5 min demo + 10 min hands-on = 15 min  
 **After Slide**: 22
 
@@ -450,7 +450,7 @@ Tell attendees:
 
 ### Key Points to Emphasize
 
-- The 3-agent progression: simple doer → read-only reviewer → advanced delegator
+- The 3-agent progression: simple worker → read-only reviewer → advanced delegator
 - Agents are persistent — they change Copilot's behavior for the whole session
 - Agent tool lists control capabilities (read/write vs read-only)
 - Agents can specify their own model — match model to workflow

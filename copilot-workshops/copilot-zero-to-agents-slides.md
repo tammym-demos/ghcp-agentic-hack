@@ -499,7 +499,7 @@ This text defines WHO the agent IS, not just what it does.
 
 | Agent | Tools | Model | Pattern |
 |-------|-------|-------|---------|
-| **OctoCATEngineer** | Local read/write | Default | Simple doer — builds features |
+| **OctoCATEngineer** | Local read/write | Default | Simple worker — builds features |
 | **CodeReviewer** | Local read-only | Claude Sonnet 4 | Reviewer — analyzes, doesn't edit |
 | **ImplementationIdeas** | MCP wildcards + cloud | Claude Sonnet 4.5 | Advanced — delegates to Coding Agent |
 
@@ -541,7 +541,7 @@ IDE Agent (research + plan)
 
 ### Custom Agents (Chat Modes)
 
-- Use the OctoCATEngineer agent (simple local doer)
+- Use the OctoCATEngineer agent (simple local worker)
 - Create a CodeReviewer agent live (read-only)
 - Review the ImplementationIdeas agent (advanced delegation)
 

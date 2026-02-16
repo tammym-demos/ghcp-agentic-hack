@@ -412,7 +412,7 @@ In this lab you'll work with three agents that show a clear progression:
 
 | Agent | Type | Tools | Purpose |
 |-------|------|-------|---------|
-| **OctoCATEngineer** | Simple doer | `codebase`, `search`, `editFiles`, `runCommands`, `problems` | Full-stack local builder |
+| **OctoCATEngineer** | Simple worker | `codebase`, `search`, `editFiles`, `runCommands`, `problems` | Full-stack local builder |
 | **CodeReviewer** | Read-only | `codebase`, `search`, `usages`, `problems` | Reviews code without editing |
 | **ImplementationIdeas** | Advanced | MCP wildcards, custom model, delegation | Researches and delegates to Coding Agent |
 
@@ -523,7 +523,7 @@ This agent shows the most advanced patterns — MCP server tools, a custom model
    - The behavior instructions tell it to research deeply, use parallel searches, and delegate to Coding Agent
    - Key line: `call GitHub's create_pull_request_with_copilot` — this agent can trigger other agents!
 3. Think about the progression:
-   - **OctoCATEngineer**: local tools, default model → simple doer
+   - **OctoCATEngineer**: local tools, default model → simple worker
    - **CodeReviewer**: read-only tools, specified model → safe reviewer
    - **ImplementationIdeas**: MCP tools, custom model, delegation → advanced strategist
 
@@ -582,7 +582,7 @@ Fill in the behavior instructions with your own rules, then test the agent with 
 - ✅ You've used the OctoCATEngineer agent and seen it work with local tools
 - ✅ You've created the CodeReviewer agent with read-only tools and tested it
 - ✅ You've explored the ImplementationIdeas agent and understand the advanced patterns (MCP tools, custom model, delegation)
-- ✅ You understand the progression: simple doer → read-only reviewer → advanced delegator
+- ✅ You understand the progression: simple worker → read-only reviewer → advanced delegator
 - ✅ You understand that agents persist for the entire chat session, unlike prompts
 
 </details>
