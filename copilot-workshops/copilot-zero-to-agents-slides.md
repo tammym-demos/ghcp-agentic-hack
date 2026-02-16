@@ -481,6 +481,7 @@ Markdown instructions for what Copilot should do.
 ---
 tools: ['codebase', 'search', 'editFiles', 'runCommands', 'problems']
 description: Full-stack engineer for the OctoCAT Supply app
+model: Claude Sonnet 4
 ---
 
 Your persona and behavior instructions go here.

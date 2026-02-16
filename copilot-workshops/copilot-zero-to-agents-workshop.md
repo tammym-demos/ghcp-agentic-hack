@@ -683,6 +683,7 @@ Key tips for writing good prompts:
 ---
 tools: ['codebase', 'search', 'editFiles', 'runCommands', 'problems']
 description: Full-stack engineer for the OctoCAT Supply app
+model: Claude Sonnet 4
 ---
 
 Markdown body with the agent's instructions, persona, and behavior rules.
