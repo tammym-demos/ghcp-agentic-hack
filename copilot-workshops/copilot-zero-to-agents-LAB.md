@@ -408,6 +408,14 @@ Key tips for writing good prompts:
 
 Custom agents are **persistent personas** that stay active for an entire chat session. While a prompt file runs once and gives you a result, an agent changes how Copilot behaves for every message you send. Think of agents as hiring a specialist — once selected, every interaction is filtered through that specialist's expertise and toolset.
 
+In this lab you'll work with three agents that show a clear progression:
+
+| Agent | Type | Tools | Purpose |
+|-------|------|-------|---------|
+| **OctoCATEngineer** | Simple doer | `codebase`, `search`, `editFiles`, `runCommands`, `problems` | Full-stack local builder |
+| **CodeReviewer** | Read-only | `codebase`, `search`, `usages`, `problems` | Reviews code without editing |
+| **ImplementationIdeas** | Advanced | MCP wildcards, custom model, delegation | Researches and delegates to Coding Agent |
+
 ### Reference: Agents vs Prompts
 
 | Feature | Prompt Files | Custom Agents |
@@ -432,17 +440,27 @@ model: Claude Sonnet 4              # Optional — specify the AI model
 
 ### Steps
 
-**Exercise 1 — Explore the Existing Agent**
+**Exercise 1 — Use the OctoCATEngineer Agent**
 
-1. Open `.github/agents/ImplementationIdeas.agent.md`
+The simplest kind of agent — a persona with local tools. No MCP, no custom model, just a specialized pair programmer.
+
+1. Open `.github/agents/OctoCATEngineer.agent.md`
 2. Read through the file and notice:
-   - The **tools** list includes `github/*` and `playwright/*` — MCP server tools
-   - The **model** is specified — the agent picks its own model (`Claude Sonnet 4.5`)
-   - The behavior instructions tell it to research deeply, use parallel searches, and delegate to Coding Agent
-   - Key line: `call GitHub's create_pull_request_with_copilot` — this agent can trigger other agents!
-3. Open the Copilot Chat mode picker (dropdown at the top) and find "ImplementationIdeas" in the list
+   - The **tools** list: `codebase`, `search`, `editFiles`, `runCommands`, `problems` — all local tools
+   - No `model` field — it uses the default model
+   - The persona: a full-stack TypeScript engineer for OctoCAT Supply
+3. Open the Copilot Chat mode picker (dropdown at the top) and select **OctoCATEngineer**
+4. Give it a task:
+
+```
+Add Zod validation to the POST /api/products endpoint. Validate that name is a non-empty string, price is a positive number, and supplierId is required.
+```
+
+5. Watch the agent work — it reads the codebase, edits files, and runs commands, all while staying in character as a full-stack engineer
 
 **Exercise 2 — Build a Code Reviewer Agent**
+
+Now create an agent with a **different tool set** — read-only tools that prevent it from editing files.
 
 1. Create `.github/agents/CodeReviewer.agent.md` with the following content:
 
@@ -471,8 +489,12 @@ Be direct and opinionated. Don't say "consider" — say "change this to..."
 ```
 
 2. Check the mode picker — "CodeReviewer" should appear immediately (no reload needed)
+3. Notice the contrast with OctoCATEngineer:
+   - No `editFiles` or `runCommands` — this agent **can't** change your code
+   - It has `usages` — it can trace how functions are called across the codebase
+   - Same file format, completely different behavior — **the tool list controls what an agent can do**
 
-**Exercise 3 — Test Your Agent**
+**Exercise 3 — Test Your Code Reviewer**
 
 1. Select **CodeReviewer** from the mode picker
 2. Ask it to review a specific file:
@@ -490,7 +512,24 @@ Now review the error handling across all API routes
 
 5. The agent maintains its persona across the entire conversation
 
-**Exercise 4 — Create Your Own Agent**
+**Exercise 4 — Explore the Advanced Agent (ImplementationIdeas)**
+
+This agent shows the most advanced patterns — MCP server tools, a custom model, and delegation to the Coding Agent.
+
+1. Open `.github/agents/ImplementationIdeas.agent.md`
+2. Read through the file and notice what makes this different from OctoCATEngineer:
+   - The **tools** list includes `github/*` and `playwright/*` — MCP server wildcard tools
+   - The **model** is specified — the agent picks its own model (`Claude Sonnet 4.5`)
+   - The behavior instructions tell it to research deeply, use parallel searches, and delegate to Coding Agent
+   - Key line: `call GitHub's create_pull_request_with_copilot` — this agent can trigger other agents!
+3. Think about the progression:
+   - **OctoCATEngineer**: local tools, default model → simple doer
+   - **CodeReviewer**: read-only tools, specified model → safe reviewer
+   - **ImplementationIdeas**: MCP tools, custom model, delegation → advanced strategist
+
+> **Note**: We'll see the Coding Agent (which ImplementationIdeas delegates to) in detail during Section 9.
+
+**Exercise 5 — Create Your Own Agent** (Bonus)
 
 Choose a persona that would be useful for this project and create it:
 
@@ -540,9 +579,10 @@ Fill in the behavior instructions with your own rules, then test the agent with 
 
 ### Success Criteria
 
-- ✅ You've explored the existing ImplementationIdeas agent and understand how it's structured
-- ✅ You've created the CodeReviewer agent and tested it with a review request
-- ✅ You've created your own custom agent and it appears in the chat mode picker
+- ✅ You've used the OctoCATEngineer agent and seen it work with local tools
+- ✅ You've created the CodeReviewer agent with read-only tools and tested it
+- ✅ You've explored the ImplementationIdeas agent and understand the advanced patterns (MCP tools, custom model, delegation)
+- ✅ You understand the progression: simple doer → read-only reviewer → advanced delegator
 - ✅ You understand that agents persist for the entire chat session, unlike prompts
 
 </details>
@@ -960,6 +1000,97 @@ correct prices and quantities.
 - ✅ You've used the Plan → Implement → Verify workflow for the cart feature
 - ✅ The Cart page is functional (or you've made significant progress on it)
 - ✅ You understand how Vision, Agent mode, and MCP work together as a complete workflow
+
+</details>
+
+---
+
+<details>
+<summary><h2>Lab 9 Bonus: Configure the Coding Agent Environment (Optional — 5 min)</h2></summary>
+
+> **Workshop Section**: 9 — Coding Agent + Code Review (observe-only section — this lab is a bonus hands-on exercise)
+
+### Why This Matters
+
+The Coding Agent runs in a cloud container, not your local machine. Without setup steps, it has to figure out how to install dependencies, build the project, and run tests on its own. The `.github/copilot-setup-steps.md` file tells the Coding Agent exactly how to prepare the environment — like a Dockerfile for AI.
+
+### Reference: Customization Files for Coding Agent
+
+| File | Purpose | When Used |
+|------|---------|-----------|
+| `.github/copilot-instructions.md` | Coding standards & context | Every Copilot interaction (including Coding Agent) |
+| `.github/copilot-setup-steps.md` | Environment setup commands | **Only** Coding Agent sessions |
+| `.github/agents/*.agent.md` | Agent personas | When selected as chat mode (or delegating) |
+
+### Steps
+
+**Exercise 1 — Create the Setup Steps File**
+
+1. Create `.github/copilot-setup-steps.md` with the following content:
+
+```markdown
+# Coding Agent Setup Steps
+
+These commands run at the start of every Coding Agent session to prepare the development environment.
+
+## Install Dependencies
+
+```bash
+npm install
+```
+
+## Build the Project
+
+```bash
+npm run build
+```
+
+## Run API Tests
+
+```bash
+npm run test:api
+```
+```
+
+2. Commit the file:
+
+```bash
+git add .github/copilot-setup-steps.md
+git commit -m "Add Coding Agent setup steps"
+git push
+```
+
+> **Note**: This file must be on the repository's **default branch** (usually `main`) for the Coding Agent to use it.
+
+**Exercise 2 — Understand What Happens**
+
+With this file in place, every Coding Agent session will:
+
+1. Run `npm install` — installs all project dependencies
+2. Run `npm run build` — compiles TypeScript, builds the React frontend
+3. Run `npm run test:api` — runs the API test suite to establish a baseline
+
+This means:
+- The Coding Agent starts with a working build (faster iterations)
+- Tests run automatically (the agent can self-verify its changes)
+- If a test fails after the agent's changes, it knows something broke
+
+**Exercise 3 — Connect Back to What You Built**
+
+Think about how this file works with everything else you created today:
+
+- **Custom Instructions** (Lab 3) → Coding Agent reads these for coding standards
+- **Agent Skills** (Lab 6) → Coding Agent can auto-load relevant skills
+- **ImplementationIdeas agent** (Lab 5) → delegates work TO the Coding Agent
+- **Setup Steps** (this lab) → Coding Agent knows how to build and test
+
+Together, these files make the Coding Agent smarter, faster, and more reliable.
+
+### Success Criteria
+
+- ✅ `.github/copilot-setup-steps.md` exists in your repo with install, build, and test commands
+- ✅ You understand that this file only applies to Coding Agent sessions (not local Copilot)
+- ✅ You can explain why environment setup improves Coding Agent reliability
 
 </details>
 

@@ -90,6 +90,7 @@
 | Agents | `.github/agents/*.agent.md` | Selected in chat mode picker |
 | Skills | `.github/skills/*/SKILL.md` | Auto-selected by relevance |
 | MCP Servers | `.vscode/mcp.json` | When server is running |
+| Setup Steps | `.github/copilot-setup-steps.md` | Coding Agent sessions |
 
 **Key insight**: Instructions are always-on. Everything else is selective.
 
@@ -478,9 +479,8 @@ Markdown instructions for what Copilot should do.
 
 ```yaml
 ---
-tools: ['search', 'github/*', 'playwright/*']
-description: Explore implementation ideas
-model: Claude Sonnet 4.5
+tools: ['codebase', 'search', 'editFiles', 'runCommands', 'problems']
+description: Full-stack engineer for the OctoCAT Supply app
 ---
 
 Your persona and behavior instructions go here.
@@ -491,16 +491,24 @@ This text defines WHO the agent IS, not just what it does.
 ### Key Fields
 
 - **tools**: Which tools the agent can access (supports wildcards: `github/*`)
-- **model**: Which AI model to use (can differ from default)
+- **model**: Which AI model to use — optional, defaults to your current selection
 - **description**: Shown in the Copilot Chat mode picker
 
+### Agent Progression (Simple → Advanced)
+
+| Agent | Tools | Model | Pattern |
+|-------|-------|-------|---------|
+| **OctoCATEngineer** | Local read/write | Default | Simple doer — builds features |
+| **CodeReviewer** | Local read-only | Claude Sonnet 4 | Reviewer — analyzes, doesn't edit |
+| **ImplementationIdeas** | MCP wildcards + cloud | Claude Sonnet 4.5 | Advanced — delegates to Coding Agent |
+
 ---
 
-> **Presenter Note**: "Notice the model field — agents can choose their own model. The ImplementationIdeas agent uses Claude Sonnet 4.5. This lets you match the right model to the right workflow."
+> **Presenter Note**: "We'll look at three agents in this section, from simple to advanced. The OctoCATEngineer uses basic local tools — no MCP, no custom model. CodeReviewer is read-only with a custom model. ImplementationIdeas uses MCP wildcards and delegates to the cloud Coding Agent. Same file format, wildly different capabilities."
 
 ---
 
-## Slide 21: Agents Can Delegate
+## Slide 21: Agents Can Delegate — Advanced Pattern
 
 ### The ImplementationIdeas Agent
 
@@ -518,9 +526,11 @@ IDE Agent (research + plan)
 
 **Agents calling agents.** This is the agentic pattern.
 
+> We'll cover the Coding Agent in detail in Section 9.
+
 ---
 
-> **Presenter Note**: "This is where it gets interesting. An agent in your IDE can research a problem, create a plan, and then delegate the actual coding to GitHub's Coding Agent. You get a PR in your repo without writing a line of code."
+> **Presenter Note**: "This is the advanced pattern — don't worry if it feels like a leap. An agent in your IDE can research a problem, create a plan, and then delegate the actual coding to GitHub's Coding Agent. We'll see the Coding Agent up close in the Cloud Agents section."
 
 ---
 
@@ -530,11 +540,11 @@ IDE Agent (research + plan)
 
 ### Custom Agents (Chat Modes)
 
-- Review ImplementationIdeas agent
-- Show it in the chat mode picker
-- Create a CodeReviewer agent live
+- Use the OctoCATEngineer agent (simple local doer)
+- Create a CodeReviewer agent live (read-only)
+- Review the ImplementationIdeas agent (advanced delegation)
 
-*Then: Create your own agent (10 min)*
+*Then: Use and create your own agents (10 min)*
 
 ---
 
@@ -898,7 +908,40 @@ Phase 1: PLAN                          Phase 2: AGENT
 
 ---
 
-## Slide 37: PR Review Agent — AI Code Review
+## Slide 37: Making Coding Agent Smarter
+
+### Configuring the Coding Agent Environment
+
+Coding Agent reads your customization files AND a special setup file:
+
+| File | Purpose | Used By |
+|------|---------|---------|
+| `.github/copilot-instructions.md` | Coding standards, architecture rules | IDE Agent + Coding Agent |
+| `.github/skills/*/SKILL.md` | Specialized procedures (auto-selected) | IDE Agent + Coding Agent |
+| `.github/copilot-setup-steps.md` | **Environment setup commands** | **Coding Agent only** |
+
+### `copilot-setup-steps.md`
+
+Shell commands that Coding Agent runs before coding — like a `Dockerfile` for AI:
+
+```bash
+npm install
+npm run build
+npm run test:api
+```
+
+**Without it**: Coding Agent guesses the build process.
+**With it**: Faster builds, automatic test verification, reliable PRs.
+
+> Remember the Coding Agent tip from Section 5? This is how you act on it.
+
+---
+
+> **Presenter Note**: "This slide connects back to Section 5. When the ImplementationIdeas agent delegated to Coding Agent, it showed a tip about making Copilot smarter. This is how — `copilot-setup-steps.md` tells Coding Agent how to set up the environment. Think of it as a Dockerfile for AI."
+
+---
+
+## Slide 38: PR Review Agent — AI Code Review
 
 ### How It Works
 
@@ -929,7 +972,7 @@ Phase 1: PLAN                          Phase 2: AGENT
 
 ---
 
-## Slide 38: Agent Mode vs Coding Agent
+## Slide 39: Agent Mode vs Coding Agent
 
 ### When to Use Each
 
@@ -949,7 +992,7 @@ Phase 1: PLAN                          Phase 2: AGENT
 
 ---
 
-## Slide 39: Demo Time
+## Slide 40: Demo Time
 
 # 🖥️ LIVE DEMO
 
@@ -971,7 +1014,7 @@ Phase 1: PLAN                          Phase 2: AGENT
 
 ---
 
-## Slide 40: What You Built Today
+## Slide 41: What You Built Today
 
 ### Your Customization Stack
 
@@ -983,6 +1026,7 @@ Phase 1: PLAN                          Phase 2: AGENT
 | `.github/agents/CodeReviewer.agent.md` | Custom Agents |
 | `.github/skills/*/SKILL.md` | Agent Skills |
 | Cart page implementation | Vision + Agent Mode |
+| `.github/copilot-setup-steps.md` *(discussed)* | Coding Agent Configuration |
 
 **All of these are portable** — commit them to any repo and your team gets them too.
 
@@ -999,7 +1043,7 @@ Phase 1: PLAN                          Phase 2: AGENT
 
 ---
 
-## Slide 41: Key Takeaways
+## Slide 42: Key Takeaways
 
 ### Seven Things to Remember
 
@@ -1017,7 +1061,7 @@ Phase 1: PLAN                          Phase 2: AGENT
 
 ---
 
-## Slide 42: Your Action Items
+## Slide 43: Your Action Items
 
 ### What to Do Next
 
@@ -1034,7 +1078,7 @@ Phase 1: PLAN                          Phase 2: AGENT
 
 ---
 
-## Slide 43: Resources
+## Slide 44: Resources
 
 ### Learn More
 
@@ -1060,7 +1104,7 @@ Phase 1: PLAN                          Phase 2: AGENT
 
 ---
 
-## Slide 44: Q&A
+## Slide 45: Q&A
 
 # Questions?
 
@@ -1079,7 +1123,7 @@ Phase 1: PLAN                          Phase 2: AGENT
 
 ---
 
-## Slide 45: Thank You
+## Slide 46: Thank You
 
 # Thank You
 
@@ -1097,7 +1141,7 @@ Phase 1: PLAN                          Phase 2: AGENT
 
 ---
 
-## Slide 46: Extended Learning Overview
+## Slide 47: Extended Learning Overview
 
 # Extended Learning — Self-Paced
 
@@ -1112,7 +1156,7 @@ Phase 1: PLAN                          Phase 2: AGENT
 
 ---
 
-## Slide 47: GitHub CLI — Copilot in the Terminal
+## Slide 48: GitHub CLI — Copilot in the Terminal
 
 ### `gh` — GitHub from the Terminal
 
@@ -1144,7 +1188,7 @@ gh copilot explain "git log --oneline --graph --all --decorate"
 
 ---
 
-## Slide 48: CLI Power User — Type Hints & Demo
+## Slide 49: CLI Power User — Type Hints & Demo
 
 ### Type Hints with `-t`
 
@@ -1177,7 +1221,7 @@ gh pr list --json number,title,reviewDecision \
 
 ---
 
-## Slide 49: Copilot SDK — Embed AI in Your Tools
+## Slide 50: Copilot SDK — Embed AI in Your Tools
 
 ### Beyond Customization: Programmable AI
 
@@ -1211,7 +1255,7 @@ for await (const chunk of response.stream()) {
 
 ---
 
-## Slide 50: SDK Use Cases & Getting Started
+## Slide 51: SDK Use Cases & Getting Started
 
 ### Custom Tools — Connect to Your Systems
 
@@ -1257,11 +1301,11 @@ session.defineTool({
 | 10 | Chat Modes (Ask/Agent/Plan) + Hands-on | 15 min |
 | 14 | Custom Instructions + TAO + Hands-on | 20 min |
 | 18 | Prompt Files + Run unit test prompt + Hands-on | 18 min |
-| 22 | Agents + ImplementationIdeas review + Hands-on | 17 min |
+| 22 | Agents + OctoCATEngineer + CodeReviewer + Hands-on | 17 min |
 | 26 | Agent Skills + Create skill + Hands-on | 18 min |
 | 31 | MCP Servers (Playwright + GitHub) + Hands-on | 24 min |
 | 34 | Vision + Agent (Cart page) + Hands-on | 22 min |
-| 39 | Cloud Agents (Coding Agent + PR Review) | 15 min |
+| 40 | Cloud Agents (Coding Agent + PR Review) | 15 min |
 
 **Total demo + hands-on time**: ~149 minutes  
 **Total slide/concept time**: ~76 minutes  
