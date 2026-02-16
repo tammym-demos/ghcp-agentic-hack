@@ -25,12 +25,12 @@ This session provides engineering teams with a comprehensive guide to migrating 
 
 | Section | Topic | Time |
 |---------|-------|------|
-| 1 | Why Migrate & Conceptual Mapping | 10 min |
-| 2 | Assessment & Planning | 10 min |
-| 3 | Technical Migration Process | 15 min |
-| 4 | Common Hurdles & Solutions | 10 min |
-| 5 | Post-Migration & Cutover | 10 min |
-| 6 | Best Practices & Wrap-up | 5 min |
+| 1 | [Why Migrate & Conceptual Mapping](#1-why-migrate--conceptual-mapping-10-min) | 10 min |
+| 2 | [Assessment & Planning](#2-assessment--planning-10-min) | 10 min |
+| 3 | [Technical Migration Process](#3-technical-migration-process-15-min) | 15 min |
+| 4 | [Common Hurdles & Solutions](#4-common-hurdles--solutions-10-min) | 10 min |
+| 5 | [Post-Migration & Cutover](#5-post-migration--cutover-10-min) | 10 min |
+| 6 | [Best Practices & Wrap-up](#6-best-practices--wrap-up-5-min) | 5 min |
 
 ---
 

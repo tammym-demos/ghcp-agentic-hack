@@ -31,12 +31,12 @@
 
 | Time | Topic |
 |------|-------|
-| 10 min | Why Migrate & Conceptual Mapping |
-| 10 min | Assessment & Planning |
-| 15 min | Technical Migration Process |
-| 10 min | Common Hurdles & Solutions |
-| 10 min | Post-Migration & Cutover |
-| 5 min | Best Practices & Q&A |
+| 10 min | [Why Migrate & Conceptual Mapping](#section-why-migrate--what-changes) |
+| 10 min | [Assessment & Planning](#section-assessment--planning) |
+| 15 min | [Technical Migration Process](#section-technical-migration-process) |
+| 10 min | [Common Hurdles & Solutions](#section-common-hurdles--solutions) |
+| 10 min | [Post-Migration & Cutover](#section-post-migration--cutover) |
+| 5 min | [Best Practices & Q&A](#section-best-practices--wrap-up) |
 
 **Format**: Concepts → Live Demo → Discussion (repeat)
 

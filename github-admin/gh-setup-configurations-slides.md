@@ -23,13 +23,13 @@
 
 | # | Section | Time |
 |---|---------|------|
-| 1 | GitHub Platform Overview | 10 min |
-| 2 | Scenario 1: GitHub EMU Only | 20 min |
-| 3 | Scenario 2: GitHub Enterprise — Multi-Org | 20 min |
-| 4 | Scenario 3: Mixed GitHub Enterprise Cloud + On-Prem (GHES) | 20 min |
-| 5 | ☕ Break | 10 min |
-| 6 | Architecture Decision Framework & Comparison | 15 min |
-| 7 | Q&A & Discussion | 15 min |
+| 1 | [GitHub Platform Overview](#section-1-github-platform-overview) | 10 min |
+| 2 | [Scenario 1: GitHub EMU Only](#section-2-scenario-1--github-emu-only) | 20 min |
+| 3 | [Scenario 2: GitHub Enterprise — Multi-Org](#section-3-scenario-2--github-enterprise-multi-org) | 20 min |
+| 4 | [Scenario 3: Mixed GitHub Enterprise Cloud + On-Prem (GHES)](#section-4-scenario-3--mixed-github-enterprise-cloud--on-prem) | 20 min |
+| 5 | [☕ Break](#-break--10-minutes) | 10 min |
+| 6 | [Architecture Decision Framework & Comparison](#section-5-architecture-decision-framework--comparison) | 15 min |
+| 7 | [Q&A & Discussion](#section-6-qa--discussion) | 10 min |
 
 > **Presenter Note**: *We'll cover three base architecture patterns — EMU, Multi-Org, and Mixed Cloud + On-Prem — each with its own diagrams, pros/cons tables, and requirements. After a break, we'll use a decision framework to help you choose the right base pattern. We'll wrap up with Q&A.*
 

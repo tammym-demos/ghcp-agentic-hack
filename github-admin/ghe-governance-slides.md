@@ -53,16 +53,16 @@
 
 | Time | Topic |
 |------|-------|
-| 10 min | Enterprise Architecture Overview |
-| 20 min | Identity, Authentication & SSO |
-| 15 min | Enterprise & Org Structure |
-| 20 min | Repository Governance & Branch Policies |
-| ☕ 10 min | Break |
-| 20 min | GitHub Advanced Security |
-| 20 min | GitHub Copilot Governance |
-| 15 min | Billing, Licensing & Seats |
-| 15 min | Audit, Compliance & Incident Response |
-| 15 min | Operational Best Practices & Wrap-up |
+| 10 min | [Enterprise Architecture Overview](#section-1-enterprise-architecture-overview) |
+| 20 min | [Identity, Authentication & SSO](#section-2-identity-authentication--sso) |
+| 15 min | [Enterprise & Org Structure](#section-3-enterprise--organization-structure) |
+| 20 min | [Repository Governance & Branch Policies](#section-4-repository-governance--branch-policies) |
+| ☕ 10 min | [Break](#slide-34--break) |
+| 20 min | [GitHub Advanced Security](#section-5-github-advanced-security-ghas) |
+| 20 min | [GitHub Copilot Governance](#section-6-github-copilot-governance) |
+| 15 min | [Billing, Licensing & Seats](#section-7-billing-licensing--seat-management) |
+| 15 min | [Audit, Compliance & Incident Response](#section-8-audit-compliance--incident-response) |
+| 15 min | [Operational Best Practices & Wrap-up](#section-9-operational-best-practices--wrap-up) |
 
 ---
 

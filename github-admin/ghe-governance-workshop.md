@@ -28,16 +28,16 @@ This comprehensive workshop covers end-to-end GitHub Enterprise administration a
 
 | Section | Topic | Time |
 |---------|-------|------|
-| 1 | Opening & Enterprise Architecture Overview | 10 min |
-| 2 | Identity, Authentication & SSO | 20 min |
-| 3 | Enterprise & Organization Structure | 15 min |
-| 4 | Repository Governance & Branch Policies | 20 min |
+| 1 | [Opening & Enterprise Architecture Overview](#1-opening--enterprise-architecture-overview-10-min) | 10 min |
+| 2 | [Identity, Authentication & SSO](#2-identity-authentication--sso-20-min) | 20 min |
+| 3 | [Enterprise & Organization Structure](#3-enterprise--organization-structure-15-min) | 15 min |
+| 4 | [Repository Governance & Branch Policies](#4-repository-governance--branch-policies-20-min) | 20 min |
 | ☕ | **Break** | 10 min |
-| 5 | GitHub Advanced Security (GHAS) | 20 min |
-| 6 | GitHub Copilot Governance | 20 min |
-| 7 | Billing, Licensing & Seat Management | 15 min |
-| 8 | Audit, Compliance & Incident Response | 15 min |
-| 9 | Operational Best Practices & Wrap-up | 15 min |
+| 5 | [GitHub Advanced Security (GHAS)](#5-github-advanced-security-ghas-20-min) | 20 min |
+| 6 | [GitHub Copilot Governance](#6-github-copilot-governance-20-min) | 20 min |
+| 7 | [Billing, Licensing & Seat Management](#7-billing-licensing--seat-management-15-min) | 15 min |
+| 8 | [Audit, Compliance & Incident Response](#8-audit-compliance--incident-response-15-min) | 15 min |
+| 9 | [Operational Best Practices & Wrap-up](#9-operational-best-practices--wrap-up-15-min) | 15 min |
 
 **Total**: ~3 hours including break
 

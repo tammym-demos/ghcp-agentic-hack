@@ -25,13 +25,13 @@ This session provides engineering teams with a practical understanding of GitHub
 
 | Section | Topic | Time |
 |---------|-------|------|
-| 1 | Opening & Context Setting | 5 min |
-| 2 | Licensing & Seat Management | 10 min |
-| 3 | Security Controls & IP Protection | 15 min |
-| 4 | Data Protection & Trust Architecture | 20 min |
-| 5 | Policy Configuration | 15 min |
-| 6 | Operational Governance | 10 min |
-| 7 | Rollout Best Practices & Wrap-up | 5 min |
+| 1 | [Opening & Context Setting](#1-opening--context-setting-5-min) | 5 min |
+| 2 | [Licensing & Seat Management](#2-licensing--seat-management-10-min) | 10 min |
+| 3 | [Security Controls & IP Protection](#3-security-controls--ip-protection-15-min) | 15 min |
+| 4 | [Data Protection & Trust Architecture](#4-data-protection--trust-architecture-20-min) | 20 min |
+| 5 | [Policy Configuration](#5-policy-configuration-15-min) | 15 min |
+| 6 | [Operational Governance](#6-operational-governance-10-min) | 10 min |
+| 7 | [Rollout Best Practices & Wrap-up](#7-rollout-best-practices--wrap-up-5-min) | 5 min |
 
 ---
 

@@ -31,13 +31,13 @@
 
 | Time | Topic |
 |------|-------|
-| 5 min | Opening & Context Setting |
-| 10 min | Licensing & Seat Management |
-| 15 min | Security Controls & IP Protection |
-| 20 min | Data Protection & Trust Architecture |
-| 15 min | Policy Configuration |
-| 10 min | Operational Governance |
-| 5 min | Rollout Best Practices & Wrap-up |
+| 5 min | [Opening & Context Setting](#slide-3-why-this-matters) |
+| 10 min | [Licensing & Seat Management](#section-licensing--seat-management) |
+| 15 min | [Security Controls & IP Protection](#section-security-controls) |
+| 20 min | [Data Protection & Trust Architecture](#section-data-protection--trust) |
+| 15 min | [Policy Configuration](#section-policy-configuration) |
+| 10 min | [Operational Governance](#section-operational-governance) |
+| 5 min | [Rollout Best Practices & Wrap-up](#section-rollout-best-practices) |
 
 **Format**: Concepts → Live Demo → Discussion (repeat)
 

@@ -26,10 +26,10 @@ After completing this workshop, participants will be able to:
 
 | # | Section | Time | Focus |
 |---|---------|------|-------|
-| 1 | ADO as an Integration Layer | 10 min | Framing, "why coexistence," capability mapping |
-| 2 | Integration Architecture & AB# Linking | 15 min | Architecture diagram, AB# workflow, ADO Pipelines with GitHub repos |
-| 3 | Capability Matrix & Decision Framework | 10 min | "What goes where," pros/cons/requirements, when to add/skip |
-| 4 | Q&A & Discussion | 10 min | Open discussion, organization-specific questions |
+| 1 | [ADO as an Integration Layer](#1-ado-as-an-integration-layer-10-min) | 10 min | Framing, "why coexistence," capability mapping |
+| 2 | [Integration Architecture & AB# Linking](#2-integration-architecture--ab-linking-15-min) | 15 min | Architecture diagram, AB# workflow, ADO Pipelines with GitHub repos |
+| 3 | [Capability Matrix & Decision Framework](#3-capability-matrix--decision-framework-10-min) | 10 min | "What goes where," pros/cons/requirements, when to add/skip |
+| 4 | [Q&A & Discussion](#4-qa--discussion-10-min) | 10 min | Open discussion, organization-specific questions |
 
 ---
 

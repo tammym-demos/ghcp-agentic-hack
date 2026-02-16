@@ -34,19 +34,19 @@
 
 | Time | Topic |
 |------|-------|
-| 20 min | Welcome & Environment Setup |
-| 25 min | Copilot Chat Modes (Ask, Agent, Plan) |
-| 25 min | Custom Instructions |
-| 25 min | Custom Prompt Files |
-| 25 min | Custom Agents (Chat Modes) |
-| 25 min | Agent Skills |
-| 30 min | MCP Servers (Playwright + GitHub) |
-| 30 min | Vision + Agent Mode Deep Dive (Cart Page) |
-| 20 min | Cloud Agents: Coding Agent + PR Review Agent |
-| 10 min | Wrap-Up & Q&A |
+| 20 min | [Welcome & Environment Setup](#slide-1-title) |
+| 25 min | [Copilot Chat Modes (Ask, Agent, Plan)](#section-chat-modes) |
+| 25 min | [Custom Instructions](#section-custom-instructions) |
+| 25 min | [Custom Prompt Files](#section-custom-prompt-files) |
+| 25 min | [Custom Agents (Chat Modes)](#section-custom-agents-chat-modes) |
+| 25 min | [Agent Skills](#section-agent-skills) |
+| 30 min | [MCP Servers (Playwright + GitHub)](#section-mcp-servers) |
+| 30 min | [Vision + Agent Mode Deep Dive (Cart Page)](#section-vision--agent-mode) |
+| 20 min | [Cloud Agents: Coding Agent + PR Review Agent](#section-cloud-agents) |
+| 10 min | [Wrap-Up & Q&A](#section-wrap-up) |
 | | **Extended Learning (Self-Paced)** |
-| E1: 20 min | GitHub CLI: Copilot in the Terminal |
-| E2: 8 min | Copilot SDK: Build Your Own AI Tools |
+| E1: 20 min | [GitHub CLI: Copilot in the Terminal](#extended-learning) |
+| E2: 8 min | [Copilot SDK: Build Your Own AI Tools](#extended-learning) |
 
 ---
 

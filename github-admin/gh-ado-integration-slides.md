@@ -24,10 +24,10 @@
 
 | # | Section | Time |
 |---|---------|------|
-| 1 | ADO as an Integration Layer | 10 min |
-| 2 | Integration Architecture & AB# Linking | 15 min |
-| 3 | Capability Matrix & Decision Framework | 10 min |
-| 4 | Q&A & Discussion | 10 min |
+| 1 | [ADO as an Integration Layer](#section-1-ado-as-an-integration-layer) | 10 min |
+| 2 | [Integration Architecture & AB# Linking](#section-2-integration-architecture--ab-linking) | 15 min |
+| 3 | [Capability Matrix & Decision Framework](#section-3-capability-matrix--decision-framework) | 10 min |
+| 4 | [Q&A & Discussion](#section-4-qa--discussion) | 10 min |
 
 > **Presenter Note**: *"We have four sections. First, we'll frame how ADO fits as a layer on top of GitHub. Then we'll look at the architecture and AB# linking in detail. After that, the capability matrix and decision criteria. And we'll close with open Q&A. This session assumes you already understand the three base GitHub architecture patterns — EMU, Multi-Org, and Mixed Cloud + GHES."*
 

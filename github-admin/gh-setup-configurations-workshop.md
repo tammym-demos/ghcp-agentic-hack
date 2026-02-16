@@ -26,13 +26,13 @@ By the end of this workshop, participants will be able to:
 
 | # | Section | Time | Focus |
 |---|---------|------|-------|
-| 1 | GitHub Platform Overview | 10 min | Product landscape, EMU vs. standard, decision tree |
-| 2 | Scenario 1: GitHub EMU Only | 20 min | Architecture, identity lifecycle, pros/cons/requirements |
-| 3 | Scenario 2: GitHub Enterprise Multi-Org | 20 min | Architecture, org strategies, policy inheritance |
-| 4 | Scenario 3: Mixed Cloud + On-Prem (GHES) | 20 min | Architecture, GitHub Connect, data residency |
-| 5 | ☕ Break | 10 min | |
-| 6 | Architecture Decision Framework | 15 min | Master comparison matrix, decision flowchart |
-| 7 | Q&A & Discussion | 15 min | Open discussion, organization-specific questions |
+| 1 | [GitHub Platform Overview](#1-github-platform-overview-10-min) | 10 min | Product landscape, EMU vs. standard, decision tree |
+| 2 | [Scenario 1: GitHub EMU Only](#2-scenario-1-github-emu-only-20-min) | 20 min | Architecture, identity lifecycle, pros/cons/requirements |
+| 3 | [Scenario 2: GitHub Enterprise Multi-Org](#3-scenario-2-github-enterprise-multi-org-20-min) | 20 min | Architecture, org strategies, policy inheritance |
+| 4 | [Scenario 3: Mixed Cloud + On-Prem (GHES)](#4-scenario-3-mixed-github-enterprise-cloud--on-prem-20-min) | 20 min | Architecture, GitHub Connect, data residency |
+| 5 | [☕ Break](#-break-10-min) | 10 min | |
+| 6 | [Architecture Decision Framework](#5-architecture-decision-framework-15-min) | 15 min | Master comparison matrix, decision flowchart |
+| 7 | [Q&A & Discussion](#6-qa--discussion-15-min) | 15 min | Open discussion, organization-specific questions |
 
 ---
 
