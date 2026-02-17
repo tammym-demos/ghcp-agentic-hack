@@ -385,6 +385,23 @@ Add observability to the Supplier route using our internal standards
 
 > **Note**: The generated code won't compile because TAO is fictional. That's intentional — it demonstrates that custom instructions override Copilot's training data.
 
+#### Cleanup: Revert TAO Changes with Copilot
+
+Before moving on, we need to undo the TAO changes so the codebase compiles for the remaining exercises. This is also a chance to show that Copilot can clean up its own work.
+
+1. Stay in **Agent** mode and enter:
+
+```
+Revert the TAO observability changes you just made to the Supplier route, and remove the "Observability Requirements" section from .github/copilot-instructions.md. The TAO framework is fictional and the code won't compile.
+```
+
+2. Verify Copilot:
+   - Removes the TAO imports and decorators from the Supplier route file
+   - Removes the `## Observability Requirements` block from `.github/copilot-instructions.md`
+3. Confirm the app still compiles: check the terminal or run `npm run build`
+
+**Talking point**: "Copilot can undo its own work just as easily as it creates it. In real projects, this is how you course-correct — tell Copilot what went wrong and let it fix it."
+
 <details>
 <summary><h3>🧪 Hands-On: Create Your Instructions (12 min)</h3></summary>
 

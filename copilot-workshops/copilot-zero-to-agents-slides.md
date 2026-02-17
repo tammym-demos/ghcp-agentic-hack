@@ -326,7 +326,7 @@ import { Measure, Trace, Log } from '@tao/core';
 
 ---
 
-> **Presenter Note**: "This is usually the 'aha moment'. When they see Copilot generating code for a framework that literally doesn't exist, they get why instructions matter. Every company has their own TAO."
+> **Presenter Note**: "This is usually the 'aha moment'. When they see Copilot generating code for a framework that literally doesn't exist, they get why instructions matter. Every company has their own TAO. After showing this, use Agent mode to revert the TAO changes and remove the Observability Requirements section from copilot-instructions.md — this shows Copilot can clean up its own work, and ensures the codebase compiles for the remaining exercises."
 
 ---
 

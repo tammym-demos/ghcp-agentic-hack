@@ -241,6 +241,16 @@ If Copilot is slow/unresponsive:
 6. **Talking point**: "TAO doesn't exist anywhere on the internet. Copilot has never seen it in training data. But because we told it about TAO in our instructions, it generates perfect TAO code. Imagine this for YOUR company's internal frameworks."
 7. **Acknowledge**: "This code won't compile — that's the point. It shows instructions override training data."
 
+#### Part D: Cleanup — Revert TAO with Copilot (1 min)
+
+1. **Stay in Agent mode** and enter:
+   ```
+   Revert the TAO observability changes you just made to the Supplier route, and remove the "Observability Requirements" section from .github/copilot-instructions.md. The TAO framework is fictional and the code won't compile.
+   ```
+2. **Show Copilot** removing the TAO imports, decorators, and the instructions block
+3. **Verify** the app compiles (check terminal or `npm run build`)
+4. **Talking point**: "Copilot can undo its own work just as easily. In real projects, this is how you course-correct — tell it what's wrong and let it fix it. Now we're back to a clean codebase for the next section."
+
 ### Hands-On Instructions (12 min)
 
 > "Five steps — take your time:"
