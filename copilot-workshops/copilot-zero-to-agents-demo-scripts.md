@@ -754,7 +754,7 @@ If GitHub MCP fails:
 
 ### Setup Before Demo
 
-- Terminal open (VS Code integrated terminal or standalone terminal)
+- **Standalone terminal open** (Windows Terminal, PowerShell, Terminal.app, or iTerm2 — **not** the VS Code integrated terminal — to emphasize the CLI is IDE-independent)
 - Standalone `copilot` CLI installed and authenticated (`copilot --version` shows version)
 - `gh` CLI installed and authenticated (`gh auth status` — needed for `/delegate`)
 - Current directory is the project root with real source files to reference
@@ -764,12 +764,19 @@ If GitHub MCP fails:
 
 #### Part A: Launch & Explore the TUI (2 min)
 
-1. **Run**:
+1. **Minimize or close VS Code** — switch to a standalone terminal:
+   - **Windows**: Open **Windows Terminal** (`Win+X` → Terminal) or **PowerShell**
+   - **macOS**: Open **Terminal.app** (`Cmd+Space` → "Terminal") or **iTerm2**
+2. **Navigate** to the project root:
+   ```bash
+   cd path/to/GitHubCopilot_Customized
+   ```
+3. **Run**:
    ```bash
    copilot
    ```
-2. **Show**: The interactive TUI launches — full-screen agentic terminal
-3. **Talking point**: "This isn't the old `gh copilot suggest` anymore. This is a standalone agentic terminal — a full interactive session where the AI can read your files, run commands, and build multi-step plans."
+4. **Show**: The interactive TUI launches — full-screen agentic terminal
+5. **Talking point**: "Notice we left VS Code. This isn't a VS Code extension — it's a standalone terminal agent. It works in Windows Terminal, iTerm2, a remote SSH session, even a CI pipeline. This is the same AI, no editor required. And it isn't the old `gh copilot suggest` anymore — this is a full interactive session where the AI can read your files, run commands, and build multi-step plans."
 4. **Type a simple prompt**:
    ```
    What files are in this project and what does it do?

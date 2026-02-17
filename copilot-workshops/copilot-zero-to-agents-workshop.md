@@ -1489,12 +1489,22 @@ Browse to http://localhost:5137 and test all the navigation links. If any pages 
 
 #### Part A: Launch and Explore (3 min)
 
-1. Open the VS Code integrated terminal
-2. Launch the interactive session:
+1. **Close or minimize VS Code** — open a standalone terminal to emphasize this runs *outside* the IDE:
+   - **Windows**: Open **Windows Terminal** (`Win+X` → Terminal) or **PowerShell**
+   - **macOS**: Open **Terminal.app** (`Cmd+Space` → "Terminal") or **iTerm2**
+2. Navigate to the project root:
+
+```bash
+cd path/to/GitHubCopilot_Customized
+```
+
+3. Launch the interactive session:
 
 ```bash
 copilot
 ```
+
+> **Note**: Launching from a standalone terminal reinforces the key message — the GitHub Copilot CLI is independent of any editor. It works the same in Windows Terminal, iTerm2, a remote SSH session, or even a CI pipeline.
 
 3. Show the **trusted directory TUI prompt** — approve the project directory
 4. Enter a natural language question:
@@ -1557,8 +1567,16 @@ Add a GET /api/health endpoint that returns the app version from package.json an
 
 **Exercise 1 — Launch and Explore**:
 
-1. Open the VS Code integrated terminal
-2. Launch the interactive session:
+1. Open a **standalone terminal** (not VS Code's integrated terminal) to experience the CLI independently:
+   - **Windows**: Open **Windows Terminal** or **PowerShell** from the Start menu
+   - **macOS**: Open **Terminal.app** or **iTerm2**
+2. Navigate to the project directory:
+
+```bash
+cd path/to/GitHubCopilot_Customized
+```
+
+3. Launch the interactive session:
 
 ```bash
 copilot

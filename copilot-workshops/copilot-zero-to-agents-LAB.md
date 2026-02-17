@@ -931,8 +931,16 @@ The standalone `copilot` CLI is a full agentic terminal — an interactive TUI w
 
 **Exercise 1 — Launch the CLI & Explore**:
 
-1. Open your terminal (VS Code integrated terminal or standalone)
-2. Launch the GitHub Copilot CLI:
+1. Open a **standalone terminal** — not the VS Code integrated terminal — to experience the CLI as an independent tool:
+   - **Windows**: Open **Windows Terminal** (`Win+X` → Terminal) or **PowerShell**
+   - **macOS**: Open **Terminal.app** (`Cmd+Space` → "Terminal") or **iTerm2**
+2. Navigate to the project directory:
+
+```bash
+cd path/to/GitHubCopilot_Customized
+```
+
+3. Launch the GitHub Copilot CLI:
 
 ```bash
 copilot

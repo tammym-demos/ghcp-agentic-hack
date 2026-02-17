@@ -795,7 +795,7 @@ List open PRs and summarize their status.
 | **Session resume** | `--resume` / `--continue` | Pick up where you left off |
 | **Tool approval** | `--allow-tool` | Granular control over which tools the agent can use |
 
-> **Presenter Note**: *"We've been working inside VS Code — now let's step into the terminal. But this isn't the old gh copilot suggest anymore. The standalone GitHub Copilot CLI is a full agentic experience — an interactive TUI where the AI can read your files, run commands, build plans, and even delegate work to Coding Agent. This is the moment the workshop goes from 'cool' to 'wow.'"*
+> **Presenter Note**: *"We've been working inside VS Code — now let's step outside. I'm going to minimize VS Code and open a standalone terminal — Windows Terminal, Terminal.app, iTerm2, whatever you use. This isn't a VS Code extension. The standalone GitHub Copilot CLI is a full agentic experience — an interactive TUI where the AI can read your files, run commands, build plans, and even delegate work to Coding Agent. No editor required. This is the moment the workshop goes from 'cool' to 'wow.'"*
 
 ---
 
@@ -857,11 +857,11 @@ List open PRs and summarize their status.
 
 ## Slide 35: 🖥️ Demo — GitHub Copilot CLI Agentic Session
 
-🖥️ **SWITCH TO TERMINAL**
+🖥️ **SWITCH TO STANDALONE TERMINAL** (Windows Terminal / Terminal.app / iTerm2)
 
 **Demo: GitHub Copilot CLI — The Agentic Terminal (12 min)**
-1. Launch `copilot` — explore the interactive TUI
-2. Use `@` to attach a file and ask a question
+1. Open a **standalone terminal** (not VS Code) — minimize the IDE
+2. `cd` to the project root and launch `copilot`
 3. `Shift+Tab` — toggle plan mode, review the plan
 4. Build a feature — watch tool approvals in action
 5. `/review` — AI reviews the changes just made
