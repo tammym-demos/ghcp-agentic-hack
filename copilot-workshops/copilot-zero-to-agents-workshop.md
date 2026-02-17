@@ -1237,6 +1237,21 @@ MCP servers auto-start when Copilot needs them — no manual launch required. Wh
 
 > **Note**: If MCP servers don't appear or Copilot doesn't use them, verify the VS Code setting `chat.mcp.discovery.enabled` is set to `true` (Settings → search "MCP"). This setting allows Copilot to discover and auto-start MCP servers defined in `.vscode/mcp.json`.
 
+> **Important**: When Copilot calls an MCP tool for the first time, VS Code displays a **tool approval dialog** — an "Allow" button with a dropdown arrow. This dialog ensures you control what external tools Copilot can invoke. Clicking "Allow" approves only that single call, which gets tedious quickly during hands-on exercises. Click the **dropdown arrow (▼)** next to "Allow" to see session-wide and workspace-wide approval options:
+>
+> | Option | Scope | Effect |
+> |--------|-------|--------|
+> | **Allow** | One-time | Approves this single tool call only |
+> | **Skip** | One-time | Skips this tool call without approving |
+> | **Allow Without Review in this Session** | All tools, current session | Auto-approves all MCP tool calls until VS Code restarts |
+> | **Allow Without Review in this Workspace** | All tools, this workspace | Auto-approves all MCP tool calls in this project permanently |
+> | **Always Allow Without Review** | All tools, global | Auto-approves all MCP tool calls everywhere, permanently |
+> | **Allow Tools from [Server] Without Review in this Session** | Per-server, current session | Auto-approves only tools from that specific MCP server for this session |
+> | **Allow Tools from [Server] Without Review in this Workspace** | Per-server, this workspace | Auto-approves only tools from that specific MCP server in this project permanently |
+> | **Always Allow Tools from [Server] Without Review** | Per-server, global | Always auto-approves tools from that specific MCP server everywhere |
+>
+> **Recommended for this workshop**: Select **"Allow Tools from Playwright Without Review in this Session"** (and the same for GitHub). This scopes approval to the specific server and resets when VS Code restarts — the best balance of convenience and safety.
+
 ---
 
 ### 🖥️ DEMO: Playwright MCP — Browser Testing from Natural Language

@@ -604,6 +604,7 @@ If auto-selection doesn't visibly work:
 - Frontend accessible at `http://localhost:5137`
 - VS Code setting `chat.mcp.discovery.enabled` is `true`
 - Playwright MCP server will auto-start when Copilot sends a browser command
+- [ ] Know the MCP tool approval dialog — when Copilot first calls an MCP tool, VS Code prompts you to "Allow" it. Click the **dropdown arrow (▼)** and select **"Allow Tools from Playwright Without Review in this Session"** before the demo to avoid repeated approval prompts. Do the same for GitHub MCP in Demo 7.
 
 > ⚠️ **Critical**: Playwright MCP does NOT work in Codespaces. Must be local VS Code.
 
@@ -725,7 +726,7 @@ If Playwright MCP fails to start:
    - Crafting a meaningful issue title and description
    - Adding appropriate labels
    - Setting the assignee
-   - Confirm the tool call when prompted
+   - You'll see the tool approval dialog — if you haven't already, select **"Allow Tools from GitHub Without Review in this Session"** from the dropdown to avoid repeated prompts
 3. **Open the repo in browser** → Show the new issue exists
 4. **Talking point**: "Project management from your IDE. And here's the key: we'll use this pattern in the Cloud Agents section to assign an issue to the Coding Agent."
 

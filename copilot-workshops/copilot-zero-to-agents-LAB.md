@@ -781,6 +781,21 @@ MCP servers auto-start when Copilot needs them — you don't need to manually la
 
 4. To check server status at any time: Command Palette (`Ctrl+Shift+P`) → `MCP: List servers` — shows status for each server.
 
+> **Important**: When Copilot calls an MCP tool for the first time, VS Code displays a **tool approval dialog** — an "Allow" button with a dropdown arrow. Clicking "Allow" approves only that single call, which gets tedious during exercises. Click the **dropdown arrow (▼)** next to "Allow" to see broader approval options:
+>
+> | Option | Scope | Effect |
+> |--------|-------|--------|
+> | **Allow** | One-time | Approves this single tool call only |
+> | **Skip** | One-time | Skips this tool call without approving |
+> | **Allow Without Review in this Session** | All tools, current session | Auto-approves all MCP tool calls until VS Code restarts |
+> | **Allow Without Review in this Workspace** | All tools, this workspace | Auto-approves all MCP tool calls in this project permanently |
+> | **Always Allow Without Review** | All tools, global | Auto-approves all MCP tool calls everywhere, permanently |
+> | **Allow Tools from [Server] Without Review in this Session** | Per-server, current session | Auto-approves only tools from that specific MCP server for this session |
+> | **Allow Tools from [Server] Without Review in this Workspace** | Per-server, this workspace | Auto-approves only tools from that specific MCP server in this project permanently |
+> | **Always Allow Tools from [Server] Without Review** | Per-server, global | Always auto-approves tools from that specific MCP server everywhere |
+>
+> **For this workshop**: Select **"Allow Tools from Playwright Without Review in this Session"** the first time you see this dialog, so you can focus on the exercises without repeated prompts. Do the same for the GitHub server when you reach Exercise 5.
+
 **Exercise 2 — Browse Your App with Playwright**
 
 1. Switch to **Agent** mode in Copilot Chat

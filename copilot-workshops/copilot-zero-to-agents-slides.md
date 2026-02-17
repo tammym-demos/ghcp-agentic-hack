@@ -712,7 +712,7 @@ Verify configuration: `Cmd/Ctrl + Shift + P` → `MCP: List servers`
 
 ---
 
-> **Presenter Note**: "The config lives in your repo — `.vscode/mcp.json`. When someone clones your repo, they get the MCP configuration too. Team-wide extensibility."
+> **Presenter Note**: "The config lives in your repo — `.vscode/mcp.json`. When someone clones your repo, they get the MCP configuration too. Team-wide extensibility. One thing to call out before the demo: when Copilot first calls an MCP tool, VS Code will prompt you to approve it with an 'Allow' button. Click the dropdown arrow next to 'Allow' for session-wide and workspace-wide options. For the workshop, recommend 'Allow Tools from [Server] Without Review in this Session' — it's scoped to one server and resets on restart."
 
 ---
 
