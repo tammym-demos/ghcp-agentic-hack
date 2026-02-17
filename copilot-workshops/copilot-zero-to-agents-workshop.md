@@ -1269,7 +1269,8 @@ Click on one of the products and check if the product details are displayed corr
 
 ### 🖥️ DEMO: Run BDD-Style Test Scenarios
 
-1. Enter:
+1. **Start a new chat** — click the **+** button in Copilot Chat to start with a clean context
+2. Enter:
 
 ```
 Run the following BDD test scenarios against http://localhost:5137 using Playwright:
@@ -1279,15 +1280,21 @@ Run the following BDD test scenarios against http://localhost:5137 using Playwri
 Report pass/fail for each scenario.
 ```
 
-2. Show Copilot:
+3. Show Copilot:
    - Launching the browser and navigating to the Products page
    - Executing each scenario step (viewing products, clicking a product, clicking Add to Cart)
    - Reporting pass/fail results for each scenario
-3. Point out how the prompt uses BDD-style Given/When/Then language — but executes immediately via Playwright instead of generating a static file
+4. Point out how the prompt uses BDD-style Given/When/Then language — but executes immediately via Playwright instead of generating a static file
 
 **Talking point**: "BDD-style test scenarios described in natural language and executed live — no cucumber, no step definitions, no extra tooling. Copilot understood the Given/When/Then structure and ran a real browser through each scenario."
 
-> 💡 **Tip**: This prompt is a great candidate for a reusable prompt file. Save it as `.github/prompts/bdd-playwright-tests.prompt.md` with `mode: 'agent'` and `tools: ['playwright/*']` — then anyone on the team can run the same BDD scenarios with one click. That's the power of combining what we learned in Section 4 with MCP.
+5. **Save the chat as a prompt file**:
+   - Click the **Gear icon** (⚙️) at the top of the Copilot Chat panel
+   - Select **"Save Prompt"**
+   - Name it `bdd-playwright-tests` — VS Code saves it as `.github/prompts/bdd-playwright-tests.prompt.md`
+   - Open the saved file and show the generated YAML frontmatter (`mode: 'agent'`, `tools: ['playwright/*']`)
+
+**Talking point**: "We just turned a one-off chat into a reusable prompt file with two clicks. Anyone on the team can now run the same BDD scenarios — that's Section 4 and Section 7 coming together."
 
 ---
 

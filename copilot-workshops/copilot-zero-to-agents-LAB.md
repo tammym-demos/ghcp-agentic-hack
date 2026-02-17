@@ -824,7 +824,8 @@ Go to the Products page, click "Add to Cart" on any product, and tell me what ha
 
 **Exercise 4 — Run BDD-Style Test Scenarios**
 
-1. Ask Copilot to execute BDD-style test scenarios against the live app:
+1. **Start a new chat** — click the **+** button in Copilot Chat to start with a clean context
+2. Ask Copilot to execute BDD-style test scenarios against the live app:
 
 ```
 Run these BDD test scenarios against http://localhost:5137 using Playwright:
@@ -834,13 +835,20 @@ Run these BDD test scenarios against http://localhost:5137 using Playwright:
 Report pass/fail for each scenario.
 ```
 
-2. Review Copilot's test execution results — it should:
+3. Review Copilot's test execution results — it should:
    - Navigate to the Products page and verify product cards are displayed
    - Click a product and confirm details appear
    - Click "Add to Cart" and confirm the response
    - Report pass/fail for each scenario
 
-> 💡 **Tip**: This prompt is a great candidate for a reusable prompt file (Section 4). Save it as `.github/prompts/bdd-playwright-tests.prompt.md` with `mode: 'agent'` and `tools: ['playwright/*']` — then anyone on the team can run these BDD scenarios with one click.
+4. **Save the chat as a reusable prompt file**:
+   - Click the **Gear icon** (⚙️) at the top of the Copilot Chat panel
+   - Select **"Save Prompt"**
+   - Name it `bdd-playwright-tests` — VS Code saves it to `.github/prompts/bdd-playwright-tests.prompt.md`
+   - Open the saved file and review the YAML frontmatter — it should include `mode: 'agent'` and `tools: ['playwright/*']`
+   - Now anyone on the team can run the same BDD scenarios with one click via the prompt picker (`/` in chat)
+
+> 💡 **Tip**: Starting a new chat before saving ensures the prompt captures only the BDD scenario — no leftover context from previous conversations. This is a best practice for creating clean, reusable prompt files.
 
 **Exercise 5 — GitHub MCP: Manage Issues from Chat**
 

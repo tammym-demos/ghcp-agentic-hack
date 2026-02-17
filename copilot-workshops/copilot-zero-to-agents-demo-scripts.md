@@ -636,7 +636,8 @@ If auto-selection doesn't visibly work:
 
 #### Part C: Run BDD-Style Test Scenarios (2 min)
 
-1. **Enter prompt**:
+1. **Start a new chat** — click the **+** button in Copilot Chat (clean context makes for a cleaner saved prompt)
+2. **Enter prompt**:
    ```
    Run the following BDD test scenarios against http://localhost:5137 using Playwright:
    1. Given I navigate to the Products page, Then I should see a list of products with names, images, and prices
@@ -644,13 +645,17 @@ If auto-selection doesn't visibly work:
    3. When I click "Add to Cart" on a product, Then I should see a confirmation
    Report pass/fail for each scenario.
    ```
-2. **Show Copilot executing each scenario**:
+3. **Show Copilot executing each scenario**:
    - Navigating to the Products page and checking product cards
    - Clicking a product and verifying details appear
    - Clicking "Add to Cart" and confirming the response
    - Reporting pass/fail for each scenario
-3. **Talking point**: "From natural language test scenarios to live execution. Copilot understood the BDD structure, drove a real browser through each scenario, and reported results — no test framework setup, no step definitions, no cucumber. Just describe what to test and watch it happen."
-4. **Callback to Section 4**: "Remember prompt files? This prompt is a perfect candidate — save it as `.github/prompts/bdd-playwright-tests.prompt.md` with `mode: 'agent'` and `tools: ['playwright/*']`, and anyone on the team can run the same BDD scenarios with one click."
+4. **Talking point**: "From natural language test scenarios to live execution. Copilot understood the BDD structure, drove a real browser through each scenario, and reported results — no test framework setup, no step definitions, no cucumber. Just describe what to test and watch it happen."
+5. **Save as a prompt file**:
+   - Click the **Gear icon** (⚙️) at the top of the Copilot Chat panel → **"Save Prompt"**
+   - Name it `bdd-playwright-tests` — VS Code saves it as `.github/prompts/bdd-playwright-tests.prompt.md`
+   - Open the saved file briefly — show the YAML frontmatter with `mode: 'agent'` and `tools: ['playwright/*']`
+6. **Callback to Section 4**: "We just turned a one-off chat into a reusable prompt file — two clicks. That's Section 4 and Section 7 coming together. Anyone on the team can now run the same BDD scenarios."
 
 ### Hands-On Instructions (15 min)
 
