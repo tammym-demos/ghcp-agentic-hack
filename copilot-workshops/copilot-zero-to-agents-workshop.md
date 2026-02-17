@@ -1454,6 +1454,9 @@ Browse to http://localhost:5137 and test all the navigation links. If any pages 
 - Copilot Vision can understand images — screenshots, mockups, design files
 - Combined with Agent mode, this enables "image to working feature" workflows
 - This is the capstone demo: everything we've learned comes together
+- **Supported formats**: PNG, JPG, GIF, WEBP
+
+> **Important**: Vision requires a **multimodal model** — you must have GPT-4o, Claude Sonnet 4, Gemini, or another vision-capable model selected in the Copilot Chat model picker. Text-only models will silently ignore image attachments. Additionally, your organization's Copilot policy must allow image uploads (GitHub.com → Org Settings → Copilot → Policies). If Vision features are unavailable, check with your GitHub admin.
 
 ### The Plan → Agent Workflow
 
@@ -1947,6 +1950,7 @@ license: 'MIT'                # Optional
 | Agent mode not available | Update VS Code and Copilot extension to latest |
 | Skills not loading | Verify `SKILL.md` filename (case-sensitive), check description matches prompt |
 | Custom instructions ignored | Verify file is in `.github/` root, check for syntax errors |
+| Vision/image not working | Verify a vision-capable model is selected (GPT-4o, Claude Sonnet 4, Gemini) — text-only models silently ignore images. Check that your org's Copilot policy enables image uploads (Org Settings → Copilot → Policies) |
 | `gh` CLI not found | Install from [cli.github.com](https://cli.github.com), then run `gh auth login` |
 | `gh copilot` not available | Run `gh extension install github/gh-copilot` to install the extension |
 

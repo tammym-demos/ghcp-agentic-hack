@@ -34,6 +34,8 @@ Run through this **the day before** and again **30 minutes before** the workshop
 - [ ] Signed in to Copilot (check: `Cmd/Ctrl + Shift + P` → "Copilot: Sign In")
 - [ ] Agent mode is available in chat mode picker
 - [ ] Multiple models available (Claude Sonnet 4, GPT-4o, etc.)
+- [ ] A **vision-capable model** is selected for Section 8 (GPT-4o, Claude Sonnet 4, or Gemini) — text-only models will silently ignore image attachments
+- [ ] Vision/image upload is enabled in your org's Copilot policy (GitHub.com → Org Settings → Copilot → Policies) — if disabled, image attachments won't work
 
 ### MCP Servers
 
@@ -760,6 +762,8 @@ If GitHub MCP fails:
 - `docs/design/MonaFigurine.png` exists (for hands-on)
 - Fresh chat session (clear previous context)
 - Products page open in browser (to show "before" state)
+- A **vision-capable (multimodal) model** is selected in the Copilot Chat model picker (GPT-4o, Claude Sonnet 4, or Gemini) — text-only models will ignore image attachments
+- Verify image attachment works: drag any PNG into Copilot Chat and confirm it appears as a thumbnail before the demo
 
 ### Step-by-Step Script
 
@@ -851,6 +855,11 @@ If Vision doesn't analyze the image well:
 1. Describe the cart layout verbally along with the image
 2. If Agent implementation is slow, show a pre-prepared branch with the cart already built
 3. Git stash your changes and checkout the pre-prepared branch
+
+If image attachment doesn't work or is ignored:
+1. Verify a vision-capable model is selected (GPT-4o, Claude Sonnet 4, or Gemini) — text-only models silently ignore images
+2. Check that Vision/image upload is enabled in the org's Copilot policy (GitHub.com → Org Settings → Copilot → Policies)
+3. If blocked by org policy, describe the cart design verbally instead of attaching the image
 
 If the app doesn't hot-reload:
 1. Stop and restart: `npm run dev`
@@ -1037,6 +1046,7 @@ If a demo is completely blocked:
 | CORS errors (Codespaces) | Set port 3000 visibility to `public` |
 | Tests timeout | `npm run test:api -- --timeout 30000` |
 | Hot reload not working | Stop + restart `npm run dev`, hard refresh browser |
+| Vision/image not working | Verify a vision-capable model is selected (GPT-4o, Claude Sonnet 4, Gemini) — text-only models silently ignore images. Check org Copilot policy enables image uploads (Org Settings → Copilot → Policies) |
 | Coding Agent not starting | Check: Actions enabled, branch protection set, Coding Agent enabled in settings |
 | `gh` CLI not found *(Extended)* | Install from cli.github.com, then run `gh auth login` |
 | `gh copilot` not available *(Extended)* | Run `gh extension install github/gh-copilot` |

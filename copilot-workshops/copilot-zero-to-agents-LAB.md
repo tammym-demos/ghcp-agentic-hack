@@ -935,6 +935,8 @@ There are two ways to attach images to Copilot Chat:
 
 Supported formats: PNG, JPG, GIF, WebP. Copilot will analyze the image and understand UI layout, colors, text, icons, and component structure.
 
+> **Important**: Vision requires a **multimodal model** — you must have GPT-4o, Claude Sonnet 4, Gemini, or another vision-capable model selected in the Copilot Chat model picker. Text-only models will silently ignore image attachments. If image attachment doesn't seem to work, also check that your organization's Copilot policy allows image uploads (GitHub.com → Org Settings → Copilot → Policies).
+
 ### Steps
 
 **Exercise 1 — Add a New Product Using Vision**
@@ -1378,6 +1380,7 @@ npm install
 | Agent mode not available | Update VS Code and Copilot extension to latest |
 | Skills not loading | Verify `SKILL.md` filename (case-sensitive), check description matches prompt |
 | Custom instructions ignored | Verify file is in `.github/` root, check for syntax errors |
+| Vision/image not working | Verify a vision-capable model is selected (GPT-4o, Claude Sonnet 4, Gemini) — text-only models silently ignore images. Check that your org's Copilot policy enables image uploads (Org Settings → Copilot → Policies) |
 | `gh` CLI not found | Install from [cli.github.com](https://cli.github.com), then run `gh auth login` |
 | `gh copilot` not available | Run `gh extension install github/gh-copilot` to install the extension |
 

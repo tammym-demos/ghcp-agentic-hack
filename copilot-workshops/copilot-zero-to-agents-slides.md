@@ -805,9 +805,11 @@ List open PRs and summarize their status.
 
 **Supported**: PNG, JPG, GIF, WEBP
 
+> **Important**: Vision requires a **multimodal model** (GPT-4o, Claude Sonnet 4, Gemini). Text-only models will silently ignore image attachments. Your org's Copilot policy must also allow image uploads (GitHub.com → Org Settings → Copilot → Policies).
+
 ---
 
-> **Presenter Note**: "Vision is what makes the Plan → Agent workflow so powerful. You can hand Copilot a designer's mockup and say 'build this.' It reads the image, understands the layout, and plans the implementation."
+> **Presenter Note**: "Before starting this demo, verify you have a vision-capable model selected — GPT-4o, Claude Sonnet 4, or Gemini. Text-only models will ignore attachments. Also mention that enterprise admins may need to enable image uploads in the org's Copilot policy settings. Vision is what makes the Plan → Agent workflow so powerful. You can hand Copilot a designer's mockup and say 'build this.' It reads the image, understands the layout, and plans the implementation."
 
 ---
 

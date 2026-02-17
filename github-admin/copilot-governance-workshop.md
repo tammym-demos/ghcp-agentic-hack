@@ -306,6 +306,7 @@ Repository Settings (lowest precedence)
 | Knowledge Bases | Enabled / Disabled | Enterprise |
 | Public code filter | Allow / Block | Enterprise, Org |
 | Content exclusions | Pattern-based | Org, Repo |
+| Vision / image uploads | Enabled / Disabled / No Policy | Enterprise, Org |
 
 ### 🖥️ Demo: Policy Configuration
 
