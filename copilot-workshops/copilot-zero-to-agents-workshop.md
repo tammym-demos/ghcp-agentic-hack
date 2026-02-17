@@ -1300,22 +1300,21 @@ Report pass/fail for each scenario.
 
 ### 🖥️ DEMO: GitHub MCP — Interacting with GitHub from Chat
 
-1. Ensure GitHub MCP server is running
-2. Switch to Agent mode
-3. Enter:
+1. Switch to Agent mode
+2. Enter:
 
 ```
 Check which issues are assigned to me in this repo
 ```
 
-4. Show Copilot fetching issues via the GitHub API
-5. Enter:
+3. Show Copilot fetching issues via the GitHub API
+4. Enter:
 
 ```
 Create an Issue for enhancing test coverage in the API project and assign it to me
 ```
 
-6. Show the issue being created with:
+5. Show the issue being created with:
    - Meaningful title and description
    - Appropriate labels
    - Correct assignee
@@ -1398,7 +1397,7 @@ Report pass/fail for each scenario.
 
 **Exercise 5 — GitHub MCP: Manage Issues from Chat**
 
-1. With the GitHub MCP server running, ask Copilot:
+1. In Agent mode, ask Copilot:
 
 ```
 Check which issues are currently open in this repo

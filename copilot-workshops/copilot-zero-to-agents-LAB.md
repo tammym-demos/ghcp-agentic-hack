@@ -852,7 +852,7 @@ Report pass/fail for each scenario.
 
 **Exercise 5 — GitHub MCP: Manage Issues from Chat**
 
-1. With the GitHub MCP server running, ask Copilot:
+1. In Agent mode, ask Copilot:
 
 ```
 Check which issues are currently open in this repo

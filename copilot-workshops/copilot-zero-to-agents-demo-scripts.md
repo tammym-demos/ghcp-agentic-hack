@@ -372,7 +372,7 @@ If the Unit Test prompt takes too long:
 
 ### Setup Before Demo
 
-- GitHub MCP server running (needed for ImplementationIdeas agent)
+- GitHub MCP server configured in `.vscode/mcp.json` (auto-starts when needed)
 - OctoCATEngineer agent file pre-exists in `.github/agents/`
 - New chat session
 
