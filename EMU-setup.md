@@ -46,7 +46,17 @@ The workshop exercises require specific repository features. Configure all of th
 3. Under **Workflow permissions**, select **Read and write permissions**
 4. Click **Save**
 
-### 2b. Set Up Branch Protection
+### 2b. Enable Internal Forking
+
+EMU users can fork repos **within the enterprise** if the policy allows it. This is the recommended approach — each attendee gets their own isolated copy, matching the standard workshop flow.
+
+1. Go to **Enterprise Settings → Policies → Repositories**
+2. Under **Repository forking**, select **Allow** (for the workshop org, or enterprise-wide)
+3. Confirm the imported repo's visibility is **Internal** (so all enterprise members can see and fork it)
+
+> **Note**: If your enterprise policy restricts forking and you cannot change it, attendees can share the repo using branches instead — see the fallback instructions under [Workshop Day](#workshop-day-updated-instructions-for-attendees).
+
+### 2c. Set Up Branch Protection
 
 1. Go to **Settings → Branches**
 2. Click **Add branch protection rule**
@@ -56,18 +66,18 @@ The workshop exercises require specific repository features. Configure all of th
    - ✅ Require approvals: **1**
 5. Click **Create**
 
-### 2c. Enable Copilot Coding Agent (Section 9)
+### 2d. Enable Copilot Coding Agent (Section 9)
 
 1. Go to **Settings → Copilot → Coding Agent**
 2. Enable **Copilot Coding Agent** for this repository
 3. Ensure the enterprise policy allows Coding Agent usage (check **Enterprise Settings → Policies → Copilot**)
 
-### 2d. Verify Issues and Pull Requests Are Enabled
+### 2e. Verify Issues and Pull Requests Are Enabled
 
 1. Go to **Settings → General → Features**
 2. Ensure **Issues** and **Pull Requests** are enabled (they should be by default)
 
-### 2e. Create a Test Issue (for Section 9 Demo)
+### 2f. Create a Test Issue (for Section 9 Demo)
 
 1. Go to the **Issues** tab
 2. Create a new issue:
@@ -79,22 +89,21 @@ The workshop exercises require specific repository features. Configure all of th
 
 ## Step 3: Grant Access to Workshop Attendees
 
+Attendees need access to the imported repo so they can fork it internally.
+
 ### Option A: Team-Based Access (Recommended)
 
 1. Create a **Team** in the org (e.g., `copilot-workshop-attendees`)
 2. Add all workshop participants to the team
 3. Go to the repo → **Settings → Collaborators and teams**
-4. Add the team with **Write** access (required for creating branches, PRs, and running Actions)
+4. Add the team with **Read** access (sufficient for forking)
 
 ### Option B: Individual Access
 
 1. Go to the repo → **Settings → Collaborators and teams**
-2. Add each participant individually with **Write** access
+2. Add each participant individually with **Read** access
 
-> **Important**: Participants need **Write** access (not just Read) to:
-> - Push branches for the Coding Agent exercises (Section 9)
-> - Create pull requests for the PR Review Agent demo (Section 9)
-> - Run GitHub Actions workflows
+> **Note**: Read access is sufficient when attendees fork the repo — they get full control over their own fork. If you're using the shared-repo fallback (no forking), grant **Write** access instead so attendees can push branches.
 
 ---
 
@@ -122,9 +131,9 @@ Verify these enterprise-level Copilot settings are enabled:
 Run through this checklist to confirm everything works:
 
 - [ ] Imported repo is accessible at `https://github.com/YOUR-EMU-ORG/GitHubCopilot_Customized`
-- [ ] A test EMU user can clone the repo successfully
-- [ ] A test EMU user can create a branch and push to it
-- [ ] GitHub Actions are enabled and workflows run successfully
+- [ ] A test EMU user can fork the repo within the enterprise
+- [ ] A test EMU user can clone their fork successfully
+- [ ] GitHub Actions are enabled and workflows run on the fork
 - [ ] Branch protection rule exists on `main` (require PR + 1 reviewer)
 - [ ] Copilot Coding Agent is enabled in repo settings
 - [ ] At least one Issue exists in the repo
@@ -135,28 +144,32 @@ Run through this checklist to confirm everything works:
 
 ## Workshop Day: Updated Instructions for Attendees
 
-Replace the standard fork-and-clone instructions with:
+### Recommended: Internal Fork (Matches Standard Workshop Flow)
 
-### Instead of This (Standard Workshop Instructions)
+Attendees fork the imported repo within the enterprise — this gives each person their own isolated copy, just like the standard workshop.
 
-```bash
-# Fork the repo via GitHub UI, then:
-git clone https://github.com/<YOUR-USERNAME>/GitHubCopilot_Customized.git
-```
-
-### Use This (EMU Workshop Instructions)
+1. Navigate to `https://github.com/YOUR-EMU-ORG/GitHubCopilot_Customized`
+2. Click **Fork** → select your personal namespace (or another org you have access to within the enterprise)
+3. Clone your fork:
 
 ```bash
-# Clone directly from the enterprise org (no fork needed):
-git clone https://github.com/YOUR-EMU-ORG/GitHubCopilot_Customized.git
+git clone https://github.com/<YOUR-EMU-USERNAME>/GitHubCopilot_Customized.git
 cd GitHubCopilot_Customized
 ```
 
-> **Note**: Since all attendees are working in the same repo, each participant should create their own working branch to avoid conflicts:
->
-> ```bash
-> git checkout -b workshop/<your-name>
-> ```
+This is the same flow as the standard workshop — the only difference is the source repo lives in your enterprise org instead of on public GitHub.
+
+### Fallback: Shared Repo with Branches (If Forking Is Disabled)
+
+If enterprise policy restricts internal forking, attendees share the imported repo and work on individual branches:
+
+```bash
+git clone https://github.com/YOUR-EMU-ORG/GitHubCopilot_Customized.git
+cd GitHubCopilot_Customized
+git checkout -b workshop/<your-name>
+```
+
+> **Note**: With this approach, grant attendees **Write** access (Step 3) so they can push branches.
 
 ### MCP Server Configuration
 
@@ -176,19 +189,23 @@ The following sections of the workshop need minor adjustments for EMU environmen
 
 | Section | Adjustment |
 |---------|------------|
-| **Section 1 (Setup)** | Replace fork instructions with direct clone + branch creation |
+| **Section 1 (Setup)** | Point attendees to the internal repo URL for forking (or branch-based fallback) |
 | **Section 7 (MCP — GitHub)** | Verify OAuth flow works with EMU identity; have PAT fallback ready |
 | **Section 9 (Coding Agent)** | Ensure Coding Agent is enabled at enterprise policy level; the facilitator should test assigning an issue to Copilot before the workshop |
 | **Section 9 (PR Review)** | Ensure Copilot Code Review is enabled at enterprise policy level |
 
-### Shared Repo Considerations
+### If Using Internal Forks (Recommended)
 
-Since attendees share a single repo (instead of individual forks):
+- The workshop flow is nearly identical to the standard instructions — attendees just fork from the enterprise org instead of public GitHub
+- Each attendee has full control over their fork (Actions, branches, settings)
+- Attendees should enable Coding Agent and branch protection on their own forks for Section 9
+
+### If Using Shared Repo Fallback
 
 - **Branch naming**: Instruct attendees to use `workshop/<name>` branches to avoid conflicts
 - **Actions quota**: Multiple attendees running Actions simultaneously will consume org-level Actions minutes — ensure sufficient quota
 - **Coding Agent**: Each attendee assigning issues to Copilot will create separate PRs, which is fine — but be aware of concurrent session limits if your enterprise plan has them
-- **Cleanup**: After the workshop, you can delete all `workshop/*` branches and close auto-generated PRs
+- **Cleanup**: After the workshop, delete all `workshop/*` branches and close auto-generated PRs
 
 ---
 
