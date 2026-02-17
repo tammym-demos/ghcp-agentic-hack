@@ -822,19 +822,23 @@ Report any issues you find.
 Go to the Products page, click "Add to Cart" on any product, and tell me what happens
 ```
 
-**Exercise 4 — Generate BDD Test Scenarios**
+**Exercise 4 — Run BDD-Style Test Scenarios**
 
-1. Ask Copilot to create a formal test specification:
+1. Ask Copilot to execute BDD-style test scenarios against the live app:
 
 ```
-Based on what you've seen in the app, generate a Gherkin .feature file that tests the Products page functionality including viewing products, viewing product details, and the add-to-cart behavior
+Run these BDD test scenarios against http://localhost:5137 using Playwright:
+1. Given I navigate to the Products page, Then I should see a list of products with names, images, and prices
+2. When I click on a product, Then I should see the product details
+3. When I click "Add to Cart" on a product, Then I should see a confirmation
+Report pass/fail for each scenario.
 ```
 
-2. Review the generated `.feature` file — it should contain scenarios like:
-   - `Given I navigate to the Products page`
-   - `Then I should see a list of products`
-   - `When I click on a product`
-   - `Then I should see the product details`
+2. Review Copilot's test execution results — it should:
+   - Navigate to the Products page and verify product cards are displayed
+   - Click a product and confirm details appear
+   - Click "Add to Cart" and confirm the response
+   - Report pass/fail for each scenario
 
 **Exercise 5 — GitHub MCP: Manage Issues from Chat**
 

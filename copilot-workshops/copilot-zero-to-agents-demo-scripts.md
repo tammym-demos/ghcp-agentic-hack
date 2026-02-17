@@ -634,25 +634,22 @@ If auto-selection doesn't visibly work:
    ```
 6. **Show** Copilot interacting with the page and reporting results
 
-#### Part C: Generate BDD Feature File (2 min)
+#### Part C: Run BDD-Style Test Scenarios (2 min)
 
 1. **Enter prompt**:
    ```
-   Generate a Gherkin .feature file to test the Products page functionality
+   Run the following BDD test scenarios against http://localhost:5137 using Playwright:
+   1. Given I navigate to the Products page, Then I should see a list of products with names, images, and prices
+   2. When I click on a product, Then I should see the product details
+   3. When I click "Add to Cart" on a product, Then I should see a confirmation
+   Report pass/fail for each scenario.
    ```
-2. **Show the generated `.feature` file** with scenarios like:
-   ```gherkin
-   Feature: Products Page
-     Scenario: View all products
-       Given I navigate to the Products page
-       Then I should see a list of products
-       And each product should have a name, image, and price
-   
-     Scenario: View product details
-       When I click on a product
-       Then I should see the product details
-   ```
-3. **Talking point**: "From natural language to Gherkin test scenarios. A QA engineer can describe what to test in English, and Copilot generates the formal test specification."
+2. **Show Copilot executing each scenario**:
+   - Navigating to the Products page and checking product cards
+   - Clicking a product and verifying details appear
+   - Clicking "Add to Cart" and confirming the response
+   - Reporting pass/fail for each scenario
+3. **Talking point**: "From natural language test scenarios to live execution. Copilot understood the BDD structure, drove a real browser through each scenario, and reported results — no test framework setup, no step definitions, no cucumber. Just describe what to test and watch it happen."
 
 ### Hands-On Instructions (15 min)
 
@@ -660,7 +657,7 @@ If auto-selection doesn't visibly work:
 > 1. **Verify** MCP configuration in `.vscode/mcp.json` and check `chat.mcp.discovery.enabled` in VS Code settings
 > 2. **Browse**: Ask Copilot to navigate to `http://localhost:5137` and describe what it sees
 > 3. **Test**: Ask Copilot to verify all products have images and prices displayed
-> 4. **BDD**: Generate a Gherkin `.feature` file for the Products page
+> 4. **BDD**: Run BDD-style test scenarios against the Products page via Playwright
 > 5. **GitHub MCP**: Use GitHub MCP to list or create issues from Copilot Chat
 > 6. **Bonus**: Combine both — use Playwright to find bugs and GitHub MCP to file issues
 > 
@@ -671,7 +668,7 @@ If auto-selection doesn't visibly work:
 - Playwright MCP bridges the gap between AI and real browsers
 - Works for testing, QA, accessibility auditing, screenshot capture
 - Must run locally (not Codespaces) — browser needs a display
-- The generated `.feature` files can be integrated into your CI/CD pipeline
+- BDD-style test scenarios can be described in natural language and executed live via Playwright MCP
 
 ### Backup Plan
 

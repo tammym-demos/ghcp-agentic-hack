@@ -724,14 +724,14 @@ Verify configuration: `Cmd/Ctrl + Shift + P` → `MCP: List servers`
 - Interact with pages (click, type, scroll)
 - Take screenshots and describe UI
 - Generate and execute test scenarios
-- Create BDD `.feature` files from natural language
+- Execute BDD-style test scenarios from natural language
 
 ### Example Prompts
 
 ```
 Browse to http://localhost:5137 and navigate to Products.
 Click on the first product and check if details display correctly.
-Generate a Gherkin .feature file for the Products page.
+Run BDD test scenarios for the Products page — verify product list, details, and add-to-cart.
 ```
 
 > ⚠️ Playwright MCP requires local VS Code (not Codespaces)

@@ -1267,22 +1267,25 @@ Click on one of the products and check if the product details are displayed corr
 
 ---
 
-### 🖥️ DEMO: Generate BDD Test Scenarios
+### 🖥️ DEMO: Run BDD-Style Test Scenarios
 
 1. Enter:
 
 ```
-Generate a Gherkin .feature file to test the Products page functionality
+Run the following BDD test scenarios against http://localhost:5137 using Playwright:
+1. Given I navigate to the Products page, Then I should see a list of products with names, images, and prices
+2. When I click on a product, Then I should see the product details
+3. When I click "Add to Cart" on a product, Then I should see a confirmation
+Report pass/fail for each scenario.
 ```
 
-2. Show the generated `.feature` file with scenarios like:
-   - `Given I navigate to the Products page`
-   - `Then I should see a list of products`
-   - `When I click on a product`
-   - `Then I should see the product details`
-3. (Optional) Ask Copilot to execute the .feature file using Playwright
+2. Show Copilot:
+   - Launching the browser and navigating to the Products page
+   - Executing each scenario step (viewing products, clicking a product, clicking Add to Cart)
+   - Reporting pass/fail results for each scenario
+3. Point out how the prompt uses BDD-style Given/When/Then language — but executes immediately via Playwright instead of generating a static file
 
-**Talking point**: "MCP bridges the gap between Copilot and the real world. It's not just generating test code — it's running a browser and observing the results."
+**Talking point**: "BDD-style test scenarios described in natural language and executed live — no cucumber, no step definitions, no extra tooling. Copilot understood the Given/When/Then structure and ran a real browser through each scenario."
 
 ---
 
@@ -1366,19 +1369,23 @@ Report any issues you find.
 Go to the Products page, click "Add to Cart" on any product, and tell me what happens
 ```
 
-**Exercise 4 — Generate BDD Test Scenarios**
+**Exercise 4 — Run BDD-Style Test Scenarios**
 
-1. Ask Copilot to create a formal test specification:
+1. Ask Copilot to execute BDD-style test scenarios against the live app:
 
 ```
-Based on what you've seen in the app, generate a Gherkin .feature file that tests the Products page functionality including viewing products, viewing product details, and the add-to-cart behavior
+Run these BDD test scenarios against http://localhost:5137 using Playwright:
+1. Given I navigate to the Products page, Then I should see a list of products with names, images, and prices
+2. When I click on a product, Then I should see the product details
+3. When I click "Add to Cart" on a product, Then I should see a confirmation
+Report pass/fail for each scenario.
 ```
 
-2. Review the generated `.feature` file — it should contain scenarios like:
-   - `Given I navigate to the Products page`
-   - `Then I should see a list of products`
-   - `When I click on a product`
-   - `Then I should see the product details`
+2. Review Copilot's test execution results — it should:
+   - Navigate to the Products page and verify product cards are displayed
+   - Click a product and confirm details appear
+   - Click "Add to Cart" and confirm the response
+   - Report pass/fail for each scenario
 
 **Exercise 5 — GitHub MCP: Manage Issues from Chat**
 
