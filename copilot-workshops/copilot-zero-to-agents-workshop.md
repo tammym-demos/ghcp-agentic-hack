@@ -1287,6 +1287,8 @@ Report pass/fail for each scenario.
 
 **Talking point**: "BDD-style test scenarios described in natural language and executed live — no cucumber, no step definitions, no extra tooling. Copilot understood the Given/When/Then structure and ran a real browser through each scenario."
 
+> 💡 **Tip**: This prompt is a great candidate for a reusable prompt file. Save it as `.github/prompts/bdd-playwright-tests.prompt.md` with `mode: 'agent'` and `tools: ['playwright/*']` — then anyone on the team can run the same BDD scenarios with one click. That's the power of combining what we learned in Section 4 with MCP.
+
 ---
 
 ### 🖥️ DEMO: GitHub MCP — Interacting with GitHub from Chat

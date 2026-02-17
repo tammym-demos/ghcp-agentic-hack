@@ -650,6 +650,7 @@ If auto-selection doesn't visibly work:
    - Clicking "Add to Cart" and confirming the response
    - Reporting pass/fail for each scenario
 3. **Talking point**: "From natural language test scenarios to live execution. Copilot understood the BDD structure, drove a real browser through each scenario, and reported results — no test framework setup, no step definitions, no cucumber. Just describe what to test and watch it happen."
+4. **Callback to Section 4**: "Remember prompt files? This prompt is a perfect candidate — save it as `.github/prompts/bdd-playwright-tests.prompt.md` with `mode: 'agent'` and `tools: ['playwright/*']`, and anyone on the team can run the same BDD scenarios with one click."
 
 ### Hands-On Instructions (15 min)
 

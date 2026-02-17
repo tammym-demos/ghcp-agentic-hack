@@ -840,6 +840,8 @@ Report pass/fail for each scenario.
    - Click "Add to Cart" and confirm the response
    - Report pass/fail for each scenario
 
+> 💡 **Tip**: This prompt is a great candidate for a reusable prompt file (Section 4). Save it as `.github/prompts/bdd-playwright-tests.prompt.md` with `mode: 'agent'` and `tools: ['playwright/*']` — then anyone on the team can run these BDD scenarios with one click.
+
 **Exercise 5 — GitHub MCP: Manage Issues from Chat**
 
 1. With the GitHub MCP server running, ask Copilot:
