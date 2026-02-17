@@ -769,15 +769,17 @@ The repo's `.vscode/mcp.json` configures both servers:
 
 ### Steps
 
-**Exercise 1 — Start the MCP Servers**
+**Exercise 1 — Verify MCP Server Configuration**
 
-1. Open `.vscode/mcp.json` in the editor — you'll see a HUD display above each server with a **Start** button. Click **Start** for both servers.
+MCP servers auto-start when Copilot needs them — you don't need to manually launch them.
 
-   > **Alternative**: Open the Command Palette (`Ctrl+Shift+P`) → type `MCP: List servers` → start each server from the list.
+1. Open `.vscode/mcp.json` in the editor and confirm both `github` and `playwright` servers are defined.
 
-2. For the **GitHub** server: The first time you start it, you'll see an OAuth authentication flow. Follow the prompts to authorize Copilot to access your GitHub account.
+2. Verify the VS Code setting is enabled: Open Settings (`Ctrl+,`) → search for `chat.mcp.discovery.enabled` → ensure it's checked (true). This allows Copilot to discover and auto-start MCP servers defined in `.vscode/mcp.json`.
 
-3. Verify both servers are running: Command Palette → `MCP: List servers` — both should show a green status.
+3. For the **GitHub** server: The first time Copilot calls a GitHub MCP tool, you'll see an OAuth authentication flow. Follow the prompts to authorize Copilot to access your GitHub account.
+
+4. To check server status at any time: Command Palette (`Ctrl+Shift+P`) → `MCP: List servers` — shows status for each server.
 
 **Exercise 2 — Browse Your App with Playwright**
 
@@ -861,7 +863,7 @@ Browse to http://localhost:5137 and test all the navigation links. If any pages 
 
 ### Success Criteria
 
-- ✅ Both MCP servers are running (green status in `MCP: List servers`)
+- ✅ Both MCP servers are configured in `.vscode/mcp.json` and auto-start when needed
 - ✅ You've seen Playwright navigate your app and describe what it sees
 - ✅ You've run a natural-language functional test against your running app
 - ✅ You've used GitHub MCP to create or list issues from Copilot Chat
@@ -1340,7 +1342,7 @@ npm install
 | Issue | Solution |
 |-------|----------|
 | Copilot not active | Check extension is installed and signed in |
-| MCP server won't start | Check `MCP: List servers`, verify Docker/Node.js |
+| MCP server won't start | Check `MCP: List servers` for status, verify `chat.mcp.discovery.enabled` is `true` in VS Code settings |
 | Playwright MCP fails | Must run locally (not Codespaces), check port 5137 |
 | GitHub MCP auth error | Re-authenticate via OAuth, or use PAT with correct scopes |
 | CORS errors in Codespaces | Set API port (3000) visibility to `public` |

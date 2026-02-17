@@ -702,9 +702,13 @@ Can reference scripts and files in the same directory.
 | **HTTP** | Remote service | OAuth | GitHub MCP |
 | **stdio** | Local process | None | Playwright MCP |
 
-### Starting Servers
+### MCP Servers Auto-Start
 
-`Cmd/Ctrl + Shift + P` → `MCP: List servers` → Select → `Start server`
+MCP servers start automatically when Copilot needs them — no manual launch required.
+
+Verify configuration: `Cmd/Ctrl + Shift + P` → `MCP: List servers`
+
+> **Important**: Ensure VS Code setting `chat.mcp.discovery.enabled` is `true` (Settings → search "MCP").
 
 ---
 

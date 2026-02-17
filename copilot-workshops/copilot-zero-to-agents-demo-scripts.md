@@ -38,8 +38,9 @@ Run through this **the day before** and again **30 minutes before** the workshop
 ### MCP Servers
 
 - [ ] `.vscode/mcp.json` exists with github + playwright servers
-- [ ] Playwright MCP starts: `MCP: List servers` → `playwright` → `Start server`
-- [ ] GitHub MCP starts: `MCP: List servers` → `github` → `Start server`
+- [ ] VS Code setting `chat.mcp.discovery.enabled` is `true` (Settings → search "MCP")
+- [ ] Playwright MCP auto-starts when needed: verify by running a Playwright prompt in Agent mode
+- [ ] GitHub MCP auto-starts when needed: verify by asking Copilot to list issues
 - [ ] OAuth flow completes for GitHub MCP (first time: browser opens for auth)
 
 ### GitHub Repo
@@ -601,19 +602,18 @@ If auto-selection doesn't visibly work:
 
 - App running locally (`npm run dev`) — **required**
 - Frontend accessible at `http://localhost:5137`
-- Playwright MCP server NOT yet started (we'll start it live)
+- VS Code setting `chat.mcp.discovery.enabled` is `true`
+- Playwright MCP server will auto-start when Copilot sends a browser command
 
 > ⚠️ **Critical**: Playwright MCP does NOT work in Codespaces. Must be local VS Code.
 
 ### Step-by-Step Script
 
-#### Part A: Start the Server (1 min)
+#### Part A: Verify MCP Configuration (30 sec)
 
-1. **Open Command Palette**: `Cmd/Ctrl + Shift + P` → type `MCP: List servers`
-2. **Show both servers** listed (playwright + github)
-3. **Select** `playwright` → `Start server`
-4. **Show server status**: Green indicator or "Running" status
-5. **Alternative**: Open `.vscode/mcp.json`, click the HUD play button above the playwright entry
+1. **Open** `.vscode/mcp.json` in the editor — show the `playwright` and `github` entries
+2. **Command Palette**: `Cmd/Ctrl + Shift + P` → type `MCP: List servers` → show both servers listed
+3. **Talking point**: "MCP servers auto-start when Copilot needs them. You don't need to manually launch them — just make sure they're defined in your `.vscode/mcp.json`."
 
 #### Part B: Browse the App (2 min)
 
@@ -657,7 +657,7 @@ If auto-selection doesn't visibly work:
 ### Hands-On Instructions (15 min)
 
 > "Six exercises covering both MCP servers:
-> 1. **Start** both MCP servers from the Command Palette → `MCP: List servers`
+> 1. **Verify** MCP configuration in `.vscode/mcp.json` and check `chat.mcp.discovery.enabled` in VS Code settings
 > 2. **Browse**: Ask Copilot to navigate to `http://localhost:5137` and describe what it sees
 > 3. **Test**: Ask Copilot to verify all products have images and prices displayed
 > 4. **BDD**: Generate a Gherkin `.feature` file for the Products page
@@ -690,16 +690,16 @@ If Playwright MCP fails to start:
 
 ### Setup Before Demo
 
-- GitHub MCP server started (or start it during demo)
+- GitHub MCP server will auto-start (or verify via `MCP: List servers`)
 - Logged in to GitHub with repo access
 
 ### Step-by-Step Script
 
-#### Part A: Start the Server (30 sec)
+#### Part A: Verify Server (30 sec)
 
-1. **Command Palette** → `MCP: List servers` → `github` → `Start server`
-2. **(First time)** OAuth flow opens in browser — authenticate
-3. **Show** server running status
+1. **Command Palette** → `MCP: List servers` → confirm `github` is listed
+2. **(First time)** When Copilot calls a GitHub MCP tool, the OAuth flow opens in browser — authenticate
+3. **Show** server status in the list
 
 #### Part B: Query Issues (1.5 min)
 
@@ -1026,9 +1026,9 @@ If a demo is completely blocked:
 |-------|-----------|
 | Copilot not responding | Check internet connection, verify sign-in status |
 | Agent mode unavailable | Update VS Code + Copilot extensions to latest |
-| MCP server won't start | `MCP: List servers` → check status → restart |
+| MCP server won't start | `MCP: List servers` → check status, verify `chat.mcp.discovery.enabled` is `true` in VS Code settings |
 | Playwright browser doesn't appear | Verify running locally (not Codespaces) |
-| GitHub MCP auth fails | Re-authenticate: `MCP: List servers` → `github` → restart |
+| GitHub MCP auth fails | Re-authenticate: `MCP: List servers` → `github` → check status, re-trigger OAuth by sending a GitHub-related prompt |
 | App not running | `npm run dev` in terminal, check ports 3000/5137 |
 | CORS errors (Codespaces) | Set port 3000 visibility to `public` |
 | Tests timeout | `npm run test:api -- --timeout 30000` |
