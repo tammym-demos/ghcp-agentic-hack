@@ -379,11 +379,11 @@ If the Unit Test prompt takes too long:
 4. **Select** "OctoCATEngineer"
 5. **Enter prompt**:
    ```
-   Add input validation to the Product API POST endpoint using Zod
+   Add a GET /api/products/search endpoint that accepts a "name" query parameter and returns matching products
    ```
 6. **Show the agent working**:
    - Reading existing route patterns
-   - Creating/editing validation code
+   - Creating/editing the route file
    - Running commands to verify
 7. **Talking point**: "This is the simplest kind of agent — a persona with local tools. It can read, write, and run commands. No MCP, no custom model, no cloud delegation. Just a specialized pair programmer that stays in character."
 

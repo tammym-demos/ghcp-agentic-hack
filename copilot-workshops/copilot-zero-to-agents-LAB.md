@@ -453,7 +453,7 @@ The simplest kind of agent — a persona with local tools. No MCP, no custom mod
 4. Give it a task:
 
 ```
-Add Zod validation to the POST /api/products endpoint. Validate that name is a non-empty string, price is a positive number, and supplierId is required.
+Add a GET /api/products/search endpoint that accepts a "name" query parameter and returns matching products
 ```
 
 5. Watch the agent work — it reads the codebase, edits files, and runs commands, all while staying in character as a full-stack engineer

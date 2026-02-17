@@ -695,7 +695,7 @@ Markdown body with the agent's instructions, persona, and behavior rules.
 
 ### 🖥️ DEMO: Part A — Meet the OctoCATEngineer Agent
 
-The repo includes a pre-built agent that acts as a simple, local worker — a full-stack engineer persona with read/write tools.
+The repo includes a pre-built agent that acts as a simple, local "doer" — a full-stack engineer persona with read/write tools.
 
 1. Open `.github/agents/OctoCATEngineer.agent.md`
 2. Walk through the structure:
@@ -706,12 +706,12 @@ The repo includes a pre-built agent that acts as a simple, local worker — a fu
 4. Select `OctoCATEngineer` and give it a task:
 
 ```
-Add input validation to the Product API POST endpoint using Zod
+Add a GET /api/products/search endpoint that accepts a "name" query parameter and returns matching products
 ```
 
 5. Show the agent:
    - Reading existing route code for patterns
-   - Creating or editing files (validation logic)
+   - Creating or editing the route file
    - Running commands to verify the build
    - Staying in character throughout the conversation
 
@@ -721,7 +721,7 @@ Add input validation to the Product API POST endpoint using Zod
 
 ### 🖥️ DEMO: Part B — Create a CodeReviewer Agent
 
-Now contrast the OctoCATEngineer (read/write worker) with a read-only reviewer agent.
+Now contrast the OctoCATEngineer (read/write doer) with a read-only reviewer agent.
 
 Create `.github/agents/CodeReviewer.agent.md`:
 
@@ -787,7 +787,7 @@ Explore adding a wishlist feature where users can save products for later
 
 | Agent | Tools | Model | Pattern |
 |-------|-------|-------|---------|
-| **OctoCATEngineer** | Local read/write | Default | Simple worker — builds features |
+| **OctoCATEngineer** | Local read/write | Default | Simple doer — builds features |
 | **CodeReviewer** | Local read-only | Claude Sonnet 4 | Reviewer — analyzes, doesn't edit |
 | **ImplementationIdeas** | MCP wildcards + cloud | Claude Sonnet 4.5 | Advanced — delegates to Coding Agent |
 
@@ -867,7 +867,7 @@ Now review the error handling across all API routes
    - `github/*` and `playwright/*` — MCP server tool wildcards
    - `model: Claude Sonnet 4.5` — the agent picks its own model
    - `call GitHub's create_pull_request_with_copilot` — agents delegating to agents
-3. Compare the three agents: OctoCATEngineer (simple worker), CodeReviewer (read-only), ImplementationIdeas (advanced with cloud delegation)
+3. Compare the three agents: OctoCATEngineer (simple doer), CodeReviewer (read-only), ImplementationIdeas (advanced with cloud delegation)
 
 **Exercise 5 — Create Your Own Agent** (Bonus)
 
@@ -921,7 +921,7 @@ Fill in the behavior instructions with your own rules, then test the agent with 
 
 ### Success Criteria
 
-- ✅ You've used the OctoCATEngineer agent to complete a task and seen a simple worker agent in action
+- ✅ You've used the OctoCATEngineer agent to complete a task and seen a simple "doer" agent in action
 - ✅ You've created the CodeReviewer agent and tested it with a review request
 - ✅ You've explored the ImplementationIdeas agent and understand how agents can delegate to cloud agents
 - ✅ You understand the progression: simple local agent → read-only agent → advanced agent with MCP and delegation
