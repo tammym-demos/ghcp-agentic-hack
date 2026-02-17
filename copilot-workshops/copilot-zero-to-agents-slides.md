@@ -600,6 +600,8 @@ Can reference scripts and files in the same directory.
 | **Project** | `.github/skills/` | Via git (team-wide) |
 | **Personal** | `~/.copilot/skills/` | Your machine only |
 
+`~` = OS home directory (`C:\Users\<username>` on Windows, `/Users/<username>` on macOS, `/home/<username>` on Linux).
+
 ---
 
 > **Presenter Note**: "The description field is critical — it's how Copilot decides whether to load the skill. Be specific about WHEN this skill should be used. Vague descriptions = skills that never get loaded."

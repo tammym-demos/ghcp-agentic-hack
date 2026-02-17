@@ -579,7 +579,7 @@ mkdir -p .github/skills/api-route-creation
 - Skills are auto-loaded — Copilot decides, not you
 - The `description` field is the matching key — be specific about WHEN to use the skill
 - Skills can include scripts and resource files alongside SKILL.md
-- Project skills (`.github/skills/`) are shared via git; personal skills (`~/.copilot/skills/`) are local
+- Project skills (`.github/skills/`) are shared via git; personal skills (`~/.copilot/skills/`) are local — `~` is your OS home directory (e.g., `C:\Users\<username>` on Windows, `/Users/<username>` on macOS)
 - Skills vs Instructions: instructions = always-on rules, skills = conditional procedures
 
 ### Backup Plan

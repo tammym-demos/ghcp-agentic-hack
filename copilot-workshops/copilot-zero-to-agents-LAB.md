@@ -727,7 +727,7 @@ Test it by asking Copilot: `Create a Warehouses page that shows a list of all wa
 ### Personal Skills
 
 You can also create **personal skills** that apply across all your repos:
-- Location: `~/.copilot/skills/*/SKILL.md`
+- Location: `~/.copilot/skills/*/SKILL.md` (where `~` is your OS home directory — e.g., `C:\Users\<username>` on Windows, `/Users/<username>` on macOS)
 - These are private to your machine — not shared via git
 - Great for personal coding preferences or tools only you use
 
