@@ -2,18 +2,7 @@
 
 **Purpose**: Pre-workshop setup instructions for enterprise administrators running the **GitHub Copilot: Zero to Agents** workshop with EMU (Enterprise Managed Users) participants.
 
-**Why This Is Needed**: EMU accounts operate in a walled garden — they cannot fork public repositories, access personal repos outside the enterprise, or contribute outside the enterprise boundary. The workshop requires participants to fork [microsoft/GitHubCopilot_Customized](https://github.com/microsoft/GitHubCopilot_Customized), which EMU users cannot do. The steps below ensure a smooth workshop experience within the EMU boundary.
-
----
-
-## Timeline
-
-| When | Who | Task |
-|------|-----|------|
-| **1–2 weeks before** | Enterprise Admin | Complete Steps 1–4 below |
-| **3 days before** | Enterprise Admin | Verify setup (Step 5) |
-| **Day before** | Workshop Facilitator | Run the Pre-Demo Checklist against the internal repo |
-| **Workshop day** | Attendees | Clone the internal repo (no fork needed) |
+**Why This Is Needed**: EMU accounts cannot fork public repositories or access repos outside the enterprise. The workshop requires participants to fork [microsoft/GitHubCopilot_Customized](https://github.com/microsoft/GitHubCopilot_Customized), which EMU users cannot do. Follow the steps below to import the repo into your enterprise org so everything works smoothly.
 
 ---
 
@@ -128,7 +117,7 @@ Verify these enterprise-level Copilot settings are enabled:
 
 ---
 
-## Step 5: Verify Setup (3 Days Before Workshop)
+## Step 5: Verify Setup
 
 Run through this checklist to confirm everything works:
 
