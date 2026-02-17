@@ -582,9 +582,9 @@ IDE Agent (research + plan)
 
 ```yaml
 ---
-name: github-actions-debugging
-description: Guide for debugging failing GitHub Actions workflows.
-  Use this when asked to debug failing workflows.
+name: code-review-checklist
+description: Checklist for reviewing TypeScript and Express.js code.
+  Use this when asked to review code or audit code quality.
 ---
 
 Step-by-step instructions that Copilot follows
@@ -613,7 +613,7 @@ Can reference scripts and files in the same directory.
 | Use Case | Use This |
 |----------|----------|
 | "Always use TypeScript strict mode" | **Instruction** |
-| "When debugging CI, follow these steps..." | **Skill** |
+| "When reviewing code, follow this checklist..." | **Skill** |
 | "Never hardcode credentials" | **Instruction** |
 | "When creating API routes, use this pattern..." | **Skill** |
 | "Our team uses Vitest for testing" | **Instruction** |
@@ -641,7 +641,7 @@ Can reference scripts and files in the same directory.
 
 ---
 
-> **Presenter Note**: 🖥️ **SWITCH TO DEMO 5**. Create github-actions-debugging skill → trigger it with a prompt → show auto-selection. Then 12 min hands-on. ~18 min total.
+> **Presenter Note**: 🖥️ **SWITCH TO DEMO 5**. Create code-review-checklist skill → trigger it with a prompt → show auto-selection. Then 12 min hands-on. ~18 min total.
 
 ---
 

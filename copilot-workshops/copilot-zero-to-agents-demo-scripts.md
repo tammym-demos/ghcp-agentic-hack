@@ -493,44 +493,58 @@ If the mode picker doesn't show the new agent:
 
 1. **Create directory**:
    ```bash
-   mkdir -p .github/skills/github-actions-debugging
+   mkdir -p .github/skills/code-review-checklist
    ```
-2. **Create** `.github/skills/github-actions-debugging/SKILL.md`:
+2. **Create** `.github/skills/code-review-checklist/SKILL.md`:
    ```yaml
    ---
-   name: github-actions-debugging
-   description: Guide for debugging failing GitHub Actions workflows.
-     Use this when asked to debug failing GitHub Actions workflows.
+   name: code-review-checklist
+   description: Checklist for reviewing TypeScript and Express.js code.
+     Use this when asked to review code, audit code quality, or check
+     for security and performance issues.
    ---
    
-   To debug failing GitHub Actions workflows in a pull request,
-   follow this process:
+   When reviewing TypeScript or Express.js code, follow this checklist:
    
-   1. Use the `list_workflow_runs` tool to look up recent workflow
-      runs for the pull request and their status
-   2. Use the `summarize_job_log_failures` tool to get an AI summary
-      of the logs for failed jobs, to understand what went wrong
-      without filling your context window with thousands of lines of logs
-   3. If you still need more information, use the `get_job_logs` or
-      `get_workflow_run_logs` tool to get the full, detailed failure logs
-   4. Try to reproduce the failure yourself in your own environment
-   5. Fix the failing build. If you were able to reproduce the
-      failure yourself, make sure it is fixed before committing
-      your changes
+   1. **Security**
+      - Check for unsanitized user input in route handlers
+      - Verify no hardcoded secrets, API keys, or credentials
+      - Ensure proper auth checks on protected routes
+      - Look for SQL/NoSQL injection risks in database queries
+   
+   2. **Input Validation**
+      - Confirm all POST/PUT endpoints validate request body fields
+      - Check for missing type guards on `req.params` and `req.query`
+      - Verify appropriate HTTP status codes for validation failures
+   
+   3. **Error Handling**
+      - Ensure every route has try/catch with meaningful error responses
+      - Check that sensitive details are not leaked to clients
+      - Verify async errors are properly caught
+   
+   4. **Performance**
+      - Identify N+1 query patterns or unnecessary database calls
+      - Check for missing pagination on list endpoints
+      - Look for blocking synchronous operations in async handlers
+   
+   5. **Maintainability**
+      - Verify consistent naming conventions
+      - Check for DRY violations — duplicated logic to extract
+      - Ensure Swagger/OpenAPI annotations are present and accurate
    ```
 3. **Explain key fields**:
    - `name`: Lowercase, hyphens for spaces — the skill's identifier
    - `description`: **Critical** — this is how Copilot decides when to load the skill
-4. **Talking point**: "The description is the trigger. When you ask about failing workflows, Copilot reads this description and says 'I have a skill for that.'"
+4. **Talking point**: "The description is the trigger. When you ask about reviewing code, Copilot reads this description and says 'I have a skill for that.'"
 
 #### Part B: Show Auto-Selection (1.5 min)
 
 1. **Open Agent mode** (new chat)
 2. **Enter prompt**:
    ```
-   Help me debug why the CI workflow is failing on my PR
+   Review the product route handler for security and performance issues
    ```
-3. **Show** Copilot loading the skill (it should reference the debugging steps)
+3. **Show** Copilot loading the skill (it should reference the checklist steps)
 4. **Contrast**: Ask something unrelated to show the skill is NOT loaded:
    ```
    What entities does this API manage?
@@ -572,7 +586,7 @@ mkdir -p .github/skills/api-route-creation
 
 If auto-selection doesn't visibly work:
 1. Explain that skill loading is invisible to the user — it happens in the background
-2. Show a before/after: ask about debugging CI without the skill, then with the skill
+2. Show a before/after: ask about reviewing code without the skill, then with the skill
 3. Compare the quality and specificity of responses
 
 ---
