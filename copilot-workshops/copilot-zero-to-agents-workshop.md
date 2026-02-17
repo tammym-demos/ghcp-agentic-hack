@@ -1050,7 +1050,7 @@ When reviewing TypeScript or Express.js code, follow this checklist:
    - Ensure Swagger/OpenAPI annotations are present and accurate
 ```
 
-3. Show how Copilot auto-selects the skill — enter:
+3. Show how Copilot auto-selects the skill — Open a new chat and select Agent Mode, then enter:
 
 ```
 Review the product route handler for security and performance issues
@@ -1171,10 +1171,6 @@ Test it by asking Copilot: `Create a Warehouses page that shows a list of all wa
 
 </details>
 
-### Where to Find More Skills
-
-- [anthropics/skills](https://github.com/anthropics/skills) — Anthropic's reference skills
-- [github/awesome-copilot](https://github.com/github/awesome-copilot) — community-curated collection
 
 ### Personal Skills
 
