@@ -39,8 +39,9 @@ Run through this **the day before** and again **30 minutes before** the workshop
 
 - [ ] `gh` CLI installed and on PATH (`gh --version` returns 2.x+)
 - [ ] Authenticated (`gh auth status` shows logged in)
-- [ ] `gh copilot` extension installed (`gh extension list` shows `github/gh-copilot`)
-- [ ] If not installed: `gh extension install github/gh-copilot`
+- [ ] Copilot CLI installed (`copilot --version` returns a version number)
+- [ ] If not installed: follow [docs.github.com/en/copilot/how-tos/set-up/install-copilot-cli](https://docs.github.com/en/copilot/how-tos/set-up/install-copilot-cli)
+- [ ] `copilot` interactive mode launches from project root (trust the directory when prompted)
 
 ### MCP Servers
 
@@ -745,173 +746,171 @@ If GitHub MCP fails:
 
 ---
 
-## Demo 8: GitHub CLI (Section 8)
+## Demo 8: Copilot CLI — The Agentic Terminal (Section 8)
 
-**Objective**: Show GitHub CLI with Copilot AI in the terminal  
-**Duration**: 8 min demo + 10 min hands-on = 18 min  
-**After Slide**: 34
+**Objective**: Show the standalone `copilot` CLI as a full agentic terminal experience — interactive TUI, plan mode, file context, tool approvals, /review, and /delegate  
+**Duration**: 12 min demo + 15 min hands-on = 27 min  
+**After Slide**: 35
 
 ### Setup Before Demo
 
-- VS Code integrated terminal open
-- `gh` CLI installed and authenticated (`gh auth status` shows logged in)
-- `gh copilot` extension installed (`gh extension list` shows `github/gh-copilot`)
-- Current directory is the project root
+- Terminal open (VS Code integrated terminal or standalone terminal)
+- Standalone `copilot` CLI installed and authenticated (`copilot --version` shows version)
+- `gh` CLI installed and authenticated (`gh auth status` — needed for `/delegate`)
+- Current directory is the project root with real source files to reference
+- A file with a known small issue to fix (e.g., missing input validation in an API route)
 
 ### Step-by-Step Script
 
-#### Part A: Verify CLI Setup (30 sec)
-
-1. **Open** the VS Code integrated terminal
-2. **Run**:
-   ```bash
-   gh --version
-   gh auth status
-   ```
-3. **Show**: Version number and authenticated user
-4. **Talking point**: "The GitHub CLI is GitHub's official command-line tool. If you don't have it yet, install it from cli.github.com."
-
-#### Part B: Copilot Suggest (1.5 min)
+#### Part A: Launch & Explore the TUI (2 min)
 
 1. **Run**:
    ```bash
-   gh copilot suggest "list all open issues assigned to me in this repo"
+   copilot
    ```
-2. **Show**: Copilot generating the appropriate `gh issue list` command
-3. **Point out**: The suggested command, the option to execute it directly or copy it
-4. **Run another suggestion**:
+2. **Show**: The interactive TUI launches — full-screen agentic terminal
+3. **Talking point**: "This isn't the old `gh copilot suggest` anymore. This is a standalone agentic terminal — a full interactive session where the AI can read your files, run commands, and build multi-step plans."
+4. **Type a simple prompt**:
+   ```
+   What files are in this project and what does it do?
+   ```
+5. **Show**: Copilot reads the directory, examines key files, and provides a project summary
+6. **Point out**: The tool calls appearing (list_directory, read_file) — each one shows what the agent is doing
+7. **Show the tool approval prompt**: Explain the options — `(Y)es` / `(N)o` / `Yes for this (S)ession` / `Yes (A)lways`
+8. **Talking point**: "Notice the tool approval system. You see every action before it happens. You're in control — approve one at a time, for the session, or allow all. This is the safety model for agentic AI."
+
+#### Part B: Build a Feature with Plan Mode (4 min)
+
+1. **Type a prompt using `@` file reference**:
+   ```
+   @src/api/routes.ts add input validation to the POST /orders endpoint using zod schemas
+   ```
+2. **Press `Shift+Tab`** to toggle plan mode
+3. **Show**: The plan appears — numbered steps the agent will take
+4. **Talking point**: "Shift+Tab toggles plan mode. Before the agent writes a single line of code, you see exactly what it plans to do. Review it, adjust if needed, then let it execute."
+5. **Press Enter** to execute the plan
+6. **Walk through the tool approvals** as they appear:
+   - `read_file` → approve
+   - `edit_file` → approve (show the diff preview)
+   - `run_command` → approve (running tests or linting)
+7. **Show**: The completed changes — the agent wrote real validation code
+8. **Run a shell command inline**:
+   ```
+   !git diff
+   ```
+9. **Show**: The diff of what the agent just changed — without leaving the session
+10. **Talking point**: "The `!` prefix lets you run any shell command inline. Check diffs, run tests, inspect files — all without leaving the Copilot session."
+
+#### Part C: /review and /delegate (3 min)
+
+1. **Type**:
+   ```
+   /review
+   ```
+2. **Show**: Copilot reviews the changes just made — identifies potential issues, suggests improvements
+3. **Talking point**: "Before you commit, `/review` gives you an AI code review right in the terminal. It catches things you might miss."
+4. **Type**:
+   ```
+   /delegate Create an issue for adding rate limiting to the API endpoints, then implement it
+   ```
+5. **Show**: Copilot hands the task to Coding Agent — the terminal confirms the handoff
+6. **Talking point**: "This is the bridge to Section 9. `/delegate` takes your prompt and context, sends it to Coding Agent in the cloud, which creates a branch, writes the code, runs tests, and opens a PR. One command — terminal to autonomous cloud agent."
+7. **Open GitHub in browser** → Show the Coding Agent session starting (if time permits)
+
+#### Part D: Bonus Quick-Fire Commands (1 min)
+
+1. **Show session resume** (if time permits):
    ```bash
-   gh copilot suggest "find all TypeScript files modified in the last week"
+   copilot --resume
    ```
-5. **Show**: Copilot generating a `git`/`find` command
-6. **Talking point**: "You don't need to memorize commands. Describe what you want in English, and Copilot generates the command for you."
-
-#### Part C: Copilot Explain (1 min)
-
-1. **Run**:
-   ```bash
-   gh copilot explain "gh api repos/{owner}/{repo}/branches/main/protection --method PUT"
+2. **Show**: Previous session context is restored
+3. **Type a few slash commands quickly**:
    ```
-2. **Show**: Copilot breaking down the command into plain English
-3. **Talking point**: "Found a complex command in a README or Stack Overflow? Paste it into `explain` before you run it. No more running commands you don't understand."
-
-#### Part D: Create an Issue from the CLI (2 min)
-
-1. **Run**:
-   ```bash
-   gh issue create --title "Improve API error handling" --body "Standardize error responses across all API endpoints with proper HTTP status codes and error messages."
+   /context
+   /usage
    ```
-2. **Show**: The issue being created, the URL returned
-3. **Open the repo in browser** → Show the new issue exists
-4. **Run**:
-   ```bash
-   gh issue list
-   ```
-5. **Show**: The issue appearing in the list
-6. **Talking point**: "Project management from your terminal. This connects directly to Coding Agent — you can assign an issue to Copilot and it will code the solution autonomously."
+4. **Talking point**: "There's a whole ecosystem of commands: `/context` to see what files are loaded, `/usage` to check your token consumption, `--resume` to pick up where you left off. Explore these in the hands-on."
 
-#### Part E: Type Hints — Steering Suggestions (1 min)
+### Hands-On Instructions (15 min)
 
-1. **Run without type hint**:
-   ```bash
-   gh copilot suggest "show me which branches have been merged into main"
-   ```
-2. **Show**: Copilot might suggest a `gh api` command or a `git` command — unpredictable
-3. **Run with type hint**:
-   ```bash
-   gh copilot suggest -t git "show me which branches have been merged into main"
-   ```
-4. **Show**: Now it returns a `git branch --merged main` command — precisely targeted
-5. **Run one more**:
-   ```bash
-   gh copilot suggest -t gh "find PRs that haven't been reviewed yet"
-   ```
-6. **Talking point**: "The `-t` flag steers Copilot to the right category: `-t shell` for OS commands, `-t git` for git commands, `-t gh` for GitHub CLI commands. Use it when the default suggestion is the wrong type."
+> "Your turn! Launch the Copilot CLI and explore the agentic terminal:"
 
-#### Part F: Structured Output with `--json` / `--jq` (1 min)
-
-1. **Run**:
-   ```bash
-   gh issue list --json number,title,assignees
-   ```
-2. **Show**: Machine-readable JSON output instead of the usual table format
-3. **Run**:
-   ```bash
-   gh issue list --json title --jq '.[].title'
-   ```
-4. **Show**: Just the titles — filtered and clean
-5. **Run** (if PRs exist):
-   ```bash
-   gh pr list --json number,title,reviewDecision
-   ```
-6. **Talking point**: "`--json` and `--jq` turn the GitHub CLI into a scriptable data pipeline. Use this for CI scripts, dashboards, or any automation that needs GitHub data."
-
-### Hands-On Instructions (10 min)
-
-> "Your turn! Try these in the terminal:"
-
-1. Suggest a command — then run the suggested output:
+1. Launch the CLI and ask about your project:
 
 ```bash
-gh copilot suggest "show me the most recent commits on main with a graph"
+copilot
 ```
 
-2. Understand a complex command:
-
-```bash
-gh copilot explain "git log --oneline --graph --all --decorate"
+Then type:
+```
+What does this project do? Summarize the architecture.
 ```
 
-3. See what issues exist:
+2. Use `@` to ask about a specific file:
 
-```bash
-gh issue list
+```
+@src/api/routes.ts What endpoints does this file define?
 ```
 
-4. Create your own issue:
+3. Toggle plan mode and build a feature:
 
-```bash
-gh issue create --title "Test issue from CLI" --body "Created during workshop."
+Press `Shift+Tab` to enable plan mode, then:
+```
+Add a health check endpoint at GET /api/health that returns { status: "ok", timestamp: ... }
 ```
 
-5. Verify your issue:
+4. Review what was built:
 
-```bash
-gh issue view --web
+```
+/review
 ```
 
-6. Try type hints — compare to without `-t`:
+5. Run a shell command inline:
 
-```bash
-gh copilot suggest -t git "show branches merged into main"
+```
+!git diff
 ```
 
-7. Try structured output:
+6. Check your usage and context:
 
-```bash
-gh issue list --json number,title --jq '.[].title'
+```
+/usage
+/context
 ```
 
-> **Bonus**: Try `gh pr list` and `gh pr status` to explore PR workflows.
+> **Bonus**: Try `/delegate` to hand a task to Coding Agent, or start a new session with `copilot --resume` to pick up where you left off.
 
 ### Key Points to Emphasize
 
-- `gh copilot suggest` = natural language → shell command
-- `gh copilot explain` = shell command → plain English
-- `gh issue create` connects to the Coding Agent workflow (Section 9)
-- The CLI complements the IDE — use both
+- The standalone `copilot` CLI is a full agentic terminal — not just a command suggester
+- `Shift+Tab` plan mode lets you preview before the agent acts
+- `@filename` attaches file context directly to your prompt
+- Tool approvals give you control over every action the agent takes
+- `/review` provides instant AI code review in the terminal
+- `/delegate` bridges the CLI to Coding Agent (Section 9) — local → cloud in one command
+- `!command` runs shell commands inline without leaving the session
+- `--resume` / `--continue` restores previous session context
 
 ### Backup Plan
 
-If `gh copilot` is not installed:
-1. Show `gh extension install github/gh-copilot` to install it
-2. If extension install is blocked, skip to the `gh issue` commands (those don't require the extension)
-3. Show the CLI docs page: `cli.github.com` as reference
+If `copilot` CLI is not installed:
+1. Show `npm install -g @githubnext/github-copilot-cli` or the latest install method from `docs.github.com/copilot/github-copilot-in-the-cli`
+2. If install is blocked by corporate policy, fall back to the legacy CLI:
+   ```bash
+   gh copilot suggest "show the most recent commits with a graph"
+   gh copilot explain "git log --oneline --graph --all"
+   ```
+3. Show the docs page as reference: `docs.github.com/copilot/github-copilot-in-the-cli`
 
-If `gh` is not installed at all:
-1. Explain the concept using the slides
-2. Show the CLI website: `cli.github.com`
-3. Move on to the next section and have attendees install during the break
+If `copilot` launches but tool calls are blocked:
+1. Use `--allow-all-tools` flag to bypass approval prompts
+2. If still blocked, demonstrate in read-only mode (ask questions about the codebase without editing)
+3. Show the TUI and plan mode even if edits can't be executed
+
+If network issues prevent authentication:
+1. Show the demo from the slides — the TUI diagram on Slide 33 illustrates the experience
+2. Explain the concept using the Slide 34 `/delegate` diagram
+3. Move on to Section 9 and have attendees install during the break
 
 ---
 
@@ -919,7 +918,7 @@ If `gh` is not installed at all:
 
 **Objective**: Show the autonomous development loop: Issue → Coding Agent → PR → Code Review  
 **Duration**: 15 min demo (no hands-on — observe only)  
-**After Slide**: 40
+**After Slide**: 41
 
 ### Setup Before Demo
 
@@ -1044,17 +1043,17 @@ If Coding Agent isn't available or takes too long:
 | 5 | Agent Skills | 5 min | 12 min | 17 min |
 | 6 | Playwright MCP | 5 min | 15 min | 20 min |
 | 7 | GitHub MCP | 4 min | — | 4 min |
-| 8 | GitHub CLI | 8 min | 10 min | 18 min |
+| 8 | Copilot CLI — Agentic Terminal | 12 min | 15 min | 27 min |
 | 9 | Cloud Agents | 15 min | — | 15 min |
-| | | **58 min** | **79 min** | **137 min** |
+| | | **67 min** | **84 min** | **151 min** |
 
 **Core time budget**:
 - Slide presentation: ~82 min
-- Demo + hands-on: ~137 min
+- Demo + hands-on: ~151 min
 - Wrap-up/Q&A: 10 min
 - Buffer: ~3 min
 
-**Core total**: ~232 min (~3h 52min)
+**Core total**: ~246 min (~4h 6min)
 
 ---
 
@@ -1069,7 +1068,7 @@ If a demo is completely blocked:
    - Agent Skills: `docs.github.com/en/copilot/concepts/agents/about-agent-skills`
    - MCP: `docs.github.com/en/copilot/how-tos/using-extensions/using-mcp-in-copilot`
    - Coding Agent: `docs.github.com/en/copilot/using-github-copilot/using-copilot-coding-agent`
-   - GitHub CLI: `cli.github.com`
+   - Copilot CLI: `docs.github.com/en/copilot/github-copilot-in-the-cli`
 3. **Engage the audience** with Q&A while troubleshooting
 4. **Skip to the next section** and come back if time permits
 
@@ -1088,7 +1087,7 @@ If a demo is completely blocked:
 | Hot reload not working | Stop + restart `npm run dev`, hard refresh browser |
 | Coding Agent not starting | Check: Actions enabled, branch protection set, Coding Agent enabled in settings |
 | `gh` CLI not found | Install from cli.github.com, then run `gh auth login` |
-| `gh copilot` not available | Run `gh extension install github/gh-copilot` |
+| `copilot` CLI not available | Install the standalone Copilot CLI — see `docs.github.com/copilot/github-copilot-in-the-cli` |
 
 ---
 

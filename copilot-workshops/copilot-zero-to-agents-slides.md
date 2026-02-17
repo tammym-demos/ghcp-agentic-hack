@@ -2,7 +2,7 @@
 
 ## Slide Deck with Presenter Notes
 
-**Duration**: ~3 hours 45 min (225 min core)  
+**Duration**: ~3 hours 55 min (235 min core)  
 **Format**: Presentation + Live Demos + Hands-On (intermixed)  
 **Audience**: Developers with basic Copilot exposure  
 **Repo**: [microsoft/GitHubCopilot_Customized](https://github.com/microsoft/GitHubCopilot_Customized)
@@ -41,7 +41,7 @@
 | 25 min | [Custom Agents (Chat Modes)](#section-custom-agents-chat-modes) |
 | 25 min | [Agent Skills](#section-agent-skills) |
 | 30 min | [MCP Servers (Playwright + GitHub)](#section-mcp-servers) |
-| 20 min | [GitHub CLI: Copilot in the Terminal](#section-github-cli) |
+| 30 min | [Copilot CLI: The Agentic Terminal](#section-copilot-cli) |
 | 20 min | [Cloud Agents: Coding Agent + PR Review Agent](#section-cloud-agents) |
 | 10 min | [Wrap-Up & Q&A](#section-wrap-up) |
 
@@ -59,7 +59,7 @@
   ZERO              CUSTOMIZE             EXTEND              AGENTS
   ─────►           ──────────►           ─────────►          ─────────►
 
-  Chat Modes         Instructions          MCP Servers         GitHub CLI
+  Chat Modes         Instructions          MCP Servers         Copilot CLI
   (Ask/Agent/Plan)   Prompt Files          (Playwright,        Coding Agent
                      Agents/Chat Modes     GitHub)             PR Review Agent
                      Agent Skills
@@ -69,7 +69,7 @@
 
 ---
 
-> **Presenter Note**: "Think of this as a stack. We start with the basics — how to interact with Copilot. Then we customize it for YOUR team. Then we extend it to touch external tools. Then we step into the terminal with GitHub CLI. Finally, we let it loose as an autonomous agent. By the end, you'll have seen every layer."
+> **Presenter Note**: "Think of this as a stack. We start with the basics — how to interact with Copilot. Then we customize it for YOUR team. Then we extend it to touch external tools. Then we step into the terminal with the standalone Copilot CLI — a full agentic experience. Finally, we let it loose as an autonomous cloud agent. By the end, you'll have seen every layer."
 
 ---
 
@@ -778,62 +778,96 @@ List open PRs and summarize their status.
 
 ---
 
-# SECTION [8]: GitHub CLI
+# SECTION [8]: Copilot CLI — The Agentic Terminal
 
-## Slide 32: GitHub CLI — Copilot in the Terminal
+## Slide 32: Copilot CLI — The Agentic Terminal
 
-# GitHub CLI: Copilot in the Terminal & Project Management
+# Copilot CLI: The Agentic Terminal
 
-| Capability | What It Does |
-|------------|-------------|
-| `gh copilot suggest` | AI-generated shell commands from natural language |
-| `gh copilot explain` | Plain-English explanations of complex commands |
-| `gh issue` / `gh pr` | Manage issues and PRs without leaving terminal |
-| `gh repo` | Clone, fork, create repos from the command line |
-| Type hints (`-t`) | Constrain suggestions to `git`, `gh`, or `shell` |
+| Capability | Command / Key | What It Does |
+|------------|--------------|--------------|
+| **Interactive TUI** | `copilot` | Full-screen agentic terminal with streaming responses |
+| **Plan mode** | `Shift+Tab` | Preview multi-step plan before execution |
+| **File context** | `@filename` | Attach files directly into your prompt |
+| **Delegate to cloud** | `/delegate` | Hand task to Coding Agent (creates branch + PR) |
+| **Code review** | `/review` | AI reviews staged or working-tree changes |
+| **Shell escape** | `!command` | Run any shell command without leaving the session |
+| **Session resume** | `--resume` / `--continue` | Pick up where you left off |
+| **Tool approval** | `--allow-tool` | Granular control over which tools the agent can use |
 
-> **Presenter Note**: *"We've been working inside VS Code — now let's step into the terminal. The GitHub CLI brings all of GitHub into your command line, and gh copilot adds AI right there too. This is your power-user interface."*
+> **Presenter Note**: *"We've been working inside VS Code — now let's step into the terminal. But this isn't the old gh copilot suggest anymore. The standalone copilot CLI is a full agentic experience — an interactive TUI where the AI can read your files, run commands, build plans, and even delegate work to Coding Agent. This is the moment the workshop goes from 'cool' to 'wow.'"*
 
 ---
 
-## Slide 33: CLI in Action — Suggest, Explain, Manage
+## Slide 33: The TUI Experience — AI Meets Terminal
 
-# CLI in Action
+# The Copilot CLI Experience
 
-```bash
-# AI suggests shell commands from plain English
-gh copilot suggest "find all open issues assigned to me"
-
-# AI explains commands you don't understand
-gh copilot explain "git log --oneline --graph --all"
-
-# Manage issues and PRs without the browser
-gh issue create --title "Add validation" --body "..."
-gh pr list --json number,title,reviewDecision
+```
+┌─────────────────────────────────────────────────────────┐
+│  copilot                                                │
+│                                                         │
+│  You: @src/api/routes.ts add input validation to        │
+│       the POST /orders endpoint                         │
+│                                                         │
+│  ┌─ Plan ──────────────────────────────────────────┐    │
+│  │ 1. Read src/api/routes.ts                       │    │
+│  │ 2. Add zod schema for order validation          │    │
+│  │ 3. Add middleware to POST /orders route          │    │
+│  │ 4. Run existing tests to verify no regressions   │    │
+│  └─────────────────────────────────────────────────┘    │
+│                                                         │
+│  [Allow tool: edit_file] (Y)es / (N)o / Yes (A)lways   │
+│                                                         │
+│  Shift+Tab → toggle plan mode                           │
+│  /review   → review your changes                        │
+│  /delegate → hand off to Coding Agent                   │
+│  !git diff → run shell commands inline                  │
+└─────────────────────────────────────────────────────────┘
 ```
 
-**Type hints** constrain output: `-t git` | `-t gh` | `-t shell`
+> **Presenter Note**: *"This is what it looks like. You type a natural-language prompt, optionally attach files with @, and the CLI builds a plan. You see every tool call before it runs — edit_file, run_command — and you approve each one. Shift+Tab toggles plan mode so you can preview before committing. It's the same agentic experience as VS Code, but entirely in your terminal."*
 
-**Structured output**: `--json` + `--jq` for scriptable data
+---
 
-> **Presenter Note**: *"These three commands are the CLI trifecta: suggest when you don't know the command, explain when you find one you don't understand, and the standard gh commands for managing your project. The type hints and JSON output make this scriptable and automatable."*
+## Slide 34: From Terminal to Cloud — The /delegate Bridge
+
+# From CLI to Coding Agent: `/delegate`
+
+```
+┌──────────────────┐         ┌────────────────────┐
+│   copilot CLI    │         │   Coding Agent     │
+│   (your terminal)│         │   (cloud)          │
+│                  │         │                    │
+│  You: fix the    │ /delegate│  Creates branch   │
+│  timezone bug in │────────►│  Writes code       │
+│  @src/utils/     │         │  Runs tests        │
+│  date.ts         │         │  Opens PR          │
+│                  │         │  Requests review   │
+└──────────────────┘         └────────────────────┘
+```
+
+**One command bridges local → cloud.** Your context, your prompt — executed autonomously as a full PR workflow.
+
+> **Presenter Note**: *"Here's the bridge to Section 9. When you're in the CLI and realize a task is bigger than a quick fix, type /delegate. It takes your prompt and context, hands it to Coding Agent in the cloud, which creates a branch, writes the code, runs tests, and opens a PR. You go from terminal to autonomous cloud agent in one keystroke."*
 
 ---
 
 # 🖥️ LIVE DEMO
 
-## Slide 34: 🖥️ Demo — GitHub CLI & Copilot
+## Slide 35: 🖥️ Demo — Copilot CLI Agentic Session
 
-🖥️ **SWITCH TO VS CODE TERMINAL**
+🖥️ **SWITCH TO TERMINAL**
 
-**Demo: GitHub CLI with Copilot (8 min)**
-1. `gh copilot suggest` — natural language → shell command
-2. `gh copilot explain` — break down a complex command
-3. `gh issue create` — create an issue from terminal
-4. Type hints — compare `-t git` vs `-t gh` vs `-t shell`
-5. `gh issue list --json` — structured output with `--jq`
+**Demo: Copilot CLI — The Agentic Terminal (12 min)**
+1. Launch `copilot` — explore the interactive TUI
+2. Use `@` to attach a file and ask a question
+3. `Shift+Tab` — toggle plan mode, review the plan
+4. Build a feature — watch tool approvals in action
+5. `/review` — AI reviews the changes just made
+6. `/delegate` — hand a task to Coding Agent
 
-> **Presenter Note**: *"Let me show you the CLI in action. I'll use suggest, explain, create an issue, show type hints, and demonstrate structured output. Everything here prepares you for Coding Agent — which manages issues and PRs through this same CLI."*
+> **Presenter Note**: *"This is the centerpiece demo. I'll launch the CLI, show the TUI, build a real feature with plan mode and tool approvals, then use /delegate to bridge into Coding Agent. Everything after this slide flows from what we show here. Take your time — this is the 'wow' moment."*
 
 ---
 
@@ -841,7 +875,7 @@ gh pr list --json number,title,reviewDecision
 
 ---
 
-## Slide 35: The Autonomous Development Loop
+## Slide 36: The Autonomous Development Loop
 
 ### From Issue to Merged PR — AI-Assisted at Every Step
 
@@ -870,7 +904,7 @@ gh pr list --json number,title,reviewDecision
 
 ---
 
-## Slide 36: Coding Agent — Autonomous PRs
+## Slide 37: Coding Agent — Autonomous PRs
 
 ### How It Works
 
@@ -900,7 +934,7 @@ gh pr list --json number,title,reviewDecision
 
 ---
 
-## Slide 37: Making Coding Agent Smarter
+## Slide 38: Making Coding Agent Smarter
 
 ### Configuring the Coding Agent Environment
 
@@ -933,7 +967,7 @@ npm run test:api
 
 ---
 
-## Slide 38: PR Review Agent — AI Code Review
+## Slide 39: PR Review Agent — AI Code Review
 
 ### How It Works
 
@@ -964,7 +998,7 @@ npm run test:api
 
 ---
 
-## Slide 39: Agent Mode vs Coding Agent
+## Slide 40: Agent Mode vs Coding Agent
 
 ### When to Use Each
 
@@ -984,7 +1018,7 @@ npm run test:api
 
 ---
 
-## Slide 40: Demo Time
+## Slide 41: Demo Time
 
 # 🖥️ LIVE DEMO
 
@@ -1006,7 +1040,7 @@ npm run test:api
 
 ---
 
-## Slide 41: What You Built Today
+## Slide 42: What You Built Today
 
 ### Your Customization Stack
 
@@ -1017,7 +1051,7 @@ npm run test:api
 | `.github/prompts/security-review.prompt.md` | Custom Prompt Files |
 | `.github/agents/CodeReviewer.agent.md` | Custom Agents |
 | `.github/skills/*/SKILL.md` | Agent Skills |
-| GitHub CLI commands & issue management | §8 — GitHub CLI |
+| Copilot CLI agentic terminal session | §8 — Copilot CLI |
 | `.github/copilot-setup-steps.md` *(discussed)* | Coding Agent Configuration |
 
 **All of these are portable** — commit them to any repo and your team gets them too.
@@ -1028,7 +1062,7 @@ npm run test:api
 
 ---
 
-## Slide 42: Key Takeaways
+## Slide 43: Key Takeaways
 
 ### Seven Things to Remember
 
@@ -1046,7 +1080,7 @@ npm run test:api
 
 ---
 
-## Slide 43: Your Action Items
+## Slide 44: Your Action Items
 
 ### What to Do Next
 
@@ -1063,7 +1097,7 @@ npm run test:api
 
 ---
 
-## Slide 44: Resources
+## Slide 45: Resources
 
 ### Learn More
 
@@ -1089,7 +1123,7 @@ npm run test:api
 
 ---
 
-## Slide 45: Q&A
+## Slide 46: Q&A
 
 # Questions?
 
@@ -1108,7 +1142,7 @@ npm run test:api
 
 ---
 
-## Slide 46: Thank You
+## Slide 47: Thank You
 
 # Thank You
 
@@ -1134,10 +1168,10 @@ npm run test:api
 | 22 | Agents + OctoCATEngineer + CodeReviewer + Hands-on | 17 min |
 | 26 | Agent Skills + Create skill + Hands-on | 18 min |
 | 31 | MCP Servers (Playwright + GitHub) + Hands-on | 24 min |
-| 34 | GitHub CLI + Hands-on | 8 min |
-| 40 | Cloud Agents (Coding Agent + PR Review) | 15 min |
+| 35 | Copilot CLI — Agentic Terminal + Hands-on | 27 min |
+| 41 | Cloud Agents (Coding Agent + PR Review) | 15 min |
 
-**Total demo + hands-on time**: ~135 minutes  
+**Total demo + hands-on time**: ~154 minutes  
 **Total slide/concept time**: ~80 minutes  
 **Buffer/Q&A**: ~10 minutes
 
@@ -1148,7 +1182,7 @@ Demo Repo: https://github.com/microsoft/GitHubCopilot_Customized
 API Swagger: http://localhost:3000/api-docs
 Frontend: http://localhost:5137
 GitHub CLI: https://cli.github.com
-Copilot in CLI Docs: https://docs.github.com/en/copilot/github-copilot-in-the-cli
+Copilot CLI Docs: https://docs.github.com/en/copilot/github-copilot-in-the-cli
 GitHub Copilot Docs: https://docs.github.com/en/copilot
 Agent Skills Docs: https://docs.github.com/en/copilot/concepts/agents/about-agent-skills
 MCP Docs: https://docs.github.com/en/copilot/how-tos/using-extensions/using-mcp-in-copilot

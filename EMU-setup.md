@@ -120,7 +120,7 @@ Verify these enterprise-level Copilot settings are enabled:
 | **Copilot Chat in the IDE** | Enabled | Entire workshop |
 | **Copilot Coding Agent** | Enabled | Section 9 |
 | **Copilot Code Review** | Enabled | Section 9 |
-| **Copilot in the CLI** | Enabled | Section 8 |
+| **Copilot CLI** | Enabled | Section 8 |
 
 > **Note**: If any of these policies are managed at the enterprise level and set to "Disabled" or "No policy", the workshop facilitator should coordinate with the enterprise admin to temporarily enable them for the workshop org.
 
@@ -138,7 +138,7 @@ Run through this checklist to confirm everything works:
 - [ ] Copilot Coding Agent is enabled in repo settings
 - [ ] At least one Issue exists in the repo
 - [ ] Copilot is available in VS Code when signed in with an EMU account
-- [ ] `gh copilot` CLI extension works with the EMU account (`gh extension install github/gh-copilot`)
+- [ ] Standalone `copilot` CLI works with the EMU account (`copilot --version` shows version)
 
 ---
 
@@ -217,7 +217,7 @@ The following sections of the workshop need minor adjustments for EMU environmen
 | Copilot not available in VS Code | Verify Copilot policy is enabled for the org; ensure the user's license includes Copilot |
 | GitHub MCP OAuth fails | Check enterprise OAuth app approval policy; fall back to PAT-based auth |
 | Coding Agent not available | Verify enterprise policy enables Coding Agent; check repo-level setting |
-| `gh copilot` CLI not working | Run `gh auth login` with the EMU account, then `gh extension install github/gh-copilot` |
+| `copilot` CLI not working | Run `gh auth login` with the EMU account, then install the standalone `copilot` CLI — see [docs.github.com/copilot/github-copilot-in-the-cli](https://docs.github.com/en/copilot/github-copilot-in-the-cli) |
 | Actions workflows fail | Check org-level Actions permissions and workflow permission settings on the repo |
 
 ---

@@ -22,7 +22,7 @@ This lab guide contains all the hands-on exercises from the **GitHub Copilot: Ze
 | **npm** | Latest version recommended |
 | **Git** | For cloning the demo repository |
 | **GitHub CLI** | Install from [cli.github.com](https://cli.github.com) |
-| **GitHub Copilot CLI Extension** | `gh extension install github/gh-copilot` |
+| **Copilot CLI** | Install from [docs.github.com/en/copilot/how-tos/set-up/install-copilot-cli](https://docs.github.com/en/copilot/how-tos/set-up/install-copilot-cli) |
 
 ---
 
@@ -904,176 +904,163 @@ Browse to http://localhost:5137 and test all the navigation links. If any pages 
 ---
 
 <details>
-<summary><h2>Lab 8: GitHub CLI — Copilot in the Terminal (15 min)</h2></summary>
+<summary><h2>Lab 8: Copilot CLI — The Agentic Terminal (15 min)</h2></summary>
 
-> **Workshop Section**: 8. GitHub CLI: Copilot in the Terminal & Project Management
+> **Workshop Section**: 8. Copilot CLI: The Agentic Terminal
 
 ### Why This Matters
 
-The GitHub CLI (`gh`) brings Copilot into your terminal, letting you generate commands from natural language, explain unfamiliar commands, and manage issues and PRs without leaving your workflow.
+The standalone `copilot` CLI is a full agentic terminal — an interactive TUI where AI can read your files, build multi-step plans, execute changes with your approval, review code, and even delegate tasks to Coding Agent in the cloud. It's the same agentic experience as VS Code, but entirely in your terminal.
 
 ### Quick Reference
 
-| Command | What It Does |
-|---------|-------------|
-| `gh copilot suggest "..."` | AI-generated shell command from natural language |
-| `gh copilot explain "..."` | Plain-English explanation of a command |
-| `gh issue list` | List issues in the current repo |
-| `gh issue create` | Create a new issue |
-| `gh pr list` | List pull requests |
-| `gh pr create` | Create a pull request |
+| Command / Key | What It Does |
+|--------------|--------------|
+| `copilot` | Launch the interactive agentic terminal |
+| `@filename` | Attach a file as context in your prompt |
+| `Shift+Tab` | Toggle plan mode — preview steps before execution |
+| `/review` | AI reviews your staged or working-tree changes |
+| `/delegate` | Hand a task to Coding Agent (creates branch + PR) |
+| `/context` | Show what files are currently loaded as context |
+| `/usage` | Check your token consumption for the session |
+| `!command` | Run any shell command without leaving the session |
+| `--resume` | Resume your most recent session |
+| `--continue` | Continue the last session (alias for --resume) |
 
 ### Steps
 
-**Exercise 1 — Verify Setup**:
+**Exercise 1 — Launch the CLI & Explore**:
 
-1. Open the VS Code integrated terminal
-2. Confirm the CLI is installed and you're authenticated:
-
-```bash
-gh --version
-```
+1. Open your terminal (VS Code integrated terminal or standalone)
+2. Launch the Copilot CLI:
 
 ```bash
-gh auth status
+copilot
 ```
 
-> **Note**: If `gh auth status` shows you're not authenticated, run `gh auth login` and follow the prompts.
+3. Ask about your project:
 
-**Exercise 2 — Copilot Suggest**:
-
-1. Ask Copilot to generate a git command from plain English:
-
-```bash
-gh copilot suggest "show me the most recent commits on main with a graph"
+```
+What does this project do? Summarize the architecture.
 ```
 
-2. Review the suggested command — Copilot will show it and ask if you want to run it
-3. Execute the suggested command
-4. Try another one — ask for something you'd normally have to look up:
+4. Watch the tool calls appear — the agent reads your files and provides a summary
+5. Notice the **tool approval prompt**: `(Y)es` / `(N)o` / `Yes for this (S)ession` / `Yes (A)lways`
 
-```bash
-gh copilot suggest "find all TypeScript files modified in the last week"
+> **Note**: The tool approval system lets you control every action the agent takes. Start with approving one at a time to see what's happening, then use "Yes for session" once you're comfortable.
+
+**Exercise 2 — File Context with `@`**:
+
+1. Reference a specific file in your prompt using `@`:
+
+```
+@src/api/routes.ts What endpoints does this file define? Are there any missing error handlers?
 ```
 
-**Exercise 3 — Copilot Explain**:
+2. The agent reads the file and answers with specific line references
+3. Try referencing multiple files:
 
-1. Paste a command you've seen but don't fully understand:
-
-```bash
-gh copilot explain "git log --oneline --graph --all --decorate"
+```
+@package.json @tsconfig.json What version of TypeScript is this project using and what are the compiler options?
 ```
 
-2. Read the step-by-step breakdown Copilot provides
-3. Try explaining a GitHub API command:
+**Exercise 3 — Plan Mode & Build a Feature**:
 
-```bash
-gh copilot explain "gh api repos/{owner}/{repo}/branches/main/protection --method PUT"
+1. Press `Shift+Tab` to enable **plan mode**
+2. Type a feature request:
+
+```
+Add a health check endpoint at GET /api/health that returns { status: "ok", timestamp: new Date().toISOString(), uptime: process.uptime() }
 ```
 
-**Exercise 4 — Issue Management**:
+3. Review the plan — the agent shows numbered steps it will take
+4. Press Enter to execute the plan
+5. Approve each tool call as it appears:
+   - `read_file` — the agent reads existing route files
+   - `edit_file` — the agent writes the new endpoint (review the diff!)
+   - `run_command` — the agent may run tests or linting
+6. When complete, check what changed:
 
-1. List existing issues in your repo:
-
-```bash
-gh issue list
+```
+!git diff
 ```
 
-2. Create an issue — you can use this for Coding Agent later:
+**Exercise 4 — Review Your Changes**:
 
-```bash
-gh issue create --title "Add input validation to Product API" --body "The POST /api/products endpoint accepts any payload without validation. Add schema validation for required fields (name, price, supplierId)."
+1. After building the feature, ask for a code review:
+
+```
+/review
 ```
 
-3. Verify it was created:
+2. Read the AI's feedback — it may suggest improvements, catch edge cases, or confirm the code looks good
+3. If the review suggests changes, ask the agent to fix them:
 
-```bash
-gh issue list
+```
+Apply the suggestions from the review
 ```
 
-4. View the issue details in your browser:
+**Exercise 5 — Shell Commands & Session Info**:
 
-```bash
-gh issue view --web
+1. Run shell commands without leaving the session:
+
+```
+!git status
 ```
 
-**Exercise 5 — PR Workflow** (Bonus):
-
-1. List any open pull requests:
-
-```bash
-gh pr list
+```
+!npm test
 ```
 
-2. Check the status of the current branch's PR (if any):
+2. Check your session context and token usage:
 
-```bash
-gh pr status
+```
+/context
 ```
 
-**Exercise 6 — Type Hints**:
-
-1. Run a suggest command WITHOUT a type hint:
-
-```bash
-gh copilot suggest "show me which branches have been merged into main"
+```
+/usage
 ```
 
-2. Notice the suggestion type — it might be `gh`, `git`, or `shell`
+**Exercise 6 — Delegate to Coding Agent** (Bonus):
 
-3. Now run the SAME prompt WITH a type hint:
+1. If Coding Agent is enabled in your repo, try handing off a task:
 
-```bash
-gh copilot suggest -t git "show me which branches have been merged into main"
+```
+/delegate Create an issue to add request logging middleware to all API routes, then implement it
 ```
 
-4. Compare the two results — the `-t git` flag steers Copilot to a `git` command
+2. The CLI confirms the handoff — Coding Agent will create a branch, write the code, and open a PR
+3. Check GitHub in your browser to see the Coding Agent session
 
-5. Try steering to a `gh` command:
+> **Note**: `/delegate` requires Coding Agent to be enabled in the repository settings. If it's not available, skip this exercise — you'll see it demonstrated in Section 9.
 
-```bash
-gh copilot suggest -t gh "find PRs that haven't been reviewed yet"
-```
+### Stretch Goals
 
-> **Type hint values**: `-t shell` (OS commands), `-t git` (git commands), `-t gh` (GitHub CLI commands)
+If you finish early, try these:
 
-**Exercise 7 — Structured Output with `--json` / `--jq`**:
-
-1. List issues as JSON:
-
-```bash
-gh issue list --json number,title,assignees
-```
-
-2. Extract just the titles using `--jq`:
-
-```bash
-gh issue list --json title --jq '.[].title'
-```
-
-3. Try with PRs (if any exist):
-
-```bash
-gh pr list --json number,title,reviewDecision
-```
-
-4. Combine to get a compact summary:
-
-```bash
-gh issue list --json number,title --jq '.[] | "#\(.number): \(.title)"'
-```
-
-> **Pro tip**: Use `gh issue list --json` (no fields) to see all available JSON fields.
+- **Resume a session**: Exit the CLI (`Ctrl+C` or type `exit`), then resume:
+  ```bash
+  copilot --resume
+  ```
+- **Allow all tools**: Start a session with full autonomy:
+  ```bash
+  copilot --allow-all-tools
+  ```
+- **Ask the agent to refactor**: Pick a file and ask for improvements:
+  ```
+  @src/api/routes.ts Refactor this file to separate route definitions from handler logic
+  ```
 
 ### Success Criteria
 
-- ✅ `gh auth status` shows you are authenticated
-- ✅ You've used `gh copilot suggest` to generate a command from natural language
-- ✅ You've used `gh copilot explain` to understand a command
-- ✅ You've created an issue from the terminal with `gh issue create`
-- ✅ You've viewed the issue in the browser with `gh issue view --web`
-- ✅ You've used `-t` type hints to steer `suggest` to a specific command category
-- ✅ You've used `--json` and `--jq` to get structured output from the CLI
+- ✅ You've launched the `copilot` CLI and explored the interactive TUI
+- ✅ You've used `@filename` to attach file context to a prompt
+- ✅ You've used `Shift+Tab` to toggle plan mode and reviewed a plan
+- ✅ You've built a feature and approved tool calls (read_file, edit_file)
+- ✅ You've used `/review` to get an AI code review in the terminal
+- ✅ You've run shell commands inline with `!` (e.g., `!git diff`)
+- ✅ You've checked `/context` and `/usage` for session info
 
 </details>
 
@@ -1183,7 +1170,7 @@ Together, these files make the Coding Agent smarter, faster, and more reliable.
 | Skills not loading | Verify `SKILL.md` filename (case-sensitive), check description matches prompt |
 | Custom instructions ignored | Verify file is in `.github/` root, check for syntax errors |
 | `gh` CLI not found | Install from [cli.github.com](https://cli.github.com), then run `gh auth login` |
-| `gh copilot` not available | Run `gh extension install github/gh-copilot` to install the extension |
+| `copilot` CLI not available | Install the standalone Copilot CLI — see [docs.github.com/copilot/github-copilot-in-the-cli](https://docs.github.com/en/copilot/github-copilot-in-the-cli) for install instructions |
 
 ---
 
