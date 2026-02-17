@@ -1,6 +1,6 @@
 # GitHub Copilot: Zero to Agents — Hands-On Lab Guide
 
-**Duration**: ~90 minutes of hands-on exercises (across a ~4-hour workshop) + ~23 min extended learning  
+**Duration**: ~90 minutes of hands-on exercises (across a ~4-hour workshop)  
 **Format**: Step-by-step lab exercises  
 **Audience**: Developers with basic Copilot exposure (completions/chat)  
 **Repo**: [microsoft/GitHubCopilot_Customized](https://github.com/microsoft/GitHubCopilot_Customized) (OctoCAT Supply)
@@ -21,7 +21,8 @@ This lab guide contains all the hands-on exercises from the **GitHub Copilot: Ze
 | **Node.js** | Version 18 or higher |
 | **npm** | Latest version recommended |
 | **Git** | For cloning the demo repository |
-| **GitHub CLI** *(Optional)* | For Extended Learning exercises — install from [cli.github.com](https://cli.github.com) |
+| **GitHub CLI** | Install from [cli.github.com](https://cli.github.com) |
+| **GitHub Copilot CLI Extension** | `gh extension install github/gh-copilot` |
 
 ---
 
@@ -903,246 +904,15 @@ Browse to http://localhost:5137 and test all the navigation links. If any pages 
 ---
 
 <details>
-<summary><h2>Lab 8: Vision + Agent Mode Deep Dive — Image to Implementation (15 min)</h2></summary>
+<summary><h2>Lab 8: GitHub CLI — Copilot in the Terminal (15 min)</h2></summary>
 
-> **Workshop Section**: 8 — Vision + Agent Mode Deep Dive (Cart Page)
-
-### Why This Matters
-
-This is the capstone lab — everything you've learned comes together. Copilot Vision can **understand images** (screenshots, mockups, wireframes, design files) and combined with Agent mode, turn them into working features. This is the closest thing to "showing your AI pair programmer a design and saying 'build this.'"
-
-### The Plan → Agent Workflow
-
-The most effective pattern for complex features is a two-phase approach:
-
-```
-  ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-  │   Plan First    │     │  Then Implement │     │  Then Verify    │
-  │                 │     │                 │     │                 │
-  │  Analyze image  │────►│  Agent builds   │────►│  Check running  │
-  │  Discuss plan   │     │  across files   │     │  app in browser │
-  │  Refine scope   │     │  Self-heals     │     │                 │
-  └─────────────────┘     └─────────────────┘     └─────────────────┘
-```
-
-> **Note**: Planning first prevents Copilot from charging ahead and building something you didn't want. It's faster to correct a plan than to undo generated code.
-
-### How to Use Vision
-
-There are two ways to attach images to Copilot Chat:
-1. **Drag and drop** — drag an image file from the file explorer or your desktop into the chat input
-2. **Paperclip icon** — click the 📎 icon in the chat input and select a file
-
-Supported formats: PNG, JPG, GIF, WebP. Copilot will analyze the image and understand UI layout, colors, text, icons, and component structure.
-
-> **Important**: Vision requires a **multimodal model** — you must have GPT-4o, Claude Sonnet 4, Gemini, or another vision-capable model selected in the Copilot Chat model picker. Text-only models will silently ignore image attachments. If image attachment doesn't seem to work, also check that your organization's Copilot policy allows image uploads (GitHub.com → Org Settings → Copilot → Policies).
-
-### Steps
-
-**Exercise 1 — Add a New Product Using Vision**
-
-1. Make sure your app is running (`npm run dev`)
-2. Open the Products page in your browser (`http://localhost:5137`) — note the current products
-3. Open Copilot Chat → switch to **Agent** mode
-4. Drag `docs/design/MonaFigurine.png` into the chat (or use the paperclip icon)
-5. Enter the following prompt:
-
-```
-Using the image, create a new product offering on the OctoCAT Supply website.
-Price is $32.99, SKU is MONA-001, and description is "A beautiful handcrafted
-figurine inspired by the Mona Lisa."
-```
-
-6. Watch Copilot:
-   - Analyze the image (identifying the figurine, its appearance, colors)
-   - Determine which files need to change (product data, possibly images)
-   - Make the changes across the codebase
-7. Review and accept the changes
-8. Verify in the browser: Refresh the Products page — the Mona Figurine should appear
-
-**Exercise 2 — Build the Cart Page (Plan → Agent)**
-
-This is the full design-to-implementation workflow:
-
-**Phase 1: Plan**
-
-1. Open a **new** Copilot Chat session (click the + icon for a fresh conversation)
-2. Drag `docs/design/cart.png` into the chat
-3. Enter:
-
-```
-I need to implement a simple Cart Page based on this design. I also want a
-Cart icon in the NavBar that shows the number of items in the Cart.
-Please analyze the design and create a detailed implementation plan before
-writing any code.
-```
-
-4. Review the plan Copilot proposes. It should include:
-   - Which new files need to be created (CartPage, CartIcon, CartContext)
-   - Which existing files need to be modified (NavBar, routes)
-   - The state management approach (React Context, local state)
-   - The UI components and their relationships
-5. If you want to adjust the scope, tell Copilot:
-   - `Remove the discount code feature — keep it simple`
-   - `Use local state instead of Context for now`
-   - `Don't worry about the checkout button — just show the cart contents`
-
-**Phase 2: Implement**
-
-1. Once you're happy with the plan, enter:
-
-```
-Implement the changes based on the plan.
-```
-
-2. Watch Copilot work across multiple files:
-   - Creating new React components
-   - Modifying the NavBar
-   - Updating route configuration
-   - Adding state management
-3. Copilot may iterate — if it encounters errors, it will read them and fix them automatically
-
-**Phase 3: Verify**
-
-1. Open the app in your browser (`http://localhost:5137`)
-2. Navigate to Products → click "Add to Cart" on several products
-3. Check the NavBar — the cart icon should show the item count
-4. Click the Cart icon → verify the Cart page shows your items with quantities and totals
-
-**Exercise 3 — Use Playwright to Validate** (Bonus)
-
-If you have Playwright MCP running from Lab 7, combine Vision output with browser testing:
-
-```
-Using Playwright, browse to http://localhost:5137, add three different products to the
-cart, navigate to the cart page, and verify that all three products appear with the
-correct prices and quantities.
-```
-
-### Tips for Vision + Agent Success
-
-- **Be specific about requirements**: Include prices, SKUs, field names — don't make Copilot guess business data
-- **Plan before implementing**: For features with more than 2-3 files, always plan first
-- **Iterate on the plan**: It's cheaper to revise a plan than to undo generated code
-- **Use follow-up prompts**: After initial implementation, ask for refinements: `Make the cart icon animate when an item is added`
-
-### Success Criteria
-
-- ✅ You've attached an image to Copilot Chat using drag-and-drop or the paperclip icon
-- ✅ The Mona Figurine product appears on the Products page
-- ✅ You've used the Plan → Implement → Verify workflow for the cart feature
-- ✅ The Cart page is functional (or you've made significant progress on it)
-- ✅ You understand how Vision, Agent mode, and MCP work together as a complete workflow
-
-</details>
-
----
-
-<details>
-<summary><h2>Lab 9 Bonus: Configure the Coding Agent Environment (Optional — 5 min)</h2></summary>
-
-> **Workshop Section**: 9 — Coding Agent + Code Review (observe-only section — this lab is a bonus hands-on exercise)
+> **Workshop Section**: 8. GitHub CLI: Copilot in the Terminal & Project Management
 
 ### Why This Matters
-
-The Coding Agent runs in a cloud container, not your local machine. Without setup steps, it has to figure out how to install dependencies, build the project, and run tests on its own. The `.github/copilot-setup-steps.md` file tells the Coding Agent exactly how to prepare the environment — like a Dockerfile for AI.
-
-### Reference: Customization Files for Coding Agent
-
-| File | Purpose | When Used |
-|------|---------|-----------|
-| `.github/copilot-instructions.md` | Coding standards & context | Every Copilot interaction (including Coding Agent) |
-| `.github/copilot-setup-steps.md` | Environment setup commands | **Only** Coding Agent sessions |
-| `.github/agents/*.agent.md` | Agent personas | When selected as chat mode (or delegating) |
-
-### Steps
-
-**Exercise 1 — Create the Setup Steps File**
-
-1. Create `.github/copilot-setup-steps.md` with the following content:
-
-```markdown
-# Coding Agent Setup Steps
-
-These commands run at the start of every Coding Agent session to prepare the development environment.
-
-## Install Dependencies
-
-```bash
-npm install
-```
-
-## Build the Project
-
-```bash
-npm run build
-```
-
-## Run API Tests
-
-```bash
-npm run test:api
-```
-```
-
-2. Commit the file:
-
-```bash
-git add .github/copilot-setup-steps.md
-git commit -m "Add Coding Agent setup steps"
-git push
-```
-
-> **Note**: This file must be on the repository's **default branch** (usually `main`) for the Coding Agent to use it.
-
-**Exercise 2 — Understand What Happens**
-
-With this file in place, every Coding Agent session will:
-
-1. Run `npm install` — installs all project dependencies
-2. Run `npm run build` — compiles TypeScript, builds the React frontend
-3. Run `npm run test:api` — runs the API test suite to establish a baseline
-
-This means:
-- The Coding Agent starts with a working build (faster iterations)
-- Tests run automatically (the agent can self-verify its changes)
-- If a test fails after the agent's changes, it knows something broke
-
-**Exercise 3 — Connect Back to What You Built**
-
-Think about how this file works with everything else you created today:
-
-- **Custom Instructions** (Lab 3) → Coding Agent reads these for coding standards
-- **Agent Skills** (Lab 6) → Coding Agent can auto-load relevant skills
-- **ImplementationIdeas agent** (Lab 5) → delegates work TO the Coding Agent
-- **Setup Steps** (this lab) → Coding Agent knows how to build and test
-
-Together, these files make the Coding Agent smarter, faster, and more reliable.
-
-### Success Criteria
-
-- ✅ `.github/copilot-setup-steps.md` exists in your repo with install, build, and test commands
-- ✅ You understand that this file only applies to Coding Agent sessions (not local Copilot)
-- ✅ You can explain why environment setup improves Coding Agent reliability
-
-</details>
-
----
-
-## Extended Learning Labs
-
-> **Note**: These labs are optional self-paced exercises for after the workshop. They require the **GitHub CLI** (`gh`) — install from [cli.github.com](https://cli.github.com).
-
-<details>
-<summary><h3>Extended Lab E1: GitHub CLI — Copilot in the Terminal (15 min)</h3></summary>
-
-> **Workshop Section**: Extended Learning E1
-
-#### Why This Matters
 
 The GitHub CLI (`gh`) brings Copilot into your terminal, letting you generate commands from natural language, explain unfamiliar commands, and manage issues and PRs without leaving your workflow.
 
-#### Quick Reference
+### Quick Reference
 
 | Command | What It Does |
 |---------|-------------|
@@ -1153,7 +923,7 @@ The GitHub CLI (`gh`) brings Copilot into your terminal, letting you generate co
 | `gh pr list` | List pull requests |
 | `gh pr create` | Create a pull request |
 
-#### Steps
+### Steps
 
 **Exercise 1 — Verify Setup**:
 
@@ -1295,7 +1065,7 @@ gh issue list --json number,title --jq '.[] | "#\(.number): \(.title)"'
 
 > **Pro tip**: Use `gh issue list --json` (no fields) to see all available JSON fields.
 
-#### Success Criteria
+### Success Criteria
 
 - ✅ `gh auth status` shows you are authenticated
 - ✅ You've used `gh copilot suggest` to generate a command from natural language
@@ -1310,59 +1080,91 @@ gh issue list --json number,title --jq '.[] | "#\(.number): \(.title)"'
 ---
 
 <details>
-<summary><h3>Extended Lab E2: Copilot SDK — Build Your Own Agent (8 min)</h3></summary>
+<summary><h2>Lab 9 Bonus: Configure the Coding Agent Environment (Optional — 5 min)</h2></summary>
 
-> **Workshop Section**: Extended Learning E2
+> **Workshop Section**: 9 — Coding Agent + Code Review (observe-only section — this lab is a bonus hands-on exercise)
 
-#### Why This Matters
+### Why This Matters
 
-The Copilot SDK lets you build custom AI agents powered by the same models behind GitHub Copilot. This is a read-and-explore exercise — you'll study SDK code patterns and optionally run a hello-world example.
+The Coding Agent runs in a cloud container, not your local machine. Without setup steps, it has to figure out how to install dependencies, build the project, and run tests on its own. The `.github/copilot-setup-steps.md` file tells the Coding Agent exactly how to prepare the environment — like a Dockerfile for AI.
 
-#### Steps
+### Reference: Customization Files for Coding Agent
 
-**Exercise 1 — Understand the Key Components**:
+| File | Purpose | When Used |
+|------|---------|-----------|
+| `.github/copilot-instructions.md` | Coding standards & context | Every Copilot interaction (including Coding Agent) |
+| `.github/copilot-setup-steps.md` | Environment setup commands | **Only** Coding Agent sessions |
+| `.github/agents/*.agent.md` | Agent personas | When selected as chat mode (or delegating) |
 
-Review the SDK architecture. Every Copilot SDK agent has these components:
+### Steps
 
-| Component | Purpose |
-|-----------|---------|
-| **Model Adapter** | Connects to the AI model (Copilot, OpenAI, etc.) |
-| **`defineTool()`** | Registers tools/functions the agent can call |
-| **Prompt Function** | Formats the user's request with system instructions |
-| **Agent Loop** | Orchestrates tool calls, model responses, and follow-ups |
+**Exercise 1 — Create the Setup Steps File**
 
-**Exercise 2 — Read Through the SDK Example**:
+1. Create `.github/copilot-setup-steps.md` with the following content:
 
-1. Visit the [Copilot SDK repository](https://github.com/github/copilot-sdk)
-2. Look at the `packages/` directory structure
-3. Find a sample agent and identify:
-   - Where `defineTool()` is used to register tools
-   - How the model adapter is configured
-   - How prompts are structured
-4. Note how the agent loop handles tool call results and feeds them back to the model
+```markdown
+# Coding Agent Setup Steps
 
-**Exercise 3 — Clone and Explore** (Bonus):
+These commands run at the start of every Coding Agent session to prepare the development environment.
 
-1. Clone the SDK repo:
-
-```bash
-git clone https://github.com/github/copilot-sdk.git
-cd copilot-sdk
-```
-
-2. Install dependencies and explore the examples:
+## Install Dependencies
 
 ```bash
 npm install
 ```
 
-3. Look for a hello-world or basic agent example and try running it
+## Build the Project
 
-#### Success Criteria
+```bash
+npm run build
+```
 
-- ✅ You can identify the four key components of a Copilot SDK agent
-- ✅ You've reviewed at least one SDK example and understand its structure
-- ✅ You understand how `defineTool()` connects custom functions to an AI agent
+## Run API Tests
+
+```bash
+npm run test:api
+```
+```
+
+2. Commit the file:
+
+```bash
+git add .github/copilot-setup-steps.md
+git commit -m "Add Coding Agent setup steps"
+git push
+```
+
+> **Note**: This file must be on the repository's **default branch** (usually `main`) for the Coding Agent to use it.
+
+**Exercise 2 — Understand What Happens**
+
+With this file in place, every Coding Agent session will:
+
+1. Run `npm install` — installs all project dependencies
+2. Run `npm run build` — compiles TypeScript, builds the React frontend
+3. Run `npm run test:api` — runs the API test suite to establish a baseline
+
+This means:
+- The Coding Agent starts with a working build (faster iterations)
+- Tests run automatically (the agent can self-verify its changes)
+- If a test fails after the agent's changes, it knows something broke
+
+**Exercise 3 — Connect Back to What You Built**
+
+Think about how this file works with everything else you created today:
+
+- **Custom Instructions** (Lab 3) → Coding Agent reads these for coding standards
+- **Agent Skills** (Lab 6) → Coding Agent can auto-load relevant skills
+- **ImplementationIdeas agent** (Lab 5) → delegates work TO the Coding Agent
+- **Setup Steps** (this lab) → Coding Agent knows how to build and test
+
+Together, these files make the Coding Agent smarter, faster, and more reliable.
+
+### Success Criteria
+
+- ✅ `.github/copilot-setup-steps.md` exists in your repo with install, build, and test commands
+- ✅ You understand that this file only applies to Coding Agent sessions (not local Copilot)
+- ✅ You can explain why environment setup improves Coding Agent reliability
 
 </details>
 
@@ -1380,7 +1182,6 @@ npm install
 | Agent mode not available | Update VS Code and Copilot extension to latest |
 | Skills not loading | Verify `SKILL.md` filename (case-sensitive), check description matches prompt |
 | Custom instructions ignored | Verify file is in `.github/` root, check for syntax errors |
-| Vision/image not working | Verify a vision-capable model is selected (GPT-4o, Claude Sonnet 4, Gemini) — text-only models silently ignore images. Check that your org's Copilot policy enables image uploads (Org Settings → Copilot → Policies) |
 | `gh` CLI not found | Install from [cli.github.com](https://cli.github.com), then run `gh auth login` |
 | `gh copilot` not available | Run `gh extension install github/gh-copilot` to install the extension |
 
@@ -1399,8 +1200,6 @@ npm install
 | MCP Servers | https://docs.github.com/en/copilot/how-tos/using-extensions/using-mcp-in-copilot |
 | Copilot Coding Agent | https://docs.github.com/en/copilot/using-github-copilot/using-copilot-coding-agent |
 | Copilot Code Review | https://docs.github.com/en/copilot/using-github-copilot/code-review |
-| Copilot Trust Center | https://resources.github.com/copilot-trust-center/ |
-| Copilot SDK | https://github.com/github/copilot-sdk |
 | OctoCAT Supply Repo | https://github.com/microsoft/GitHubCopilot_Customized |
 | Community Skills | https://github.com/github/awesome-copilot |
 

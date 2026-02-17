@@ -2,7 +2,7 @@
 
 ## Slide Deck with Presenter Notes
 
-**Duration**: ~4 hours (235 min core + 28 min extended learning)  
+**Duration**: ~3 hours 45 min (225 min core)  
 **Format**: Presentation + Live Demos + Hands-On (intermixed)  
 **Audience**: Developers with basic Copilot exposure  
 **Repo**: [microsoft/GitHubCopilot_Customized](https://github.com/microsoft/GitHubCopilot_Customized)
@@ -41,12 +41,9 @@
 | 25 min | [Custom Agents (Chat Modes)](#section-custom-agents-chat-modes) |
 | 25 min | [Agent Skills](#section-agent-skills) |
 | 30 min | [MCP Servers (Playwright + GitHub)](#section-mcp-servers) |
-| 30 min | [Vision + Agent Mode Deep Dive (Cart Page)](#section-vision--agent-mode) |
+| 20 min | [GitHub CLI: Copilot in the Terminal](#section-github-cli) |
 | 20 min | [Cloud Agents: Coding Agent + PR Review Agent](#section-cloud-agents) |
 | 10 min | [Wrap-Up & Q&A](#section-wrap-up) |
-| | **Extended Learning (Self-Paced)** |
-| E1: 20 min | [GitHub CLI: Copilot in the Terminal](#extended-learning) |
-| E2: 8 min | [Copilot SDK: Build Your Own AI Tools](#extended-learning) |
 
 ---
 
@@ -62,7 +59,7 @@
   ZERO              CUSTOMIZE             EXTEND              AGENTS
   ─────►           ──────────►           ─────────►          ─────────►
 
-  Chat Modes         Instructions          MCP Servers         Vision + Agent
+  Chat Modes         Instructions          MCP Servers         GitHub CLI
   (Ask/Agent/Plan)   Prompt Files          (Playwright,        Coding Agent
                      Agents/Chat Modes     GitHub)             PR Review Agent
                      Agent Skills
@@ -70,11 +67,9 @@
 
 **Each layer builds on the last.**
 
-> 📚 **Extended Learning**: GitHub CLI • Copilot SDK — available as self-paced exercises
-
 ---
 
-> **Presenter Note**: "Think of this as a stack. We start with the basics — how to interact with Copilot. Then we customize it for YOUR team. Then we extend it to touch external tools. Then we let it loose as an autonomous agent. By the end, you'll have seen every layer. We also have self-paced exercises on GitHub CLI and the Copilot SDK for those who want to go deeper."
+> **Presenter Note**: "Think of this as a stack. We start with the basics — how to interact with Copilot. Then we customize it for YOUR team. Then we extend it to touch external tools. Then we step into the terminal with GitHub CLI. Finally, we let it loose as an autonomous agent. By the end, you'll have seen every layer."
 
 ---
 
@@ -190,13 +185,12 @@ Are there any core features missing?
 ### Great For
 
 - Planning complex features before implementation
-- Analyzing design mockups (Vision + Plan)
 - Getting architectural guidance before writing code
 - Creating implementation roadmaps for multi-step tasks
 
 ---
 
-> **Presenter Note**: "Plan mode is your architect. It reads your codebase, analyzes the problem, and proposes a plan — without touching any code. We'll use this extensively when we build the cart feature from a design image."
+> **Presenter Note**: "Plan mode is your architect. It reads your codebase, analyzes the problem, and proposes a plan — without touching any code. Use this before tackling complex features — think first, then build."
 
 ---
 
@@ -784,73 +778,62 @@ List open PRs and summarize their status.
 
 ---
 
-# SECTION: Vision + Agent Mode
+# SECTION [8]: GitHub CLI
+
+## Slide 32: GitHub CLI — Copilot in the Terminal
+
+# GitHub CLI: Copilot in the Terminal & Project Management
+
+| Capability | What It Does |
+|------------|-------------|
+| `gh copilot suggest` | AI-generated shell commands from natural language |
+| `gh copilot explain` | Plain-English explanations of complex commands |
+| `gh issue` / `gh pr` | Manage issues and PRs without leaving terminal |
+| `gh repo` | Clone, fork, create repos from the command line |
+| Type hints (`-t`) | Constrain suggestions to `git`, `gh`, or `shell` |
+
+> **Presenter Note**: *"We've been working inside VS Code — now let's step into the terminal. The GitHub CLI brings all of GitHub into your command line, and gh copilot adds AI right there too. This is your power-user interface."*
 
 ---
 
-## Slide 32: Vision — Copilot Sees Images
+## Slide 33: CLI in Action — Suggest, Explain, Manage
 
-### What Copilot Vision Can Do
+# CLI in Action
 
-- Understand screenshots, mockups, and design files
-- Identify UI components, layout, colors, typography
-- Extract requirements from visual designs
-- Generate implementation plans from images
+```bash
+# AI suggests shell commands from plain English
+gh copilot suggest "find all open issues assigned to me"
 
-### How to Use
+# AI explains commands you don't understand
+gh copilot explain "git log --oneline --graph --all"
 
-1. Drag an image into Copilot Chat (or use the paperclip 📎)
-2. Describe what you want
-3. Copilot analyzes the image and responds
-
-**Supported**: PNG, JPG, GIF, WEBP
-
-> **Important**: Vision requires a **multimodal model** (GPT-4o, Claude Sonnet 4, Gemini). Text-only models will silently ignore image attachments. Your org's Copilot policy must also allow image uploads (GitHub.com → Org Settings → Copilot → Policies).
-
----
-
-> **Presenter Note**: "Before starting this demo, verify you have a vision-capable model selected — GPT-4o, Claude Sonnet 4, or Gemini. Text-only models will ignore attachments. Also mention that enterprise admins may need to enable image uploads in the org's Copilot policy settings. Vision is what makes the Plan → Agent workflow so powerful. You can hand Copilot a designer's mockup and say 'build this.' It reads the image, understands the layout, and plans the implementation."
-
----
-
-## Slide 33: The Plan → Agent Workflow
-
-### Two-Phase Development
-
-```
-Phase 1: PLAN                          Phase 2: AGENT
-┌─────────────────────┐                ┌─────────────────────┐
-│ • Analyze image     │                │ • Create components │
-│ • Identify changes  │ ──────────►    │ • Modify routes     │
-│ • Propose plan      │                │ • Update styles     │
-│ • Get feedback      │                │ • Run and verify    │
-└─────────────────────┘                └─────────────────────┘
-       THINK FIRST                          THEN BUILD
+# Manage issues and PRs without the browser
+gh issue create --title "Add validation" --body "..."
+gh pr list --json number,title,reviewDecision
 ```
 
-**Plan mode thinks. Agent mode builds.** This separation prevents Copilot from rushing into code.
+**Type hints** constrain output: `-t git` | `-t gh` | `-t shell`
+
+**Structured output**: `--json` + `--jq` for scriptable data
+
+> **Presenter Note**: *"These three commands are the CLI trifecta: suggest when you don't know the command, explain when you find one you don't understand, and the standard gh commands for managing your project. The type hints and JSON output make this scriptable and automatable."*
 
 ---
-
-> **Presenter Note**: "This is a best practice pattern. Don't jump straight to Agent mode for complex features. Start in Plan, get the design right, then switch to Agent for implementation. It's like architects drawing blueprints before construction starts."
-
----
-
-## Slide 34: Demo Time
 
 # 🖥️ LIVE DEMO
 
-### Vision + Agent Mode — Cart Page
+## Slide 34: 🖥️ Demo — GitHub CLI & Copilot
 
-- Plan mode: Analyze cart.png, create implementation plan
-- Agent mode: Implement across multiple files
-- Verify: Working cart in the running app
+🖥️ **SWITCH TO VS CODE TERMINAL**
 
-*Then: Add MonaFigurine product from image (15 min)*
+**Demo: GitHub CLI with Copilot (8 min)**
+1. `gh copilot suggest` — natural language → shell command
+2. `gh copilot explain` — break down a complex command
+3. `gh issue create` — create an issue from terminal
+4. Type hints — compare `-t git` vs `-t gh` vs `-t shell`
+5. `gh issue list --json` — structured output with `--jq`
 
----
-
-> **Presenter Note**: 🖥️ **SWITCH TO DEMO 8**. This is the capstone demo — take your time. Plan with cart image → implement with Agent → show working cart. Then 15 min hands-on with MonaFigurine. ~22 min total.
+> **Presenter Note**: *"Let me show you the CLI in action. I'll use suggest, explain, create an issue, show type hints, and demonstrate structured output. Everything here prepares you for Coding Agent — which manages issues and PRs through this same CLI."*
 
 ---
 
@@ -1034,17 +1017,10 @@ npm run test:api
 | `.github/prompts/security-review.prompt.md` | Custom Prompt Files |
 | `.github/agents/CodeReviewer.agent.md` | Custom Agents |
 | `.github/skills/*/SKILL.md` | Agent Skills |
-| Cart page implementation | Vision + Agent Mode |
+| GitHub CLI commands & issue management | §8 — GitHub CLI |
 | `.github/copilot-setup-steps.md` *(discussed)* | Coding Agent Configuration |
 
 **All of these are portable** — commit them to any repo and your team gets them too.
-
-**Extended Learning (Self-Paced)**:
-
-| Exercise | Topic |
-|----------|-------|
-| E1 | GitHub CLI: Copilot in the Terminal |
-| E2 | Copilot SDK: Build Your Own AI Tools |
 
 ---
 
@@ -1066,7 +1042,7 @@ npm run test:api
 
 ---
 
-> **Presenter Note**: *"If you remember nothing else: the customization files live in `.github/` and they follow your code. Share them like you share code — via git. And check out the Extended Learning exercises on CLI and SDK for deeper dives."*
+> **Presenter Note**: *"If you remember nothing else: the customization files live in `.github/` and they follow your code. Share them like you share code — via git."*
 
 ---
 
@@ -1142,162 +1118,7 @@ npm run test:api
 
 ---
 
-> **Presenter Note**: Thank attendees, remind them about the action items, and offer follow-up support. Point them to the repo — everything they need is there. Mention the Extended Learning exercises for those who want to explore CLI and SDK on their own.
-
----
-
-# EXTENDED LEARNING
-
----
-
-## Slide 47: Extended Learning Overview
-
-# Extended Learning — Self-Paced
-
-| Exercise | Topic | Time |
-|----------|-------|------|
-| E1 | GitHub CLI: Copilot in the Terminal | 20 min |
-| E2 | Copilot SDK: Build Your Own AI Tools | 8 min |
-
-> **Note**: These exercises are designed for self-paced learning after the workshop.
-
-> **Presenter Note**: *"If you want to go deeper, we have two extended learning exercises available. The GitHub CLI section teaches you how to use Copilot from the command line, and the SDK section shows how to embed Copilot in your own applications. Both are self-paced — you can work through them after the workshop."*
-
----
-
-## Slide 48: GitHub CLI — Copilot in the Terminal
-
-### `gh` — GitHub from the Terminal
-
-| Command | What It Does |
-|---------|-------------|
-| `gh copilot suggest` | AI-generated shell commands from natural language |
-| `gh copilot explain` | Plain-English explanations of complex commands |
-| `gh issue create/list` | Manage issues without leaving the terminal |
-| `gh pr create/list/view` | Manage pull requests from the command line |
-| `gh repo clone/fork` | Clone and fork repos instantly |
-
-### Copilot CLI Commands
-
-```bash
-# Describe what you want → Copilot generates the command
-gh copilot suggest "find all TypeScript files modified in the last week"
-
-# Paste a command you don't understand → Copilot explains it
-gh copilot explain "git log --oneline --graph --all --decorate"
-```
-
-### Why CLI Matters
-
-- CLI + MCP = two ways to manage GitHub from your dev environment
-- `gh copilot` brings AI assistance to your terminal, not just your IDE
-- Scriptable output with `--json` / `--jq` for dashboards and CI
-
-> **Presenter Note**: *"The GitHub CLI is your power-user interface. Everything you can do in the browser — issues, PRs, repo management — you can do faster from the terminal. And with `gh copilot`, you don't even need to memorize the commands."*
-
----
-
-## Slide 49: CLI Power User — Type Hints & Demo
-
-### Type Hints with `-t`
-
-| Flag | Scope | Use When |
-|------|-------|----------|
-| `-t shell` | Shell/OS commands | File operations, system tasks |
-| `-t git` | Git commands only | Branch, commit, merge operations |
-| `-t gh` | GitHub CLI commands | Issues, PRs, repo management |
-
-### Structured Output
-
-```bash
-# Machine-readable output
-gh issue list --json number,title,assignees
-
-# Filter with jq expressions
-gh pr list --json number,title,reviewDecision \
-  --jq '.[] | select(.reviewDecision == "APPROVED")'
-```
-
-### 🖥️ Try It Yourself (10 min)
-
-1. Run `gh auth status` to verify authentication
-2. Use `gh copilot suggest` to generate a command
-3. Try type hints: `-t git`, `-t gh`, `-t shell`
-4. Show structured output with `--json` / `--jq`
-5. Create an issue: `gh issue create --title "Test issue"`
-
-> **Presenter Note**: *"Two power-user tips: type hints constrain what kind of command Copilot suggests, and `--json` + `--jq` turn GitHub CLI into a scriptable data tool. Use this for dashboards, reports, and CI scripts."*
-
----
-
-## Slide 50: Copilot SDK — Embed AI in Your Tools
-
-### Beyond Customization: Programmable AI
-
-| Workshop (Today) | Copilot SDK |
-|-----------------|-------------|
-| Customize Copilot | Embed Copilot in your tools |
-| Runs in VS Code / GitHub | Runs anywhere |
-| Markdown configuration | Programmatic API |
-| End-user workflow | Developer/platform workflow |
-
-### Basic Agent Session
-
-```typescript
-import { CopilotSDK } from '@github/copilot-sdk';
-
-const sdk = new CopilotSDK();
-const session = await sdk.createSession({
-  instructions: "You are a deployment assistant."
-});
-
-const response = await session.send("Analyze the latest deploy logs");
-for await (const chunk of response.stream()) {
-  process.stdout.write(chunk.text);
-}
-```
-
-**Install**: `npm install @github/copilot-sdk`
-**Status**: Technical Preview (v0.1.x) — TypeScript, Python, Go, .NET
-
-> **Presenter Note**: *"Everything we built today makes Copilot smarter inside its environment. The SDK lets you bring that intelligence into YOUR applications. Internal CLIs, CI/CD tools, developer platforms — anywhere you write code."*
-
----
-
-## Slide 51: SDK Use Cases & Getting Started
-
-### Custom Tools — Connect to Your Systems
-
-```typescript
-session.defineTool({
-  name: "query_metrics",
-  description: "Query internal metrics database",
-  parameters: { /* ... */ },
-  handler: async ({ query }) => {
-    return JSON.stringify(await db.execute(query));
-  }
-});
-```
-
-### Where to Use the SDK
-
-| Use Case | Example |
-|----------|----------|
-| **Internal CLI tools** | Company-specific developer CLIs |
-| **CI/CD** | AI-powered build analysis, deployment decisions |
-| **IDE extensions** | Custom VS Code extensions with Copilot brain |
-| **Platform engineering** | AI capabilities in internal dev platforms |
-
-### Resources
-
-| Resource | URL |
-|----------|-----|
-| SDK Repo | github.com/github/copilot-sdk |
-| npm Package | npmjs.com/package/@github/copilot-sdk |
-
-> ⚠️ Technical Preview — APIs may change between versions
-
-> **Presenter Note**: *"The SDK is in Technical Preview — APIs will change. But the patterns are stable: create a session, define tools, stream responses. If your team builds internal developer tools, this is worth evaluating now."*
+> **Presenter Note**: Thank attendees, remind them about the action items, and offer follow-up support. Point them to the repo — everything they need is there.
 
 ---
 
@@ -1313,11 +1134,11 @@ session.defineTool({
 | 22 | Agents + OctoCATEngineer + CodeReviewer + Hands-on | 17 min |
 | 26 | Agent Skills + Create skill + Hands-on | 18 min |
 | 31 | MCP Servers (Playwright + GitHub) + Hands-on | 24 min |
-| 34 | Vision + Agent (Cart page) + Hands-on | 22 min |
+| 34 | GitHub CLI + Hands-on | 8 min |
 | 40 | Cloud Agents (Coding Agent + PR Review) | 15 min |
 
-**Total demo + hands-on time**: ~149 minutes  
-**Total slide/concept time**: ~76 minutes  
+**Total demo + hands-on time**: ~135 minutes  
+**Total slide/concept time**: ~80 minutes  
 **Buffer/Q&A**: ~10 minutes
 
 ## Backup URLs

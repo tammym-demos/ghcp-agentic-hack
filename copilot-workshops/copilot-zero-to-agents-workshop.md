@@ -10,7 +10,7 @@
 
 ## Workshop Overview
 
-This session takes developers from casual Copilot usage to full agentic development. Starting with chat modes and progressing through customization layers—instructions, prompts, agents, skills, and MCP servers—attendees build a complete understanding of how to tailor Copilot to their teams and workflows. The session culminates with Vision-powered agentic coding and fully autonomous cloud agents (Coding Agent + PR Review Agent).
+This session takes developers from casual Copilot usage to full agentic development. Starting with chat modes and progressing through customization layers—instructions, prompts, agents, skills, and MCP servers—attendees build a complete understanding of how to tailor Copilot to their teams and workflows. The session extends to GitHub CLI for terminal-based AI assistance and closes with fully autonomous cloud agents (Coding Agent + PR Review Agent).
 
 ### Learning Objectives
 
@@ -19,9 +19,8 @@ This session takes developers from casual Copilot usage to full agentic developm
 - Build reusable prompt files and custom agents (chat modes) for repeatable workflows
 - Author Agent Skills that Copilot auto-selects based on task relevance
 - Extend Copilot with MCP servers for browser testing and GitHub integration
-- Use Vision + Agent Mode for image-to-implementation workflows
+- Use GitHub CLI with Copilot for terminal-based AI assistance and project management
 - Leverage cloud agents: Coding Agent for autonomous PR creation and Copilot Code Review for AI-powered PR reviews
-- *(Extended Learning)* Use GitHub CLI and explore the Copilot SDK for embedding AI in custom tools
 
 ### Prerequisites
 
@@ -33,7 +32,8 @@ This session takes developers from casual Copilot usage to full agentic developm
 | **Node.js** | Version 18 or higher |
 | **npm** | Latest version recommended |
 | **Git** | For cloning the demo repository |
-| **GitHub CLI** *(Optional)* | `gh` — install from [cli.github.com](https://cli.github.com) (for Extended Learning section) |
+| **GitHub CLI** | `gh` — install from [cli.github.com](https://cli.github.com), then run `gh auth login` |
+| **GitHub Copilot CLI Extension** | `gh extension install github/gh-copilot` — required for Section 8 |
 
 ---
 
@@ -48,14 +48,11 @@ This session takes developers from casual Copilot usage to full agentic developm
 | 5 | [Custom Agents (Chat Modes)](#5-custom-agents-chat-modes-25-min) | 25 min |
 | 6 | [Agent Skills](#6-agent-skills-25-min) | 25 min |
 | 7 | [MCP Servers (Playwright + GitHub)](#7-mcp-servers-playwright--github-30-min) | 30 min |
-| 8 | [Vision + Agent Mode Deep Dive (Cart Page)](#8-vision--agent-mode-deep-dive-cart-page-30-min) | 30 min |
+| 8 | [GitHub CLI: Copilot in the Terminal & Project Management](#8-github-cli-copilot-in-the-terminal--project-management-20-min) | 20 min |
 | 9 | [Cloud Agents: Coding Agent + PR Review Agent](#9-cloud-agents-coding-agent--pr-review-agent-20-min) | 20 min |
 | 10 | [Wrap-Up, Customization Hierarchy Recap & Q&A](#10-wrap-up-customization-hierarchy-recap--qa-10-min) | 10 min |
-| | **Extended Learning (Self-Paced)** | |
-| E1 | [GitHub CLI: Copilot in the Terminal & Project Management](#e1-github-cli-copilot-in-the-terminal--project-management-20-min) | 20 min |
-| E2 | [Copilot SDK: Building Your Own AI-Powered Tools](#e2-copilot-sdk--build-your-own-ai-tools-8-min) | 8 min |
 
-**Total: ~235 min core (~3h 55min) + 28 min extended learning**
+**Total: ~225 min core (~3h 45min)**
 
 ---
 
@@ -66,7 +63,7 @@ This workshop follows a deliberate progression:
 <img src="../assets/ghcp-path.png" alt="Diagram" width="900" />
 
 
-Each section builds on the previous one, showing how Copilot can be progressively customized from a general assistant to a specialized, autonomous development partner. Extended Learning sections on GitHub CLI and Copilot SDK are available for self-paced study after the workshop.
+Each section builds on the previous one, showing how Copilot can be progressively customized from a general assistant to a specialized, autonomous development partner.
 
 ---
 
@@ -215,7 +212,7 @@ I want to add input validation to the Product API POST endpoint. What's the best
    - Step-by-step approach
 4. Show that Plan mode does NOT create or modify any files — it only proposes
 
-**Talking point**: "Plan mode is your architect. It reads your codebase, analyzes the problem, and proposes a plan — without touching any code. We'll use this extensively in Section 8 when we build a feature from a design mockup."
+**Talking point**: "Plan mode is your architect. It reads your codebase, analyzes the problem, and proposes a plan — without touching any code. We'll use this extensively when planning complex features."
 
 ---
 
@@ -1447,170 +1444,323 @@ Browse to http://localhost:5137 and test all the navigation links. If any pages 
 
 ---
 
-## 8. Vision + Agent Mode Deep Dive (Cart Page) (30 min)
+## 8. GitHub CLI: Copilot in the Terminal & Project Management (20 min)
 
 ### Key Points
 
-- Copilot Vision can understand images — screenshots, mockups, design files
-- Combined with Agent mode, this enables "image to working feature" workflows
-- This is the capstone demo: everything we've learned comes together
-- **Supported formats**: PNG, JPG, GIF, WEBP
+- The GitHub CLI (`gh`) is GitHub's official command-line tool — it brings GitHub workflows into your terminal
+- `gh copilot` integrates Copilot AI directly into the command line for command suggestions and explanations
+- The CLI complements VS Code Copilot: use the IDE for coding, the CLI for automation and project management
+- CLI skills are essential for Coding Agent workflows (Section 9) — issues, PRs, and repo management all flow through `gh`
 
-> **Important**: Vision requires a **multimodal model** — you must have GPT-4o, Claude Sonnet 4, Gemini, or another vision-capable model selected in the Copilot Chat model picker. Text-only models will silently ignore image attachments. Additionally, your organization's Copilot policy must allow image uploads (GitHub.com → Org Settings → Copilot → Policies). If Vision features are unavailable, check with your GitHub admin.
+### Why GitHub CLI Matters for Copilot Developers
 
-### The Plan → Agent Workflow
+| Capability | How It Helps |
+|------------|-------------|
+| `gh copilot suggest` | AI-generated shell commands from natural language |
+| `gh copilot explain` | Plain-English explanations of complex commands |
+| `gh issue` / `gh pr` | Manage issues and PRs without leaving the terminal |
+| `gh repo` | Clone, fork, create repos from the command line |
+| `gh extension` | Extend `gh` with community-built plugins |
 
+### Copilot in the CLI — AI-Powered Command Assistance
+
+```bash
+# Ask Copilot to suggest a command
+gh copilot suggest "find all TypeScript files modified in the last week"
+
+# Ask Copilot to explain a command you found online
+gh copilot explain "git log --oneline --graph --all --decorate"
 ```
-  ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-  │   Plan Mode     │     │   Agent Mode    │     │   Running App   │
-  │                 │     │                 │     │                 │
-  │  Analyze image  │────►│  Implement the  │────►│  Working cart   │
-  │  Create plan    │     │  changes        │     │  functionality  │
-  │  Get feedback   │     │  Multiple files │     │                 │
-  └─────────────────┘     └─────────────────┘     └─────────────────┘
+
+**How it works**:
+- `suggest` — Describe what you want to do in plain English → Copilot generates the shell command
+- `explain` — Paste a command you don't understand → Copilot explains it step by step
+- Both support follow-up refinements ("make it recursive", "add a date filter")
+
+### Essential `gh` Commands for This Workshop
+
+Check your authentication status:
+
+```bash
+gh auth status
+```
+
+List issues in the current repo:
+
+```bash
+gh issue list
+```
+
+Create an issue (useful for Coding Agent in Section 9):
+
+```bash
+gh issue create --title "Add input validation" --body "Add Zod validation to POST /api/products"
+```
+
+List pull requests:
+
+```bash
+gh pr list
+```
+
+View PR details and diff:
+
+```bash
+gh pr view 1 --web
+```
+
+Create a PR from your current branch:
+
+```bash
+gh pr create --title "Add input validation" --body "Adds Zod schema validation to POST /api/products endpoint"
+```
+
+Clone a repo (what you did in Section 1):
+
+```bash
+gh repo clone microsoft/GitHubCopilot_Customized
 ```
 
 ---
 
-### 🖥️ DEMO: Build the Cart Page from an Image
+### 🖥️ DEMO: Copilot in the CLI
 
-**Before State**: Show the Products page — clicking "Add to Cart" shows a toast message but there's no actual cart.
+1. Open the VS Code integrated terminal
+2. Verify CLI is installed and authenticated:
 
-**Step 1: Plan with Vision**
-
-1. Open Copilot Chat → switch to **Plan** mode
-2. Drag `docs/design/cart.png` into the chat (or use the paperclip icon)
-3. Enter:
-
-```
-I need to implement a simple Cart Page. I also want a Cart icon in the
-NavBar that shows the number of items in the Cart.
+```bash
+gh --version
+gh auth status
 ```
 
-4. Show Copilot:
-   - Analyzing the image (Vision) — identifying UI elements, layout, colors
-   - Proposing a structured implementation plan
-   - Listing which files need to be created/modified
-5. Review the plan — ask Copilot to modify if needed (e.g., "remove the discount code feature")
+3. Use `gh copilot suggest`:
 
-**Talking point**: "We're not coding yet. Plan mode forces Copilot to think first. Notice how it understood the cart design from the image — the layout, the buttons, the quantity selectors."
-
-**Step 2: Implement with Agent**
-
-1. Switch to **Agent** mode (keep the conversation context)
-2. Enter:
-
-```
-Implement the changes.
+```bash
+gh copilot suggest "list all open issues assigned to me in this repo"
 ```
 
-3. Show Copilot:
-   - Creating new React components (CartPage, CartIcon, CartContext)
-   - Modifying the NavBar to include the cart icon
-   - Updating route configuration
-   - Adding state management for cart items
-4. Watch as Copilot iterates — creating files, checking for errors, fixing issues
+4. Show Copilot generating the appropriate `gh issue list` command
+5. Use `gh copilot explain`:
 
-**Step 3: Verify**
+```bash
+gh copilot explain "gh api repos/{owner}/{repo}/branches/main/protection --method PUT"
+```
 
-1. Show the running app in the browser
-2. Navigate to Products → Add items to cart → Note the cart icon updating
-3. Click the Cart icon → Show the Cart page with items, quantities, and total
+6. Show Copilot breaking down the GitHub API command
+7. Create an issue from the terminal:
 
-**Talking point**: "From a PNG image to a working cart feature in minutes. Copilot read the design, planned the architecture, and implemented across multiple files. This is what 'agentic' means — it's not autocomplete, it's a collaborator."
+```bash
+gh issue create --title "Improve API error handling" --body "Standardize error responses across all API endpoints with proper HTTP status codes and error messages."
+```
+
+8. Show the issue appearing in the GitHub repo
+
+**Talking point**: "The CLI is your power-user interface to GitHub. Everything you can do in the browser, you can script and automate from here. And with `gh copilot`, you don't even need to memorize the commands."
 
 <details>
-<summary><h3>🧪 Hands-On: Vision + Agent Mode — Image to Implementation (15 min)</h3></summary>
+<summary><h3>🧪 Hands-On: Try the GitHub CLI (10 min)</h3></summary>
 
-**Exercise 1 — Add a New Product Using Vision**
+**Exercise 1 — Verify Setup**:
 
-1. Make sure your app is running (`npm run dev`)
-2. Open the Products page in your browser (`http://localhost:5137`) — note the current products
-3. Open Copilot Chat → switch to **Agent** mode
-4. Drag `docs/design/MonaFigurine.png` into the chat (or use the paperclip icon)
-5. Enter the following prompt:
+1. Confirm the CLI is installed:
 
-```
-Using the image, create a new product offering on the OctoCAT Supply website.
-Price is $32.99, SKU is MONA-001, and description is "A beautiful handcrafted
-figurine inspired by the Mona Lisa."
+```bash
+gh --version
 ```
 
-6. Watch Copilot:
-   - Analyze the image (identifying the figurine, its appearance, colors)
-   - Determine which files need to change (product data, possibly images)
-   - Make the changes across the codebase
-7. Review and accept the changes
-8. Verify in the browser: Refresh the Products page — the Mona Figurine should appear
+2. Confirm you're authenticated:
 
-**Exercise 2 — Build the Cart Page (Plan → Agent)**
-
-This is the full design-to-implementation workflow:
-
-**Phase 1: Plan**
-
-1. Open a **new** Copilot Chat session (click the + icon for a fresh conversation)
-2. Drag `docs/design/cart.png` into the chat
-3. Enter:
-
-```
-I need to implement a simple Cart Page based on this design. I also want a
-Cart icon in the NavBar that shows the number of items in the Cart.
-Please analyze the design and create a detailed implementation plan before
-writing any code.
+```bash
+gh auth status
 ```
 
-4. Review the plan Copilot proposes. It should include:
-   - Which new files need to be created (CartPage, CartIcon, CartContext)
-   - Which existing files need to be modified (NavBar, routes)
-   - The state management approach (React Context, local state)
-   - The UI components and their relationships
-5. If you want to adjust the scope, tell Copilot:
-   - `Remove the discount code feature — keep it simple`
-   - `Use local state instead of Context for now`
-   - `Don't worry about the checkout button — just show the cart contents`
+> **Note**: If `gh auth status` shows you're not authenticated, run `gh auth login` and follow the prompts.
 
-**Phase 2: Implement**
+**Exercise 2 — Copilot Suggest**:
 
-1. Once you're happy with the plan, enter:
+1. Run the following command:
 
-```
-Implement the changes based on the plan.
+```bash
+gh copilot suggest "show me the most recent commits on main with a graph"
 ```
 
-2. Watch Copilot work across multiple files:
-   - Creating new React components
-   - Modifying the NavBar
-   - Updating route configuration
-   - Adding state management
-3. Copilot may iterate — if it encounters errors, it will read them and fix them automatically
+2. Execute the suggested command
+3. Try another:
 
-**Phase 3: Verify**
-
-1. Open the app in your browser (`http://localhost:5137`)
-2. Navigate to Products → click "Add to Cart" on several products
-3. Check the NavBar — the cart icon should show the item count
-4. Click the Cart icon → verify the Cart page shows your items with quantities and totals
-
-**Exercise 3 — Use Playwright to Validate** (Bonus)
-
-If you have Playwright MCP running from Lab 7, combine Vision output with browser testing:
-
+```bash
+gh copilot suggest "find all TypeScript files modified in the last week"
 ```
-Using Playwright, browse to http://localhost:5137, add three different products to the
-cart, navigate to the cart page, and verify that all three products appear with the
-correct prices and quantities.
+
+**Exercise 3 — Copilot Explain**:
+
+1. Explain a git command:
+
+```bash
+gh copilot explain "git log --oneline --graph --all --decorate"
+```
+
+2. Explain a GitHub API command:
+
+```bash
+gh copilot explain "gh api repos/{owner}/{repo}/branches/main/protection --method PUT"
+```
+
+**Exercise 4 — Issue Management**:
+
+1. List issues:
+
+```bash
+gh issue list
+```
+
+2. Create an issue (you can use this later for Coding Agent):
+
+```bash
+gh issue create --title "Add input validation to Product API" --body "The POST /api/products endpoint accepts any payload without validation. Add schema validation for required fields (name, price, supplierId)."
+```
+
+3. Verify it exists:
+
+```bash
+gh issue list
+```
+
+4. View it in the browser:
+
+```bash
+gh issue view --web
+```
+
+**Exercise 5 — PR Workflow** (Bonus):
+
+1. List open pull requests:
+
+```bash
+gh pr list
+```
+
+2. Check current branch PR status:
+
+```bash
+gh pr status
+```
+
+**Exercise 6 — Type Hints**:
+
+1. Try the same prompt with different type hints and compare results:
+
+```bash
+gh copilot suggest -t git "show me which branches have been merged into main"
+```
+
+```bash
+gh copilot suggest -t gh "show me which branches have been merged into main"
+```
+
+```bash
+gh copilot suggest -t shell "find all TypeScript files larger than 100KB"
+```
+
+2. Notice how each type hint constrains the output to a different category of command
+3. Try with your own prompt:
+
+```bash
+gh copilot suggest -t gh "find PRs that haven't been reviewed yet"
+```
+
+**Exercise 7 — Structured Output** (Bonus):
+
+1. Get issues as JSON:
+
+```bash
+gh issue list --json number,title,assignees
+```
+
+2. Filter to just titles:
+
+```bash
+gh issue list --json title --jq '.[].title'
+```
+
+3. List PRs with review status:
+
+```bash
+gh pr list --json number,title,reviewDecision
 ```
 
 </details>
 
 ### Success Criteria
 
-- ✅ You've attached an image to Copilot Chat using drag-and-drop or the paperclip icon
-- ✅ The Mona Figurine product appears on the Products page
-- ✅ You've used the Plan → Implement → Verify workflow for the cart feature
-- ✅ The Cart page is functional (or you've made significant progress on it)
-- ✅ You understand how Vision, Agent mode, and MCP work together as a complete workflow
+- ✅ `gh auth status` shows you are authenticated
+- ✅ You've used `gh copilot suggest` to generate a command from natural language
+- ✅ You've used `gh copilot explain` to understand a command
+- ✅ You've created an issue from the terminal with `gh issue create`
+- ✅ You've viewed the issue in the browser with `gh issue view --web`
+- ✅ You've used type hints (`-t git`, `-t gh`, `-t shell`) to constrain `gh copilot suggest` output
+- ✅ You've used `--json` and `--jq` to get structured, filterable output from `gh` commands
+
+### Discussion Points
+
+- How could you integrate `gh` commands into your CI/CD pipelines?
+- What repetitive GitHub tasks could you automate with CLI scripts?
+- How does `gh copilot suggest` compare to asking Copilot Chat in VS Code?
+
+### Type Hints — Steering `suggest` with `-t`
+
+The `gh copilot suggest` command accepts a `-t` (type) flag that constrains the kind of command Copilot generates:
+
+| Flag | Scope | Example Output |
+|------|-------|----------------|
+| `-t shell` | General shell commands | `find`, `grep`, `awk`, `curl` |
+| `-t git` | Git commands only | `git log`, `git rebase`, `git stash` |
+| `-t gh` | GitHub CLI commands only | `gh issue list`, `gh pr create` |
+
+```bash
+# Without type hint — Copilot might return any command type
+gh copilot suggest "list all open issues assigned to me"
+
+# With -t gh — constrains to GitHub CLI commands only
+gh copilot suggest -t gh "list all open issues assigned to me"
+
+# With -t git — constrains to git commands only
+gh copilot suggest -t git "show me which branches have been merged into main"
+
+# With -t shell — constrains to shell/OS commands only
+gh copilot suggest -t shell "find all files larger than 10MB in this directory"
+```
+
+**When to use type hints**: Use `-t` when Copilot's default suggestion is the wrong category. If you ask for "branches merged into main" without `-t git`, Copilot might suggest a `gh api` command instead of `git branch --merged main`.
+
+### Structured Output with `--json` and `--jq`
+
+Many `gh` commands support `--json` for machine-readable output and `--jq` for filtering with jq expressions. This turns the CLI into a scriptable data pipeline:
+
+```bash
+# Get issues as JSON
+gh issue list --json number,title,assignees
+
+# Filter with jq — just the titles
+gh issue list --json title --jq '.[].title'
+
+# Get PR details with specific fields
+gh pr list --json number,title,headRefName,reviewDecision
+
+# Complex jq filter — approved PRs only
+gh pr list --json number,title,reviewDecision --jq '.[] | select(.reviewDecision == "APPROVED") | "\(.number): \(.title)"'
+
+# Combine with shell pipelines
+gh issue list --json number,title,labels --jq '.[] | select(.labels | length > 0)' | head -5
+```
+
+| Flag | Purpose | Example |
+|------|---------|----------|
+| `--json <fields>` | Output specific fields as JSON | `gh issue list --json number,title` |
+| `--jq '<expr>'` | Filter/transform JSON with jq | `--jq '.[].title'` |
+| `--template` | Format output with Go templates | `--template '{{.title}}'` |
+
+**Why this matters**: `--json`/`--jq` turns `gh` into a data tool. Use it for dashboards, reports, CI scripts, and automating GitHub workflows.
 
 ---
 
@@ -1816,7 +1966,7 @@ You've now built every layer:
 │  Ask (explore) → Plan (design) → Agent (build)             │
 └────────────────────────────────────────────────────────────┘
 
-  Extended Learning: GitHub CLI (§E1) & Copilot SDK (§E2)
+  GitHub CLI (§8) — Terminal-based AI assistance
 ```
 
 ### Key Takeaways
@@ -1838,15 +1988,8 @@ You've now built every layer:
 | `.github/prompts/security-review.prompt.md` | §4 — Custom Prompt Files |
 | `.github/agents/CodeReviewer.agent.md` | §5 — Custom Agents |
 | `.github/skills/*/SKILL.md` | §6 — Agent Skills |
-| Cart page implementation | §8 — Vision + Agent |
+| GitHub CLI commands & issue management | §8 — GitHub CLI |
 | `.github/copilot-setup-steps.md` *(discussed)* | §9 — Coding Agent Configuration |
-
-#### Extended Learning Artifacts
-
-| File | Section |
-|------|---------|
-| GitHub CLI issue | §E1 — GitHub CLI |
-| Copilot SDK code walkthrough | §E2 — Copilot SDK |
 
 ### Resources
 
@@ -1950,472 +2093,8 @@ license: 'MIT'                # Optional
 | Agent mode not available | Update VS Code and Copilot extension to latest |
 | Skills not loading | Verify `SKILL.md` filename (case-sensitive), check description matches prompt |
 | Custom instructions ignored | Verify file is in `.github/` root, check for syntax errors |
-| Vision/image not working | Verify a vision-capable model is selected (GPT-4o, Claude Sonnet 4, Gemini) — text-only models silently ignore images. Check that your org's Copilot policy enables image uploads (Org Settings → Copilot → Policies) |
 | `gh` CLI not found | Install from [cli.github.com](https://cli.github.com), then run `gh auth login` |
 | `gh copilot` not available | Run `gh extension install github/gh-copilot` to install the extension |
-
----
-
-## Extended Learning — Self-Paced Exercises
-
-> **Note**: These sections are optional self-paced exercises for after the workshop. They cover the GitHub CLI and Copilot SDK — powerful tools that complement your core Copilot skills.
-
-### E1. GitHub CLI: Copilot in the Terminal & Project Management (20 min)
-
-#### Key Points
-
-- The GitHub CLI (`gh`) is GitHub's official command-line tool — it brings GitHub workflows into your terminal
-- `gh copilot` integrates Copilot AI directly into the command line for command suggestions and explanations
-- The CLI complements VS Code Copilot: use the IDE for coding, the CLI for automation and project management
-- CLI skills are essential for Coding Agent workflows (Section 9) — issues, PRs, and repo management all flow through `gh`
-
-#### Why GitHub CLI Matters for Copilot Developers
-
-| Capability | How It Helps |
-|------------|-------------|
-| `gh copilot suggest` | AI-generated shell commands from natural language |
-| `gh copilot explain` | Plain-English explanations of complex commands |
-| `gh issue` / `gh pr` | Manage issues and PRs without leaving the terminal |
-| `gh repo` | Clone, fork, create repos from the command line |
-| `gh extension` | Extend `gh` with community-built plugins |
-
-#### Copilot in the CLI — AI-Powered Command Assistance
-
-```bash
-# Ask Copilot to suggest a command
-gh copilot suggest "find all TypeScript files modified in the last week"
-
-# Ask Copilot to explain a command you found online
-gh copilot explain "git log --oneline --graph --all --decorate"
-```
-
-**How it works**:
-- `suggest` — Describe what you want to do in plain English → Copilot generates the shell command
-- `explain` — Paste a command you don't understand → Copilot explains it step by step
-- Both support follow-up refinements ("make it recursive", "add a date filter")
-
-#### Essential `gh` Commands for This Workshop
-
-Check your authentication status:
-
-```bash
-gh auth status
-```
-
-List issues in the current repo:
-
-```bash
-gh issue list
-```
-
-Create an issue (useful for Coding Agent in Section 9):
-
-```bash
-gh issue create --title "Add input validation" --body "Add Zod validation to POST /api/products"
-```
-
-List pull requests:
-
-```bash
-gh pr list
-```
-
-View PR details and diff:
-
-```bash
-gh pr view 1 --web
-```
-
-Create a PR from your current branch:
-
-```bash
-gh pr create --title "Add cart feature" --body "Implements cart page from design mockup"
-```
-
-Clone a repo (what you did in Section 1):
-
-```bash
-gh repo clone microsoft/GitHubCopilot_Customized
-```
-
----
-
-#### 🖥️ DEMO: Copilot in the CLI
-
-1. Open the VS Code integrated terminal
-2. Verify CLI is installed and authenticated:
-
-```bash
-gh --version
-gh auth status
-```
-
-3. Use `gh copilot suggest`:
-
-```bash
-gh copilot suggest "list all open issues assigned to me in this repo"
-```
-
-4. Show Copilot generating the appropriate `gh issue list` command
-5. Use `gh copilot explain`:
-
-```bash
-gh copilot explain "gh api repos/{owner}/{repo}/branches/main/protection --method PUT"
-```
-
-6. Show Copilot breaking down the GitHub API command
-7. Create an issue from the terminal:
-
-```bash
-gh issue create --title "Improve API error handling" --body "Standardize error responses across all API endpoints with proper HTTP status codes and error messages."
-```
-
-8. Show the issue appearing in the GitHub repo
-
-**Talking point**: "The CLI is your power-user interface to GitHub. Everything you can do in the browser, you can script and automate from here. And with `gh copilot`, you don't even need to memorize the commands."
-
-<details>
-<summary><h4>🧪 Hands-On: Try the GitHub CLI (10 min)</h4></summary>
-
-**Exercise 1 — Verify Setup**:
-
-1. Confirm the CLI is installed:
-
-```bash
-gh --version
-```
-
-2. Confirm you're authenticated:
-
-```bash
-gh auth status
-```
-
-> **Note**: If `gh auth status` shows you're not authenticated, run `gh auth login` and follow the prompts.
-
-**Exercise 2 — Copilot Suggest**:
-
-1. Run the following command:
-
-```bash
-gh copilot suggest "show me the most recent commits on main with a graph"
-```
-
-2. Execute the suggested command
-3. Try another:
-
-```bash
-gh copilot suggest "find all TypeScript files modified in the last week"
-```
-
-**Exercise 3 — Copilot Explain**:
-
-1. Explain a git command:
-
-```bash
-gh copilot explain "git log --oneline --graph --all --decorate"
-```
-
-2. Explain a GitHub API command:
-
-```bash
-gh copilot explain "gh api repos/{owner}/{repo}/branches/main/protection --method PUT"
-```
-
-**Exercise 4 — Issue Management**:
-
-1. List issues:
-
-```bash
-gh issue list
-```
-
-2. Create an issue (you can use this later for Coding Agent):
-
-```bash
-gh issue create --title "Add input validation to Product API" --body "The POST /api/products endpoint accepts any payload without validation. Add schema validation for required fields (name, price, supplierId)."
-```
-
-3. Verify it exists:
-
-```bash
-gh issue list
-```
-
-4. View it in the browser:
-
-```bash
-gh issue view --web
-```
-
-**Exercise 5 — PR Workflow** (Bonus):
-
-1. List open pull requests:
-
-```bash
-gh pr list
-```
-
-2. Check current branch PR status:
-
-```bash
-gh pr status
-```
-
-**Exercise 6 — Type Hints**:
-
-1. Try the same prompt with different type hints and compare results:
-
-```bash
-gh copilot suggest -t git "show me which branches have been merged into main"
-```
-
-```bash
-gh copilot suggest -t gh "show me which branches have been merged into main"
-```
-
-```bash
-gh copilot suggest -t shell "find all TypeScript files larger than 100KB"
-```
-
-2. Notice how each type hint constrains the output to a different category of command
-3. Try with your own prompt:
-
-```bash
-gh copilot suggest -t gh "find PRs that haven't been reviewed yet"
-```
-
-**Exercise 7 — Structured Output** (Bonus):
-
-1. Get issues as JSON:
-
-```bash
-gh issue list --json number,title,assignees
-```
-
-2. Filter to just titles:
-
-```bash
-gh issue list --json title --jq '.[].title'
-```
-
-3. List PRs with review status:
-
-```bash
-gh pr list --json number,title,reviewDecision
-```
-
-</details>
-
-#### Success Criteria
-
-- ✅ `gh auth status` shows you are authenticated
-- ✅ You've used `gh copilot suggest` to generate a command from natural language
-- ✅ You've used `gh copilot explain` to understand a command
-- ✅ You've created an issue from the terminal with `gh issue create`
-- ✅ You've viewed the issue in the browser with `gh issue view --web`
-- ✅ You've used type hints (`-t git`, `-t gh`, `-t shell`) to constrain `gh copilot suggest` output
-- ✅ You've used `--json` and `--jq` to get structured, filterable output from `gh` commands
-
-#### Discussion Points
-
-- How could you integrate `gh` commands into your CI/CD pipelines?
-- What repetitive GitHub tasks could you automate with CLI scripts?
-- How does `gh copilot suggest` compare to asking Copilot Chat in VS Code?
-
-#### Type Hints — Steering `suggest` with `-t`
-
-The `gh copilot suggest` command accepts a `-t` (type) flag that constrains the kind of command Copilot generates:
-
-| Flag | Scope | Example Output |
-|------|-------|----------------|
-| `-t shell` | General shell commands | `find`, `grep`, `awk`, `curl` |
-| `-t git` | Git commands only | `git log`, `git rebase`, `git stash` |
-| `-t gh` | GitHub CLI commands only | `gh issue list`, `gh pr create` |
-
-```bash
-# Without type hint — Copilot might return any command type
-gh copilot suggest "list all open issues assigned to me"
-
-# With -t gh — constrains to GitHub CLI commands only
-gh copilot suggest -t gh "list all open issues assigned to me"
-
-# With -t git — constrains to git commands only
-gh copilot suggest -t git "show me which branches have been merged into main"
-
-# With -t shell — constrains to shell/OS commands only
-gh copilot suggest -t shell "find all files larger than 10MB in this directory"
-```
-
-**When to use type hints**: Use `-t` when Copilot's default suggestion is the wrong category. If you ask for "branches merged into main" without `-t git`, Copilot might suggest a `gh api` command instead of `git branch --merged main`.
-
-#### Structured Output with `--json` and `--jq`
-
-Many `gh` commands support `--json` for machine-readable output and `--jq` for filtering with jq expressions. This turns the CLI into a scriptable data pipeline:
-
-```bash
-# Get issues as JSON
-gh issue list --json number,title,assignees
-
-# Filter with jq — just the titles
-gh issue list --json title --jq '.[].title'
-
-# Get PR details with specific fields
-gh pr list --json number,title,headRefName,reviewDecision
-
-# Complex jq filter — approved PRs only
-gh pr list --json number,title,reviewDecision --jq '.[] | select(.reviewDecision == "APPROVED") | "\(.number): \(.title)"'
-
-# Combine with shell pipelines
-gh issue list --json number,title,labels --jq '.[] | select(.labels | length > 0)' | head -5
-```
-
-| Flag | Purpose | Example |
-|------|---------|----------|
-| `--json <fields>` | Output specific fields as JSON | `gh issue list --json number,title` |
-| `--jq '<expr>'` | Filter/transform JSON with jq | `--jq '.[].title'` |
-| `--template` | Format output with Go templates | `--template '{{.title}}'` |
-
-**Why this matters**: `--json`/`--jq` turns `gh` into a data tool. Use it for dashboards, reports, CI scripts, and automating GitHub workflows.
-
----
-
-### E2. Copilot SDK — Build Your Own AI Tools (8 min)
-
-#### Key Points
-
-- The **Copilot SDK** (`github/copilot-sdk`) lets you embed Copilot's capabilities into your own applications and tools
-- Currently in **Technical Preview** (v0.1.x) — active development, expect changes
-- Multi-language: TypeScript/JavaScript, Python, Go, .NET
-- Architecture: your app communicates with the Copilot CLI running in server mode via JSON-RPC
-
-#### Why This Matters
-
-Everything we've built in this workshop runs *inside* Copilot's environment — instructions, prompts, agents, skills. The SDK flips this: it lets you bring Copilot's intelligence *into your own code*.
-
-| Workshop Sections | Copilot SDK |
-|-----------------|-------------|
-| You customize Copilot | You embed Copilot in your tools |
-| Runs in VS Code / GitHub | Runs anywhere you write code |
-| Markdown configuration files | Programmatic API calls |
-| End-user workflow | Developer/platform workflow |
-
-#### Architecture
-
-```
-┌─────────────────────┐       JSON-RPC        ┌─────────────────────┐
-│   Your Application  │ ◄──────────────────► │   Copilot CLI       │
-│                     │                        │   (server mode)     │
-│  SDK Client         │                        │                     │
-│  ┌───────────────┐  │                        │   github/copilot    │
-│  │ createSession │  │                        │   --server          │
-│  │ defineTool()  │  │                        │                     │
-│  │ stream()      │  │                        │                     │
-│  └───────────────┘  │                        └─────────┬───────────┘
-└─────────────────────┘                                  │
-                                                         ▼
-                                                ┌─────────────────┐
-                                                │  GitHub Copilot │
-                                                │  Cloud Service  │
-                                                └─────────────────┘
-```
-
-**How it works**: Your application creates an SDK client → the client connects to the Copilot CLI running in server mode → the CLI handles authentication and communication with GitHub's Copilot service.
-
-#### Code Walkthrough (TypeScript)
-
-**Install:**
-
-```bash
-npm install @github/copilot-sdk
-```
-
-**Basic agent session:**
-
-```typescript
-import { CopilotSDK } from '@github/copilot-sdk';
-
-// Create a client connected to the Copilot CLI server
-const sdk = new CopilotSDK();
-
-// Start an agent session
-const session = await sdk.createSession({
-  instructions: "You are a helpful assistant for our internal tools."
-});
-
-// Send a message and stream the response
-const response = await session.send("Analyze our deployment logs for errors");
-
-for await (const chunk of response.stream()) {
-  process.stdout.write(chunk.text);
-}
-```
-
-**Custom tools with `defineTool()`:**
-
-```typescript
-// Give the agent access to your internal systems
-session.defineTool({
-  name: "query_database",
-  description: "Query the internal metrics database",
-  parameters: {
-    type: "object",
-    properties: {
-      query: { type: "string", description: "SQL query to execute" }
-    }
-  },
-  handler: async ({ query }) => {
-    const results = await db.execute(query);
-    return JSON.stringify(results);
-  }
-});
-```
-
-**MCP server connections:**
-
-```typescript
-// Connect to MCP servers programmatically
-await sdk.connectMCPServer({
-  name: "internal-api",
-  command: "npx",
-  args: ["@company/mcp-internal-api"]
-});
-```
-
-#### Use Cases
-
-| Use Case | How |
-|----------|-----|
-| **Internal CLI tools** | Embed Copilot in company-specific developer tools |
-| **CI/CD automation** | AI-powered build analysis and deployment decisions |
-| **Custom IDE extensions** | Build VS Code extensions with Copilot intelligence |
-| **Platform engineering** | Add AI capabilities to internal developer platforms |
-| **BYOK (Bring Your Own Key)** | Use your own Azure OpenAI keys with the SDK |
-
-#### Key Capabilities
-
-- **Agent sessions** — persistent context across multiple interactions
-- **Custom tools** — `defineTool()` gives the agent access to your systems
-- **MCP connections** — connect to any MCP server programmatically
-- **Streaming** — real-time token-by-token responses
-- **Multi-language** — TypeScript, Python, Go, .NET SDKs available
-- **BYOK** — bring your own Azure OpenAI API keys
-
-#### Resources
-
-| Resource | URL |
-|----------|-----|
-| Copilot SDK repo | https://github.com/github/copilot-sdk |
-| Getting Started Guide | https://github.com/github/copilot-sdk/blob/main/docs/getting-started.md |
-| npm package | https://www.npmjs.com/package/@github/copilot-sdk |
-
-> **Note**: The Copilot SDK is in Technical Preview. APIs may change between versions. Check the repo for the latest documentation and breaking changes.
-
-#### Discussion Points
-
-- Where in your organization could you embed Copilot intelligence?
-- How does the SDK compare to using the GitHub Copilot API directly?
-- What internal tools could benefit from AI-powered capabilities?
 
 ---
 

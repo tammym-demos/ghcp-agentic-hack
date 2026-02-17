@@ -2,8 +2,8 @@
 
 ## Instructor Reference
 
-**Duration**: ~4 hours (core workshop ~235 min + optional extended learning ~28 min)  
-**Total Demo Time**: ~140 min core (including hands-on) + ~22 min extended  
+**Duration**: ~4 hours (core workshop ~232 min)  
+**Total Demo Time**: ~137 min core (including hands-on)  
 **Environment**: VS Code + GitHub Browser + Terminal  
 **Repo**: [microsoft/GitHubCopilot_Customized](https://github.com/microsoft/GitHubCopilot_Customized)
 
@@ -34,8 +34,13 @@ Run through this **the day before** and again **30 minutes before** the workshop
 - [ ] Signed in to Copilot (check: `Cmd/Ctrl + Shift + P` → "Copilot: Sign In")
 - [ ] Agent mode is available in chat mode picker
 - [ ] Multiple models available (Claude Sonnet 4, GPT-4o, etc.)
-- [ ] A **vision-capable model** is selected for Section 8 (GPT-4o, Claude Sonnet 4, or Gemini) — text-only models will silently ignore image attachments
-- [ ] Vision/image upload is enabled in your org's Copilot policy (GitHub.com → Org Settings → Copilot → Policies) — if disabled, image attachments won't work
+
+### CLI
+
+- [ ] `gh` CLI installed and on PATH (`gh --version` returns 2.x+)
+- [ ] Authenticated (`gh auth status` shows logged in)
+- [ ] `gh copilot` extension installed (`gh extension list` shows `github/gh-copilot`)
+- [ ] If not installed: `gh extension install github/gh-copilot`
 
 ### MCP Servers
 
@@ -64,15 +69,8 @@ Run through this **the day before** and again **30 minutes before** the workshop
 ### Backup Materials
 
 - [ ] Screenshots of each demo step in a local folder
-- [ ] Pre-recorded GIFs for critical demos (cart implementation, MCP browser)
+- [ ] Pre-recorded GIFs for critical demos (MCP browser)
 - [ ] GitHub Docs tabs open for each feature as fallback
-
-### Extended Learning Prerequisites *(only needed if running Extended Learning demos)*
-
-- [ ] `gh` installed and on PATH (`gh --version` returns 2.x+)
-- [ ] Authenticated (`gh auth status` shows logged in)
-- [ ] `gh copilot` extension installed (`gh extension list` shows `github/gh-copilot`)
-- [ ] If not installed: `gh extension install github/gh-copilot`
 
 ---
 
@@ -108,7 +106,7 @@ Run through this **the day before** and again **30 minutes before** the workshop
    ```
    Are there any core features missing in my project?
    ```
-6. **Show response**: Copilot typically identifies missing features like authentication, proper error handling, or cart functionality (which we'll build later!)
+6. **Show response**: Copilot typically identifies missing features like authentication, proper error handling, or input validation
 
 #### Part B: Plan Mode (1.5 min)
 
@@ -747,123 +745,173 @@ If GitHub MCP fails:
 
 ---
 
-## Demo 8: Vision + Agent Mode Deep Dive (Cart Page) (Section 8)
+## Demo 8: GitHub CLI (Section 8)
 
-**Objective**: Build a working cart feature from a design image  
-**Duration**: 7 min demo + 15 min hands-on = 22 min  
+**Objective**: Show GitHub CLI with Copilot AI in the terminal  
+**Duration**: 8 min demo + 10 min hands-on = 18 min  
 **After Slide**: 34
-
-> **This is the capstone demo.** Take your time. The audience needs to see the full Plan → Agent → Working Feature arc.
 
 ### Setup Before Demo
 
-- App running with Products page accessible
-- `docs/design/cart.png` exists in the repo
-- `docs/design/MonaFigurine.png` exists (for hands-on)
-- Fresh chat session (clear previous context)
-- Products page open in browser (to show "before" state)
-- A **vision-capable (multimodal) model** is selected in the Copilot Chat model picker (GPT-4o, Claude Sonnet 4, or Gemini) — text-only models will ignore image attachments
-- Verify image attachment works: drag any PNG into Copilot Chat and confirm it appears as a thumbnail before the demo
+- VS Code integrated terminal open
+- `gh` CLI installed and authenticated (`gh auth status` shows logged in)
+- `gh copilot` extension installed (`gh extension list` shows `github/gh-copilot`)
+- Current directory is the project root
 
 ### Step-by-Step Script
 
-#### Part A: Show the "Before" State (30 sec)
+#### Part A: Verify CLI Setup (30 sec)
 
-1. **Open browser** to `http://localhost:5137`
-2. **Navigate** to Products
-3. **Click "Add to Cart"** on any product
-4. **Show**: A toast message appears ("Added to Cart") but nothing actually happens
-5. **Talking point**: "There's no cart. The button exists but does nothing. We're going to build the entire cart feature from a design image."
-
-#### Part B: Plan with Vision (2.5 min)
-
-1. **Open Copilot Chat** → Switch to **Plan** mode
-2. **Drag** `docs/design/cart.png` into the chat window
-   - Alternative: Click the paperclip icon → browse to `docs/design/cart.png`
-3. **Enter prompt**:
+1. **Open** the VS Code integrated terminal
+2. **Run**:
+   ```bash
+   gh --version
+   gh auth status
    ```
-   I need to implement a simple Cart Page. I also want a Cart icon in the NavBar that shows the number of items in the Cart.
+3. **Show**: Version number and authenticated user
+4. **Talking point**: "The GitHub CLI is GitHub's official command-line tool. If you don't have it yet, install it from cli.github.com."
+
+#### Part B: Copilot Suggest (1.5 min)
+
+1. **Run**:
+   ```bash
+   gh copilot suggest "list all open issues assigned to me in this repo"
    ```
-4. **Show Copilot analyzing the image** (Vision):
-   - Identifying the cart layout (item list, quantities, totals)
-   - Recognizing UI patterns (quantity selectors, remove buttons)
-   - Proposing color scheme and styling from the image
-5. **Show the plan** — Copilot lists:
-   - New components to create (CartPage, CartIcon, CartContext)
-   - Existing files to modify (NavBar, routing, app state)
-   - Data flow (context provider for cart state)
-6. **Talking point**: "We're not coding yet. Plan mode analyzed the image, identified UI components, and proposed an architecture. This is thinking before doing."
-7. **(Optional)** Ask for a modification:
+2. **Show**: Copilot generating the appropriate `gh issue list` command
+3. **Point out**: The suggested command, the option to execute it directly or copy it
+4. **Run another suggestion**:
+   ```bash
+   gh copilot suggest "find all TypeScript files modified in the last week"
    ```
-   Remove any discount code functionality — keep it simple
+5. **Show**: Copilot generating a `git`/`find` command
+6. **Talking point**: "You don't need to memorize commands. Describe what you want in English, and Copilot generates the command for you."
+
+#### Part C: Copilot Explain (1 min)
+
+1. **Run**:
+   ```bash
+   gh copilot explain "gh api repos/{owner}/{repo}/branches/main/protection --method PUT"
    ```
+2. **Show**: Copilot breaking down the command into plain English
+3. **Talking point**: "Found a complex command in a README or Stack Overflow? Paste it into `explain` before you run it. No more running commands you don't understand."
 
-#### Part C: Implement with Agent (3 min)
+#### Part D: Create an Issue from the CLI (2 min)
 
-1. **Switch to Agent mode** (keep conversation context)
-2. **Enter prompt**:
+1. **Run**:
+   ```bash
+   gh issue create --title "Improve API error handling" --body "Standardize error responses across all API endpoints with proper HTTP status codes and error messages."
    ```
-   Implement the changes.
+2. **Show**: The issue being created, the URL returned
+3. **Open the repo in browser** → Show the new issue exists
+4. **Run**:
+   ```bash
+   gh issue list
    ```
-3. **Show Copilot working**:
-   - Creating React components (CartPage.tsx, CartIcon.tsx)
-   - Creating CartContext for state management
-   - Modifying NavBar to include cart icon
-   - Updating route configuration
-   - Adding CSS/Tailwind styles
-4. **Point out** the file tabs appearing as files are created/modified
-5. **Accept changes** as they come (or accept all at the end)
-6. **Talking point**: "Agent mode is implementing across 5-6 files simultaneously. It's following the plan we approved earlier."
+5. **Show**: The issue appearing in the list
+6. **Talking point**: "Project management from your terminal. This connects directly to Coding Agent — you can assign an issue to Copilot and it will code the solution autonomously."
 
-#### Part D: Verify (1 min)
+#### Part E: Type Hints — Steering Suggestions (1 min)
 
-1. **Wait for build** to complete (hot reload should pick up changes)
-2. **Refresh** the browser
-3. **Navigate** to Products → click "Add to Cart" on a few products
-4. **Show**:
-   - Cart icon in NavBar updating with item count
-   - Click Cart icon → Cart page displays items
-   - Quantity adjustments work
-   - Total updates correctly
-5. **Talking point**: "From a PNG image to a working cart feature. Copilot read the design, planned the architecture, and implemented across multiple files. That's agentic development."
+1. **Run without type hint**:
+   ```bash
+   gh copilot suggest "show me which branches have been merged into main"
+   ```
+2. **Show**: Copilot might suggest a `gh api` command or a `git` command — unpredictable
+3. **Run with type hint**:
+   ```bash
+   gh copilot suggest -t git "show me which branches have been merged into main"
+   ```
+4. **Show**: Now it returns a `git branch --merged main` command — precisely targeted
+5. **Run one more**:
+   ```bash
+   gh copilot suggest -t gh "find PRs that haven't been reviewed yet"
+   ```
+6. **Talking point**: "The `-t` flag steers Copilot to the right category: `-t shell` for OS commands, `-t git` for git commands, `-t gh` for GitHub CLI commands. Use it when the default suggestion is the wrong type."
 
-### Hands-On Instructions (15 min)
+#### Part F: Structured Output with `--json` / `--jq` (1 min)
 
-> "Three exercises:
-> 1. **Add a product**: Drag `docs/design/MonaFigurine.png` into Agent mode and enter:
->    ```
->    Using the image, create a new product offering on the OctoCAT Supply website.
->    Price is $32.99, SKU is MONA-001, and description is 'A beautiful handcrafted
->    figurine inspired by the Mona Lisa.'
->    ```
->    Accept the changes and verify in your running app.
-> 2. **Build the cart**: Use Plan mode with `docs/design/cart.png`, review the plan, then switch to Agent to implement
-> 3. **Bonus**: Use Playwright MCP to validate the cart feature works end-to-end
-> 
-> You have 15 minutes. Start with the MonaFigurine product — it's simpler."
+1. **Run**:
+   ```bash
+   gh issue list --json number,title,assignees
+   ```
+2. **Show**: Machine-readable JSON output instead of the usual table format
+3. **Run**:
+   ```bash
+   gh issue list --json title --jq '.[].title'
+   ```
+4. **Show**: Just the titles — filtered and clean
+5. **Run** (if PRs exist):
+   ```bash
+   gh pr list --json number,title,reviewDecision
+   ```
+6. **Talking point**: "`--json` and `--jq` turn the GitHub CLI into a scriptable data pipeline. Use this for CI scripts, dashboards, or any automation that needs GitHub data."
+
+### Hands-On Instructions (10 min)
+
+> "Your turn! Try these in the terminal:"
+
+1. Suggest a command — then run the suggested output:
+
+```bash
+gh copilot suggest "show me the most recent commits on main with a graph"
+```
+
+2. Understand a complex command:
+
+```bash
+gh copilot explain "git log --oneline --graph --all --decorate"
+```
+
+3. See what issues exist:
+
+```bash
+gh issue list
+```
+
+4. Create your own issue:
+
+```bash
+gh issue create --title "Test issue from CLI" --body "Created during workshop."
+```
+
+5. Verify your issue:
+
+```bash
+gh issue view --web
+```
+
+6. Try type hints — compare to without `-t`:
+
+```bash
+gh copilot suggest -t git "show branches merged into main"
+```
+
+7. Try structured output:
+
+```bash
+gh issue list --json number,title --jq '.[].title'
+```
+
+> **Bonus**: Try `gh pr list` and `gh pr status` to explore PR workflows.
 
 ### Key Points to Emphasize
 
-- Vision works with PNG, JPG, GIF, WEBP
-- Plan → Agent is a best practice: think first, then build
-- Agent mode iterates across multiple files — it's not just editing one file
-- The conversation context persists between Plan and Agent modes
+- `gh copilot suggest` = natural language → shell command
+- `gh copilot explain` = shell command → plain English
+- `gh issue create` connects to the Coding Agent workflow (Section 9)
+- The CLI complements the IDE — use both
 
 ### Backup Plan
 
-If Vision doesn't analyze the image well:
-1. Describe the cart layout verbally along with the image
-2. If Agent implementation is slow, show a pre-prepared branch with the cart already built
-3. Git stash your changes and checkout the pre-prepared branch
+If `gh copilot` is not installed:
+1. Show `gh extension install github/gh-copilot` to install it
+2. If extension install is blocked, skip to the `gh issue` commands (those don't require the extension)
+3. Show the CLI docs page: `cli.github.com` as reference
 
-If image attachment doesn't work or is ignored:
-1. Verify a vision-capable model is selected (GPT-4o, Claude Sonnet 4, or Gemini) — text-only models silently ignore images
-2. Check that Vision/image upload is enabled in the org's Copilot policy (GitHub.com → Org Settings → Copilot → Policies)
-3. If blocked by org policy, describe the cart design verbally instead of attaching the image
-
-If the app doesn't hot-reload:
-1. Stop and restart: `npm run dev`
-2. Hard refresh the browser (Ctrl+Shift+R)
+If `gh` is not installed at all:
+1. Explain the concept using the slides
+2. Show the CLI website: `cli.github.com`
+3. Move on to the next section and have attendees install during the break
 
 ---
 
@@ -996,24 +1044,17 @@ If Coding Agent isn't available or takes too long:
 | 5 | Agent Skills | 5 min | 12 min | 17 min |
 | 6 | Playwright MCP | 5 min | 15 min | 20 min |
 | 7 | GitHub MCP | 4 min | — | 4 min |
-| 8 | Vision + Cart Page | 7 min | 15 min | 22 min |
+| 8 | GitHub CLI | 8 min | 10 min | 18 min |
 | 9 | Cloud Agents | 15 min | — | 15 min |
-| | | **57 min** | **84 min** | **141 min** |
-
-> **Extended Learning Demos** *(not included in core timing)*:
-> - E1: GitHub CLI — 7 min demo + 10 min hands-on = 17 min
-> - E2: Copilot SDK — 5 min walkthrough = 5 min
-> - Extended total: ~22 min
+| | | **58 min** | **79 min** | **137 min** |
 
 **Core time budget**:
 - Slide presentation: ~82 min
-- Demo + hands-on: ~140 min
-
+- Demo + hands-on: ~137 min
 - Wrap-up/Q&A: 10 min
 - Buffer: ~3 min
 
-**Core total**: ~235 min (~3h 55min)  
-**With extended learning**: ~263 min (~4h 23min)
+**Core total**: ~232 min (~3h 52min)
 
 ---
 
@@ -1028,8 +1069,7 @@ If a demo is completely blocked:
    - Agent Skills: `docs.github.com/en/copilot/concepts/agents/about-agent-skills`
    - MCP: `docs.github.com/en/copilot/how-tos/using-extensions/using-mcp-in-copilot`
    - Coding Agent: `docs.github.com/en/copilot/using-github-copilot/using-copilot-coding-agent`
-   - *(Extended Learning)* GitHub CLI: `cli.github.com`
-   - *(Extended Learning)* Copilot SDK: `github.com/github/copilot-sdk`
+   - GitHub CLI: `cli.github.com`
 3. **Engage the audience** with Q&A while troubleshooting
 4. **Skip to the next section** and come back if time permits
 
@@ -1046,10 +1086,9 @@ If a demo is completely blocked:
 | CORS errors (Codespaces) | Set port 3000 visibility to `public` |
 | Tests timeout | `npm run test:api -- --timeout 30000` |
 | Hot reload not working | Stop + restart `npm run dev`, hard refresh browser |
-| Vision/image not working | Verify a vision-capable model is selected (GPT-4o, Claude Sonnet 4, Gemini) — text-only models silently ignore images. Check org Copilot policy enables image uploads (Org Settings → Copilot → Policies) |
 | Coding Agent not starting | Check: Actions enabled, branch protection set, Coding Agent enabled in settings |
-| `gh` CLI not found *(Extended)* | Install from cli.github.com, then run `gh auth login` |
-| `gh copilot` not available *(Extended)* | Run `gh extension install github/gh-copilot` |
+| `gh` CLI not found | Install from cli.github.com, then run `gh auth login` |
+| `gh copilot` not available | Run `gh extension install github/gh-copilot` |
 
 ---
 
@@ -1071,256 +1110,6 @@ rm -rf .github/agents/CodeReviewer.agent.md
 # Restart the app
 npm run dev
 ```
-
----
-
-## Extended Learning Demos
-
-> **Note**: These demos are for self-paced extended learning exercises. Only run them if attendees are working through the Extended Learning sections.
-
-### Extended Demo E1: GitHub CLI (After Extended Slide 48)
-
-**Section**: E1 — GitHub CLI  
-**Duration**: ~7 min demo + 10 min hands-on = 17 min  
-**After Slide**: 49
-
-#### Setup Before Demo
-
-- VS Code integrated terminal open
-- `gh` CLI installed and authenticated
-- `gh copilot` extension installed
-- Current directory is the project root
-
-#### Step-by-Step Script
-
-##### Part A: Verify CLI Setup (30 sec)
-
-1. **Open** the VS Code integrated terminal
-2. **Run**:
-   ```bash
-   gh --version
-   gh auth status
-   ```
-3. **Show**: Version number and authenticated user
-4. **Talking point**: "The GitHub CLI is GitHub's official command-line tool. If you don't have it yet, install it from cli.github.com."
-
-##### Part B: Copilot Suggest (1.5 min)
-
-1. **Run**:
-   ```bash
-   gh copilot suggest "list all open issues assigned to me in this repo"
-   ```
-2. **Show**: Copilot generating the appropriate `gh issue list` command
-3. **Point out**: The suggested command, the option to execute it directly or copy it
-4. **Run another suggestion**:
-   ```bash
-   gh copilot suggest "find all TypeScript files modified in the last week"
-   ```
-5. **Show**: Copilot generating a `git`/`find` command
-6. **Talking point**: "You don't need to memorize commands. Describe what you want in English, and Copilot generates the command for you."
-
-##### Part C: Copilot Explain (1 min)
-
-1. **Run**:
-   ```bash
-   gh copilot explain "gh api repos/{owner}/{repo}/branches/main/protection --method PUT"
-   ```
-2. **Show**: Copilot breaking down the command into plain English
-3. **Talking point**: "Found a complex command in a README or Stack Overflow? Paste it into `explain` before you run it. No more running commands you don't understand."
-
-##### Part D: Create an Issue from the CLI (2 min)
-
-1. **Run**:
-   ```bash
-   gh issue create --title "Improve API error handling" --body "Standardize error responses across all API endpoints with proper HTTP status codes and error messages."
-   ```
-2. **Show**: The issue being created, the URL returned
-3. **Open the repo in browser** → Show the new issue exists
-4. **Run**:
-   ```bash
-   gh issue list
-   ```
-5. **Show**: The issue appearing in the list
-6. **Talking point**: "Project management from your terminal. This connects directly to Coding Agent — you can assign an issue to Copilot and it will code the solution autonomously."
-
-##### Part E: Type Hints — Steering Suggestions (1 min)
-
-1. **Run without type hint**:
-   ```bash
-   gh copilot suggest "show me which branches have been merged into main"
-   ```
-2. **Show**: Copilot might suggest a `gh api` command or a `git` command — unpredictable
-3. **Run with type hint**:
-   ```bash
-   gh copilot suggest -t git "show me which branches have been merged into main"
-   ```
-4. **Show**: Now it returns a `git branch --merged main` command — precisely targeted
-5. **Run one more**:
-   ```bash
-   gh copilot suggest -t gh "find PRs that haven't been reviewed yet"
-   ```
-6. **Talking point**: "The `-t` flag steers Copilot to the right category: `-t shell` for OS commands, `-t git` for git commands, `-t gh` for GitHub CLI commands. Use it when the default suggestion is the wrong type."
-
-##### Part F: Structured Output with `--json` / `--jq` (1 min)
-
-1. **Run**:
-   ```bash
-   gh issue list --json number,title,assignees
-   ```
-2. **Show**: Machine-readable JSON output instead of the usual table format
-3. **Run**:
-   ```bash
-   gh issue list --json title --jq '.[].title'
-   ```
-4. **Show**: Just the titles — filtered and clean
-5. **Run** (if PRs exist):
-   ```bash
-   gh pr list --json number,title,reviewDecision
-   ```
-6. **Talking point**: "`--json` and `--jq` turn the GitHub CLI into a scriptable data pipeline. Use this for CI scripts, dashboards, or any automation that needs GitHub data."
-
-#### Hands-On Instructions (10 min)
-
-> "Your turn! Try these in the terminal:"
-
-1. Suggest a command — then run the suggested output:
-
-```bash
-gh copilot suggest "show me the most recent commits on main with a graph"
-```
-
-2. Understand a complex command:
-
-```bash
-gh copilot explain "git log --oneline --graph --all --decorate"
-```
-
-3. See what issues exist:
-
-```bash
-gh issue list
-```
-
-4. Create your own issue:
-
-```bash
-gh issue create --title "Test issue from CLI" --body "Created during workshop."
-```
-
-5. Verify your issue:
-
-```bash
-gh issue view --web
-```
-
-6. Try type hints — compare to without `-t`:
-
-```bash
-gh copilot suggest -t git "show branches merged into main"
-```
-
-7. Try structured output:
-
-```bash
-gh issue list --json number,title --jq '.[].title'
-```
-
-> **Bonus**: Try `gh pr list` and `gh pr status` to explore PR workflows.
-
-#### Key Points to Emphasize
-
-- `gh copilot suggest` = natural language → shell command
-- `gh copilot explain` = shell command → plain English
-- `gh issue create` connects to the Coding Agent workflow (Section 9)
-- The CLI complements the IDE — use both
-
-#### Backup Plan
-
-If `gh copilot` is not installed:
-1. Show `gh extension install github/gh-copilot` to install it
-2. If extension install is blocked, skip to the `gh issue` commands (those don't require the extension)
-3. Show the CLI docs page: `cli.github.com` as reference
-
-If `gh` is not installed at all:
-1. Explain the concept using the slides
-2. Show the CLI website: `cli.github.com`
-3. Move on to the next section and have attendees install during the break
-
----
-
-### Extended Demo E2: Copilot SDK (After Extended Slide 50)
-
-**Section**: E2 — Copilot SDK  
-**Duration**: ~5 min walkthrough (no hands-on — conceptual overview)  
-**After Slide**: 51
-
-> **Note**: This is a code-walkthrough demo, not a live coding exercise. Walk through pre-prepared code samples to illustrate the SDK architecture.
-
-#### Setup Before Demo
-
-- Have the SDK GitHub repo open in a browser tab: `https://github.com/github/copilot-sdk`
-- Have a sample SDK script ready (or use the one below)
-- No installation required — this is a conceptual walkthrough
-
-#### Step-by-Step Script
-
-##### Part A: Why the SDK Exists (1 min)
-
-1. **Open** the Copilot SDK repo in browser
-2. **Show** the README overview — multi-language support (TypeScript, Python, Go, .NET)
-3. **Talking point**: "Everything we've built today — custom instructions, agents, MCP servers — runs inside the editor. But what if you want Copilot intelligence in your own CLI tools, internal platforms, or CI pipelines? That's what the SDK is for."
-
-##### Part B: Architecture Overview (1.5 min)
-
-1. **Show** this architecture diagram (on slide or whiteboard):
-   ```
-   Your App → SDK Client → Copilot CLI (server mode) → GitHub Copilot API
-                              ↕ JSON-RPC
-   ```
-2. **Explain**: "The SDK wraps the Copilot CLI running in server mode. Your app talks to the SDK client via JSON-RPC. The CLI handles auth, token management, and API calls."
-3. **Show** the install command:
-   ```bash
-   npm install @github/copilot-sdk
-   ```
-4. **Talking point**: "It's a thin wrapper — most of the heavy lifting is done by the Copilot CLI you already have installed."
-
-##### Part C: Code Walkthrough (2 min)
-
-1. **Show** this sample code (pre-prepared in editor or on slide):
-   ```typescript
-   import { CopilotClient } from '@github/copilot-sdk';
-
-   const client = new CopilotClient();
-   const session = await client.createSession();
-
-   // Define a custom tool the model can call
-   session.defineTool('getWeather', {
-     description: 'Get current weather for a city',
-     parameters: { city: { type: 'string' } },
-     handler: async ({ city }) => {
-       return await fetchWeatherAPI(city);
-     }
-   });
-
-   // Stream a response
-   const stream = await session.chat('What is the weather in Seattle?');
-   for await (const chunk of stream) {
-     process.stdout.write(chunk.text);
-   }
-   ```
-2. **Walk through** each section:
-   - `createSession()` — establishes connection to Copilot CLI
-   - `defineTool()` — register tools the model can invoke (like MCP, but in your app)
-   - `session.chat()` — streaming response with tool-calling built in
-3. **Talking point**: "Notice how similar this is to MCP tools? Same concept — you define tools the model can call — but now it's embedded in YOUR application, not in VS Code."
-
-##### Part D: Use Cases & Wrap-Up (30 sec)
-
-1. **Show** 3 example use cases:
-   - Internal CLI tool that answers questions about your codebase
-   - Slack bot that creates PRs from natural language
-   - CI pipeline step that auto-generates release notes
-2. **Talking point**: "The SDK is in Technical Preview — `v0.1.x`. It's stable enough to prototype with, but the API will evolve. Check the repo for updates."
 
 ---
 
