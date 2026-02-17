@@ -39,7 +39,7 @@ Run through this **the day before** and again **30 minutes before** the workshop
 
 - [ ] `gh` CLI installed and on PATH (`gh --version` returns 2.x+)
 - [ ] Authenticated (`gh auth status` shows logged in)
-- [ ] Copilot CLI installed (`copilot --version` returns a version number)
+- [ ] GitHub Copilot CLI installed (`copilot --version` returns a version number)
 - [ ] If not installed: follow [docs.github.com/en/copilot/how-tos/set-up/install-copilot-cli](https://docs.github.com/en/copilot/how-tos/set-up/install-copilot-cli)
 - [ ] `copilot` interactive mode launches from project root (trust the directory when prompted)
 
@@ -746,7 +746,7 @@ If GitHub MCP fails:
 
 ---
 
-## Demo 8: Copilot CLI — The Agentic Terminal (Section 8)
+## Demo 8: GitHub Copilot CLI — The Agentic Terminal (Section 8)
 
 **Objective**: Show the standalone `copilot` CLI as a full agentic terminal experience — interactive TUI, plan mode, file context, tool approvals, /review, and /delegate  
 **Duration**: 12 min demo + 15 min hands-on = 27 min  
@@ -833,7 +833,7 @@ If GitHub MCP fails:
 
 ### Hands-On Instructions (15 min)
 
-> "Your turn! Launch the Copilot CLI and explore the agentic terminal:"
+> "Your turn! Launch the GitHub Copilot CLI and explore the agentic terminal:"
 
 1. Launch the CLI and ask about your project:
 
@@ -1043,7 +1043,7 @@ If Coding Agent isn't available or takes too long:
 | 5 | Agent Skills | 5 min | 12 min | 17 min |
 | 6 | Playwright MCP | 5 min | 15 min | 20 min |
 | 7 | GitHub MCP | 4 min | — | 4 min |
-| 8 | Copilot CLI — Agentic Terminal | 12 min | 15 min | 27 min |
+| 8 | GitHub Copilot CLI — Agentic Terminal | 12 min | 15 min | 27 min |
 | 9 | Cloud Agents | 15 min | — | 15 min |
 | | | **67 min** | **84 min** | **151 min** |
 
@@ -1068,7 +1068,7 @@ If a demo is completely blocked:
    - Agent Skills: `docs.github.com/en/copilot/concepts/agents/about-agent-skills`
    - MCP: `docs.github.com/en/copilot/how-tos/using-extensions/using-mcp-in-copilot`
    - Coding Agent: `docs.github.com/en/copilot/using-github-copilot/using-copilot-coding-agent`
-   - Copilot CLI: `docs.github.com/en/copilot/github-copilot-in-the-cli`
+   - GitHub Copilot CLI: `docs.github.com/en/copilot/github-copilot-in-the-cli`
 3. **Engage the audience** with Q&A while troubleshooting
 4. **Skip to the next section** and come back if time permits
 
@@ -1087,7 +1087,7 @@ If a demo is completely blocked:
 | Hot reload not working | Stop + restart `npm run dev`, hard refresh browser |
 | Coding Agent not starting | Check: Actions enabled, branch protection set, Coding Agent enabled in settings |
 | `gh` CLI not found | Install from cli.github.com, then run `gh auth login` |
-| `copilot` CLI not available | Install the standalone Copilot CLI — see `docs.github.com/copilot/github-copilot-in-the-cli` |
+| `copilot` CLI not available | Install the standalone GitHub Copilot CLI — see `docs.github.com/copilot/github-copilot-in-the-cli` |
 
 ---
 

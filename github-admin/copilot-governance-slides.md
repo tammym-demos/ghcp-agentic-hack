@@ -462,7 +462,7 @@ When users select Claude (Anthropic) or Gemini (Google):
 |--------|------------------|
 | **Copilot in IDE** | Code completions in editors |
 | **Copilot Chat** | Conversational AI interface |
-| **Copilot CLI** | Terminal/shell integration |
+| **GitHub Copilot CLI** | Terminal/shell integration |
 | **Public code filter** | Suggestion filtering |
 | **Knowledge bases** | Internal doc references |
 | **Vision / image uploads** | Image analysis in Chat |

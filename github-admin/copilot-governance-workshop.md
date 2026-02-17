@@ -757,7 +757,7 @@ Phase 3: Enterprise-Wide
    - Show which settings the org can still control
 
 6. **Demonstrate a Policy Change**
-   - Toggle one setting (e.g., Copilot CLI from "No policy" to "Enabled")
+   - Toggle one setting (e.g., GitHub Copilot CLI from "No policy" to "Enabled")
    - Save and show the confirmation
    - **Talking point**: "Changes take effect immediately. Users may need to restart their IDE to pick up new permissions."
 

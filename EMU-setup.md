@@ -120,7 +120,7 @@ Verify these enterprise-level Copilot settings are enabled:
 | **Copilot Chat in the IDE** | Enabled | Entire workshop |
 | **Copilot Coding Agent** | Enabled | Section 9 |
 | **Copilot Code Review** | Enabled | Section 9 |
-| **Copilot CLI** | Enabled | Section 8 |
+| **GitHub Copilot CLI** | Enabled | Section 8 |
 
 > **Note**: If any of these policies are managed at the enterprise level and set to "Disabled" or "No policy", the workshop facilitator should coordinate with the enterprise admin to temporarily enable them for the workshop org.
 

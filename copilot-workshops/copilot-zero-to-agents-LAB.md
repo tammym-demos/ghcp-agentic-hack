@@ -22,7 +22,7 @@ This lab guide contains all the hands-on exercises from the **GitHub Copilot: Ze
 | **npm** | Latest version recommended |
 | **Git** | For cloning the demo repository |
 | **GitHub CLI** | Install from [cli.github.com](https://cli.github.com) |
-| **Copilot CLI** | Install from [docs.github.com/en/copilot/how-tos/set-up/install-copilot-cli](https://docs.github.com/en/copilot/how-tos/set-up/install-copilot-cli) |
+| **GitHub Copilot CLI** | Install from [docs.github.com/en/copilot/how-tos/set-up/install-copilot-cli](https://docs.github.com/en/copilot/how-tos/set-up/install-copilot-cli) |
 
 ---
 
@@ -599,7 +599,7 @@ Fill in the behavior instructions with your own rules, then test the agent with 
 
 Agent Skills are the **smartest** customization layer — Copilot automatically loads them when it determines they're relevant to your prompt. You don't invoke them; Copilot chooses them. This makes skills ideal for detailed, specialized procedures that would be too verbose for always-on instructions.
 
-Skills are also an [open standard](https://github.com/agentskills/agentskills) used by Copilot Coding Agent, Copilot CLI, and Agent mode in VS Code.
+Skills are also an [open standard](https://github.com/agentskills/agentskills) used by Copilot Coding Agent, GitHub Copilot CLI, and Agent mode in VS Code.
 
 ### Reference: Skills vs Instructions vs Prompts
 
@@ -904,9 +904,9 @@ Browse to http://localhost:5137 and test all the navigation links. If any pages 
 ---
 
 <details>
-<summary><h2>Lab 8: Copilot CLI — The Agentic Terminal (15 min)</h2></summary>
+<summary><h2>Lab 8: GitHub Copilot CLI — The Agentic Terminal (15 min)</h2></summary>
 
-> **Workshop Section**: 8. Copilot CLI: The Agentic Terminal
+> **Workshop Section**: 8. GitHub Copilot CLI: The Agentic Terminal
 
 ### Why This Matters
 
@@ -932,7 +932,7 @@ The standalone `copilot` CLI is a full agentic terminal — an interactive TUI w
 **Exercise 1 — Launch the CLI & Explore**:
 
 1. Open your terminal (VS Code integrated terminal or standalone)
-2. Launch the Copilot CLI:
+2. Launch the GitHub Copilot CLI:
 
 ```bash
 copilot
@@ -1170,7 +1170,7 @@ Together, these files make the Coding Agent smarter, faster, and more reliable.
 | Skills not loading | Verify `SKILL.md` filename (case-sensitive), check description matches prompt |
 | Custom instructions ignored | Verify file is in `.github/` root, check for syntax errors |
 | `gh` CLI not found | Install from [cli.github.com](https://cli.github.com), then run `gh auth login` |
-| `copilot` CLI not available | Install the standalone Copilot CLI — see [docs.github.com/copilot/github-copilot-in-the-cli](https://docs.github.com/en/copilot/github-copilot-in-the-cli) for install instructions |
+| `copilot` CLI not available | Install the standalone GitHub Copilot CLI — see [docs.github.com/copilot/github-copilot-in-the-cli](https://docs.github.com/en/copilot/github-copilot-in-the-cli) for install instructions |
 
 ---
 

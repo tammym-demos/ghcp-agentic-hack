@@ -10,7 +10,7 @@
 
 ## Workshop Overview
 
-This session takes developers from casual Copilot usage to full agentic development. Starting with chat modes and progressing through customization layers—instructions, prompts, agents, skills, and MCP servers—attendees build a complete understanding of how to tailor Copilot to their teams and workflows. The session extends to the standalone Copilot CLI for a full agentic terminal experience and closes with fully autonomous cloud agents (Coding Agent + PR Review Agent).
+This session takes developers from casual Copilot usage to full agentic development. Starting with chat modes and progressing through customization layers—instructions, prompts, agents, skills, and MCP servers—attendees build a complete understanding of how to tailor Copilot to their teams and workflows. The session extends to the standalone GitHub Copilot CLI for a full agentic terminal experience and closes with fully autonomous cloud agents (Coding Agent + PR Review Agent).
 
 ### Learning Objectives
 
@@ -19,7 +19,7 @@ This session takes developers from casual Copilot usage to full agentic developm
 - Build reusable prompt files and custom agents (chat modes) for repeatable workflows
 - Author Agent Skills that Copilot auto-selects based on task relevance
 - Extend Copilot with MCP servers for browser testing and GitHub integration
-- Use the standalone Copilot CLI as an agentic terminal — interactive TUI, plan mode, file context, /review, and /delegate to Coding Agent
+- Use the standalone GitHub Copilot CLI as an agentic terminal — interactive TUI, plan mode, file context, /review, and /delegate to Coding Agent
 - Leverage cloud agents: Coding Agent for autonomous PR creation and Copilot Code Review for AI-powered PR reviews
 
 ### Prerequisites
@@ -33,7 +33,7 @@ This session takes developers from casual Copilot usage to full agentic developm
 | **npm** | Latest version recommended |
 | **Git** | For cloning the demo repository |
 | **GitHub CLI** | `gh` — install from [cli.github.com](https://cli.github.com), then run `gh auth login` |
-| **Copilot CLI** | Install from [docs.github.com/en/copilot/how-tos/set-up/install-copilot-cli](https://docs.github.com/en/copilot/how-tos/set-up/install-copilot-cli) — required for Section 8 |
+| **GitHub Copilot CLI** | Install from [docs.github.com/en/copilot/how-tos/set-up/install-copilot-cli](https://docs.github.com/en/copilot/how-tos/set-up/install-copilot-cli) — required for Section 8 |
 
 ---
 
@@ -48,7 +48,7 @@ This session takes developers from casual Copilot usage to full agentic developm
 | 5 | [Custom Agents (Chat Modes)](#5-custom-agents-chat-modes-25-min) | 25 min |
 | 6 | [Agent Skills](#6-agent-skills-25-min) | 25 min |
 | 7 | [MCP Servers (Playwright + GitHub)](#7-mcp-servers-playwright--github-30-min) | 30 min |
-| 8 | [Copilot CLI: The Agentic Terminal](#8-copilot-cli-the-agentic-terminal-30-min) | 30 min |
+| 8 | [GitHub Copilot CLI: The Agentic Terminal](#8-github-copilot-cli-the-agentic-terminal-30-min) | 30 min |
 | 9 | [Cloud Agents: Coding Agent + PR Review Agent](#9-cloud-agents-coding-agent--pr-review-agent-20-min) | 20 min |
 | 10 | [Wrap-Up, Customization Hierarchy Recap & Q&A](#10-wrap-up-customization-hierarchy-recap--qa-10-min) | 10 min |
 
@@ -1444,7 +1444,7 @@ Browse to http://localhost:5137 and test all the navigation links. If any pages 
 
 ---
 
-## 8. Copilot CLI: The Agentic Terminal (30 min)
+## 8. GitHub Copilot CLI: The Agentic Terminal (30 min)
 
 ### Key Points
 
@@ -1454,7 +1454,7 @@ Browse to http://localhost:5137 and test all the navigation links. If any pages 
 - Session persistence with `--resume`/`--continue` means you can pick up right where you left off
 - The `gh` CLI remains your go-to for project management (`gh issue`, `gh pr`) and works alongside `copilot`
 
-### What the Copilot CLI Can Do
+### What the GitHub Copilot CLI Can Do
 
 | Capability | How It Works |
 |------------|-------------|
@@ -1469,9 +1469,9 @@ Browse to http://localhost:5137 and test all the navigation links. If any pages 
 | Programmatic mode | `copilot -p "prompt" --allow-tool 'shell(git)'` — scriptable, headless |
 | Context management | `/context`, `/compact`, `/usage` — monitor and manage token usage |
 
-### Copilot CLI vs VS Code Agent Mode
+### GitHub Copilot CLI vs VS Code Agent Mode
 
-| Feature | VS Code Agent Mode | Copilot CLI |
+| Feature | VS Code Agent Mode | GitHub Copilot CLI |
 |---------|-------------------|-------------|
 | **Where** | IDE sidebar/editor | Terminal (any terminal) |
 | **Plan mode** | Chat mode picker | Shift+Tab toggle |
@@ -1553,7 +1553,7 @@ Add a GET /api/health endpoint that returns the app version from package.json an
 **Talking point**: "There's a whole world of slash commands. `/review` before you commit, `/context` to see your token budget, `/agent` to switch personas. This is your daily driver if you're a terminal person."
 
 <details>
-<summary><h3>🧪 Hands-On: Try the Copilot CLI (15 min)</h3></summary>
+<summary><h3>🧪 Hands-On: Try the GitHub Copilot CLI (15 min)</h3></summary>
 
 **Exercise 1 — Launch and Explore**:
 
@@ -1864,7 +1864,7 @@ You've now built every layer:
 │  Ask (explore) → Plan (design) → Agent (build)             │
 └────────────────────────────────────────────────────────────┘
 
-  Copilot CLI (§8) — Agentic terminal: TUI, plan mode, /delegate
+  GitHub Copilot CLI (§8) — Agentic terminal: TUI, plan mode, /delegate
 ```
 
 ### Key Takeaways
@@ -1886,7 +1886,7 @@ You've now built every layer:
 | `.github/prompts/security-review.prompt.md` | §4 — Custom Prompt Files |
 | `.github/agents/CodeReviewer.agent.md` | §5 — Custom Agents |
 | `.github/skills/*/SKILL.md` | §6 — Agent Skills |
-| Copilot CLI agentic terminal session | §8 — Copilot CLI |
+| GitHub Copilot CLI agentic terminal session | §8 — GitHub Copilot CLI |
 | `.github/copilot-setup-steps.md` *(discussed)* | §9 — Coding Agent Configuration |
 
 ### Resources
@@ -1992,7 +1992,7 @@ license: 'MIT'                # Optional
 | Skills not loading | Verify `SKILL.md` filename (case-sensitive), check description matches prompt |
 | Custom instructions ignored | Verify file is in `.github/` root, check for syntax errors |
 | `gh` CLI not found | Install from [cli.github.com](https://cli.github.com), then run `gh auth login` |
-| `copilot` CLI not available | Install the standalone Copilot CLI — see [docs.github.com/copilot/github-copilot-in-the-cli](https://docs.github.com/en/copilot/github-copilot-in-the-cli) for install instructions |
+| `copilot` CLI not available | Install the standalone GitHub Copilot CLI — see [docs.github.com/copilot/github-copilot-in-the-cli](https://docs.github.com/en/copilot/github-copilot-in-the-cli) for install instructions |
 
 ---
 
