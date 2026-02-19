@@ -15,6 +15,7 @@
 ## Slide 1: Title
 
 # Bitbucket to GitHub Enterprise
+
 ## Migration Workshop
 
 *A Comprehensive Guide to Enterprise-Scale Repository Migration*
@@ -51,6 +52,7 @@
 ### Migration Is More Than Moving Code
 
 A successful migration requires:
+
 - **Data integrity** — Every commit, branch, and PR matters
 - **Identity continuity** — Users need seamless access
 - **Process preservation** — CI/CD and workflows must continue
@@ -209,6 +211,7 @@ A successful migration requires:
 ```
 
 **GEI Capabilities for Bitbucket Cloud**:
+
 - Full git history with all branches and tags
 - Pull requests (open and merged) with comments
 - PR review comments and approvals
@@ -251,12 +254,14 @@ user@company.com    ──►  Automatic (email match)  ──►  user_company
 ### Bitbucket Workspace → GitHub Organization
 
 **Option 1: Direct Mapping**
+
 ```
 Bitbucket Workspace: acme-corp
     └── GitHub Org: acme-corp
 ```
 
 **Option 2: Consolidation**
+
 ```
 Bitbucket Workspaces: acme-frontend, acme-backend, acme-infra
     └── GitHub Org: acme-corp (all repos)
@@ -264,6 +269,7 @@ Bitbucket Workspaces: acme-frontend, acme-backend, acme-infra
 ```
 
 **Option 3: Reorganization**
+
 ```
 Bitbucket: Mixed structure
     └── GitHub: Clean taxonomy with naming conventions
@@ -301,6 +307,7 @@ Bitbucket: Mixed structure
 ### Before You Begin
 
 **Tools Required**:
+
 ```bash
 # Install GitHub CLI
 winget install GitHub.cli    # Windows
@@ -369,6 +376,7 @@ gh gei wait-for-migration --migration-id <id>
 ```
 
 **What Happens**:
+
 1. GEI exports repository from Bitbucket Cloud
 2. Creates new repository in GitHub org
 3. Pushes git objects (commits, branches, tags)
@@ -420,6 +428,7 @@ foreach ($repo in $repos) {
 ### When Repos are > 1GB
 
 **Warning Signs**:
+
 - Migration timeouts
 - Memory errors
 - Extremely long migration times
@@ -496,6 +505,7 @@ git lfs migrate import --include="*.zip,*.jar,*.dll"
 ### Bitbucket Model vs. GitHub Model
 
 **Bitbucket Branch Permissions**:
+
 ```
 Branch: main
 ├── Prevent direct pushes: ✓
@@ -505,6 +515,7 @@ Branch: main
 ```
 
 **GitHub Branch Protection Rules**:
+
 ```
 Branch: main
 ├── Require pull request: ✓
@@ -554,6 +565,7 @@ gh api repos/{owner}/{repo}/branches/main/protection `
 ### This Requires Manual Work
 
 **Bitbucket Pipelines** (`bitbucket-pipelines.yml`):
+
 ```yaml
 pipelines:
   default:
@@ -566,6 +578,7 @@ pipelines:
 ```
 
 **GitHub Actions** (`.github/workflows/ci.yml`):
+
 ```yaml
 name: CI
 on: [push, pull_request]
@@ -758,12 +771,14 @@ Week +2:  [Bitbucket: Archived]   [GitHub: Active]
 ### What Your Teams Need to Know
 
 **Pre-Migration** (1-2 weeks before):
+
 - [ ] Announce migration timeline
 - [ ] Share new GitHub org URLs
 - [ ] Provide GitHub onboarding docs
 - [ ] Schedule training sessions
 
 **Cutover Day**:
+
 - [ ] "Bitbucket is now read-only"
 - [ ] Step-by-step: update remotes
 - [ ] Slack/Teams support channel
@@ -873,15 +888,18 @@ git pull
 ### Learn More
 
 **GitHub Official**:
+
 - [GitHub Enterprise Importer Documentation](https://docs.github.com/en/migrations/using-github-enterprise-importer)
 - [Migrating from Bitbucket Cloud](https://docs.github.com/en/migrations/using-github-enterprise-importer/migrating-from-bitbucket-server-to-github-enterprise-cloud)
 - [GEI CLI Reference](https://github.com/github/gh-gei)
 
 **Planning & Strategy**:
+
 - [Migration Best Practices](https://docs.github.com/en/migrations/overview/planning-your-migration-to-github)
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)
 
 **Support**:
+
 - [GitHub Enterprise Support](https://support.github.com)
 - [GitHub Community Discussions](https://github.com/orgs/community/discussions)
 
@@ -914,6 +932,7 @@ git pull
 # Thank You
 
 **Next Steps**:
+
 1. Complete your repository inventory
 2. Schedule pilot migration
 3. Reach out if you hit blockers
@@ -990,6 +1009,7 @@ $env:GH_SOURCE_PAT = "ghp_source_pat"  # If migrating from GitHub
 ## Bitbucket App Password Scopes
 
 Required scopes for migration:
+
 - `repository:read` — Read repository contents
 - `pullrequest:read` — Read pull request data
 - `account:read` — Read user information (for mapping)

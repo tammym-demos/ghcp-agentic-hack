@@ -1,0 +1,21 @@
+{
+  "MD001": false,
+  "MD013": false,
+  "MD024": false,
+  "MD028": false,
+  "MD025": false,
+  "MD029": false,
+  "MD033": {
+    "allowed_elements": [
+      "details",
+      "summary",
+      "h2",
+      "h3",
+      "img",
+      "br"
+    ]
+  },
+  "MD036": false,
+  "MD040": false,
+  "MD060": false
+}

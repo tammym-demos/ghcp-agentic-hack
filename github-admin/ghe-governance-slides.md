@@ -16,6 +16,7 @@
 ## Slide 1: Title
 
 # GitHub Enterprise
+
 ## Administration & Governance Workshop
 
 *Securing, Scaling, and Governing Your Enterprise Development Platform*
@@ -75,6 +76,7 @@
 ### Why Does This Matter?
 
 Without governance:
+
 - 🔓 Inconsistent security controls across teams
 - 💸 Wasted licenses and untracked spending
 - 📋 Compliance gaps that surface during audits
@@ -82,6 +84,7 @@ Without governance:
 - 🕳️ Shadow IT when developers work around restrictions
 
 With governance:
+
 - ✅ Consistent security posture everywhere
 - ✅ Cost visibility and optimization
 - ✅ Audit-ready compliance evidence
@@ -128,6 +131,7 @@ With governance:
 ## Slide 6: Section Divider — Architecture
 
 # Enterprise Architecture
+
 ## Understanding the Foundation
 
 ---
@@ -203,6 +207,7 @@ With governance:
 ```
 
 **Key implications**:
+
 - 🔒 Users cannot bypass enterprise policies
 - 🔒 No personal forks of enterprise code
 - 🔒 Offboarding is automatic via IdP deprovisioning
@@ -242,6 +247,7 @@ The enterprise portal has **top-level tabs** across the top of the page:
 ## Slide 11: Section Divider — Identity
 
 # Identity & Authentication
+
 ## Who Gets In and How
 
 ---
@@ -295,6 +301,7 @@ The enterprise portal has **top-level tabs** across the top of the page:
 ```
 
 **For EMU with partner IdPs** (Entra ID, Okta):
+
 - SCIM is configured **entirely in the IdP application**
 - Install the "GitHub Enterprise Managed User" app on your IdP
 - No SCIM configuration needed in the GitHub UI
@@ -314,6 +321,7 @@ The enterprise portal has **top-level tabs** across the top of the page:
 - Eliminates manual team membership management
 
 **Where to configure**:
+
 - **View synced groups**: Enterprise → Identity provider → **Groups**
 - **Map team to IdP group**: Organization → Teams → Team → Settings → **Identity Provider Group**
 
@@ -416,6 +424,7 @@ The enterprise portal has **top-level tabs** across the top of the page:
 ## Slide 19: Section Divider — Structure
 
 # Enterprise & Org Structure
+
 ## Designing for Scale and Governance
 
 ---
@@ -515,6 +524,7 @@ The enterprise portal has **top-level tabs** across the top of the page:
 **Custom roles** let you pick specific permissions:
 
 Example: **"Security Auditor"**
+
 - ✓ View secret scanning alerts
 - ✓ View code scanning alerts
 - ✓ View Dependabot alerts
@@ -551,6 +561,7 @@ Example: **"Security Auditor"**
 ## Slide 25: Section Divider — Repos
 
 # Repository Governance
+
 ## Scaling Standards Across Thousands of Repos
 
 ---
@@ -761,6 +772,7 @@ openapi.yaml              @org/api-team
 ## Slide 35: Section Divider — Security
 
 # GitHub Advanced Security
+
 ## Finding and Fixing Vulnerabilities
 
 ---
@@ -966,6 +978,7 @@ updates:
 ## Slide 44: Section Divider — Copilot
 
 # GitHub Copilot Governance
+
 ## AI-Assisted Development at Enterprise Scale
 
 ---
@@ -975,9 +988,11 @@ updates:
 ### AI Tools Require Ongoing Governance
 
 Traditional developer tools:
+
 - Install → Configure → Done
 
 AI coding assistants:
+
 - **Data flows** through external services continuously
 - **Code context** is analyzed in real-time
 - **Suggestions** may reflect training data patterns
@@ -1040,6 +1055,7 @@ AI coding assistants:
 **What it does**: Prevents Copilot from reading or suggesting code from specific paths
 
 **Use cases**:
+
 - Proprietary algorithms
 - Security implementations (crypto, auth)
 - Compliance-restricted content
@@ -1075,11 +1091,13 @@ src/crypto/**         → Cryptography implementations
 | **Allowed** | All suggestions shown; developer judgment required | More suggestions, some risk |
 
 **When to block**:
+
 - Regulated industries (finance, healthcare, defense)
 - Code with licensing concerns
 - When legal/compliance requires it
 
 **When to allow**:
+
 - Internal tools and prototypes
 - Open source teams
 - When developer velocity is the priority
@@ -1168,6 +1186,7 @@ Create `.github/copilot-instructions.md` in your org's `.github` repo:
 ## Slide 53: Section Divider — Billing
 
 # Billing & Licensing
+
 ## Managing Costs at Enterprise Scale
 
 ---
@@ -1265,6 +1284,7 @@ Track: Active users vs. assigned seats → Target >80% utilization
 ## Slide 58: Section Divider — Compliance
 
 # Audit & Compliance
+
 ## Evidence, Accountability, Incident Response
 
 ---
@@ -1335,6 +1355,7 @@ action:repo.destroy actor:admin-user created:>2026-01-15
 | Splunk | HTTP Event Collector |
 
 **Why stream?**
+
 - Longer retention than GitHub's default
 - Correlation with other security events
 - Automated alerting on suspicious activity
@@ -1421,6 +1442,7 @@ action:repo.destroy actor:admin-user created:>2026-01-15
 ## Slide 65: Section Divider — Operations
 
 # Operational Best Practices
+
 ## Making Governance Sustainable
 
 ---

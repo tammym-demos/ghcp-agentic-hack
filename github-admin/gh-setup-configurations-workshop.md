@@ -121,6 +121,7 @@ Before diving into each scenario, here's a high-level decision flow for choosing
 We'll explore each of the three base scenarios in depth, then cover the decision framework.
 
 ### Discussion Points
+
 - What tier is your organization currently on (or evaluating)?
 - Have you evaluated EMU vs. standard GHEC? What drove the decision?
 - What is your current identity provider?
@@ -222,6 +223,7 @@ Steps 2–7 are fully automated. This is the core value of EMU: **zero manual us
 ### When to Choose EMU Only
 
 **Choose this pattern when:**
+
 - ✅ You need complete control over developer accounts and identity
 - ✅ Data loss prevention is a top priority — no code leaving the enterprise boundary
 - ✅ Your developers do NOT need to contribute to open source from their work account
@@ -230,6 +232,7 @@ Steps 2–7 are fully automated. This is the core value of EMU: **zero manual us
 - ✅ You are starting fresh or willing to create a new enterprise
 
 **Think twice if:**
+
 - ⚠️ Your developers actively contribute to public open-source projects as part of their job
 - ⚠️ You have an existing GitHub.com presence with community engagement
 - ⚠️ You use GitHub Marketplace apps that don't support EMU
@@ -238,6 +241,7 @@ Steps 2–7 are fully automated. This is the core value of EMU: **zero manual us
 > **Note on external access**: EMU does support a **guest collaborator** role for external users (vendors, contractors, partners). Guest collaborators are provisioned via your IdP like all managed user accounts, but receive a restricted role with limited, repo-scoped access. They cannot see internal repositories unless explicitly added as organization members. This addresses many — but not all — external collaboration scenarios.
 
 ### Discussion Points
+
 - Does your organization require complete account lifecycle control?
 - Do your developers contribute to public open-source projects as part of their work?
 - Are you starting fresh, or would you need to migrate from an existing GitHub Enterprise?
@@ -353,6 +357,7 @@ Inner source — sharing code across teams within the organization — is suppor
 ### When to Choose Multi-Org
 
 **Choose this pattern when:**
+
 - ✅ You have distinct business units or departments that need autonomy
 - ✅ Different groups need different SSO/IdP configurations
 - ✅ You want consolidated billing but decentralized administration
@@ -361,6 +366,7 @@ Inner source — sharing code across teams within the organization — is suppor
 - ✅ You're migrating from multiple existing GitHub orgs or other platforms
 
 **Think twice if:**
+
 - ⚠️ You need absolute control over account lifecycle (consider adding EMU)
 - ⚠️ Your org count grows past 10–15 — administrative overhead increases significantly
 - ⚠️ You need to prevent any code from leaving the enterprise boundary (consider EMU)
@@ -369,6 +375,7 @@ Inner source — sharing code across teams within the organization — is suppor
 > **Note**: EMU and Multi-Org are not mutually exclusive. You can have an EMU enterprise with multiple organizations — getting both lifecycle control AND organizational isolation.
 
 ### Discussion Points
+
 - How many distinct business units or departments do you need to support?
 - Do different teams have different compliance requirements?
 - Have you experienced "org sprawl" in any platform before? How did you manage it?
@@ -502,6 +509,7 @@ Running GHES means running infrastructure. Here's what your team needs to manage
 ### When to Choose Mixed Cloud + On-Prem
 
 **Choose this pattern when:**
+
 - ✅ You need **air-gapped** environments for classified or ultra-sensitive workloads
 - ✅ You have existing on-prem infrastructure investments you can't sunset yet
 - ✅ Different teams have different compliance levels — cloud is fine for some, on-prem required for others
@@ -512,6 +520,7 @@ Running GHES means running infrastructure. Here's what your team needs to manage
 > **Note**: Codespaces is now available on GHE.com in **public preview**. Check the [GHE.com feature overview](https://docs.github.com/en/enterprise-cloud@latest/admin/data-residency/feature-overview-for-github-enterprise-cloud-with-data-residency) for current status and any limitations.
 
 **Think twice if:**
+
 - ⚠️ "On-prem" is driven by perception rather than an actual regulatory requirement
 - ⚠️ You don't have the ops team to manage GHES upgrades, backups, and infrastructure
 - ⚠️ Copilot and Codespaces are critical for your developer experience (not available on GHES)
@@ -521,6 +530,7 @@ Running GHES means running infrastructure. Here's what your team needs to manage
 > **Note**: Challenge the assumption. Many organizations find that GHEC with EMU, IP allow lists, and data residency on GHE.com meets their compliance needs without the operational overhead of GHES. Ensure the on-prem requirement is tied to a specific regulation requiring air-gap — not organizational inertia.
 
 ### Discussion Points
+
 - Do you have genuine air-gap or data residency requirements? Which regulation drives them?
 - Do you have the operational capacity to run GHES (upgrades, backups, infrastructure)?
 - Is Copilot a priority? If so, how do you handle the GHES gap?
@@ -613,6 +623,7 @@ In practice, base patterns are often combined:
 | **Multi-Org + GHES** | GHEC multi-org with GHES for regulated workloads via Connect | Mixed compliance tiers — some code cloud-OK, some must be on-prem |
 
 ### Discussion Points
+
 - Where does your organization fit on the decision flowchart?
 - Which base pattern fits best?
 - What constraints are non-negotiable (regulatory, identity, toolchain)?
@@ -719,6 +730,7 @@ Take these steps back to your organization:
 ### F. Backup Plan
 
 If the presentation tool fails:
+
 1. Share the slide deck as a Markdown file or PDF
 2. Use the workshop document (this file) as a reference for discussion
 3. Focus on the master comparison matrix (Section 5) and the decision flowchart

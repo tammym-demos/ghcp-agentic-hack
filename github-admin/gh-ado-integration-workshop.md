@@ -66,6 +66,7 @@ The "better together" thesis is about using the right tool for the right job:
 | **Artifact Management** | Azure DevOps Artifacts | Existing feeds, upstream sources, universal packages |
 
 ### Discussion Points
+
 - What percentage of your development workflow currently lives in Azure DevOps?
 - Which ADO capabilities are most critical to preserve during a GitHub adoption?
 
@@ -180,6 +181,7 @@ steps:
 > **Note**: Over time, consider migrating ADO Pipelines to GitHub Actions for new projects. This reduces context-switching and takes advantage of Actions' native GitHub integration (status checks, PR triggers, environment protection rules).
 
 ### Discussion Points
+
 - Are your teams currently using AB# linking? If not, what's the barrier?
 - How many ADO pipelines would need to build from GitHub repos during the transition?
 
@@ -217,6 +219,7 @@ steps:
 ### When to Add ADO Integration
 
 **Add ADO integration when:**
+
 - ✅ You have significant ADO Boards investment (custom work items, queries, dashboards)
 - ✅ You want to adopt Copilot and GHAS without disrupting existing workflows
 - ✅ You're doing a gradual migration from ADO Repos to GitHub Repos
@@ -225,12 +228,14 @@ steps:
 - ✅ You're already on Entra ID (makes SSO across both platforms seamless)
 
 **Skip ADO integration if:**
+
 - ⚠️ You're starting fresh — go all-in on GitHub from the start
 - ⚠️ You can replace ADO Boards with GitHub Projects V2 (simpler stack = less overhead)
 - ⚠️ Total cost of running both platforms exceeds the one-time migration cost
 - ⚠️ Developers strongly prefer a single tool — context-switching harms productivity
 
 ### Discussion Points
+
 - How much of your team's workflow lives in ADO Boards today?
 - Could GitHub Projects V2 replace your ADO Boards usage, or is the investment too deep?
 - Do you have ADO Pipelines that would be difficult to migrate to Actions?
@@ -284,6 +289,7 @@ steps:
 ### C. Backup Plan
 
 If the presentation tool fails:
+
 1. Share the slide deck as a Markdown file or PDF
 2. Use this workshop document as a reference for discussion
 3. Focus on the capability matrix (Section 3) and pros/cons table

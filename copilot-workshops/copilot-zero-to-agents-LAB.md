@@ -384,6 +384,7 @@ Think about a repetitive task in your own work. Create a prompt for it. Ideas:
 - **`refactor-suggestions.prompt.md`** — identifies code that could be simplified
 
 Key tips for writing good prompts:
+
 - Be specific about what "done" looks like (success criteria)
 - Tell Copilot what NOT to do (constraints)
 - Reference existing files as patterns to follow
@@ -728,6 +729,7 @@ Test it by asking Copilot: `Create a Warehouses page that shows a list of all wa
 ### Personal Skills
 
 You can also create **personal skills** that apply across all your repos:
+
 - Location: `~/.copilot/skills/*/SKILL.md` (where `~` is your OS home directory — e.g., `C:\Users\<username>` on Windows, `/Users/<username>` on macOS)
 - These are private to your machine — not shared via git
 - Great for personal coding preferences or tools only you use
@@ -1048,14 +1050,19 @@ Apply the suggestions from the review
 If you finish early, try these:
 
 - **Resume a session**: Exit the CLI (`Ctrl+C` or type `exit`), then resume:
+
   ```bash
   copilot --resume
   ```
+
 - **Allow all tools**: Start a session with full autonomy:
+
   ```bash
   copilot --allow-all-tools
   ```
+
 - **Ask the agent to refactor**: Pick a file and ask for improvements:
+
   ```
   @src/api/routes.ts Refactor this file to separate route definitions from handler logic
   ```
@@ -1119,6 +1126,7 @@ npm run build
 ```bash
 npm run test:api
 ```
+
 ```
 
 2. Commit the file:
@@ -1140,6 +1148,7 @@ With this file in place, every Coding Agent session will:
 3. Run `npm run test:api` — runs the API test suite to establish a baseline
 
 This means:
+
 - The Coding Agent starts with a working build (faster iterations)
 - Tests run automatically (the agent can self-verify its changes)
 - If a test fails after the agent's changes, it knows something broke
@@ -1186,17 +1195,17 @@ Together, these files make the Coding Agent smarter, faster, and more reliable.
 
 | Resource | URL |
 |----------|-----|
-| GitHub Copilot Docs | https://docs.github.com/en/copilot |
-| GitHub CLI | https://cli.github.com |
-| Copilot in the CLI | https://docs.github.com/en/copilot/github-copilot-in-the-cli |
-| Custom Instructions | https://docs.github.com/en/copilot/how-tos/configure-custom-instructions |
-| Prompt Files | https://docs.github.com/en/copilot/how-tos/copilot-prompts |
-| Agent Skills | https://docs.github.com/en/copilot/concepts/agents/about-agent-skills |
-| MCP Servers | https://docs.github.com/en/copilot/how-tos/using-extensions/using-mcp-in-copilot |
-| Copilot Coding Agent | https://docs.github.com/en/copilot/using-github-copilot/using-copilot-coding-agent |
-| Copilot Code Review | https://docs.github.com/en/copilot/using-github-copilot/code-review |
-| OctoCAT Supply Repo | https://github.com/microsoft/GitHubCopilot_Customized |
-| Community Skills | https://github.com/github/awesome-copilot |
+| GitHub Copilot Docs | <https://docs.github.com/en/copilot> |
+| GitHub CLI | <https://cli.github.com> |
+| Copilot in the CLI | <https://docs.github.com/en/copilot/github-copilot-in-the-cli> |
+| Custom Instructions | <https://docs.github.com/en/copilot/how-tos/configure-custom-instructions> |
+| Prompt Files | <https://docs.github.com/en/copilot/how-tos/copilot-prompts> |
+| Agent Skills | <https://docs.github.com/en/copilot/concepts/agents/about-agent-skills> |
+| MCP Servers | <https://docs.github.com/en/copilot/how-tos/using-extensions/using-mcp-in-copilot> |
+| Copilot Coding Agent | <https://docs.github.com/en/copilot/using-github-copilot/using-copilot-coding-agent> |
+| Copilot Code Review | <https://docs.github.com/en/copilot/using-github-copilot/code-review> |
+| OctoCAT Supply Repo | <https://github.com/microsoft/GitHubCopilot_Customized> |
+| Community Skills | <https://github.com/github/awesome-copilot> |
 
 ---
 

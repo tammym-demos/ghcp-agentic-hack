@@ -94,9 +94,11 @@ Run through this **the day before** and again **30 minutes before** the workshop
 
 1. **Open Copilot Chat** → Click the mode dropdown → Select **Ask**
 2. **Enter prompt**:
+
    ```
    Please give me details about the API of this project.
    ```
+
 3. **Show the response**: Point out how Copilot references:
    - The Express.js architecture
    - Specific route files (`product.ts`, `supplier.ts`, `branch.ts`)
@@ -104,18 +106,22 @@ Run through this **the day before** and again **30 minutes before** the workshop
    - Entity models and relationships
 4. **Talking point**: "Ask mode read your entire codebase and gave you an architectural overview. It didn't change any files — it's read-only intelligence."
 5. **Follow-up prompt**:
+
    ```
    Are there any core features missing in my project?
    ```
+
 6. **Show response**: Copilot typically identifies missing features like authentication, proper error handling, or input validation
 
 #### Part B: Plan Mode (1.5 min)
 
 1. **Open Copilot Chat** → switch to **Plan** mode from the mode dropdown
 2. **Enter prompt**:
+
    ```
    I want to add input validation to the Product API POST endpoint. What's the best approach?
    ```
+
 3. **Show** Copilot analyzing the codebase and proposing a structured implementation plan
 4. **Point out**: The plan lists which files need to change, what approach to take, step-by-step instructions
 5. **Highlight**: Plan mode does NOT create or modify any files — it only proposes
@@ -125,9 +131,11 @@ Run through this **the day before** and again **30 minutes before** the workshop
 
 1. **Switch** to **Agent** mode
 2. **Enter prompt**:
+
    ```
    Please build and run my project so that I can see its existing state.
    ```
+
 3. **Show Copilot**:
    - Reading `package.json`
    - Running terminal commands (`npm install`, `npm run dev`)
@@ -170,8 +178,10 @@ Build and run the project
 ### Backup Plan
 
 If Copilot is slow/unresponsive:
+
 1. Show the mode picker UI and explain what each does
 2. Reference the comparison table from the slides
+
 ---
 
 ## Demo 2: Custom Instructions (Section 3)
@@ -204,6 +214,7 @@ If Copilot is slow/unresponsive:
 #### Part B: Scoped Instructions (1 min)
 
 1. **Create** `.github/instructions/API.instructions.md`:
+
    ```markdown
    ---
    applyTo: "api/**"
@@ -217,12 +228,14 @@ If Copilot is slow/unresponsive:
    - Follow the entity pattern established in existing routes
    - Include input validation for all POST/PUT endpoints
    ```
+
 2. **Talking point**: "These instructions only activate when you're working in the `api/` directory. Different teams, different rules."
 
 #### Part C: TAO Internal Framework Demo (2.5 min)
 
 1. **Show** `docs/tao.md` briefly — "This is a fictional internal observability framework"
 2. **Add to** `.github/copilot-instructions.md`:
+
    ```markdown
    ## Observability Requirements
    - Implement logging and monitoring using TAO (TypeScript API Observability)
@@ -230,25 +243,32 @@ If Copilot is slow/unresponsive:
    - Assume TAO is installed — never add the package
    - Use @Measure, @Trace, and @Log decorators for all service methods
    ```
+
 3. **Switch to Agent mode**
 4. **Enter prompt**:
+
    ```
    Add observability to the Supplier route using our internal standards
    ```
+
 5. **Show Copilot generating TAO code**:
+
    ```typescript
    import { initTAO, observe } from '@tao/core';
    import { Measure, Trace, Log } from '@tao/core';
    ```
+
 6. **Talking point**: "TAO doesn't exist anywhere on the internet. Copilot has never seen it in training data. But because we told it about TAO in our instructions, it generates perfect TAO code. Imagine this for YOUR company's internal frameworks."
 7. **Acknowledge**: "This code won't compile — that's the point. It shows instructions override training data."
 
 #### Part D: Cleanup — Revert TAO with Copilot (1 min)
 
 1. **Stay in Agent mode** and enter:
+
    ```
    Revert the TAO observability changes you just made to the Supplier route, and remove the "Observability Requirements" section from .github/copilot-instructions.md. The TAO framework is fictional and the code won't compile.
    ```
+
 2. **Show Copilot** removing the TAO imports, decorators, and the instructions block
 3. **Verify** the app compiles (check terminal or `npm run build`)
 4. **Talking point**: "Copilot can undo its own work just as easily. In real projects, this is how you course-correct — tell it what's wrong and let it fix it. Now we're back to a clean codebase for the next section."
@@ -280,10 +300,13 @@ How should I add a new API endpoint to this project?
 ### Backup Plan
 
 If the Gear icon → "Generate Agent Instructions" isn't available:
+
 1. Create `.github/copilot-instructions.md` manually in Agent mode:
+
    ```
    Analyze this repository and create a comprehensive copilot-instructions.md file that describes our tech stack, architecture, coding standards, and build process.
    ```
+
 2. If Agent mode is slow, paste a pre-written template
 
 ---
@@ -337,6 +360,7 @@ If the Gear icon → "Generate Agent Instructions" isn't available:
 ### Hands-On Instructions (12 min)
 
 > "Four exercises:
+>
 > 1. **Explore**: Look at the existing prompts in `.github/prompts/` — read the frontmatter and instructions
 > 2. **Run**: Open `Unit-Test-Coverage.prompt.md` and click the Run button — watch the self-healing loop
 > 3. **Create**: Build your own `.github/prompts/security-review.prompt.md` with:
@@ -345,7 +369,7 @@ If the Gear icon → "Generate Agent Instructions" isn't available:
 >    - Instructions to check for XSS, injection, CORS, and hardcoded credentials
 >    - Run it and see what Copilot finds
 > 4. **Bonus**: Design a prompt for documentation, refactoring, or API design — anything that encodes a repeatable workflow.
-> 
+>
 > You have 12 minutes. Start with exploring, then create your own."
 
 ### Key Points to Emphasize
@@ -358,6 +382,7 @@ If the Gear icon → "Generate Agent Instructions" isn't available:
 ### Backup Plan
 
 If the Unit Test prompt takes too long:
+
 1. Stop it after the first test file is created
 2. Show the generated code quality
 3. Run `npm run test:api` manually in the terminal
@@ -390,9 +415,11 @@ If the Unit Test prompt takes too long:
 3. **Show the mode picker**: Click the mode dropdown in Copilot Chat
 4. **Select** "OctoCATEngineer"
 5. **Enter prompt**:
+
    ```
    Add a GET /api/products/search endpoint that accepts a "name" query parameter and returns matching products
    ```
+
 6. **Show the agent working**:
    - Reading existing route patterns
    - Creating/editing the route file
@@ -402,6 +429,7 @@ If the Unit Test prompt takes too long:
 #### Part B: Create a CodeReviewer Agent Live (1.5 min)
 
 1. **Create** `.github/agents/CodeReviewer.agent.md`:
+
    ```yaml
    ---
    tools: ['codebase', 'search', 'usages', 'problems']
@@ -425,6 +453,7 @@ If the Unit Test prompt takes too long:
    
    Be direct and opinionated. Don't say "consider" — say "change this to..."
    ```
+
 2. **Show** the new agent appearing in the mode picker immediately (no restart needed)
 3. **Point out the contrast** with OctoCATEngineer:
    - "Read-only tools — `codebase`, `search`, `usages`, `problems`. No `editFiles`, no `runCommands`."
@@ -442,21 +471,24 @@ If the Unit Test prompt takes too long:
 3. **Show the progression**: "We went from simple local agent → read-only agent → agent that delegates to the cloud."
 4. **Talking point**: "Agents are personas, not tasks. The OctoCATEngineer is your builder, CodeReviewer is your reviewer, and ImplementationIdeas is your strategist that delegates to the Coding Agent. We'll see the Coding Agent in detail in Section 9."
 5. **(Optional)** Select the agent and show the wishlist prompt briefly:
+
    ```
    Explore adding a wishlist feature where users can save products for later
    ```
+
    If the Coding Agent tip appears (*"You can make Copilot smarter by setting up custom instructions..."*), note: "We'll cover how to configure the Coding Agent environment in Section 9."
 
 ### Hands-On Instructions (10 min)
 
 Tell attendees:
 > "Five exercises:
+>
 > 1. **Use**: Select OctoCATEngineer from the mode picker, give it a task (add a health check endpoint), watch it work
 > 2. **Build**: Create `.github/agents/CodeReviewer.agent.md` with the template from the demo
 > 3. **Test**: Select CodeReviewer in the mode picker and ask it to review a route handler
 > 4. **Explore**: Read the ImplementationIdeas agent file — notice the MCP wildcards, custom model, and delegation to Coding Agent
 > 5. **Create your own**: Build an APIDesigner, TestEngineer, or DocWriter agent (bonus)
-> 
+>
 > Use the frontmatter: `tools`, `description`, `model`. Write 5-10 lines of persona instructions.
 > You have 10 minutes. Start with using OctoCATEngineer — experience what it's like to SELECT an agent before building one. I'll walk around to help."
 
@@ -472,6 +504,7 @@ Tell attendees:
 ### Backup Plan
 
 If the mode picker doesn't show the new agent:
+
 1. Reload the VS Code window (`Cmd/Ctrl + Shift + P` → "Reload Window")
 2. If still missing, show the file content and explain that it would appear after reload
 3. Focus on the OctoCATEngineer and the agent progression concept
@@ -494,10 +527,13 @@ If the mode picker doesn't show the new agent:
 #### Part A: Create a Skill (2.5 min)
 
 1. **Create directory**:
+
    ```bash
    mkdir -p .github/skills/code-review-checklist
    ```
+
 2. **Create** `.github/skills/code-review-checklist/SKILL.md`:
+
    ```yaml
    ---
    name: code-review-checklist
@@ -534,6 +570,7 @@ If the mode picker doesn't show the new agent:
       - Check for DRY violations — duplicated logic to extract
       - Ensure Swagger/OpenAPI annotations are present and accurate
    ```
+
 3. **Explain key fields**:
    - `name`: Lowercase, hyphens for spaces — the skill's identifier
    - `description`: **Critical** — this is how Copilot decides when to load the skill
@@ -543,14 +580,18 @@ If the mode picker doesn't show the new agent:
 
 1. **Open Agent mode** (new chat)
 2. **Enter prompt**:
+
    ```
    Review the product route handler for security and performance issues
    ```
+
 3. **Show** Copilot loading the skill (it should reference the checklist steps)
 4. **Contrast**: Ask something unrelated to show the skill is NOT loaded:
+
    ```
    What entities does this API manage?
    ```
+
 5. **Talking point**: "You didn't invoke the skill. Copilot matched your prompt to the skill's description and loaded it automatically. This is the key difference from prompt files."
 
 #### Part C: Community Skills Reference (1 min)
@@ -587,6 +628,7 @@ mkdir -p .github/skills/api-route-creation
 ### Backup Plan
 
 If auto-selection doesn't visibly work:
+
 1. Explain that skill loading is invisible to the user — it happens in the background
 2. Show a before/after: ask about reviewing code without the skill, then with the skill
 3. Compare the quality and specificity of responses
@@ -621,9 +663,11 @@ If auto-selection doesn't visibly work:
 
 1. **Switch to Agent mode**
 2. **Enter prompt**:
+
    ```
    Browse to http://localhost:5137 and navigate to the Products page. Describe what you see.
    ```
+
 3. **Show**:
    - Playwright MCP launching a browser
    - Copilot navigating to the URL
@@ -631,22 +675,27 @@ If auto-selection doesn't visibly work:
 4. **Talking point**: "Copilot is driving a real browser right now. It's not guessing what the UI looks like — it's looking at it."
 
 5. **Follow-up prompt**:
+
    ```
    Click on the first product and check if the product details are displayed correctly
    ```
+
 6. **Show** Copilot interacting with the page and reporting results
 
 #### Part C: Run BDD-Style Test Scenarios (2 min)
 
 1. **Start a new chat** — click the **+** button in Copilot Chat (clean context makes for a cleaner saved prompt)
 2. **Enter prompt**:
+
    ```
    Run the following BDD test scenarios against http://localhost:5137 using Playwright:
+
    1. Given I navigate to the Products page, Then I should see a list of products with names, images, and prices
    2. When I click on a product, Then I should see the product details
    3. When I click "Add to Cart" on a product, Then I should see a confirmation
    Report pass/fail for each scenario.
    ```
+
 3. **Show Copilot executing each scenario**:
    - Navigating to the Products page and checking product cards
    - Clicking a product and verifying details appear
@@ -662,13 +711,14 @@ If auto-selection doesn't visibly work:
 ### Hands-On Instructions (15 min)
 
 > "Six exercises covering both MCP servers:
+>
 > 1. **Verify** MCP configuration in `.vscode/mcp.json` and check `chat.mcp.discovery.enabled` in VS Code settings
 > 2. **Browse**: Ask Copilot to navigate to `http://localhost:5137` and describe what it sees
 > 3. **Test**: Ask Copilot to verify all products have images and prices displayed
 > 4. **BDD**: Run BDD-style test scenarios against the Products page via Playwright
 > 5. **GitHub MCP**: Use GitHub MCP to list or create issues from Copilot Chat
 > 6. **Bonus**: Combine both — use Playwright to find bugs and GitHub MCP to file issues
-> 
+>
 > You have 15 minutes. Start with Playwright, then try GitHub MCP."
 
 ### Key Points to Emphasize
@@ -681,6 +731,7 @@ If auto-selection doesn't visibly work:
 ### Backup Plan
 
 If Playwright MCP fails to start:
+
 1. Check Node.js version (18+ required)
 2. If blocked, show screenshots of previous Playwright sessions
 3. Explain the concept and move to GitHub MCP demo
@@ -710,9 +761,11 @@ If Playwright MCP fails to start:
 
 1. **Switch to Agent mode** (if not already)
 2. **Enter prompt**:
+
    ```
    Check which issues are assigned to me in this repo
    ```
+
 3. **Show** Copilot calling the GitHub MCP server tools
 4. **Show** the results (issues list, or "no issues assigned")
 5. **Talking point**: "Copilot just queried the GitHub API without you leaving VS Code."
@@ -720,9 +773,11 @@ If Playwright MCP fails to start:
 #### Part C: Create an Issue (2 min)
 
 1. **Enter prompt**:
+
    ```
    Create an Issue for enhancing test coverage in the API project and assign it to me
    ```
+
 2. **Show Copilot**:
    - Crafting a meaningful issue title and description
    - Adding appropriate labels
@@ -740,6 +795,7 @@ If Playwright MCP fails to start:
 ### Backup Plan
 
 If GitHub MCP fails:
+
 1. Check OAuth status — re-authenticate if needed
 2. If blocked, create the issue manually in the browser
 3. Explain the concept and reference the `.vscode/mcp.json` config
@@ -768,19 +824,25 @@ If GitHub MCP fails:
    - **Windows**: Open **Windows Terminal** (`Win+X` → Terminal) or **PowerShell**
    - **macOS**: Open **Terminal.app** (`Cmd+Space` → "Terminal") or **iTerm2**
 2. **Navigate** to the project root:
+
    ```bash
    cd path/to/GitHubCopilot_Customized
    ```
+
 3. **Run**:
+
    ```bash
    copilot
    ```
+
 4. **Show**: The interactive TUI launches — full-screen agentic terminal
 5. **Talking point**: "Notice we left VS Code. This isn't a VS Code extension — it's a standalone terminal agent. It works in Windows Terminal, iTerm2, a remote SSH session, even a CI pipeline. This is the same AI, no editor required. And it isn't the old `gh copilot suggest` anymore — this is a full interactive session where the AI can read your files, run commands, and build multi-step plans."
 4. **Type a simple prompt**:
+
    ```
    What files are in this project and what does it do?
    ```
+
 5. **Show**: Copilot reads the directory, examines key files, and provides a project summary
 6. **Point out**: The tool calls appearing (list_directory, read_file) — each one shows what the agent is doing
 7. **Show the tool approval prompt**: Explain the options — `(Y)es` / `(N)o` / `Yes for this (S)ession` / `Yes (A)lways`
@@ -789,9 +851,11 @@ If GitHub MCP fails:
 #### Part B: Build a Feature with Plan Mode (4 min)
 
 1. **Type a prompt using `@` file reference**:
+
    ```
    @src/api/routes.ts add input validation to the POST /orders endpoint using zod schemas
    ```
+
 2. **Press `Shift+Tab`** to toggle plan mode
 3. **Show**: The plan appears — numbered steps the agent will take
 4. **Talking point**: "Shift+Tab toggles plan mode. Before the agent writes a single line of code, you see exactly what it plans to do. Review it, adjust if needed, then let it execute."
@@ -802,24 +866,30 @@ If GitHub MCP fails:
    - `run_command` → approve (running tests or linting)
 7. **Show**: The completed changes — the agent wrote real validation code
 8. **Run a shell command inline**:
+
    ```
    !git diff
    ```
+
 9. **Show**: The diff of what the agent just changed — without leaving the session
 10. **Talking point**: "The `!` prefix lets you run any shell command inline. Check diffs, run tests, inspect files — all without leaving the Copilot session."
 
 #### Part C: /review and /delegate (3 min)
 
 1. **Type**:
+
    ```
    /review
    ```
+
 2. **Show**: Copilot reviews the changes just made — identifies potential issues, suggests improvements
 3. **Talking point**: "Before you commit, `/review` gives you an AI code review right in the terminal. It catches things you might miss."
 4. **Type**:
+
    ```
    /delegate Create an issue for adding rate limiting to the API endpoints, then implement it
    ```
+
 5. **Show**: Copilot hands the task to Coding Agent — the terminal confirms the handoff
 6. **Talking point**: "This is the bridge to Section 9. `/delegate` takes your prompt and context, sends it to Coding Agent in the cloud, which creates a branch, writes the code, runs tests, and opens a PR. One command — terminal to autonomous cloud agent."
 7. **Open GitHub in browser** → Show the Coding Agent session starting (if time permits)
@@ -827,15 +897,19 @@ If GitHub MCP fails:
 #### Part D: Bonus Quick-Fire Commands (1 min)
 
 1. **Show session resume** (if time permits):
+
    ```bash
    copilot --resume
    ```
+
 2. **Show**: Previous session context is restored
 3. **Type a few slash commands quickly**:
+
    ```
    /context
    /usage
    ```
+
 4. **Talking point**: "There's a whole ecosystem of commands: `/context` to see what files are loaded, `/usage` to check your token consumption, `--resume` to pick up where you left off. Explore these in the hands-on."
 
 ### Hands-On Instructions (15 min)
@@ -849,6 +923,7 @@ copilot
 ```
 
 Then type:
+
 ```
 What does this project do? Summarize the architecture.
 ```
@@ -862,6 +937,7 @@ What does this project do? Summarize the architecture.
 3. Toggle plan mode and build a feature:
 
 Press `Shift+Tab` to enable plan mode, then:
+
 ```
 Add a health check endpoint at GET /api/health that returns { status: "ok", timestamp: ... }
 ```
@@ -901,20 +977,25 @@ Add a health check endpoint at GET /api/health that returns { status: "ok", time
 ### Backup Plan
 
 If `copilot` CLI is not installed:
+
 1. Show `npm install -g @githubnext/github-copilot-cli` or the latest install method from `docs.github.com/copilot/github-copilot-in-the-cli`
 2. If install is blocked by corporate policy, fall back to the legacy CLI:
+
    ```bash
    gh copilot suggest "show the most recent commits with a graph"
    gh copilot explain "git log --oneline --graph --all"
    ```
+
 3. Show the docs page as reference: `docs.github.com/copilot/github-copilot-in-the-cli`
 
 If `copilot` launches but tool calls are blocked:
+
 1. Use `--allow-all-tools` flag to bypass approval prompts
 2. If still blocked, demonstrate in read-only mode (ask questions about the codebase without editing)
 3. Show the TUI and plan mode even if edits can't be executed
 
 If network issues prevent authentication:
+
 1. Show the demo from the slides — the TUI diagram on Slide 33 illustrates the experience
 2. Explain the concept using the Slide 34 `/delegate` diagram
 3. Move on to Section 9 and have attendees install during the break
@@ -936,6 +1017,7 @@ If network issues prevent authentication:
 - Browser open to GitHub repo
 
 > **Timing Note**: Coding Agent takes 5-30 minutes to complete. You have two options:
+>
 > 1. **Pre-assign an issue before the workshop** so the PR is ready by this section
 > 2. **Assign live and show the session starting**, then switch to a pre-prepared PR for the Review demo
 
@@ -947,13 +1029,16 @@ If network issues prevent authentication:
 2. **Navigate** to Issues
 
 **Option 1 — Use existing Issue:**
+
 3. **Find** Issue #1 (test coverage improvement) or a pre-created issue
 4. **Show** the issue content — explain what it asks for
 
 **Option 2 — Create a new Issue live:**
+
 3. **Create new Issue**:
    - Title: `Add input validation to the Product API POST endpoint`
    - Description:
+
      ```
      The POST /api/products endpoint accepts any payload without validation.
      
@@ -986,11 +1071,13 @@ If network issues prevent authentication:
      - "This file tells Coding Agent how to set up the development environment — install dependencies, build the project, run tests."
      - "Think of it as a Dockerfile for AI — without it, Coding Agent has to figure out the build process on its own."
    - Show the example content:
+
      ```markdown
      npm install
      npm run build
      npm run test:api
      ```
+
    - "With setup steps, builds are faster, tests run automatically, and PRs are more reliable."
 
 9. **Show the delegation pattern**:
@@ -1032,6 +1119,7 @@ If network issues prevent authentication:
 ### Backup Plan
 
 If Coding Agent isn't available or takes too long:
+
 1. Show the Actions tab and explain the session concept
 2. Use a pre-prepared PR that was created by Coding Agent earlier
 3. If Code Review isn't available, show screenshots of review comments
@@ -1055,6 +1143,7 @@ If Coding Agent isn't available or takes too long:
 | | | **67 min** | **84 min** | **151 min** |
 
 **Core time budget**:
+
 - Slide presentation: ~82 min
 - Demo + hands-on: ~151 min
 - Wrap-up/Q&A: 10 min

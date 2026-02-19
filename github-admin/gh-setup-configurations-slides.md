@@ -42,6 +42,7 @@
 ## Slide 3: Section Divider — GitHub Platform Overview
 
 # GitHub Platform Overview
+
 ### Understanding the Product Landscape
 
 ---
@@ -125,6 +126,7 @@
 ## Slide 7: Section Divider — GH EMU Only
 
 # Scenario 1: GitHub EMU Only
+
 ### Enterprise Managed Users — Full Cloud, Full Control
 
 > 💡 **EMU and Multi-Org are not mutually exclusive.** EMU controls *identity*; Multi-Org controls *structure*. Most large enterprises combine both — EMU for identity lifecycle + multiple orgs for BU or project separation. The scenarios below are presented separately for clarity, but expect to blend them.
@@ -210,6 +212,7 @@ Steps 2–7 are fully automated. This is the core value of EMU: **zero manual us
 ## Slide 11: EMU — When to Choose This Pattern
 
 **Choose EMU Only when:**
+
 - ✅ You need complete control over developer accounts and identity
 - ✅ Data loss prevention is a top priority — no code leaving the enterprise boundary
 - ✅ Your developers do NOT need to contribute to open source from their work account
@@ -218,6 +221,7 @@ Steps 2–7 are fully automated. This is the core value of EMU: **zero manual us
 - ✅ You are starting fresh or willing to create a new enterprise (no migration from standard GHEC)
 
 **Think twice if:**
+
 - ⚠️ Your developers actively contribute to public open-source projects
 - ⚠️ You have an existing GitHub.com presence with community engagement
 - ⚠️ You use GitHub Marketplace apps that don't support EMU
@@ -236,6 +240,7 @@ Steps 2–7 are fully automated. This is the core value of EMU: **zero manual us
 ## Slide 12: Section Divider — GH Enterprise Multi-Org
 
 # Scenario 2: GitHub Enterprise — Multi-Org
+
 ### One Enterprise, Multiple Organizations
 
 ---
@@ -343,6 +348,7 @@ Steps 2–7 are fully automated. This is the core value of EMU: **zero manual us
 ## Slide 17: Multi-Org — When to Choose This Pattern
 
 **Choose Multi-Org when:**
+
 - ✅ You have distinct business units or departments that need autonomy
 - ✅ Different groups need different SSO/IdP configurations
 - ✅ You want consolidated billing but decentralized administration
@@ -351,6 +357,7 @@ Steps 2–7 are fully automated. This is the core value of EMU: **zero manual us
 - ✅ You're migrating from multiple existing GitHub orgs or other platforms
 
 **Think twice if:**
+
 - ⚠️ You need absolute control over account lifecycle (consider EMU instead)
 - ⚠️ Your org count grows past 10–15 — administrative overhead increases
 - ⚠️ You need to prevent any code from leaving the enterprise boundary
@@ -367,6 +374,7 @@ Steps 2–7 are fully automated. This is the core value of EMU: **zero manual us
 ## Slide 18: Section Divider — Mixed Cloud + On-Prem
 
 # Scenario 3: Mixed GH Enterprise Cloud + On-Prem (GHES)
+
 ### Hybrid Topology with GitHub Connect
 
 ---
@@ -466,6 +474,7 @@ Steps 2–7 are fully automated. This is the core value of EMU: **zero manual us
 ## Slide 22: Mixed — When to Choose This Pattern
 
 **Choose Mixed Cloud + On-Prem when:**
+
 - ✅ You need **air-gapped** environments for classified or ultra-sensitive workloads
 - ✅ You have existing on-prem infrastructure investments you can't sunset yet
 - ✅ Different teams have different compliance levels — cloud is fine for some, on-prem required for others
@@ -476,6 +485,7 @@ Steps 2–7 are fully automated. This is the core value of EMU: **zero manual us
 > **Note**: Codespaces is now available on GHE.com in **public preview**. Check the [GHE.com feature overview](https://docs.github.com/en/enterprise-cloud@latest/admin/data-residency/feature-overview-for-github-enterprise-cloud-with-data-residency) for current status and any limitations.
 
 **Think twice if:**
+
 - ⚠️ "On-prem" is driven by perception rather than actual regulatory requirement
 - ⚠️ You don't have the ops team to manage GHES upgrades, backups, and infrastructure
 - ⚠️ Copilot and Codespaces are critical for your developer experience (not available on GHES)
@@ -505,6 +515,7 @@ Steps 2–7 are fully automated. This is the core value of EMU: **zero manual us
 ## Slide 24: Section Divider — Decision Framework
 
 # Architecture Decision Framework
+
 ### Comparing the Three Base Patterns Side by Side
 
 ---
@@ -638,7 +649,7 @@ Steps 2–7 are fully automated. This is the core value of EMU: **zero manual us
 
 ## Slide 31: Thank You
 
-# Thank You!
+# Thank You
 
 **Questions? Let's keep the conversation going.**
 

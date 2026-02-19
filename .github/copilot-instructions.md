@@ -87,3 +87,38 @@ All diagrams use **Unicode box-drawing characters** inside fenced code blocks (n
 - Do not invent GitHub features — only document what actually exists
 - Every workshop section should end with **Discussion Points**
 - Slide presenter notes provide talk-track guidance, not repeat slide content
+
+## Markdown Formatting Rules
+
+This repo uses **markdownlint** (configured in `.markdownlint.json` at the repo root). All Markdown files must pass with **zero warnings**. Follow these rules when writing or editing content:
+
+### Enforced Rules (must follow)
+
+| Rule | Requirement |
+|------|-------------|
+| **MD031** (blanks-around-fences) | Always add a blank line before and after fenced code blocks |
+| **MD032** (blanks-around-lists) | Always add a blank line before the first item when a list follows a non-list line (e.g., after a paragraph, bold label, or heading) |
+| **MD034** (no-bare-urls) | Never use bare URLs in tables — wrap in angle brackets: `<https://example.com>`. Markdown link syntax `[text](url)` is also acceptable |
+| **MD007** (ul-indent) | Unordered sub-list items must use standard indentation (no extra spaces) |
+
+### Disabled Rules (intentional — do not re-enable)
+
+These rules are disabled in `.markdownlint.json` because they conflict with the workshop document conventions:
+
+| Rule | Why Disabled |
+|------|-------------|
+| **MD013** (line-length) | Tables, talking points, and callouts regularly exceed 80 characters |
+| **MD024** (no-duplicate-heading) | Workshop sections intentionally reuse subsection names (`### Key Points`, `### Steps`, `### Success Criteria`) |
+| **MD029** (ol-prefix) | Numbered lists interrupted by fenced code blocks lose their sequence — markdown renderers handle this correctly |
+| **MD033** (no-inline-html) | Partially disabled — `<details>`, `<summary>`, `<h2>`, `<h3>`, `<img>`, and `<br>` are allowed for collapsible sections and sized images. All other HTML elements are still flagged |
+| **MD036** (no-emphasis-as-heading) | Bold step labels (`**Step 1: Title**`) inside collapsible sections are intentional |
+| **MD040** (fenced-code-language) | Some fenced blocks contain plain-text decision frameworks or Unicode diagrams that have no language tag |
+| **MD060** (table-column-style) | Compact table separator rows (`\|---\|---\|`) are the convention in this repo |
+
+### Common Formatting Mistakes to Avoid
+
+- **Missing blank line before a list**: If a list immediately follows a paragraph, bold label, or other non-list content, insert a blank line before the first `- ` item
+- **Missing blank line around fenced code blocks**: Always have a blank line before the opening ` ``` ` and after the closing ` ``` `
+- **Bare URLs in tables**: Use `<https://...>` or `[text](url)` — never a raw URL in a table cell
+- **Nested code blocks in list items without spacing**: When a fenced code block appears inside a list item, add a blank line before and after it
+- **Only use allowed HTML elements**: Only `<details>`, `<summary>`, `<h2>`, `<h3>`, `<img>`, and `<br>` are permitted — no other raw HTML

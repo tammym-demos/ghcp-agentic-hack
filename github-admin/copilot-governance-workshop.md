@@ -117,6 +117,7 @@ src/crypto/**         → Cryptography implementations
 ```
 
 **Use cases**:
+
 - Proprietary algorithms
 - Security-sensitive code
 - Compliance-restricted content
@@ -189,6 +190,7 @@ This section covers how GitHub Copilot protects enterprise data end-to-end — f
 ```
 
 **Key guarantees for Business & Enterprise**:
+
 - Prompts and suggestions are **encrypted in transit** (TLS 1.2+) and **encrypted at rest**
 - Prompts and suggestions are **NOT retained** beyond the request lifecycle (no persistent storage)
 - Enterprise code is **NOT used to train** GitHub Copilot models or any successor models
@@ -246,6 +248,7 @@ The [GitHub Copilot Trust Center](https://copilot.github.trust.page/) is the pri
 | TISAX | Automotive industry information security |
 
 **Available Audit Artifacts** (downloadable from Trust Center):
+
 - SOC 1 and SOC 2 Type II reports (full audit reports)
 - SOC 2 bridge letters (covering periods between audits)
 - SOC 3 public report
@@ -378,6 +381,7 @@ Create org-wide coding standards with `.github/copilot-instructions.md`:
 **Location**: Enterprise/Org Settings → Copilot → Usage
 
 Metrics available:
+
 - **Active users**: Daily/weekly/monthly unique users
 - **Acceptance rate**: % of suggestions accepted
 - **Language breakdown**: Usage by programming language
@@ -386,6 +390,7 @@ Metrics available:
 ### ROI Tracking
 
 Consider tracking:
+
 - Time saved per developer (survey-based)
 - Code review cycle time changes
 - Onboarding time for new team members
@@ -394,11 +399,13 @@ Consider tracking:
 ### Compliance & Audit Readiness
 
 **Certifications**:
+
 - SOC 2 Type II
 - GDPR compliant
 - ISO 27001
 
 **Audit preparation**:
+
 - Export usage reports
 - Document policy configurations
 - Maintain change log for policy updates
@@ -448,6 +455,7 @@ Phase 3: Enterprise-Wide
 ### Internal Communication Templates
 
 **Security FAQ for Developers**:
+
 - "Is my code being used to train AI models?" → No (Enterprise guarantee)
 - "Can Copilot access our private repos?" → Only repos you have access to
 - "What happens to my prompts?" → Processed, not retained for training
@@ -512,15 +520,18 @@ Phase 3: Enterprise-Wide
 **Objective**: Show how Copilot access is managed at enterprise and org levels
 
 #### Setup Before Demo
+
 - Ensure you have at least 2 organizations in your enterprise
 - Have a test user account ready that you can toggle access for
 
 #### Step-by-Step Script
 
 1. **Navigate to Enterprise Copilot Settings**
+
    ```
    URL: https://github.com/enterprises/[YOUR-ENTERPRISE]/settings/copilot/policies
    ```
+
    - Click your profile avatar (top-right) → "Your enterprises"
    - Select your enterprise
    - Click the **AI controls** tab at the top of the page → **Copilot** in the sidebar
@@ -533,9 +544,11 @@ Phase 3: Enterprise-Wide
    - **Talking point**: "This is your master switch. In regulated environments, you might start with 'Disabled' and explicitly enable per-org."
 
 3. **Navigate to Access Management**
+
    ```
    URL: https://github.com/enterprises/[YOUR-ENTERPRISE]/settings/copilot/seat_management
    ```
+
    - AI controls tab → Copilot → **Seat management**
 
 4. **Show Seat Assignment Options**
@@ -545,9 +558,11 @@ Phase 3: Enterprise-Wide
    - If using "Selected members", show how to search and add users
 
 5. **Show Organization-Level Inheritance**
+
    ```
    URL: https://github.com/orgs/[YOUR-ORG]/settings/copilot/policies
    ```
+
    - Navigate to one of your organizations
    - Settings → Copilot → Policies
    - **Talking point**: "Notice how org settings show 'Enforced by enterprise' for policies set at the enterprise level. Orgs can only configure what the enterprise delegates."
@@ -557,6 +572,7 @@ Phase 3: Enterprise-Wide
    - Show how changes appear in the usage dashboard
 
 #### Key Points to Emphasize
+
 - EMU provides centralized identity management—users can't bypass enterprise policies
 - Policy inheritance flows down: Enterprise → Org → Repo
 - Seat count directly impacts billing
@@ -568,15 +584,18 @@ Phase 3: Enterprise-Wide
 **Objective**: Configure content exclusions to protect sensitive code
 
 #### Setup Before Demo
+
 - Identify a repository that could serve as a "sensitive" example
 - Consider creating a test repo with folders like `/secrets/` or `/proprietary/`
 
 #### Step-by-Step Script
 
 1. **Navigate to Content Exclusions**
+
    ```
    URL: https://github.com/orgs/[YOUR-ORG]/settings/copilot/content_exclusion
    ```
+
    - Organization Settings → Copilot → Content exclusion
 
 2. **Explain the Interface**
@@ -586,15 +605,18 @@ Phase 3: Enterprise-Wide
    - Click "Add exclusion"
    - Repository: Select a specific repo OR use `*` for all repos
    - Paths: Enter patterns like:
+
      ```
      **/secrets/**
      **/*.env
      **/internal-api/**
      src/proprietary/**
      ```
+
    - Click "Save"
 
 4. **Explain Pattern Syntax**
+
    | Pattern | What it Excludes |
    |---------|------------------|
    | `**/secrets/**` | Any `secrets` folder at any depth |
@@ -613,6 +635,7 @@ Phase 3: Enterprise-Wide
    - **Note**: This requires VS Code setup; can skip if time-constrained
 
 #### Key Points to Emphasize
+
 - Exclusions are additive—you can set them at both org and repo level
 - No developer action required; enforcement is automatic
 - Audit log captures exclusion changes
@@ -626,6 +649,7 @@ Phase 3: Enterprise-Wide
 #### Step-by-Step Script
 
 1. **Navigate to Enterprise AI Controls → Copilot**
+
    ```
    URL: https://github.com/enterprises/[YOUR-ENTERPRISE]/settings/copilot/policies
    ```
@@ -643,9 +667,11 @@ Phase 3: Enterprise-Wide
    - **Talking point**: "When blocked, Copilot runs a real-time check against its index of public code. If a suggestion matches, it's filtered out. This adds ~100ms latency but significantly reduces IP risk."
 
 4. **Show Organization Override (If No Policy Selected)**
+
    ```
    URL: https://github.com/orgs/[YOUR-ORG]/settings/copilot/policies
    ```
+
    - If enterprise is set to "No policy", show how orgs can set their own preference
    - **Talking point**: "Some orgs may want this blocked for compliance, while internal tools teams might allow it for faster development. The hierarchy lets you be flexible."
 
@@ -655,6 +681,7 @@ Phase 3: Enterprise-Wide
    - **Recommendation**: Start with "Blocked" for regulated industries; "Allowed" for internal tools/prototypes
 
 #### Key Points to Emphasize
+
 - This is not 100% foolproof—it catches exact and near matches, not all derivative code
 - Developers should still review suggestions for licensing concerns
 - Legal/compliance teams often require this as a baseline control
@@ -666,23 +693,28 @@ Phase 3: Enterprise-Wide
 **Objective**: Show how to navigate the Copilot Trust Center for security reviews and vendor assessments
 
 #### Setup Before Demo
+
 - Open [https://copilot.github.trust.page/](https://copilot.github.trust.page/) in a browser tab
 - Ensure you can access the Resources page (some reports require NDA/access request)
 
 #### Step-by-Step Script
 
 1. **Open the Trust Center Overview**
+
    ```
    URL: https://copilot.github.trust.page/
    ```
+
    - Show the main sections: Overview, Resources, FAQ, Updates, Media
    - Point out the compliance certification badges (SOC 1, SOC 2, SOC 3, ISO 27001, CSA STAR, TISAX)
    - **Talking point**: "This is your one-stop shop for security review materials. Powered by Vanta, it provides everything your security team needs for vendor assessments."
 
 2. **Navigate to Resources**
+
    ```
    URL: https://copilot.github.trust.page/resources
    ```
+
    - Show the downloadable reports:
      - SOC 1 Type 2 Report
      - SOC 2 Type 2 Report
@@ -692,9 +724,11 @@ Phase 3: Enterprise-Wide
    - **Talking point**: "SOC 2 Type II is usually what your auditors want. Bridge letters cover gaps between audit periods so you always have current attestation."
 
 3. **Tour the FAQ Sections**
+
    ```
    URL: https://copilot.github.trust.page/faq
    ```
+
    - Expand 2-3 questions from the **Security** section:
      - "How is Copilot data encrypted and protected during transit?"
      - "What third party testing and certifications does GitHub Copilot have?"
@@ -704,13 +738,16 @@ Phase 3: Enterprise-Wide
    - **Talking point**: "These FAQ answers map directly to common security questionnaire items. You can reference these when filling out vendor assessments."
 
 4. **Show the Updates Feed**
+
    ```
    URL: https://copilot.github.trust.page/updates
    ```
+
    - Show recent updates
    - **Talking point**: "The updates feed demonstrates ongoing transparency. Subscribe to get notified of compliance changes — useful for continuous monitoring requirements."
 
 #### Key Points to Emphasize
+
 - The Trust Center is the authoritative source for Copilot security and compliance information
 - SOC reports are available for download (some may require access request via NDA)
 - FAQ sections cover the most common vendor assessment questions across Security, Privacy, IP/Open Source, and Commercial categories
@@ -725,6 +762,7 @@ Phase 3: Enterprise-Wide
 #### Step-by-Step Script
 
 1. **Navigate to Enterprise AI Controls → Copilot**
+
    ```
    URL: https://github.com/enterprises/[YOUR-ENTERPRISE]/settings/copilot/policies
    ```
@@ -743,16 +781,20 @@ Phase 3: Enterprise-Wide
    - Show the visual indicator when a policy is enforced
 
 4. **Navigate to Knowledge Bases (Enterprise Feature)**
+
    ```
    URL: https://github.com/enterprises/[YOUR-ENTERPRISE]/settings/copilot/knowledge_bases
    ```
+
    - **Talking point**: "Knowledge bases let Copilot Chat reference your internal documentation. You can connect repos containing docs, wikis, or code examples."
    - Show how to create a knowledge base (or show existing one)
 
 5. **Show Organization-Level View**
+
    ```
    URL: https://github.com/orgs/[YOUR-ORG]/settings/copilot/policies
    ```
+
    - Point out which settings show "Enforced by enterprise policy"
    - Show which settings the org can still control
 
@@ -762,6 +804,7 @@ Phase 3: Enterprise-Wide
    - **Talking point**: "Changes take effect immediately. Users may need to restart their IDE to pick up new permissions."
 
 #### Key Points to Emphasize
+
 - EMU + enterprise policies = centralized control
 - Start restrictive, then loosen based on feedback
 - Document your policy decisions for audit purposes
@@ -775,9 +818,11 @@ Phase 3: Enterprise-Wide
 #### Step-by-Step Script
 
 1. **Navigate to Usage Dashboard**
+
    ```
    URL: https://github.com/enterprises/[YOUR-ENTERPRISE]/settings/copilot/usage
    ```
+
    - Enterprise → AI controls tab → Copilot → Usage
 
 2. **Tour the Dashboard Sections**
@@ -803,9 +848,11 @@ Phase 3: Enterprise-Wide
    - **Talking point**: "For compliance and ROI reporting, you can export this data to share with leadership or audit teams."
 
 5. **Organization-Level Drill-Down**
+
    ```
    URL: https://github.com/orgs/[YOUR-ORG]/settings/copilot/usage
    ```
+
    - Show how org admins see only their organization's metrics
    - **Talking point**: "This lets team leads monitor their own adoption without enterprise-wide visibility."
 
@@ -826,6 +873,7 @@ Phase 3: Enterprise-Wide
 #### Step-by-Step Script
 
 1. **Navigate to Enterprise Audit Log**
+
    ```
    URL: https://github.com/enterprises/[YOUR-ENTERPRISE]/settings/audit-log
    ```
@@ -833,6 +881,7 @@ Phase 3: Enterprise-Wide
 2. **Filter for Copilot Events**
    - In the search box, enter: `action:copilot`
    - Or use specific filters:
+
      ```
      action:copilot.policy_update
      action:copilot.seat_assignment
@@ -880,8 +929,9 @@ Run through this before the workshop:
 ### Backup Plan
 
 If live demo fails:
+
 1. Use screenshots captured during prep
-2. Switch to GitHub Docs walkthrough: https://docs.github.com/en/copilot/managing-copilot/managing-github-copilot-in-your-organization
+2. Switch to GitHub Docs walkthrough: <https://docs.github.com/en/copilot/managing-copilot/managing-github-copilot-in-your-organization>
 3. Engage audience with Q&A while troubleshooting
 
 ---

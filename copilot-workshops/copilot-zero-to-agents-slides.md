@@ -16,6 +16,7 @@
 ## Slide 1: Title
 
 # GitHub Copilot
+
 ## Zero to Agents
 
 *From casual usage to fully customized, agentic AI development*
@@ -253,6 +254,7 @@ Copilot will: read config → install deps → build → start → verify.
 ### The Problem
 
 Copilot is trained on the entire internet — but it doesn't know:
+
 - Your internal frameworks
 - Your team's coding standards
 - Your architecture decisions
@@ -778,7 +780,7 @@ List open PRs and summarize their status.
 
 ---
 
-# SECTION [8]: GitHub Copilot CLI — The Agentic Terminal
+# SECTION: GitHub Copilot CLI
 
 ## Slide 32: GitHub Copilot CLI — The Agentic Terminal
 
@@ -860,6 +862,7 @@ List open PRs and summarize their status.
 🖥️ **SWITCH TO STANDALONE TERMINAL** (Windows Terminal / Terminal.app / iTerm2)
 
 **Demo: GitHub Copilot CLI — The Agentic Terminal (12 min)**
+
 1. Open a **standalone terminal** (not VS Code) — minimize the IDE
 2. `cd` to the project root and launch `copilot`
 3. `Shift+Tab` — toggle plan mode, review the plan

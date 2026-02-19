@@ -658,6 +658,7 @@ Think about a repetitive task in your own work. Create a prompt for it. Ideas:
 - **`refactor-suggestions.prompt.md`** — identifies code that could be simplified
 
 Key tips for writing good prompts:
+
 - Be specific about what "done" looks like (success criteria)
 - Tell Copilot what NOT to do (constraints)
 - Reference existing files as patterns to follow
@@ -1055,7 +1056,7 @@ When reviewing TypeScript or Express.js code, follow this checklist:
 Review the product route handler for security and performance issues
 ```
 
-   - Show the skill being loaded (Copilot will reference the checklist steps)
+- Show the skill being loaded (Copilot will reference the checklist steps)
 
 **Talking point**: "You didn't invoke the skill — Copilot chose it because your prompt matched the skill's description. This is the key difference from prompt files."
 
@@ -1064,6 +1065,7 @@ Review the product route handler for security and performance issues
 ### 🖥️ DEMO: Reference External Skill Collections
 
 Show attendees where to find community skills:
+
 - [anthropics/skills](https://github.com/anthropics/skills) — Anthropic's reference skills
 - [github/awesome-copilot](https://github.com/github/awesome-copilot) — community-curated collection
 
@@ -1174,6 +1176,7 @@ Test it by asking Copilot: `Create a Warehouses page that shows a list of all wa
 ### Personal Skills
 
 You can also create **personal skills** that apply across all your repos:
+
 - Location: `~/.copilot/skills/*/SKILL.md` (where `~` is your OS home directory — e.g., `C:\Users\<username>` on Windows, `/Users/<username>` on macOS)
 - These are private to your machine — not shared via git
 - Great for personal coding preferences or tools only you use
@@ -1642,21 +1645,25 @@ Try these commands to explore the CLI's capabilities:
 ```
 /agent
 ```
+
 View available agents (including ones from `.github/agents/`)
 
 ```
 /context
 ```
+
 See your current token usage breakdown
 
 ```
 /usage
 ```
+
 View session statistics
 
 ```
 !git log --oneline -5
 ```
+
 Run a shell command directly (the `!` prefix skips the AI model)
 
 </details>
@@ -1707,11 +1714,13 @@ Run a shell command directly (the `!` prefix skips the AI model)
 ### Part A: Copilot Coding Agent (10 min)
 
 **Concept**:
+
 - Assign any GitHub Issue to Copilot — it creates a branch, implements the solution, and opens a PR
 - Works asynchronously — takes ~5-30 minutes depending on complexity
 - Requires: Branch protection rule on `main` (PR required, at least 1 reviewer)
 
 **Prerequisites**:
+
 - Actions enabled on the repo
 - Branch protection rule on `main` requiring PR reviews
 - Copilot Coding Agent enabled in repo settings
@@ -1765,6 +1774,7 @@ npm run test:api
 #### Why This Matters
 
 Without `copilot-setup-steps.md`, Coding Agent must figure out the build process on its own. With it:
+
 - Builds are faster and more reliable
 - Tests run automatically as part of the implementation loop
 - The agent can verify its changes before opening a PR
@@ -1799,6 +1809,7 @@ Without `copilot-setup-steps.md`, Coding Agent must figure out the build process
 ### Part B: Copilot Code Review / PR Review Agent (10 min)
 
 **Concept**:
+
 - Add Copilot as a reviewer on any PR — it provides AI-powered code review
 - Reviews cover: correctness, security, performance, style, best practices
 - Provides inline comments with severity levels and suggested fixes
@@ -1911,19 +1922,19 @@ You've now built every layer:
 
 | Resource | URL |
 |----------|-----|
-| GitHub Copilot Docs | https://docs.github.com/en/copilot |
-| GitHub CLI | https://cli.github.com |
-| Copilot in the CLI | https://docs.github.com/en/copilot/github-copilot-in-the-cli |
-| Custom Instructions | https://docs.github.com/en/copilot/how-tos/configure-custom-instructions |
-| Prompt Files | https://docs.github.com/en/copilot/how-tos/copilot-prompts |
-| Agent Skills | https://docs.github.com/en/copilot/concepts/agents/about-agent-skills |
-| MCP Servers | https://docs.github.com/en/copilot/how-tos/using-extensions/using-mcp-in-copilot |
-| Copilot Coding Agent | https://docs.github.com/en/copilot/using-github-copilot/using-copilot-coding-agent |
-| Copilot Code Review | https://docs.github.com/en/copilot/using-github-copilot/code-review |
-| Copilot Trust Center | https://resources.github.com/copilot-trust-center/ |
-| Copilot SDK | https://github.com/github/copilot-sdk |
-| OctoCAT Supply Repo | https://github.com/microsoft/GitHubCopilot_Customized |
-| Community Skills | https://github.com/github/awesome-copilot |
+| GitHub Copilot Docs | <https://docs.github.com/en/copilot> |
+| GitHub CLI | <https://cli.github.com> |
+| Copilot in the CLI | <https://docs.github.com/en/copilot/github-copilot-in-the-cli> |
+| Custom Instructions | <https://docs.github.com/en/copilot/how-tos/configure-custom-instructions> |
+| Prompt Files | <https://docs.github.com/en/copilot/how-tos/copilot-prompts> |
+| Agent Skills | <https://docs.github.com/en/copilot/concepts/agents/about-agent-skills> |
+| MCP Servers | <https://docs.github.com/en/copilot/how-tos/using-extensions/using-mcp-in-copilot> |
+| Copilot Coding Agent | <https://docs.github.com/en/copilot/using-github-copilot/using-copilot-coding-agent> |
+| Copilot Code Review | <https://docs.github.com/en/copilot/using-github-copilot/code-review> |
+| Copilot Trust Center | <https://resources.github.com/copilot-trust-center/> |
+| Copilot SDK | <https://github.com/github/copilot-sdk> |
+| OctoCAT Supply Repo | <https://github.com/microsoft/GitHubCopilot_Customized> |
+| Community Skills | <https://github.com/github/awesome-copilot> |
 
 ### Q&A Topics to Prepare For
 

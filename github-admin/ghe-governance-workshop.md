@@ -334,6 +334,7 @@ Repository Ruleset (repo-specific rules)
 ```
 
 **Advantages over branch protection**:
+
 - Apply rules across multiple repos from one place
 - Target by repository properties (metadata-based)
 - Stack multiple rulesets for layered governance
@@ -395,6 +396,7 @@ openapi.yaml            @org/api-team
 | **Public** | Everyone on the internet | Open source projects |
 
 **Inner source best practices**:
+
 - Default to `Internal` for cross-team collaboration
 - Use `CONTRIBUTING.md` for contribution guidelines
 - Set up discovery with topics and repository descriptions
@@ -664,12 +666,14 @@ Create org-wide coding standards for Copilot with `.github/copilot-instructions.
 ### Usage Analytics & ROI
 
 **Metrics available**:
+
 - Active users: Daily/weekly/monthly unique users
 - Acceptance rate: % of suggestions accepted
 - Language breakdown: Usage by programming language
 - Lines of code suggested: Volume metrics
 
 **ROI tracking considerations**:
+
 - Time saved per developer (survey-based)
 - Code review cycle time changes
 - Onboarding time for new team members
@@ -1015,12 +1019,14 @@ Phase 4: Optimization (Ongoing)
 ### Internal Communication Templates
 
 **For Developers**:
+
 - "What data does GitHub process?" → See enterprise data handling policy
 - "Is my code used to train AI?" → No (Enterprise Copilot guarantee)
 - "Why can't I create public repos?" → Enterprise policy for IP protection
 - "How do I request Copilot access?" → Submit request through [internal portal]
 
 **For Managers**:
+
 - "How do we track ROI?" → Usage dashboards + developer surveys
 - "What compliance certifications does GitHub have?" → SOC 2, ISO 27001, GDPR
 - "Can I see my team's usage data?" → Org-level analytics available
@@ -1029,13 +1035,13 @@ Phase 4: Optimization (Ongoing)
 
 | Resource | URL |
 |----------|-----|
-| GitHub Enterprise Docs | https://docs.github.com/en/enterprise-cloud@latest |
-| GitHub Advanced Security Docs | https://docs.github.com/en/code-security |
-| GitHub Copilot Docs | https://docs.github.com/en/copilot |
-| GitHub Trust Center | https://resources.github.com/security/ |
-| GitHub Skills | https://skills.github.com/ |
-| GitHub Changelog | https://github.blog/changelog/ |
-| GitHub Status | https://www.githubstatus.com/ |
+| GitHub Enterprise Docs | <https://docs.github.com/en/enterprise-cloud@latest> |
+| GitHub Advanced Security Docs | <https://docs.github.com/en/code-security> |
+| GitHub Copilot Docs | <https://docs.github.com/en/copilot> |
+| GitHub Trust Center | <https://resources.github.com/security/> |
+| GitHub Skills | <https://skills.github.com/> |
+| GitHub Changelog | <https://github.blog/changelog/> |
+| GitHub Status | <https://www.githubstatus.com/> |
 
 ---
 
@@ -1113,6 +1119,7 @@ Run through this before the workshop:
 ### Backup Plan
 
 If live demos fail:
+
 1. Use screenshots captured during prep
 2. Switch to GitHub Docs walkthrough for the relevant section
 3. Engage audience with Q&A while troubleshooting

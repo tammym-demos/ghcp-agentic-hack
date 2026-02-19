@@ -15,6 +15,7 @@
 ## Slide 1: Title
 
 # GitHub Copilot
+
 ## Admin, Licensing & Governance Workshop
 
 *Operationalizing AI-Assisted Development at Enterprise Scale*
@@ -52,9 +53,11 @@
 ### AI Coding Assistants Are Different
 
 Traditional tools:
+
 - Install → Configure → Done
 
 AI Assistants require ongoing governance:
+
 - **Data flows** through external services
 - **Code context** is analyzed in real-time
 - **Suggestions** may reflect training data patterns
@@ -171,6 +174,7 @@ AI Assistants require ongoing governance:
 | **Request-based** | Cost control | Slower adoption, admin overhead |
 
 ### Recommendation
+
 Start with **org-based** for pilot teams, expand based on usage data
 
 ---
@@ -184,11 +188,13 @@ Start with **org-based** for pilot teams, expand based on usage data
 ### Managing Seat Utilization
 
 **Watch for**:
+
 - Assigned but inactive seats (no usage in 30+ days)
 - Duplicate assignments across orgs
 - Seats for service accounts (not needed)
 
 **Metrics to track**:
+
 - Active users / Total seats = Utilization rate
 - Target: >80% utilization
 
@@ -231,11 +237,13 @@ Start with **org-based** for pilot teams, expand based on usage data
 ```
 
 **What's transmitted**:
+
 - Current file context
 - Open file snippets
 - Prompt/chat messages
 
 **What's NOT used for training**:
+
 - Your code (Enterprise guarantee)
 - Your prompts (Enterprise guarantee)
 
@@ -250,12 +258,14 @@ Start with **org-based** for pilot teams, expand based on usage data
 ### Protecting Sensitive Code
 
 **Use cases**:
+
 - Proprietary algorithms
 - Security implementations
 - Compliance-restricted code
 - Third-party licensed code
 
 **How it works**:
+
 - Define path patterns (glob syntax)
 - Copilot ignores these files completely
 - No suggestions from or about excluded code
@@ -291,6 +301,7 @@ src/crypto/**        → Cryptography implementations
 ### IP Protection Layer
 
 **When enabled (Blocked)**:
+
 - Suggestions checked against public code index
 - Matching suggestions filtered out
 - Adds ~100ms latency
@@ -352,6 +363,7 @@ src/crypto/**        → Cryptography implementations
 ```
 
 **Enterprise Guarantees**:
+
 - **Encrypted** in transit (TLS 1.2+) and at rest
 - **NOT retained** beyond the request lifecycle
 - **NOT used for training** — contractual guarantee
@@ -396,6 +408,7 @@ src/crypto/**        → Cryptography implementations
 | TISAX | Automotive industry security |
 
 **Trust Center**: [copilot.github.trust.page](https://copilot.github.trust.page/)
+
 - Downloadable SOC 1 & 2 Type II audit reports
 - Bridge letters covering inter-audit periods
 - Security, Privacy, IP & Commercial FAQs
@@ -478,11 +491,13 @@ When users select Claude (Anthropic) or Gemini (Google):
 ### When to Enforce vs Delegate
 
 **Enforce at Enterprise** when:
+
 - Security/compliance requirement
 - Consistent experience needed
 - Preventing shadow IT
 
 **Delegate to Orgs** when:
+
 - Teams have different needs
 - Piloting new features
 - Low-risk setting
@@ -498,11 +513,13 @@ When users select Claude (Anthropic) or Gemini (Google):
 ### Enterprise-Only Feature
 
 **What it does**:
+
 - Connect internal repos as reference sources
 - Copilot Chat can search your documentation
 - Grounded answers from your codebase
 
 **Use cases**:
+
 - Internal API documentation
 - Coding standards and patterns
 - Architecture decision records
@@ -578,14 +595,17 @@ Copilot incorporates these into every suggestion
 ### Metrics That Matter
 
 **Adoption**:
+
 - Active users / Assigned seats
 - Daily/weekly/monthly trends
 
 **Effectiveness**:
+
 - Acceptance rate (% suggestions kept)
 - Languages with highest usage
 
 **ROI indicators**:
+
 - Lines of code suggested
 - Time in Copilot Chat
 

@@ -176,6 +176,7 @@
 **ADO Pipelines can build from GitHub repos via service connection.**
 
 Setup:
+
 1. **Project Settings** → **Service Connections** → **New** → **GitHub**
 2. Auth: GitHub App (recommended), OAuth, or PAT
 3. Reference GitHub repo in pipeline YAML
@@ -240,6 +241,7 @@ resources:
 # Decision Criteria
 
 **✅ Add ADO integration when:**
+
 - Significant ADO Boards investment (custom work items, queries, dashboards)
 - Want Copilot + GHAS without disrupting existing workflows
 - Gradual migration from ADO Repos to GitHub
@@ -248,6 +250,7 @@ resources:
 - Already on Entra ID for SSO
 
 **⚠️ Skip ADO integration if:**
+
 - Starting fresh — go all-in on GitHub
 - GitHub Projects V2 can replace ADO Boards
 - Dual platform cost exceeds one-time migration cost
@@ -292,7 +295,7 @@ resources:
 
 ## Slide 14: Thank You
 
-# Thank You!
+# Thank You
 
 **Questions? Let's discuss your specific scenario.**
 
@@ -330,6 +333,7 @@ resources:
 ## Appendix C: Backup Plan
 
 If the presentation tool fails:
+
 1. Share the slide deck as a Markdown file or PDF
 2. Use the companion workshop document as a reference for discussion
 3. Focus on the capability matrix (Slide 9) and pros/cons (Slide 10)

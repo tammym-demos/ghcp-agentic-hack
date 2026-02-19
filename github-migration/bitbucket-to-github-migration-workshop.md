@@ -73,12 +73,14 @@ This session provides engineering teams with a comprehensive guide to migrating 
 ### What Migrates vs. What Doesn't
 
 **Migrates with GEI**:
+
 - ✓ Full git history (all commits, all branches, all tags)
 - ✓ Pull requests (open and closed) with comments
 - ✓ PR review comments and approvals
 - ✓ Commit comments
 
 **Requires Manual Work**:
+
 - ✗ Bitbucket Pipelines → GitHub Actions
 - ✗ Pipeline variables/secrets
 - ✗ Deployment configurations
@@ -268,6 +270,7 @@ code migration-script.ps1
 ```
 
 **What to look for in the script**:
+
 - Repository names that should be excluded
 - Archived repositories
 - Forked repositories
@@ -290,6 +293,7 @@ gh gei wait-for-migration --migration-id <MIGRATION_ID>
 ```
 
 **What Happens During Migration**:
+
 1. GEI authenticates to Bitbucket Cloud API
 2. Exports repository data (git objects, PRs, comments)
 3. Creates new repository in GitHub organization
@@ -322,6 +326,7 @@ foreach ($repo in $repos) {
 ### Handling Large Repositories (>1GB)
 
 **Warning Signs**:
+
 - Migration timeouts
 - Memory errors
 - Extremely long migration times (>1 hour per repo)
@@ -384,6 +389,7 @@ git filter-repo --strip-blobs-bigger-than 100M
 **This is the most security-critical manual step.** Branch permissions do NOT migrate.
 
 **Bitbucket Branch Permissions Model**:
+
 ```yaml
 Branch: main
   - Prevent direct pushes: Yes
@@ -393,6 +399,7 @@ Branch: main
 ```
 
 **GitHub Branch Protection Rules Model**:
+
 ```yaml
 Branch: main
   - Require pull request before merging: Yes
@@ -447,6 +454,7 @@ gh api repos/$Org/$Repo/branches/$Branch/protection `
 **There is no automatic converter.** Plan this as a separate workstream.
 
 **Bitbucket Pipelines** (`bitbucket-pipelines.yml`):
+
 ```yaml
 image: node:18
 
@@ -471,6 +479,7 @@ pipelines:
 ```
 
 **Equivalent GitHub Actions** (`.github/workflows/ci.yml`):
+
 ```yaml
 name: CI/CD
 
@@ -535,6 +544,7 @@ jobs:
 When GEI can't match a Bitbucket user to a GitHub user, it creates a "mannequin"—a placeholder identity.
 
 **What You See**:
+
 ```
 Commit author: mona-ghost-abc123
 PR created by: [Mannequin] john@company.com
@@ -698,18 +708,21 @@ Week +2:  CLOSURE
 ### Developer Communication Plan
 
 **Pre-Migration (2 weeks before)**:
+
 - [ ] Email announcement with timeline
 - [ ] Updated URLs/bookmarks document
 - [ ] GitHub access verification instructions
 - [ ] Training session invites
 
 **Pre-Migration (1 week before)**:
+
 - [ ] Reminder email with checklist
 - [ ] "How to update your remotes" guide
 - [ ] FAQ document published
 - [ ] Support channel created (Slack/Teams)
 
 **Cutover Day**:
+
 - [ ] "Bitbucket is now read-only" announcement
 - [ ] Step-by-step remote update instructions
 - [ ] Office hours schedule
@@ -792,18 +805,21 @@ git pull
 ### Your Action Items
 
 **Immediate (This Week)**:
+
 - [ ] Complete repository inventory (count, sizes, owners)
 - [ ] Identify pilot migration candidates (2-3 low-risk repos)
 - [ ] Document current branch permissions for critical repos
 - [ ] Create user identity mapping spreadsheet
 
 **Short-Term (Next 2 Weeks)**:
+
 - [ ] Set up migration service accounts and tokens
 - [ ] Execute pilot migration
 - [ ] Develop branch protection scripts
 - [ ] Plan CI/CD conversion workstream (separate track)
 
 **Pre-Cutover**:
+
 - [ ] Draft developer communication plan
 - [ ] Create validation checklist customized for your repos
 - [ ] Schedule training sessions
@@ -939,6 +955,7 @@ export BBS_PASSWORD="bitbucket_app_password"
 **Objective**: Show conceptual mapping between platforms side-by-side
 
 #### Setup Before Demo
+
 - Have Bitbucket workspace open in one browser tab
 - Have equivalent GitHub org open in another tab
 - Prepare a repository that exists in both for comparison
@@ -946,16 +963,20 @@ export BBS_PASSWORD="bitbucket_app_password"
 #### Step-by-Step Script
 
 1. **Show Bitbucket Workspace Structure**
+
    ```
    URL: https://bitbucket.org/[WORKSPACE]/workspace/overview
    ```
+
    - Point out: Workspace name, Projects grouping, Repository list
    - **Talking point**: "Workspaces are your top-level container in Bitbucket. Notice how Projects group repositories—GitHub doesn't have this exact concept."
 
 2. **Show GitHub Organization Structure**
+
    ```
    URL: https://github.com/orgs/[ORG]/repositories
    ```
+
    - Point out: Organization name, Teams, Repository list
    - **Talking point**: "In GitHub, Teams provide grouping and permissions. Repository naming conventions can replicate Bitbucket's Project grouping."
 
@@ -970,6 +991,7 @@ export BBS_PASSWORD="bitbucket_app_password"
    - **Talking point**: "CI/CD is a separate migration workstream. The syntax differs significantly."
 
 #### Key Points to Emphasize
+
 - Terminology differs but concepts map
 - Branch permissions are a critical rebuild item
 - Pipelines require manual conversion
@@ -983,9 +1005,11 @@ export BBS_PASSWORD="bitbucket_app_password"
 #### Step-by-Step Script
 
 1. **Navigate to Workspace Settings**
+
    ```
    URL: https://bitbucket.org/[WORKSPACE]/workspace/settings/repository-list
    ```
+
    - Show the complete repository list
    - **Talking point**: "This is your inventory. Note the repository count and pay attention to unusually large repos."
 
@@ -995,23 +1019,29 @@ export BBS_PASSWORD="bitbucket_app_password"
    - **Talking point**: "Repos over 1GB need special attention. Very large repos may timeout during migration."
 
 3. **Review Branch Permissions** (for a sample repo)
+
    ```
    URL: https://bitbucket.org/[WORKSPACE]/[REPO]/admin/branch-permissions
    ```
+
    - Document the current settings
    - **Talking point**: "Screenshot or document these now. You'll recreate them as GitHub branch protection rules."
 
 4. **Check Active Pipelines**
+
    ```
    URL: https://bitbucket.org/[WORKSPACE]/[REPO]/pipelines
    ```
+
    - Show pipeline configuration
    - **Talking point**: "Identify which repos have active pipelines. These are your CI/CD conversion candidates."
 
 5. **User List** (for mapping)
+
    ```
    URL: https://bitbucket.org/[WORKSPACE]/workspace/settings/groups
    ```
+
    - Show user groups and members
    - **Talking point**: "Export this user list. You'll create a mapping file to GitHub usernames."
 
@@ -1022,6 +1052,7 @@ export BBS_PASSWORD="bitbucket_app_password"
 **Objective**: Perform a live repository migration using GEI
 
 #### Setup Before Demo
+
 - Environment variables configured
 - A small test repository ready in Bitbucket
 - Target GitHub org created
@@ -1029,6 +1060,7 @@ export BBS_PASSWORD="bitbucket_app_password"
 #### Step-by-Step Script
 
 1. **Verify Environment**
+
    ```powershell
    # Check GEI installed
    gh gei --version
@@ -1041,6 +1073,7 @@ export BBS_PASSWORD="bitbucket_app_password"
    ```
 
 2. **Generate Migration Script (Dry Run)**
+
    ```powershell
    gh gei generate-script `
        --github-org "demo-target-org" `
@@ -1050,9 +1083,11 @@ export BBS_PASSWORD="bitbucket_app_password"
    # Open and review
    code demo-migration.ps1
    ```
+
    - **Talking point**: "Always generate and review first. This shows exactly what will be migrated."
 
 3. **Execute Single Repo Migration**
+
    ```powershell
    gh gei migrate-repo `
        --github-org "demo-target-org" `
@@ -1061,19 +1096,23 @@ export BBS_PASSWORD="bitbucket_app_password"
        --bitbucket-repo "demo-repo" `
        --verbose
    ```
+
    - Watch the progress output
    - **Talking point**: "The verbose flag shows each step. This is invaluable for troubleshooting."
 
 4. **Verify Migration**
+
    ```
    URL: https://github.com/demo-target-org/demo-repo
    ```
+
    - Show commit history
    - Show branches
    - Show migrated PRs (if any)
    - **Talking point**: "Always verify. Compare commit counts, check that PRs include comments."
 
 5. **Compare Commit Counts**
+
    ```powershell
    # Quick verification
    git clone https://github.com/demo-target-org/demo-repo gh-clone
@@ -1091,6 +1130,7 @@ export BBS_PASSWORD="bitbucket_app_password"
 #### Step-by-Step Script
 
 1. **Show Migration Logs**
+
    ```powershell
    # List recent migrations
    gh gei list-migrations --github-org "demo-target-org"
@@ -1098,6 +1138,7 @@ export BBS_PASSWORD="bitbucket_app_password"
    # Get details of a specific migration
    gh gei get-migration --migration-id <ID>
    ```
+
    - **Talking point**: "If a migration fails, this is where you start. The log shows exactly what went wrong."
 
 2. **Demonstrate Error Patterns**
@@ -1111,6 +1152,7 @@ export BBS_PASSWORD="bitbucket_app_password"
    - **Talking point**: "Mannequins happen when we can't match a Bitbucket user. This is why the mapping file is important."
 
 4. **Mannequin Reclaim API** (explain, don't run live)
+
    ```powershell
    # Example command to reclaim
    gh api orgs/demo-target-org/mannequins/<id>/reattribution `
@@ -1132,15 +1174,18 @@ export BBS_PASSWORD="bitbucket_app_password"
    - **Talking point**: "Visual comparison is quick but not sufficient for sign-off. Use scripts for thorough validation."
 
 2. **Verify a Migrated PR**
+
    ```
    URL: https://github.com/demo-target-org/demo-repo/pulls?q=is:closed
    ```
+
    - Open a closed PR
    - Show comments migrated
    - Show review threads intact
    - **Talking point**: "PR history is often the most valuable metadata. Verify comments survived."
 
 3. **Apply Branch Protection**
+
    ```powershell
    gh api repos/demo-target-org/demo-repo/branches/main/protection `
        --method PUT `
@@ -1148,22 +1193,27 @@ export BBS_PASSWORD="bitbucket_app_password"
        --field enforce_admins=true `
        --field required_pull_request_reviews='{"required_approving_review_count":1}'
    ```
+
    - **Talking point**: "Script this. You don't want to manually configure 100 repos."
 
 4. **Show Branch Protection in UI**
+
    ```
    URL: https://github.com/demo-target-org/demo-repo/settings/branches
    ```
+
    - Show the rule now applied
    - **Talking point**: "Verify in the UI that your API call worked correctly."
 
 5. **Developer Remote Update**
+
    ```bash
    # What developers will run
    git remote set-url origin https://github.com/demo-target-org/demo-repo.git
    git fetch origin
    git pull
    ```
+
    - **Talking point**: "Share these exact commands with your developers. Keep it simple."
 
 ---
@@ -1186,8 +1236,9 @@ Run through this before the workshop:
 ### Backup Plan
 
 If live demo fails:
+
 1. Use pre-recorded terminal session
-2. Switch to GitHub Docs walkthrough: https://docs.github.com/en/migrations
+2. Switch to GitHub Docs walkthrough: <https://docs.github.com/en/migrations>
 3. Show screenshots of successful migrations
 4. Engage audience with Q&A while troubleshooting
 
