@@ -98,7 +98,7 @@ This repo uses **markdownlint** (configured in `.markdownlint.json` at the repo 
 |------|-------------|
 | **MD031** (blanks-around-fences) | Always add a blank line before and after fenced code blocks |
 | **MD032** (blanks-around-lists) | Always add a blank line before the first item when a list follows a non-list line (e.g., after a paragraph, bold label, or heading) |
-| **MD034** (no-bare-urls) | Never use bare URLs in tables — wrap in angle brackets: `<https://example.com>`. Markdown link syntax `[text](url)` is also acceptable |
+| **MD034** (no-bare-urls) | Never use bare URLs in tables — wrap in angle brackets: `<https://example.com>`. Markdown link syntax `[text]\(url)` is also acceptable |
 | **MD007** (ul-indent) | Unordered sub-list items must use standard indentation (no extra spaces) |
 
 ### Disabled Rules (intentional — do not re-enable)
@@ -119,6 +119,6 @@ These rules are disabled in `.markdownlint.json` because they conflict with the 
 
 - **Missing blank line before a list**: If a list immediately follows a paragraph, bold label, or other non-list content, insert a blank line before the first `- ` item
 - **Missing blank line around fenced code blocks**: Always have a blank line before the opening ` ``` ` and after the closing ` ``` `
-- **Bare URLs in tables**: Use `<https://...>` or `[text](url)` — never a raw URL in a table cell
+- **Bare URLs in tables**: Use `<https://...>` or `[text]\(url)` — never a raw URL in a table cell
 - **Nested code blocks in list items without spacing**: When a fenced code block appears inside a list item, add a blank line before and after it
 - **Only use allowed HTML elements**: Only `<details>`, `<summary>`, `<h2>`, `<h3>`, `<img>`, and `<br>` are permitted — no other raw HTML

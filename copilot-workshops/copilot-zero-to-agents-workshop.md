@@ -62,7 +62,6 @@ This workshop follows a deliberate progression:
 
 <img src="../assets/ghcp-path.png" alt="Diagram" width="900" />
 
-
 Each section builds on the previous one, showing how Copilot can be progressively customized from a general assistant to a specialized, autonomous development partner.
 
 ---
@@ -1172,7 +1171,6 @@ Test it by asking Copilot: `Create a Warehouses page that shows a list of all wa
 
 </details>
 
-
 ### Personal Skills
 
 You can also create **personal skills** that apply across all your repos:
@@ -1698,18 +1696,7 @@ Run a shell command directly (the `!` prefix skips the AI model)
 
 ### The Autonomous Development Loop
 
-```
-┌──────────────┐     ┌────────────────┐     ┌──────────────┐     ┌──────────────┐
-│  Create Issue │────►│ Coding Agent   │────►│  PR Created  │────►│ Copilot      │
-│  (or assign   │     │ writes code    │     │  (autonomous)│     │ Code Review  │
-│   to Copilot) │     │ autonomously   │     │              │     │              │
-└──────────────┘     └────────────────┘     └──────────────┘     └──────┬───────┘
-                                                                        │
-                                                              ┌────────▼───────┐
-                                                              │ Human reviews  │
-                                                              │ & merges       │
-                                                              └────────────────┘
-```
+<img src="../assets/autonomous-dev-loop.png" alt="Diagram" width="900" />
 
 ### Part A: Copilot Coding Agent (10 min)
 
