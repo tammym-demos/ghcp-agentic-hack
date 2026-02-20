@@ -79,8 +79,10 @@ for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d =>
     <div class="workshop-grid">
       {workshops.map(w => (
         <div class="workshop-card">
-          <div class="card-icon">{w.icon}</div>
-          <h3 class="card-heading">{w.label}</h3>
+          <div class="card-title">
+            <span class="card-icon">{w.icon}</span>
+            <h3 class="card-heading">{w.label}</h3>
+          </div>
           {w.desc && <p class="card-description">{w.desc}</p>}
           <div class="card-footer">
             {w.hasLab && <a href={`${base}${w.name}/lab.html`} class="badge badge-lab">Lab</a>}
@@ -169,10 +171,16 @@ for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d =>
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(88, 166, 255, 0.1);
     }
 
+    .card-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
     .card-icon {
-      font-size: 28px;
-      margin-bottom: 16px;
+      font-size: 24px;
       line-height: 1;
+      flex-shrink: 0;
     }
     .card-heading {
       font-size: 16px;
