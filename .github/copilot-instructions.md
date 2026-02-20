@@ -14,6 +14,13 @@ workshops/
   github-ado-integration/  # GitHub + Azure DevOps integration workshop
   github-migration/        # Platform migration guides (subfolders: ADO, Atlassian, Bitbucket, Gitlab)
   github-setup/            # GitHub setup configurations workshop
+site/                      # Astro site (landing page, lab pages)
+  astro.config.mjs         # Astro config — base path set to /GH-Hack/
+  pages/index.astro        # Main landing page with workshop cards
+  pages/[workshop]/lab.astro # Dynamic lab page route
+  layouts/Base.astro       # Shared layout (header, dark theme)
+scripts/
+  build-site.mjs           # Full build: Slidev decks → Astro site → copy slides into dist
 themes/                    # Slidev theme (github/)
 EMU-setup.md               # EMU setup reference guide (root level)
 ```
@@ -21,6 +28,30 @@ EMU-setup.md               # EMU setup reference guide (root level)
 All workshops live under `workshops/` in topic-specific subfolders. Each topic has a **paired set**: `*-workshop.md` + `*.slidev.md`. The **workshop is the source of truth**; the Slidev deck must stay aligned with it. The `copilot-workshop` topic also has a `*-demo-scripts.md` and a `*-LAB.md`.
 
 > **Note**: Legacy `*-slides.md` files still exist in some workshop folders. These are **deprecated** — the `*.slidev.md` file replaces them. Do not create new `*-slides.md` files. Remove them once the corresponding Slidev deck is complete.
+
+## Astro Site & Local Preview
+
+The repo includes an **Astro static site** (`site/`) that serves as the landing page on GitHub Pages. The full build is orchestrated by `scripts/build-site.mjs`:
+
+```bash
+node scripts/build-site.mjs
+```
+
+This builds all Slidev decks, then the Astro site, then copies slide outputs into `dist/site/`.
+
+> **Important — Base Path Nuance**: The Astro site is configured with `base: '/GH-Hack/'` (in `site/astro.config.mjs`) because GitHub Pages serves from `https://<user>.github.io/GH-Hack/`. This means **all built asset paths** (CSS, JS, links) are prefixed with `/GH-Hack/`. When previewing locally, you cannot serve `dist/site/` directly — the assets will 404. Instead, create a wrapper directory so the path matches:
+
+```powershell
+# Create a junction so /GH-Hack/ resolves to dist/site/
+New-Item -ItemType Junction -Path dist\local-preview\GH-Hack -Target (Resolve-Path dist\site).Path -Force
+
+# Serve from the wrapper directory
+npx http-server dist/local-preview -p 4201 -c-1 --cors -s
+
+# Then open: http://localhost:4201/GH-Hack/
+```
+
+Do **not** modify the base path to `/` for local testing — it will break the GitHub Pages deployment.
 
 ## Critical Rule: Workshop ↔ Slidev Synchronization
 
