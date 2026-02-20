@@ -16,6 +16,7 @@
   "devDependencies": {
     "@astrojs/markdown-remark": "^6.3.10",
     "astro": "^5.17.3",
+    "github-markdown-css": "^5.9.0",
     "marked": "^17.0.3"
   }
 }

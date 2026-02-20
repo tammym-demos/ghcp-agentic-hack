@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro'
 import { readdirSync, readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { marked } from 'marked'
+import 'github-markdown-css/github-markdown-dark.css'
 
 export function getStaticPaths() {
   const workshopsDir: string = __WORKSHOPS_DIR__
@@ -30,6 +31,12 @@ const { html, title } = Astro.props
 ---
 
 <Base title={title}>
-  <div class="prose" set:html={html}>
-  </div>
+  <article class="markdown-body" set:html={html}>
+  </article>
 </Base>
+
+<style>
+  .markdown-body {
+    background: transparent;
+  }
+</style>
