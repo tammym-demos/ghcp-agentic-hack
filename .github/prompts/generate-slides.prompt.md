@@ -10,7 +10,7 @@ Convert a workshop markdown file into a Slidev `.slidev.md` presentation using t
 
 ## Input
 
-The user will specify a workshop file (e.g., `github-admin/ghe-governance-workshop.md`). Read it fully before generating slides.
+The user will specify a workshop file (e.g., `workshops/ghe-governance/ghe-governance-workshop.md`). Read it fully before generating slides.
 
 ## Steps
 
