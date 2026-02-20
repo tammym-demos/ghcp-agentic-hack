@@ -1,5 +1,5 @@
 ---
-theme: ../themes/github
+theme: ../../themes/github
 title: "GitHub Copilot: Zero to Agents"
 info: |
   Workshop slide deck for GitHub Copilot customization training.

@@ -7,15 +7,22 @@ A **content-only** repository of GitHub workshop/training materials for enterpri
 ## Repository Structure
 
 ```
-copilot-workshops/     # Copilot training (Zero to Agents) — includes demo-scripts.md
-github-admin/          # Enterprise setup, governance, architecture patterns
-github-migration/      # Platform migration guides (Bitbucket → GitHub)
-docs/                  # Reference PDFs/ebooks (currently empty)
+workshops/
+  copilot-workshop/        # Copilot Zero to Agents — workshop, Slidev deck, demo-scripts, LAB
+  copilot-governance/      # Copilot governance workshop
+  ghe-governance/          # GitHub Enterprise governance workshop
+  github-ado-integration/  # GitHub + Azure DevOps integration workshop
+  github-migration/        # Platform migration guides (subfolders: ADO, Atlassian, Bitbucket, Gitlab)
+  github-setup/            # GitHub setup configurations workshop
+themes/                    # Slidev theme (github/)
+EMU-setup.md               # EMU setup reference guide (root level)
 ```
 
-Each topic has a **paired set**: `*-slides.md` + `*-workshop.md`. The **workshop is the source of truth**; slides must stay aligned with it. One topic (`copilot-zero-to-agents`) also has a `*-demo-scripts.md`.
+All workshops live under `workshops/` in topic-specific subfolders. Each topic has a **paired set**: `*-workshop.md` + `*.slidev.md`. The **workshop is the source of truth**; the Slidev deck must stay aligned with it. The `copilot-workshop` topic also has a `*-demo-scripts.md` and a `*-LAB.md`.
 
-## Critical Rule: Slides ↔ Workshop Synchronization
+> **Note**: Legacy `*-slides.md` files still exist in some workshop folders. These are **deprecated** — the `*.slidev.md` file replaces them. Do not create new `*-slides.md` files. Remove them once the corresponding Slidev deck is complete.
+
+## Critical Rule: Workshop ↔ Slidev Synchronization
 
 When editing either file in a pair, **always check the other for consistency**. These must match exactly between both files:
 - Agenda tables (section names, timing, order)
@@ -26,15 +33,21 @@ When editing either file in a pair, **always check the other for consistency**. 
 
 ## Document Structure Conventions
 
-### Slides Files (`*-slides.md`)
-- **Header**: H1 title → `## Slide Deck — Presenter Guide` (or `## Slide Deck with Presenter Notes`) → bold metadata fields (`**Duration**`, `**Format**`, `**Audience**`)
-- **Slides**: `## Slide N: Title` (H2, sequential numbering)
-- **Section dividers**: `# SECTION [N]: Title` (H1) before a section divider slide
-- **Slide separator**: Every slide ends with `---`
-- **Presenter notes**: `> **Presenter Note**: *"Conversational talk-track text."*` — appears after every slide, never in workshop files
-- **Demo transitions**: `🖥️ **SWITCH TO DEMO**` in presenter notes; `# 🖥️ LIVE DEMO` as the demo slide heading
-- **Breaks**: `## Slide N: ☕ Break` with content `# ☕ Break — 10 Minutes`
-- **Appendix**: H1 `# APPENDIX` — includes Demo Timing Guide table, Backup URLs, Pre-Demo Checklist, Backup Plan
+### Slidev Files (`*.slidev.md`)
+- **Frontmatter**: YAML frontmatter with `theme`, `title`, `info`, layout, and transition settings
+- **Theme reference**: `theme: ../../themes/github` (relative path from workshop subfolder to repo root)
+- **Slide separator**: `---` between every slide
+- **Speaker notes**: `<!-- notes -->` HTML comments below slide content (replaces the old `> **Presenter Note**:` pattern)
+- **Section dividers**: Use `layout: section` in slide frontmatter
+- **Demo transitions**: `layout: demo` for live demo slides
+- **Breaks**: Slide with `# ☕ Break — 10 Minutes`
+- **Mermaid diagrams**: Native `mermaid` fenced code blocks (rendered by Slidev)
+- **Markdownlint**: Disabled in Slidev files via `.markdownlintignore` or `<!-- markdownlint-disable -->` at the top
+
+### Legacy Slides Files (`*-slides.md`) — DEPRECATED
+- Still present in some workshop folders; will be removed once Slidev decks replace them
+- Do **not** create new `*-slides.md` files — use `*.slidev.md` instead
+- If both exist for a topic, the `*.slidev.md` is the authoritative presentation file
 
 ### Workshop Files (`*-workshop.md`)
 - **Header**: H1 title (ends with "Workshop" or "Workshop Guide") → bold metadata fields → `## Workshop Overview` → `### Learning Objectives`
@@ -44,7 +57,6 @@ When editing either file in a pair, **always check the other for consistency**. 
 - **Appendix**: H2 `## Appendix` — includes Key URLs table, checklists, Backup Plan
 
 ### Both Files
-- **No YAML frontmatter** — all metadata is inline bold Markdown fields
 - **No GitHub-flavored admonition syntax** (`[!NOTE]`, `[!TIP]`) — use `> **Note**:` pattern instead
 - **Footer**: Every file ends with `*italicized document type description*` (e.g., `*Slide deck for GitHub Enterprise Governance Workshop*`)
 
