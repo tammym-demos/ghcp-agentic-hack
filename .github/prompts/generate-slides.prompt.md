@@ -1,7 +1,7 @@
 ---
-mode: 'agent'
+agent: 'agent'
 description: 'Generate a Slidev presentation from a workshop markdown file using the GitHub dark theme'
-tools: ['codebase', 'editFiles', 'search']
+tools: ['search/codebase', 'edit/editFiles', 'search']
 ---
 
 # Generate Slidev Presentation
