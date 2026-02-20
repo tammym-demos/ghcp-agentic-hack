@@ -191,7 +191,7 @@ class: text-sm
 
 ### Detection → Notification → Remediation
 
-```mermaid {scale: 0.75}
+```mermaid {scale: 0.6}
 graph TD
     A["Repository Code"] --> B["Pattern Matching Engine"]
     B --> C{"Secret Detected?"}
@@ -244,7 +244,7 @@ class: text-xs
 
 ### The Most Impactful GHAS Feature
 
-```mermaid {scale: 0.75}
+```mermaid {scale: 0.6}
 graph TD
     A["Developer pushes code"] --> B["GitHub scans commit diff"]
     B --> C{"Secret detected?"}
@@ -456,19 +456,18 @@ class: text-xs
 name: "CodeQL Analysis"
 on:
   push:
-    branches: [ "main" ]
+    branches: [main]
   pull_request:
-    branches: [ "main" ]
+    branches: [main]
   schedule:
     - cron: '0 6 * * 1'
 jobs:
   analyze:
     runs-on: ubuntu-latest
-    permissions:
-      security-events: write
+    permissions: { security-events: write }
     strategy:
       matrix:
-        language: [ 'javascript', 'python' ]
+        language: [javascript, python]
     steps:
       - uses: actions/checkout@v4
       - uses: github/codeql-action/init@v3
@@ -584,7 +583,7 @@ class: text-sm
 | **Security Updates** | Auto-creates PRs to fix vulnerable dependencies | Minimum-version-bump PR for each alert |
 | **Version Updates** | Keeps dependencies current (not just security) | PRs per schedule defined in `dependabot.yml` |
 
-```mermaid {scale: 0.75}
+```mermaid {scale: 0.65}
 graph LR
     A["Dependency<br/>Graph"] --> B["Dependabot<br/>Alerts"]
     B --> C["Security<br/>Update PRs"]
@@ -610,22 +609,18 @@ class: text-xs
 # .github/dependabot.yml
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-    reviewers:
-      - "org/security-team"
+  - package-ecosystem: npm
+    directory: /
+    schedule: { interval: weekly, day: monday }
+    reviewers: [org/security-team]
     open-pull-requests-limit: 10
     groups:
       dev-dependencies:
-        dependency-type: "development"
-        update-types: ["minor", "patch"]
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
+        dependency-type: development
+        update-types: [minor, patch]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule: { interval: weekly }
 ```
 
 </div>
@@ -708,7 +703,7 @@ class: text-sm
 
 ### AI-Powered Security Remediation
 
-```mermaid {scale: 0.75}
+```mermaid {scale: 0.6}
 graph TD
     A["Code Scanning Alert"] --> B["Copilot Autofix<br/>analyzes vulnerability"]
     B --> C["Generates fix suggestion<br/>with explanation"]
@@ -865,7 +860,7 @@ class: text-sm
 -->
 
 ---
-class: text-sm
+class: text-xs
 ---
 
 # Compliance & Leadership Metrics
