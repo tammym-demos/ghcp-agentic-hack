@@ -27,6 +27,8 @@ Welcome attendees. "Today we're covering the full GitHub Advanced Security platf
 -->
 
 ---
+class: text-sm
+---
 
 # What We'll Cover Today
 
@@ -161,6 +163,8 @@ layout: section
 # Secret Scanning & Push Protection
 
 ---
+class: text-sm
+---
 
 # The #1 Repository Risk
 
@@ -233,7 +237,7 @@ class: text-sm
 -->
 
 ---
-class: text-sm
+class: text-xs
 ---
 
 # Push Protection
@@ -264,7 +268,7 @@ graph TD
 -->
 
 ---
-class: text-sm
+class: text-xs
 ---
 
 # Custom Secret Patterns
@@ -633,7 +637,7 @@ updates:
 -->
 
 ---
-class: text-sm
+class: text-xs
 ---
 
 # Dependency Review Action
@@ -753,7 +757,7 @@ class: text-sm
 -->
 
 ---
-class: text-sm
+class: text-xs
 ---
 
 # Security Campaigns
@@ -807,7 +811,7 @@ layout: section
 # Security Overview & Reporting
 
 ---
-class: text-sm
+class: text-xs
 ---
 
 # Security Overview Dashboard
@@ -917,7 +921,7 @@ class: text-sm
 
 ### Don't Enable Everything Everywhere on Day One
 
-```mermaid {scale: 0.65}
+```mermaid {scale: 0.55}
 graph LR
     A["Phase 1<br/>Foundation<br/><br/>Secret scanning<br/>Push protection<br/>Dependabot alerts<br/>Pilot code scanning"] --> B["Phase 2<br/>Expand<br/><br/>Code scanning all repos<br/>Extended queries<br/>Merge protection<br/>First campaign"]
     B --> C["Phase 3<br/>Optimize<br/><br/>Custom patterns<br/>Custom queries<br/>Dependency review<br/>Copilot Autofix"]
@@ -958,7 +962,7 @@ class: text-xs
 -->
 
 ---
-class: text-sm
+class: text-xs
 ---
 
 # Measuring Success
@@ -1048,10 +1052,10 @@ Thank attendees, remind them about the post-workshop actions, and offer follow-u
 -->
 
 ---
+class: text-xs
+---
 
-# Appendix: Presenter Quick Reference
-
-## Demo Timing Guide
+# Appendix: Demo Timing Guide
 
 | After Slide | Demo | Duration |
 |-------------|------|----------|
@@ -1061,12 +1065,13 @@ Thank attendees, remind them about the post-workshop actions, and offer follow-u
 | 31 | Copilot Autofix & Security Campaigns | 8 min |
 | 35 | Security Overview Dashboard | 7 min |
 
-**Total demo time**: ~45 minutes
-**Total slide/concept time**: ~70 minutes
-**Break**: 10 minutes
-**Buffer/Q&A**: ~10 minutes
+**Totals**: Demos ~45 min · Slides ~70 min · Break 10 min · Buffer/Q&A ~10 min
 
-## Key URLs
+---
+class: text-xs
+---
+
+# Appendix: Key URLs
 
 | Resource | URL |
 |----------|-----|
