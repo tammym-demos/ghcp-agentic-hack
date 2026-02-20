@@ -5,7 +5,7 @@ info: |
   Workshop slide deck for GitHub Copilot customization training.
   From casual usage to fully customized, agentic AI development.
 ghFooterTitle: "Zero to Agents Workshop"
-ghFooterLabel: "GitHub Confidential"
+ghFooterLabel: ""
 drawings:
   persist: false
 mermaid:
