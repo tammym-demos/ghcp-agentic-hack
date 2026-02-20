@@ -37,8 +37,6 @@ Run through this **the day before** and again **30 minutes before** the workshop
 
 ### CLI
 
-- [ ] `gh` CLI installed and on PATH (`gh --version` returns 2.x+)
-- [ ] Authenticated (`gh auth status` shows logged in)
 - [ ] GitHub Copilot CLI installed (`copilot --version` returns a version number)
 - [ ] If not installed: follow [docs.github.com/en/copilot/how-tos/set-up/install-copilot-cli](https://docs.github.com/en/copilot/how-tos/set-up/install-copilot-cli)
 - [ ] `copilot` interactive mode launches from project root (trust the directory when prompted)
@@ -812,7 +810,6 @@ If GitHub MCP fails:
 
 - **Standalone terminal open** (Windows Terminal, PowerShell, Terminal.app, or iTerm2 — **not** the VS Code integrated terminal — to emphasize the CLI is IDE-independent)
 - Standalone `copilot` CLI installed and authenticated (`copilot --version` shows version)
-- `gh` CLI installed and authenticated (`gh auth status` — needed for `/delegate`)
 - Current directory is the project root with real source files to reference
 - A file with a known small issue to fix (e.g., missing input validation in an API route)
 
@@ -961,7 +958,7 @@ Add a health check endpoint at GET /api/health that returns { status: "ok", time
 /context
 ```
 
-> **Bonus**: Try `/delegate` to hand a task to Coding Agent, or start a new session with `copilot --resume` to pick up where you left off.
+> **Bonus**: Try `/delegate` to hand a task to Coding Agent (requires `gh` CLI installed and authenticated), or start a new session with `copilot --resume` to pick up where you left off.
 
 ### Key Points to Emphasize
 
@@ -1167,7 +1164,6 @@ If a demo is completely blocked:
 | Tests timeout | `npm run test:api -- --timeout 30000` |
 | Hot reload not working | Stop + restart `npm run dev`, hard refresh browser |
 | Coding Agent not starting | Check: Actions enabled, branch protection set, Coding Agent enabled in settings |
-| `gh` CLI not found | Install from cli.github.com, then run `gh auth login` |
 | `copilot` CLI not available | Install the standalone GitHub Copilot CLI — see `docs.github.com/copilot/github-copilot-in-the-cli` |
 
 ---

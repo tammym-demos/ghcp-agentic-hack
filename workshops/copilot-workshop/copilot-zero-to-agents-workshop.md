@@ -32,7 +32,6 @@ This session takes developers from casual Copilot usage to full agentic developm
 | **Node.js** | Version 18 or higher |
 | **npm** | Latest version recommended |
 | **Git** | For cloning the demo repository |
-| **GitHub CLI** | `gh` — install from [cli.github.com](https://cli.github.com), then run `gh auth login` |
 | **GitHub Copilot CLI** | Install from [docs.github.com/en/copilot/how-tos/set-up/install-copilot-cli](https://docs.github.com/en/copilot/how-tos/set-up/install-copilot-cli) — required for Section 8 |
 
 ---
@@ -1452,7 +1451,7 @@ Browse to http://localhost:5137 and test all the navigation links. If any pages 
 - It supports the **same customization files** from Sections 3–6: instructions, agents, skills, and MCP servers — everything transfers from VS Code
 - `/delegate` bridges the CLI to the Coding Agent (Section 9) — start work locally, hand it off to the cloud mid-session
 - Session persistence with `--resume`/`--continue` means you can pick up right where you left off
-- The `gh` CLI remains your go-to for project management (`gh issue`, `gh pr`) and works alongside `copilot`
+
 
 ### What the GitHub Copilot CLI Can Do
 
@@ -1625,6 +1624,8 @@ Implement the Supplier search endpoint from the plan above, following the patter
 3. Let Copilot create the files and optionally test them
 
 **Exercise 5 — Delegate to Coding Agent** (Bonus):
+
+> **Note**: `/delegate` requires the `gh` CLI installed and authenticated (`gh auth login`), plus Coding Agent enabled in repo settings.
 
 1. Hand off remaining work to the cloud:
 
@@ -1865,7 +1866,6 @@ You've now built every layer:
 | Resource | URL |
 |----------|-----|
 | GitHub Copilot Docs | <https://docs.github.com/en/copilot> |
-| GitHub CLI | <https://cli.github.com> |
 | Copilot in the CLI | <https://docs.github.com/en/copilot/github-copilot-in-the-cli> |
 | Custom Instructions | <https://docs.github.com/en/copilot/how-tos/configure-custom-instructions> |
 | Prompt Files | <https://docs.github.com/en/copilot/how-tos/copilot-prompts> |
@@ -1961,7 +1961,6 @@ license: 'MIT'                # Optional
 | Agent mode not available | Update VS Code and Copilot extension to latest |
 | Skills not loading | Verify `SKILL.md` filename (case-sensitive), check description matches prompt |
 | Custom instructions ignored | Verify file is in `.github/` root, check for syntax errors |
-| `gh` CLI not found | Install from [cli.github.com](https://cli.github.com), then run `gh auth login` |
 | `copilot` CLI not available | Install the standalone GitHub Copilot CLI — see [docs.github.com/copilot/github-copilot-in-the-cli](https://docs.github.com/en/copilot/github-copilot-in-the-cli) for install instructions |
 
 ---

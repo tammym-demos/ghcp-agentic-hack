@@ -1091,7 +1091,6 @@ Coding Agent reads ALL of your customization files:
 | Resource | URL |
 |----------|-----|
 | GitHub Copilot Docs | docs.github.com/en/copilot |
-| GitHub CLI | cli.github.com |
 | Copilot in the CLI | docs.github.com/en/copilot/github-copilot-in-the-cli |
 | Custom Instructions | docs.github.com/en/copilot/how-tos/configure-custom-instructions |
 | Prompt Files | docs.github.com/en/copilot/how-tos/copilot-prompts |
@@ -1168,7 +1167,6 @@ Coding Agent reads ALL of your customization files:
 Demo Repo: https://github.com/microsoft/GitHubCopilot_Customized
 API Swagger: http://localhost:3000/api-docs
 Frontend: http://localhost:5137
-GitHub CLI: https://cli.github.com
 GitHub Copilot CLI Docs: https://docs.github.com/en/copilot/github-copilot-in-the-cli
 GitHub Copilot Docs: https://docs.github.com/en/copilot
 Agent Skills Docs: https://docs.github.com/en/copilot/concepts/agents/about-agent-skills

@@ -21,7 +21,6 @@ This lab guide contains all the hands-on exercises from the **GitHub Copilot: Ze
 | **Node.js** | Version 18 or higher |
 | **npm** | Latest version recommended |
 | **Git** | For cloning the demo repository |
-| **GitHub CLI** | Install from [cli.github.com](https://cli.github.com) |
 | **GitHub Copilot CLI** | Install from [docs.github.com/en/copilot/how-tos/set-up/install-copilot-cli](https://docs.github.com/en/copilot/how-tos/set-up/install-copilot-cli) |
 
 ---
@@ -1043,7 +1042,7 @@ Apply the suggestions from the review
 2. The CLI confirms the handoff — Coding Agent will create a branch, write the code, and open a PR
 3. Check GitHub in your browser to see the Coding Agent session
 
-> **Note**: `/delegate` requires Coding Agent to be enabled in the repository settings. If it's not available, skip this exercise — you'll see it demonstrated in Section 9.
+> **Note**: `/delegate` requires Coding Agent to be enabled in the repository settings and the `gh` CLI installed and authenticated (`gh auth login`). If either is not available, skip this exercise — you'll see it demonstrated in Section 9.
 
 ### Stretch Goals
 
@@ -1093,7 +1092,6 @@ If you finish early, try these:
 | Agent mode not available | Update VS Code and Copilot extension to latest |
 | Skills not loading | Verify `SKILL.md` filename (case-sensitive), check description matches prompt |
 | Custom instructions ignored | Verify file is in `.github/` root, check for syntax errors |
-| `gh` CLI not found | Install from [cli.github.com](https://cli.github.com), then run `gh auth login` |
 | `copilot` CLI not available | Install the standalone GitHub Copilot CLI — see [docs.github.com/copilot/github-copilot-in-the-cli](https://docs.github.com/en/copilot/github-copilot-in-the-cli) for install instructions |
 
 ---
@@ -1103,7 +1101,6 @@ If you finish early, try these:
 | Resource | URL |
 |----------|-----|
 | GitHub Copilot Docs | <https://docs.github.com/en/copilot> |
-| GitHub CLI | <https://cli.github.com> |
 | Copilot in the CLI | <https://docs.github.com/en/copilot/github-copilot-in-the-cli> |
 | Custom Instructions | <https://docs.github.com/en/copilot/how-tos/configure-custom-instructions> |
 | Prompt Files | <https://docs.github.com/en/copilot/how-tos/copilot-prompts> |

@@ -1214,7 +1214,6 @@ class: text-sm
 | Resource | URL |
 |----------|-----|
 | GitHub Copilot Docs | docs.github.com/en/copilot |
-| GitHub CLI | cli.github.com |
 | Copilot in the CLI | docs.github.com/en/copilot/github-copilot-in-the-cli |
 | Custom Instructions | docs.github.com/en/copilot/how-tos/configure-custom-instructions |
 | Prompt Files | docs.github.com/en/copilot/how-tos/copilot-prompts |
