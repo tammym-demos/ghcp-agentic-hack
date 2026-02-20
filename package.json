@@ -5,9 +5,17 @@
   "scripts": {
     "dev:copilot": "slidev workshops/copilot-workshop/copilot-zero-to-agents.slidev.md",
     "build:copilot": "slidev build workshops/copilot-workshop/copilot-zero-to-agents.slidev.md --out dist/copilot-workshop",
-    "export:copilot": "slidev export workshops/copilot-workshop/copilot-zero-to-agents.slidev.md"
+    "export:copilot": "slidev export workshops/copilot-workshop/copilot-zero-to-agents.slidev.md",
+    "dev:site": "astro dev --root site",
+    "build:site": "astro build --root site",
+    "build:all": "node scripts/build-site.mjs"
   },
   "dependencies": {
     "@slidev/cli": "^52.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/markdown-remark": "^6.3.10",
+    "astro": "^5.17.3",
+    "marked": "^17.0.3"
   }
 }

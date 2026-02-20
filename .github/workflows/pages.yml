@@ -1,0 +1,44 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'workshops/**'
+      - 'site/**'
+      - 'themes/**'
+      - 'scripts/**'
+      - 'package.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: node scripts/build-site.mjs
+        env:
+          BASE_PATH: /gh-workshops/
+
+      - name: Deploy to gh-workshops repo
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.DEPLOY_TOKEN }}
+          external_repository: thomasiverson/gh-workshops
+          publish_branch: gh-pages
+          publish_dir: ./dist/site

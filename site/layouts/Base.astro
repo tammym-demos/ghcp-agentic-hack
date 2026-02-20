@@ -1,0 +1,125 @@
+---
+export interface Props {
+  title: string
+}
+const { title } = Astro.props
+const base = import.meta.env.BASE_URL
+---
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --bg-soft: #161b22;
+      --border: #30363d;
+      --text-1: #e6edf3;
+      --text-2: #8b949e;
+      --brand: #58a6ff;
+      --brand-hover: #79c0ff;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif; }
+    body {
+      background: var(--bg);
+      color: var(--text-1);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    a { color: var(--brand); text-decoration: none; }
+    a:hover { color: var(--brand-hover); }
+
+    .site-header {
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      backdrop-filter: blur(12px);
+      background: rgba(13, 17, 23, 0.85);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .site-header .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-1);
+    }
+    .site-header .logo svg {
+      fill: var(--text-1);
+      width: 32px;
+      height: 32px;
+    }
+    .site-header .logo-sep {
+      width: 1px;
+      height: 24px;
+      background: var(--border);
+    }
+    .site-header h1 {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .site-header nav {
+      margin-left: auto;
+    }
+    .site-header nav a {
+      font-size: 14px;
+      color: var(--text-2);
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .site-header nav a:hover { color: var(--text-1); background: var(--bg-soft); }
+
+    .main-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 24px;
+    }
+
+    /* Markdown prose styles */
+    .prose h1 { font-size: 2em; font-weight: 700; margin: 0 0 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+    .prose h2 { font-size: 1.5em; font-weight: 600; margin: 32px 0 16px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+    .prose h3 { font-size: 1.25em; font-weight: 600; margin: 24px 0 12px; }
+    .prose h4 { font-size: 1em; font-weight: 600; margin: 20px 0 8px; }
+    .prose p { margin: 0 0 16px; }
+    .prose ul, .prose ol { margin: 0 0 16px; padding-left: 2em; }
+    .prose li { margin: 4px 0; }
+    .prose code { background: var(--bg-soft); border: 1px solid var(--border); border-radius: 4px; padding: 2px 6px; font-size: 0.9em; }
+    .prose pre { background: var(--bg-soft); border: 1px solid var(--border); border-radius: 8px; padding: 16px; overflow-x: auto; margin: 0 0 16px; }
+    .prose pre code { background: none; border: none; padding: 0; font-size: 0.875em; }
+    .prose table { width: 100%; border-collapse: collapse; margin: 0 0 16px; }
+    .prose th, .prose td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+    .prose th { background: var(--bg-soft); font-weight: 600; }
+    .prose blockquote { border-left: 3px solid var(--brand); padding: 8px 16px; margin: 0 0 16px; color: var(--text-2); background: var(--bg-soft); border-radius: 0 4px 4px 0; }
+    .prose details { border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; margin: 0 0 16px; background: var(--bg-soft); }
+    .prose details summary { cursor: pointer; font-weight: 600; }
+    .prose details summary h2 { display: inline; border: none; margin: 0; padding: 0; font-size: 1.25em; }
+    .prose img { max-width: 100%; border-radius: 8px; }
+    .prose hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href={base} class="logo">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 01-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 010 8c0-4.42 3.58-8 8-8z"></path></svg>
+      <span class="logo-sep"></span>
+      <h1>Workshops</h1>
+    </a>
+    <nav>
+      <a href={base}>Home</a>
+    </nav>
+  </header>
+  <main class="main-content">
+    <slot />
+  </main>
+</body>
+</html>

@@ -1,0 +1,35 @@
+---
+import Base from '../../layouts/Base.astro'
+import { readdirSync, readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
+import { marked } from 'marked'
+
+export function getStaticPaths() {
+  const workshopsDir: string = __WORKSHOPS_DIR__
+  const paths: { params: { workshop: string }; props: { html: string; title: string } }[] = []
+
+  for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d => d.isDirectory())) {
+    const files = readdirSync(resolve(workshopsDir, dir.name))
+    const labFile = files.find(f => f.endsWith('-LAB.md'))
+    if (!labFile) continue
+
+    const content = readFileSync(resolve(workshopsDir, dir.name, labFile), 'utf-8')
+    const titleMatch = content.match(/^#\s+(.+)/m)
+    const title = titleMatch ? titleMatch[1] : dir.name
+    const html = marked.parse(content) as string
+
+    paths.push({
+      params: { workshop: dir.name },
+      props: { html, title }
+    })
+  }
+  return paths
+}
+
+const { html, title } = Astro.props
+---
+
+<Base title={title}>
+  <div class="prose" set:html={html}>
+  </div>
+</Base>
