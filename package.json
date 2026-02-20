@@ -1,0 +1,18 @@
+{
+  "name": "gh-hack-slides",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev:copilot": "slidev copilot-workshops/copilot-zero-to-agents-slides.slidev.md",
+    "build:copilot": "slidev build copilot-workshops/copilot-zero-to-agents-slides.slidev.md",
+    "export:copilot": "slidev export copilot-workshops/copilot-zero-to-agents-slides.slidev.md",
+    "dev:governance": "slidev github-admin/copilot-governance-slides.slidev.md",
+    "dev:ghe": "slidev github-admin/ghe-governance-slides.slidev.md",
+    "dev:ado": "slidev github-admin/gh-ado-integration-slides.slidev.md",
+    "dev:setup": "slidev github-admin/gh-setup-configurations-slides.slidev.md",
+    "dev:migration": "slidev github-migration/bitbucket-to-github-migration-slides.slidev.md"
+  },
+  "dependencies": {
+    "@slidev/cli": "^52.0.0"
+  }
+}

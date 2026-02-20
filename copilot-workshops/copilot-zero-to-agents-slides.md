@@ -86,7 +86,6 @@
 | Agents | `.github/agents/*.agent.md` | Selected in chat mode picker |
 | Skills | `.github/skills/*/SKILL.md` | Auto-selected by relevance |
 | MCP Servers | `.vscode/mcp.json` | When server is running |
-| Setup Steps | `.github/copilot-setup-steps.md` | Coding Agent sessions |
 
 **Key insight**: Instructions are always-on. Everything else is selective.
 
@@ -939,34 +938,20 @@ List open PRs and summarize their status.
 
 ## Slide 38: Making Coding Agent Smarter
 
-### Configuring the Coding Agent Environment
+### Your Customization Files Work in the Cloud Too
 
-Coding Agent reads your customization files AND a special setup file:
+Coding Agent reads ALL of your customization files:
 
 | File | Purpose | Used By |
 |------|---------|---------|
 | `.github/copilot-instructions.md` | Coding standards, architecture rules | IDE Agent + Coding Agent |
 | `.github/skills/*/SKILL.md` | Specialized procedures (auto-selected) | IDE Agent + Coding Agent |
-| `.github/copilot-setup-steps.md` | **Environment setup commands** | **Coding Agent only** |
 
-### `copilot-setup-steps.md`
-
-Shell commands that Coding Agent runs before coding — like a `Dockerfile` for AI:
-
-```bash
-npm install
-npm run build
-npm run test:api
-```
-
-**Without it**: Coding Agent guesses the build process.
-**With it**: Faster builds, automatic test verification, reliable PRs.
-
-> Remember the Coding Agent tip from Section 5? This is how you act on it.
+**Key insight**: Everything you built today — instructions, skills, agents — Coding Agent uses all of it. Your team's standards apply even when AI codes autonomously.
 
 ---
 
-> **Presenter Note**: "This slide connects back to Section 5. When the ImplementationIdeas agent delegated to Coding Agent, it showed a tip about making Copilot smarter. This is how — `copilot-setup-steps.md` tells Coding Agent how to set up the environment. Think of it as a Dockerfile for AI."
+> **Presenter Note**: "This slide connects back to everything we built today. Instructions, skills, agents — Coding Agent reads all of them. Your team's standards are enforced even when AI is coding autonomously in the cloud."
 
 ---
 
@@ -1055,7 +1040,6 @@ npm run test:api
 | `.github/agents/CodeReviewer.agent.md` | Custom Agents |
 | `.github/skills/*/SKILL.md` | Agent Skills |
 | GitHub Copilot CLI agentic terminal session | §8 — GitHub Copilot CLI |
-| `.github/copilot-setup-steps.md` *(discussed)* | Coding Agent Configuration |
 
 **All of these are portable** — commit them to any repo and your team gets them too.
 

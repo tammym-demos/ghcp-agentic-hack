@@ -1,0 +1,655 @@
+/*
+ * slidev-theme-github-workshop — DARK MODE
+ * Inspired by GitHub Primer Brand (primer.style/brand)
+ *
+ * CONFIGURATION — set these in your presentation frontmatter:
+ *   title:        "My Workshop"              → used in footer
+ *   info:         "Description"              → meta info
+ *   ghFooterLabel: "GitHub Confidential"     → right-side footer text (optional)
+ */
+
+/* ─── GitHub Primer Brand Dark tokens ─── */
+
+:root {
+  /* Foreground */
+  --gh-fg-default: #e6edf3;
+  --gh-fg-muted: #8b949e;
+  --gh-fg-subtle: #6e7681;
+  --gh-fg-on-emphasis: #ffffff;
+
+  /* Background */
+  --gh-bg-default: #0d1117;
+  --gh-bg-subtle: #161b22;
+  --gh-bg-inset: #010409;
+  --gh-bg-overlay: #1c2128;
+
+  /* Borders */
+  --gh-border-default: #30363d;
+  --gh-border-muted: #21262d;
+
+  /* Accent — Brand blue spectrum */
+  --gh-accent-fg: #58a6ff;
+  --gh-accent-emphasis: #1f6feb;
+  --gh-accent-subtle: #0c2d6b;
+
+  /* Semantic */
+  --gh-success-fg: #3fb950;
+  --gh-success-subtle: #0a3d22;
+  --gh-danger-fg: #f85149;
+  --gh-danger-subtle: #490202;
+  --gh-attention-fg: #d29922;
+  --gh-attention-subtle: #3b2300;
+  --gh-done-fg: #a371f7;
+  --gh-done-subtle: #2a1547;
+
+  /* Copilot / purple */
+  --gh-copilot: #a371f7;
+  --gh-copilot-subtle: #2a1547;
+
+  /* Glass surface */
+  --gh-glass-bg: rgba(22, 27, 34, 0.65);
+  --gh-glass-border: rgba(48, 54, 61, 0.6);
+  --gh-glass-glow: rgba(88, 166, 255, 0.06);
+
+  /* Brand gradients */
+  --gh-gradient-brand: linear-gradient(135deg, #58a6ff, #a371f7);
+  --gh-gradient-dark: linear-gradient(170deg, #0d1117 0%, #0f1319 40%, #111820 100%);
+  --gh-gradient-bar: linear-gradient(90deg, #58a6ff, #a371f7, #8b5cf6);
+
+  /* Slidev overrides */
+  --slidev-theme-primary: var(--gh-accent-fg);
+  --slidev-theme-background: var(--gh-bg-default);
+}
+
+
+/* ═══════════════════════════════════════
+   SLIDE ENTRY ANIMATION (Primer Brand style)
+   Staggered fade-in with 100ms increments
+   ═══════════════════════════════════════ */
+
+@keyframes brandFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+.slidev-layout h1 { animation: brandFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0s both; }
+.slidev-layout h2 { animation: brandFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both; }
+.slidev-layout h3 { animation: brandFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both; }
+.slidev-layout p { animation: brandFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both; }
+.slidev-layout ul,
+.slidev-layout ol { animation: brandFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both; }
+.slidev-layout table { animation: brandFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both; }
+.slidev-layout pre { animation: brandFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both; }
+.slidev-layout blockquote { animation: brandFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both; }
+
+
+/* ═══════════════════════════════════════
+   BASE TYPOGRAPHY — Primer Brand style
+   ═══════════════════════════════════════ */
+
+.slidev-layout {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  color: var(--gh-fg-default);
+  background: var(--gh-bg-default);
+  padding: 52px 48px 44px;
+  line-height: 1.4;
+  font-size: 16px;
+}
+
+/* H1 — Brand-style large heading with gradient underline */
+.slidev-layout h1 {
+  color: var(--gh-fg-on-emphasis);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  font-size: 1.65em;
+  line-height: 1.15;
+  border-bottom: 2px solid transparent !important;
+  border-image: linear-gradient(90deg, var(--gh-accent-fg) 0%, var(--gh-done-fg) 60%, transparent 100%) 1;
+  padding-bottom: 0.2em !important;
+  margin-top: 0 !important;
+  margin-bottom: 0.5em !important;
+  display: inline-block;
+}
+
+/* H2 — Section sub-heading */
+.slidev-layout h2 {
+  color: var(--gh-accent-fg);
+  font-weight: 600;
+  font-size: 1.1em;
+  letter-spacing: -0.02em;
+  margin-top: 0 !important;
+  margin-bottom: 0.3em !important;
+}
+
+/* H3 — Eyebrow / label text (Primer Brand style) */
+.slidev-layout h3 {
+  color: var(--gh-fg-muted);
+  font-weight: 500;
+  font-size: 0.78em;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 0.8em !important;
+  margin-bottom: 0.3em !important;
+}
+
+/* First h3 right after h1 shouldn't have extra top space */
+.slidev-layout h1 + h3 {
+  margin-top: 0 !important;
+}
+
+.slidev-layout p {
+  line-height: 1.5;
+  color: var(--gh-fg-default);
+  margin-top: 0 !important;
+  margin-bottom: 0.4em !important;
+}
+
+.slidev-layout em {
+  color: var(--gh-fg-muted);
+  font-style: italic;
+}
+
+.slidev-layout strong {
+  font-weight: 600;
+  color: var(--gh-fg-on-emphasis);
+}
+
+
+/* ═══════════════════════════════════════
+   LISTS — Primer Brand dash style
+   ═══════════════════════════════════════ */
+
+.slidev-layout li {
+  line-height: 1.5;
+  padding-left: 0.2em !important;
+  margin-bottom: 0.2em !important;
+}
+
+.slidev-layout li::marker {
+  color: var(--gh-fg-subtle);
+}
+
+/* Top-level: em-dash markers (Primer Brand convention) */
+.slidev-layout ul > li {
+  list-style-type: '—  ';
+}
+
+.slidev-layout ul > li::marker {
+  color: var(--gh-accent-fg);
+}
+
+/* Nested: dot markers, muted color */
+.slidev-layout ul > li > ul > li {
+  list-style-type: disc;
+}
+
+.slidev-layout ul > li > ul > li::marker {
+  color: var(--gh-fg-subtle);
+  font-size: 0.6em;
+}
+
+/* Ordered list numbers */
+.slidev-layout ol > li::marker {
+  color: var(--gh-accent-fg);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+
+/* ═══════════════════════════════════════
+   LINKS
+   ═══════════════════════════════════════ */
+
+.slidev-layout a {
+  color: var(--gh-accent-fg);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(88, 166, 255, 0.3);
+  transition: border-color 0.2s ease;
+}
+
+.slidev-layout a:hover {
+  border-bottom-color: var(--gh-accent-fg);
+}
+
+
+/* ═══════════════════════════════════════
+   INLINE CODE — Pill badge treatment
+   ═══════════════════════════════════════ */
+
+.slidev-layout :not(pre) > code {
+  background: rgba(88, 166, 255, 0.1) !important;
+  color: #a5d6ff;
+  border: 1px solid rgba(88, 166, 255, 0.2) !important;
+  border-radius: 6px !important;
+  padding: 0.15em 0.45em !important;
+  font-size: 0.84em;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
+  box-shadow: 0 0 8px rgba(88, 166, 255, 0.06);
+}
+
+
+/* ═══════════════════════════════════════
+   CODE BLOCKS — Elevated glass panel
+   ═══════════════════════════════════════ */
+
+.slidev-layout pre {
+  border: 1px solid var(--gh-glass-border) !important;
+  border-radius: 12px !important;
+  font-size: 0.84em;
+  background: var(--gh-glass-bg) !important;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(88, 166, 255, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+  backdrop-filter: blur(12px);
+  position: relative;
+  margin-top: 0 !important;
+  margin-bottom: 0.6em !important;
+}
+
+/* Top accent line on code blocks */
+.slidev-layout pre::before {
+  content: '' !important;
+  position: absolute;
+  top: 0;
+  left: 16px;
+  right: 16px;
+  height: 1px !important;
+  background: linear-gradient(90deg, transparent, rgba(88, 166, 255, 0.3), transparent) !important;
+}
+
+.slidev-code-wrapper {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+
+/* ═══════════════════════════════════════
+   TABLES — Glass card with accent header
+   ═══════════════════════════════════════ */
+
+.slidev-layout table {
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  width: 100% !important;
+  font-size: 0.82em;
+  border: 1px solid var(--gh-glass-border) !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  background: var(--gh-glass-bg) !important;
+  backdrop-filter: blur(12px);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(88, 166, 255, 0.04) !important;
+  position: relative;
+  margin-top: 0 !important;
+  margin-bottom: 0.6em !important;
+}
+
+/* Accent glow on top edge */
+.slidev-layout table::before {
+  content: '' !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px !important;
+  background: var(--gh-gradient-bar) !important;
+  opacity: 0.6;
+  z-index: 1;
+}
+
+.slidev-layout table th {
+  background: rgba(88, 166, 255, 0.08) !important;
+  color: var(--gh-fg-on-emphasis);
+  font-weight: 600;
+  font-size: 0.82em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--gh-border-default) !important;
+  padding: 0.55em 1em !important;
+  text-align: left;
+  position: relative;
+}
+
+/* Subtle separator between header cells */
+.slidev-layout table th + th {
+  border-left: 1px solid rgba(48, 54, 61, 0.4) !important;
+}
+
+.slidev-layout table td {
+  border-bottom: 1px solid rgba(33, 38, 45, 0.6) !important;
+  padding: 0.45em 1em !important;
+  color: var(--gh-fg-default);
+  position: relative;
+}
+
+/* Subtle separator between cells */
+.slidev-layout table td + td {
+  border-left: 1px solid rgba(33, 38, 45, 0.3) !important;
+}
+
+.slidev-layout table tr:last-child td {
+  border-bottom: none !important;
+}
+
+/* Alternating row shading */
+.slidev-layout table tbody tr:nth-child(even) td {
+  background: rgba(88, 166, 255, 0.02) !important;
+}
+
+/* Row hover — blue glow */
+.slidev-layout table tr:hover td {
+  background: rgba(88, 166, 255, 0.06);
+  transition: background 0.2s ease;
+}
+
+/* First column emphasis */
+.slidev-layout table td:first-child {
+  font-weight: 500;
+  color: var(--gh-fg-on-emphasis);
+}
+
+
+/* ═══════════════════════════════════════
+   BLOCKQUOTES — Callout panels
+   ═══════════════════════════════════════ */
+
+.slidev-layout blockquote {
+  border: 1px solid rgba(88, 166, 255, 0.2) !important;
+  border-left: 3px solid var(--gh-accent-fg) !important;
+  background: rgba(88, 166, 255, 0.05) !important;
+  backdrop-filter: blur(8px);
+  padding: 0.5em 1em !important;
+  border-radius: 0 12px 12px 0 !important;
+  color: var(--gh-fg-default);
+  font-size: 0.85em;
+  box-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.2),
+    inset 0 0 20px rgba(88, 166, 255, 0.02) !important;
+  position: relative;
+  margin-top: 0 !important;
+  margin-bottom: 0.6em !important;
+}
+
+/* Accent glow lamp on blockquote left edge */
+.slidev-layout blockquote::before {
+  content: '' !important;
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: -1px;
+  width: 3px !important;
+  background: var(--gh-accent-fg) !important;
+  box-shadow: 0 0 12px rgba(88, 166, 255, 0.4) !important;
+  border-radius: 2px;
+}
+
+.slidev-layout blockquote strong {
+  color: var(--gh-accent-fg);
+}
+
+.slidev-layout blockquote em {
+  color: var(--gh-fg-muted);
+}
+
+
+/* ═══════════════════════════════════════
+   MERMAID — Glass container
+   ═══════════════════════════════════════ */
+
+.mermaid {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  background: var(--gh-glass-bg);
+  border: 1px solid var(--gh-glass-border);
+  border-radius: 12px;
+  padding: 1em;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.mermaid .node rect,
+.mermaid .node polygon {
+  rx: 12;
+  ry: 12;
+}
+
+
+/* ═══════════════════════════════════════
+   SLIDE NUMBER (hidden — custom footer)
+   ═══════════════════════════════════════ */
+
+.slidev-page-number {
+  display: none;
+}
+
+
+/* ═══════════════════════════════════════
+   UTILITY CLASSES
+   ═══════════════════════════════════════ */
+
+/* Dense slides */
+.text-sm { font-size: 14px !important; }
+.text-sm table { font-size: 0.82em; }
+.text-sm table th, .text-sm table td { padding: 0.3em 0.6em !important; }
+.text-sm pre { font-size: 0.78em !important; }
+.text-sm .gh-callout, .text-sm .gh-box,
+.text-sm .gh-box-accent, .text-sm .gh-box-copilot,
+.text-sm .gh-box-success, .text-sm .gh-box-attention { font-size: 0.88em; padding: 0.4em 0.8em !important; }
+
+.text-xs { font-size: 12.5px !important; }
+.text-xs table { font-size: 0.82em; }
+.text-xs table th, .text-xs table td { padding: 0.25em 0.5em !important; }
+.text-xs pre { font-size: 0.78em !important; }
+.text-xs .gh-callout, .text-xs .gh-box,
+.text-xs .gh-box-accent, .text-xs .gh-box-copilot,
+.text-xs .gh-box-success, .text-xs .gh-box-attention { font-size: 0.85em; padding: 0.35em 0.7em !important; }
+
+/* ─── Glass card panels ─── */
+
+.gh-box {
+  background: var(--gh-glass-bg);
+  border: 1px solid var(--gh-glass-border);
+  border-radius: 12px;
+  padding: 0.6em 1em;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+.gh-box-accent {
+  background: rgba(88, 166, 255, 0.06);
+  border: 1px solid rgba(88, 166, 255, 0.25);
+  border-radius: 12px;
+  padding: 0.6em 1em;
+  backdrop-filter: blur(12px);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(88, 166, 255, 0.04);
+  position: relative;
+}
+
+/* Top glow bar on accent box */
+.gh-box-accent::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 12px;
+  right: 12px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gh-accent-fg), transparent);
+  opacity: 0.4;
+}
+
+.gh-box-copilot {
+  background: rgba(163, 113, 247, 0.06);
+  border: 1px solid rgba(163, 113, 247, 0.25);
+  border-radius: 12px;
+  padding: 0.6em 1em;
+  backdrop-filter: blur(12px);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(163, 113, 247, 0.04);
+  position: relative;
+}
+
+.gh-box-copilot::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 12px;
+  right: 12px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gh-copilot), transparent);
+  opacity: 0.4;
+}
+
+/* Success / green card */
+.gh-box-success {
+  background: rgba(63, 185, 80, 0.06);
+  border: 1px solid rgba(63, 185, 80, 0.25);
+  border-radius: 12px;
+  padding: 0.6em 1em;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* Warning / attention card */
+.gh-box-attention {
+  background: rgba(210, 153, 34, 0.06);
+  border: 1px solid rgba(210, 153, 34, 0.25);
+  border-radius: 12px;
+  padding: 1em 1.2em;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* ─── Key–Value highlight (for "Key insight" callouts) ─── */
+
+.gh-callout {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6em;
+  background: var(--gh-glass-bg);
+  border: 1px solid var(--gh-glass-border);
+  border-radius: 12px;
+  padding: 0.5em 0.9em;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.25);
+  font-size: 0.88em;
+}
+
+.gh-callout::before {
+  content: '💡';
+  font-size: 1.2em;
+  flex-shrink: 0;
+  margin-top: 0.05em;
+}
+
+.gh-callout-blue { border-left: 3px solid var(--gh-accent-fg); }
+.gh-callout-purple { border-left: 3px solid var(--gh-copilot); }
+.gh-callout-green { border-left: 3px solid var(--gh-success-fg); }
+
+/* ─── Feature pill / stat badges ─── */
+
+.gh-badge {
+  display: inline-block;
+  padding: 0.18em 0.6em;
+  border-radius: 2em;
+  font-size: 0.75em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.gh-badge-blue { background: var(--gh-accent-subtle); color: var(--gh-accent-fg); }
+.gh-badge-green { background: var(--gh-success-subtle); color: var(--gh-success-fg); }
+.gh-badge-purple { background: var(--gh-done-subtle); color: var(--gh-done-fg); }
+.gh-badge-yellow { background: var(--gh-attention-subtle); color: var(--gh-attention-fg); }
+.gh-badge-red { background: var(--gh-danger-subtle); color: var(--gh-danger-fg); }
+
+/* ─── Stat / number highlights ─── */
+
+.gh-stat {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--gh-glass-bg);
+  border: 1px solid var(--gh-glass-border);
+  border-radius: 12px;
+  padding: 0.6em 1.2em;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.gh-stat-value {
+  font-size: 1.8em;
+  font-weight: 800;
+  background: var(--gh-gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+}
+
+.gh-stat-label {
+  font-size: 0.7em;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gh-fg-muted);
+  margin-top: 0.15em;
+}
+
+/* ─── Two-tone split highlight ─── */
+
+.gh-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+}
+
+.gh-split > * {
+  background: var(--gh-glass-bg);
+  border: 1px solid var(--gh-glass-border);
+  border-radius: 12px;
+  padding: 0.9em 1.1em;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+
+/* ═══════════════════════════════════════
+   CHECKBOX LISTS
+   ═══════════════════════════════════════ */
+
+.slidev-layout input[type="checkbox"] {
+  accent-color: var(--gh-accent-fg);
+}
+
+
+/* ═══════════════════════════════════════
+   V-CLICK ANIMATIONS
+   ═══════════════════════════════════════ */
+
+.slidev-vclick-target {
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slidev-vclick-hidden {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+}

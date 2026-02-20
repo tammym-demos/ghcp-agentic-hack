@@ -1,0 +1,4 @@
+<!-- markdownlint-disable -->
+# Slidev presentation files use non-standard Markdown syntax
+# (slide separators, per-slide YAML frontmatter, Vue components)
+**/*.slidev.md

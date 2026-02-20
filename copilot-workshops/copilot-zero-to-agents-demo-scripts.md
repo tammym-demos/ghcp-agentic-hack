@@ -1065,22 +1065,7 @@ If network issues prevent authentication:
    - "When done, it opens a PR with a full description of changes"
 7. **Talking point**: "Everything we built today — instructions, skills, prompt patterns — Coding Agent uses all of it. It follows your team's standards even when coding autonomously."
 
-8. **Show the Coding Agent configuration** (1 min):
-   - "Remember the tip we saw in Section 5 — 'You can make Copilot smarter by setting up custom instructions, customizing its development environment and configuring MCP servers'? Here's the environment part."
-   - Open `.github/copilot-setup-steps.md` (if it exists in the repo) or explain the concept:
-     - "This file tells Coding Agent how to set up the development environment — install dependencies, build the project, run tests."
-     - "Think of it as a Dockerfile for AI — without it, Coding Agent has to figure out the build process on its own."
-   - Show the example content:
-
-     ```markdown
-     npm install
-     npm run build
-     npm run test:api
-     ```
-
-   - "With setup steps, builds are faster, tests run automatically, and PRs are more reliable."
-
-9. **Show the delegation pattern**:
+8. **Show the delegation pattern**:
    - Open `.github/agents/ImplementationIdeas.agent.md`
    - Point out `create_pull_request_with_copilot`
    - "Custom agents in your IDE can delegate to the Coding Agent. Your IDE agent researches and plans, the Coding Agent implements. Agents calling agents."

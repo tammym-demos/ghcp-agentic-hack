@@ -85,7 +85,6 @@ Each section builds on the previous one, showing how Copilot can be progressivel
 | **Agents / Chat Modes** | `.github/agents/*.agent.md` | User selects in chat mode picker | Persistent personas with tool chains |
 | **Agent Skills** | `.github/skills/*/SKILL.md` | Auto-selected by relevance | Specialized task instructions |
 | **MCP Servers** | `.vscode/mcp.json` | When server is running | External tool integration |
-| **Setup Steps** | `.github/copilot-setup-steps.md` | Coding Agent sessions | Environment setup for Coding Agent |
 
 ---
 
@@ -1712,59 +1711,16 @@ Run a shell command directly (the `!` prefix skips the AI model)
 - Branch protection rule on `main` requiring PR reviews
 - Copilot Coding Agent enabled in repo settings
 
-### Configuring the Coding Agent Environment
+### Your Customization Files Work in the Cloud Too
 
-Remember the tip from Section 5 — *"You can make Copilot smarter by setting up custom instructions, customizing its development environment and configuring MCP servers"*? Here's how that works in practice.
-
-Coding Agent reads ALL of your customization files — instructions, skills, agents — but it also uses a special file to set up its development environment:
+Coding Agent reads ALL of your customization files — instructions, skills, agents — everything you've built throughout this workshop:
 
 | File | Purpose | Used By |
 |------|---------|---------|
 | `.github/copilot-instructions.md` | Coding standards, architecture rules | IDE Agent + Coding Agent |
 | `.github/skills/*/SKILL.md` | Specialized procedures (auto-selected) | IDE Agent + Coding Agent |
-| `.github/copilot-setup-steps.md` | **Environment setup commands** | **Coding Agent only** |
 
-#### `.github/copilot-setup-steps.md`
-
-This file contains the shell commands that Coding Agent runs to set up the development environment before it starts coding. Think of it as a `Dockerfile` for Coding Agent — it tells the agent how to install dependencies, build the project, and run tests.
-
-**Example for OctoCAT Supply:**
-
-```markdown
-# Setup Steps
-
-Install dependencies:
-```
-
-```bash
-npm install
-```
-
-```markdown
-Build the project:
-```
-
-```bash
-npm run build
-```
-
-```markdown
-Run API tests to verify the environment:
-```
-
-```bash
-npm run test:api
-```
-
-> **Note**: `copilot-setup-steps.md` is only used by the Coding Agent (cloud). IDE Agent mode ignores this file — it has direct access to your local terminal.
-
-#### Why This Matters
-
-Without `copilot-setup-steps.md`, Coding Agent must figure out the build process on its own. With it:
-
-- Builds are faster and more reliable
-- Tests run automatically as part of the implementation loop
-- The agent can verify its changes before opening a PR
+**Key insight**: Everything you built today — instructions, skills, agents — Coding Agent uses all of it. Your team's standards apply even when AI codes autonomously.
 
 ---
 
@@ -1903,7 +1859,6 @@ You've now built every layer:
 | `.github/agents/CodeReviewer.agent.md` | §5 — Custom Agents |
 | `.github/skills/*/SKILL.md` | §6 — Agent Skills |
 | GitHub Copilot CLI agentic terminal session | §8 — GitHub Copilot CLI |
-| `.github/copilot-setup-steps.md` *(discussed)* | §9 — Coding Agent Configuration |
 
 ### Resources
 
@@ -1960,7 +1915,6 @@ You've now built every layer:
 | Agents / Chat modes | `.github/agents/` | `.agent.md` | No — selected in mode picker |
 | Project skills | `.github/skills/*/` | `SKILL.md` | Yes — auto-selected by relevance |
 | Personal skills | `~/.copilot/skills/*/` | `SKILL.md` | Yes — auto-selected by relevance |
-| Setup steps | `.github/copilot-setup-steps.md` | `.md` | Yes — Coding Agent sessions |
 | MCP config | `.vscode/mcp.json` | `.json` | Auto-started when needed |
 
 ### Prompt File Frontmatter Reference

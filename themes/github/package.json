@@ -1,0 +1,18 @@
+{
+  "name": "slidev-theme-github-workshop",
+  "version": "1.0.0",
+  "description": "GitHub-branded Slidev theme for workshops and training decks",
+  "author": "GitHub",
+  "license": "MIT",
+  "keywords": ["slidev-theme", "slidev"],
+  "engines": {
+    "node": ">=18.0.0",
+    "slidev": ">=52.0.0"
+  },
+  "slidev": {
+    "colorSchema": "dark",
+    "defaults": {
+      "transition": "slide-left"
+    }
+  }
+}
