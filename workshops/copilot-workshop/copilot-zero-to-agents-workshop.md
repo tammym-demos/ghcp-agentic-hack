@@ -59,7 +59,7 @@ This session takes developers from casual Copilot usage to full agentic developm
 
 This workshop follows a deliberate progression:
 
-<img src="../assets/ghcp-path.png" alt="Diagram" width="900" />
+<img src="assets/ghcp-path.png" alt="Diagram" width="900" />
 
 Each section builds on the previous one, showing how Copilot can be progressively customized from a general assistant to a specialized, autonomous development partner.
 
