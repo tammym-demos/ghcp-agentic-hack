@@ -29,6 +29,8 @@ Welcome attendees. "Today we're going from zero — basic Copilot usage — all 
 -->
 
 ---
+class: text-xs
+---
 
 # What We'll Cover Today
 
@@ -50,12 +52,14 @@ Welcome attendees. "Today we're going from zero — basic Copilot usage — all 
 -->
 
 ---
+class: text-sm
+---
 
 # The Journey — Zero to Agents
 
 ### Your Progression Today
 
-```mermaid {scale: 0.75}
+```mermaid {scale: 0.5}
 graph LR
     A["🟢 ZERO<br/>Chat Modes<br/>(Ask/Agent/Plan)"] --> B["🔵 CUSTOMIZE<br/>Instructions<br/>Prompt Files<br/>Agents · Skills"]
     B --> C["🟡 EXTEND<br/>MCP Servers<br/>(Playwright, GitHub)"]
@@ -185,6 +189,8 @@ Are there any core features missing?
 -->
 
 ---
+class: text-sm
+---
 
 # Plan Mode — Think Before You Build
 
@@ -266,6 +272,8 @@ layout: section
 
 # Custom Instructions
 
+---
+class: text-sm
 ---
 
 # Why Custom Instructions?
@@ -383,6 +391,8 @@ layout: section
 # Custom Prompt Files
 
 ---
+class: text-sm
+---
 
 # Prompts vs Instructions
 
@@ -490,6 +500,8 @@ layout: section
 # Custom Agents (Chat Modes)
 
 ---
+class: text-sm
+---
 
 # Agents — Persistent Personas
 
@@ -558,7 +570,7 @@ This agent demonstrates multi-level agentic behavior:
 2. **Plan** — Creates a todo list of variations
 3. **Delegate** — Calls `create_pull_request_with_copilot` to hand off to Coding Agent
 
-```mermaid {scale: 0.75}
+```mermaid {scale: 0.6}
 graph LR
     A["IDE Agent<br/>(research + plan)"] --> B["Coding Agent<br/>(autonomous implementation)"]
     B --> C["Pull Request"]
@@ -660,6 +672,8 @@ Can reference scripts and files in the same directory.
 -->
 
 ---
+class: text-sm
+---
 
 # Skills vs Instructions — When to Use Each
 
@@ -716,7 +730,7 @@ class: text-sm
 
 ### Model Context Protocol — Copilot's Extension Layer
 
-```mermaid {scale: 0.75}
+```mermaid {scale: 0.6}
 graph LR
     A["Copilot<br/>Agent Mode"] -- MCP --> B["🎭 Playwright<br/>(browser testing)"]
     A -- MCP --> C["🐙 GitHub<br/>(issues, PRs)"]
@@ -874,6 +888,8 @@ class: text-sm
 -->
 
 ---
+class: text-xs
+---
 
 # The TUI Experience — AI Meets Terminal
 
@@ -910,7 +926,7 @@ class: text-sm
 
 # From Terminal to Cloud — The /delegate Bridge
 
-```mermaid {scale: 0.6}
+```mermaid {scale: 0.5}
 graph LR
     A["GitHub Copilot CLI<br/>(your terminal)"] -- "/delegate" --> B["Coding Agent<br/>(cloud)"]
     B --> C["Creates branch"]
@@ -964,7 +980,7 @@ class: text-sm
 
 ### From Issue to Merged PR — AI-Assisted at Every Step
 
-```mermaid {scale: 0.65}
+```mermaid {scale: 0.5}
 graph LR
     A["📋 GitHub Issue<br/>(assign to Copilot)"] --> B["🤖 Coding Agent<br/>(autonomous coding)"]
     B --> C["📝 Pull Request<br/>(AI-authored changes)"]
@@ -1065,6 +1081,8 @@ class: text-xs
 -->
 
 ---
+class: text-sm
+---
 
 # Agent Mode vs Coding Agent
 
@@ -1145,7 +1163,7 @@ class: text-sm
 
 # The Full Customization Stack
 
-```mermaid {scale: 0.45}
+```mermaid {scale: 0.35}
 graph TD
     A["☁️ CLOUD AGENTS<br/>Coding Agent + PR Review Agent"] --> B["🔌 MCP SERVERS<br/>Playwright + GitHub"]
     B --> C["🧠 AGENT SKILLS<br/>.github/skills/*/SKILL.md"]
@@ -1160,6 +1178,8 @@ graph TD
 "This is the full stack. Every layer builds on the one below. And the GitHub Copilot CLI connects you from the terminal to every layer — including cloud agents via /delegate."
 -->
 
+---
+class: text-sm
 ---
 
 # Key Takeaways
@@ -1183,6 +1203,8 @@ graph TD
 -->
 
 ---
+class: text-sm
+---
 
 # Your Action Items
 
@@ -1204,7 +1226,7 @@ graph TD
 -->
 
 ---
-class: text-sm
+class: text-xs
 ---
 
 # Resources
@@ -1263,6 +1285,8 @@ layout: end
 Thank attendees, remind them about the action items, and offer follow-up support. Point them to the repo — everything they need is there.
 -->
 
+---
+class: text-xs
 ---
 
 # Appendix: Presenter Quick Reference
