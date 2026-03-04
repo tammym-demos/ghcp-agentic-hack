@@ -1,5 +1,5 @@
 ---
-tools: ['codebase', 'search', 'editFiles', 'runCommands', 'problems']
+tools: ['search/codebase', 'azure-mcp/search', 'edit/editFiles', 'execute/getTerminalOutput', 'execute/runInTerminal', 'read/terminalLastCommand', 'read/terminalSelection', 'read/problems']
 description: Full-stack engineer for the OctoCAT Supply app
 ---
 
