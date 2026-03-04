@@ -35,13 +35,13 @@ const { html, title } = Astro.props
   </article>
 </Base>
 
-<style>
+<style is:global>
   .markdown-body {
     background: transparent;
   }
 
   /* Copy button on code blocks */
-  pre {
+  .markdown-body pre {
     position: relative;
   }
   .copy-btn {
