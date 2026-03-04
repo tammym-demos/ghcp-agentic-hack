@@ -565,22 +565,34 @@ Now review the error handling across all API routes
 
 5. The agent maintains its persona across the entire conversation
 
-**Exercise 4 — Explore the Advanced Agent (ImplementationIdeas)**
+**Exercise 4 — Run the ImplementationIdeas Agent (Bonus — Agents Calling Agents)**
 
-This agent shows the most advanced patterns — MCP server tools, a custom model, and delegation to the Coding Agent.
+This is the most advanced agent pattern — an agent that researches, plans, and then **delegates implementation to the Coding Agent** in the cloud.
 
 1. Open `.github/agents/ImplementationIdeas.agent.md`
 2. Read through the file and notice what makes this different from OctoCATEngineer:
-   - The **tools** list includes `github/*` and `playwright/*` — MCP server wildcard tools
-   - The **model** is specified — the agent picks its own model (`Claude Sonnet 4.5`)
-   - The behavior instructions tell it to research deeply, use parallel searches, and delegate to Coding Agent
-   - Key line: `call GitHub's create_pull_request_with_copilot` — this agent can trigger other agents!
-3. Think about the progression:
+   - **Tools**: `search`, `github/*` (wildcard = all GitHub MCP tools), `playwright/*`, `githubRepo`, `todos`
+   - **Model**: `Claude Sonnet 4.5` — the agent chooses its own model
+   - **Key line**: `call GitHub's create_pull_request_with_copilot` — this agent delegates to the Coding Agent (cloud)
+3. Select **ImplementationIdeas** from the Copilot Chat mode picker
+4. Give it a task:
+
+```
+Explore adding a wishlist feature where users can save products for later
+```
+
+5. Watch the agent work — it should:
+   - Research the codebase using parallel tool calls
+   - Create a todo list with feature variations
+   - Delegate implementation to Coding Agent (which creates a branch and opens a PR)
+6. Think about the progression across all three agents:
    - **OctoCATEngineer**: local tools, default model → simple worker
    - **CodeReviewer**: read-only tools, specified model → safe reviewer
    - **ImplementationIdeas**: MCP tools, custom model, delegation → advanced strategist
 
-> **Note**: We'll see the Coding Agent (which ImplementationIdeas delegates to) in detail during Section 9.
+> **Note**: When you run this, you may see a tip from Coding Agent: *"You can make Copilot smarter by setting up custom instructions, customizing its development environment and configuring MCP servers."* Coding Agent configuration (environment setup, branch protection, assigning issues) is covered in the workshop's Section 9 demo.
+
+> **Note**: This exercise requires the GitHub MCP server to be configured (Lab 7) and Coding Agent to be enabled in the repository settings. If either is not available, read through the agent file to understand the pattern — you'll see it demonstrated live.
 
 **Exercise 5 — Create Your Own Agent** (Bonus)
 
