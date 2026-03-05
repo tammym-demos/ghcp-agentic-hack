@@ -1,10 +1,11 @@
 ---
 import Base from '../layouts/Base.astro'
-import { readdirSync } from 'node:fs'
+import { readdirSync, existsSync } from 'node:fs'
 import { resolve } from 'node:path'
 
 const base = import.meta.env.BASE_URL
 const workshopsDir: string = __WORKSHOPS_DIR__
+const showDrafts: boolean = __SHOW_DRAFTS__
 
 // Workshop metadata — order and descriptions
 const workshopMeta: Record<string, { label: string; desc: string; icon: string }> = {
@@ -49,7 +50,11 @@ const workshopMeta: Record<string, { label: string; desc: string; icon: string }
 const workshops: { name: string; label: string; desc: string; icon: string; hasWorkshop: boolean; hasLab: boolean; hasSlides: boolean }[] = []
 
 for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d => d.isDirectory())) {
-  const files = readdirSync(resolve(workshopsDir, dir.name))
+  const dirPath = resolve(workshopsDir, dir.name)
+  const isDraft = existsSync(resolve(dirPath, '.draft'))
+  if (isDraft && !showDrafts) continue
+
+  const files = readdirSync(dirPath)
 const hasWorkshop = files.some(f => f.endsWith('-workshop.md'))
     const hasLab = files.some(f => f.endsWith('-LAB.md'))
     const hasSlides = files.some(f => f.endsWith('.slidev.md'))

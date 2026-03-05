@@ -12,7 +12,8 @@
  *   node scripts/build-site.mjs
  *
  * Environment variables:
- *   BASE_PATH  — URL base path (default: /GH-Hack/)
+ *   BASE_PATH   — URL base path (default: /GH-Hack/)
+ *   SHOW_DRAFTS — Set to "true" to include draft workshops (default: false)
  */
 
 import { execSync } from 'child_process'

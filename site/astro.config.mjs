@@ -14,7 +14,8 @@ export default defineConfig({
   },
   vite: {
     define: {
-      __WORKSHOPS_DIR__: JSON.stringify(resolve(__dirname, '..', 'workshops'))
+      __WORKSHOPS_DIR__: JSON.stringify(resolve(__dirname, '..', 'workshops')),
+      __SHOW_DRAFTS__: JSON.stringify(process.env.SHOW_DRAFTS === 'true')
     }
   }
 })

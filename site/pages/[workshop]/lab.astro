@@ -1,20 +1,25 @@
 ---
 import Base from '../../layouts/Base.astro'
-import { readdirSync, readFileSync } from 'node:fs'
+import { readdirSync, readFileSync, existsSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { marked } from 'marked'
 import 'github-markdown-css/github-markdown-dark.css'
 
 export function getStaticPaths() {
   const workshopsDir: string = __WORKSHOPS_DIR__
+  const showDrafts: boolean = __SHOW_DRAFTS__
   const paths: { params: { workshop: string }; props: { html: string; title: string } }[] = []
 
   for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d => d.isDirectory())) {
-    const files = readdirSync(resolve(workshopsDir, dir.name))
+    const dirPath = resolve(workshopsDir, dir.name)
+    const isDraft = existsSync(resolve(dirPath, '.draft'))
+    if (isDraft && !showDrafts) continue
+
+    const files = readdirSync(dirPath)
     const labFile = files.find(f => f.endsWith('-LAB.md'))
     if (!labFile) continue
 
-    const content = readFileSync(resolve(workshopsDir, dir.name, labFile), 'utf-8')
+    const content = readFileSync(resolve(dirPath, labFile), 'utf-8')
     const titleMatch = content.match(/^#\s+(.+)/m)
     const title = titleMatch ? titleMatch[1] : dir.name
     const html = marked.parse(content) as string
