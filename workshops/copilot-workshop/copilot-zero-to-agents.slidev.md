@@ -1158,15 +1158,22 @@ class: text-sm
 
 # The Full Customization Stack
 
-```mermaid {scale: 0.3}
-graph TD
-    A["☁️ CLOUD AGENTS<br/>Coding Agent + PR Review"] --> B["🔌 MCP SERVERS<br/>Playwright + GitHub"]
-    B --> C["🧠 SKILLS + 🤖 AGENTS<br/>.github/skills/ · .github/agents/"]
-    C --> D["📄 PROMPT FILES<br/>.github/prompts/*.prompt.md"]
-    D --> E["📋 INSTRUCTIONS<br/>.github/copilot-instructions.md"]
-    E --> F["💬 CHAT MODES<br/>Ask → Plan → Agent"]
-    G["⌨️ GitHub Copilot CLI<br/>TUI · Plan · /delegate"] -.-> A
-```
+### Each layer builds on the one below
+
+| | Layer | What |
+|--|-------|------|
+| ☁️ | **Cloud Agents** | Coding Agent + PR Review |
+| 🔌 | **MCP Servers** | Playwright + GitHub |
+| 🧠🤖 | **Skills + Agents** | `.github/skills/` · `.github/agents/` |
+| 📄 | **Prompt Files** | `.github/prompts/*.prompt.md` |
+| 📋 | **Instructions** | `.github/copilot-instructions.md` |
+| 💬 | **Chat Modes** | Ask → Plan → Agent |
+
+<div class="gh-callout gh-callout-purple">
+
+**⌨️ GitHub Copilot CLI** connects from the terminal to every layer — including cloud agents via `/delegate`.
+
+</div>
 
 <!--
 "This is the full stack. Every layer builds on the one below. And the GitHub Copilot CLI connects you from the terminal to every layer — including cloud agents via /delegate."
@@ -1284,23 +1291,6 @@ class: text-xs
 ---
 
 # Appendix: Presenter Quick Reference
-
-## Demo Timing Guide
-
-| After Slide | Demo | Duration |
-|-------------|------|----------|
-| 10 | Chat Modes (Ask/Agent/Plan) + Hands-on | 15 min |
-| 15 | Custom Instructions + TAO + Hands-on | 20 min |
-| 20 | Prompt Files + Run unit test prompt + Hands-on | 18 min |
-| 25 | Agent Skills + Create skill + Hands-on | 17 min |
-| 30 | Agents + OctoCATEngineer + CodeReviewer + Hands-on | 18 min |
-| 36 | MCP Servers (Playwright + GitHub) + Hands-on | 24 min |
-| 41 | GitHub Copilot CLI — Agentic Terminal + Hands-on | 27 min |
-| 48 | Cloud Agents (Coding Agent + PR Review) | 15 min |
-
-**Total demo + hands-on time**: ~154 minutes
-**Total slide/concept time**: ~80 minutes
-**Buffer/Q&A**: ~10 minutes
 
 ## Backup URLs
 
