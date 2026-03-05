@@ -51,13 +51,14 @@ export function getStaticPaths() {
     }
   }
 
-  const paths: { params: { workshop: string }; props: { label: string; desc: string; icon: string; hasLab: boolean; hasSlides: boolean } }[] = []
+  const paths: { params: { workshop: string }; props: { label: string; desc: string; icon: string; hasWorkshop: boolean; hasLab: boolean; hasSlides: boolean } }[] = []
 
   for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d => d.isDirectory())) {
     const files = readdirSync(resolve(workshopsDir, dir.name))
+    const hasWorkshop = files.some(f => f.endsWith('-workshop.md'))
     const hasLab = files.some(f => f.endsWith('-LAB.md'))
     const hasSlides = files.some(f => f.endsWith('.slidev.md'))
-    if (!hasLab && !hasSlides) continue
+    if (!hasWorkshop && !hasLab && !hasSlides) continue
 
     const meta = workshopMeta[dir.name]
     const label = meta?.label ?? dir.name.replace(/-/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase())
@@ -66,13 +67,13 @@ export function getStaticPaths() {
 
     paths.push({
       params: { workshop: dir.name },
-      props: { label, desc, icon, hasLab, hasSlides }
+      props: { label, desc, icon, hasWorkshop, hasLab, hasSlides }
     })
   }
   return paths
 }
 
-const { label, desc, icon, hasLab, hasSlides } = Astro.props
+const { label, desc, icon, hasWorkshop, hasLab, hasSlides } = Astro.props
 const { workshop } = Astro.params
 ---
 
@@ -87,14 +88,14 @@ const { workshop } = Astro.params
     </div>
 
     <div class="resource-grid">
-      {hasSlides && (
-        <a href={`${base}${workshop}/slides/1`} target="_blank" rel="noopener noreferrer" onclick="window.open(this.href,'_blank','width=1280,height=720,menubar=no,toolbar=no,location=no,status=no');return false;" class="resource-card">
-          <div class="resource-icon slides-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16" fill="currentColor"><path d="M0 3.75C0 2.784.784 2 1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0114.25 14H1.75A1.75 1.75 0 010 12.25Zm1.75-.25a.25.25 0 00-.25.25v8.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25v-8.5a.25.25 0 00-.25-.25ZM6 6.5a.75.75 0 01.75-.75h4.5a.75.75 0 010 1.5h-4.5A.75.75 0 016 6.5Zm.75 2.75a.75.75 0 000 1.5h4.5a.75.75 0 000-1.5h-4.5ZM4 7a1 1 0 11-2 0 1 1 0 012 0Zm-1 3a1 1 0 100-2 1 1 0 000 2Z"/></svg>
+      {hasWorkshop && (
+        <a href={`${base}${workshop}/workshop.html`} class="resource-card">
+          <div class="resource-icon workshop-guide-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16" fill="currentColor"><path d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.744 3.744 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75Zm7.251 10.324.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574ZM8.755 4.75l-.004 7.322a3.752 3.752 0 011.992-.572H14.5v-9h-3.495a2.25 2.25 0 00-2.25 2.25Z"/></svg>
           </div>
-          <h2 class="resource-title">Slide Deck</h2>
-          <p class="resource-desc">Launch the presentation in a new window.</p>
-          <span class="resource-action">Open Slides →</span>
+          <h2 class="resource-title">Workshop Guide</h2>
+          <p class="resource-desc">Full workshop content with discussion points and demos.</p>
+          <span class="resource-action">Open Workshop →</span>
         </a>
       )}
       {hasLab && (
@@ -107,13 +108,23 @@ const { workshop } = Astro.params
           <span class="resource-action">Open Lab →</span>
         </a>
       )}
+      {hasSlides && (
+        <a href={`${base}${workshop}/slides/1`} target="_blank" rel="noopener noreferrer" onclick="window.open(this.href,'_blank','width=1280,height=720,menubar=no,toolbar=no,location=no,status=no');return false;" class="resource-card">
+          <div class="resource-icon slides-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16" fill="currentColor"><path d="M0 3.75C0 2.784.784 2 1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0114.25 14H1.75A1.75 1.75 0 010 12.25Zm1.75-.25a.25.25 0 00-.25.25v8.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25v-8.5a.25.25 0 00-.25-.25ZM6 6.5a.75.75 0 01.75-.75h4.5a.75.75 0 010 1.5h-4.5A.75.75 0 016 6.5Zm.75 2.75a.75.75 0 000 1.5h4.5a.75.75 0 000-1.5h-4.5ZM4 7a1 1 0 11-2 0 1 1 0 012 0Zm-1 3a1 1 0 100-2 1 1 0 000 2Z"/></svg>
+          </div>
+          <h2 class="resource-title">Slide Deck</h2>
+          <p class="resource-desc">Launch the presentation in a new window.</p>
+          <span class="resource-action">Open Slides →</span>
+        </a>
+      )}
     </div>
   </div>
 </Base>
 
 <style>
   .workshop-page {
-    max-width: 800px;
+    max-width: 960px;
     margin: 0 auto;
     padding: 48px 0 80px;
   }
@@ -154,8 +165,11 @@ const { workshop } = Astro.params
 
   .resource-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 16px;
+  }
+  @media (max-width: 960px) {
+    .resource-grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 600px) {
     .resource-grid { grid-template-columns: 1fr; }
@@ -189,6 +203,10 @@ const { workshop } = Astro.params
   .slides-icon {
     background: rgba(210, 168, 255, 0.15);
     color: #d2a8ff;
+  }
+  .workshop-guide-icon {
+    background: rgba(88, 166, 255, 0.15);
+    color: #58a6ff;
   }
   .lab-icon {
     background: rgba(63, 185, 80, 0.15);

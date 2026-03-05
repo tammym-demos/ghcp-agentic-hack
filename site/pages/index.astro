@@ -46,20 +46,21 @@ const workshopMeta: Record<string, { label: string; desc: string; icon: string }
 }
 
 // Auto-discover workshops
-const workshops: { name: string; label: string; desc: string; icon: string; hasLab: boolean; hasSlides: boolean }[] = []
+const workshops: { name: string; label: string; desc: string; icon: string; hasWorkshop: boolean; hasLab: boolean; hasSlides: boolean }[] = []
 
 for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d => d.isDirectory())) {
   const files = readdirSync(resolve(workshopsDir, dir.name))
-  const hasLab = files.some(f => f.endsWith('-LAB.md'))
-  const hasSlides = files.some(f => f.endsWith('.slidev.md'))
-  if (!hasLab && !hasSlides) continue
+const hasWorkshop = files.some(f => f.endsWith('-workshop.md'))
+    const hasLab = files.some(f => f.endsWith('-LAB.md'))
+    const hasSlides = files.some(f => f.endsWith('.slidev.md'))
+    if (!hasWorkshop && !hasLab && !hasSlides) continue
 
   const meta = workshopMeta[dir.name]
   const label = meta?.label ?? dir.name.replace(/-/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase())
   const desc = meta?.desc ?? ''
   const icon = meta?.icon ?? '📘'
 
-  workshops.push({ name: dir.name, label, desc, icon, hasLab, hasSlides })
+  workshops.push({ name: dir.name, label, desc, icon, hasWorkshop, hasLab, hasSlides })
 }
 ---
 
@@ -92,8 +93,9 @@ for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d =>
           </div>
           {w.desc && <p class="card-description">{w.desc}</p>}
           <div class="card-footer">
-            {w.hasSlides && <span class="badge badge-slides">Slides</span>}
+            {w.hasWorkshop && <span class="badge badge-workshop">Workshop</span>}
             {w.hasLab && <span class="badge badge-lab">Lab</span>}
+            {w.hasSlides && <span class="badge badge-slides">Slides</span>}
           </div>
         </a>
       ))}
@@ -254,6 +256,10 @@ for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d =>
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.04em;
+    }
+    .badge-workshop {
+      background: rgba(88, 166, 255, 0.15);
+      color: #58a6ff;
     }
     .badge-lab {
       background: rgba(63, 185, 80, 0.15);
