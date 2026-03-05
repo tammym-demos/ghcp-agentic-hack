@@ -14,7 +14,7 @@ const visible = computed(() => $page.value > 1)
       <div class="gh-footer-left">
         <span class="gh-footer-title">{{ $frontmatter?.ghFooterTitle || 'GitHub Workshop' }}</span>
         <span class="gh-footer-dot">·</span>
-        <span class="gh-footer-label">{{ $frontmatter?.ghFooterLabel || 'GitHub Confidential' }}</span>
+        <span class="gh-footer-label" v-if="$frontmatter?.ghFooterLabel">{{ $frontmatter.ghFooterLabel }}</span>
       </div>
       <div class="gh-footer-page">{{ $page }} / {{ total }}</div>
     </div>

@@ -39,8 +39,8 @@
 | 25 min | [Copilot Chat Modes (Ask, Agent, Plan)](#section-chat-modes) |
 | 25 min | [Custom Instructions](#section-custom-instructions) |
 | 25 min | [Custom Prompt Files](#section-custom-prompt-files) |
-| 25 min | [Custom Agents (Chat Modes)](#section-custom-agents-chat-modes) |
 | 25 min | [Agent Skills](#section-agent-skills) |
+| 25 min | [Custom Agents (Chat Modes)](#section-custom-agents-chat-modes) |
 | 30 min | [MCP Servers (Playwright + GitHub)](#section-mcp-servers) |
 | 30 min | [GitHub Copilot CLI: The Agentic Terminal](#section-github-copilot-cli) |
 | 20 min | [Cloud Agents: Coding Agent + PR Review Agent](#section-cloud-agents) |

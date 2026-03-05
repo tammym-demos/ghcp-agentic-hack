@@ -5,7 +5,7 @@
  * CONFIGURATION — set these in your presentation frontmatter:
  *   title:        "My Workshop"              → used in footer
  *   info:         "Description"              → meta info
- *   ghFooterLabel: "GitHub Confidential"     → right-side footer text (optional)
+ *   ghFooterLabel: ""                        → right-side footer text (optional)
  */
 
 /* ─── GitHub Primer Brand Dark tokens ─── */

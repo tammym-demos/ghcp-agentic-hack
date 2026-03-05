@@ -11,7 +11,7 @@ Reference the theme as a local path in your presentation's frontmatter:
 theme: ../themes/github       # adjust relative path to your layout
 title: "My Workshop Title"
 ghFooterTitle: "Workshop Name" # shown in footer (left side)
-ghFooterLabel: "Confidential"  # shown in footer, uppercase (optional)
+ghFooterLabel: ""              # shown in footer, uppercase (optional)
 ---
 ```
 
@@ -36,7 +36,7 @@ Set these in your presentation's global frontmatter:
 | Key | Default | Description |
 |-----|---------|-------------|
 | `ghFooterTitle` | `"GitHub Workshop"` | Text shown in the footer left side |
-| `ghFooterLabel` | `"GitHub Confidential"` | Uppercase label in footer |
+| `ghFooterLabel` | `""` | Optional uppercase label in footer |
 
 ## Features
 

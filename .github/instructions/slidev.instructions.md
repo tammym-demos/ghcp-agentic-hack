@@ -17,7 +17,7 @@ title: "Your Title"
 info: |
   Description of the presentation.
 ghFooterTitle: "Footer Title"
-ghFooterLabel: "GitHub Confidential"
+ghFooterLabel: ""
 drawings:
   persist: false
 mermaid:

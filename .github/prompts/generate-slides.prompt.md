@@ -32,7 +32,7 @@ title: "Workshop Title"
 info: |
   Workshop description from the source file.
 ghFooterTitle: "Short Footer Title"
-ghFooterLabel: "GitHub Confidential"
+ghFooterLabel: ""
 drawings:
   persist: false
 mermaid:

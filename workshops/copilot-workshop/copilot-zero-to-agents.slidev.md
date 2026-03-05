@@ -40,8 +40,8 @@ class: text-xs
 | 25 min | Copilot Chat Modes (Ask, Agent, Plan) |
 | 25 min | Custom Instructions |
 | 25 min | Custom Prompt Files |
-| 25 min | Custom Agents (Chat Modes) |
 | 25 min | Agent Skills |
+| 25 min | Custom Agents (Chat Modes) |
 | 30 min | MCP Servers (Playwright + GitHub) |
 | 30 min | GitHub Copilot CLI: The Agentic Terminal |
 | 20 min | Cloud Agents: Coding Agent + PR Review Agent |
@@ -497,6 +497,116 @@ layout: demo
 layout: section
 ---
 
+# Agent Skills
+
+---
+class: text-sm
+---
+
+# Skills — The Auto-Pilot Layer
+
+### How Skills Differ from Everything Else
+
+| Aspect | Instructions | Prompts | Agents | Skills |
+|--------|-------------|---------|--------|--------|
+| **Loaded** | Always | Manual | Manual | **Auto** |
+| **Trigger** | Every interaction | You invoke | You select | **Copilot decides** |
+| **Best for** | Simple rules | Specific tasks | Personas | **Specialized procedures** |
+| **Includes** | Text only | Text only | Text only | **Text + scripts + files** |
+
+<div class="gh-callout gh-callout-blue">
+
+**The key insight**: Skills are instructions that Copilot loads ONLY when it recognizes they're relevant to your prompt.
+
+</div>
+
+<!--
+"Skills are the most 'intelligent' customization layer. You don't invoke them — Copilot reads the description and decides when they're relevant. It's like having an expert on call who only chimes in when their expertise is needed."
+-->
+
+---
+class: text-sm
+---
+
+# Skill Structure
+
+### `.github/skills/my-skill/SKILL.md`
+
+```yaml
+---
+name: code-review-checklist
+description: Checklist for reviewing TypeScript and Express.js code.
+  Use this when asked to review code or audit code quality.
+---
+
+Step-by-step instructions that Copilot follows
+when this skill is activated.
+
+Can reference scripts and files in the same directory.
+```
+
+### Skill Scope
+
+| Type | Location | Shared |
+|------|----------|--------|
+| **Project** | `.github/skills/` | Via git (team-wide) |
+| **Personal** | `~/.copilot/skills/` | Your machine only |
+
+`~` = OS home directory (`C:\Users\<username>` on Windows, `/Users/<username>` on macOS, `/home/<username>` on Linux).
+
+<!--
+"The description field is critical — it's how Copilot decides whether to load the skill. Be specific about WHEN this skill should be used. Vague descriptions = skills that never get loaded."
+-->
+
+---
+class: text-sm
+---
+
+# Skills vs Instructions — When to Use Each
+
+### The Decision
+
+| Use Case | Use This |
+|----------|----------|
+| "Always use TypeScript strict mode" | **Instruction** |
+| "When reviewing code, follow this checklist..." | **Skill** |
+| "Never hardcode credentials" | **Instruction** |
+| "When creating API routes, use this pattern..." | **Skill** |
+| "Our team uses Vitest for testing" | **Instruction** |
+| "When generating tests, include these scenarios..." | **Skill** |
+
+<div class="gh-callout gh-callout-green">
+
+**Rule of thumb**: If it's a simple rule → instruction. If it's a detailed procedure → skill.
+
+</div>
+
+<!--
+"Common mistake: putting detailed procedures in instructions. That wastes context window on every interaction. Skills only load when needed — they're more efficient for complex, specialized knowledge."
+-->
+
+---
+layout: demo
+---
+
+# 🖥️ LIVE DEMO
+
+### Agent Skills
+
+- Create a skill from scratch
+- Show auto-selection in action
+- Reference community skill collections
+
+*Then: Create a skill for OctoCAT Supply (12 min)*
+
+<!--
+🖥️ SWITCH TO DEMO 4. Create code-review-checklist skill → trigger it with a prompt → show auto-selection. Then 12 min hands-on. ~18 min total.
+-->
+
+---
+layout: section
+---
+
 # Custom Agents (Chat Modes)
 
 ---
@@ -603,117 +713,7 @@ layout: demo
 *Then: Use and create your own agents (10 min)*
 
 <!--
-🖥️ SWITCH TO DEMO 4. Review existing agent → show mode picker → create CodeReviewer agent. Then 10 min hands-on. ~17 min total.
--->
-
----
-layout: section
----
-
-# Agent Skills
-
----
-class: text-sm
----
-
-# Skills — The Auto-Pilot Layer
-
-### How Skills Differ from Everything Else
-
-| Aspect | Instructions | Prompts | Agents | Skills |
-|--------|-------------|---------|--------|--------|
-| **Loaded** | Always | Manual | Manual | **Auto** |
-| **Trigger** | Every interaction | You invoke | You select | **Copilot decides** |
-| **Best for** | Simple rules | Specific tasks | Personas | **Specialized procedures** |
-| **Includes** | Text only | Text only | Text only | **Text + scripts + files** |
-
-<div class="gh-callout gh-callout-blue">
-
-**The key insight**: Skills are instructions that Copilot loads ONLY when it recognizes they're relevant to your prompt.
-
-</div>
-
-<!--
-"Skills are the most 'intelligent' customization layer. You don't invoke them — Copilot reads the description and decides when they're relevant. It's like having an expert on call who only chimes in when their expertise is needed."
--->
-
----
-class: text-sm
----
-
-# Skill Structure
-
-### `.github/skills/my-skill/SKILL.md`
-
-```yaml
----
-name: code-review-checklist
-description: Checklist for reviewing TypeScript and Express.js code.
-  Use this when asked to review code or audit code quality.
----
-
-Step-by-step instructions that Copilot follows
-when this skill is activated.
-
-Can reference scripts and files in the same directory.
-```
-
-### Skill Scope
-
-| Type | Location | Shared |
-|------|----------|--------|
-| **Project** | `.github/skills/` | Via git (team-wide) |
-| **Personal** | `~/.copilot/skills/` | Your machine only |
-
-`~` = OS home directory (`C:\Users\<username>` on Windows, `/Users/<username>` on macOS, `/home/<username>` on Linux).
-
-<!--
-"The description field is critical — it's how Copilot decides whether to load the skill. Be specific about WHEN this skill should be used. Vague descriptions = skills that never get loaded."
--->
-
----
-class: text-sm
----
-
-# Skills vs Instructions — When to Use Each
-
-### The Decision
-
-| Use Case | Use This |
-|----------|----------|
-| "Always use TypeScript strict mode" | **Instruction** |
-| "When reviewing code, follow this checklist..." | **Skill** |
-| "Never hardcode credentials" | **Instruction** |
-| "When creating API routes, use this pattern..." | **Skill** |
-| "Our team uses Vitest for testing" | **Instruction** |
-| "When generating tests, include these scenarios..." | **Skill** |
-
-<div class="gh-callout gh-callout-green">
-
-**Rule of thumb**: If it's a simple rule → instruction. If it's a detailed procedure → skill.
-
-</div>
-
-<!--
-"Common mistake: putting detailed procedures in instructions. That wastes context window on every interaction. Skills only load when needed — they're more efficient for complex, specialized knowledge."
--->
-
----
-layout: demo
----
-
-# 🖥️ LIVE DEMO
-
-### Agent Skills
-
-- Create a skill from scratch
-- Show auto-selection in action
-- Reference community skill collections
-
-*Then: Create a skill for OctoCAT Supply (12 min)*
-
-<!--
-🖥️ SWITCH TO DEMO 5. Create code-review-checklist skill → trigger it with a prompt → show auto-selection. Then 12 min hands-on. ~18 min total.
+🖥️ SWITCH TO DEMO 5. Review existing agent → show mode picker → create CodeReviewer agent. Then 10 min hands-on. ~17 min total.
 -->
 
 ---
@@ -1296,13 +1296,13 @@ class: text-xs
 | After Slide | Demo | Duration |
 |-------------|------|----------|
 | 10 | Chat Modes (Ask/Agent/Plan) + Hands-on | 15 min |
-| 14 | Custom Instructions + TAO + Hands-on | 20 min |
-| 18 | Prompt Files + Run unit test prompt + Hands-on | 18 min |
-| 22 | Agents + OctoCATEngineer + CodeReviewer + Hands-on | 17 min |
-| 26 | Agent Skills + Create skill + Hands-on | 18 min |
-| 31 | MCP Servers (Playwright + GitHub) + Hands-on | 24 min |
-| 35 | GitHub Copilot CLI — Agentic Terminal + Hands-on | 27 min |
-| 41 | Cloud Agents (Coding Agent + PR Review) | 15 min |
+| 15 | Custom Instructions + TAO + Hands-on | 20 min |
+| 20 | Prompt Files + Run unit test prompt + Hands-on | 18 min |
+| 25 | Agent Skills + Create skill + Hands-on | 17 min |
+| 30 | Agents + OctoCATEngineer + CodeReviewer + Hands-on | 18 min |
+| 36 | MCP Servers (Playwright + GitHub) + Hands-on | 24 min |
+| 41 | GitHub Copilot CLI — Agentic Terminal + Hands-on | 27 min |
+| 48 | Cloud Agents (Coding Agent + PR Review) | 15 min |
 
 **Total demo + hands-on time**: ~154 minutes
 **Total slide/concept time**: ~80 minutes
