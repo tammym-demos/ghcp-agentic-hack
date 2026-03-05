@@ -896,7 +896,6 @@ class: text-xs
 ```
 ┌─────────────────────────────────────────────────────────┐
 │  copilot                                                │
-│                                                         │
 │  You: @src/api/routes.ts add input validation to        │
 │       the POST /orders endpoint                         │
 │                                                         │
@@ -908,11 +907,7 @@ class: text-xs
 │  └─────────────────────────────────────────────────┘    │
 │                                                         │
 │  [Allow tool: edit_file] (Y)es / (N)o / Yes (A)lways   │
-│                                                         │
-│  Shift+Tab → toggle plan mode                           │
-│  /review   → review your changes                        │
-│  /delegate → hand off to Coding Agent                   │
-│  !git diff → run shell commands inline                  │
+│  Shift+Tab → plan mode · /review · /delegate · !cmd    │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -1163,15 +1158,14 @@ class: text-sm
 
 # The Full Customization Stack
 
-```mermaid {scale: 0.35}
+```mermaid {scale: 0.3}
 graph TD
-    A["☁️ CLOUD AGENTS<br/>Coding Agent + PR Review Agent"] --> B["🔌 MCP SERVERS<br/>Playwright + GitHub"]
-    B --> C["🧠 AGENT SKILLS<br/>.github/skills/*/SKILL.md"]
-    C --> D["🤖 CUSTOM AGENTS<br/>.github/agents/*.agent.md"]
-    D --> E["📄 PROMPT FILES<br/>.github/prompts/*.prompt.md"]
-    E --> F["📋 INSTRUCTIONS<br/>.github/copilot-instructions.md"]
-    F --> G["💬 CHAT MODES<br/>Ask → Plan → Agent"]
-    H["⌨️ GitHub Copilot CLI<br/>TUI · Plan · /delegate"] -.-> A
+    A["☁️ CLOUD AGENTS<br/>Coding Agent + PR Review"] --> B["🔌 MCP SERVERS<br/>Playwright + GitHub"]
+    B --> C["🧠 SKILLS + 🤖 AGENTS<br/>.github/skills/ · .github/agents/"]
+    C --> D["📄 PROMPT FILES<br/>.github/prompts/*.prompt.md"]
+    D --> E["📋 INSTRUCTIONS<br/>.github/copilot-instructions.md"]
+    E --> F["💬 CHAT MODES<br/>Ask → Plan → Agent"]
+    G["⌨️ GitHub Copilot CLI<br/>TUI · Plan · /delegate"] -.-> A
 ```
 
 <!--
