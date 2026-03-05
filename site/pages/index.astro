@@ -85,7 +85,7 @@ for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d =>
 
     <div class="workshop-grid">
       {workshops.map(w => (
-        <a href={`${base}${w.name}/`} class="workshop-card">
+        <a href={`${base}${w.name}`} class="workshop-card">
           <div class="card-title">
             <span class="card-icon" set:html={w.icon} />
             <h3 class="card-heading">{w.label}</h3>
