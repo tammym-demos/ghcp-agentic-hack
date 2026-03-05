@@ -80,22 +80,22 @@ for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d =>
   <section class="workshops-section">
     <div class="section-intro">
       <h2 class="section-heading">Available workshops</h2>
-      <p class="section-sub">Select a workshop to launch the slide deck or hands-on lab.</p>
+      <p class="section-sub">Select a workshop to view its resources.</p>
     </div>
 
     <div class="workshop-grid">
       {workshops.map(w => (
-        <div class="workshop-card">
+        <a href={`${base}${w.name}/`} class="workshop-card">
           <div class="card-title">
             <span class="card-icon" set:html={w.icon} />
             <h3 class="card-heading">{w.label}</h3>
           </div>
           {w.desc && <p class="card-description">{w.desc}</p>}
           <div class="card-footer">
-            {w.hasLab && <a href={`${base}${w.name}/lab.html`} class="badge badge-lab">Lab</a>}
-            {w.hasSlides && <a href={`${base}${w.name}/slides/1`} target="_blank" rel="noopener noreferrer" onclick="window.open(this.href,'_blank','width=1280,height=720,menubar=no,toolbar=no,location=no,status=no');return false;" class="badge badge-slides">Slides</a>}
+            {w.hasSlides && <span class="badge badge-slides">Slides</span>}
+            {w.hasLab && <span class="badge badge-lab">Lab</span>}
           </div>
-        </div>
+        </a>
       ))}
     </div>
   </section>
@@ -197,11 +197,14 @@ for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d =>
       padding: 24px;
       display: flex;
       flex-direction: column;
+      text-decoration: none;
+      color: inherit;
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
     .workshop-card:hover {
       border-color: #484f58;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(88, 166, 255, 0.1);
+      color: inherit;
     }
 
     .card-title {
@@ -251,11 +254,6 @@ for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d =>
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.04em;
-      text-decoration: none;
-      transition: opacity 0.15s;
-    }
-    .badge:hover {
-      opacity: 0.8;
     }
     .badge-lab {
       background: rgba(63, 185, 80, 0.15);
