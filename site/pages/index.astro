@@ -216,7 +216,7 @@ const hasWorkshop = files.some(f => f.endsWith('-workshop.md'))
 
     .card-title {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 10px;
       margin-bottom: 12px;
     }
@@ -225,6 +225,7 @@ const hasWorkshop = files.some(f => f.endsWith('-workshop.md'))
       line-height: 1;
       flex-shrink: 0;
       color: var(--text-1);
+      margin-top: 1px;
     }
     .card-icon :global(svg) {
       width: 24px;
