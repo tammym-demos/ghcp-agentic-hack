@@ -1294,9 +1294,9 @@ class: text-xs
 
 ## Backup URLs
 
-- Demo Repo: github.com/microsoft/GitHubCopilot_Customized
-- API Swagger: http://localhost:3000/api-docs
-- Frontend: http://localhost:5137
-- GitHub Copilot CLI Docs: docs.github.com/en/copilot/github-copilot-in-the-cli
-- Agent Skills Docs: docs.github.com/en/copilot/concepts/agents/about-agent-skills
-- MCP Docs: docs.github.com/en/copilot/how-tos/using-extensions/using-mcp-in-copilot
+- Demo Repo: <https://github.com/microsoft/GitHubCopilot_Customized>
+- API Swagger: <http://localhost:3000/api-docs>
+- Frontend: <http://localhost:5137>
+- GitHub Copilot CLI Docs: <https://docs.github.com/en/copilot/github-copilot-in-the-cli>
+- Agent Skills Docs: <https://docs.github.com/en/copilot/concepts/agents/about-agent-skills>
+- MCP Docs: <https://docs.github.com/en/copilot/how-tos/using-extensions/using-mcp-in-copilot>
