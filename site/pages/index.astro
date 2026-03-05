@@ -221,16 +221,20 @@ const hasWorkshop = files.some(f => f.endsWith('-workshop.md'))
       margin-bottom: 12px;
     }
     .card-icon {
-      font-size: 24px;
-      line-height: 1;
       flex-shrink: 0;
       color: var(--text-1);
-      margin-top: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      font-size: 24px;
+      line-height: 1;
     }
     .card-icon :global(svg) {
       width: 24px;
       height: 24px;
-      vertical-align: middle;
+      display: block;
     }
     .card-heading {
       font-size: 16px;
