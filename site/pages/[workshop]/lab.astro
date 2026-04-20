@@ -22,7 +22,12 @@ export function getStaticPaths() {
     const content = readFileSync(resolve(dirPath, labFile), 'utf-8')
     const titleMatch = content.match(/^#\s+(.+)/m)
     const title = titleMatch ? titleMatch[1] : dir.name
-    const html = marked.parse(content) as string
+    const rawHtml = marked.parse(content) as string
+    const html = rawHtml.replace(/<h([1-6])>(.*?)<\/h[1-6]>/g, (_match: string, level: string, inner: string) => {
+      const plain = inner.replace(/<[^>]*>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+      const slug = plain.toLowerCase().replace(/[^\w -]/g, '').replace(/ /g, '-')
+      return `<h${level} id="${slug}">${inner}</h${level}>`
+    })
 
     paths.push({
       params: { workshop: dir.name },
