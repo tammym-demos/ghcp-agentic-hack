@@ -31,6 +31,7 @@ loadEnv({ path: resolve(ROOT, '.env') })
 const WORKSHOPS_DIR = resolve(ROOT, 'workshops')
 const SITE_DIST = resolve(ROOT, 'dist', 'site')
 const BASE_PATH = process.env.BASE_PATH || '/GH-Hack/'
+const SHOW_DRAFTS = process.env.SHOW_DRAFTS === 'true'
 
 function run(cmd, opts = {}) {
   console.log(`\n> ${cmd}`)
@@ -40,6 +41,11 @@ function run(cmd, opts = {}) {
 // --- Step 1: Discover Slidev decks ---
 function discoverDecks(dir) {
   const decks = []
+  // Skip the entire workshop folder if it contains a .draft marker (unless SHOW_DRAFTS=true)
+  if (!SHOW_DRAFTS && existsSync(resolve(dir, '.draft'))) {
+    console.log(`  (skipping draft workshop: ${dir.slice(WORKSHOPS_DIR.length + 1) || dir})`)
+    return decks
+  }
   const entries = readdirSync(dir, { withFileTypes: true })
   for (const entry of entries) {
     const fullPath = resolve(dir, entry.name)
@@ -53,7 +59,7 @@ function discoverDecks(dir) {
 }
 
 const decks = discoverDecks(WORKSHOPS_DIR)
-console.log(`Found ${decks.length} Slidev deck(s):`)
+console.log(`Found ${decks.length} Slidev deck(s)${SHOW_DRAFTS ? ' (including drafts)' : ''}:`)
 decks.forEach(d => console.log(`  - ${d}`))
 
 // --- Step 2: Build each Slidev deck ---
