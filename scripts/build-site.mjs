@@ -11,7 +11,7 @@
  * Usage:
  *   node scripts/build-site.mjs
  *
- * Environment variables:
+ * Environment variables (can also be set in .env at repo root):
  *   BASE_PATH   — URL base path (default: /GH-Hack/)
  *   SHOW_DRAFTS — Set to "true" to include draft workshops (default: false)
  */
@@ -20,10 +20,14 @@ import { execSync } from 'child_process'
 import { readdirSync, readFileSync, existsSync, cpSync, writeFileSync, mkdirSync } from 'fs'
 import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
+import { config as loadEnv } from 'dotenv'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 const ROOT = resolve(__dirname, '..')
+
+// Load .env from repo root (won't override existing env vars)
+loadEnv({ path: resolve(ROOT, '.env') })
 const WORKSHOPS_DIR = resolve(ROOT, 'workshops')
 const SITE_DIST = resolve(ROOT, 'dist', 'site')
 const BASE_PATH = process.env.BASE_PATH || '/GH-Hack/'

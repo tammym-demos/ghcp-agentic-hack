@@ -193,6 +193,38 @@ Then open `http://localhost:4201/GH-Hack/`.
 
 > **Important**: Do **not** change the Astro `base` path to `/` for local testing — it will break the GitHub Pages deployment.
 
+### Draft Workshops
+
+Workshops can be marked as **drafts** so they are hidden from the published GitHub Pages site but still available for local preview.
+
+**How it works:**
+
+- Place an empty `.draft` marker file in any workshop folder to mark it as a draft:
+
+  ```
+  workshops/my-new-topic/.draft
+  ```
+
+- Draft workshops are **excluded** from the build by default (both the landing page and any slide/lab links).
+- To **include drafts** in a local build, set the `SHOW_DRAFTS` environment variable:
+
+  ```powershell
+  $env:SHOW_DRAFTS = "true"
+  node scripts/build-site.mjs
+  ```
+
+  Or create a `.env` file at the repo root (already in `.gitignore`):
+
+  ```
+  SHOW_DRAFTS=true
+  ```
+
+  The build script loads `.env` automatically via dotenv, so no extra flags are needed.
+
+- To **publish** a draft, simply delete the `.draft` file and push.
+
+> **Note**: The `.env` file is git-ignored to prevent accidentally publishing draft workshops. Each contributor creates their own `.env` locally as needed.
+
 ---
 
 ## Publishing to GitHub Pages
@@ -276,10 +308,12 @@ All decks use the shared theme at `themes/github/` which provides seven layouts:
 ## Checklist: Adding a Workshop End-to-End
 
 - [ ] Create `workshops/<topic>/` folder
+- [ ] (Optional) Add a `.draft` file to hide from published site until ready
 - [ ] Write `<topic>-workshop.md` (presenter guide)
 - [ ] Write `<topic>.slidev.md` (slide deck referencing `../../themes/github`)
 - [ ] (Optional) Write `<topic>-LAB.md` (hands-on lab)
 - [ ] Add entry to `workshopMeta` in `site/pages/index.astro`
 - [ ] Preview deck locally: `npx slidev workshops/<topic>/<topic>.slidev.md`
 - [ ] Run full build: `node scripts/build-site.mjs`
+- [ ] Remove `.draft` file when ready to publish
 - [ ] Push to `main` — workflow deploys automatically

@@ -160,6 +160,7 @@ These rules are disabled in `.markdownlint.json` because they conflict with the 
 
 ### Common Formatting Mistakes to Avoid
 
+- **Wrapping navigable URLs in backticks**: If a URL is meant to be clicked (e.g., "Navigate to ..."), use angle brackets `<https://example.com>` so it renders as a clickable link. Only use backticks for URLs that are config values inside YAML, `.npmrc`, `git remote` commands, or similar code contexts
 - **Missing blank line before a list**: If a list immediately follows a paragraph, bold label, or other non-list content, insert a blank line before the first `- ` item
 - **Missing blank line around fenced code blocks**: Always have a blank line before the opening ` ``` ` and after the closing ` ``` `
 - **Bare URLs in tables**: Use `<https://...>` or `[text]\(url)` — never a raw URL in a table cell

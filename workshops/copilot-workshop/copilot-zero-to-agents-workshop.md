@@ -796,6 +796,7 @@ Show attendees where to find community skills:
 
 - [anthropics/skills](https://github.com/anthropics/skills) — Anthropic's reference skills
 - [github/awesome-copilot](https://github.com/github/awesome-copilot) — community-curated collection
+- [skills.sh](https://skills.sh/) — searchable directory of agent skills
 
 **Talking point**: "Skills are an open standard. You can use skills from the community or write your own."
 

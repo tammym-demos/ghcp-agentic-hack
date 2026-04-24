@@ -1,0 +1,192 @@
+# Standard Container Build Pipeline — ADO Governance
+# Maintained by: Service Run Team (Platform Administrators)
+# Version: 1.0
+#
+# This template enforces the Phase 1 federated ACR model:
+#   - Builds push ONLY to platform-approved ACRs
+#   - Version tagging is mandatory
+#   - No secrets in YAML — Key Vault integration required
+#   - Service connections are platform-governed
+#
+# Usage:
+#   Copy this file into your project repo, or reference it as a template:
+#
+#   # In your pipeline YAML:
+#   resources:
+#     repositories:
+#       - repository: governance
+#         type: git
+#         name: Platform-Templates/ado-governance
+#   extends:
+#     template: templates/container-build.yml@governance
+#     parameters:
+#       acrName: 'myapproved-acr'
+#       imageName: 'my-service'
+
+parameters:
+  - name: acrName
+    displayName: 'Approved ACR Name'
+    type: string
+
+  - name: imageName
+    displayName: 'Container Image Name'
+    type: string
+
+  - name: dockerfilePath
+    displayName: 'Dockerfile path'
+    type: string
+    default: '**/Dockerfile'
+
+  - name: buildContext
+    displayName: 'Docker build context'
+    type: string
+    default: '.'
+
+  - name: additionalTags
+    displayName: 'Additional tags (newline-separated)'
+    type: string
+    default: ''
+
+  - name: keyVaultName
+    displayName: 'Azure Key Vault for secrets'
+    type: string
+    default: ''
+
+  - name: runTests
+    displayName: 'Run tests before build'
+    type: boolean
+    default: true
+
+trigger:
+  branches:
+    include:
+      - main
+      - release/*
+  paths:
+    exclude:
+      - '**/*.md'
+      - docs/**
+
+pr:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  # Standard tags — always applied
+  - name: imageTag
+    value: '$(Build.BuildId)'
+  - name: semverTag
+    value: '$(Build.SourceBranchName)-$(Build.BuildId)'
+  - name: fullImageName
+    value: '${{ parameters.acrName }}.azurecr.io/${{ parameters.imageName }}'
+
+stages:
+  # ── Stage 1: Validate ──────────────────────────────────
+  - stage: Validate
+    displayName: 'Validate & Test'
+    jobs:
+      - job: Validate
+        displayName: 'Pre-build validation'
+        steps:
+          - script: |
+              echo "=== Governance Checks ==="
+              echo "ACR Target: ${{ parameters.acrName }}"
+              echo "Image: ${{ parameters.imageName }}"
+              echo "Tag: $(imageTag)"
+
+              # Verify Dockerfile exists
+              if ! find . -name "Dockerfile" | head -1 | grep -q .; then
+                echo "##vso[task.logissue type=error]No Dockerfile found"
+                exit 1
+              fi
+
+              # Verify no secrets in pipeline YAML
+              if grep -rn "password\|secret\|token\|api_key" --include="*.yml" --include="*.yaml" . | grep -v "#" | grep -v "KeyVault" | grep -v "template"; then
+                echo "##vso[task.logissue type=warning]Possible secrets detected in YAML files. Use Key Vault integration instead."
+              fi
+            displayName: 'Governance pre-flight checks'
+
+          - ${{ if eq(parameters.runTests, true) }}:
+            - script: |
+                echo "Running project tests..."
+                # Project-specific test command goes here
+                # Example: dotnet test, npm test, pytest, etc.
+              displayName: 'Run tests'
+
+  # ── Stage 2: Build & Push ──────────────────────────────
+  - stage: Build
+    displayName: 'Build & Push Container'
+    dependsOn: Validate
+    jobs:
+      - job: BuildAndPush
+        displayName: 'Build and push to approved ACR'
+        steps:
+          # Optional: Pull secrets from Key Vault
+          - ${{ if ne(parameters.keyVaultName, '') }}:
+            - task: AzureKeyVault@2
+              displayName: 'Fetch secrets from Key Vault'
+              inputs:
+                azureSubscription: '$(platformServiceConnection)'  # Platform-governed
+                KeyVaultName: '${{ parameters.keyVaultName }}'
+                SecretsFilter: '*'
+                RunAsPreJob: true
+
+          # Build the container image
+          - task: Docker@2
+            displayName: 'Build container image'
+            inputs:
+              command: build
+              Dockerfile: '${{ parameters.dockerfilePath }}'
+              buildContext: '${{ parameters.buildContext }}'
+              tags: |
+                $(imageTag)
+                $(semverTag)
+                latest
+                ${{ parameters.additionalTags }}
+              arguments: '--label org.opencontainers.image.source=$(Build.Repository.Uri) --label org.opencontainers.image.revision=$(Build.SourceVersion)'
+
+          # Push to platform-approved ACR only
+          - task: Docker@2
+            displayName: 'Push to approved ACR: ${{ parameters.acrName }}'
+            inputs:
+              command: push
+              containerRegistry: 'acr-${{ parameters.acrName }}'  # Platform-governed service connection
+              repository: '${{ parameters.imageName }}'
+              tags: |
+                $(imageTag)
+                $(semverTag)
+                latest
+                ${{ parameters.additionalTags }}
+
+          # Generate SBOM for supply chain security
+          - script: |
+              echo "Image pushed successfully:"
+              echo "  $(fullImageName):$(imageTag)"
+              echo "  $(fullImageName):$(semverTag)"
+              echo "  $(fullImageName):latest"
+            displayName: 'Push summary'
+
+  # ── Stage 3: Record ────────────────────────────────────
+  - stage: Record
+    displayName: 'Governance Record'
+    dependsOn: Build
+    jobs:
+      - job: Record
+        displayName: 'Log build metadata'
+        steps:
+          - script: |
+              echo "=== Build Governance Record ==="
+              echo "Project:     $(System.TeamProject)"
+              echo "Pipeline:    $(Build.DefinitionName)"
+              echo "Run:         $(Build.BuildId)"
+              echo "Triggered:   $(Build.Reason)"
+              echo "Source:      $(Build.SourceBranch) @ $(Build.SourceVersion)"
+              echo "ACR:         ${{ parameters.acrName }}"
+              echo "Image:       ${{ parameters.imageName }}:$(imageTag)"
+              echo "Built by:    $(Build.RequestedFor)"
+              echo "Timestamp:   $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            displayName: 'Log governance metadata'
