@@ -41,7 +41,7 @@ class: text-xs
 | 15 min | What Are Agentic Loops? |
 | 15 min | Plan-Act-Observe-Reflect Cycle |
 | 15 min | The Ralph Loop Deep Dive |
-| 15 min | Rubber Duck Debugging with AI |
+| 15 min | Rubber Duck: Cross-Model Review |
 | 10 min | Summary & Discussion |
 | | ☕ *Break — 10 min* |
 | **Session 5** | **Agent Patterns & Antipatterns (60 min)** |
@@ -361,83 +361,54 @@ If you can't demo the Ralph loop live (requires Coding Agent access), show a rec
 class: text-xs
 ---
 
-# Rubber Duck Debugging with AI
+# Rubber Duck: Cross-Model Review
 
-### The classic technique, elevated
+### A different model family provides an independent second opinion
 
-| Aspect | Classic Rubber Duck | Copilot as Rubber Duck |
-|--------|--------------------|-----------------------|
-| **Listening** | Silent (you articulate) | Active (asks questions back) |
-| **Challenge** | None (you self-discover) | Identifies blind spots, edge cases |
-| **Knowledge** | None | Full codebase context |
-| **Bias check** | Only your own reflection | Independent perspective |
+| Review Approach | Limitation | Rubber Duck Advantage |
+|----------------|-----------|----------------------|
+| **Self-reflection** | Same training biases, same blind spots | Different model family = different biases |
+| **Human review** | Slow, doesn't scale | Fast, automated, catches systematic patterns |
+| **Same-family model** | Correlated blind spots | Cross-family = uncorrelated blind spots |
 
-### The Pattern: Articulate → Challenge → Refine → Implement
+When your orchestrator is **Claude**, Rubber Duck uses **GPT-5.4** — and vice versa.
 
-1. **Articulate**: Describe your plan in detail (Plan or Ask mode)
-2. **Challenge**: Ask Copilot to find flaws and edge cases
-3. **Refine**: Update plan based on critique
-4. **Implement**: Switch to Agent mode with the refined plan
+<div class="gh-callout gh-callout-purple">
+
+**Key insight**: A model reviewing its own work is bounded by its own biases. Cross-family review catches errors the primary model is structurally likely to miss.
+
+</div>
 
 <!--
-"Rubber duck debugging works because articulating the problem reveals the solution. Copilot makes this better — it's a rubber duck that talks back. It finds edge cases you missed, suggests alternatives, and challenges your assumptions."
+"Rubber Duck is a specific GitHub Copilot feature — not just a concept. It uses a second model from a DIFFERENT AI family to review the primary agent's work. Different training data, different blind spots, genuinely independent perspective."
 -->
 
 ---
 class: text-xs
 ---
 
-# Rubber Duck in Practice (1/2)
+# When Rubber Duck Activates
 
-### Example prompt sequence
+### Three checkpoints where feedback has the highest return
 
-**Articulate:**
+1. **After drafting a plan** — Catching a suboptimal decision early avoids compounding errors downstream
+2. **After a complex implementation** — Second set of eyes catches edge cases in complex code
+3. **After writing tests, before executing** — Catches gaps in coverage or flawed assertions
 
-```
-I'm adding rate limiting to our API. My approach:
-1. Add express-rate-limit middleware
-2. Apply globally: 100 requests per 15 min window
-3. Return 429 with retry-after header
-What am I missing?
-```
+Also activates **reactively** if the agent gets stuck in a loop. You can **request a critique at any time**.
 
-**Challenge:**
+### Real-World Catches (SWE-Bench Pro)
 
-```
-Play devil's advocate. What could go wrong in production?
-What about distributed deployments with multiple instances?
-```
+| Catch | What Rubber Duck Found |
+|-------|----------------------|
+| **Architectural** | Scheduler would start and immediately exit, running zero jobs |
+| **One-liner bug** | Loop silently overwrote same dict key — dropped 3 of 4 search facets |
+| **Cross-file conflict** | 3 files read a Redis key the new code stopped writing |
 
-<!--
-"First you lay out your plan. Then you ask for criticism. Notice we're in Ask mode — this is the thinking phase, not the doing phase."
--->
-
----
-class: text-sm
----
-
-# Rubber Duck in Practice (2/2)
-
-### Refine, then implement
-
-**Refine:**
-
-```
-Good points. Revised: Redis-backed rate limiting for distributed
-support, per-endpoint limits (auth stricter), bypass for health
-checks. Does this address the concerns?
-```
-
-Then → switch to **Agent mode** and implement the refined plan.
-
-<div class="gh-callout gh-callout-green">
-
-**The pattern**: Articulate → Challenge → Refine → Implement. Think first, build second.
-
-</div>
+**Result**: Sonnet + Rubber Duck closes **74.7%** of the gap to Opus alone.
 
 <!--
-"Notice the progression. First you lay out your plan. Then you ask for criticism. Then you refine. THEN you implement. This prevents the most common mistake with AI coding — jumping straight to implementation without thinking through the design."
+"Rubber Duck activates at the moments where a second opinion has the highest return. After planning — because a bad plan compounds. After complex code — because edge cases hide. After tests — because false confidence is worse than no tests."
 -->
 
 ---
@@ -446,15 +417,16 @@ layout: demo
 
 # 🖥️ LIVE DEMO
 
-### Rubber Duck Session
+### Rubber Duck in Action
 
-- Describe a design decision: "I want to add caching to the products API"
-- Ask Copilot to critique: "What could go wrong? What am I missing?"
-- Show it identifying cache invalidation, stale data, memory concerns
-- Refine the plan → switch to Agent mode to implement
+- Open GitHub Copilot CLI with a Claude model selected
+- Give a complex task — show the agent planning
+- Point out when Rubber Duck activates (after plan, after implementation)
+- Show the critique: what did the second model catch?
+- Show the agent incorporating feedback
 
 <!--
-This demo shows the transition from thinking to doing. Start in Ask mode for the rubber duck phase, then switch to Agent mode for implementation. The quality difference compared to "just implement caching" is dramatic.
+Show the cross-family review in action. The key moment is when the second model catches something the primary model missed — that's the value of different training biases.
 -->
 
 ---
@@ -467,8 +439,8 @@ class: text-sm
 
 - Agentic loops follow **plan → act → observe → reflect**
 - The Ralph loop adds **validation gates** (lint, types, tests) that force self-correction
-- Copilot as a **rubber duck** actively challenges your thinking
-- Use the **articulate → challenge → refine → implement** pattern
+- **Rubber Duck** provides cross-model-family review at key checkpoints — plan, implementation, tests
+- Cross-family critique catches errors that self-reflection misses
 
 ### Discussion
 
