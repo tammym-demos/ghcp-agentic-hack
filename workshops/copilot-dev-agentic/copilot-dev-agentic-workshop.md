@@ -302,8 +302,9 @@ The Ralph loop's power comes from self-correction:
 
 ### Key Points
 
-- **Rubber Duck** is a GitHub Copilot feature that uses a second AI model from a **different model family** to review the primary agent's work
+- **Rubber Duck** is a **GitHub Copilot CLI** feature (experimental mode) that uses a second AI model from a **different model family** to review the primary agent's work
 - When your orchestrator is a Claude model, Rubber Duck uses GPT-5.4 — and vice versa — providing a genuinely independent perspective
+- **Important**: Rubber Duck is currently available only in GitHub Copilot CLI (via `/experimental`), not in VS Code Copilot Chat
 - The concept draws from classic rubber duck debugging (articulating a problem reveals the solution), but Rubber Duck goes further: it's a different model with different training data and different blind spots
 - **The key insight**: A model reviewing its own work is bounded by its own biases. A cross-family review catches errors the primary model is structurally likely to miss
 
@@ -339,15 +340,16 @@ Claude Sonnet + Rubber Duck (GPT-5.4) closes **74.7% of the performance gap** be
 
 ### 🖥️ Demo: Rubber Duck in Action
 
-1. Open GitHub Copilot CLI with a Claude model selected
-2. Give a complex task — show the agent planning
-3. Point out when Rubber Duck activates (after plan, after implementation)
-4. Show the critique: what did the second model catch?
-5. Show how the agent incorporates feedback and what changed
+1. Open **GitHub Copilot CLI** and run `/experimental` to enable Rubber Duck
+2. Select a Claude model from the model picker
+3. Give a complex task — show the agent planning
+4. Point out when Rubber Duck activates (after plan, after implementation)
+5. Show the critique: what did the second model catch?
+6. Show how the agent incorporates feedback and what changed
 
 ### Using Rubber Duck Manually
 
-You can also request a critique at any time:
+In Copilot CLI, you can request a critique at any time:
 
 ```
 Review your plan before implementing. What could go wrong?

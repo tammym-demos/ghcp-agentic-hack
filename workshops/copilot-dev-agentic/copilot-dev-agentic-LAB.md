@@ -202,11 +202,13 @@ Note how many times the agent corrected itself and what triggered each correctio
 
 **Step 1: Understand the concept**
 
-Rubber Duck is a GitHub Copilot feature that uses a second AI model from a **different model family** to review the primary agent's work. When Claude is your orchestrator, Rubber Duck uses GPT-5.4 — providing an independent perspective with different training biases.
+Rubber Duck is a **GitHub Copilot CLI** feature (experimental mode) that uses a second AI model from a **different model family** to review the primary agent's work. When Claude is your orchestrator, Rubber Duck uses GPT-5.4 — providing an independent perspective with different training biases.
+
+> **Note**: Rubber Duck is currently available only in GitHub Copilot CLI (via `/experimental`), not in VS Code Copilot Chat.
 
 **Step 2: Trigger a manual critique**
 
-In GitHub Copilot CLI (or Agent mode in VS Code), give a complex task:
+In GitHub Copilot CLI, give a complex task:
 
 ```
 Add real-time order notifications to the OctoCAT Supply app using WebSockets.

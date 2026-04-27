@@ -363,7 +363,7 @@ class: text-xs
 
 # Rubber Duck: Cross-Model Review
 
-### A different model family provides an independent second opinion
+### A Copilot CLI feature — different model family provides independent review
 
 | Review Approach | Limitation | Rubber Duck Advantage |
 |----------------|-----------|----------------------|
@@ -375,7 +375,7 @@ When your orchestrator is **Claude**, Rubber Duck uses **GPT-5.4** — and vice 
 
 <div class="gh-callout gh-callout-purple">
 
-**Key insight**: A model reviewing its own work is bounded by its own biases. Cross-family review catches errors the primary model is structurally likely to miss.
+**Copilot CLI only** (experimental mode via `/experimental`). Not yet available in VS Code Copilot Chat.
 
 </div>
 
@@ -419,7 +419,8 @@ layout: demo
 
 ### Rubber Duck in Action
 
-- Open GitHub Copilot CLI with a Claude model selected
+- Open **GitHub Copilot CLI** and run `/experimental` to enable Rubber Duck
+- Select a Claude model from the model picker
 - Give a complex task — show the agent planning
 - Point out when Rubber Duck activates (after plan, after implementation)
 - Show the critique: what did the second model catch?
