@@ -662,7 +662,7 @@ class: text-sm
 -->
 
 ---
-class: text-sm
+class: text-xs
 ---
 
 # Output Log Channels
@@ -675,13 +675,19 @@ class: text-sm
 | **GitHub Copilot Chat** | Request/response, tool calls | Chat wrong or slow |
 | **Language Server** | Symbols, analysis | Navigation issues |
 
-### Access
+Access: `Ctrl+Shift+U` → Output panel → select channel → look for errors (red), warnings (yellow)
 
-1. `Ctrl+Shift+U` → Output panel
-2. Select channel from dropdown
-3. Look for errors (red), warnings (yellow)
+<!--
+"Output logs are step 1 of any troubleshooting. Open the panel, select the channel, and look for red."
+-->
 
-### Common Patterns
+---
+class: text-xs
+---
+
+# Common Log Patterns
+
+### What to look for in the output logs
 
 | Pattern | Meaning | Action |
 |---------|---------|--------|
@@ -689,6 +695,12 @@ class: text-sm
 | `429` | Rate limited | Wait or switch model |
 | `Context truncated` | Window overflow | Reduce context |
 | `Model not available` | Model down/restricted | Switch model |
+
+<div class="gh-callout gh-callout-blue">
+
+**Most common issues**: 401 (re-sign in), 429 (rate limited), or context truncated (reduce attached files).
+
+</div>
 
 <!--
 "Output logs are step 1 of any troubleshooting. Open the panel, select the channel, and look for red. Most common issues: 401 (re-sign in), 429 (rate limited), or context truncated."
