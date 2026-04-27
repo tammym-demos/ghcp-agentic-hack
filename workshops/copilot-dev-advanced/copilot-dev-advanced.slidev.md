@@ -49,6 +49,7 @@ class: text-xs
 | 15 min | Output Quality Rubrics |
 | 15 min | Evaluation Methods |
 | 15 min | Tracking & Improvement |
+| 10 min | Usage, Billing & Cost Strategies |
 
 <!--
 "Three sessions, two breaks. This module rounds out the full curriculum."
@@ -596,6 +597,59 @@ class: text-sm
 -->
 
 ---
+class: text-xs
+---
+
+# Usage, Billing & Cost Strategies
+
+### The transition: Premium Requests → AI Credits (June 1, 2026)
+
+| Aspect | Current | New (AI Credits) |
+|--------|---------|-----------------|
+| **Unit** | 1 request × model multiplier | Tokens × model price → credits |
+| **Free** | GPT-4.1, GPT-4o, GPT-5 mini (0x) | Completions + next edit unlimited |
+| **Included** | Per-user monthly allowance | 1,900 (Business) / 3,900 (Enterprise) credits pooled |
+
+- 1 AI credit = $0.01 USD — billing based on actual token consumption
+- **Code completions and next edit suggestions remain unlimited**
+- Credits pooled at billing entity level — power users offset by light users
+
+<div class="gh-callout gh-callout-blue">
+
+**Auto model selection** gives a 10% multiplier discount in Copilot Chat. Select "Auto" in the model picker.
+
+</div>
+
+<!--
+"Starting June 1, Copilot moves to usage-based billing. You're billed for actual tokens consumed, not flat per-prompt counts. The good news: completions are still free, and included credits are pooled across your org."
+-->
+
+---
+class: text-xs
+---
+
+# Model Cost Tiers & Saving Strategies
+
+| Tier | Models | Multiplier |
+|------|--------|-----------|
+| **Free** | GPT-4.1, GPT-4o, GPT-5 mini | 0x |
+| **Budget** | Haiku 4.5, Gemini 3 Flash, GPT-5.4 nano | 0.25–0.33x |
+| **Standard** | Claude Sonnet, Gemini 2.5 Pro, GPT-5.2/5.4 | 1x |
+| **Premium** | Claude Opus 4.5/4.6 (3x), Opus 4.7 / GPT-5.5 (7.5x) | 3–7.5x |
+
+### Top developer cost strategies
+
+1. Use **included models** (0x) for daily work
+2. **Budget models** for routine tasks (0.25–0.33x)
+3. Reserve **premium models** for hard problems only
+4. **Lean instructions** + **targeted context** (`#file` not `#codebase`)
+5. **Fresh sessions** — prevents history bloat eating tokens
+
+<!--
+"Know the cost of what you're using. A quick chat on GPT-4o is free. A complex architecture session on Opus 4.7 is 7.5x. Match the model to the task complexity."
+-->
+
+---
 class: text-sm
 ---
 
@@ -607,6 +661,7 @@ class: text-sm
 - Use rubrics for consistent, repeatable evaluation
 - Combine automated checks + human review in a pipeline
 - Track metrics over time — the feedback loop drives improvement
+- **Know your model cost tiers** — match model to task complexity, not the other way around
 
 ### Discussion
 

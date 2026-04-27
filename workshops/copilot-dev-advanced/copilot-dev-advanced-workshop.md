@@ -1,6 +1,6 @@
 # GitHub Copilot Developer Training — Advanced Topics
 
-**Duration**: ~3 hours 10 minutes (190 min)  
+**Duration**: ~3 hours 20 minutes (200 min)  
 **Format**: Presentation + Live Demo + Hands-On  
 **Audience**: Developers extending GitHub Copilot with integrations, evaluation frameworks, and diagnostic tools  
 **Focus**: Extensions, MCP, evaluating AI output, and troubleshooting Copilot  
@@ -68,7 +68,8 @@ If you're taking this module standalone (without Modules 1–2), you should be c
 | 7.3 | [Output Quality Rubrics](#73-output-quality-rubrics-15-min) | 15 min |
 | 7.4 | [Evaluation Methods](#74-evaluation-methods-15-min) | 15 min |
 | 7.5 | [Tracking & Improvement](#75-tracking--improvement-15-min) | 15 min |
-| 7.6 | [Session 7 Summary & Discussion](#76-session-7-summary--discussion-5-min) | 5 min |
+| 7.6 | [Usage, Billing & Cost Strategies](#76-usage-billing--cost-strategies-10-min) | 10 min |
+| 7.7 | [Session 7 Summary & Discussion](#77-session-7-summary--discussion-5-min) | 5 min |
 | | ☕ Break | 10 min |
 | **Session 8** | **Troubleshooting & Diagnostics** | **60 min** |
 | 8.1 | [Opening & AI Safety: "Debugging the Black Box"](#81-opening--ai-safety-debugging-the-black-box-5-min) | 5 min |
@@ -77,7 +78,7 @@ If you're taking this module standalone (without Modules 1–2), you should be c
 | 8.4 | [Agent Debug Logs](#84-agent-debug-logs-15-min) | 15 min |
 | 8.5 | [Diagnostics Collection & Curriculum Wrap-Up](#85-diagnostics-collection--curriculum-wrap-up-10-min) | 10 min |
 
-**Total: ~190 min (~3h 10min) including breaks**
+**Total: ~200 min (~3h 20min) including breaks**
 
 ---
 
@@ -553,7 +554,69 @@ For systematic quality assessment across many tasks:
 
 ---
 
-## 7.6. Session 7 Summary & Discussion (5 min)
+## 7.6. Usage, Billing & Cost Strategies (10 min)
+
+### Key Points
+
+- GitHub is transitioning from premium-request-based billing to **usage-based billing (AI Credits)** starting **June 1, 2026**
+- **GitHub AI Credits** are the new billing unit: 1 AI credit = $0.01 USD
+- Billing is based on actual **token consumption**: input tokens + output tokens + cached tokens
+- **Code completions and next edit suggestions remain unlimited** — they are NOT billed in AI credits
+- Credits are **pooled at the billing entity level** — power users are offset by lighter users
+
+### The Billing Transition
+
+| Aspect | Current (Premium Requests) | New (AI Credits — June 2026) |
+|--------|---------------------------|------------------------------|
+| **Unit** | 1 request × model multiplier | Tokens × model price → AI credits |
+| **Free models** | GPT-4.1, GPT-4o, GPT-5 mini (0x) | Completions + next edit unlimited; 1,900–3,900 credits/mo included |
+| **Pooling** | Per-user monthly allowance | Pooled at billing entity level |
+
+### Model Cost Tiers — Know What You're Spending
+
+| Tier | Models | Multiplier |
+|------|--------|-----------|
+| **Free** (0x) | GPT-4.1, GPT-4o, GPT-5 mini, Raptor mini | No premium requests consumed |
+| **Budget** (0.25–0.33x) | GPT-5.4 nano, Grok Code Fast, Claude Haiku 4.5, Gemini 3 Flash | Fraction of a request |
+| **Standard** (1x) | Claude Sonnet 4/4.5/4.6, Gemini 2.5 Pro, GPT-5.2/5.4 | 1 request per prompt |
+| **Premium** (3–7.5x) | Claude Opus 4.5/4.6 (3x), Claude Opus 4.7 (7.5x), GPT-5.5 (7.5x) | Multiple requests per prompt |
+| **Ultra** (30x) | Claude Opus 4.6 fast mode | 30 requests per prompt |
+
+### 10 Developer Cost Strategies
+
+| # | Strategy | Impact |
+|---|----------|--------|
+| 1 | **Use included models** (GPT-4.1, GPT-4o, GPT-5 mini) for daily work | Zero cost — 0x multiplier |
+| 2 | **Auto model selection** in Copilot Chat | 10% discount on multipliers |
+| 3 | **Budget models for routine tasks** (Haiku 0.33x, GPT-5.4 nano 0.25x) | 67–75% cheaper than standard |
+| 4 | **Reserve premium models** (Opus, GPT-5.5) for complex problems only | Avoid 3–7.5x multiplier on simple tasks |
+| 5 | **Lean `copilot-instructions.md`** — keep under 100 lines | Fewer input tokens per interaction |
+| 6 | **Targeted context** — `#file` not `#codebase` | Dramatically fewer input tokens |
+| 7 | **Fresh sessions** for new tasks | Prevents history bloat consuming tokens |
+| 8 | **File-targeted instructions** with `applyTo` | Only loads when relevant files are active |
+| 9 | **Set per-user budgets** | Prevents runaway spending |
+| 10 | **Monitor usage reports** regularly | Catch high-consumption patterns early |
+
+### Admin Budget Controls
+
+Budgets can be set at four levels — each can trigger alerts or enforce hard stops:
+
+1. **Enterprise-level** — caps all orgs, repos, cost centers
+2. **Organization-level** — caps all repos in the org
+3. **Cost-center-level** — caps a single cost center
+4. **User-level** — caps individual users ($0 budget = no access)
+
+> **Note**: There is no automatic fallback to cheaper models when a budget is exhausted. Usage is simply blocked until the next billing cycle.
+
+### Discussion Points
+
+- Which cost tier do most of your daily tasks fall into?
+- How would you implement per-user budgets in your organization?
+- What's the ROI calculation for using a 7.5x model vs. a 1x model?
+
+---
+
+## 7.7. Session 7 Summary & Discussion (5 min)
 
 ### Key Takeaways
 

@@ -47,7 +47,7 @@ Ensure these are in place:
 | Lab | Workshop Section | Duration | Exercises |
 |-----|-----------------|----------|-----------|
 | 1 | Session 6: Extensions & MCP | 36 min | 5 exercises |
-| 2 | Session 7: Evaluating Agentic Output | 34 min | 5 exercises |
+| 2 | Session 7: Evaluating Agentic Output | 42 min | 6 exercises |
 | 3 | Session 8: Troubleshooting & Diagnostics | 36 min | 5 exercises |
 
 ---
@@ -542,6 +542,54 @@ Score the new output. Did the improved instructions raise the score?
 - ✅ Generated code with a basic prompt and scored it
 - ✅ Improved instructions based on weaknesses
 - ✅ Regenerated and observed measurable improvement
+
+---
+
+### Exercise 2.6 — Cost-Aware Model Selection (8 min)
+
+**Objective**: Understand model cost tiers and calculate the cost impact of model selection.
+
+**Steps**
+
+**Step 1: Review the model cost tiers**
+
+| Tier | Models | Multiplier |
+|------|--------|-----------|
+| **Free** | GPT-4.1, GPT-4o, GPT-5 mini | 0x |
+| **Budget** | Claude Haiku 4.5, Gemini 3 Flash, GPT-5.4 nano | 0.25–0.33x |
+| **Standard** | Claude Sonnet 4/4.5/4.6, Gemini 2.5 Pro, GPT-5.2/5.4 | 1x |
+| **Premium** | Claude Opus 4.5/4.6 (3x), Opus 4.7 / GPT-5.5 (7.5x) | 3–7.5x |
+
+**Step 2: Calculate cost for three scenarios**
+
+For each scenario, identify which model tier you'd use and the cost in premium requests:
+
+| Scenario | Your Model Choice | Multiplier | Cost (requests) |
+|----------|------------------|-----------|-----------------|
+| Quick question: "What does this function do?" | ___ | ___ | ___ |
+| Code review of an API route | ___ | ___ | ___ |
+| Complex architecture decision (multi-file refactor) | ___ | ___ | ___ |
+
+**Step 3: Enable auto model selection**
+
+In VS Code, open the model picker in Copilot Chat and select **Auto**. This gives a 10% discount on multipliers.
+
+Send a chat message and hover over the response to see which model was selected.
+
+**Step 4: Compare your daily cost**
+
+Estimate: if you send ~50 prompts per day, what's the cost difference between:
+
+- All prompts on GPT-4o (0x) = ___
+- All prompts on Claude Sonnet (1x) = ___
+- All prompts on Claude Opus 4.7 (7.5x) = ___
+
+### Success Criteria
+
+- ✅ Can identify the four model cost tiers
+- ✅ Calculated cost for three different scenarios
+- ✅ Enabled auto model selection and observed the selected model
+- ✅ Understand the daily cost difference between model tiers
 
 </details>
 
