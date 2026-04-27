@@ -263,9 +263,9 @@ class: text-sm
 
 # The Ralph Loop
 
-### How Copilot's Coding Agent iterates
+### The iterative pattern behind Copilot's Coding Agent
 
-**Ralph** is the internal name for GitHub Copilot's Coding Agent. It's a specialized agentic loop with built-in validation gates.
+The **Ralph loop** is the iterative cycle the Coding Agent uses: edit → validate → fix → repeat until all checks pass. It's a specialized agentic loop with built-in validation gates.
 
 ```
   1. PLAN ──► Read issue → decompose task
@@ -281,12 +281,12 @@ class: text-sm
 
 <div class="gh-callout gh-callout-purple">
 
-**Key difference from Agent mode**: Ralph runs in a sandboxed environment and iterates until tests pass — or hits a retry limit.
+**Key difference from Agent mode**: The Coding Agent runs in a sandboxed environment and iterates until tests pass — or hits a retry limit.
 
 </div>
 
 <!--
-"Ralph is Agent mode on autopilot. Where Agent mode asks you to review each step, Ralph runs the full loop autonomously — plan, edit, validate, fix — until all checks pass. Then it opens a PR for you to review."
+"The Ralph loop is the iteration pattern behind the Coding Agent. Where Agent mode asks you to review each step, the Coding Agent runs this loop autonomously — plan, edit, validate, fix — until all checks pass. Then it opens a PR for you to review."
 -->
 
 ---
@@ -312,7 +312,7 @@ class: text-sm
 4. **All gates pass** → PR created
 
 <!--
-"The validation gates are what make Ralph reliable. It's not just generating code — it's running your project's actual lint, type checker, and tests against its own output. This is why copilot-setup-steps.yml matters — without it, Ralph can't run your checks."
+"The validation gates are what make the Ralph loop reliable. It's not just generating code — it's running your project's actual lint, type checker, and tests against its own output. This is why copilot-setup-steps.yml matters — without it, the Coding Agent can't run your checks."
 -->
 
 ---
@@ -332,12 +332,12 @@ class: text-sm
 
 <div class="gh-callout gh-callout-blue">
 
-**Pro tip**: Well-written issues with clear acceptance criteria dramatically reduce Ralph failures.
+**Pro tip**: Well-written issues with clear acceptance criteria dramatically reduce Coding Agent failures.
 
 </div>
 
 <!--
-"Ralph isn't magic. It fails when the task is under-specified, when it picks the wrong approach, or when it gets stuck in a fix loop. The fix is almost always better input — clearer issues, better instructions, more specific acceptance criteria."
+"The Ralph loop isn't magic. It fails when the task is under-specified, when it picks the wrong approach, or when it gets stuck in a fix loop. The fix is almost always better input — clearer issues, better instructions, more specific acceptance criteria."
 -->
 
 ---
@@ -354,7 +354,7 @@ layout: demo
 - Point out where self-correction happened
 
 <!--
-If you can't demo Ralph live (requires Coding Agent access), show a recorded example or walk through a completed PR that shows the iteration history. The key is seeing the validation gates in action.
+If you can't demo the Ralph loop live (requires Coding Agent access), show a recorded example or walk through a completed PR that shows the iteration history. The key is seeing the validation gates in action.
 -->
 
 ---
