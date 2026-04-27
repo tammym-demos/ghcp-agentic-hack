@@ -8,7 +8,18 @@ const workshopsDir: string = __WORKSHOPS_DIR__
 const showDrafts: boolean = __SHOW_DRAFTS__
 
 // Workshop metadata — order and descriptions
-const workshopMeta: Record<string, { label: string; desc: string; icon: string }> = {
+// Workshops with `modules` are multi-module curricula: one parent card links to child module folders.
+const workshopMeta: Record<string, { label: string; desc: string; icon: string; modules?: { folder: string; label: string; desc: string; icon: string }[] }> = {
+  'copilot-dev-training': {
+    label: 'Copilot Developer Training',
+    desc: '8-session developer onboarding curriculum — chat, context, agents, MCP, evaluation, and diagnostics.',
+    icon: '🎓',
+    modules: [
+      { folder: 'copilot-dev-foundations', label: 'Module 1: Foundations', desc: 'Sessions 1–3 · Chat Tour, Memory & Context, Models & Tokens', icon: '🎓' },
+      { folder: 'copilot-dev-agentic', label: 'Module 2: Agentic Patterns', desc: 'Sessions 4–5 · Agentic Loops, Rubber Duck, Patterns & Antipatterns', icon: '🤖' },
+      { folder: 'copilot-dev-advanced', label: 'Module 3: Advanced Topics', desc: 'Sessions 6–8 · Extensions & MCP, Evaluation, Troubleshooting', icon: '🔬' }
+    ]
+  },
   'copilot-workshop': {
     label: 'GitHub Copilot: Zero to Agents',
     desc: 'From completions to fully customized agentic AI development.',
@@ -76,26 +87,40 @@ const workshopMeta: Record<string, { label: string; desc: string; icon: string }
   }
 }
 
+// Collect the set of folders that are children of a multi-module curriculum
+const moduleFolders = new Set<string>()
+for (const meta of Object.values(workshopMeta)) {
+  if (meta.modules) {
+    for (const m of meta.modules) moduleFolders.add(m.folder)
+  }
+}
+
 // Auto-discover workshops
-const workshops: { name: string; label: string; desc: string; icon: string; hasWorkshop: boolean; hasLab: boolean; hasSlides: boolean }[] = []
+const workshops: { name: string; label: string; desc: string; icon: string; hasWorkshop: boolean; hasLab: boolean; hasSlides: boolean; modules?: typeof workshopMeta[string]['modules'] }[] = []
 
 for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d => d.isDirectory())) {
   const dirPath = resolve(workshopsDir, dir.name)
   const isDraft = existsSync(resolve(dirPath, '.draft'))
   if (isDraft && !showDrafts) continue
 
+  // Skip folders that are children of a multi-module curriculum
+  if (moduleFolders.has(dir.name)) continue
+
   const files = readdirSync(dirPath)
-const hasWorkshop = files.some(f => f.endsWith('-workshop.md'))
-    const hasLab = files.some(f => f.endsWith('-LAB.md'))
-    const hasSlides = files.some(f => f.endsWith('.slidev.md'))
-    if (!hasWorkshop && !hasLab && !hasSlides) continue
+  const hasWorkshop = files.some(f => f.endsWith('-workshop.md'))
+  const hasLab = files.some(f => f.endsWith('-LAB.md'))
+  const hasSlides = files.some(f => f.endsWith('.slidev.md'))
 
   const meta = workshopMeta[dir.name]
+
+  // Multi-module parent folders don't need standard files — they use the modules list
+  if (!meta?.modules && !hasWorkshop && !hasLab && !hasSlides) continue
+
   const label = meta?.label ?? dir.name.replace(/-/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase())
   const desc = meta?.desc ?? ''
   const icon = meta?.icon ?? '📘'
 
-  workshops.push({ name: dir.name, label, desc, icon, hasWorkshop, hasLab, hasSlides })
+  workshops.push({ name: dir.name, label, desc, icon, hasWorkshop, hasLab, hasSlides, modules: meta?.modules })
 }
 ---
 
@@ -128,9 +153,15 @@ const hasWorkshop = files.some(f => f.endsWith('-workshop.md'))
           </div>
           {w.desc && <p class="card-description">{w.desc}</p>}
           <div class="card-footer">
-            {w.hasWorkshop && <span class="badge badge-workshop">Workshop</span>}
-            {w.hasLab && <span class="badge badge-lab">Lab</span>}
-            {w.hasSlides && <span class="badge badge-slides">Slides</span>}
+            {w.modules ? (
+              <span class="badge badge-modules">{w.modules.length} Modules</span>
+            ) : (
+              <>
+                {w.hasWorkshop && <span class="badge badge-workshop">Workshop</span>}
+                {w.hasLab && <span class="badge badge-lab">Lab</span>}
+                {w.hasSlides && <span class="badge badge-slides">Slides</span>}
+              </>
+            )}
           </div>
         </a>
       ))}
@@ -309,6 +340,10 @@ const hasWorkshop = files.some(f => f.endsWith('-workshop.md'))
     .badge-slides {
       background: rgba(210, 168, 255, 0.15);
       color: #d2a8ff;
+    }
+    .badge-modules {
+      background: rgba(240, 185, 11, 0.15);
+      color: #f0b90b;
     }
   </style>
 </Base>

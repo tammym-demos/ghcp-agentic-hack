@@ -17,7 +17,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 56px 48px 44px;
+  padding: 32px 48px 44px;
   background: linear-gradient(170deg, #0d1117 0%, #0f1419 35%, #111b27 65%, #0d1117 100%);
   color: #e6edf3;
   position: relative;

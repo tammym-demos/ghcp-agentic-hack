@@ -55,7 +55,7 @@
 }
 
 .gh-default-content {
-  padding: 56px 56px 36px;
+  padding: 24px 56px 36px;
   height: 100%;
   position: relative;
   z-index: 2;

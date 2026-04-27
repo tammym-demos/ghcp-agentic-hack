@@ -103,7 +103,7 @@
     Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   color: var(--gh-fg-default);
   background: var(--gh-bg-default);
-  padding: 52px 48px 44px;
+  padding: 28px 48px 44px;
   line-height: 1.4;
   font-size: 16px;
 }
@@ -205,6 +205,71 @@
   color: var(--gh-accent-fg);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
+}
+
+
+/* ═══════════════════════════════════════
+   BLOCK ELEMENT SPACING
+   Breathing room between lists, tables, code, callouts
+   ═══════════════════════════════════════ */
+
+/* Lists followed by any block element */
+.slidev-layout ul + table,
+.slidev-layout ol + table,
+.slidev-layout ul + pre,
+.slidev-layout ol + pre,
+.slidev-layout ul + div,
+.slidev-layout ol + div,
+.slidev-layout ul + blockquote,
+.slidev-layout ol + blockquote {
+  margin-top: 1.4em !important;
+}
+
+/* Tables followed by any block element */
+.slidev-layout table + div,
+.slidev-layout table + pre,
+.slidev-layout table + blockquote,
+.slidev-layout table + ul,
+.slidev-layout table + ol,
+.slidev-layout table + table,
+.slidev-layout table + p {
+  margin-top: 1.4em !important;
+}
+
+/* Code blocks followed by any block element */
+.slidev-layout pre + div,
+.slidev-layout pre + table,
+.slidev-layout pre + blockquote,
+.slidev-layout pre + ul,
+.slidev-layout pre + ol,
+.slidev-layout pre + p {
+  margin-top: 1.4em !important;
+}
+
+/* Paragraphs followed by tables or callouts */
+.slidev-layout p + table,
+.slidev-layout p + div,
+.slidev-layout p + pre {
+  margin-top: 1.0em !important;
+}
+
+/* Callout divs followed by anything */
+.slidev-layout div + table,
+.slidev-layout div + pre,
+.slidev-layout div + ul,
+.slidev-layout div + ol,
+.slidev-layout div + p {
+  margin-top: 1.4em !important;
+}
+
+/* H3 subheadings get a gap above when following content */
+.slidev-layout table + h3,
+.slidev-layout ul + h3,
+.slidev-layout ol + h3,
+.slidev-layout pre + h3,
+.slidev-layout div + h3,
+.slidev-layout p + h3 {
+  margin-top: 1.6em !important;
 }
 
 
@@ -421,6 +486,7 @@
   width: 100% !important;
   display: flex !important;
   justify-content: center !important;
+  margin-bottom: 1.4em !important;
 }
 
 .mermaid .node rect,

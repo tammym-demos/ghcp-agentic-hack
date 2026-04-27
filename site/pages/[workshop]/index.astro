@@ -8,7 +8,17 @@ const base = import.meta.env.BASE_URL
 export function getStaticPaths() {
   const workshopsDir: string = __WORKSHOPS_DIR__
   const showDrafts: boolean = __SHOW_DRAFTS__
-  const workshopMeta: Record<string, { label: string; desc: string; icon: string }> = {
+  const workshopMeta: Record<string, { label: string; desc: string; icon: string; modules?: { folder: string; label: string; desc: string; icon: string }[] }> = {
+    'copilot-dev-training': {
+      label: 'Copilot Developer Training',
+      desc: '8-session developer onboarding curriculum — chat, context, agents, MCP, evaluation, and diagnostics.',
+      icon: '🎓',
+      modules: [
+        { folder: 'copilot-dev-foundations', label: 'Module 1: Foundations', desc: 'Sessions 1–3 · Chat Tour, Memory & Context, Models & Tokens', icon: '🎓' },
+        { folder: 'copilot-dev-agentic', label: 'Module 2: Agentic Patterns', desc: 'Sessions 4–5 · Agentic Loops, Rubber Duck, Patterns & Antipatterns', icon: '🤖' },
+        { folder: 'copilot-dev-advanced', label: 'Module 3: Advanced Topics', desc: 'Sessions 6–8 · Extensions & MCP, Evaluation, Troubleshooting', icon: '🔬' }
+      ]
+    },
     'copilot-workshop': {
       label: 'GitHub Copilot: Zero to Agents',
       desc: 'From completions to fully customized agentic AI development.',
@@ -86,7 +96,7 @@ export function getStaticPaths() {
     }
   }
 
-  const paths: { params: { workshop: string }; props: { label: string; desc: string; icon: string; hasWorkshop: boolean; hasLab: boolean; hasSlides: boolean } }[] = []
+  const paths: { params: { workshop: string }; props: { label: string; desc: string; icon: string; hasWorkshop: boolean; hasLab: boolean; hasSlides: boolean; modules?: typeof workshopMeta[string]['modules'] } }[] = []
 
   for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d => d.isDirectory())) {
     const dirPath = resolve(workshopsDir, dir.name)
@@ -97,22 +107,23 @@ export function getStaticPaths() {
     const hasWorkshop = files.some(f => f.endsWith('-workshop.md'))
     const hasLab = files.some(f => f.endsWith('-LAB.md'))
     const hasSlides = files.some(f => f.endsWith('.slidev.md'))
-    if (!hasWorkshop && !hasLab && !hasSlides) continue
 
     const meta = workshopMeta[dir.name]
+    if (!meta?.modules && !hasWorkshop && !hasLab && !hasSlides) continue
+
     const label = meta?.label ?? dir.name.replace(/-/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase())
     const desc = meta?.desc ?? ''
     const icon = meta?.icon ?? '📘'
 
     paths.push({
       params: { workshop: dir.name },
-      props: { label, desc, icon, hasWorkshop, hasLab, hasSlides }
+      props: { label, desc, icon, hasWorkshop, hasLab, hasSlides, modules: meta?.modules }
     })
   }
   return paths
 }
 
-const { label, desc, icon, hasWorkshop, hasLab, hasSlides } = Astro.props
+const { label, desc, icon, hasWorkshop, hasLab, hasSlides, modules } = Astro.props
 const { workshop } = Astro.params
 ---
 
@@ -127,6 +138,25 @@ const { workshop } = Astro.params
     </div>
 
     <div class="resource-grid">
+      {modules ? (
+        modules.map(m => (
+          <div class="module-card">
+            <div class="module-header">
+              <span class="module-icon">{m.icon}</span>
+              <div>
+                <h2 class="module-title">{m.label}</h2>
+                <p class="module-desc">{m.desc}</p>
+              </div>
+            </div>
+            <div class="module-links">
+              <a href={`${base}${m.folder}/workshop`} class="module-link module-link-workshop">Workshop</a>
+              <a href={`${base}${m.folder}/lab`} class="module-link module-link-lab">Lab</a>
+              <a href={`${base}${m.folder}/slides/1`} target="_blank" rel="noopener noreferrer" onclick={`window.open(this.href,'_blank','width=1280,height=720,menubar=no,toolbar=no,location=no,status=no');return false;`} class="module-link module-link-slides">Slides</a>
+            </div>
+          </div>
+        ))
+      ) : (
+      <>
       {hasWorkshop && (
         <a href={`${base}${workshop}/workshop`} class="resource-card">
           <div class="resource-icon workshop-guide-icon">
@@ -156,6 +186,8 @@ const { workshop } = Astro.params
           <p class="resource-desc">Launch the presentation in a new window.</p>
           <span class="resource-action">Open Slides →</span>
         </a>
+      )}
+      </>
       )}
     </div>
   </div>
@@ -281,5 +313,78 @@ const { workshop } = Astro.params
   }
   .resource-card:hover .resource-action {
     color: var(--brand-hover);
+  }
+
+  /* Module cards for multi-module curricula */
+  .module-card {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .module-card:hover {
+    border-color: #484f58;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  }
+  .module-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+    min-width: 0;
+  }
+  .module-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+  .module-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-1);
+    margin: 0 0 2px;
+  }
+  .module-desc {
+    font-size: 13px;
+    color: var(--text-2);
+    margin: 0;
+    line-height: 1.4;
+  }
+  .module-links {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .module-link {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.15s ease;
+  }
+  .module-link:hover { opacity: 0.85; }
+  .module-link-workshop {
+    background: rgba(88, 166, 255, 0.15);
+    color: #58a6ff;
+  }
+  .module-link-lab {
+    background: rgba(63, 185, 80, 0.15);
+    color: #3fb950;
+  }
+  .module-link-slides {
+    background: rgba(210, 168, 255, 0.15);
+    color: #d2a8ff;
+  }
+  @media (max-width: 600px) {
+    .module-card { flex-direction: column; align-items: flex-start; }
+    .module-links { width: 100%; }
+    .module-link { flex: 1; text-align: center; }
   }
 </style>
