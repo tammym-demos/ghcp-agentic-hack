@@ -59,7 +59,13 @@ This session takes developers from casual Copilot usage to full agentic developm
 
 This workshop follows a deliberate progression:
 
-<img src="assets/ghcp-path.png" alt="Diagram" width="900" />
+```mermaid
+graph LR
+    A["🟢 ZERO<br/>Chat Modes<br/>(Ask/Agent/Plan)"] --> B["🔵 CUSTOMIZE<br/>Instructions<br/>Prompts · Agents<br/>Skills"]
+    B --> C["🟡 EXTEND<br/>MCP Servers<br/>(Playwright, GitHub)"]
+    C --> D["🟠 CLI<br/>Copilot CLI<br/>Agentic Terminal"]
+    D --> E["🟣 AGENTS<br/>Coding Agent<br/>PR Review Agent"]
+```
 
 Each section builds on the previous one, showing how Copilot can be progressively customized from a general assistant to a specialized, autonomous development partner.
 
@@ -1749,7 +1755,13 @@ Run a shell command directly (the `!` prefix skips the AI model)
 
 ### The Autonomous Development Loop
 
-<img src="../assets/autonomous-dev-loop.png" alt="Diagram" width="900" />
+```mermaid
+graph LR
+    A["📋 GitHub Issue"] --> B["🤖 Coding Agent<br/>Creates branch,<br/>implements, tests"]
+    B --> C["📝 Pull Request"]
+    C --> D["🔍 Copilot Code Review<br/>+ Human Review"]
+    D --> E["✅ Merge"]
+```
 
 ### Part A: Copilot Coding Agent (10 min)
 
