@@ -56,23 +56,6 @@ This session takes developers from casual Copilot usage to full agentic developm
 
 ---
 
-## The "Zero to Agents" Narrative Arc
-
-This workshop follows a deliberate progression:
-
-```
-┌────────────┐    ┌──────────────┐    ┌────────────┐    ┌────────────┐    ┌────────────┐
-│ 🟢 ZERO     │───►│ 🔵 CUSTOMIZE  │───►│ 🟡 EXTEND   │───►│ 🟠 CLI      │───►│ 🟣 AGENTS   │
-│ Chat Modes │    │ Instructions   │    │ MCP Servers│    │ Copilot CLI│    │ Coding     │
-│ Ask/Agent  │    │ Prompts        │    │ Playwright │    │ Agentic    │    │ Agent + PR │
-│ Plan       │    │ Agents · Skills │    │ GitHub     │    │ Terminal   │    │ Review     │
-└────────────┘    └──────────────┘    └────────────┘    └────────────┘    └────────────┘
-```
-
-Each section builds on the previous one, showing how Copilot can be progressively customized from a general assistant to a specialized, autonomous development partner.
-
----
-
 ## 1. Welcome, Objectives & Environment Setup (20 min)
 
 ### Key Points
