@@ -58,26 +58,6 @@ This session takes developers from casual Copilot usage to full agentic developm
 
 ## 1. Welcome, Objectives & Environment Setup (20 min)
 
-### Key Points
-
-- Workshop narrative: "Zero → Customize → Extend → Agents"
-- This is NOT a Copilot basics session — we assume you've used completions and chat
-- By the end, you'll have built a fully customized Copilot environment with instructions, prompts, agents, skills, and MCP integration
-- Everything we build today uses real files in the `.github/` directory — portable across your own repos
-
-### The Customization Hierarchy
-
-| Layer | File Location | When Loaded | Purpose |
-|-------|---------------|-------------|---------|
-| **Custom Instructions** | `.github/copilot-instructions.md` | Always (every interaction) | Simple rules, coding standards |
-| **Scoped Instructions** | `.github/instructions/*.instructions.md` | When matching files are active | File/language-specific guidance |
-| **Prompt Files** | `.github/prompts/*.prompt.md` | On-demand (user invokes) | Reusable task templates |
-| **Agents / Chat Modes** | `.github/agents/*.agent.md` | User selects in chat mode picker | Persistent personas with tool chains |
-| **Agent Skills** | `.github/skills/*/SKILL.md` | Auto-selected by relevance | Specialized task instructions |
-| **MCP Servers** | `.vscode/mcp.json` | When server is running | External tool integration |
-
----
-
 ### 🖥️ DEMO: The OctoCAT Supply App
 
 1. Show the [GitHub repo](https://github.com/microsoft/GitHubCopilot_Customized) in the browser
@@ -327,6 +307,29 @@ When you type `@workspace #file:api/routes/orders.ts "add error handling"`, Copi
 5. Show `@terminal` after a failed build — Copilot reads the error output
 
 **Talking point**: "Slash commands are shortcuts for the tasks you do every day. And `@` + `#` are your precision tools — instead of hoping Copilot finds the right file, you TELL it which file to look at."
+
+---
+
+## The Customization Roadmap
+
+Now that you've seen the three chat modes, slash commands, and context targeting — let's look at what we're building for the rest of the workshop.
+
+### Key Points
+
+- Workshop narrative: "Zero → Customize → Extend → Agents"
+- By the end, you'll have built a fully customized Copilot environment with instructions, prompts, agents, skills, and MCP integration
+- Everything we build uses real files in the `.github/` directory — portable across your own repos
+
+### The Customization Hierarchy
+
+| Layer | File Location | When Loaded | Purpose |
+|-------|---------------|-------------|--------|
+| **Custom Instructions** | `.github/copilot-instructions.md` | Always (every interaction) | Simple rules, coding standards |
+| **Scoped Instructions** | `.github/instructions/*.instructions.md` | When matching files are active | File/language-specific guidance |
+| **Prompt Files** | `.github/prompts/*.prompt.md` | On-demand (user invokes) | Reusable task templates |
+| **Agents / Chat Modes** | `.github/agents/*.agent.md` | User selects in chat mode picker | Persistent personas with tool chains |
+| **Agent Skills** | `.github/skills/*/SKILL.md` | Auto-selected by relevance | Specialized task instructions |
+| **MCP Servers** | `.vscode/mcp.json` | When server is running | External tool integration |
 
 ---
 
