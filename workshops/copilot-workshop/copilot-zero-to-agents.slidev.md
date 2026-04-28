@@ -38,6 +38,7 @@ class: text-xs
 |------|-------|
 | 20 min | Welcome & Environment Setup |
 | 25 min | Copilot Chat Modes (Ask, Agent, Plan) |
+| 10 min | Slash Commands, @ Participants & # Context |
 | 25 min | Custom Instructions |
 | 25 min | Custom Prompt Files |
 | 25 min | Agent Skills |
@@ -264,6 +265,64 @@ layout: demo
 
 <!--
 🖥️ SWITCH TO DEMO 1. Run through Ask → Plan → Agent demos. Then give attendees 8 minutes to try each mode. Walk around and help. ~15 min total for demo + hands-on.
+-->
+
+---
+class: text-xs
+---
+
+# Slash Commands & @ Participants
+
+### Shortcuts and specialized handlers
+
+| Command | Purpose |
+|---------|---------|
+| `/explain` | Explain selected code |
+| `/fix` | Fix errors in selection |
+| `/tests` | Generate tests |
+| `/doc` | Generate documentation |
+| `/new` | Create a new file |
+| `/clear` | Clear conversation history |
+
+| Participant | What It Knows |
+|-------------|---------------|
+| `@workspace` | Project structure, file contents, dependencies |
+| `@vscode` | Settings, extensions, keybindings |
+| `@terminal` | Recent command results, error messages |
+
+<!--
+"Slash commands are shortcuts for the tasks you do every day. And @ participants route to specialized handlers — @workspace knows your code, @vscode knows the editor, @terminal knows what just happened."
+-->
+
+---
+class: text-xs
+---
+
+# \# Context Variables
+
+### Attach specific context to your prompt
+
+| Variable | When to Use |
+|----------|-------------|
+| `#file` | "Look at this file specifically" |
+| `#selection` | "Focus on this code block" |
+| `#editor` | "Consider what I'm looking at" |
+| `#codebase` | "Search the whole repo" |
+
+### Combining @ + \#
+
+```
+@workspace #file:api/routes/orders.ts Add error handling to the POST handler
+```
+
+<div class="gh-callout gh-callout-blue">
+
+**Precision over volume**: One targeted `#file` reference beats attaching 10 files.
+
+</div>
+
+<!--
+"The hash variables are your precision tools. Instead of hoping Copilot finds the right file, you TELL it. This is the single biggest quality improvement most developers can make."
 -->
 
 ---

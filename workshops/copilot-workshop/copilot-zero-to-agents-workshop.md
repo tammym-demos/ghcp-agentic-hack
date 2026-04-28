@@ -42,6 +42,7 @@ This session takes developers from casual Copilot usage to full agentic developm
 |---------|-------|------|
 | 1 | [Welcome, Objectives & Environment Setup](#1-welcome-objectives--environment-setup-20-min) | 20 min |
 | 2 | [Copilot Chat Modes: Ask, Agent, Plan](#2-copilot-chat-modes-ask-agent-plan-25-min) | 25 min |
+| 2b | [Slash Commands, @ Participants & # Context](#2b-slash-commands--participants---context-variables-10-min) | 10 min |
 | 3 | [Custom Instructions](#3-custom-instructions-25-min) | 25 min |
 | 4 | [Custom Prompt Files](#4-custom-prompt-files-25-min) | 25 min |
 | 5 | [Agent Skills](#5-agent-skills-25-min) | 25 min |
@@ -51,7 +52,7 @@ This session takes developers from casual Copilot usage to full agentic developm
 | 9 | [Cloud Agents: Coding Agent + PR Review Agent](#9-cloud-agents-coding-agent--pr-review-agent-20-min) | 20 min |
 | 10 | [Wrap-Up, Customization Hierarchy Recap & Q&A](#10-wrap-up-customization-hierarchy-recap--qa-10-min) | 10 min |
 
-**Total: ~235 min core (~3h 55min)**
+**Total: ~245 min core (~4h 5min)**
 
 ---
 
@@ -284,6 +285,64 @@ Open the Swagger documentation page for the API
 - ✅ You've seen Plan mode propose changes without modifying files
 - ✅ Agent mode has created or edited files and run terminal commands
 - ✅ Your app is running (API on :3000, Frontend on :5137)
+
+---
+
+## 2b. Slash Commands, @ Participants & # Context Variables (10 min)
+
+### Key Points
+
+- **Slash commands** are shortcuts for common tasks — faster than typing a full prompt
+- **`@` Participants** route your question to a specialized handler with domain knowledge
+- **`#` Variables** attach specific context to your prompt — files, selections, editors
+- Combining `@` + `#` gives Copilot precise context instead of guessing
+
+### Slash Commands
+
+| Command | Purpose |
+|---------|---------|
+| `/explain` | Explain selected code |
+| `/fix` | Fix errors in selected code |
+| `/tests` | Generate tests for selection |
+| `/doc` | Generate documentation |
+| `/new` | Create a new file or project |
+| `/clear` | Clear conversation history |
+
+### @ Participants
+
+| Participant | Domain | What It Knows |
+|-------------|--------|---------------|
+| `@workspace` | Your codebase | Project structure, file contents, dependencies |
+| `@vscode` | VS Code editor | Settings, extensions, keybindings, editor state |
+| `@terminal` | Terminal output | Recent command results, error messages |
+
+### # Context Variables
+
+| Variable | Attaches | When to Use |
+|----------|----------|-------------|
+| `#file` | A specific file's contents | "Look at this file specifically" |
+| `#selection` | Current text selection | "Focus on this code block" |
+| `#editor` | Currently active editor | "Consider what I'm looking at" |
+| `#codebase` | Full project search | "Search the whole repo" |
+
+### Combining @ + #
+
+When you type `@workspace #file:api/routes/orders.ts "add error handling"`, Copilot assembles:
+
+1. System prompt + your repository instructions
+2. The `@workspace` handler's project knowledge
+3. The specific file content from `#file`
+4. Your natural language question
+
+### 🖥️ DEMO: Slash Commands & Context Targeting
+
+1. Select a function in the API routes → run `/explain` — show the explanation
+2. Introduce a bug → run `/fix` — show the correction
+3. Ask vaguely: "How does authentication work?" — note the generic response
+4. Ask with context: `@workspace #file:api/middleware/auth.ts How does authentication work?` — note the precise response
+5. Show `@terminal` after a failed build — Copilot reads the error output
+
+**Talking point**: "Slash commands are shortcuts for the tasks you do every day. And `@` + `#` are your precision tools — instead of hoping Copilot finds the right file, you TELL it which file to look at."
 
 ---
 
