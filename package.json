@@ -6,6 +6,8 @@
     "dev:copilot": "slidev workshops/copilot-workshop/copilot-zero-to-agents.slidev.md",
     "dev:copilot:full": "concurrently -n site,slides -c blue,green \"npm:dev:site\" \"npm:dev:copilot\"",
     "dev:ado": "slidev workshops/ado-setup/ado-work-management.slidev.md",
+    "dev:ado-integration": "slidev workshops/github-ado-integration/gh-ado-integration-30min.slidev.md",
+    "dev:ado-integration:full": "slidev workshops/github-ado-integration/gh-ado-integration.slidev.md",
     "dev:emu-oss": "slidev workshops/ghe-emu-oss/ghe-emu-oss.slidev.md",
     "dev:ado:full": "concurrently -n site,slides -c blue,green \"npm:dev:site\" \"npm:dev:ado\"",
     "build:copilot": "slidev build workshops/copilot-workshop/copilot-zero-to-agents.slidev.md --out dist/copilot-workshop",
