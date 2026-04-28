@@ -125,9 +125,11 @@ npm run dev
 
 ### When to Use Each Mode — Decision Framework
 
-"I need to understand something"          → Ask
-"I need to build/fix/change something"    → Agent
-"I need to plan before implementing"      → Plan
+| Need | Mode |
+|------|------|
+| "I need to understand something" | **Ask** |
+| "I need to build/fix/change something" | **Agent** |
+| "I need to plan before implementing" | **Plan** |
 
 ---
 
