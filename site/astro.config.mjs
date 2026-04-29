@@ -3,7 +3,7 @@ import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const base = process.env.BASE_PATH || '/GH-Hack/'
+const base = process.env.BASE_PATH || '/ghcp-agentic-hack/'
 
 export default defineConfig({
   srcDir: '.',
@@ -23,7 +23,7 @@ export default defineConfig({
       configureServer(server) {
         // In dev mode, redirect /<workshop>/slides/* to the Slidev dev server
         // Astro strips the base path, so req.url is e.g. /ado-setup/slides/1
-        const slidePathRe = /^(?:\/GH-Hack)?\/[^/]+\/slides(\/.*)?$/
+        const slidePathRe = /^(?:\/ghcp-agentic-hack)?\/[^/]+\/slides(\/.*)?$/
         server.middlewares.use((req, res, next) => {
           const match = req.url?.match(slidePathRe)
           if (match) {

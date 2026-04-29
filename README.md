@@ -16,7 +16,7 @@ site/                      # Astro static site (landing page + lab renderer)
   pages/index.astro        # Landing page — auto-discovers workshops
   pages/[workshop]/lab.astro # Renders *-LAB.md files as HTML pages
   layouts/Base.astro       # Shared layout (dark theme, sticky header)
-  astro.config.mjs         # Astro config (base path = /GH-Hack/)
+  astro.config.mjs         # Astro config (base path = /ghcp-agentic-hack/)
 themes/github/             # Reusable Slidev theme (GitHub dark style)
 scripts/build-site.mjs     # Full build orchestrator (Slidev → Astro → combine)
 .github/
@@ -171,7 +171,7 @@ This starts a hot-reloading dev server (default `http://localhost:3030`). Change
 npm run dev:site
 ```
 
-> **Note**: The Astro dev server handles the base path automatically, so links work at `http://localhost:4321/GH-Hack/`. Lab pages render from the `-LAB.md` files. Slide deck links won't work in dev mode since they require the full build.
+> **Note**: The Astro dev server handles the base path automatically, so links work at `http://localhost:4321/ghcp-agentic-hack/`. Lab pages render from the `-LAB.md` files. Slide deck links won't work in dev mode since they require the full build.
 
 ### Full Build + Local Preview
 
@@ -182,14 +182,14 @@ node scripts/build-site.mjs
 This builds all Slidev decks, Astro site, and combines them into `dist/site/`. To preview, you need to serve with the correct base path:
 
 ```powershell
-# Create a junction so /GH-Hack/ resolves correctly
-New-Item -ItemType Junction -Path dist\local-preview\GH-Hack -Target (Resolve-Path dist\site).Path -Force
+# Create a junction so /ghcp-agentic-hack/ resolves correctly
+New-Item -ItemType Junction -Path dist\local-preview\ghcp-agentic-hack -Target (Resolve-Path dist\site).Path -Force
 
 # Serve from the wrapper directory
 npx http-server dist/local-preview -p 4201 -c-1 --cors -s
 ```
 
-Then open `http://localhost:4201/GH-Hack/`.
+Then open `http://localhost:4201/ghcp-agentic-hack/`.
 
 > **Important**: Do **not** change the Astro `base` path to `/` for local testing — it will break the GitHub Pages deployment.
 
@@ -235,7 +235,7 @@ Push to the `main` branch. The GitHub Actions workflow at [.github/workflows/pag
 
 1. Installs dependencies (`npm ci`)
 2. Runs `node scripts/build-site.mjs`
-3. Deploys `dist/site/` to the `gh-pages` branch of the `thomasiverson/gh-workshops` external repo
+3. Deploys `dist/site/` to the `gh-pages` branch of this repository
 
 The workflow triggers on pushes that touch `workshops/`, `site/`, `themes/`, `scripts/`, or `package.json`. You can also trigger it manually via `workflow_dispatch`.
 
@@ -275,7 +275,7 @@ flowchart LR
 
     B --> build
     build --> I["Deploy dist/site/<br/>→ gh-pages branch"]
-    I --> J["GitHub Pages<br/>gh-workshops"]
+    I --> J["GitHub Pages<br/>tammym-demos/ghcp-agentic-hack"]
 ```
 
 ---

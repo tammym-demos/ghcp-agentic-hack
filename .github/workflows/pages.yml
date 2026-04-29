@@ -13,6 +13,8 @@ on:
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
 
 jobs:
   build-and-deploy:
@@ -33,12 +35,13 @@ jobs:
       - name: Build site
         run: node scripts/build-site.mjs
         env:
-          BASE_PATH: /gh-workshops/
+          BASE_PATH: /ghcp-agentic-hack/
 
-      - name: Deploy to gh-workshops repo
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          personal_token: ${{ secrets.DEPLOY_TOKEN }}
-          external_repository: thomasiverson/gh-workshops
-          publish_branch: gh-pages
-          publish_dir: ./dist/site
+          path: ./dist/site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
