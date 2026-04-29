@@ -12,13 +12,14 @@ const showDrafts: boolean = __SHOW_DRAFTS__
 const workshopMeta: Record<string, { label: string; desc: string; icon: string; modules?: { folder: string; label: string; desc: string; icon: string }[] }> = {
   'copilot-dev-training': {
     label: 'Copilot Developer Training',
-    desc: '8-session developer onboarding curriculum — chat, context, agents, MCP, evaluation, and diagnostics.',
+    desc: '6-hour developer workshop — chat, context, agentic patterns, MCP, and GitHub + ADO integration.',
     icon: '🎓',
     modules: [
-      { folder: 'copilot-dev-foundations', label: 'Module 1: Foundations', desc: 'Sessions 1–3 · Chat Tour, Memory & Context, Models & Tokens', icon: '🎓' },
-      { folder: 'copilot-dev-agentic', label: 'Module 2: Agentic Patterns', desc: 'Sessions 4–5 · Agentic Loops, Rubber Duck, Patterns & Antipatterns', icon: '🤖' },
-      { folder: 'copilot-dev-advanced', label: 'Module 3: Advanced Topics', desc: 'Sessions 6–8 · Extensions & MCP, Evaluation, Troubleshooting', icon: '🔬' },
-      { folder: 'copilot-dev-ado-integration', label: 'Module 4: GitHub + ADO Integration', desc: 'Integrating GitHub with Azure DevOps workflows and CI/CD', icon: '🔗' }
+      { folder: 'copilot-dev-foundations', label: 'Module 1: Foundations', desc: '90 min · Chat tour, GitHub CLI, context & instructions, models & tokens', icon: '🎓' },
+      { folder: 'copilot-dev-agentic', label: 'Module 2: Agentic Patterns', desc: '90 min · Context management, project bootstrap, agents & skills, agentic loops', icon: '🤖' },
+      { folder: 'copilot-dev-advanced', label: 'Module 3: Advanced Topics', desc: '90 min · Agent architecture patterns, MCP setup, debugging, full-stack agents', icon: '🔬' },
+      { folder: 'copilot-dev-ado-integration', label: 'Module 4: GitHub + ADO Integration', desc: '15 min · AB# linking, Copilot from Boards, decision framework', icon: '🔗' },
+      { folder: 'copilot-dev-hack', label: 'Module 5: Hack', desc: '45-minute hackathon · Build custom agents for real business problems', icon: '🚀' }
     ]
   },
   'copilot-workshop': {
@@ -158,7 +159,7 @@ for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d =>
               <span class="badge badge-modules">{w.modules.length} Modules</span>
             ) : (
               <>
-                {w.hasWorkshop && <span class="badge badge-workshop">Workshop</span>}
+                {/* w.hasWorkshop && <span class="badge badge-workshop">Workshop</span> */}
                 {w.hasLab && <span class="badge badge-lab">Lab</span>}
                 {w.hasSlides && <span class="badge badge-slides">Slides</span>}
               </>

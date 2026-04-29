@@ -1,10 +1,9 @@
 ---
 theme: ../../themes/github
-title: "Copilot Developer Training: Agentic Patterns"
+title: "Copilot Developer Training — Module 2: Agentic Patterns"
 info: |
-  Module 2 of the GitHub Copilot Developer Training curriculum.
-  Sessions 4–5: Agentic Loops, Rubber Duck Pattern, Agent Patterns & Antipatterns.
-ghFooterTitle: "Dev Training — Agentic Patterns"
+  90-minute module covering context window management, project bootstrapping, agents & skills, and agentic loops.
+ghFooterTitle: "Module 2: Agentic Patterns"
 ghFooterLabel: ""
 drawings:
   persist: false
@@ -18,748 +17,480 @@ layout: cover
 
 # Copilot Developer Training
 
-## Module 2 — Agentic Patterns
+## Module 2: Agentic Patterns
 
-*Agentic Loops · Rubber Duck Debugging · Patterns & Antipatterns*
+*Context Windows · Project Bootstrap · Agents & Skills · Agentic Loops*
 
-`github.com/microsoft/GitHubCopilot_Customized`
+`90 minutes · ~64 min presentation + ~26 min lab`
 
-<!--
-Welcome attendees. "This is Module 2 — Agentic Patterns. We'll explore how Copilot's Agent mode actually works under the hood, learn to use AI as a reasoning partner, and build a practical pattern library for agent architecture."
--->
-
----
-class: text-xs
----
-
-# What We'll Cover Today
-
-| Time | Topic |
-|------|-------|
-| **Session 4** | **Agentic Loops & the Rubber Duck Pattern (75 min)** |
-| 5 min | AI Safety: "Autonomy vs. Oversight" |
-| 15 min | What Are Agentic Loops? |
-| 15 min | Plan-Act-Observe-Reflect Cycle |
-| 15 min | The Ralph Loop Deep Dive |
-| 15 min | Rubber Duck: Cross-Model Review |
-| 10 min | Summary & Discussion |
-| | ☕ *Break — 10 min* |
-| **Session 5** | **Agent Patterns & Antipatterns (60 min)** |
-| 5 min | AI Safety: "Designing Responsible Agents" |
-| 15 min | Agent Architecture Patterns |
-| 15 min | Orchestration Topologies |
-| 15 min | Antipatterns Reference |
-| 10 min | Summary & Discussion |
-
-<!--
-"Two sessions, one break. Session 4 is about HOW agents work. Session 5 is about HOW TO DESIGN them well — and what to avoid."
+<!-- notes
+Open by connecting back to Module 1: attendees already know chat modes, instructions, and models. Explain that this module is about getting practical with Agent mode: controlling context, bootstrapping projects, using agents deliberately, and understanding the loop behind autonomous work.
 -->
 
 ---
 class: text-sm
 ---
 
-# Quick Recap — Module 1 Foundations
+# Agenda
 
-### Concepts you should know
-
-| Concept | Summary |
-|---------|---------|
-| **Chat Modes** | Ask (read-only), Agent (edits files), Plan (proposes changes) |
-| **Instructions** | `.github/copilot-instructions.md` always loaded; file-targeted use `applyTo` |
-| **Custom Agents** | `.github/agents/*.md` — personas with tools and model preferences |
-| **Context** | `@workspace`, `#file`, `#selection` — precision beats volume |
-| **Token Window** | Finite budget shared by instructions, context, history, and output |
+| Time | Topic |
+|------|-------|
+| 14 min | **Context window management** — what Copilot sees and how to keep it focused |
+| 10 min | **Starting a project with Copilot** — scaffold from a prompt and hand off to Agent mode |
+| 15 min | **Agents & skills** — built-in vs. custom agents, tools, and routing |
+| 18 min | **Agentic loops** — plan, act, observe, reflect, self-correct, review |
+| 26 min | **Guided labs** — four short exercises woven through the module |
+| 7 min | **Agenda, transitions, and recap** |
 
 <div class="gh-callout gh-callout-blue">
 
-**If you attended Module 1**, this is review. If you're joining fresh, these are the building blocks for today.
+**Module flow**: Narrow the context first, then bootstrap a project, then hand work to agents, then understand how they iterate.
 
 </div>
 
-<!--
-"Quick recap from Module 1 for anyone joining fresh. If you were in Module 1, this is a 30-second refresher. Everyone should be comfortable with these five concepts before we proceed."
+<!-- notes
+Set expectations: this is a hands-on module. Each section introduces one practical concept, then pauses for a short exercise so attendees can immediately try it.
 -->
 
 ---
 layout: section
 ---
 
-# Session 4
+# Context Window Management
 
-## Agentic Loops & the Rubber Duck Pattern
-
-<!--
-"Let's go under the hood. How does Agent mode actually iterate through tasks?"
--->
-
----
-class: text-sm
----
-
-# AI Safety: Autonomy vs. Oversight
-
-### Where should the human checkpoint be?
-
-| Level | What It Does | Human Role |
-|-------|-------------|------------|
-| **Completions** | Suggests inline text | Accept/reject each suggestion |
-| **Chat (Ask)** | Answers questions | Read and evaluate |
-| **Chat (Agent)** | Edits files, runs commands | Review changes before commit |
-| **Coding Agent** | Creates PRs autonomously | Review the PR before merge |
-
-<div class="gh-callout gh-callout-purple">
-
-**Key question**: More autonomy = more productivity, but also more risk. Where's the right balance for your team?
-
-</div>
-
-<!--
-"Autonomy is a spectrum. Completions are low-risk — you see every character. The Coding Agent is high-autonomy — it works independently and you review the PR. Today we'll understand what happens at each level so you can make informed decisions."
--->
-
----
-class: text-sm
----
-
-# Agentic vs. Non-Agentic
-
-### The fundamental difference
-
-| Characteristic | Non-Agentic (Chat) | Agentic (Agent Mode) |
-|---------------|--------------------|--------------------|
-| **Turns** | Single prompt → single response | Multiple internal iterations |
-| **File changes** | Suggests code in chat | Creates/edits files directly |
-| **Tool use** | None (text only) | Terminal, file system, search |
-| **Self-correction** | You paste the error back | Agent reads the error and fixes it |
-| **Scope** | One question at a time | Multi-step tasks across files |
-
-<div class="gh-callout gh-callout-green">
-
-**The shift**: Non-agentic = you do the loop. Agentic = the AI does the loop.
-
-</div>
-
-<!--
-"In chat, if something fails, YOU have to copy the error, paste it back, and say 'fix this.' In Agent mode, the agent reads the error itself and tries again. That's the fundamental difference — who drives the iteration."
--->
-
----
-class: text-sm
----
-
-# The Autonomy Spectrum
-
-### From passive to autonomous
-
-```mermaid {scale: 0.6}
-graph LR
-    A["🟢 Completions<br/>You drive<br/>every line"] --> B["🔵 Chat<br/>You ask<br/>every question"]
-    B --> C["🟡 Agent Mode<br/>You approve<br/>each change"]
-    C --> D["🟣 Coding Agent<br/>You review<br/>the PR"]
-```
-
-Each step to the right gives the AI more autonomy — and requires more trust.
-
-<div class="gh-callout gh-callout-blue">
-
-**Your progression today**: We'll focus on the yellow and purple zones — Agent Mode and Coding Agent.
-
-</div>
-
-<!--
-"Think of this as a trust ladder. You start at completions where you control everything. By the time you reach Coding Agent, the AI is working independently and you're reviewing the output. Today's sessions help you understand the mechanics so you can decide where on this spectrum your team should operate."
--->
-
----
-layout: demo
----
-
-# 🖥️ LIVE DEMO
-
-### Agentic vs. Non-Agentic
-
-- **Ask mode**: "How should I add input validation to the orders endpoint?" — text explanation
-- **Agent mode**: "Add input validation to the orders endpoint" — watch file edits, lint runs, fixes
-- Point out: Ask mode talks about it. Agent mode does it.
-
-<!--
-Keep this demo quick — 3 minutes max. The contrast is the point. Same question, dramatically different behavior.
+<!-- notes
+This section is about what actually reaches the model and why prompt quality depends on what fits.
 -->
 
 ---
 class: text-xs
+---
+
+# What actually gets sent to the model
+
+```mermaid {scale: 0.65}
+graph LR
+    A["System prompt<br/>Safety + product behavior"] --> B["Instructions<br/>Repo + folder + file"]
+    B --> C["Conversation history<br/>Recent turns only"]
+    C --> D["Referenced context<br/>#file #selection @workspace"]
+    D --> E["Editor state<br/>Active file + open tabs"]
+    E --> F["Current request<br/>Your latest message"]
+```
+
+<v-clicks>
+
+- Every model call is a **composition problem**: instructions, context, history, and output share one finite token budget.
+- Explicit references like `#file` usually beat ambient context because they are more targeted.
+- When the request is large, Copilot keeps the most relevant layers and drops lower-value context.
+
+</v-clicks>
+
+<!-- notes
+Build on Module 1. Stress that Copilot is not reading the whole repo on every turn. It composes a prompt from multiple sources, and the more precise you are, the better the composition.
+-->
+
+---
+class: text-sm
+---
+
+# How Copilot prioritizes what fits
+
+| Priority | Context layer | Why it tends to stay |
+|----------|---------------|----------------------|
+| **Highest** | System + safety prompt | Required for safe, consistent behavior |
+| **High** | Current request + mode | Defines the task Copilot is solving now |
+| **High** | Repo, folder, and file instructions | Encodes team rules and local conventions |
+| **Medium** | Explicit references and current selection | Usually the most relevant task context |
+| **Lower** | Recent conversation history | Helpful, but older turns fade first |
+| **Lowest** | Broad workspace/editor context | Useful hints, but easiest to trim |
+
+<div class="gh-callout gh-callout-blue">
+
+**Token budgeting rule of thumb**: More pasted context means less room for reasoning and less room for the answer.
+
+</div>
+
+<!-- notes
+Avoid overclaiming exact internals. Say “roughly” or “in practice.” The important lesson is that current task and explicit context matter more than old history or lots of open files.
+-->
+
+---
+class: text-xs
+---
+
+# Managing context effectively
+
+| Practice | Why it helps |
+|----------|--------------|
+| **Start fresh sessions for new tasks** | Unrelated history stops consuming budget and steering the answer |
+| **Use `#file` for targeted work** | Specific files beat broad repo context for edits and reviews |
+| **Keep instructions lean** | Short, useful rules survive context pressure better than long prose |
+| **Close unrelated tabs** | Open editors can become noisy ambient context |
+| **Use `@workspace` to search, then switch to `#file`** | Broad discovery first, precise execution second |
+
+<div class="gh-box-accent">
+
+**Good workflow**: `@workspace` to find the right area → `#file` to focus the task → fresh chat when you pivot.
+
+</div>
+
+<!-- notes
+These are the habits attendees can use immediately after the workshop. Keep it practical and connect each tip to token budget and relevance.
+-->
+
+---
+class: text-sm
+---
+
+# AI Safety aside: Autonomy vs. Oversight
+
+<div class="gh-callout gh-callout-purple">
+
+**More autonomy = more power, less control**: Agent mode can edit files and run commands. Review the proposed changes, command output, and final diff before you accept or commit.
+
+</div>
+
+<v-clicks>
+
+- Ask mode is conversation.
+- Agent mode is action.
+- Human review is still the control point.
+
+</v-clicks>
+
+<!-- notes
+Keep this short. The point is not fear; it is trust calibration. More autonomous workflows save time only when the human still reviews the outcome.
+-->
+
+---
+layout: center
+---
+
+# 🧪 Exercise 1 — Context Management
+
+Compare `@workspace` with `#file`, trim unrelated history, and notice how response quality changes.
+
+<!-- notes
+Have attendees try the same question two ways: broad context first, then targeted context. Ask what changed in specificity, speed, and correctness.
+-->
+
+---
+layout: section
+---
+
+# Starting a Project with Copilot
+
+<!-- notes
+Move from controlling context to generating structure. This is the “blank page to working scaffold” part of the module.
+-->
+
+---
+class: text-xs
+---
+
+# Scaffolding with Copilot
+
+<div class="gh-box-accent">
+
+**`@workspace /new`**
+
+```text
+@workspace /new Create a Node.js REST API with Express, TypeScript, tests, and Docker support.
+```
+
+</div>
+
+<v-clicks>
+
+- Copilot proposes a **workspace structure**, starter files, and next steps.
+- You review the structure before creating it — this is a fast way to get from idea to skeleton.
+- For deeper setup, switch to **Agent mode** and say: `Create a Node.js REST API with Express`.
+- Agent mode can then fill in folders, files, and validation commands from that description.
+
+</v-clicks>
+
+<!-- notes
+Explain the difference: `/new` is a scaffold-first workflow; Agent mode is a task-first workflow. Both are useful, but both still need review.
+-->
+
+---
+class: text-sm
+---
+
+# Copilot coding agent — from issue to PR
+
+```mermaid {scale: 0.65}
+graph LR
+    A["Issue"] --> B["Assign to Copilot"]
+    B --> C["Cloud VM<br/>copilot-setup-steps.yml"]
+    C --> D["Branch + code"]
+    D --> E["Pull request"]
+    E --> F["Human review"]
+```
+
+<v-clicks>
+
+- The coding agent runs **in a cloud environment**, not in your local editor.
+- `copilot-setup-steps.yml` defines the setup steps, dependencies, and checks the agent needs.
+- The output is a PR: branch, commits, and agent notes for you to review before merge.
+
+</v-clicks>
+
+<!-- notes
+Position this as a higher-autonomy workflow than local Agent mode. It is ideal for well-scoped issues with clear acceptance criteria.
+-->
+
+---
+layout: center
+---
+
+# 🧪 Exercise 2 — Project Bootstrap
+
+Use `@workspace /new` or Agent mode to scaffold a small service from one sentence, then review the generated structure.
+
+<!-- notes
+Encourage attendees to focus on the structure Copilot creates: folders, tests, config, and README. The goal is not perfection; it is a strong starting point.
+-->
+
+---
+layout: section
+---
+
+# Agents & Skills
+
+<!-- notes
+Now that attendees can bootstrap work, show them how requests are routed and how specialized agents fit in.
+-->
+
+---
+class: text-sm
+---
+
+# What are agents? Built-in vs. custom
+
+| Type | What it is | Best for | Where it lives |
+|------|------------|----------|----------------|
+| **Built-in agent** | Copilot's default autonomous assistant with tool access | General coding, search, edits, command execution | Built into Copilot |
+| **Custom agent** | A specialized assistant defined by your instructions | Repeated workflows, domain rules, team-specific behavior | `.github/agents/*.md` |
+
+<v-clicks>
+
+- Custom agents show up in chat as `@agent-name`.
+- Use the built-in agent for broad work; create custom agents when a workflow repeats.
+- The value of a custom agent is **focus**, not just a new persona.
+
+</v-clicks>
+
+<!-- notes
+Make the custom-agent point concrete: a security reviewer, API designer, or docs maintainer agent is useful because it narrows the job and the instructions.
+-->
+
+---
+class: text-sm
+---
+
+# Skills & tools — what agents can use
+
+| Tool | What it enables | Typical use |
+|------|-----------------|-------------|
+| **File editing** | Create and modify files | Implement code, refactor, update docs |
+| **Terminal commands** | Run build, test, and setup commands | Validate changes, inspect project state |
+| **Codebase search** | Find files, symbols, and usage | Discover where to change code |
+| **Web search** | Pull in current external information | Check docs, errors, or APIs |
+
+<div class="gh-callout gh-callout-blue">
+
+**Mental model**: Tools do the work. Agent instructions shape *when* and *why* those tools get used.
+
+</div>
+
+<!-- notes
+This is the key to Agent mode: it is not just “better autocomplete.” It can decide to inspect files, run tests, or search the codebase as part of solving the task.
+-->
+
+---
+class: text-sm
+---
+
+# How requests get routed
+
+```mermaid {scale: 0.65}
+graph TD
+    A["Your chat message"] --> B["Participant<br/>default, @workspace, @agent-name"]
+    B --> C["Mode<br/>Ask, Edit, Agent"]
+    C --> D["Context<br/>#file, #selection, editor state"]
+    D --> E["Copilot chooses response path<br/>answer, edit, or tool use"]
+```
+
+<v-clicks>
+
+- `@mention` decides **who** should handle the request.
+- Mode decides **how much action** Copilot can take.
+- `#file` and `#selection` decide **what context** gets emphasized.
+
+</v-clicks>
+
+<!-- notes
+This is a simple routing model attendees can remember. If the answer feels wrong, the fix is usually one of these three knobs: participant, mode, or context.
+-->
+
+---
+layout: center
+---
+
+# 🧪 Exercise 3 — Agents & Skills
+
+Try the same request in Ask and Agent mode, then compare what changed in tool use, file edits, and confidence.
+
+<!-- notes
+Give them a small prompt like “add input validation to this route.” In Ask mode they get advice; in Agent mode they should see actual actions.
+-->
+
+---
+layout: section
+---
+
+# Agentic Loops
+
+<!-- notes
+This final section explains why Agent mode feels different: it is not one answer, it is an iterative loop.
+-->
+
+---
+class: text-sm
 ---
 
 # Plan → Act → Observe → Reflect
 
-### The four phases of every agentic loop
-
-| Phase | What the Agent Does | What You See |
-|-------|-------------------|-------------|
-| **Plan** | Decompose task, identify files, select strategy | Agent describes approach |
-| **Act** | Edit files, run commands, call tools | File changes, commands execute |
-| **Observe** | Read output: errors, test results, warnings | Agent processes tool output |
-| **Reflect** | Evaluate: did it work? Adjust strategy | Agent pivots or reports success |
-
-```mermaid {scale: 0.5}
+```mermaid {scale: 0.75}
 graph LR
-    A["📋 PLAN<br/>Decompose"] --> B["⚡ ACT<br/>Edit & Run"]
-    B --> C["👁️ OBSERVE<br/>Read Output"]
-    C --> D["🤔 REFLECT<br/>Evaluate"]
-    D -->|"Not done"| A
-    D -->|"Done ✅"| E["Complete"]
+    A["Plan<br/>Choose an approach"] --> B["Act<br/>Edit or run a tool"]
+    B --> C["Observe<br/>Read output"]
+    C --> D["Reflect<br/>Adjust or continue"]
+    D -->|"Try again"| A
+    D -->|"Done"| E["Ship result"]
 ```
 
-<!--
-"Every agentic loop follows this cycle. Plan what to do. Do it. Check the result. Decide if you're done. If not, go back to planning. The agent may go through this cycle 3, 5, 10 times for a single task."
+<v-clicks>
+
+- Agent mode runs this loop automatically on multi-step tasks.
+- You usually see the loop through plan summaries, edits, commands, and retries.
+- This loop is why Agent mode can recover from first-draft mistakes.
+
+</v-clicks>
+
+<!-- notes
+Explain that the loop is the difference between “generate code” and “work the task.” The agent is iterating, not just answering once.
 -->
 
 ---
-class: text-xs
+class: text-sm
 ---
 
-# Inside Each Phase
+# Real-world loop example
 
-**Plan**: "I need to add validation. I'll check existing patterns in `products.ts`, create a validation middleware, and update the orders route."
+| Loop step | Example: “Add request validation to `POST /orders`” |
+|-----------|----------------------------------------------------|
+| **Plan** | Inspect existing routes, pick the validation pattern, list files to touch |
+| **Act** | Update route, add validation helper, create tests |
+| **Observe** | Read lint output and failing test messages |
+| **Reflect** | Fix the middleware order, rerun checks, then summarize the result |
 
-**Act**: Creates `api/middleware/validation.ts`, edits `api/routes/orders.ts`, runs `npm run lint`
+<div class="gh-box-accent">
 
-**Observe**: Lint reports `unused import on line 4` and `missing type for parameter`
+**Prompting tip**: Tell the agent what success looks like — route updated, tests added, checks passing.
 
-**Reflect**: "Lint failed — I need to fix the import and add types. Let me try again."
+</div>
 
-→ Back to **Act** → fixes import → runs lint → **Observe**: passes → **Reflect**: "running tests..." → continues
+<!-- notes
+Make this tangible. Attendees should hear a realistic task and immediately imagine the files, commands, and feedback loop that follow.
+-->
+
+---
+class: text-sm
+---
+
+# Self-correction & iteration
+
+| Step | What happens | What the agent does next |
+|------|---------------|--------------------------|
+| **1** | Writes the first implementation | Runs tests or lint |
+| **2** | A check fails | Reads the exact error output |
+| **3** | Diagnoses the likely cause | Edits the relevant file |
+| **4** | Re-runs validation | Compares new output to the goal |
+| **5** | Checks pass | Stops iterating and reports success |
 
 <div class="gh-callout gh-callout-green">
 
-**Why this matters**: Understanding the cycle helps you write prompts that give the agent a better **plan** from the start.
+**The loop matters**: good agents do not hide failure — they use failure signals to improve the next attempt.
 
 </div>
 
-<!--
-"Notice how the agent's first attempt often isn't perfect. That's normal — the power is in the iteration. The key to better results is giving the agent a better starting plan through a clear, well-structured prompt."
--->
-
----
-layout: demo
----
-
-# 🖥️ LIVE DEMO
-
-### Watching the Cycle in Real-Time
-
-- Give Agent mode a multi-step task: "Add a delivery tracking feature with a new endpoint, service layer, and tests"
-- Watch the agent: plan (describes approach) → act (edits files) → observe (runs tests) → reflect (fixes failures)
-- Point out each phase as it happens
-
-<!--
-This should be a 5-minute demo with a task complex enough to trigger at least one self-correction cycle. The delivery tracking feature is a good choice because it requires multiple files.
+<!-- notes
+Call out the difference from manual chat. In non-agentic chat, the developer has to paste the error back. In Agent mode, the agent reads it directly and tries again.
 -->
 
 ---
 class: text-sm
 ---
 
-# The Ralph Loop
+# The Rubber Duck Pattern
 
-### The iterative pattern behind Copilot's Coding Agent
+| Step | Example workflow |
+|------|------------------|
+| **1. Generate** | Use **Claude Sonnet** to write a function or draft the implementation |
+| **2. Review** | Switch to **GPT-4o** and ask: `Review this for bugs, edge cases, and missing tests.` |
+| **3. Refine** | Apply the best suggestions, then rerun checks |
 
-The **Ralph loop** is the iterative cycle the Coding Agent uses: edit → validate → fix → repeat until all checks pass. It's a specialized agentic loop with built-in validation gates.
+<v-clicks>
 
-```
-  1. PLAN ──► Read issue → decompose task
-  2. EDIT ──► Create/modify files
-  3. VALIDATE ──► Lint + Type Check + Tests
-  4. PASS? ── Yes ──► Commit → Create PR
-     │
-     No
-     │
-  5. FIX ──► Read errors → adjust code
-     └─────── Back to step 3
-```
+- Different models often catch different blind spots.
+- This works especially well for tricky business logic, parsing, validation, and test review.
+- Think of it as a fast second opinion before you merge or hand work to a teammate.
 
-<div class="gh-callout gh-callout-purple">
+</v-clicks>
 
-**Key difference from Agent mode**: The Coding Agent runs in a sandboxed environment and iterates until tests pass — or hits a retry limit.
-
-</div>
-
-<!--
-"The Ralph loop is the iteration pattern behind the Coding Agent. Where Agent mode asks you to review each step, the Coding Agent runs this loop autonomously — plan, edit, validate, fix — until all checks pass. Then it opens a PR for you to review."
+<!-- notes
+Keep this practical. This is not a separate product feature; it is a workflow pattern. One model writes, another critiques, and the developer decides what to keep.
 -->
 
 ---
-class: text-sm
+layout: center
 ---
 
-# Validation Gates
+# 🧪 Exercise 4 — Agentic Loops & Rubber Duck
 
-### What the Ralph loop checks before committing
+Watch one agent run a full loop, then switch models and ask for a critique before you accept the final answer.
 
-| Gate | What It Checks | Why It Matters |
-|------|---------------|----------------|
-| **Lint** | Code style, syntax, unused variables | Catches surface-level issues first |
-| **Type check** | TypeScript/type errors | Ensures structural correctness |
-| **Tests** | Unit and integration tests | Verifies functional correctness |
-| **Build** | Compilation success | Confirms nothing is broken |
-
-### Self-Correction Example
-
-1. **Attempt 1**: Writes validation code → test fails ("expected 400, got 200")
-2. **Diagnose**: Reads test failure → "validation middleware isn't being applied"
-3. **Attempt 2**: Adds `app.use(validate)` to the route → test passes ✅
-4. **All gates pass** → PR created
-
-<!--
-"The validation gates are what make the Ralph loop reliable. It's not just generating code — it's running your project's actual lint, type checker, and tests against its own output. This is why copilot-setup-steps.yml matters — without it, the Coding Agent can't run your checks."
--->
-
----
-class: text-sm
----
-
-# When Self-Correction Fails
-
-### Recognizing the failure modes
-
-| Failure Mode | What Happens | Intervention |
-|-------------|-------------|-------------|
-| **Infinite fix loop** | Fixes one error, introduces another | Clarify the requirement |
-| **Wrong approach** | Entire strategy is misguided | Close PR, provide guidance |
-| **Missing context** | Can't find necessary info | Add context to issue or instructions |
-| **Retry limit** | Gives up after max retries | Review partial progress, complete manually |
-
-<div class="gh-callout gh-callout-blue">
-
-**Pro tip**: Well-written issues with clear acceptance criteria dramatically reduce Coding Agent failures.
-
-</div>
-
-<!--
-"The Ralph loop isn't magic. It fails when the task is under-specified, when it picks the wrong approach, or when it gets stuck in a fix loop. The fix is almost always better input — clearer issues, better instructions, more specific acceptance criteria."
--->
-
----
-layout: demo
----
-
-# 🖥️ LIVE DEMO
-
-### The Ralph Loop in Action
-
-- Show a GitHub issue assigned to Copilot Coding Agent
-- Watch the process: plan → edit → validate → fix → validate → commit
-- Open the PR — show iteration history in the agent's comments
-- Point out where self-correction happened
-
-<!--
-If you can't demo the Ralph loop live (requires Coding Agent access), show a recorded example or walk through a completed PR that shows the iteration history. The key is seeing the validation gates in action.
--->
-
----
-class: text-xs
----
-
-# Rubber Duck: Cross-Model Review
-
-### A Copilot CLI feature — different model family provides independent review
-
-| Review Approach | Limitation | Rubber Duck Advantage |
-|----------------|-----------|----------------------|
-| **Self-reflection** | Same training biases, same blind spots | Different model family = different biases |
-| **Human review** | Slow, doesn't scale | Fast, automated, catches systematic patterns |
-| **Same-family model** | Correlated blind spots | Cross-family = uncorrelated blind spots |
-
-When your orchestrator is **Claude**, Rubber Duck uses **GPT-5.4** — and vice versa.
-
-<div class="gh-callout gh-callout-purple">
-
-**Copilot CLI only** (experimental mode via `/experimental`). Not yet available in VS Code Copilot Chat.
-
-</div>
-
-<!--
-"Rubber Duck is a specific GitHub Copilot feature — not just a concept. It uses a second model from a DIFFERENT AI family to review the primary agent's work. Different training data, different blind spots, genuinely independent perspective."
--->
-
----
-class: text-xs
----
-
-# When Rubber Duck Activates
-
-### Three checkpoints where feedback has the highest return
-
-1. **After drafting a plan** — Catching a suboptimal decision early avoids compounding errors downstream
-2. **After a complex implementation** — Second set of eyes catches edge cases in complex code
-3. **After writing tests, before executing** — Catches gaps in coverage or flawed assertions
-
-Also activates **reactively** if the agent gets stuck in a loop. You can **request a critique at any time**.
-
-### Real-World Catches (SWE-Bench Pro)
-
-| Catch | What Rubber Duck Found |
-|-------|----------------------|
-| **Architectural** | Scheduler would start and immediately exit, running zero jobs |
-| **One-liner bug** | Loop silently overwrote same dict key — dropped 3 of 4 search facets |
-| **Cross-file conflict** | 3 files read a Redis key the new code stopped writing |
-
-**Result**: Sonnet + Rubber Duck closes **74.7%** of the gap to Opus alone.
-
-<!--
-"Rubber Duck activates at the moments where a second opinion has the highest return. After planning — because a bad plan compounds. After complex code — because edge cases hide. After tests — because false confidence is worse than no tests."
--->
-
----
-layout: demo
----
-
-# 🖥️ LIVE DEMO
-
-### Rubber Duck in Action
-
-- Open **GitHub Copilot CLI** and run `/experimental` to enable Rubber Duck
-- Select a Claude model from the model picker
-- Give a complex task — show the agent planning
-- Point out when Rubber Duck activates (after plan, after implementation)
-- Show the critique: what did the second model catch?
-- Show the agent incorporating feedback
-
-<!--
-Show the cross-family review in action. The key moment is when the second model catches something the primary model missed — that's the value of different training biases.
--->
-
----
-class: text-sm
----
-
-# Session 4 Recap & Discussion
-
-### Key Takeaways
-
-- Agentic loops follow **plan → act → observe → reflect**
-- The Ralph loop adds **validation gates** (lint, types, tests) that force self-correction
-- **Rubber Duck** provides cross-model-family review at key checkpoints — plan, implementation, tests
-- Cross-family critique catches errors that self-reflection misses
-
-### Discussion
-
-- How does understanding the loop change how you interact with Agent mode?
-- What tasks in your current sprint would benefit from the rubber duck pattern?
-- Where on the autonomy spectrum is your team comfortable?
-
-<!--
-10-minute discussion. This is the longest discussion in the module — attendees should have lots of observations from the demos.
--->
-
----
-class: text-sm
----
-
-# ☕ Break — 10 Minutes
-
-Session 5 covers agent architecture patterns and antipatterns.
-
----
-layout: section
----
-
-# Session 5
-
-## Agent Patterns & Antipatterns
-
-<!--
-"Now that we understand how agents work, let's learn how to DESIGN them well — and avoid common mistakes."
--->
-
----
-class: text-sm
----
-
-# AI Safety: Designing Responsible Agents
-
-### Guardrails for autonomous systems
-
-| Principle | Description |
-|-----------|-------------|
-| **Least privilege** | Give agents only the tools they need |
-| **Explicit scope** | Define what the agent should and shouldn't do |
-| **Human checkpoints** | Require approval for destructive actions |
-| **Graceful failure** | Report when stuck, don't silently produce bad output |
-| **Auditability** | Every action should be traceable |
-
-<div class="gh-callout gh-callout-blue">
-
-**An agent without guardrails is a liability. An agent with well-designed guardrails is a force multiplier.**
-
-</div>
-
-<!--
-"The more autonomy you give an agent, the more important the guardrails become. Least privilege, explicit scope, human checkpoints — these aren't restrictions, they're what make agents trustworthy."
--->
-
----
-class: text-sm
----
-
-# Pattern 1: Single-Agent / Single-Skill
-
-### The simplest agent architecture
-
-One agent, one job. Clear scope, easy to debug.
-
-- **When to use**: Simple, well-defined tasks
-- **Pros**: Easy to build, predictable, easy to debug
-- **Cons**: Limited capability, can't handle cross-domain tasks
-- **Example**: "Fix lint errors in this file"
-
-### Pattern 2: Single-Agent / Multi-Skill
-
-One agent, multiple capabilities. **This is Copilot's Agent mode.**
-
-- **When to use**: Tasks requiring multiple capabilities but one decision-maker
-- **Pros**: Single context, consistent reasoning, simpler orchestration
-- **Cons**: Instructions can get complex, context window fills faster
-- **Example**: "Add a feature with endpoint, service, and tests"
-
-<!--
-"Pattern 1 is a specialist — one thing, done well. Pattern 2 is a generalist — this is what Agent mode IS. One agent with file editing, terminal, search, and more. Most of your daily work fits Pattern 2."
--->
-
----
-class: text-sm
----
-
-# Pattern 3: Multi-Agent / Multi-Skill
-
-### Specialized agents collaborating
-
-```mermaid {scale: 0.6}
-graph LR
-    A["Frontend<br/>Agent"] --- D["Shared<br/>Context"]
-    B["Backend<br/>Agent"] --- D
-    C["DevOps<br/>Agent"] --- D
-```
-
-- **When to use**: Complex, cross-domain tasks where specialization matters
-- **Pros**: Deep expertise per domain, cleaner context, parallel potential
-- **Cons**: Orchestration overhead, agents may conflict, debugging is harder
-
-### Pattern Comparison
-
-| Aspect | Single/Single | Single/Multi | Multi/Multi |
-|--------|--------------|--------------|-------------|
-| **Complexity** | 🟢 Low | 🟡 Medium | 🔴 High |
-| **Debugging** | 🟢 Easy | 🟡 Moderate | 🔴 Hard |
-| **Task scope** | Narrow | Broad | Very broad |
-
-<!--
-"Pattern 3 is for when you need deep specialization. A frontend expert, a backend expert, and a DevOps expert — each with focused instructions and tools. The trade-off is orchestration complexity."
--->
-
----
-layout: demo
----
-
-# 🖥️ LIVE DEMO
-
-### Single-Agent with Multiple Skills
-
-- Create a custom agent with 3 tools: `codebase`, `githubRepo`, `fetch`
-- Give it a cross-cutting task: "Review orders API for security issues and suggest test improvements"
-- Watch it use multiple skills in one conversation
-- Discuss when this would break down
-
-<!--
-Show the power of a well-configured single agent with multiple tools. Then discuss the limits — when would you need to split into multiple agents?
--->
-
----
-class: text-xs
----
-
-# Orchestration Topologies
-
-### How multiple agents coordinate
-
-**Sequential** — each agent feeds the next:
-
-```mermaid {scale: 0.5}
-graph LR
-    A["Analyze"] --> B["Generate"] --> C["Review"] --> D["Result"]
-```
-
-**Parallel** — independent work, then merge:
-
-```mermaid {scale: 0.5}
-graph LR
-    T["Task"] --> A["Agent A"]
-    T --> B["Agent B"]
-    T --> C["Agent C"]
-    A --> M["Merge"]
-    B --> M
-    C --> M
-```
-
-**Hierarchical** — coordinator delegates:
-
-```mermaid {scale: 0.5}
-graph TB
-    CO["Coordinator"] --> W1["Worker A"]
-    CO --> W2["Worker B"]
-    CO --> W3["Worker C"]
-```
-
-<!--
-"Three ways to wire agents together. Sequential is a pipeline — review processes. Parallel is fan-out — independent sub-tasks done simultaneously. Hierarchical is the most complex — a boss agent delegates to specialists."
--->
-
----
-class: text-sm
----
-
-# Topology Comparison
-
-### Matching topology to task
-
-| Topology | Latency | Complexity | When to Use |
-|----------|---------|------------|-------------|
-| **Sequential** | High (stages add up) | 🟢 Low | Clear step-by-step workflows |
-| **Parallel** | Low (concurrent) | 🟡 Medium | Independent sub-tasks |
-| **Hierarchical** | Medium | 🔴 High | Dynamic, complex decomposition |
-
-### Examples
-
-| Topology | Real-World Example |
-|----------|-------------------|
-| **Sequential** | Code review pipeline: analyze → fix → validate |
-| **Parallel** | Full-stack feature: frontend + backend + tests simultaneously |
-| **Hierarchical** | "Implement feature X" — coordinator plans, delegates to domain workers |
-
-<div class="gh-callout gh-callout-green">
-
-**Start simple**: Most teams should start with sequential before attempting parallel or hierarchical.
-
-</div>
-
-<!--
-"Don't jump to hierarchical because it sounds cool. Start with sequential pipelines — they're easy to debug and understand. Graduate to parallel when you have genuinely independent sub-tasks."
--->
-
----
-layout: demo
----
-
-# 🖥️ LIVE DEMO
-
-### Multi-Agent Concept
-
-- Show two custom agents: `frontend-expert.md` and `api-expert.md`
-- Use one for a frontend question, the other for an API question
-- Discuss how a coordinator could delegate between them
-- Show the conceptual flow (full orchestration is outside Copilot's current scope)
-
-<!--
-This is a conceptual demo — we're showing how you'd DESIGN a multi-agent system, not implementing full orchestration. The key point is that each agent has focused context and expertise.
--->
-
----
-class: text-xs
----
-
-# The 8 Agent Antipatterns
-
-### Common mistakes to avoid (1–4)
-
-| # | Antipattern | Symptom | Fix |
-|---|-------------|---------|-----|
-| 1 | **God Agent** | One agent handles everything; unfocused output | Split into specialized agents |
-| 2 | **Context Stuffing** | Slow responses, truncated context | Attach only relevant files |
-| 3 | **Missing Guardrails** | Agent modifies wrong files, runs destructive commands | Add "do not" rules + tool restrictions |
-| 4 | **Over-Delegation** | Incorrect output on complex tasks | Match task to agent capability |
-
-### (5–8)
-
-| # | Antipattern | Symptom | Fix |
-|---|-------------|---------|-----|
-| 5 | **Tool Sprawl** | Wrong tool selection, wasted tokens | Limit tools per agent |
-| 6 | **No Validation Loop** | Unverified output accepted | Require lint/test/build pass |
-| 7 | **Prompt Injection Blind Spot** | Malicious content from tool outputs | Validate external input |
-| 8 | **Stale Instructions** | Generates deprecated patterns | Review instructions quarterly |
-
-<!--
-"These are the 8 most common mistakes we see. Most teams hit at least 3 of these when they start building agents. The fix is almost always about being more intentional — focused agents, limited tools, explicit guardrails."
--->
-
----
-class: text-xs
----
-
-# Antipattern Case Studies
-
-**Case 1 — God Agent**: One agent for frontend, backend, database, AND DevOps. Asked to "add a feature" → modified Dockerfiles, API routes, React components, and migrations simultaneously → tangled PR.
-
-**Fix**: Three specialized agents (frontend, backend, infrastructure) with focused instructions.
-
-**Case 2 — Context Stuffing**: 15 files attached to a code review. Context window overflowed → superficial summary of the first 3 files, rest ignored.
-
-**Fix**: Review one module at a time with targeted `#file` references.
-
-<div class="gh-callout gh-callout-blue">
-
-**Detection checklist**: Focused purpose? Limited tools? Explicit scope? Validation step? Current instructions?
-
-</div>
-
-<!--
-"These aren't hypothetical — we've seen both of these in real teams. The God Agent is the most common. Teams get excited, give one agent everything, and wonder why it produces unfocused output. Specialization wins."
--->
-
----
-class: text-sm
----
-
-# Module 2 Complete — Key Takeaways
-
-| Session | Core Concept |
-|---------|-------------|
-| **Session 4: Agentic Loops** | Plan → act → observe → reflect cycle; Ralph adds validation gates; Copilot is a rubber duck that talks back |
-| **Session 5: Patterns** | Choose the right pattern (single vs. multi); select matching topology; avoid the 8 antipatterns |
-
-### What to Do Next
-
-1. Watch Agent mode's loop in action — identify the phases
-2. Try the rubber duck pattern before your next implementation
-3. Audit your custom agents against the antipattern checklist
-4. Design specialized agents for your team's top 2-3 workflows
-
-<div class="gh-callout gh-callout-purple">
-
-**Next**: Module 3 covers Extensions, MCP, evaluation frameworks, and troubleshooting.
-
-</div>
-
-<!--
-"That's Module 2 complete. You now understand how agents work and how to design them well. Module 3 takes you further — extending Copilot with MCP, evaluating output quality, and debugging when things go wrong."
+<!-- notes
+If time is tight, make this a paired discussion instead of a full hands-on task. The goal is to reinforce the idea of iteration plus independent review.
 -->
 
 ---
 layout: end
+class: text-sm
 ---
 
-# Module 2 Complete
+# Module 2 Recap
 
-## Agentic Patterns
+<v-clicks>
 
-*Continue to Module 3: Advanced Topics →*
+- Manage the context window intentionally: fresh chats, lean instructions, precise file references.
+- Use Copilot to bootstrap projects quickly, but review the generated structure before you commit.
+- Reach for custom agents when a workflow repeats and deserves focused instructions.
+- Remember that Agent mode is a loop: **plan → act → observe → reflect**.
+- Use a second model as a rubber duck when the logic is important or the risk is high.
 
-<div class="gh-callout gh-callout-blue">
+</v-clicks>
 
-**Copilot Developer Training** · Module 2 of 3
+<div class="gh-callout gh-callout-purple">
+
+**Next up**: Module 3 goes deeper into advanced patterns, MCP, evaluation, and troubleshooting.
 
 </div>
 
-<!--
-Thank attendees. Point to the lab guide for hands-on practice. Announce Module 3 timing.
+*Slide deck for Copilot Developer Training — Module 2: Agentic Patterns*
+
+<!-- notes
+Close by tying the module together: better context leads to better scaffolds, better scaffolds make agents more effective, and understanding the loop helps attendees trust — and verify — autonomous behavior.
 -->

@@ -1,10 +1,9 @@
 ---
 theme: ../../themes/github
-title: "GitHub + Azure DevOps Integration (30 min)"
+title: "Copilot Developer Training — Module 4: GitHub + ADO Integration"
 info: |
-  30-minute condensed version.
-  Essential integration points: AB# linking, Copilot + ADO Boards, decision framework.
-ghFooterTitle: "GitHub + ADO Integration"
+  15-minute module covering GitHub and Azure DevOps integration essentials.
+ghFooterTitle: "Module 4: GitHub + ADO"
 ghFooterLabel: ""
 drawings:
   persist: false
@@ -16,287 +15,231 @@ layout: cover
 ---
 <!-- markdownlint-disable -->
 
-# GitHub + Azure DevOps Integration
+# Copilot Developer Training
 
-## 30-Minute Condensed Edition
+## Module 4: GitHub + ADO Integration
 
-*AB# Linking · Copilot from ADO Boards · Decision Framework*
+*15-minute module · AB# linking · Copilot from Boards · decision points*
 
-<!--
-"This is a 30-minute condensed version covering the essentials. We'll focus on the primary integration point (AB# linking), the new Copilot feature from Azure Boards, how GitHub and ADO layer together, and how to decide whether this integration is right for your organization."
+<!-- notes
+Open by positioning this as the shortest module in the day. The goal is not to teach every Azure DevOps capability; it is to show the smallest set of integration points that matter for GitHub-first teams.
+-->
+
+---
+class: text-sm
+---
+
+# ADO layers on top of GitHub
+
+### GitHub stays the code platform; Azure Boards stays the work-management layer
+
+```mermaid {scale: 0.75}
+graph LR
+  subgraph GH["GitHub base platform"]
+    A["Repos + PRs<br/>source of truth"]
+    B["Actions + Copilot<br/>code + CI/CD"]
+  end
+  subgraph ADO["Azure DevOps overlay"]
+    C["Azure Boards<br/>work items + sprints"]
+  end
+  C <--> |"AB# links<br/>PR insights"| A
+  A --> B
+```
+
+<v-clicks>
+
+- Developers stay in **GitHub** for code, reviews, and automation.
+- Project managers stay in **Azure Boards** for work items, planning, and dashboards.
+- Boards can also reference GitHub PRs with `!{org/repo}/pull/{pr-number}`.
+
+</v-clicks>
+
+<div class="gh-callout gh-callout-blue">
+
+**Key point**: This is **not** a migration pattern. ADO adds a coordination layer on top of a GitHub-centered workflow.
+
+</div>
+
+<!-- notes
+Keep the architecture simple: GitHub is still the developer system of action, while Boards remains the project-management surface. Mention PR Insights and ! mentions as visibility features, but do not drift into a full ADO product tour.
 -->
 
 ---
 class: text-xs
 ---
 
-# Today's Agenda (30 min)
+# AB# linking is the core integration
 
-| Section | Time | Topic |
-|---------|------|-------|
-| 1 | 3 min | GitHub + ADO Architecture |
-| 2 | 8 min | AB# Linking Explained |
-| 3 | 2 min | AB# in Practice |
-| 4 | 3 min | Copilot from Azure Boards |
-| 5 | 2 min | PR Insights & Features |
-| 6 | 5 min | Decision Framework |
-| 7 | 4 min | Q&A |
+### Put the Azure Boards work item ID inside GitHub text that gets parsed
 
-**Total: 30 minutes**
+<div class="gh-box-accent">
 
-<!--
-"Five content sections plus Q&A. We'll start with how the layers work, then dive into the primary integration point (AB# linking), show you a real example, cover the new Copilot feature, mention other visibility features, and finish with a decision framework to help you decide whether this is right for your organization."
--->
+<v-clicks>
 
----
-
-# Section 1: GitHub + ADO Architecture (3 min)
-
----
-
-## How They Layer Together
-
-ADO sits **on top of** your base GitHub architecture:
-
-```
-Base: 🔵 EMU | 🟢 Multi-Org | 🟠 Mixed + GHES
-   ↓
-+ ADO Integration (Boards, Pipelines, Test Plans)
-   ↓
-= Full "Better Together" Stack
-```
-
-### The Capability Split
-
-| GitHub (Source of Truth) | Azure DevOps (PM Layer) |
-|---|---|
-| Repos, PRs, code scanning, Copilot | Boards, work items, sprints, dashboards |
-| Branch protection, CI/CD (Actions) | Test Plans, Artifacts, legacy pipelines |
-
-**Key point**: ADO **augments** GitHub — doesn't replace it. You still need a base GitHub architecture.
-
-<!--
-"Azure DevOps integration is not a standalone architecture. It sits on top of whichever base GitHub pattern you've chosen — EMU, Multi-Org, or Mixed Cloud + GHES. The 'better together' approach uses the right tool for each job: GitHub for source code, security, and AI assistance; Azure DevOps for work item tracking, test management, and project management."
--->
-
----
-
-# Section 2: AB# Linking Explained (8 min)
-
----
-
-## The Syntax
-
-Use `AB#NNNNN` in GitHub to link to ADO work item #NNNNN.
-
-**Where it works:**
 - ✅ Commit messages
 - ✅ PR descriptions
 - ✅ Issue descriptions
+- ✗ PR titles
+- ✗ PR comments
 
-**Where it does NOT work:**
-- ❌ PR titles
-- ❌ PR comments (only the description counts)
+</v-clicks>
 
----
+</div>
 
-## How It Works
+```bash
+git commit -m "Add webhook retry logic AB#48321"
+```
 
-| Step | What Happens |
-|------|--------------|
-| **Dev writes** | Commit message: `Fix login flow AB#4567` |
-| **GitHub sends webhook** | Azure Boards GitHub App receives the update |
-| **Work item is linked** | ADO work item #4567 now shows the linked commit in its "Development" section |
-| **State transitions** | PR merged with `Fixes AB#4567` → work item auto-moves to "Done" (if configured) |
-| **Visibility** | PM can see PR progress in ADO Boards without leaving the platform |
+```md
+## Summary
 
----
+Implements AB#48321 for retry-safe webhook delivery.
+```
 
-## Key Limitations
+<div class="gh-callout gh-callout-blue">
 
-| Limitation | Impact |
-|-----------|--------|
-| **One direction only** | GitHub → ADO (not bidirectional) |
-| **Default branch only** | State transitions only happen when merged to `main`/`master` |
-| **Setup required** | Azure Boards GitHub App must be installed on your org |
-| **Scope** | One connection per GitHub org; connect to one ADO org |
+**Remember**: Only the initial PR description is parsed for AB# linking.
 
-<!--
-"AB# linking is the primary integration point. It's simple but has some important limitations. It's one-directional from GitHub to ADO, state transitions only work on the default branch, and you need to have the Azure Boards app installed."
+</div>
+
+<!-- notes
+This is the feature to remember. If learners walk away with only one integration detail, it should be where AB# works and where it does not. Call out the PR title limitation explicitly because teams often assume the title is enough.
 -->
 
 ---
-
-# Section 3: AB# in Practice (2 min)
-
+class: text-sm
 ---
 
-## Real Example: Plum Smart Performance Optimization
+# `Fixes AB#` closes the loop
 
-**ADO Work Item**: `AB#12340` — "Optimize query performance in checkout"
+### Use the keyword in the merged PR description to drive the work item state change
 
-### Developer Flow
+| Text in GitHub | ADO result |
+|---|---|
+| `AB#48321` | Links the commit, issue, or PR to the work item |
+| `Fixes AB#48321` | On merge, moves the linked item to **Done/Resolved** |
 
+```md
+## Why
+
+Release readiness fix for webhook retries.
+
+Fixes AB#48321
 ```
-1. Developer grabs AB#12340 from ADO Boards
-2. Creates branch: feature/AB12340-checkout-performance
-3. Commits: "Optimize DB index for checkout queries AB#12340"
-4. Opens PR with description mentioning AB#12340
-   → ADO work item automatically shows the linked PR
-5. Code review in GitHub
-6. PR merged with commit message: "Fixes AB#12340"
-   → ADO work item auto-transitions to Done
-7. PM sees completion in ADO Boards dashboard
-```
 
-### The Benefit
+<div class="gh-callout gh-callout-blue">
 
-Developers stay in GitHub. Project managers stay in ADO Boards. Both have visibility — no context-switching for status updates.
+**PR Insights**: Azure Boards can show linked PR draft, review, and check status in the work item's **Development** section.
 
-<!--
-"Here's a real scenario. A developer picks up a performance optimization work item from ADO Boards, creates a branch and commits with the AB# reference, opens a PR, and once that PR is merged, the work item automatically moves to Done in ADO. The PM sees all of this in their ADO dashboard without ever opening GitHub."
+</div>
+
+<!-- notes
+Explain that plain AB# gives traceability, while Fixes AB# adds workflow automation. The instructor point here is reduced manual status management: the merge event can update the work item for the team.
 -->
 
 ---
-
-# Section 4: Copilot from Azure Boards Work Items (3 min)
-
+class: text-xs
 ---
 
-## What It Is
+# Copilot can start from the work item
 
-Delegate work items to GitHub Copilot **directly from ADO Boards** for automated code generation + PR creation.
+### This workflow begins in Azure Boards and finishes in GitHub
 
-### Example: "Generate with Copilot"
+<v-clicks>
 
-```
-ADO Work Item: "Add two-factor authentication"
-↓
-Click "Generate with Copilot" in ADO
-↓
-Copilot reads: title, description, comments
-↓
-Copilot generates code + opens PR in linked GitHub repo
-```
+- Connect **Azure Boards** to a **GitHub repository**.
+- Open the work item and use **Copilot** to generate implementation help or code.
+- Copilot uses the work item title, description, and comments as context.
+- The output lands in **GitHub** as code and a PR for review.
+- In ADO text fields, use `!{org/repo}/pull/{pr-number}` to point discussion at the GitHub PR.
 
----
+</v-clicks>
 
-## Important Details
+| Requirement | Why it matters |
+|---|---|
+| **GitHub repos** | Required for Copilot from Azure Boards |
+| **Azure Repos** | Not supported for this generation flow |
 
-| Aspect | Detail |
-|--------|--------|
-| **Data shared** | Work item title, description, comments sent to Copilot as context |
-| **Source code** | **REQUIRES GitHub repos** — does not work with Azure Repos |
-| **Auth** | Requires GitHub App authentication (PAT not supported) |
-| **License** | Requires Copilot Pro, Business, or Enterprise license |
-| **Governance** | Work item content is sent to Copilot; evaluate data handling requirements |
+<div class="gh-callout gh-callout-purple">
 
-### Critical Caveat
+**Important**: Copilot from Azure Boards is a **GitHub-repos** integration, not a generic Azure Repos feature.
 
-⚠️ **This feature only works with GitHub repositories.** If your source code lives in Azure Repos, you cannot use Copilot with ADO Boards work items. Your code must be in GitHub.
+</div>
 
-<!--
-"Copilot + ADO Boards is a new feature, but it has a critical limitation: it only works with GitHub repositories. If you're storing source code in Azure Repos, this integration won't help you. That's an important distinction as you evaluate the 'better together' story for your organization."
+<!-- notes
+The critical caveat is repository type. If the audience remembers nothing else from this slide, they should remember that Copilot from Boards requires GitHub repos and does not unlock the same flow for Azure Repos.
 -->
 
 ---
-
-# Section 5: PR Insights & Additional Features (2 min)
-
+class: text-xs
 ---
 
-## PR Insights
+# When to integrate vs. skip
 
-View GitHub pull request status directly from ADO work items:
+### Keep the integration only when the two-platform model still saves time
 
-- **Draft status** — Is it still a draft?
-- **Review status** — Approved, changes requested, waiting?
-- **Check status** — CI passing, policy compliance?
+| ✅ Add ADO integration when... | ⚠️ Skip when... |
+|---|---|
+| Significant **Azure Boards** investment | Starting fresh and can go all-in on GitHub |
+| Need **Copilot + GHAS** before a full migration | **GitHub Projects V2** can replace Boards |
+| Gradual **Azure Repos → GitHub** migration | Two-platform cost exceeds migration cost |
+| PMs and stakeholders live in **ADO** | Team wants one platform with less admin overhead |
 
-Shows in the **Development section** of the work item. PMs track progress without switching to GitHub.
+<div class="gh-callout gh-callout-blue">
 
----
+**Rule of thumb**: Integrate to preserve existing ADO value; skip it when GitHub can already be the full destination state.
 
-## `!` Mentions
+</div>
 
-Reference GitHub pull requests from ADO using `!` syntax:
-
-```
-!{org/repo}/pull/{pr-number}
-```
-
-**Example**: `!microsoft/ghcp-content/pull/42` links and highlights that PR in the work item discussion.
-
----
-
-# Section 6: Decision Framework (5 min)
-
----
-
-## When to Add ADO Integration
-
-✅ **Add when:**
-
-- Significant ADO Boards investment (custom work items, queries, dashboards)
-- Want Copilot + GHAS without full migration
-- Doing gradual ADO Repos → GitHub migration
-- PMs/stakeholders live in ADO Boards
-- Using ADO Test Plans
-
----
-
-## When to Skip ADO Integration
-
-⚠️ **Skip when:**
-
-- Starting fresh — go all-in on GitHub from day one
-- GitHub Projects V2 can replace ADO Boards
-- Cost of two platforms > one-time migration cost
-- Team prefers single tool (context-switching harms productivity)
-
----
-
-## Pros & Cons
-
-| ✅ Pros | ✗ Cons |
-|---------|--------|
-| Leverage best of both platforms | Dual admin, dual training, dual cost |
-| Adopt Copilot + GHAS without migration | One-way integration (GH → ADO) |
-| Preserve ADO Boards investment | Developer context-switching |
-| Gradual migration path | Split audit logs, unified reporting complex |
-
-<!--
-"The decision comes down to your organization's maturity with Azure DevOps. If you have a lot invested in ADO Boards and you want to adopt GitHub without disrupting that, ADO integration makes sense. If you're starting fresh or have the bandwidth to migrate, going all-in on GitHub might be simpler."
+<!-- notes
+Frame this as a business decision, not a technical purity test. Enterprises with heavy Boards investment often want GitHub for developers without forcing an immediate PM workflow migration.
 -->
 
 ---
-
-# Section 7: Q&A (4 min)
-
+class: text-sm
+layout: demo
 ---
 
-## Discussion Questions
+# 🧪 LAB CUE
 
-- How much of your workflow currently lives in ADO Boards?
-- Could GitHub Projects V2 replace your ADO usage?
-- Do you have ADO Pipelines that would be difficult to migrate?
-- Is Entra ID your identity provider for both platforms?
+### Quick exercise — AB# linking
 
-<!--
-"Let's open it up for questions. These are some framing questions to think about, but ask whatever's on your mind."
+<v-clicks>
+
+- Pick an Azure Boards work item such as `AB#48321`.
+- Create a commit or draft PR description that includes the reference.
+- Watch the work item show linked GitHub activity in **Development**.
+- No ADO access? Run it as an instructor demo with sample text only.
+
+</v-clicks>
+
+<div class="gh-callout gh-callout-green">
+
+**Outcome**: Learners see the smallest useful integration in under five minutes.
+
+</div>
+
+<!-- notes
+If the room does not have Azure DevOps access, keep this as a show-and-tell using prepared screenshots or sample text. The goal is simply to make the AB# syntax feel concrete.
 -->
 
 ---
-
-## Reference Materials
-
-- [Microsoft Learn: Connect Azure Boards to GitHub](https://learn.microsoft.com/en-us/azure/devops/boards/github/connect-to-github)
-- [Integration Overview & Capabilities](https://learn.microsoft.com/en-us/azure/devops/cross-service/github-integration)
-- [Hands-On Lab Guide (Self-Paced)](gh-ado-integration-LAB.md)
-
+class: text-sm
+layout: end
 ---
 
-## Thank You
+# Q&A / Wrap-up
 
-**Questions? Comments? Let's discuss!**
+<v-clicks>
 
+- **ADO integration is a layer** on top of GitHub, not a migration pattern.
+- **AB# linking** is the fastest win for cross-platform traceability.
+- **Copilot from Boards requires GitHub repos**.
+
+</v-clicks>
+
+*Slide deck for Copilot Developer Training — Module 4: GitHub + ADO Integration*
+
+<!-- notes
+Close by restating the three takeaways on the slide. Invite questions about whether the audience is trying to preserve Azure Boards investment or move fully into GitHub over time.
+-->

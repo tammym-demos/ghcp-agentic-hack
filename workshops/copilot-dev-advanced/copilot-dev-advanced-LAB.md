@@ -1,842 +1,195 @@
-# GitHub Copilot Developer Training — Advanced Topics — Hands-On Lab Guide
+# Module 3: Advanced Topics — Hands-On Lab
 
-**Duration**: ~75 minutes of hands-on exercises (across a ~3-hour module)  
-**Format**: Step-by-step lab exercises aligned to workshop sessions  
-**Audience**: Developers extending, evaluating, and debugging GitHub Copilot  
-**Repo**: [microsoft/GitHubCopilot_Customized](https://github.com/microsoft/GitHubCopilot_Customized) (OctoCAT Supply)
+## Overview
 
-> **Part of the Copilot Developer Training curriculum** ([Foundations LAB](../copilot-dev-foundations/copilot-dev-foundations-LAB.md) · [Agentic Patterns LAB](../copilot-dev-agentic/copilot-dev-agentic-LAB.md) · [Advanced Topics LAB](../copilot-dev-advanced/copilot-dev-advanced-LAB.md)). This lab can be completed standalone.
+This self-guided lab gives you a fast, practical way to apply advanced Copilot techniques in your own VS Code workspace: custom agents, MCP servers, debug logs, and layered context.
 
----
+**Total time**: ~28 minutes  
+**Prerequisites**:
 
-## Lab Overview
+- Completed Module 1: Foundations
+- Completed Module 2: Agentic Patterns
+- VS Code with GitHub Copilot and GitHub Copilot Chat enabled
+- A local project open in VS Code
 
-These labs cover extending Copilot with MCP servers, building evaluation frameworks, and mastering diagnostic tools for troubleshooting.
+> **Note**: The prompts below use `src/app.ts` as an example. If your project uses a different main file, substitute an equivalent file in your repo.
 
-### Prerequisites
+## Exercise 1: Agent Architecture (7 min)
 
-| Requirement | Details |
-|-------------|---------|
-| **GitHub Account** | With Copilot Pro, Business, or Enterprise license |
-| **VS Code** | Latest stable (or Insiders for preview features) |
-| **Copilot Extension** | GitHub Copilot + GitHub Copilot Chat extensions installed |
-| **Node.js** | Version 18 or higher |
-| **Git** | For cloning the demo repository |
+**Objective**: Compare one broad agent with two specialized agents.
 
-### Setup Checkpoint
+### Steps
 
-Ensure your environment is ready. If you completed Modules 1–2, your repo should be set up. If starting fresh:
+1. Create a `.github/agents/` folder if it does not already exist.
 
-```bash
-git clone https://github.com/<YOUR-USERNAME>/GitHubCopilot_Customized.git
-cd GitHubCopilot_Customized
-npm install
-npm run build
-npm run dev
+```powershell
+New-Item -ItemType Directory -Path .github\agents -Force
 ```
 
-Ensure these are in place:
+2. Create `.github/agents/helper.md` with the following content:
 
-- ✅ `.github/copilot-instructions.md` exists (create one with basic TypeScript standards if missing)
-- ✅ API running at `http://localhost:3000`
-- ✅ Frontend running at `http://localhost:5137`
-- ✅ `github.copilot.chat.debugMode` set to `true` in VS Code settings
+```markdown
+You are a general-purpose development helper. You can:
+- Review code for bugs and style issues
+- Generate unit tests
+- Write documentation
+- Suggest refactoring improvements
 
-### Lab Summary
-
-| Lab | Workshop Section | Duration | Exercises |
-|-----|-----------------|----------|-----------|
-| 1 | Session 6: Extensions & MCP | 36 min | 5 exercises |
-| 2 | Session 7: Evaluating Agentic Output | 42 min | 6 exercises |
-| 3 | Session 8: Troubleshooting & Diagnostics | 36 min | 5 exercises |
-
----
-
-<details>
-<summary><h2>Lab 1: Extensions & MCP (36 min)</h2></summary>
-
-> **Workshop Session**: 6 — Extensions & MCP
-
-### Exercise 1.1 — Participant Exploration (5 min)
-
-**Objective**: Use each built-in chat participant and document their capabilities.
-
-**Steps**
-
-**Step 1: Test @workspace**
-
-```
-@workspace What are the main database entities in this project and how are they related?
+Always explain your reasoning before making changes.
 ```
 
-Note: How does it find this information? Does it reference specific files?
+3. In Chat, test the broad agent:
 
-**Step 2: Test @vscode**
-
-```
-@vscode How do I configure auto-format on save for TypeScript files?
+```text
+@helper review src/app.ts for potential issues
 ```
 
-Note: Does it provide VS Code-specific settings (not generic advice)?
+4. Create `.github/agents/tester.md` for test generation only:
 
-**Step 3: Test @terminal**
+```markdown
+You are a test-generation specialist. You can:
+- Generate unit tests
+- Suggest edge cases
+- Improve test coverage
 
-Run a command in the terminal first:
-
-```bash
-npm run lint
+Only help with tests. Keep responses focused on test strategy and test code.
 ```
 
-Then ask:
+5. Create `.github/agents/documenter.md` for documentation only:
 
+```markdown
+You are a documentation specialist. You can:
+- Write README content
+- Add code comments and docstrings
+- Improve developer-facing documentation
+
+Only help with documentation. Keep responses focused on clarity and completeness.
 ```
-@terminal Summarize the output of the last command. Were there any warnings?
+
+6. Compare specialized output with prompts like these:
+
+```text
+@tester generate unit tests for src/app.ts
 ```
 
-**Step 4: Document findings**
+```text
+@documenter write documentation for src/app.ts
+```
 
-| Participant | What It Knows | Limitations |
-|-------------|--------------|-------------|
-| `@workspace` | | |
-| `@vscode` | | |
-| `@terminal` | | |
+7. Reflect on the difference: specialized agents should produce more focused, higher-quality output in their domain. Discuss when one general agent is enough versus when multiple specialized agents are better.
 
 ### Success Criteria
 
-- ✅ Used all three built-in participants
-- ✅ Documented what each knows and doesn't know
-- ✅ Understand when to use each one
+- ✅ Created one general agent and two specialized agents
+- ✅ Tested the broad agent and specialized agents in Chat
+- ✅ Compared the quality and focus of their outputs
 
----
+## Exercise 2: MCP Setup (10 min)
 
-### Exercise 1.2 — Extension Installation (8 min)
+**Objective**: Configure an MCP server and verify that Copilot can use it.
 
-**Objective**: Find, install, and use a GitHub Copilot Extension.
+### Steps
 
-**Steps**
-
-**Step 1: Browse the marketplace**
-
-Open <https://github.com/marketplace?type=apps&copilot_app=true> in your browser.
-
-**Step 2: Find a relevant extension**
-
-Look for an extension relevant to your tech stack. Options include:
-
-- Docker
-- GitHub Models
-- Azure
-- Sentry
-
-**Step 3: Install and use**
-
-Follow the extension's installation instructions. Then use it in chat:
-
-```
-@extension-name [your question]
-```
-
-**Step 4: Evaluate**
-
-- Is the response more domain-specific than Copilot's default?
-- What additional context does the extension have access to?
-- Would you recommend this to your team?
-
-### Success Criteria
-
-- ✅ Browsed the Copilot Extensions marketplace
-- ✅ Installed at least one extension
-- ✅ Used the extension in a chat conversation
-- ✅ Evaluated whether it adds value for your workflow
-
----
-
-### Exercise 1.3 — MCP Server Setup (10 min)
-
-**Objective**: Configure a local MCP server and use its tools in chat.
-
-**Steps**
-
-**Step 1: Create the MCP configuration**
-
-Create `.vscode/mcp.json`:
+1. Create or update `.vscode/mcp.json` with the following configuration:
 
 ```json
 {
   "servers": {
-    "filesystem": {
+    "fetch": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-filesystem",
-        "./api"
-      ]
+      "args": ["-y", "@anthropic-ai/mcp-fetch"]
     }
   }
 }
 ```
 
-**Step 2: Reload VS Code**
+2. Reload VS Code with **Ctrl+Shift+P** and run **Developer: Reload Window**.
 
-Reload the window (Command Palette → "Developer: Reload Window") so VS Code picks up the new MCP configuration.
+3. In Chat using Agent mode, ask Copilot to fetch external content:
 
-**Step 3: Verify the server**
-
-Open the chat panel. You should see MCP tools available. Try:
-
-```
-Use the filesystem tools to list all TypeScript files in the api directory
+```text
+Fetch the content from https://api.github.com/zen and tell me what it says
 ```
 
-**Step 4: Use MCP tools for a task**
+4. Watch for tool call indicators in Chat. You should see Copilot using the MCP fetch server.
 
-```
-Using the filesystem tools, find all files that contain "order" in their name
-and summarize what each one does
-```
+5. Explore one more MCP server option at <https://mcp.so> or on npm by searching for `@modelcontextprotocol`.
+
+> **Note**: If `npx` is not available, install Node.js first. The MCP fetch server requires no extra configuration beyond the `mcp.json` entry.
 
 ### Success Criteria
 
-- ✅ Created `.vscode/mcp.json` with a filesystem server
-- ✅ MCP tools appear in the chat tool list
-- ✅ Successfully used MCP tools in a conversation
+- ✅ Added an MCP server to `.vscode/mcp.json`
+- ✅ Reloaded VS Code successfully
+- ✅ Saw Copilot use the MCP server to fetch external data
 
----
+## Exercise 3: Debugging Chat & Agents (5 min)
 
-### Exercise 1.4 — MCP Configuration from Scratch (5 min)
+**Objective**: Trace what Copilot sends, selects, and executes.
 
-**Objective**: Write a complete MCP configuration with multiple servers.
+### Steps
 
-**Steps**
+1. Open the Output panel with **View → Output** or **Ctrl+Shift+U**.
 
-**Step 1: Add a GitHub server**
+2. In the Output panel dropdown, choose **GitHub Copilot Chat**.
 
-Update `.vscode/mcp.json` to include a GitHub server:
+3. Ask a normal chat question and watch the log output:
 
-```json
-{
-  "servers": {
-    "filesystem": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-filesystem",
-        "./api"
-      ]
-    },
-    "github": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-github"
-      ],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "${input:github-pat}"
-      }
-    }
-  }
-}
+```text
+Explain what this file does and suggest one improvement.
 ```
 
-**Step 2: Reload and verify**
+4. Identify the request details in the log:
 
-Reload VS Code. You should see both servers' tools available.
+- Context included with the request
+- Model selected
+- Token usage
+- Response timing
 
-> **Note**: The GitHub server requires a Personal Access Token. When prompted, enter one with `repo` scope (or skip this server if you don't have one handy).
+5. Switch to Agent mode and give it a multi-step task:
 
-**Step 3: Test the GitHub server**
-
+```text
+Refactor this module to reduce duplication and add tests for the changed behavior.
 ```
-Using GitHub tools, list the open issues on this repository
-```
+
+6. Watch the Output panel as the agent runs. Look for the iteration count, tools used, retries, and any errors.
 
 ### Success Criteria
 
-- ✅ Configured multiple MCP servers in one file
-- ✅ Used `${input:}` for secret management
-- ✅ Both servers' tools appear in the chat
+- ✅ Opened the correct Copilot output channel
+- ✅ Identified context, model choice, and token usage
+- ✅ Traced at least one agent loop in the logs
 
----
+## Exercise 4: Full Stack Agent (6 min)
 
-### Exercise 1.5 — MCP Tool Usage in Context (8 min)
+**Objective**: Use repo instructions, a custom agent, and MCP together in one workflow.
 
-**Objective**: Use MCP tools as part of a larger task.
+### Steps
 
-**Steps**
+1. Confirm these files already exist from earlier modules:
 
-**Step 1: Combine MCP with Copilot**
+- `.github/copilot-instructions.md`
+- `.github/agents/reviewer.md`
+- `.vscode/mcp.json`
 
-In Agent mode, ask:
+2. In Chat, run the reviewer agent with this prompt:
 
+```text
+@reviewer Review the main module and check if the API patterns match current best practices
 ```
-Use the filesystem tools to analyze the API route files. Then suggest
-a new endpoint for managing deliveries, following the patterns you found.
-Create the files.
-```
 
-**Step 2: Observe tool usage**
+3. Observe how the response benefits from three layers at once:
 
-Watch the chat output for tool invocations. Note:
+- Repo-wide guidance from `.github/copilot-instructions.md`
+- Task specialization from `@reviewer`
+- External tool access from MCP, when relevant
 
-- Which MCP tools were called?
-- What did the tools return?
-- How did Copilot use the tool results?
-
-**Step 3: Evaluate**
-
-- Did MCP tools give Copilot better context than `#file` references?
-- When would you use MCP tools vs. `@workspace` vs. `#file`?
+4. Open the Output panel again and trace how those layers show up in the request and tool activity.
 
 ### Success Criteria
 
-- ✅ Used MCP tools as part of an Agent mode task
-- ✅ Observed tool calls and results in the chat
-- ✅ Can articulate when MCP adds value over built-in context
-
-</details>
-
----
-
-<details>
-<summary><h2>Lab 2: Evaluating Agentic Output (34 min)</h2></summary>
-
-> **Workshop Session**: 7 — Evaluating Agentic Output
-
-### Exercise 2.1 — Defining Success Criteria (5 min)
-
-**Objective**: Define success criteria for a task before using Copilot.
-
-**Steps**
-
-**Step 1: Choose a task**
-
-Task: "Add pagination to the products API endpoint"
-
-**Step 2: Write success criteria**
-
-Before asking Copilot, write your criteria:
-
-```
-Task: Add pagination to the products API endpoint
-Success criteria:
-  - Functional: Cursor-based pagination, max 100 items per page
-  - Quality: Matches existing route patterns in the project
-  - Constraints: Include Link headers, total count in response
-  - Security: Validate page size input (reject negative, > 100)
-  - Not acceptable: Offset-based pagination, no input validation
-```
-
-**Step 3: Execute with criteria in the prompt**
-
-Include the criteria directly:
-
-```
-Add cursor-based pagination to the products GET endpoint.
-Requirements:
-- Max 100 items per page, default 20
-- Include Link headers (next, prev) in response
-- Include total count in response body
-- Validate page size (reject negative or > 100 with 400 error)
-- Follow the existing route patterns in this project
-Do NOT use offset-based pagination.
-```
-
-**Step 4: Evaluate against criteria**
-
-Check each criterion. Did the output meet them all?
-
-### Success Criteria
-
-- ✅ Wrote success criteria before generating code
-- ✅ Included criteria in the prompt
-- ✅ Evaluated output against each criterion
-
----
-
-### Exercise 2.2 — Rubric Creation (8 min)
-
-**Objective**: Build a quality rubric for evaluating AI-generated code.
-
-**Steps**
-
-**Step 1: Create your rubric**
-
-Create a file `evaluation-rubric.md` in your project root (this is for your reference, not committed):
-
-```markdown
-# Code Quality Rubric
-
-| Dimension | 1 (Poor) | 2 (OK) | 3 (Good) | 4 (Excellent) |
-|-----------|----------|--------|----------|----------------|
-| Correctness | Doesn't work | Happy path only | Common edges | All edges, robust |
-| Completeness | Missing parts | Core present | Full requirements | Exceeds requirements |
-| Code Style | Inconsistent | Mostly OK | Follows patterns | Clean, idiomatic |
-| Security | Vulnerabilities | No obvious issues | Validates input | Defense in depth |
-| Performance | Unacceptable | Adequate | Efficient | Optimized |
-| Testability | No tests | Basic tests | Good coverage | Edge case tests |
-```
-
-**Step 2: Customize dimensions**
-
-Add or modify dimensions for your specific project. Consider:
-
-- Documentation (JSDoc coverage)
-- Error handling (graceful failures)
-- Type safety (strict TypeScript compliance)
-
-### Success Criteria
-
-- ✅ Created a rubric with at least 5 dimensions
-- ✅ Each dimension has clear scoring definitions
-- ✅ Rubric is customized for your project's needs
-
----
-
-### Exercise 2.3 — Rubric Application (8 min)
-
-**Objective**: Generate code and score it against your rubric.
-
-**Steps**
-
-**Step 1: Generate code**
-
-In Agent mode:
-
-```
-Add a search feature to the products API. Support searching by name
-and category with partial matching. Include tests.
-```
-
-**Step 2: Score each dimension**
-
-Review the generated code and score it:
-
-| Dimension | Score | Notes |
-|-----------|-------|-------|
-| Correctness | | |
-| Completeness | | |
-| Code Style | | |
-| Security | | |
-| Performance | | |
-| Testability | | |
-| **Average** | | |
-
-**Step 3: Identify the weakest dimension**
-
-Ask Copilot to fix only the weakest area:
-
-```
-The search feature you generated scores low on [dimension].
-Specifically: [your notes]. Please improve only this aspect.
-```
-
-**Step 4: Re-score**
-
-Score the improved version. Did the targeted fix work?
-
-### Success Criteria
-
-- ✅ Scored AI-generated code against all rubric dimensions
-- ✅ Identified the weakest dimension
-- ✅ Targeted improvement improved the score
-
----
-
-### Exercise 2.4 — Automated Validation Pipeline (8 min)
-
-**Objective**: Set up automated checks that validate agent output.
-
-**Steps**
-
-**Step 1: Ask the agent to add a feature with validation**
-
-```
-Add a new API endpoint for managing supplier contacts.
-After creating the files, run these commands:
-1. npm run lint
-2. npx tsc --noEmit
-3. npm test
-Report the results of each command.
-```
-
-**Step 2: Observe the pipeline**
-
-Watch the agent run each validation step. Note:
-
-- Did lint pass on the first try?
-- Did type checking pass?
-- Did tests pass?
-- If not, did the agent self-correct?
-
-**Step 3: Create a validation script**
-
-Create `scripts/validate-output.sh`:
-
-```bash
-#!/bin/bash
-echo "=== Lint Check ==="
-npm run lint
-LINT=$?
-
-echo "=== Type Check ==="
-npx tsc --noEmit
-TYPE=$?
-
-echo "=== Tests ==="
-npm test
-TEST=$?
-
-echo "=== Results ==="
-echo "Lint: $([ $LINT -eq 0 ] && echo 'PASS' || echo 'FAIL')"
-echo "Types: $([ $TYPE -eq 0 ] && echo 'PASS' || echo 'FAIL')"
-echo "Tests: $([ $TEST -eq 0 ] && echo 'PASS' || echo 'FAIL')"
-```
-
-### Success Criteria
-
-- ✅ Agent ran lint, type check, and tests
-- ✅ Observed at least one validation gate in action
-- ✅ Created a reusable validation script
-
----
-
-### Exercise 2.5 — Feedback Loop (5 min)
-
-**Objective**: Improve a prompt based on rubric evaluation.
-
-**Steps**
-
-**Step 1: Generate code with a basic prompt**
-
-```
-Add email validation to the supplier creation endpoint
-```
-
-Score the output against your rubric. Note the overall score.
-
-**Step 2: Improve the prompt**
-
-Based on weaknesses in the first output, add specific instructions to `copilot-instructions.md`:
-
-```markdown
-## Validation Patterns
-- All input validation must use a dedicated validation function (not inline)
-- Validation errors must return 400 with { success: false, error: "description" }
-- Include both format validation and business rule validation
-```
-
-**Step 3: Regenerate with the same prompt**
-
-Start a new session. Ask the same question:
-
-```
-Add email validation to the supplier creation endpoint
-```
-
-**Step 4: Re-score and compare**
-
-Score the new output. Did the improved instructions raise the score?
-
-### Success Criteria
-
-- ✅ Generated code with a basic prompt and scored it
-- ✅ Improved instructions based on weaknesses
-- ✅ Regenerated and observed measurable improvement
-
----
-
-### Exercise 2.6 — Cost-Aware Model Selection (8 min)
-
-**Objective**: Understand model cost tiers and calculate the cost impact of model selection.
-
-**Steps**
-
-**Step 1: Review the model cost tiers**
-
-| Tier | Models | Multiplier |
-|------|--------|-----------|
-| **Free** | GPT-4.1, GPT-4o, GPT-5 mini | 0x |
-| **Budget** | Claude Haiku 4.5, Gemini 3 Flash, GPT-5.4 nano | 0.25–0.33x |
-| **Standard** | Claude Sonnet 4/4.5/4.6, Gemini 2.5 Pro, GPT-5.2/5.4 | 1x |
-| **Premium** | Claude Opus 4.5/4.6 (3x), Opus 4.7 / GPT-5.5 (7.5x) | 3–7.5x |
-
-**Step 2: Calculate cost for three scenarios**
-
-For each scenario, identify which model tier you'd use and the cost in premium requests:
-
-| Scenario | Your Model Choice | Multiplier | Cost (requests) |
-|----------|------------------|-----------|-----------------|
-| Quick question: "What does this function do?" | ___ | ___ | ___ |
-| Code review of an API route | ___ | ___ | ___ |
-| Complex architecture decision (multi-file refactor) | ___ | ___ | ___ |
-
-**Step 3: Enable auto model selection**
-
-In VS Code, open the model picker in Copilot Chat and select **Auto**. This gives a 10% discount on multipliers.
-
-Send a chat message and hover over the response to see which model was selected.
-
-**Step 4: Compare your daily cost**
-
-Estimate: if you send ~50 prompts per day, what's the cost difference between:
-
-- All prompts on GPT-4o (0x) = ___
-- All prompts on Claude Sonnet (1x) = ___
-- All prompts on Claude Opus 4.7 (7.5x) = ___
-
-### Success Criteria
-
-- ✅ Can identify the four model cost tiers
-- ✅ Calculated cost for three different scenarios
-- ✅ Enabled auto model selection and observed the selected model
-- ✅ Understand the daily cost difference between model tiers
-
-</details>
-
----
-
-<details>
-<summary><h2>Lab 3: Troubleshooting & Diagnostics (36 min)</h2></summary>
-
-> **Workshop Session**: 8 — Troubleshooting & Diagnostics
-
-### Exercise 3.1 — Output Log Exploration (5 min)
-
-**Objective**: Navigate output log channels and identify a completion event.
-
-**Steps**
-
-**Step 1: Open the Output panel**
-
-Press `Ctrl+Shift+U` (Windows) or `Cmd+Shift+U` (Mac).
-
-**Step 2: Select "GitHub Copilot"**
-
-Choose the "GitHub Copilot" channel from the dropdown.
-
-**Step 3: Trigger a completion**
-
-Open a TypeScript file and start typing. Watch for new log entries.
-
-**Step 4: Identify the completion event**
-
-Find the log entry that corresponds to your completion. Note:
-
-- Model used
-- Response time
-- Any warnings or errors
-
-**Step 5: Check the Chat channel**
-
-Switch to "GitHub Copilot Chat" channel. Send a chat message and find the corresponding log entry.
-
-### Success Criteria
-
-- ✅ Navigated to the correct output channels
-- ✅ Identified a completion event in the logs
-- ✅ Found a chat request/response in the logs
-
----
-
-### Exercise 3.2 — Chat Debug Mode Analysis (8 min)
-
-**Objective**: Use debug mode to analyze context composition.
-
-**Steps**
-
-**Step 1: Verify debug mode is on**
-
-Confirm `github.copilot.chat.debugMode` is `true` in settings.
-
-**Step 2: Send a simple message**
-
-```
-What is the OctoCAT Supply project about?
-```
-
-Open the Output panel → "GitHub Copilot Chat". Find the debug output. Note:
-
-- System prompt tokens: ___
-- Repository instructions tokens: ___
-- Total input tokens: ___
-- Model used: ___
-- Response time: ___
-
-**Step 3: Send a context-heavy message**
-
-```
-@workspace #file:api/routes/orders.ts #file:api/routes/products.ts Compare the error handling patterns in these two route files
-```
-
-Note the new token counts:
-
-- Attached context tokens: ___
-- Total input tokens: ___
-- Difference from simple message: ___
-
-**Step 4: Send a message with conversation history**
-
-Continue the conversation with 3-4 follow-up questions. Watch the "Conversation history" token count grow.
-
-**Step 5: Start a fresh session**
-
-Open a new chat session. Send the context-heavy message again. Note:
-
-- Conversation history tokens: ___ (should be 0)
-- Total tokens saved: ___
-
-### Success Criteria
-
-- ✅ Read debug output and identified token counts
-- ✅ Measured the token cost of `#file` attachments
-- ✅ Observed conversation history growing
-- ✅ Confirmed fresh sessions reduce total token usage
-
----
-
-### Exercise 3.3 — Agent Debug Trace (10 min)
-
-**Objective**: Trace a full agent iteration through debug logs.
-
-**Steps**
-
-**Step 1: Give the agent a task that requires multiple steps**
-
-```
-Add a new endpoint GET /api/products/low-stock that returns products
-with inventory below a threshold (default 10, configurable via query param).
-Include input validation and tests.
-```
-
-**Step 2: Open agent debug logs**
-
-Command Palette → "GitHub Copilot: Open Agent Debug Log" (or check the Output panel for detailed agent logs).
-
-**Step 3: Trace the full iteration**
-
-Find and document each step:
-
-| Step | Tool Call | Arguments | Result |
-|------|----------|-----------|--------|
-| 1 | | | |
-| 2 | | | |
-| 3 | | | |
-| ... | | | |
-
-**Step 4: Identify decision points**
-
-For each iteration, note what the agent decided and why:
-
-- After reading files: what approach did it choose?
-- After lint/test results: did it self-correct?
-- Final decision: how did it determine the task was complete?
-
-### Success Criteria
-
-- ✅ Traced at least 3 tool calls through the debug log
-- ✅ Documented the agent's decision at each step
-- ✅ Identified at least one self-correction (if any occurred)
-
----
-
-### Exercise 3.4 — Failure Diagnosis (8 min)
-
-**Objective**: Diagnose a failing scenario using logs.
-
-**Steps**
-
-**Step 1: Create a scenario that will fail**
-
-Give the agent a task with a deliberate constraint that conflicts:
-
-```
-Create a new endpoint that uses the 'lodash' library to sort products by price.
-Do not install any new packages. Run lint and tests after.
-```
-
-The agent should fail (lodash isn't installed) and need to find an alternative.
-
-**Step 2: Trace the failure in logs**
-
-When the agent encounters the error:
-
-- What log entry shows the failure?
-- What error message appears?
-- What does the agent do next?
-
-**Step 3: Document the diagnosis**
-
-```
-Symptom: [what you observed]
-Root cause: [what the logs revealed]
-Agent response: [how the agent handled it]
-Resolution: [what ultimately happened]
-```
-
-**Step 4: Assess**
-
-Did the agent's self-correction handle the failure well? Would you have intervened differently?
-
-### Success Criteria
-
-- ✅ Created a scenario that triggers a failure
-- ✅ Found the failure in the debug logs
-- ✅ Traced the agent's error recovery process
-- ✅ Documented the diagnosis
-
----
-
-### Exercise 3.5 — Diagnostics Export (5 min)
-
-**Objective**: Collect and export a diagnostics bundle.
-
-**Steps**
-
-**Step 1: Collect diagnostics**
-
-Command Palette → "GitHub Copilot: Collect Diagnostics"
-
-**Step 2: Review the output**
-
-Open the generated file and review:
-
-- Extension version
-- VS Code version
-- Authentication status
-- Configuration settings
-- Recent log entries
-
-**Step 3: Redact sensitive data**
-
-Identify any sensitive information in the diagnostics:
-
-- Personal access tokens
-- Repository names (if private)
-- User-specific settings
-
-Note what you'd redact before sharing with support.
-
-**Step 4: Create a diagnostic checklist**
-
-Based on what you've learned, write a personal troubleshooting checklist:
-
-```
-When Copilot isn't working:
-1. Check: [first thing to check]
-2. Check: [second thing to check]
-3. Check: [third thing to check]
-...
-```
-
-### Success Criteria
-
-- ✅ Successfully collected diagnostics
-- ✅ Reviewed the diagnostic output
-- ✅ Identified sensitive data that would need redaction
-- ✅ Created a personal troubleshooting checklist
-
-</details>
-
----
-
-*Lab guide for GitHub Copilot Developer Training — Advanced Topics (Module 3 of 3)*
+- ✅ Used a custom agent with repo instructions already in place
+- ✅ Confirmed MCP tools were available to the workflow
+- ✅ Traced how instructions, agent behavior, and tools combined in the logs
+
+*Hands-on lab for Module 3: Advanced Topics — Copilot Developer Training*

@@ -1,10 +1,9 @@
 ---
 theme: ../../themes/github
-title: "Copilot Developer Training: Advanced Topics"
+title: "Copilot Developer Training — Module 3: Advanced Topics"
 info: |
-  Module 3 of the GitHub Copilot Developer Training curriculum.
-  Sessions 6–8: Extensions & MCP, Evaluating Agentic Output, Troubleshooting & Diagnostics.
-ghFooterTitle: "Dev Training — Advanced Topics"
+  90-minute module covering agent architecture patterns, MCP, debugging, and full-stack agents.
+ghFooterTitle: "Module 3: Advanced Topics"
 ghFooterLabel: ""
 drawings:
   persist: false
@@ -20,101 +19,314 @@ layout: cover
 
 ## Module 3 — Advanced Topics
 
-*Extensions & MCP · Evaluating Output · Troubleshooting*
+*Agent architecture patterns · MCP · Debugging · Full-stack agents*
 
 `github.com/microsoft/GitHubCopilot_Customized`
 
 <!--
-Welcome attendees. "This is Module 3 — Advanced Topics. We'll extend Copilot with external tools via MCP, build evaluation frameworks for AI output quality, and master the diagnostic tools for when things go wrong."
--->
-
----
-class: text-xs
----
-
-# What We'll Cover Today (1/2)
-
-| Time | Topic |
-|------|-------|
-| **Session 6** | **Extensions & MCP (60 min)** |
-| 5 min | AI Safety: "Third-Party Trust" |
-| 10 min | VS Code Chat Participants |
-| 15 min | GitHub Copilot Extensions |
-| 15 min | MCP Architecture |
-| 10 min | MCP Configuration |
-| | ☕ *Break — 10 min* |
-| **Session 7** | **Evaluating Agentic Output (70 min)** |
-| 5 min | AI Safety: "When to Trust, When to Verify" |
-| 15 min | Defining Success Criteria |
-| 15 min | Output Quality Rubrics |
-| 15 min | Evaluation Methods |
-| 15 min | Tracking & Improvement |
-| 10 min | Usage, Billing & Cost Strategies |
-
-<!--
-"Three sessions, two breaks. This module rounds out the full curriculum."
--->
-
----
-class: text-xs
----
-
-# What We'll Cover Today (2/2)
-
-| Time | Topic |
-|------|-------|
-| | ☕ *Break — 10 min* |
-| **Session 8** | **Troubleshooting & Diagnostics (60 min)** |
-| 15 min | Output Log Channels |
-| 15 min | Chat Debug Mode |
-| 15 min | Agent Debug Logs |
-| 10 min | Diagnostics Collection & Curriculum Wrap-Up |
-
-**Total: ~190 min (~3h 10min) including breaks**
-
-<div class="gh-callout gh-callout-blue">
-
-**Format**: Slides → live demo → hands-on time. After today you'll have every tool to use, evaluate, and debug Copilot.
-
-</div>
-
-<!--
-"After today you'll have every tool you need to use, evaluate, and debug Copilot effectively."
+Welcome to Module 3. This module assumes attendees already understand chat modes, instructions, and the plan → act → observe → reflect loop from Modules 1 and 2. Today is about putting those ideas into production-friendly patterns.
 -->
 
 ---
 class: text-sm
 ---
 
-# Quick Recap — Modules 1 & 2
+# Agenda
 
-### Concepts you should know
+### 90-minute roadmap
 
-| Module | Core Concepts |
-|--------|-------------|
-| **Module 1** | Chat modes, instructions, custom agents, context targeting, token management |
-| **Module 2** | Agentic loops (plan-act-observe-reflect), Ralph loop, rubber duck pattern, 8 antipatterns |
+| Time | Topic |
+|------|-------|
+| 18 min | Agent architecture patterns + decision framework |
+| 7 min | 🧪 Exercise 1 — Agent architecture |
+| 22 min | MCP overview, installation, and VS Code configuration |
+| 7 min | 🧪 Exercise 2 — MCP setup |
+| 11 min | Debugging and diagnostics |
+| 7 min | 🧪 Exercise 3 — Debugging |
+| 8 min | Putting it all together |
+| 10 min | 🧪 Exercise 4 + module recap |
 
 <div class="gh-callout gh-callout-blue">
 
-**If you attended Modules 1–2**, this is a quick refresher. Joining fresh? These are the building blocks.
+**Flow**: ~62 minutes of presentation, then ~28 minutes of guided lab time split across four short exercises.
 
 </div>
 
 <!--
-"30-second recap. Module 1 was about interacting with Copilot and controlling context. Module 2 was about how agents iterate and how to design them. Module 3 builds on both — extending, evaluating, and debugging."
+Set expectations early: four content blocks, each followed by a lab cue. That keeps the session moving and helps attendees apply each concept immediately.
 -->
 
 ---
 layout: section
 ---
 
-# Session 6
-
-## Extensions & MCP
+# Agent Architecture Patterns
 
 <!--
-"Let's extend Copilot beyond its built-in capabilities — connecting it to external tools and services."
+This first section connects directly to Module 2. We are moving from “how agents loop” to “how to structure agents for real developer workflows.”
+-->
+
+---
+class: text-sm
+---
+
+# Single agent with multiple skills
+
+### One planner, one context window, many tools
+
+```mermaid {scale: 0.65}
+graph LR
+    A["General Agent"] --> B["Terminal"]
+    A --> C["File Edit"]
+    A --> D["Search"]
+    A --> E["Web"]
+    A --> F["Custom MCP"]
+```
+
+<v-clicks>
+
+- Best for **most day-to-day coding tasks**
+- Shared context means fewer handoffs and less repeated prompting
+- One agent can plan, inspect files, edit code, and validate with tests in one loop
+- Easier to debug because there is only one reasoning path to inspect
+
+</v-clicks>
+
+<div class="gh-callout gh-callout-green">
+
+**Use this by default**: start with one capable agent, then split only when the task or governance needs clearly demand it.
+
+</div>
+
+<!--
+The key teaching point: single-agent is the baseline architecture. It is simpler, easier to explain, and usually good enough until there is a real reason to add orchestration.
+-->
+
+---
+layout: two-cols
+class: text-sm
+---
+
+# Single-agent example
+
+### A feature task with shared context
+
+::left::
+
+| Step | What the agent does |
+|------|---------------------|
+| **1** | Reads route, model, and tests |
+| **2** | Updates implementation across files |
+| **3** | Runs lint or tests |
+| **4** | Fixes errors in the same loop |
+
+::right::
+
+<div class="gh-box-accent">
+
+**Example prompt**
+
+Add pagination to the orders endpoint, update the tests, and explain any API contract changes.
+
+</div>
+
+<v-clicks>
+
+- Same context for code, tests, and validation
+- No need to explain the task to three different agents
+- Strong fit when one person would naturally do the work end to end
+
+</v-clicks>
+
+<!--
+Make this feel familiar: it is how many developers already use Agent mode today. One task, one agent, one shared mental model.
+-->
+
+---
+class: text-sm
+---
+
+# Multi-agent with multiple skills
+
+### Break work apart when specialization matters
+
+```mermaid {scale: 0.65}
+graph LR
+    A["Developer"] --> B["Review Agent"]
+    A --> C["Test Agent"]
+    A --> D["Docs Agent"]
+    B --> E["Repo + Tools"]
+    C --> E
+    D --> E
+```
+
+<v-clicks>
+
+- Use when tasks are **truly independent**
+- Give each agent different instructions, goals, or approval boundaries
+- Helpful when teams want stronger separation of concerns
+- Useful when one agent should never have the same tool access as another
+
+</v-clicks>
+
+<!--
+This is not “more advanced therefore always better.” It is an organizational pattern for specialization, not a default setting.
+-->
+
+---
+class: text-sm
+---
+
+# Multi-agent example
+
+### Specialized agents in `.github/agents/`
+
+| Agent file | Primary job | Typical tools |
+|------------|-------------|---------------|
+| **`review-agent.md`** | Code review and risk spotting | Search, diff, comments |
+| **`test-agent.md`** | Generate or harden tests | File edit, terminal, test runner |
+| **`docs-agent.md`** | Update guides and examples | File edit, search |
+
+<div class="gh-callout gh-callout-blue">
+
+**Why split them?** Each agent can have different instructions, success criteria, and tool access without overloading a single general-purpose prompt.
+
+</div>
+
+<!--
+Tie this back to the real feature: custom agents are markdown files in `.github/agents/`. Each one becomes a reusable role with its own boundaries.
+-->
+
+---
+class: text-sm
+---
+
+# AI Safety: Designing Responsible Agents
+
+<div class="gh-callout gh-callout-purple">
+
+**More agents = more autonomy**. Every agent should have a clear scope, clear success criteria, and an explicit list of what it should **not** do.
+
+</div>
+
+<v-clicks>
+
+- Define boundaries in the agent instructions
+- Avoid overlapping responsibilities when possible
+- Keep write access and external-tool access intentionally scoped
+
+</v-clicks>
+
+<!--
+This is the moment to emphasize safety as design, not just review. Good agent architecture is partly a governance decision.
+-->
+
+---
+class: text-xs
+---
+
+# Decision framework: single vs. multi-agent
+
+| Question | If **yes** | Lean toward |
+|----------|------------|-------------|
+| Does one task need shared context across code, tests, and docs? | One loop should keep the full picture | **Single agent** |
+| Are the subtasks independent enough to run separately? | Different work can proceed without constant handoff | **Multi-agent** |
+| Do different roles need different instructions or tone? | Reviewer ≠ implementer ≠ documenter | **Multi-agent** |
+| Do you want one general-purpose helper for quick work? | Simpler onboarding and simpler debugging | **Single agent** |
+| Do you need tighter permission or tool boundaries? | Some roles should stay read-only or domain-specific | **Multi-agent** |
+
+<div class="gh-callout gh-callout-green">
+
+**Rule of thumb**: start single for simplicity, split later for specialization, governance, or parallelism.
+
+</div>
+
+<!--
+Encourage pragmatism. Architecture follows workload and risk, not fashion.
+-->
+
+---
+layout: center
+class: text-sm
+---
+
+# 🧪 Exercise 1 — Agent Architecture
+
+- Pick one realistic task from your project
+- Sketch a **single-agent** version of the workflow
+- Sketch a **multi-agent** version with role boundaries
+- Decide which design is easier to manage and safer to review
+
+<!--
+Keep this short and practical. The goal is not to implement yet—just to develop pattern intuition.
+-->
+
+---
+layout: section
+---
+
+# Model Context Protocol
+
+<!--
+Now move from internal architecture to external capability: how Copilot connects to tools and data that live outside the base editor experience.
+-->
+
+---
+class: text-sm
+---
+
+# What is MCP?
+
+### Open protocol for external tools and data
+
+```mermaid {scale: 0.75}
+graph LR
+    A["VS Code<br/>Host"] --> B["Copilot<br/>Client"]
+    B --> C["MCP Server<br/>Tools"]
+```
+
+| Layer | Role |
+|-------|------|
+| **Host** | VS Code manages the connection lifecycle |
+| **Client** | Copilot discovers and calls tools |
+| **Server** | Exposes capabilities such as tools or resources |
+
+<div class="gh-callout gh-callout-blue">
+
+**Think of MCP as a standard connector**: instead of teaching every assistant every API, tools expose a shared protocol.
+
+</div>
+
+<!--
+Keep the explanation simple: host, client, server. That mental model is enough for most developers to start using MCP confidently.
+-->
+
+---
+class: text-sm
+---
+
+# What MCP adds to Copilot
+
+### Servers expose tools Copilot can call
+
+<v-clicks>
+
+- **Database tools** for queries or schema lookup
+- **API tools** for calling internal services
+- **Filesystem tools** for constrained file operations
+- **Cloud tools** for platform tasks and diagnostics
+- **Custom enterprise tools** that package internal workflows
+
+</v-clicks>
+
+<div class="gh-callout gh-callout-green">
+
+**Practical framing**: MCP does not replace instructions or agents. It expands what those agents can actually do.
+
+</div>
+
+<!--
+This is the bridge to the next section: MCP is capability, not behavior. Instructions shape behavior; MCP adds reachable tools.
 -->
 
 ---
@@ -123,574 +335,224 @@ class: text-sm
 
 # AI Safety: Third-Party Trust
 
-### Extensions and MCP servers are third-party code
-
-| Question | What to Check |
-|----------|--------------|
-| **Who built it?** | Verified publisher, known vendor |
-| **What does it access?** | File system, network, terminal, tokens |
-| **What can it do?** | Read-only vs. write; can it execute commands? |
-| **Is it maintained?** | Recent updates, active issues |
-| **Is it scoped?** | Minimum necessary permissions? |
-
 <div class="gh-callout gh-callout-purple">
 
-**Evaluate before installing**: Read permissions, check the publisher, review community feedback.
+**MCP servers run code on your machine**. Only install servers from trusted sources, and review the tools they expose before enabling them.
+
+</div>
+
+<v-clicks>
+
+- Check the publisher, repository, and maintenance activity
+- Prefer the smallest tool surface that solves the problem
+- Treat server configuration like any other executable dependency
+
+</v-clicks>
+
+<!--
+This safety note matters because MCP feels abstract until attendees realize it can execute real processes locally.
+-->
+
+---
+class: text-sm
+---
+
+# Installing an MCP server
+
+### Start with discovery and trust review
+
+<v-clicks>
+
+1. Find a server on a registry such as **mcp.so** or **npm**
+2. Review what the server does and whether it is actively maintained
+3. Decide whether it belongs at **user scope** or **project scope**
+4. Add the configuration in VS Code, then reload the window
+
+</v-clicks>
+
+<div class="gh-box-copilot">
+
+**Common first server**: a filesystem server is easy to understand because the tool surface is visible and local.
 
 </div>
 
 <!--
-"Extensions and MCP servers run alongside Copilot with access to your code and environment. Treat them like any dependency — vet the source, check permissions, review what data flows where."
+Walk slowly here. The goal is to make installation feel operational and reviewable, not magical.
 -->
 
 ---
-class: text-sm
+class: text-xs
 ---
 
-# VS Code Chat Participants
+# Installing an MCP server
 
-### Built-in specialized handlers
-
-| Participant | Accesses | Capabilities |
-|-------------|---------|-------------|
-| `@workspace` | File tree, contents, symbols | Project search, cross-file understanding |
-| `@vscode` | Settings, extensions, commands | Editor configuration help |
-| `@terminal` | Terminal output, command history | Error diagnosis, command suggestions |
-
-### How they work under the hood
-
-1. You type `@workspace How is auth implemented?`
-2. VS Code routes to the `@workspace` handler
-3. Handler searches your project (files, symbols, content)
-4. Relevant snippets injected into the context
-5. Augmented context sent to the model
-
-<div class="gh-callout gh-callout-green">
-
-**Participants add context the model can't get from just reading files.** They actively search and analyze.
-
-</div>
-
-<!--
-"Participants are more than shortcuts — they actively search and process your codebase. @workspace doesn't just read the file you're looking at, it searches the entire project for relevant code."
--->
-
----
-class: text-sm
----
-
-# GitHub Copilot Extensions
-
-### GitHub Apps that add chat capabilities
-
-- Appear as `@extension-name` participants in chat
-- Access external services: Docker, Azure, Sentry, etc.
-- Browse at <https://github.com/marketplace?type=apps&copilot_app=true>
-
-| Capability | Description | Example |
-|-----------|-------------|---------|
-| **Chat responses** | Domain-specific answers | `@docker Optimize this Dockerfile` |
-| **Code actions** | Generate/modify code | `@azure Generate Bicep template` |
-| **Tool invocation** | Call external APIs | `@sentry Top errors this week?` |
-
-<div class="gh-callout gh-callout-blue">
-
-**Extensions vs. MCP**: Extensions are polished third-party integrations via GitHub. MCP is the open standard for custom tool connections.
-
-</div>
-
-<!--
-"Extensions are the easy path — install from the marketplace, use with @mention. MCP is the flexible path — connect anything you want. We'll cover MCP next."
--->
-
----
-layout: demo
----
-
-# 🖥️ LIVE DEMO
-
-### Using a Copilot Extension
-
-- Show the Copilot Extensions marketplace
-- Install an extension (Docker, GitHub Models, or Azure)
-- Use it in chat: `@extension-name [question]`
-- Show domain-specific knowledge in the response
-
-<!--
-Quick demo — install and use an extension. The point is how easy it is to add domain-specific AI capabilities.
--->
-
----
-class: text-sm
----
-
-# MCP: Model Context Protocol
-
-### The open standard for tool integration
-
-**MCP** connects AI models to external tools and data sources — "USB for AI."
-
-```mermaid {scale: 0.65}
-graph LR
-    A["VS Code<br/>(Host)"] --> B["Copilot<br/>(Client)"]
-    B --> C["MCP Server A<br/>(GitHub)"]
-    B --> D["MCP Server B<br/>(Filesystem)"]
-    B --> E["MCP Server C<br/>(Custom)"]
-```
-
-| Role | What It Does |
-|------|-------------|
-| **Host** | VS Code — manages connections |
-| **Client** | Copilot — sends requests to servers |
-| **Server** | Tool provider — exposes tools, resources, prompts |
-
-<!--
-"MCP is an open protocol — not GitHub-specific. Any AI tool can be an MCP client, and any service can be an MCP server. VS Code and Copilot implement the client side. You configure which servers to connect to."
--->
-
----
-class: text-sm
----
-
-# MCP Capabilities & Transport
-
-### What MCP servers can provide
-
-| Capability | Description | Example |
-|-----------|-------------|---------|
-| **Tools** | Functions the model calls | `create_issue`, `run_query` |
-| **Resources** | Data the model reads | DB schemas, API specs |
-| **Prompts** | Reusable templates | "Summarize this PR" |
-
-### Transport types
-
-| Transport | How It Works | Best For |
-|-----------|-------------|----------|
-| **stdio** | Local process, stdin/stdout | Local tools, CLIs |
-| **SSE** | Server-sent events over HTTP | Remote services |
-| **Streamable HTTP** | HTTP with streaming | Modern remote servers |
-
-<div class="gh-callout gh-callout-green">
-
-**stdio** is the most common for local development. It's simple — the server is just a process that reads stdin and writes stdout.
-
-</div>
-
-<!--
-"Three types of capabilities, three types of transport. For local development, you'll mostly use stdio servers — they run as a local process on your machine. Remote servers use HTTP-based transports."
--->
-
----
-class: text-sm
----
-
-# MCP Configuration
-
-### `.vscode/mcp.json` — connect servers to your workspace
+### Example `.vscode/mcp.json` configuration
 
 ```json
 {
   "servers": {
-    "github": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "${input:github-token}"
-      }
-    },
     "filesystem": {
+      "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-filesystem",
-               "./src"]
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "${workspaceFolder}"
+      ],
+      "env": {
+        "MCP_LOG_LEVEL": "info"
+      }
     }
   }
 }
 ```
 
-<div class="gh-callout gh-callout-purple">
-
-**Security**: Use `${input:name}` for secrets — VS Code prompts at runtime. Never hardcode tokens.
-
-</div>
-
-<!--
-"This is the config file. Each server entry specifies how to start it and what environment to give it. The ${input:} syntax is critical — it keeps your tokens out of version control."
--->
-
----
-layout: demo
----
-
-# 🖥️ LIVE DEMO
-
-### MCP Server Setup
-
-- Create `.vscode/mcp.json` with a filesystem server
-- Open chat — show MCP tools appearing in the tool list
-- Ask Copilot to use the tool: "List TypeScript files in the API directory"
-- Add a GitHub MCP server — show it pulling issue data into context
-
-<!--
-Live-create the config. Show the tools appearing in chat. Use them in a conversation. This is the "aha moment" for MCP.
--->
-
----
-class: text-sm
----
-
-# Session 6 Recap & Discussion
-
-### Key Takeaways
-
-- **Participants** (`@workspace`, `@vscode`, `@terminal`) route to specialized handlers
-- **Extensions** bring third-party knowledge into chat via GitHub Apps
-- **MCP** is the open standard — configure in `.vscode/mcp.json`
-- Always evaluate trust, permissions, and security before adding integrations
-
-### Discussion
-
-- What's the first MCP server you'll set up?
-- What governance process would your org need for MCP servers?
-- How does MCP change what's possible with Copilot in your workflow?
-
-<!--
-5-minute wrap-up. MCP is usually the most exciting topic for attendees — expect engagement.
--->
-
----
-class: text-sm
----
-
-# ☕ Break — 10 Minutes
-
-Session 7: How to evaluate what AI gives you.
-
----
-layout: section
----
-
-# Session 7
-
-## Evaluating Agentic Output
-
-<!--
-"We've learned how to USE Copilot. Now let's learn how to JUDGE what it produces."
--->
-
----
-class: text-sm
----
-
-# AI Safety: When to Trust, When to Verify
-
-### Risk should drive verification effort
-
-| Risk Level | Code Type | Verification |
-|-----------|-----------|-------------|
-| 🟢 **Low** | Boilerplate, scaffolding, docs | Quick scan |
-| 🟡 **Medium** | Business logic, API routes | Code review + tests |
-| 🔴 **High** | Auth, security, financial, infra | Deep review + security scan |
-
 <div class="gh-callout gh-callout-blue">
 
-**The goal**: Trust calibration — not "trust everything" or "verify everything." Match effort to risk.
+**What this means**: VS Code starts a local process, Copilot discovers its tools, and those tools become available in chat or agent workflows.
 
 </div>
 
 <!--
-"Not all code deserves the same scrutiny. A boilerplate Express route? Quick glance. Authentication middleware? Full review. The rubric we'll build today helps you make these decisions consistently."
+This is a real pattern attendees can copy. Emphasize that the command, args, and optional env values are the core building blocks.
 -->
 
 ---
+layout: two-cols
 class: text-xs
 ---
 
-# Defining Success Criteria
+# Configuring MCP in VS Code
 
-### What does "good output" look like?
+### User-level vs. project-level
 
-Define before you ask Copilot — prevents accepting the first thing that compiles.
+::left::
 
-| Task Type | Correctness | Style | Security |
-|-----------|------------|-------|----------|
-| **Bug fix** | Resolves issue, no regressions | Matches existing style | No new vulnerabilities |
-| **New feature** | Meets requirements, edge cases | Follows patterns | Input validation, auth |
-| **Refactoring** | Same behavior, tests pass | Improved readability | No regression |
-| **Tests** | Meaningful, cover edges | Consistent structure | No data leaks |
+**User settings** — personal tools in `settings.json`
 
-```
-Task: [what you're asking Copilot to do]
-Success: Functional [what it does], Quality [how it looks],
-         Constraints [perf, security], Not acceptable [avoid]
-```
-
-<!--
-"The single biggest quality improvement: define success BEFORE you start. Without criteria, you evaluate against vibes. With criteria, you evaluate against a specification."
--->
-
----
-layout: demo
----
-
-# 🖥️ LIVE DEMO
-
-### Criteria-Driven Prompting
-
-- Define criteria: "Add pagination — cursor-based, max 100, no offset, Link headers"
-- Include criteria in the prompt
-- Evaluate output against each criterion
-- Compare to asking without criteria: "Add pagination to products"
-
-<!--
-Show the dramatic quality difference between a criteria-driven prompt and a vague one. The with-criteria output should be measurably better.
--->
-
----
-class: text-xs
----
-
-# Output Quality Rubric
-
-| Dimension | 1 (Poor) | 2 (OK) | 3 (Good) | 4 (Excellent) |
-|-----------|----------|--------|----------|---------------|
-| **Correctness** | Doesn't work | Happy path | Common edges | All edges, robust |
-| **Completeness** | Missing parts | Core present | Full requirements | Exceeds |
-| **Code Style** | Inconsistent | Mostly OK | Follows patterns | Clean, idiomatic |
-| **Security** | Vulnerabilities | No obvious issues | Validates input | Defense in depth |
-| **Performance** | Unacceptable | Adequate | Efficient | Optimized |
-
-```
-Example: Correctness 3, Completeness 2 (missing Link headers),
-Style 3, Security 2 (no input validation), Performance 3.
-Overall: 2.6 → Needs fixes.
+```json
+{
+  "mcp": {
+    "servers": {
+      "filesystem": {
+        "type": "stdio",
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-filesystem", "C:\\repos"]
+      }
+    }
+  }
+}
 ```
 
-<!--
-"A rubric makes evaluation consistent and shareable. Instead of 'this looks okay,' you score each dimension. The team agrees on what 3 means, and reviews become more objective."
--->
+::right::
 
----
-layout: demo
----
+**Workspace settings** — shared tools in `.vscode/mcp.json`
 
-# 🖥️ LIVE DEMO
-
-### Applying a Rubric
-
-- Ask Agent mode to add a search feature to the products API
-- Score the output: correctness, completeness, style, security, performance
-- Identify weaknesses → ask Copilot to fix specific issues
-- Re-score → show the improvement
-
-<!--
-Walk through scoring in real-time. Score each dimension out loud. Then fix the weak points and re-score. The improvement should be visible.
--->
-
----
-class: text-sm
----
-
-# Evaluation Methods
-
-### Automated + human — the verification pipeline
-
-```mermaid {scale: 0.5}
-graph LR
-    A["Agent Output"] --> B["Lint"]
-    B --> C["Type Check"]
-    C --> D["Tests"]
-    D --> E["Human Review"]
+```json
+{
+  "servers": {
+    "filesystem": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "${workspaceFolder}"]
+    }
+  }
+}
 ```
-
-| Level | Checks | Catches |
-|-------|--------|---------|
-| **Automated** | Lint, types, tests, security scan | Syntax, types, regressions, known vulns |
-| **Human** | Logic, architecture, edge cases | Subtle issues, over-engineering |
 
 <div class="gh-callout gh-callout-green">
 
-**Automated gates catch the obvious. Human review catches the subtle.** You need both.
+**Same server shape, different scope**: user settings wrap entries under `mcp`; workspace files start directly with `servers`.
 
 </div>
 
 <!--
-"The pipeline is simple: automated checks first — they're fast and catch the easy stuff. Then human review for the things machines miss: does this actually solve the problem? Is the approach right? Will someone understand this in 6 months?"
+This distinction is easy to forget, so call it out explicitly. It is often the first configuration mistake people make.
 -->
 
 ---
-layout: demo
----
-
-# 🖥️ LIVE DEMO
-
-### Automated Evaluation Pipeline
-
-- Generate code with Agent mode
-- Run lint + type check + test pipeline
-- Show a failure — automated gate catches it
-- Fix and re-run — show pipeline passing
-
-<!--
-Show the full flow: generate, validate, fail, fix, pass. The key insight is that automated checks give you a safety net for AI output.
--->
-
----
+layout: center
 class: text-sm
 ---
 
-# Tracking & Improvement
+# 🧪 Exercise 2 — MCP Setup
 
-### The feedback loop
-
-```mermaid {scale: 0.6}
-graph LR
-    A["Generate"] --> B["Evaluate"]
-    B --> C["Identify<br/>Weakness"]
-    C --> D["Improve<br/>Instructions"]
-    D --> A
-```
-
-### Metrics to Track
-
-| Metric | What It Tells You |
-|--------|-------------------|
-| **First-pass acceptance rate** | How well your prompts/instructions work |
-| **Iteration count** | Prompt quality + task complexity alignment |
-| **Rubric scores over time** | Where Copilot consistently over/under-performs |
-| **Time savings** | ROI of AI-assisted development |
-
-<div class="gh-callout gh-callout-purple">
-
-**Evaluation without tracking is a one-time exercise. Tracking creates a continuous improvement loop.**
-
-</div>
+- Add a simple MCP server to `.vscode/mcp.json`
+- Reload VS Code so Copilot re-discovers tools
+- Ask Copilot to use the new tool in a small task
+- Confirm you understand whether the server is project-level or personal
 
 <!--
-"The feedback loop is where real improvement happens. Evaluate, find weaknesses, improve your instructions, evaluate again. Over time, your rubric scores go up because your prompts and instructions get better."
+Attendees should leave this exercise with one working server, not a pile of theory.
 -->
-
----
-class: text-sm
----
-
-# Trust Calibration
-
-### Match trust level to task type
-
-| Task Type | Trust | Verification |
-|-----------|-------|-------------|
-| Boilerplate / scaffolding | High | Quick scan |
-| CRUD endpoints | High | Test coverage check |
-| Business logic | Medium | Code review + tests |
-| Algorithm implementation | Medium-Low | Deep review + benchmarks |
-| Security-critical code | Low | Full security review |
-| Infrastructure / IaC | Low | Plan review + dry run |
-
-<div class="gh-callout gh-callout-blue">
-
-**Build your team's trust calibration table.** Make it explicit so everyone evaluates consistently.
-
-</div>
-
-<!--
-"This is the practical output of the evaluation framework — a table your team agrees on. When you get a Copilot-generated auth middleware, everyone knows it gets a full security review."
--->
-
----
-class: text-xs
----
-
-# Usage, Billing & Cost Strategies
-
-### The transition: Premium Requests → AI Credits (June 1, 2026)
-
-| Aspect | Current | New (AI Credits) |
-|--------|---------|-----------------|
-| **Unit** | 1 request × model multiplier | Tokens × model price → credits |
-| **Free** | GPT-4.1, GPT-4o, GPT-5 mini (0x) | Completions + next edit unlimited |
-| **Included** | Per-user monthly allowance | 1,900 (Business) / 3,900 (Enterprise) credits pooled |
-
-- 1 AI credit = $0.01 USD — billing based on actual token consumption
-- **Code completions and next edit suggestions remain unlimited**
-- Credits pooled at billing entity level — power users offset by light users
-
-<div class="gh-callout gh-callout-blue">
-
-**Auto model selection** gives a 10% multiplier discount in Copilot Chat. Select "Auto" in the model picker.
-
-</div>
-
-<!--
-"Starting June 1, Copilot moves to usage-based billing. You're billed for actual tokens consumed, not flat per-prompt counts. The good news: completions are still free, and included credits are pooled across your org."
--->
-
----
-class: text-xs
----
-
-# Model Cost Tiers & Saving Strategies
-
-| Tier | Models | Multiplier |
-|------|--------|-----------|
-| **Free** | GPT-4.1, GPT-4o, GPT-5 mini | 0x |
-| **Budget** | Haiku 4.5, Gemini 3 Flash, GPT-5.4 nano | 0.25–0.33x |
-| **Standard** | Claude Sonnet, Gemini 2.5 Pro, GPT-5.2/5.4 | 1x |
-| **Premium** | Claude Opus 4.5/4.6 (3x), Opus 4.7 / GPT-5.5 (7.5x) | 3–7.5x |
-
-### Top developer cost strategies
-
-1. Use **included models** (0x) for daily work
-2. **Budget models** for routine tasks (0.25–0.33x)
-3. Reserve **premium models** for hard problems only
-4. **Lean instructions** + **targeted context** (`#file` not `#codebase`)
-5. **Fresh sessions** — prevents history bloat eating tokens
-
-<!--
-"Know the cost of what you're using. A quick chat on GPT-4o is free. A complex architecture session on Opus 4.7 is 7.5x. Match the model to the task complexity."
--->
-
----
-class: text-sm
----
-
-# Session 7 Recap & Discussion
-
-### Key Takeaways
-
-- Define success criteria **before** asking Copilot to generate code
-- Use rubrics for consistent, repeatable evaluation
-- Combine automated checks + human review in a pipeline
-- Track metrics over time — the feedback loop drives improvement
-- **Know your model cost tiers** — match model to task complexity, not the other way around
-
-### Discussion
-
-- What quality metric will you start tracking first?
-- How would you introduce rubric-based evaluation to your team?
-- What's the biggest quality challenge with AI-generated code?
-
-<!--
-5-minute discussion. Evaluation is often the most thought-provoking session — attendees realize they've been "vibes-checking" AI output.
--->
-
----
-class: text-sm
----
-
-# ☕ Break — 10 Minutes
-
-Final session: what to do when things go wrong.
 
 ---
 layout: section
 ---
 
-# Session 8
-
-## Troubleshooting & Diagnostics
+# Debugging & Diagnostics
 
 <!--
-"The last session — and arguably the most practical. When Copilot gives you something unexpected, here's how to figure out why."
+Now switch from setup to troubleshooting. This section is about making agent behavior visible enough to inspect and improve.
+-->
+
+---
+layout: two-cols
+class: text-sm
+---
+
+# Chat Debug Mode
+
+### Use the Output panel to inspect what Copilot received
+
+::left::
+
+<v-clicks>
+
+- Open **View → Output**
+- Select **GitHub Copilot Chat** from the channel dropdown
+- Turn on debug logging if you need more detail
+- Re-run the prompt you want to inspect
+
+</v-clicks>
+
+::right::
+
+| What to look for | Why it matters |
+|------------------|----------------|
+| **Context sent** | Shows what the model actually received |
+| **Model used** | Explains output style and latency |
+| **Token counts** | Reveals bloated prompts or attachments |
+| **Timing** | Helps diagnose slow requests |
+
+<!--
+Make the practical point: when the answer feels wrong, debug the context first.
+-->
+
+---
+class: text-sm
+---
+
+# Agent debug logs
+
+### Trace the agentic loop step by step
+
+| Signal | What it tells you |
+|--------|-------------------|
+| **Tool calls made** | Which capabilities the agent actually used |
+| **Terminal commands executed** | How the agent validated or explored |
+| **File edits proposed** | What changed and in what order |
+| **Iteration count** | Whether the agent is progressing or getting stuck |
+| **Warnings** | Context truncation, unexpected failures, or retries |
+
+<div class="gh-callout gh-callout-green">
+
+**Use the logs to inspect Plan → Act → Observe → Reflect in real time.** If the agent loops too long or calls the wrong tool, the trace usually shows why.
+
+</div>
+
+<!--
+Avoid fake logs here. Stay conceptual and focus on what people should read, not on pretending there is a single canonical log format.
 -->
 
 ---
@@ -699,281 +561,142 @@ class: text-sm
 
 # AI Safety: Debugging the Black Box
 
-### Transparency builds trust
-
-- AI models are often treated as black boxes — input in, output out
-- Copilot provides transparency tools: **logs, debug mode, traces**
-- When you can see the context, you can understand the output
-- **Debugging AI ≠ debugging code**: You're debugging the **context and instructions**, not an algorithm
-
 <div class="gh-callout gh-callout-blue">
 
-**Key insight**: Most Copilot "bugs" are actually context problems — wrong files, stale instructions, or truncated history.
+**Debug logs make AI behavior more transparent**. When output seems wrong, inspect the logs to see what context the model got and what tools it actually used.
 
 </div>
 
+<v-clicks>
+
+- Wrong answer can mean wrong context
+- Wrong tool choice can mean unclear instructions
+- Too many iterations can mean the task boundary is too vague
+
+</v-clicks>
+
 <!--
-"When Copilot gives a bad answer, your first instinct might be 'the model is bad.' But 9 times out of 10, the issue is what the model SAW — not what it IS. Wrong context, missing instructions, truncated history. The tools we cover today help you see what the model sees."
+This is a safety slide, but it is also a confidence slide: visibility makes teams more willing to adopt agent workflows responsibly.
 -->
 
 ---
-class: text-xs
+layout: center
+class: text-sm
 ---
 
-# Output Log Channels
+# 🧪 Exercise 3 — Debugging
 
-### Your first diagnostic tool
-
-| Channel | What It Logs | When to Check |
-|---------|-------------|--------------|
-| **GitHub Copilot** | Completion events, model selection | Completions not appearing |
-| **GitHub Copilot Chat** | Request/response, tool calls | Chat wrong or slow |
-| **Language Server** | Symbols, analysis | Navigation issues |
-
-Access: `Ctrl+Shift+U` → Output panel → select channel → look for errors (red), warnings (yellow)
+- Run one prompt in Ask or Agent mode
+- Open the Output panel and inspect the Copilot logs
+- Identify one useful clue: context, model, timing, or tool usage
+- Share what changed in your understanding after reading the logs
 
 <!--
-"Output logs are step 1 of any troubleshooting. Open the panel, select the channel, and look for red."
+The goal is simply to form the habit: if the result surprises you, inspect before you re-prompt blindly.
 -->
 
 ---
-class: text-xs
+layout: section
 ---
 
-# Common Log Patterns
-
-### What to look for in the output logs
-
-| Pattern | Meaning | Action |
-|---------|---------|--------|
-| `401` | Auth expired | Re-sign in |
-| `429` | Rate limited | Wait or switch model |
-| `Context truncated` | Window overflow | Reduce context |
-| `Model not available` | Model down/restricted | Switch model |
-
-<div class="gh-callout gh-callout-blue">
-
-**Most common issues**: 401 (re-sign in), 429 (rate limited), or context truncated (reduce attached files).
-
-</div>
+# Putting It All Together
 
 <!--
-"Output logs are step 1 of any troubleshooting. Open the panel, select the channel, and look for red. Most common issues: 401 (re-sign in), 429 (rate limited), or context truncated."
--->
-
----
-layout: demo
----
-
-# 🖥️ LIVE DEMO
-
-### Reading Output Logs
-
-- Open Copilot output channel — show the log stream
-- Trigger a completion — identify the log entry
-- Show an error scenario — identify the error pattern
-- Show the Chat channel — trace a request through logs
-
-<!--
-Walk through the output panel live. Show a normal event, then an error. The key is building familiarity with what the logs look like so attendees know where to look.
--->
-
----
-class: text-xs
----
-
-# Chat Debug Mode
-
-### See exactly what Copilot sees
-
-Enable: `"github.copilot.chat.debugMode": true` in VS Code settings
-
-| Information | Why It Matters |
-|------------|---------------|
-| **Full context sent** | Exactly what the model received |
-| **Token counts** | Input, output, total — identify bloat |
-| **Model used** | Which model handled the request |
-| **Timing** | Context assembly, model call, rendering |
-| **Tool calls** | Which tools invoked and their results |
-
-```
-[DEBUG] System prompt:        1,247 tokens
-[DEBUG] Repo instructions:      312 tokens
-[DEBUG] Attached context:     3,891 tokens
-[DEBUG] History:              2,104 tokens
-[DEBUG] Total input:          7,641 tokens
-[DEBUG] Model: gpt-4o | Response: 342 tokens (1.2s)
-```
-
-<!--
-"Debug mode is the single most useful diagnostic tool. It shows you the FULL context — every instruction, every file, every history message — and the token counts. When Copilot gives a weird answer, debug mode tells you why."
--->
-
----
-layout: demo
----
-
-# 🖥️ LIVE DEMO
-
-### Chat Debug Mode Walkthrough
-
-- Enable `github.copilot.chat.debugMode` in settings
-- Send a chat message — open output channel for debug dump
-- Point out: instructions loaded, context composition, token counts
-- Send with large `#file` → show token count jump
-- Show different models in the debug output
-
-<!--
-Enable debug mode live. Send a message and walk through every line of the debug output. Then show how adding a #file reference dramatically increases the token count. This builds intuition.
--->
-
----
-class: text-xs
----
-
-# Agent Debug Logs
-
-### Iteration traces for Agent mode
-
-Access: Command Palette → "GitHub Copilot: Open Agent Debug Log"
-
-```
-[Iteration 1] Plan: Add validation to orders route
-  Tool: file.read → api/routes/orders.ts (2,341 tokens)
-  Tool: file.write → api/middleware/validate-order.ts
-  Tool: terminal.run → npm run lint (exit: 1)
-  Result: FAIL — 'Request' is not defined
-
-[Iteration 2] Fix: Add missing import
-  Tool: file.edit → api/middleware/validate-order.ts
-  Tool: terminal.run → npm run lint (exit: 0)
-  Tool: terminal.run → npm test (exit: 0)
-  Result: PASS ✅
-```
-
-Each entry shows: tool calls, arguments, results, and the agent's next decision.
-
-<!--
-"Agent debug logs are your forensic tool. Every iteration is logged — what the agent planned, what tools it called, what results it got, and what it decided to do next. When the agent goes wrong, this is where you find out why."
--->
-
----
-layout: demo
----
-
-# 🖥️ LIVE DEMO
-
-### Tracing an Agent Failure
-
-- Give Agent mode a task that will fail on first attempt
-- Open the agent debug log — trace through iterations
-- Show where the agent detected failure (observe phase)
-- Show how it adjusted (reflect phase)
-- Point out tool call trace: reads, writes, commands
-
-<!--
-Pick a task that triggers a self-correction cycle. Walk through the debug log line by line. Show the connection between what we learned in Module 2 (plan-act-observe-reflect) and what appears in the logs.
--->
-
----
-class: text-xs
----
-
-# Diagnostic Toolkit Cheat Sheet
-
-### Everything in one place
-
-| Tool | Access | What You Get |
-|------|--------|-------------|
-| **Output logs** | `Ctrl+Shift+U` → channel | Real-time log stream |
-| **Debug mode** | `debugMode: true` in settings | Context, tokens, timing |
-| **Agent debug log** | Command Palette → "Open Agent Debug Log" | Iteration traces, tool calls |
-| **Diagnostics export** | Command Palette → "Collect Diagnostics" | Full bundle for support |
-| **Extension version** | Extensions panel → Copilot | Confirm latest version |
-| **Network check** | Output logs → 401/429/timeout | Connection & auth issues |
-
-### Troubleshooting Flowchart
-
-| Symptom | First Check | Second Check |
-|---------|------------|-------------|
-| No completions | Output logs (auth?) | Extension version |
-| Wrong chat response | Debug mode (context?) | Instructions file |
-| Agent stuck in loop | Agent debug log | Task complexity |
-| Slow responses | Debug mode (tokens?) | Model selection |
-
-<!--
-"This is your cheat sheet. Print it, bookmark it, pin it. When something goes wrong, start from the top: output logs for connection issues, debug mode for context issues, agent logs for iteration issues."
+This final section connects the layers: instructions, custom agents, and MCP are not separate topics—they stack.
 -->
 
 ---
 class: text-sm
 ---
 
-# Curriculum Complete — All 8 Sessions
+# The full stack: Instructions + Agents + MCP
 
-| Module | Sessions | Core Themes |
-|--------|----------|-------------|
-| **Foundations** | 1–3 | Chat interface, context, models & tokens |
-| **Agentic Patterns** | 4–5 | Loops, self-correction, rubber duck, patterns |
-| **Advanced Topics** | 6–8 | Extensions, MCP, evaluation, troubleshooting |
+### How the layers work together in VS Code
 
-### What to Do Next
+```mermaid {scale: 0.65}
+graph LR
+    A[".github/<br/>copilot-instructions.md"] --> B[".github/agents/<br/>review-agent.md"]
+    B --> C[".vscode/<br/>mcp.json"]
+    C --> D["Developer in<br/>VS Code"]
+```
 
-1. Set up `.github/copilot-instructions.md` in your primary repo
-2. Create 1-2 custom agents for your team's workflows
-3. Configure MCP servers for your internal tools
-4. Build an evaluation rubric and start tracking quality metrics
-5. Enable debug mode for a week to build diagnostic intuition
+<v-clicks>
+
+- **Repo instructions** set the shared baseline for the whole codebase
+- **Custom agents** specialize the behavior for a specific role
+- **MCP configuration** adds external tools those agents can call
+- **The developer** still reviews outputs and decides what ships
+
+</v-clicks>
+
+<!--
+This is the architecture summary slide. If attendees remember one diagram from the module, make it this one.
+-->
+
+---
+class: text-xs
+---
+
+# Best practices & common pitfalls
+
+| Do | Don't |
+|----|-------|
+| **Keep instructions focused** on stable repo conventions | **Overload context** with every file you can attach |
+| **Test agents iteratively** on small tasks first | **Skip reviewing agent output** because it “looks right” |
+| **Use debug logs** when behavior surprises you | **Install untrusted MCP servers** just because they are convenient |
+| **Separate roles** when agents need different goals or permissions | **Create overlapping agents** that compete for the same responsibility |
 
 <div class="gh-callout gh-callout-purple">
 
-**The best way to learn is to teach** — share what you learned with your team.
+**Healthy pattern**: clear instructions, scoped agents, trusted tools, and deliberate human review.
 
 </div>
 
 <!--
-"That's all 8 sessions complete. You now have a comprehensive toolkit: how to interact, how to customize, how agents work, how to extend, how to evaluate, and how to debug. The next step is to apply all of this in your daily work."
+End on practical discipline. Advanced usage is not about maximum autonomy; it is about repeatable, reviewable systems.
 -->
 
 ---
+layout: center
 class: text-sm
 ---
 
-# Further Learning
+# 🧪 Exercise 4 — Full Stack Agent
 
-| Resource | Link |
-|----------|------|
-| **Copilot Docs** | <https://docs.github.com/en/copilot> |
-| **MCP Specification** | <https://modelcontextprotocol.io> |
-| **Demo Repo** | <https://github.com/microsoft/GitHubCopilot_Customized> |
-| **VS Code Copilot** | <https://code.visualstudio.com/docs/copilot/overview> |
-
-<div class="gh-callout gh-callout-blue">
-
-**Questions?** Reach out to your GitHub account team or open a discussion in the demo repo.
-
-</div>
+- Choose one custom agent from `.github/agents/`
+- Decide what repo instructions it should inherit
+- Add or identify one MCP tool that would genuinely help it
+- Explain the review boundary a human should keep
 
 <!--
-"These are the four resources you'll reference most. The demo repo is yours to keep — fork it, experiment with it, use it as a sandbox for trying new Copilot features."
+This final lab cue makes attendees synthesize the whole module into one design exercise.
 -->
 
 ---
 layout: end
+class: text-sm
 ---
 
-# Curriculum Complete
+# Module 3 Recap
 
-## Copilot Developer Training
+<v-clicks>
 
-*8 Sessions · 3 Modules · ~8.5 Hours*
+- Start with **single-agent** designs unless specialization is clearly worth the complexity
+- Use **MCP** to connect Copilot to trusted external tools and data
+- Read **debug and agent logs** to understand what the model saw and did
+- Think in layers: **instructions → agents → MCP → human review**
+
+</v-clicks>
 
 <div class="gh-callout gh-callout-green">
 
-**Thank you!** Now go build something amazing with your AI copilot.
+**Next step**: use the lab to design one practical agent workflow you would actually keep in your daily development environment.
 
 </div>
 
+*Slide deck for Copilot Developer Training — Module 3: Advanced Topics*
+
 <!--
-Thank attendees. Remind them of the lab guides for hands-on practice. Collect feedback if applicable.
+Close by reinforcing that advanced usage is about system design, not just prompt tricks. The lab should feel like the natural continuation of the slide deck.
 -->
+
