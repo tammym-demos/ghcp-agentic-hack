@@ -1,0 +1,21 @@
+/* Theme Variables - Light Mode (Default) */
+:root {
+  --bg: #ffffff;
+  --bg-soft: #f6f8fa;
+  --border: #d0d7de;
+  --text-1: #24292f;
+  --text-2: #57606a;
+  --brand: #0969da;
+  --brand-hover: #1f6feb;
+}
+
+/* Dark Mode */
+[data-theme="dark"] {
+  --bg: #0d1117;
+  --bg-soft: #161b22;
+  --border: #30363d;
+  --text-1: #e6edf3;
+  --text-2: #8b949e;
+  --brand: #58a6ff;
+  --brand-hover: #79c0ff;
+}
