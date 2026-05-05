@@ -163,6 +163,38 @@ Keep this short. The point is not fear; it is trust calibration. More autonomous
 -->
 
 ---
+layout: two-cols
+class: text-sm
+---
+
+# AI Safety — Give Your Agent an Off-Ramp
+
+An **off-ramp** tells the agent to pause when it is stuck, uncertain, or outside its lane. The goal is safe escalation, not blind persistence.
+
+<v-clicks>
+
+- **Iteration limits**: stop after 2-3 failed attempts or loops.
+- **Confidence checks**: pause when facts, intent, or the next step are unclear.
+- **Ask-user rules**: require a handoff for ambiguous or risky choices.
+- **Scope boundaries**: stop when the work needs secrets, approvals, or a wider blast radius.
+
+</v-clicks>
+
+::right::
+
+<img src="./assets/agent-off-ramp.png" width="500" alt="Agent off-ramp decision flow" />
+
+<div class="gh-callout gh-callout-purple">
+
+**A well-designed agent knows when to stop.** Build off-ramps into your agent instructions: "If uncertain about X, stop and ask rather than guessing."
+
+</div>
+
+<!-- notes
+An off-ramp is not failure. It is a safety and quality mechanism: when the model is uncertain or boxed in, the correct behavior is to escalate cleanly instead of improvising.
+-->
+
+---
 layout: center
 ---
 
@@ -263,6 +295,38 @@ Now that attendees can bootstrap work, show them how requests are routed and how
 -->
 
 ---
+layout: two-cols
+class: text-sm
+---
+
+# What is an Agent Harness?
+
+An **agent harness** is the runtime/framework that orchestrates model calls, tool use, and context passing for an AI agent.
+
+<v-clicks>
+
+- **Examples**: VS Code (Copilot agent mode), Claude Code, Cursor, GitHub Copilot Coding Agent, Windsurf
+- **Model selection**: chooses the model or mode for the task.
+- **Tooling & access**: runs tools, commands, and file system actions.
+- **Guardrails**: manages context windows and safety boundaries.
+
+</v-clicks>
+
+::right::
+
+<img src="./assets/agent-harness.png" width="600" alt="Agent harness architecture" />
+
+<div class="gh-callout gh-callout-blue">
+
+**The agent is the brain; the harness is the body.** Different harnesses offer different tool sets and safety models.
+
+</div>
+
+<!-- notes
+This is the runtime wrapper around the model. The same core model can behave very differently depending on which harness provides tools, context, approvals, and boundaries.
+-->
+
+---
 class: text-sm
 ---
 
@@ -283,6 +347,78 @@ class: text-sm
 
 <!-- notes
 Make the custom-agent point concrete: a security reviewer, API designer, or docs maintainer agent is useful because it narrows the job and the instructions.
+-->
+
+---
+class: text-sm
+---
+
+# What are skills?
+
+<v-clicks>
+
+- **Skills** are reusable, composable capabilities that extend what an AI assistant or agent can do.
+- They can be an **instruction set**, an **MCP server**, or an **action workflow** the model can use.
+- Skills can come from **community repos**, be **custom-built**, or ship as **platform features**.
+
+</v-clicks>
+
+<div class="gh-callout gh-callout-purple">
+
+**Think of skills as building blocks**: agents orchestrate them, but the capability lives in the skill.
+
+</div>
+
+<!-- notes
+Frame skills as modular capability packages. The point is that a skill is not just a persona; it gives Copilot a reusable way to help through instructions, knowledge, or tool connections.
+-->
+
+---
+class: text-xs
+---
+
+# Skills taxonomy — prompts vs. instructions vs. skills vs. agents
+
+| Concept | Where it lives | How you use it | Mental model |
+|---------|----------------|----------------|--------------|
+| **Reusable prompts** | `.github/prompts/*.md` | Invoke directly in chat — no agent needed | Saved recipes |
+| **Custom instructions** | `.github/copilot-instructions.md` | Applied automatically to every interaction | Ambient context |
+| **Agent instructions** | `.github/agents/*.md` | Invoke via `@agent-name` | Specialized persona + behavior |
+| **Skills** | Tools, MCP servers, knowledge, workflows | The capabilities used to complete the task | Reusable building blocks |
+
+<div class="gh-callout gh-callout-blue">
+
+**Key insight**: You do **not** need an agent to benefit from skills. Prompts are standalone. Instructions are ambient. Agents combine both with tool access.
+
+</div>
+
+<!-- notes
+Use this slide to separate layers. Prompts are saved asks, instructions are always-on context, agents package behavior, and skills supply the capabilities that make autonomous work possible.
+-->
+
+---
+class: text-sm
+---
+
+# How to use skills in practice
+
+<v-clicks>
+
+- Use `.github/prompts/` for team-shared prompt templates and repeatable chat starters.
+- Use `.github/agents/` for specialized behaviors such as `@reviewer` or `@architect`.
+- Use **MCP servers** when Copilot needs external tools, systems, or live data.
+- Browse **community skill repos** before building your own from scratch.
+
+</v-clicks>
+
+<div class="gh-callout gh-callout-purple">
+
+**Start simple**: prompts first, instructions second, then agents or MCP-backed skills when the workflow repeats or needs tools.
+
+</div>
+
+<!-- notes
+Give attendees a practical adoption path: save prompts first, add ambient instructions next, then introduce custom agents and MCP-backed skills when the team needs specialization or external integration.
 -->
 
 ---
@@ -332,6 +468,58 @@ graph TD
 
 <!-- notes
 This is a simple routing model attendees can remember. If the answer feels wrong, the fix is usually one of these three knobs: participant, mode, or context.
+-->
+
+---
+class: text-sm
+---
+
+# Squad — Multi-Agent Routing in Practice
+
+### [`bradygaster/squad`](<https://github.com/bradygaster/squad>)
+
+<v-clicks>
+
+- **Open-source and in-repo**: Squad lives in `.squad/`, so the team definition and memory travel with the codebase.
+- **Human-directed parallel work**: specialist agents fan out in parallel with **persistent team memory** and **GitHub-native** commit, share, and clone flows.
+- **Built-in governance**: file-write guards, PII scrubbing, reviewer lockout, and clear escalation points help constrain autonomy.
+- **SDK-first**: define the team in `squad.config.ts`.
+- **Quick start**: `npm i -g @bradygaster/squad-cli` → `squad init` → `copilot --agent squad`
+
+</v-clicks>
+
+<div class="gh-callout gh-callout-blue">
+
+**Why it matters**: Squad shows how multi-agent routing can work with built-in governance. Each specialist agent fans out in parallel while humans keep final decision authority.
+
+</div>
+
+<!-- notes
+Use Squad as a concrete example of the routing ideas from the prior slide. It makes multi-agent routing visible inside the repo: specialists coordinate, memory persists, and humans still own approval and final decisions.
+-->
+
+---
+class: text-xs
+---
+
+# Skill & Agent Resources
+
+| Resource | What it is | Link |
+|----------|------------|------|
+| `anthropics/skills` | Anthropic's reference skill implementations | [Repo](<https://github.com/anthropics/skills>) |
+| `github/awesome-copilot` | Community-curated collection of Copilot resources | [Repo](<https://github.com/github/awesome-copilot>) |
+| `skills.sh` | Searchable directory for discovering agent skills | [Directory](<https://skills.sh>) |
+| Microsoft Skills | Microsoft's official skills collection | [Repo](<https://github.com/microsoft/skills>) |
+| `bradygaster/squad` | Multi-agent orchestration framework | [Repo](<https://github.com/bradygaster/squad>) |
+
+<div class="gh-callout gh-callout-green">
+
+**Start here**: Browse existing skills before building your own. Many common patterns (code review, testing, documentation) already have well-tested implementations.
+
+</div>
+
+<!-- notes
+Close the section by giving people practical next steps. Encourage reuse first: browse proven skills, adopt the patterns that match your workflow, then customize for local guardrails and naming conventions.
 -->
 
 ---

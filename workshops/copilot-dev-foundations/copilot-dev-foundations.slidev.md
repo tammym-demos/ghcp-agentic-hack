@@ -469,13 +469,13 @@ class: text-xs
 
 ### Pick the model to match the task
 
-| Option | Strength | Reach for it when |
-|--------|----------|-------------------|
-| **Auto-select** | Good default routing | You want a sensible starting point fast |
-| **GPT-4o** | Fast, general-purpose | Routine chat, quick edits, everyday coding |
-| **GPT-4.1** | Balanced with strong larger-context work | Multi-file changes and repo understanding |
-| **Claude Sonnet** | Strong reasoning and review quality | Design trade-offs, explanations, code review |
-| **Premium reasoning / Opus-class models** | Deepest analysis | Hard debugging, architecture, complex planning |
+| Option | Pace | Strength | Reach for it when |
+|--------|------|----------|-------------------|
+| **Auto-select** | Adapts | Good default routing | You want a sensible starting point fast |
+| **GPT-4o** | Fast | Fast, general-purpose | Routine chat, quick edits, everyday coding |
+| **GPT-4.1** | Medium | Balanced with strong larger-context work | Multi-file changes and repo understanding |
+| **Claude Sonnet** | Medium | Strong reasoning and review quality | Design trade-offs, explanations, code review |
+| **Premium reasoning / Opus-class models** | Slowest | Deepest analysis | Hard debugging, architecture, complex planning |
 
 <div class="gh-callout gh-callout-blue">
 

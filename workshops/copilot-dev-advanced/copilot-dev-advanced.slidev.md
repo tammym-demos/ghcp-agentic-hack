@@ -2,7 +2,7 @@
 theme: ../../themes/github
 title: "Copilot Developer Training — Module 3: Advanced Topics"
 info: |
-  90-minute module covering agent architecture patterns, MCP, debugging, and full-stack agents.
+  90-minute module covering agent architecture patterns, MCP, memory, debugging, and full-stack agents.
 ghFooterTitle: "Module 3: Advanced Topics"
 ghFooterLabel: ""
 drawings:
@@ -19,7 +19,7 @@ layout: cover
 
 ## Module 3 — Advanced Topics
 
-*Agent architecture patterns · MCP · Debugging · Full-stack agents*
+*Agent architecture patterns · MCP · Memory · Debugging · Full-stack agents*
 
 `github.com/microsoft/GitHubCopilot_Customized`
 
@@ -39,16 +39,17 @@ class: text-sm
 |------|-------|
 | 18 min | Agent architecture patterns + decision framework |
 | 7 min | 🧪 Exercise 1 — Agent architecture |
-| 22 min | MCP overview, installation, and VS Code configuration |
+| 18 min | MCP overview, installation, and VS Code configuration |
 | 7 min | 🧪 Exercise 2 — MCP setup |
-| 11 min | Debugging and diagnostics |
+| 7 min | Copilot memory + SDK quick reference |
+| 9 min | Debugging and diagnostics |
 | 7 min | 🧪 Exercise 3 — Debugging |
-| 8 min | Putting it all together |
+| 7 min | Putting it all together |
 | 10 min | 🧪 Exercise 4 + module recap |
 
 <div class="gh-callout gh-callout-blue">
 
-**Flow**: ~62 minutes of presentation, then ~28 minutes of guided lab time split across four short exercises.
+**Flow**: content blocks alternate with four short guided exercises so attendees can apply each concept immediately.
 
 </div>
 
@@ -201,6 +202,40 @@ Tie this back to the real feature: custom agents are markdown files in `.github/
 class: text-sm
 ---
 
+# How skills attach to agents
+
+### Agents define the role; skills and tools define the capability surface
+
+```mermaid {scale: 0.58}
+graph LR
+    A["Agent instructions<br/>(prompt or agent file)"] --> B["Choose the right skill"]
+    B --> C["Built-in tools"]
+    B --> D["MCP tools / custom servers"]
+    E["Org or community skill repo"] --> B
+    D --> F["External systems"]
+```
+
+<v-clicks>
+
+- **Agent = planner/role**: goal, boundaries, success criteria, and escalation rules
+- **Skills = reusable building blocks** the agent is instructed to invoke for certain task types
+- Attach them through **instructions**, exposed **tool definitions**, and optional **MCP servers** that expand what the agent can call
+- Use **one agent + many skills** for shared-context work; use **multiple agents** when roles, approvals, or tool access must differ
+
+</v-clicks>
+
+<div class="gh-callout gh-callout-blue">
+
+**Pattern to remember**: skills do not replace agents — they extend an agent's reach. Shared skill packs become valuable when many agents need the same capability.
+
+</div>
+
+<!-- notes: Walk the audience through the layers: the agent file defines behavior, skills provide reusable task-specific guidance, and MCP/tool definitions provide the executable surface. This makes the agent-plus-skills pattern explicit and connects community or org skill packs back to the agent. -->
+
+---
+class: text-sm
+---
+
 # AI Safety: Designing Responsible Agents
 
 <div class="gh-callout gh-callout-purple">
@@ -345,6 +380,7 @@ class: text-sm
 
 - Check the publisher, repository, and maintenance activity
 - Prefer the smallest tool surface that solves the problem
+- Pin versions and inspect install scripts/dependencies for npm-based servers
 - Treat server configuration like any other executable dependency
 
 </v-clicks>
@@ -484,6 +520,148 @@ class: text-sm
 
 <!--
 Attendees should leave this exercise with one working server, not a pile of theory.
+-->
+
+---
+layout: section
+---
+
+# Copilot Memory
+
+<!--
+Now introduce memory as the shared context layer that persists between sessions. This helps attendees connect day-to-day prompting with longer-term repository learning.
+-->
+
+---
+class: text-sm
+---
+
+# How Copilot Memory Works
+
+### Cross-session memory for the repository
+
+```mermaid {scale: 0.75}
+graph LR
+    A["Session Start<br/>(memories loaded)"] --> B["During Session<br/>(store / vote)"]
+    B --> C["Next Session<br/>(updated memories appear)"]
+```
+
+<v-clicks>
+
+- **Cross-session system**: the agent remembers useful facts between conversations
+- **Repository scope**: memories are shared across contributors working in the same repo
+- **Lifecycle**: **Discovery → Storage → Recall → Validation** keeps memory current
+
+</v-clicks>
+
+<div class="gh-callout gh-callout-purple">
+
+**Shared memory, curated over time**: one validated fact can save rediscovery for every future session in the repository.
+
+</div>
+
+<!-- notes
+Explain that memory is loaded at session start, updated while the agent works, and then reappears automatically in later sessions for the same repository.
+-->
+
+---
+layout: two-cols
+class: text-xs
+---
+
+# What Gets Remembered & How You Interact
+
+### Concise facts, citations, and conversational curation
+
+<v-clicks>
+
+- **Stored facts** are short (&lt; 200 chars) and include citations
+- Common memory types: build commands, conventions, patterns, and project structure
+- Developers influence memory through conversation: tell the agent facts, correct it, or ask what it remembers
+
+</v-clicks>
+
+::right::
+
+<div class="gh-box">
+
+**Store a fact when it is:**
+
+- Actionable
+- Independent of the current task
+- Unlikely to change
+- Relevant to all contributors
+- Free of secrets
+
+</div>
+
+<div class="gh-callout gh-callout-blue">
+
+**Memory is automatic, shared, and curated. You influence it through conversation — not slash commands.**
+
+</div>
+
+<!-- notes
+Stress that memory is not a manual database. The agent decides when a fact is worth storing, and users steer it by providing stable conventions and correcting mistakes.
+-->
+
+---
+layout: two-cols
+class: text-xs
+---
+
+# Managing Memory as a Developer
+
+### Reinforce the facts you want future sessions to keep
+
+<v-clicks>
+
+- Tell the agent important conventions early in a session
+- Correct wrong assumptions immediately — that can trigger a downvote and replacement memory
+- Use `/env` to inspect loaded context such as instructions, skills, and agents
+- Memory keeps evolving: GHCP is expanding scope across personal, org-level, and project-level context
+
+</v-clicks>
+
+::right::
+
+<img src="./assets/memory-landscape.png" width="600" alt="Memory types and scope" />
+
+<div class="gh-callout gh-callout-blue">
+
+**Treat memory like team context**: reinforce stable patterns, not one-off task details.
+
+</div>
+
+<!-- notes
+This slide is practical. Show how a developer can actively shape memory quality by stating conventions early, correcting bad assumptions, and checking the loaded environment with /env.
+-->
+
+---
+class: text-sm
+---
+
+# Copilot SDK Quick Reference
+
+### Build extensions and integrations on top of Copilot
+
+<v-clicks>
+
+- **`@github/copilot-language-server`** — LSP integration for editor experiences
+- **Copilot Extensions API** — build custom chat participants
+- **GitHub Models API** — direct access to models in your own flows
+- **Copilot Metrics API** — usage and adoption data for reporting
+
+</v-clicks>
+
+<div class="gh-callout gh-callout-purple">
+
+**The SDK is for building ON Copilot, not just WITH Copilot.** Use it when you need programmatic access to models or want to create custom chat participants.
+
+</div>
+
+<!-- notes
+Position this as a quick orientation slide. The goal is not to teach each API in depth, but to show the main building blocks developers should recognize when they move from using Copilot to extending it.
 -->
 
 ---
