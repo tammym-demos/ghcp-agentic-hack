@@ -273,6 +273,60 @@ Position this as a higher-autonomy workflow than local Agent mode. It is ideal f
 -->
 
 ---
+class: text-xs
+---
+
+# Writing a Great Issue for Agents
+
+<div class="grid grid-cols-2 gap-4">
+<div>
+
+### ❌ Vague issue
+
+```text
+Add user authentication to the app
+```
+
+*Agent guesses scope, tech, and tests*
+
+</div>
+<div>
+
+### ✅ Agent-ready PRD
+
+```text
+Add JWT auth to the Express API
+- POST /auth/login returns a signed JWT
+- GET /users requires valid Bearer token
+- Use bcrypt for password hashing
+- Add tests in tests/auth.test.ts
+- Do NOT modify the /health endpoint
+```
+
+</div>
+</div>
+
+<v-clicks>
+
+- **Success criteria** — what "done" looks like (endpoints, behavior)
+- **Scope boundaries** — what NOT to change
+- **Tech constraints** — language, library, pattern choices
+- **Test expectations** — what tests to add or pass
+- **File hints** — which files to create or modify
+
+</v-clicks>
+
+<div class="gh-callout gh-callout-purple">
+
+**The quality of your issue IS the quality of your agent's output.** Write the issue you'd want a new hire to receive on day one.
+
+</div>
+
+<!-- notes
+This slide bridges the coding agent workflow with practical writing skills. A well-scoped issue with clear acceptance criteria, constraints, and file hints gives the agent (or any developer) everything needed to produce a focused, reviewable PR. The analogy to onboarding a new hire works well — if a new team member couldn't deliver from your issue alone, neither can an agent.
+-->
+
+---
 layout: center
 ---
 

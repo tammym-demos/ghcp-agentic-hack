@@ -665,6 +665,39 @@ Position this as a quick orientation slide. The goal is not to teach each API in
 -->
 
 ---
+class: text-sm
+---
+
+# Security in the Developer Flow: GHAS + Copilot Autofix
+
+<v-clicks>
+
+- **Code scanning** — finds vulnerabilities in your code (CodeQL + third-party)
+- **Secret scanning** — detects leaked credentials before they hit production
+- **Dependabot** — flags vulnerable dependencies and opens upgrade PRs
+- **Copilot Autofix** — AI-generated fix suggestions for code scanning alerts
+
+</v-clicks>
+
+```mermaid {scale: 0.65}
+graph LR
+    A["Push / PR"] --> B["Code Scanning"]
+    B --> C["Alert + Autofix suggestion"]
+    C --> D["Developer reviews fix"]
+    D --> E["One-click apply"]
+```
+
+<div class="gh-callout gh-callout-green">
+
+**Shift-left security**: Copilot Autofix turns security from a gate into a developer tool — fix vulnerabilities in your PR, not in a triage meeting weeks later.
+
+</div>
+
+<!-- notes
+Key message: GHAS provides the detection layer, and Copilot Autofix provides the remediation layer. Together they make security part of the normal PR workflow. Show a real autofix suggestion if possible — the before/after diff is very compelling. Autofix supports multiple languages and frameworks. The developer still reviews and approves every fix.
+-->
+
+---
 layout: section
 ---
 

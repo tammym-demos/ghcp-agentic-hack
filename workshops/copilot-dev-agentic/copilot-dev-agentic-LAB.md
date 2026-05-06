@@ -72,11 +72,26 @@ This standalone lab gives attendees four short exercises to practice context con
 
 7. Keep this scaffolded project open for Exercises 3 and 4.
 
+8. **PRD-quality prompt**: Now try a more structured prompt and compare the result:
+
+   ```text
+   Create a Node.js Express API with:
+   - GET /health returns { status: "ok" }
+   - GET /users returns a JSON array of 3 mock users (id, name, email)
+   - POST /users validates name+email, returns 201 with the created user
+   - Add unit tests in tests/api.test.ts using Jest
+   - Use TypeScript with strict mode
+   - Do NOT add authentication or database — use in-memory array
+   ```
+
+9. Compare the output from step 3 (vague prompt) with step 8 (PRD-quality prompt). Note the differences in structure, completeness, and test coverage.
+
 **✅ Success Criteria**
 
 - ✅ Used Agent mode to scaffold a new project
 - ✅ Reviewed the generated files and structure before accepting
 - ✅ Tried Agent mode or `@workspace /new` as a project bootstrap workflow
+- ✅ Compared a vague prompt with a PRD-quality prompt and observed the difference in agent output
 
 ## Exercise 3: Agents & Skills
 

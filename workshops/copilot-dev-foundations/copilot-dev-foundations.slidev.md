@@ -517,27 +517,52 @@ Keep the explanation practical. Developers do not need tokenizer theory; they ne
 -->
 
 ---
-class: text-sm
+class: text-xs
 ---
 
-# AI Safety: Know Your Token Costs
+# What's Changing: PRUs → AI Credits
 
-<div class="gh-callout gh-callout-blue">
+| | PRU (legacy) | AI Credits (new) |
+|--|--|--|
+| **Unit** | 1 Premium Request per interaction | Actual tokens × per-model rate |
+| **Granularity** | Size-agnostic — 10-token question = 10K-token agentic workflow | Pay for what you use (input + output + cached) |
+| **Transparency** | Opaque multipliers (e.g., Opus = 3×) | Visible token counts, clear rates |
+| **Code completions** | Counted as a PRU | ✅ **Free and unlimited** |
+| **Budget** | Monthly PRU cap | 1 AI Credit = $0.01 · Business: 1,900/seat/mo · Enterprise: 3,900/seat/mo |
 
-**Be intentional**: Different models can have different cost profiles, response speeds, and premium request impact.
+<div class="gh-callout gh-callout-green">
+
+**Key takeaway**: Code completions are now free — lean into Tab completions. Chat and agent usage consumes AI Credits based on actual token volume.
 
 </div>
 
+<!-- notes
+Emphasize the paradigm shift: PRUs were opaque and per-request; AI Credits are transparent and proportional. Code completions going free is the biggest behavioral change — developers should use them aggressively. Credit allocation: Business plans get 1,900 credits/seat/month ($19 plan), Enterprise gets 3,900 ($39 plan). Promotional period Jun–Aug 2026 offers elevated credits (3,000 Biz / 7,000 Ent).
+-->
+
+---
+class: text-sm
+---
+
+# Developer Monitoring Toolkit
+
 <v-clicks>
 
-- Routine work usually does not need your most expensive option.
-- Big context plus premium models can turn a casual question into an expensive habit.
-- Cost awareness improves both quality and team scalability.
+- **VS Code**: Copilot status bar → credit usage indicator
+- **CLI**: `gh copilot` shows session token awareness
+- **Chat**: ask "how many tokens did that use?" or check the Output panel → GitHub Copilot
+- **Org-level**: CSV usage reports, budget alerts (75% / 90% / 100%), weekly token limits
 
 </v-clicks>
 
+<div class="gh-callout gh-callout-purple">
+
+**Set alerts before you need them**: budget thresholds at 75% and 90% give you time to adjust habits before hitting your cap.
+
+</div>
+
 <!-- notes
-This is the “budget awareness” slide. Connect cost control to better habits, not just finance.
+This is the practical "what can I do right now?" slide. Show the VS Code status bar if possible. Emphasize that budget alerts are proactive — you get notified before the cap, not after. Org admins can pull CSV reports and set per-user weekly limits as guardrails.
 -->
 
 ---
