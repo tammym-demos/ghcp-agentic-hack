@@ -43,6 +43,7 @@ function run(cmd, opts = {}) {
 // Slidev resolves /images/... from a public/ directory relative to the .slidev.md file.
 // We create symlinks (or junctions on Windows) pointing to the repo-root public/ directory.
 console.log('Setting up public/ symlinks for Slidev image resolution...')
+const isWindows = process.platform === 'win32'
 for (const dir of readdirSync(WORKSHOPS_DIR, { withFileTypes: true }).filter(d => d.isDirectory())) {
   const linkPath = resolve(WORKSHOPS_DIR, dir.name, 'public')
   try {
@@ -50,10 +51,9 @@ for (const dir of readdirSync(WORKSHOPS_DIR, { withFileTypes: true }).filter(d =
       const stat = lstatSync(linkPath)
       if (stat.isSymbolicLink() || stat.isDirectory()) continue // already exists
     }
-    symlinkSync(PUBLIC_DIR, linkPath, 'junction')
+    symlinkSync(PUBLIC_DIR, linkPath, isWindows ? 'junction' : 'dir')
     console.log(`  Created: workshops/${dir.name}/public → public/`)
   } catch (e) {
-    // Junction may already exist from a previous run
     if (e.code !== 'EEXIST') console.warn(`  Warning: could not create link for ${dir.name}: ${e.message}`)
   }
 }
