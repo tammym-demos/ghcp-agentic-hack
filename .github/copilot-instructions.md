@@ -31,29 +31,39 @@ themes/                      # Slidev theme (github/)
 
 Each module folder contains a `*.slidev.md` slide deck and an optional `*-LAB.md` for hands-on exercises. The `copilot-dev-training/` parent folder holds curriculum-level planning documents.
 
-## Astro Site & Local Preview
+## Build & Deployment
 
-The repo includes an **Astro static site** (`site/`) that serves as the landing page on GitHub Pages. The full build is orchestrated by `scripts/build-site.mjs`:
+The full build is orchestrated by `scripts/build-site.mjs`:
 
 ```bash
 node scripts/build-site.mjs
 ```
 
-This builds all Slidev decks, then the Astro site, then copies slide outputs into `dist/site/`.
+Build steps (in order):
 
-> **Important — Base Path Nuance**: The Astro site is configured with `base: '/ghcp-agentic-hack/'` (in `site/astro.config.mjs`) because GitHub Pages serves from `https://<user>.github.io/ghcp-agentic-hack/`. This means **all built asset paths** (CSS, JS, links) are prefixed with `/ghcp-agentic-hack/`. When previewing locally, you cannot serve `dist/site/` directly — the assets will 404. Instead, create a wrapper directory so the path matches:
+1. **Create public/ symlinks** — each workshop folder gets a symlink to the repo-root `public/` so Slidev can resolve `/images/...` paths
+2. **Build Slidev decks** — each deck is built with `--base` matching the deployment subpath
+3. **Build Astro site** — landing page, workshop detail pages, lab pages
+4. **Copy slides into Astro dist** — merges Slidev outputs into `dist/site/`
+
+### CI / GitHub Pages
+
+- Workflow: `.github/workflows/pages.yml` (deploys on push to `main`)
+- Base path: `BASE_PATH=/ghcp-agentic-hack/` (set in workflow env)
+- URL: `https://tammym-demos.github.io/ghcp-agentic-hack/`
+- Trigger paths: `workshops/`, `public/`, `site/`, `themes/`, `scripts/`, `package.json`
+
+### Local Preview
+
+The base path means `dist/site/` can't be served directly. Create a wrapper directory:
 
 ```powershell
-# Create a junction so /ghcp-agentic-hack/ resolves to dist/site/
 New-Item -ItemType Junction -Path dist\local-preview\ghcp-agentic-hack -Target (Resolve-Path dist\site).Path -Force
-
-# Serve from the wrapper directory
 npx http-server dist/local-preview -p 4201 -c-1 --cors -s
-
-# Then open: http://localhost:4201/ghcp-agentic-hack/
+# Open: http://localhost:4201/ghcp-agentic-hack/
 ```
 
-Do **not** modify the base path to `/` for local testing — it will break the GitHub Pages deployment.
+Do **not** modify `BASE_PATH` to `/` for local testing — it will break the GitHub Pages deployment.
 
 ## Critical Rule: Slidev Deck ↔ LAB Synchronization
 
