@@ -151,11 +151,7 @@ All slide images live in `public/images/<workshop-folder-name>/`. This centraliz
      section: "Agent Architecture"
    ```
 
-3. Reference it in your Slidev file with an absolute path:
-
-   ```html
-   <img src="/images/copilot-dev-agentic/agent-harness.png" width="600" alt="Agent harness architecture" />
-   ```
+3. Reference it in your Slidev file — prefer a **two-column layout** with takeaways on the left and the image on the right (`layout: two-cols`, `class: text-sm`, image at `width="420"`). For full-width images, use `layout: center`.
 
 ### Image manifest fields
 

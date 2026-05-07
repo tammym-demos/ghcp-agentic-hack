@@ -163,11 +163,33 @@ All slide images are stored centrally in `public/images/<workshop-folder-name>/`
 
 ### Referencing images in slides
 
-Use `<img>` tags with absolute paths:
+Use `<img>` tags with absolute paths. Prefer a **two-column layout** with key takeaways on the left and the image on the right:
 
-```html
-<img src="/images/copilot-dev-agentic/agent-harness.png" width="600" alt="Agent harness architecture" />
+```markdown
+---
+layout: two-cols
+class: text-sm
+---
+
+# Section Recap: Topic Name
+
+::left::
+
+### Key Takeaways
+
+<v-clicks>
+
+- **Point one** — brief explanation
+- **Point two** — brief explanation
+
+</v-clicks>
+
+::right::
+
+<img src="/images/<workshop>/image.png" width="420" alt="Description" />
 ```
+
+For images that need the full slide width, use `layout: center` instead.
 
 ### Rules
 
