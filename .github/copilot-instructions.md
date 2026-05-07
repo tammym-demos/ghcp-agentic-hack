@@ -13,8 +13,10 @@ workshops/
   copilot-dev-agentic/       # Module 2: Agentic Patterns (Slidev deck + LAB)
   copilot-dev-advanced/      # Module 3: Advanced Topics (Slidev deck + LAB)
   copilot-workshop-c++/      # Standalone: Zero to Agents C++ / ODrive variant
+  <workshop>/public → ../public  # Symlink/junction (gitignored, created by build script)
 public/
   images/                    # Centralized image assets for Slidev decks
+    copilot-dev-foundations/  # Images referenced by Module 1 slides
     copilot-dev-agentic/     # Images referenced by Module 2 slides
     copilot-dev-advanced/    # Images referenced by Module 3 slides
 site/                        # Astro site (landing page, lab pages)
@@ -23,7 +25,7 @@ site/                        # Astro site (landing page, lab pages)
   pages/[workshop]/lab.astro # Dynamic lab page route
   layouts/Base.astro         # Shared layout (header, dark theme)
 scripts/
-  build-site.mjs             # Full build: Slidev decks → Astro site → copy slides into dist
+  build-site.mjs             # Full build: creates public/ symlinks → Slidev decks → Astro site
 themes/                      # Slidev theme (github/)
 ```
 
@@ -163,6 +165,25 @@ All slide images live in `public/images/<workshop-folder-name>/`. This centraliz
 - Name files with kebab-case matching the concept shown (e.g., `memory-landscape.png`)
 - Create the workshop subfolder under `public/images/` if it does not exist yet
 - Always update `images.yaml` when adding, renaming, or removing images
+
+### How Slidev resolves images (public/ symlinks)
+
+Slidev uses the `.slidev.md` file's directory as its Vite project root, so `/images/...` resolves from a `public/` directory **next to the slidev file**, not the repo root. To share the centralized `public/` directory:
+
+- Each workshop folder has a `public` symlink (junction on Windows) pointing to the repo-root `public/` directory
+- These symlinks are **gitignored** (`workshops/*/public/` in `.gitignore`) — they are NOT committed
+- The build script (`scripts/build-site.mjs`) creates them automatically before building decks
+- For local dev, create them manually if needed:
+
+  ```powershell
+  # Windows (junction)
+  New-Item -ItemType Junction -Path workshops\copilot-dev-foundations\public -Target (Resolve-Path public).Path
+
+  # Linux/macOS (symlink)
+  ln -s ../../public workshops/copilot-dev-foundations/public
+  ```
+
+When adding a **new workshop folder**, the build script will auto-create the junction for it. No manual step is needed unless you want to preview locally before running a full build.
 
 ### Pre-build image sync check
 

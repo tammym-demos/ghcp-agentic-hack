@@ -177,3 +177,15 @@ Use `<img>` tags with absolute paths:
 - Name files with kebab-case matching the concept shown
 - Always update `images.yaml` when adding, renaming, or removing images
 - Do **not** place images in per-workshop `assets/` directories
+
+### How image resolution works
+
+Slidev resolves `/images/...` from a `public/` directory relative to the `.slidev.md` file. Each workshop folder has a gitignored `public` symlink (junction on Windows) pointing to the repo-root `public/` directory. The build script creates these automatically. For local preview, create it manually:
+
+```powershell
+# Windows
+New-Item -ItemType Junction -Path workshops\<folder>\public -Target (Resolve-Path public).Path
+
+# Linux/macOS
+ln -s ../../public workshops/<folder>/public
+```

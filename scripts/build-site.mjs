@@ -17,7 +17,7 @@
  */
 
 import { execSync } from 'child_process'
-import { readdirSync, readFileSync, existsSync, cpSync, writeFileSync, mkdirSync } from 'fs'
+import { readdirSync, readFileSync, existsSync, cpSync, writeFileSync, mkdirSync, symlinkSync, lstatSync, unlinkSync, rmSync } from 'fs'
 import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
 import { config as loadEnv } from 'dotenv'
@@ -29,6 +29,7 @@ const ROOT = resolve(__dirname, '..')
 // Load .env from repo root (won't override existing env vars)
 loadEnv({ path: resolve(ROOT, '.env') })
 const WORKSHOPS_DIR = resolve(ROOT, 'workshops')
+const PUBLIC_DIR = resolve(ROOT, 'public')
 const SITE_DIST = resolve(ROOT, 'dist', 'site')
 const BASE_PATH = process.env.BASE_PATH || '/GH-Hack/'
 const SHOW_DRAFTS = process.env.SHOW_DRAFTS === 'true'
@@ -36,6 +37,25 @@ const SHOW_DRAFTS = process.env.SHOW_DRAFTS === 'true'
 function run(cmd, opts = {}) {
   console.log(`\n> ${cmd}`)
   execSync(cmd, { stdio: 'inherit', cwd: ROOT, ...opts })
+}
+
+// --- Step 0: Create public/ symlinks in workshop folders ---
+// Slidev resolves /images/... from a public/ directory relative to the .slidev.md file.
+// We create symlinks (or junctions on Windows) pointing to the repo-root public/ directory.
+console.log('Setting up public/ symlinks for Slidev image resolution...')
+for (const dir of readdirSync(WORKSHOPS_DIR, { withFileTypes: true }).filter(d => d.isDirectory())) {
+  const linkPath = resolve(WORKSHOPS_DIR, dir.name, 'public')
+  try {
+    if (existsSync(linkPath)) {
+      const stat = lstatSync(linkPath)
+      if (stat.isSymbolicLink() || stat.isDirectory()) continue // already exists
+    }
+    symlinkSync(PUBLIC_DIR, linkPath, 'junction')
+    console.log(`  Created: workshops/${dir.name}/public → public/`)
+  } catch (e) {
+    // Junction may already exist from a previous run
+    if (e.code !== 'EEXIST') console.warn(`  Warning: could not create link for ${dir.name}: ${e.message}`)
+  }
 }
 
 // --- Step 1: Discover Slidev decks ---
