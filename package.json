@@ -3,15 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev:copilot": "slidev workshops/copilot-workshop/copilot-zero-to-agents.slidev.md",
-    "dev:copilot:full": "concurrently -n site,slides -c blue,green \"npm:dev:site\" \"npm:dev:copilot\"",
-    "dev:ado": "slidev workshops/ado-setup/ado-work-management.slidev.md",
-    "dev:ado-integration": "slidev workshops/github-ado-integration/gh-ado-integration-30min.slidev.md",
-    "dev:ado-integration:full": "slidev workshops/github-ado-integration/gh-ado-integration.slidev.md",
-    "dev:emu-oss": "slidev workshops/ghe-emu-oss/ghe-emu-oss.slidev.md",
-    "dev:ado:full": "concurrently -n site,slides -c blue,green \"npm:dev:site\" \"npm:dev:ado\"",
-    "build:copilot": "slidev build workshops/copilot-workshop/copilot-zero-to-agents.slidev.md --out dist/copilot-workshop",
-    "export:copilot": "slidev export workshops/copilot-workshop/copilot-zero-to-agents.slidev.md",
     "dev:site": "astro dev --root site",
     "build:site": "astro build --root site",
     "build:all": "node scripts/build-site.mjs"
@@ -22,7 +13,6 @@
   "devDependencies": {
     "@astrojs/markdown-remark": "^6.3.10",
     "astro": "^5.17.3",
-    "concurrently": "^9.2.1",
     "dotenv": "^17.3.1",
     "github-markdown-css": "^5.9.0",
     "marked": "^17.0.3"

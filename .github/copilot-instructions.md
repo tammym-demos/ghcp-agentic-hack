@@ -2,32 +2,32 @@
 
 ## What This Repo Is
 
-A **content-only** repository of GitHub workshop/training materials for enterprise customers. No application code — only Markdown documents organized as paired slide decks and workshop guides.
+A **content-only** repository of GitHub Copilot developer training materials. The content is organized as a modular curriculum of Slidev slide decks and hands-on labs.
 
 ## Repository Structure
 
 ```
 workshops/
-  copilot-workshop/        # Copilot Zero to Agents — workshop, Slidev deck, demo-scripts, LAB
-  copilot-governance/      # Copilot governance workshop
-  ghe-governance/          # GitHub Enterprise governance workshop
-  github-ado-integration/  # GitHub + Azure DevOps integration workshop
-  github-migration/        # Platform migration guides (subfolders: ADO, Atlassian, Bitbucket, Gitlab)
-  github-setup/            # GitHub setup configurations workshop
-site/                      # Astro site (landing page, lab pages)
-  astro.config.mjs         # Astro config — base path set to /GH-Hack/
-  pages/index.astro        # Main landing page with workshop cards
+  copilot-dev-training/      # Parent curriculum — planning docs, module index
+  copilot-dev-foundations/   # Module 1: Foundations (Slidev deck + LAB)
+  copilot-dev-agentic/       # Module 2: Agentic Patterns (Slidev deck + LAB)
+  copilot-dev-advanced/      # Module 3: Advanced Topics (Slidev deck + LAB)
+  copilot-workshop-c++/      # Standalone: Zero to Agents C++ / ODrive variant
+public/
+  images/                    # Centralized image assets for Slidev decks
+    copilot-dev-agentic/     # Images referenced by Module 2 slides
+    copilot-dev-advanced/    # Images referenced by Module 3 slides
+site/                        # Astro site (landing page, lab pages)
+  astro.config.mjs           # Astro config — base path set to /ghcp-agentic-hack/
+  pages/index.astro          # Main landing page with workshop cards
   pages/[workshop]/lab.astro # Dynamic lab page route
-  layouts/Base.astro       # Shared layout (header, dark theme)
+  layouts/Base.astro         # Shared layout (header, dark theme)
 scripts/
-  build-site.mjs           # Full build: Slidev decks → Astro site → copy slides into dist
-themes/                    # Slidev theme (github/)
-EMU-setup.md               # EMU setup reference guide (root level)
+  build-site.mjs             # Full build: Slidev decks → Astro site → copy slides into dist
+themes/                      # Slidev theme (github/)
 ```
 
-All workshops live under `workshops/` in topic-specific subfolders. Each topic has a **paired set**: `*-workshop.md` + `*.slidev.md`. The **workshop is the source of truth**; the Slidev deck must stay aligned with it. The `copilot-workshop` topic also has a `*-demo-scripts.md` and a `*-LAB.md`.
-
-> **Note**: Legacy `*-slides.md` files still exist in some workshop folders. These are **deprecated** — the `*.slidev.md` file replaces them. Do not create new `*-slides.md` files. Remove them once the corresponding Slidev deck is complete.
+Each module folder contains a `*.slidev.md` slide deck and an optional `*-LAB.md` for hands-on exercises. The `copilot-dev-training/` parent folder holds curriculum-level planning documents.
 
 ## Astro Site & Local Preview
 
@@ -39,53 +39,52 @@ node scripts/build-site.mjs
 
 This builds all Slidev decks, then the Astro site, then copies slide outputs into `dist/site/`.
 
-> **Important — Base Path Nuance**: The Astro site is configured with `base: '/GH-Hack/'` (in `site/astro.config.mjs`) because GitHub Pages serves from `https://<user>.github.io/GH-Hack/`. This means **all built asset paths** (CSS, JS, links) are prefixed with `/GH-Hack/`. When previewing locally, you cannot serve `dist/site/` directly — the assets will 404. Instead, create a wrapper directory so the path matches:
+> **Important — Base Path Nuance**: The Astro site is configured with `base: '/ghcp-agentic-hack/'` (in `site/astro.config.mjs`) because GitHub Pages serves from `https://<user>.github.io/ghcp-agentic-hack/`. This means **all built asset paths** (CSS, JS, links) are prefixed with `/ghcp-agentic-hack/`. When previewing locally, you cannot serve `dist/site/` directly — the assets will 404. Instead, create a wrapper directory so the path matches:
 
 ```powershell
-# Create a junction so /GH-Hack/ resolves to dist/site/
-New-Item -ItemType Junction -Path dist\local-preview\GH-Hack -Target (Resolve-Path dist\site).Path -Force
+# Create a junction so /ghcp-agentic-hack/ resolves to dist/site/
+New-Item -ItemType Junction -Path dist\local-preview\ghcp-agentic-hack -Target (Resolve-Path dist\site).Path -Force
 
 # Serve from the wrapper directory
 npx http-server dist/local-preview -p 4201 -c-1 --cors -s
 
-# Then open: http://localhost:4201/GH-Hack/
+# Then open: http://localhost:4201/ghcp-agentic-hack/
 ```
 
 Do **not** modify the base path to `/` for local testing — it will break the GitHub Pages deployment.
 
-## Critical Rule: Workshop ↔ Slidev Synchronization
+## Critical Rule: Slidev Deck ↔ LAB Synchronization
 
-When editing either file in a pair, **always check the other for consistency**. These must match exactly between both files:
-- Agenda tables (section names, timing, order)
-- Pros/Cons/Requirements tables (identical rows, headers, wording)
-- Architecture & decision flowchart diagrams (verbatim)
-- "When to Choose" / "Think twice if" bullet lists
+When editing either file in a module, **always check the other for consistency**. These must match between slides and labs:
+
+- Section names, ordering, and scope
 - Feature comparison matrices and data tables
+- Architecture & decision flowchart diagrams (verbatim)
 
 ## Document Structure Conventions
 
 ### Slidev Files (`*.slidev.md`)
 - **Frontmatter**: YAML frontmatter with `theme`, `title`, `info`, layout, and transition settings
-- **Theme reference**: `theme: ../../themes/github` (relative path from workshop subfolder to repo root)
+- **Theme reference**: `theme: ../themes/github` (relative path from workshop subfolder to repo root)
 - **Slide separator**: `---` between every slide
-- **Speaker notes**: `<!-- notes -->` HTML comments below slide content (replaces the old `> **Presenter Note**:` pattern)
+- **Speaker notes**: `<!-- notes -->` HTML comments below slide content
 - **Section dividers**: Use `layout: section` in slide frontmatter
 - **Demo transitions**: `layout: demo` for live demo slides
 - **Breaks**: Slide with `# ☕ Break — 10 Minutes`
 - **Mermaid diagrams**: Native `mermaid` fenced code blocks (rendered by Slidev)
+- **Images**: Use centralized `public/images/<workshop>/` assets with `<img>` tags (see Images section below)
 - **Markdownlint**: Disabled in Slidev files via `.markdownlintignore` or `<!-- markdownlint-disable -->` at the top
 
-### Legacy Slides Files (`*-slides.md`) — DEPRECATED
-- Still present in some workshop folders; will be removed once Slidev decks replace them
-- Do **not** create new `*-slides.md` files — use `*.slidev.md` instead
-- If both exist for a topic, the `*.slidev.md` is the authoritative presentation file
+### LAB Files (`*-LAB.md`)
+- Hands-on exercises with step-by-step instructions
+- `### Success Criteria` with `✅` checkmarks
+- Fenced code blocks for all commands and prompts (ensures copy button on GitHub)
 
-### Workshop Files (`*-workshop.md`)
-- **Header**: H1 title (ends with "Workshop" or "Workshop Guide") → bold metadata fields → `## Workshop Overview` → `### Learning Objectives`
+### Workshop Files (`*-workshop.md`) — Legacy
+- Some modules may still have workshop guide files; the Slidev deck + LAB are the primary deliverables
+- **Header**: H1 title → bold metadata fields → `## Workshop Overview` → `### Learning Objectives`
 - **Sections**: `## N. Section Title (XX min)` (H2, numbered, with time in parentheses)
-- **Subsections**: `### Key Points`, `### 🖥️ Demo: Title`, `### Discussion Points` (3-4 questions at section end)
-- **Hands-on** (copilot-workshops only): `### Success Criteria` with `✅` checkmarks
-- **Appendix**: H2 `## Appendix` — includes Key URLs table, checklists, Backup Plan
+- **Subsections**: `### Key Points`, `### 🖥️ Demo: Title`, `### Discussion Points`
 
 ### Both Files
 - **No GitHub-flavored admonition syntax** (`[!NOTE]`, `[!TIP]`) — use `> **Note**:` pattern instead
@@ -95,13 +94,10 @@ When editing either file in a pair, **always check the other for consistency**. 
 
 | Pattern | Format | Example |
 |---------|--------|---------|
-| **Pros/Cons/Requirements** | `\| ✅ Pros \| ✗ Cons \| 📋 Requirements \|` | All decision-support tables |
-| **Feature support** | ✅ / ✗ / ⚠️ | EMU vs GHEC comparisons |
+| **Feature support** | ✅ / ✗ / ⚠️ | Feature comparisons |
 | **Feature checkmarks** | ✓ / ✗ (plain) | License tier comparisons |
 | **Complexity traffic light** | 🟢 Low / 🟡 Medium / 🔴 High | Comparison matrices |
-| **Scenario color labels** | 🔵 EMU, 🟢 Multi-Org, 🟠 Mixed/GHES, 🟣 GHE.com | `gh-setup-configurations` files |
 | **Agenda (slides)** | 2-col: `\| Time \| Topic \|` | Slide 2 in every deck |
-| **Agenda (workshop)** | 3-col: `\| Section \| Topic \| Time \|` | Workshop agenda sections |
 | **Break markers** | ☕ (short breaks), 🍽️ (longer breaks) | Agenda tables |
 
 ## Diagram Conventions
@@ -116,10 +112,34 @@ All diagrams use **Unicode box-drawing characters** inside fenced code blocks (n
 ```markdown
 > **Note**: General informational callout (both files)
 > **Important**: Critical information callout
-> **Presenter Note**: *"Talk-track text"* (slides only)
 > 💡 **Title**: Insight or tip callout
-> **🟣 Consider GHE.com first**: Advisory evaluation callout
 ```
+
+## Images
+
+All slide images live in `public/images/<workshop-folder-name>/`. This centralized structure is shared by all Slidev decks.
+
+### Adding images
+
+1. Place the image in the correct subfolder:
+
+   ```
+   public/images/copilot-dev-agentic/agent-harness.png
+   ```
+
+2. Reference it in your Slidev file with an absolute path:
+
+   ```html
+   <img src="/images/copilot-dev-agentic/agent-harness.png" width="600" alt="Agent harness architecture" />
+   ```
+
+### Image rules
+
+- Use `<img>` tags (not markdown `![]()`) for `width` and `alt` control
+- Always include `width` and `alt` attributes
+- Keep images under 500 KB; prefer PNG for diagrams, SVG where possible
+- Name files with kebab-case matching the concept shown (e.g., `memory-landscape.png`)
+- Create the workshop subfolder under `public/images/` if it does not exist yet
 
 ## Content Guidelines
 

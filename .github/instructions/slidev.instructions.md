@@ -145,3 +145,24 @@ The mermaid glass container is set to `width: 100%` so it fills the slide width.
 4. **Blank lines around HTML divs** — Slidev needs blank lines before/after `<div>` blocks for markdown parsing
 5. **Speaker notes in comments** — use `<!-- -->` not `> **Presenter Note**:` in the slidev file
 6. **Cover slide uses layout: cover in frontmatter** — the first slide's layout is set in the document frontmatter, not in a slide separator
+
+## Images
+
+All slide images are stored centrally in `public/images/<workshop-folder-name>/`.
+
+### Referencing images
+
+Use `<img>` tags with absolute paths:
+
+```html
+<img src="/images/copilot-dev-agentic/agent-harness.png" width="600" alt="Agent harness architecture" />
+```
+
+### Rules
+
+- Use `<img>` tags (not markdown `![]()`) for `width` and `alt` control
+- Always include `width` and `alt` attributes
+- Keep images under 500 KB; prefer PNG for diagrams, SVG where possible
+- Name files with kebab-case matching the concept shown
+- Create the workshop subfolder under `public/images/` if it does not exist yet
+- Do **not** place images in per-workshop `assets/` directories

@@ -182,7 +182,7 @@ An **off-ramp** tells the agent to pause when it is stuck, uncertain, or outside
 
 ::right::
 
-<img src="./assets/agent-off-ramp.png" width="500" alt="Agent off-ramp decision flow" />
+<img src="/images/copilot-dev-agentic/agent-off-ramp.png" width="500" alt="Agent off-ramp decision flow" />
 
 <div class="gh-callout gh-callout-purple">
 
@@ -368,7 +368,7 @@ An **agent harness** is the runtime/framework that orchestrates model calls, too
 
 ::right::
 
-<img src="./assets/agent-harness.png" width="600" alt="Agent harness architecture" />
+<img src="/images/copilot-dev-agentic/agent-harness.png" width="600" alt="Agent harness architecture" />
 
 <div class="gh-callout gh-callout-blue">
 

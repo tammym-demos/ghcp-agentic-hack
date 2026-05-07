@@ -625,7 +625,7 @@ class: text-xs
 
 ::right::
 
-<img src="./assets/memory-landscape.png" width="600" alt="Memory types and scope" />
+<img src="/images/copilot-dev-advanced/memory-landscape.png" width="600" alt="Memory types and scope" />
 
 <div class="gh-callout gh-callout-blue">
 

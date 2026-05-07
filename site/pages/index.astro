@@ -12,69 +12,13 @@ const showDrafts: boolean = __SHOW_DRAFTS__
 const workshopMeta: Record<string, { label: string; desc: string; icon: string; modules?: { folder: string; label: string; desc: string; icon: string }[] }> = {
   'copilot-dev-training': {
     label: 'Zero to Agentic: GitHub Copilot',
-    desc: '5-hour developer workshop — foundations, agentic patterns, advanced topics, and hands-on hack.',
+    desc: '4.5-hour developer workshop — foundations, agentic patterns, and advanced topics.',
     icon: '🎓',
     modules: [
       { folder: 'copilot-dev-foundations', label: 'Module 1: Foundations', desc: '90 min · Chat tour, GitHub CLI, context & instructions, models & tokens', icon: '🎓' },
       { folder: 'copilot-dev-agentic', label: 'Module 2: Agentic Patterns', desc: '90 min · Context management, project bootstrap, agents & skills, agentic loops', icon: '🤖' },
-      { folder: 'copilot-dev-advanced', label: 'Module 3: Advanced Topics', desc: '90 min · Agent architecture patterns, MCP setup, debugging, full-stack agents', icon: '🔬' },
-      { folder: 'copilot-dev-hack', label: 'Module 4: Hack', desc: '45-minute hackathon · Build custom agents for real business problems', icon: '🚀' }
+      { folder: 'copilot-dev-advanced', label: 'Module 3: Advanced Topics', desc: '90 min · Agent architecture patterns, MCP setup, debugging, full-stack agents', icon: '🔬' }
     ]
-  },
-  'copilot-governance': {
-    label: 'Copilot Governance',
-    desc: 'Governance and policy framework for GitHub Copilot at enterprise scale.',
-    icon: '🛡️'
-  },
-  'ghe-governance': {
-    label: 'GHE Governance',
-    desc: 'GitHub Enterprise governance patterns and administration best practices.',
-    icon: '🏛️'
-  },
-  'github-ado-integration': {
-    label: 'GitHub + ADO Integration',
-    desc: 'Integrating GitHub with Azure DevOps for enterprise workflows.',
-    icon: '🔗'
-  },
-  'github-setup': {
-    label: 'GitHub Setup Configurations',
-    desc: 'Configuration options and setup patterns for GitHub Enterprise.',
-    icon: '⚙️'
-  },
-  'github-migration': {
-    label: 'Platform Migration',
-    desc: 'Step-by-step migration guides from Bitbucket, GitLab, ADO, and Atlassian.',
-    icon: '🚀'
-  },
-  'ghas': {
-    label: 'GitHub Advanced Security',
-    desc: 'Code scanning, secret detection, and supply chain security for enterprise repositories.',
-    icon: '🔒'
-  },
-  'ado-setup': {
-    label: 'ADO Work Management',
-    desc: 'Portfolio, project, and team delivery views in Azure DevOps with Planner integration and UAT.',
-    icon: '📋'
-  },
-  'ado-governance': {
-    label: 'ADO Governance',
-    desc: 'Establishing Azure DevOps as a curated managed service with formal governance, provisioning, and lifecycle management.',
-    icon: '🏗️'
-  },
-  'copilot-governance-intro': {
-    label: 'Copilot Governance — Intro',
-    desc: 'A concise introduction to GitHub Copilot governance for executive and leadership audiences.',
-    icon: '🛡️'
-  },
-  'ghe-team-management': {
-    label: 'GHE Team Management',
-    desc: 'Managing teams, roles, and access patterns at scale inside GitHub Enterprise.',
-    icon: '👥'
-  },
-  'ghe-emu-oss': {
-    label: 'EMU + Open Source Consumption',
-    desc: 'Practical patterns for consuming open source packages and source code inside GitHub Enterprise Managed Users — approve, mirror, and stay updated.',
-    icon: '📦'
   },
   'copilot-workshop-c++': {
     label: 'GitHub Copilot: Zero to Agents C++',
