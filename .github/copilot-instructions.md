@@ -164,6 +164,17 @@ All slide images live in `public/images/<workshop-folder-name>/`. This centraliz
 - Create the workshop subfolder under `public/images/` if it does not exist yet
 - Always update `images.yaml` when adding, renaming, or removing images
 
+### Pre-build image sync check
+
+Before running any build (`npm run build:site`, `npm run build:all`, or `npx slidev build`), review each `public/images/*/images.yaml` manifest for consistency:
+
+1. **Every image file** in the directory has a corresponding entry in `images.yaml`
+2. **Every manifest entry** references a file that actually exists
+3. **Every `<img>` tag** in the matching Slidev deck uses the `alt`, `width`, and `src` from the manifest
+4. **Slide titles** in the manifest still match the actual `# Heading` in the Slidev file
+
+If any mismatches are found, fix them before proceeding with the build.
+
 ## Content Guidelines
 
 - **Audience**: Enterprise admins, IT decision makers, engineering managers — not beginners
