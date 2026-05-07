@@ -297,12 +297,32 @@ Encourage attendees to start with a real command they already use so the compari
 -->
 
 ---
-layout: center
+layout: two-cols
+class: text-sm
 ---
 
 # Section Recap: VS Code & CLI
 
-<img src="/images/copilot-dev-foundations/foundation-vscode-cli.png" width="550" alt="VS Code chat entry points, Ask vs Edit vs Agent modes, and gh copilot CLI" />
+::left::
+
+### Key Takeaways
+
+<v-clicks>
+
+- **Three chat surfaces** — Panel for planning, Inline for edits, Quick Chat for one-off questions
+- **Pick the right mode** — Ask to understand, Edit to modify, Agent for multi-step autonomy
+- **`gh copilot`** bridges the terminal gap — explain opaque syntax or get command suggestions
+- **Extensions** add workflow glue for recurring GitHub tasks
+
+</v-clicks>
+
+::right::
+
+<img src="/images/copilot-dev-foundations/foundation-vscode-cli.png" width="420" alt="VS Code chat entry points, Ask vs Edit vs Agent modes, and gh copilot CLI" />
+
+<!-- notes
+Use this recap to reinforce the mental model: surfaces control where you work, modes control how much autonomy you give Copilot, and the CLI extends that to the terminal.
+-->
 
 ---
 layout: section
@@ -612,12 +632,32 @@ Invite attendees to compare the same prompt across at least two models so the tr
 -->
 
 ---
-layout: center
+layout: two-cols
+class: text-sm
 ---
 
 # Section Recap: Context & Models
 
-<img src="/images/copilot-dev-foundations/foundation-context-models.png" width="550" alt="Instruction layering hierarchy, token budgeting, and model selection strategy" />
+::left::
+
+### Key Takeaways
+
+<v-clicks>
+
+- **Layered instructions** — repo-level standards → folder-level patterns → file-level constraints
+- **Token budgeting** — start fresh sessions, target context with `#file`, keep instructions lean
+- **Model selection** — GPT-4o for speed, Claude Sonnet for reasoning, Premium for complex architecture
+- **Better prompting is cheaper prompting** — precise context improves quality AND reduces waste
+
+</v-clicks>
+
+::right::
+
+<img src="/images/copilot-dev-foundations/foundation-context-models.png" width="420" alt="Instruction layering hierarchy, token budgeting, and model selection strategy" />
+
+<!-- notes
+This recap ties together the two halves of the section: how to structure what Copilot sees (instructions and context) and how to choose the model that processes it.
+-->
 
 ---
 layout: end
