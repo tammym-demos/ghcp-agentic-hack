@@ -36,7 +36,9 @@ layout: cover
 | `section` | Section divider with accent bar | Section transitions |
 | `default` | Standard content with dot grid + glow | Most content slides |
 | `center` | Centered content with radial glow | Single-concept or quote slides |
-| `two-cols` | Two-column with gradient divider | Comparisons, side-by-side |
+| `statement` | Bold gradient text, centered | Memorable one-liner between dense slides |
+| `image-right` | Content left, framed image right | Content slides with a supporting visual |
+| `two-cols` | Two-column with gradient divider | Comparisons, side-by-side data |
 | `demo` | Demo transition with 🖥️ icon | Before live demos |
 | `end` | Closing slide with dual glow orbs | Last 1-2 slides |
 
@@ -101,9 +103,20 @@ Variants: `gh-box` (neutral), `gh-box-accent` (blue), `gh-box-copilot` (purple),
 
 Colors: `gh-badge-blue`, `gh-badge-green`, `gh-badge-purple`, `gh-badge-yellow`, `gh-badge-red`
 
+## Slide Design Philosophy
+
+- **Visual-first** — most slides should combine text and a visual element (image, diagram, or cards). Avoid walls of text.
+- **One concept per slide** — if content overflows, split into two slides
+- **Cards over tables** — when comparing 2-4 items, use `gh-box-*` cards in a grid instead of a table. Tables are for 5+ rows of data.
+- **Statement slides** — use `layout: statement` between dense sections to land a memorable one-liner. The audience remembers sentences, not tables.
+- **Progressive reveal** — use `<v-clicks>` for lists and cards so items appear one at a time during presentation
+- **Fewer words** — aim for max 3-4 bullets per slide, max ~8 words per bullet. Let presenter notes carry the detail.
+
 ## Slide Structure Conventions
 
-- **Content slides**: `# Title` → `### Subtitle` → content (table, list, code) → optional callout div
+- **Content slides**: `# Title` → `### Subtitle` → content (cards, list, code) → optional callout div
+- **Content slides with images**: Use `layout: image-right` — text/bullets on left, image on right via `::image::` slot
+- **Statement slides**: Use `layout: statement` — a single `# Heading` plus one `p` line
 - **Section dividers**: Use `layout: section` — content is just `# Section Title`
 - **Demo slides**: Use `layout: demo` — `# 🖥️ LIVE DEMO` → `### Demo Title` → bullet list of what to show
 - **Presenter notes**: Use HTML comments `<!-- notes here -->`
@@ -141,14 +154,21 @@ The mermaid glass container is set to `width: 100%` so it fills the slide width.
 
 1. **No scrolling** — every slide must fit in the viewport. Use `text-sm` or `text-xs` class
 2. **One concept per slide** — if content overflows, split into two slides
-3. **Callouts at bottom** — place `gh-callout` divs as the last content element
-4. **Blank lines around HTML divs** — Slidev needs blank lines before/after `<div>` blocks for markdown parsing
-5. **Speaker notes in comments** — use `<!-- -->` not `> **Presenter Note**:` in the slidev file
-6. **Cover slide uses layout: cover in frontmatter** — the first slide's layout is set in the document frontmatter, not in a slide separator
+3. **Images on content slides** — use `layout: image-right`, never standalone image-only slides
+4. **Cards over tables** — for 2-4 items, use `gh-box-*` cards in a `grid` instead of a table
+5. **Statement slides for impact** — use `layout: statement` for memorable one-liners between dense content
+6. **Callouts at bottom** — place `gh-callout` divs as the last content element
+7. **Blank lines around HTML divs** — Slidev needs blank lines before/after `<div>` blocks for markdown parsing
+8. **Speaker notes in comments** — use `<!-- -->` not `> **Presenter Note**:` in the slidev file
+9. **Cover slide uses layout: cover in frontmatter** — the first slide's layout is set in the document frontmatter, not in a slide separator
 
 ## Images
 
 All slide images are stored centrally in `public/images/<workshop-folder-name>/`. Each subfolder contains an `images.yaml` manifest that maps images to slides.
+
+### Core principle
+
+Images belong **on existing content slides**, not on standalone image-only slides. Use the `image-right` layout to pair an image with the slide's text content. Do **not** create separate recap or image-only slides.
 
 ### Manifest format
 
@@ -156,49 +176,45 @@ All slide images are stored centrally in `public/images/<workshop-folder-name>/`
 - file: agent-harness.png
   slide: "What is an Agent Harness?"   # exact slide heading
   alt: "Agent harness architecture"
-  width: 600
-  position: right                      # right (two-cols), center, below
+  position: right                      # right (image-right layout) or center
   section: "Agent Architecture"        # logical section (optional)
 ```
 
-### Referencing images in slides
+### Using `image-right` layout
 
-Use `<img>` tags with absolute paths. Prefer a **two-column layout** with key takeaways on the left and the image on the right:
+Place the image in the `::image::` slot. The layout frames it with a glass border and ambient glow:
 
 ```markdown
 ---
-layout: two-cols
+layout: image-right
 class: text-sm
 ---
 
-# Section Recap: Topic Name
-
-::left::
-
-### Key Takeaways
+# Slide Title
 
 <v-clicks>
 
-- **Point one** — brief explanation
-- **Point two** — brief explanation
+- **Key point** — brief explanation
+- **Another point** — brief explanation
 
 </v-clicks>
 
-::right::
+::image::
 
-<img src="/images/<workshop>/image.png" width="420" alt="Description" />
+<img src="/images/<workshop>/image.png" alt="Description" />
 ```
 
-For images that need the full slide width, use `layout: center` instead.
+The layout auto-sizes the image. For full-width visuals (rare), use `layout: center` instead.
 
 ### Rules
 
-- Use `<img>` tags (not markdown `![]()`) for `width` and `alt` control
-- Always include `width` and `alt` attributes
+- Use `<img>` tags (not markdown `![]()`) for `alt` control
+- Always include `alt` attributes
 - Keep images under 500 KB; prefer PNG for diagrams, SVG where possible
 - Name files with kebab-case matching the concept shown
 - Always update `images.yaml` when adding, renaming, or removing images
 - Do **not** place images in per-workshop `assets/` directories
+- Do **not** create standalone image-only slides — embed images into content slides
 
 ### How image resolution works
 

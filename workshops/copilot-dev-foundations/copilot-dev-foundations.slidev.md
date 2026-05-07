@@ -297,15 +297,11 @@ Encourage attendees to start with a real command they already use so the compari
 -->
 
 ---
-layout: two-cols
+layout: image-right
 class: text-sm
 ---
 
 # Section Recap: VS Code & CLI
-
-::left::
-
-### Key Takeaways
 
 <v-clicks>
 
@@ -316,9 +312,9 @@ class: text-sm
 
 </v-clicks>
 
-::right::
+::image::
 
-<img src="/images/copilot-dev-foundations/foundation-vscode-cli.png" width="420" alt="VS Code chat entry points, Ask vs Edit vs Agent modes, and gh copilot CLI" />
+<img src="/images/copilot-dev-foundations/foundation-vscode-cli.png" alt="VS Code chat entry points, Ask vs Edit vs Agent modes, and gh copilot CLI" />
 
 <!-- notes
 Use this recap to reinforce the mental model: surfaces control where you work, modes control how much autonomy you give Copilot, and the CLI extends that to the terminal.
@@ -632,15 +628,11 @@ Invite attendees to compare the same prompt across at least two models so the tr
 -->
 
 ---
-layout: two-cols
+layout: image-right
 class: text-sm
 ---
 
 # Section Recap: Context & Models
-
-::left::
-
-### Key Takeaways
 
 <v-clicks>
 
@@ -651,9 +643,9 @@ class: text-sm
 
 </v-clicks>
 
-::right::
+::image::
 
-<img src="/images/copilot-dev-foundations/foundation-context-models.png" width="420" alt="Instruction layering hierarchy, token budgeting, and model selection strategy" />
+<img src="/images/copilot-dev-foundations/foundation-context-models.png" alt="Instruction layering hierarchy, token budgeting, and model selection strategy" />
 
 <!-- notes
 This recap ties together the two halves of the section: how to structure what Copilot sees (instructions and context) and how to choose the model that processes it.

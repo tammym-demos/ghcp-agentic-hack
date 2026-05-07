@@ -132,6 +132,10 @@ All diagrams use **Unicode box-drawing characters** inside fenced code blocks (n
 
 All slide images live in `public/images/<workshop-folder-name>/`. This centralized structure is shared by all Slidev decks.
 
+### Core principle
+
+Images belong **on existing content slides** using the `image-right` layout — not on standalone image-only slides. Every image should accompany the text it supports.
+
 ### Adding images
 
 1. Place the image in the correct subfolder:
@@ -146,12 +150,27 @@ All slide images live in `public/images/<workshop-folder-name>/`. This centraliz
    - file: agent-harness.png
      slide: "What is an Agent Harness?"
      alt: "Agent harness architecture"
-     width: 600
      position: right
      section: "Agent Architecture"
    ```
 
-3. Reference it in your Slidev file — prefer a **two-column layout** with takeaways on the left and the image on the right (`layout: two-cols`, `class: text-sm`, image at `width="420"`). For full-width images, use `layout: center`.
+3. Use `layout: image-right` on the target slide. Place the image in the `::image::` slot:
+
+   ```markdown
+   ---
+   layout: image-right
+   class: text-sm
+   ---
+
+   # What is an Agent Harness?
+
+   - **Point one** — explanation
+   - **Point two** — explanation
+
+   ::image::
+
+   <img src="/images/copilot-dev-agentic/agent-harness.png" alt="Agent harness architecture" />
+   ```
 
 ### Image manifest fields
 
@@ -160,18 +179,18 @@ All slide images live in `public/images/<workshop-folder-name>/`. This centraliz
 | `file` | ✅ | Image filename |
 | `slide` | ✅ | Target slide title (exact `# Heading` text) |
 | `alt` | ✅ | Alt text for accessibility |
-| `width` | ✅ | Display width in pixels |
-| `position` | No | Placement hint: `right` (two-cols), `center`, `below` |
+| `position` | No | `right` (image-right layout) or `center` (full-width) |
 | `section` | No | Logical section the slide belongs to |
 
 ### Image rules
 
-- Use `<img>` tags (not markdown `![]()`) for `width` and `alt` control
-- Always include `width` and `alt` attributes
+- Use `<img>` tags (not markdown `![]()`) for `alt` control
+- Always include `alt` attributes
 - Keep images under 500 KB; prefer PNG for diagrams, SVG where possible
 - Name files with kebab-case matching the concept shown (e.g., `memory-landscape.png`)
 - Create the workshop subfolder under `public/images/` if it does not exist yet
 - Always update `images.yaml` when adding, renaming, or removing images
+- Do **not** create standalone image-only slides — embed images into content slides
 
 ### How Slidev resolves images (public/ symlinks)
 
@@ -198,7 +217,7 @@ Before running any build (`npm run build:site`, `npm run build:all`, or `npx sli
 
 1. **Every image file** in the directory has a corresponding entry in `images.yaml`
 2. **Every manifest entry** references a file that actually exists
-3. **Every `<img>` tag** in the matching Slidev deck uses the `alt`, `width`, and `src` from the manifest
+3. **Every `<img>` tag** in the matching Slidev deck uses the `alt` and `src` from the manifest
 4. **Slide titles** in the manifest still match the actual `# Heading` in the Slidev file
 
 If any mismatches are found, fix them before proceeding with the build.
