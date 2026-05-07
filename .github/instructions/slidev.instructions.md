@@ -148,9 +148,20 @@ The mermaid glass container is set to `width: 100%` so it fills the slide width.
 
 ## Images
 
-All slide images are stored centrally in `public/images/<workshop-folder-name>/`.
+All slide images are stored centrally in `public/images/<workshop-folder-name>/`. Each subfolder contains an `images.yaml` manifest that maps images to slides.
 
-### Referencing images
+### Manifest format
+
+```yaml
+- file: agent-harness.png
+  slide: "What is an Agent Harness?"   # exact slide heading
+  alt: "Agent harness architecture"
+  width: 600
+  position: right                      # right (two-cols), center, below
+  section: "Agent Architecture"        # logical section (optional)
+```
+
+### Referencing images in slides
 
 Use `<img>` tags with absolute paths:
 
@@ -164,5 +175,5 @@ Use `<img>` tags with absolute paths:
 - Always include `width` and `alt` attributes
 - Keep images under 500 KB; prefer PNG for diagrams, SVG where possible
 - Name files with kebab-case matching the concept shown
-- Create the workshop subfolder under `public/images/` if it does not exist yet
+- Always update `images.yaml` when adding, renaming, or removing images
 - Do **not** place images in per-workshop `assets/` directories

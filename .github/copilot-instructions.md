@@ -127,11 +127,33 @@ All slide images live in `public/images/<workshop-folder-name>/`. This centraliz
    public/images/copilot-dev-agentic/agent-harness.png
    ```
 
-2. Reference it in your Slidev file with an absolute path:
+2. Add an entry to the `images.yaml` manifest in that subfolder:
+
+   ```yaml
+   - file: agent-harness.png
+     slide: "What is an Agent Harness?"
+     alt: "Agent harness architecture"
+     width: 600
+     position: right
+     section: "Agent Architecture"
+   ```
+
+3. Reference it in your Slidev file with an absolute path:
 
    ```html
    <img src="/images/copilot-dev-agentic/agent-harness.png" width="600" alt="Agent harness architecture" />
    ```
+
+### Image manifest fields
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `file` | ✅ | Image filename |
+| `slide` | ✅ | Target slide title (exact `# Heading` text) |
+| `alt` | ✅ | Alt text for accessibility |
+| `width` | ✅ | Display width in pixels |
+| `position` | No | Placement hint: `right` (two-cols), `center`, `below` |
+| `section` | No | Logical section the slide belongs to |
 
 ### Image rules
 
@@ -140,6 +162,7 @@ All slide images live in `public/images/<workshop-folder-name>/`. This centraliz
 - Keep images under 500 KB; prefer PNG for diagrams, SVG where possible
 - Name files with kebab-case matching the concept shown (e.g., `memory-landscape.png`)
 - Create the workshop subfolder under `public/images/` if it does not exist yet
+- Always update `images.yaml` when adding, renaming, or removing images
 
 ## Content Guidelines
 
