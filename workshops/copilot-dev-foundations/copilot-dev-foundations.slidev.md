@@ -297,6 +297,14 @@ Encourage attendees to start with a real command they already use so the compari
 -->
 
 ---
+layout: center
+---
+
+# Section Recap: VS Code & CLI
+
+<img src="/images/copilot-dev-foundations/foundation-vscode-cli.png" width="550" alt="VS Code chat entry points, Ask vs Edit vs Agent modes, and gh copilot CLI" />
+
+---
 layout: section
 ---
 
@@ -602,6 +610,14 @@ Switch models, compare response style, and observe how context choices affect to
 <!-- notes
 Invite attendees to compare the same prompt across at least two models so the trade-offs are concrete.
 -->
+
+---
+layout: center
+---
+
+# Section Recap: Context & Models
+
+<img src="/images/copilot-dev-foundations/foundation-context-models.png" width="550" alt="Instruction layering hierarchy, token budgeting, and model selection strategy" />
 
 ---
 layout: end

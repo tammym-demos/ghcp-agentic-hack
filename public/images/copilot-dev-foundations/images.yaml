@@ -1,0 +1,16 @@
+# Image manifest for copilot-dev-foundations Slidev deck
+# Used by Copilot to place images on the correct slides
+
+- file: foundation-vscode-cli.png
+  slide: "Section Recap: VS Code & CLI"
+  alt: "VS Code chat entry points, Ask vs Edit vs Agent modes, and gh copilot CLI"
+  width: 550
+  position: center
+  section: "VS Code & CLI"
+
+- file: foundation-context-models.png
+  slide: "Section Recap: Context & Models"
+  alt: "Instruction layering hierarchy, token budgeting, and model selection strategy"
+  width: 550
+  position: center
+  section: "Context & Models"
