@@ -12,6 +12,7 @@ workshops/
   copilot-dev-foundations/   # Module 1: Foundations (Slidev deck + LAB)
   copilot-dev-agentic/       # Module 2: Agentic Patterns (Slidev deck + LAB)
   copilot-dev-advanced/      # Module 3: Advanced Topics (Slidev deck + LAB)
+  copilot-dev-hack/          # Module 4: Hack (Slidev deck + workshop guide)
   copilot-workshop-c++/      # Standalone: Zero to Agents C++ / ODrive variant
   <workshop>/public → ../public  # Symlink/junction (gitignored, created by build script)
 public/
