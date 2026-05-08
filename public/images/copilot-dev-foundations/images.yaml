@@ -1,14 +1,69 @@
-# Image manifest for copilot-dev-foundations Slidev deck
-# Used by Copilot to place images on the correct slides
+- file: slide-02-1-610d49b4.png
+  slide: "Slide 2"
+  alt: "Slide 2"
+  position: center
 
-- file: foundation-vscode-cli.png
-  slide: "Section Recap: VS Code & CLI"
-  alt: "VS Code chat entry points, Ask vs Edit vs Agent modes, and gh copilot CLI"
-  position: right
-  section: "VS Code & CLI"
+- file: slide-03-1-bbd5d1de.png
+  slide: "Slide 3"
+  alt: "Slide 3"
+  position: center
 
-- file: foundation-context-models.png
-  slide: "Section Recap: Context & Models"
-  alt: "Instruction layering hierarchy, token budgeting, and model selection strategy"
-  position: right
-  section: "Context & Models"
+- file: slide-04-1-bf0ae9d7.png
+  slide: "Slide 4"
+  alt: "Slide 4"
+  position: center
+
+- file: slide-05-1-29fd14f8.png
+  slide: "Slide 5"
+  alt: "Slide 5"
+  position: center
+
+- file: slide-06-1-49dbbf59.png
+  slide: "Slide 6"
+  alt: "Slide 6"
+  position: center
+
+- file: slide-07-1-029537eb.png
+  slide: "Slide 7"
+  alt: "Slide 7"
+  position: center
+
+- file: slide-08-1-edc85db0.png
+  slide: "Slide 8"
+  alt: "Slide 8"
+  position: center
+
+- file: slide-09-1-031b438c.png
+  slide: "Slide 9"
+  alt: "Slide 9"
+  position: center
+
+- file: slide-10-1-06c169a7.png
+  slide: "Slide 10"
+  alt: "Slide 10"
+  position: center
+
+- file: slide-11-1-b3871309.png
+  slide: "Slide 11"
+  alt: "Slide 11"
+  position: center
+
+- file: slide-12-1-d1c71edb.png
+  slide: "Slide 12"
+  alt: "Slide 12"
+  position: center
+
+- file: slide-13-1-3db870bb.png
+  slide: "Slide 13"
+  alt: "Slide 13"
+  position: center
+
+- file: slide-14-1-aaffa8ab.png
+  slide: "Slide 14"
+  alt: "Slide 14"
+  position: center
+
+- file: slide-15-1-1da1d6dd.png
+  slide: "Slide 15"
+  alt: "Slide 15"
+  position: inline

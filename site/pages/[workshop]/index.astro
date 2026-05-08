@@ -8,7 +8,7 @@ const base = import.meta.env.BASE_URL
 export function getStaticPaths() {
   const workshopsDir: string = __WORKSHOPS_DIR__
   const showDrafts: boolean = __SHOW_DRAFTS__
-  const workshopMeta: Record<string, { label: string; desc: string; icon: string; modules?: { folder: string; label: string; desc: string; icon: string }[] }> = {
+  const workshopMeta: Record<string, { label: string; desc: string; icon: string; modules?: { folder: string; label: string; desc: string; icon: string }[]; prerequisites?: string[] }> = {
     'copilot-dev-training': {
       label: 'Zero to Agentic: GitHub Copilot',
       desc: '4.5-hour developer workshop — foundations, agentic patterns, and advanced topics.',
@@ -18,8 +18,18 @@ export function getStaticPaths() {
         { folder: 'copilot-dev-agentic', label: 'Module 2: Agentic Patterns', desc: '90 min · Context management, project bootstrap, agents & skills, agentic loops', icon: '🤖' },
         { folder: 'copilot-dev-advanced', label: 'Module 3: Advanced Topics', desc: '90 min · Agent architecture patterns, MCP setup, debugging, full-stack agents', icon: '🔬' },
         { folder: 'copilot-dev-hack', label: 'Module 4: Hack', desc: '60 min · Hands-on hackathon — build custom Copilot agents for real business problems', icon: '🚀' }
-      ]
-    },
+        ],
+        prerequisites: [
+          'VS Code — latest stable version installed',
+          'GitHub Copilot extension — installed and signed in',
+          'GitHub Copilot Chat extension — installed',
+          'GitHub account with Copilot access (Individual, Business, or Enterprise)',
+          'GitHub CLI (gh) — installed and authenticated (run gh --version to verify)',
+          'Local admin rights — ability to install extensions, CLI tools, and plugins',
+          'A local project — any codebase open in VS Code (multi-file project preferred)',
+          'Internet access — required for Copilot API calls'
+        ]
+      },
     'copilot-workshop-c++': {
       label: 'GitHub Copilot: Zero to Agents C++',
       desc: 'From completions to fully customized agentic AI development — tailored for C++ with ODrive.',
@@ -27,7 +37,7 @@ export function getStaticPaths() {
     }
   }
 
-  const paths: { params: { workshop: string }; props: { label: string; desc: string; icon: string; hasWorkshop: boolean; hasLab: boolean; hasSlides: boolean; modules?: typeof workshopMeta[string]['modules'] } }[] = []
+  const paths: { params: { workshop: string }; props: { label: string; desc: string; icon: string; hasWorkshop: boolean; hasLab: boolean; hasSlides: boolean; modules?: typeof workshopMeta[string]['modules']; prerequisites?: string[] } }[] = []
 
   for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d => d.isDirectory())) {
     const dirPath = resolve(workshopsDir, dir.name)
@@ -48,13 +58,13 @@ export function getStaticPaths() {
 
     paths.push({
       params: { workshop: dir.name },
-      props: { label, desc, icon, hasWorkshop, hasLab, hasSlides, modules: meta?.modules }
+      props: { label, desc, icon, hasWorkshop, hasLab, hasSlides, modules: meta?.modules, prerequisites: meta?.prerequisites }
     })
   }
   return paths
 }
 
-const { label, desc, icon, hasWorkshop, hasLab, hasSlides, modules } = Astro.props
+const { label, desc, icon, hasWorkshop, hasLab, hasSlides, modules, prerequisites } = Astro.props
 const { workshop } = Astro.params
 ---
 
@@ -120,6 +130,21 @@ const { workshop } = Astro.params
       </>
       )}
     </div>
+
+    {prerequisites && prerequisites.length > 0 && (
+      <section class="prerequisites-section">
+        <h2 class="prerequisites-heading">Prerequisites</h2>
+        <p class="prerequisites-sub">Participants should have the following ready before the workshop.</p>
+        <ul class="prerequisites-list">
+          {prerequisites.map(item => (
+            <li class="prerequisites-item">
+              <span class="prerequisites-check" aria-hidden="true">✓</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
   </div>
 </Base>
 
@@ -318,5 +343,49 @@ const { workshop } = Astro.params
     .module-card { flex-direction: column; align-items: flex-start; }
     .module-links { width: 100%; }
     .module-link { flex: 1; text-align: center; }
+  }
+
+  /* Prerequisites section */
+  .prerequisites-section {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+  .prerequisites-heading {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-1);
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+  .prerequisites-sub {
+    font-size: 14px;
+    color: var(--text-2);
+    margin-bottom: 20px;
+  }
+  .prerequisites-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 12px;
+  }
+  .prerequisites-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-2);
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+  }
+  .prerequisites-check {
+    color: #3fb950;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
   }
 </style>

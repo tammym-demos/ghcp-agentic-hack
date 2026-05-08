@@ -9,7 +9,7 @@ const showDrafts: boolean = __SHOW_DRAFTS__
 
 // Workshop metadata — order and descriptions
 // Workshops with `modules` are multi-module curricula: one parent card links to child module folders.
-const workshopMeta: Record<string, { label: string; desc: string; icon: string; modules?: { folder: string; label: string; desc: string; icon: string }[] }> = {
+const workshopMeta: Record<string, { label: string; desc: string; icon: string; modules?: { folder: string; label: string; desc: string; icon: string }[]; prerequisites?: string[] }> = {
   'copilot-dev-training': {
     label: 'Zero to Agentic: GitHub Copilot',
     desc: '4.5-hour developer workshop — foundations, agentic patterns, and advanced topics.',
@@ -19,6 +19,16 @@ const workshopMeta: Record<string, { label: string; desc: string; icon: string; 
       { folder: 'copilot-dev-agentic', label: 'Module 2: Agentic Patterns', desc: '90 min · Context management, project bootstrap, agents & skills, agentic loops', icon: '🤖' },
       { folder: 'copilot-dev-advanced', label: 'Module 3: Advanced Topics', desc: '90 min · Agent architecture patterns, MCP setup, debugging, full-stack agents', icon: '🔬' },
       { folder: 'copilot-dev-hack', label: 'Module 4: Hack', desc: '60 min · Hands-on hackathon — build custom Copilot agents for real business problems', icon: '🚀' }
+    ],
+    prerequisites: [
+      'VS Code — latest stable version installed',
+      'GitHub Copilot extension — installed and signed in',
+      'GitHub Copilot Chat extension — installed',
+      'GitHub account with Copilot access (Individual, Business, or Enterprise)',
+      'GitHub CLI (gh) — installed and authenticated (run gh --version to verify)',
+      'Local admin rights — ability to install extensions, CLI tools, and plugins',
+      'A local project — any codebase open in VS Code (multi-file project preferred)',
+      'Internet access — required for Copilot API calls'
     ]
   },
   'copilot-workshop-c++': {
