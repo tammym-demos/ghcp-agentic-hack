@@ -20,6 +20,8 @@ public/
     copilot-dev-foundations/  # Images referenced by Module 1 slides
     copilot-dev-agentic/     # Images referenced by Module 2 slides
     copilot-dev-advanced/    # Images referenced by Module 3 slides
+source/
+  pptx/                      # Input PPTX files for conversion (gitignored)
 site/                        # Astro site (landing page, lab pages)
   astro.config.mjs           # Astro config — base path set to /ghcp-agentic-hack/
   pages/index.astro          # Main landing page with workshop cards
@@ -27,6 +29,7 @@ site/                        # Astro site (landing page, lab pages)
   layouts/Base.astro         # Shared layout (header, dark theme)
 scripts/
   build-site.mjs             # Full build: creates public/ symlinks → Slidev decks → Astro site
+  convert-pptx.py            # PPTX → Slidev conversion (requires python-pptx)
 themes/                      # Slidev theme (github/)
 ```
 
@@ -221,6 +224,53 @@ Before running any build (`npm run build:site`, `npm run build:all`, or `npx sli
 4. **Slide titles** in the manifest still match the actual `# Heading` in the Slidev file
 
 If any mismatches are found, fix them before proceeding with the build.
+
+## PPTX Conversion Pipeline
+
+The repo supports converting NotebookLM-generated PPTX files into Slidev decks.
+
+### Workflow
+
+1. **Generate** a PPTX from NotebookLM (or any presentation tool)
+2. **Drop** it into `source/pptx/<workshop-folder-name>.pptx`
+3. **Run** the conversion:
+
+   ```bash
+   npm run convert:pptx -- <workshop-folder-name>
+   ```
+
+4. **Review** the generated `.slidev.md` and adjust layouts/density as needed
+5. **Preview** with `npx slidev workshops/<workshop>/<workshop>.slidev.md`
+
+### What the script does
+
+- Extracts text from each PPTX slide (title + body bullets)
+- Extracts embedded images and saves to `public/images/<workshop>/`
+- Auto-detects the best Slidev layout for each slide (cover, section, image-right, statement, default)
+- Generates `images.yaml` manifest for all extracted images
+- Formats body text as markdown bullets with `<v-clicks>` progressive reveal
+
+### Re-running after updates
+
+The script is **idempotent** — re-running it overwrites previous output. Drop an updated PPTX into the same location and re-run:
+
+```bash
+npm run convert:pptx -- copilot-dev-foundations
+```
+
+### Source files
+
+- Script: `scripts/convert-pptx.py` (requires `python-pptx` and optional `Pillow`)
+- Input: `source/pptx/*.pptx` (gitignored — local only, not committed)
+- Output: `workshops/<name>/<name>.slidev.md` + `public/images/<name>/`
+
+### Python dependency
+
+Install once per machine:
+
+```bash
+pip install python-pptx Pillow
+```
 
 ## Content Guidelines
 

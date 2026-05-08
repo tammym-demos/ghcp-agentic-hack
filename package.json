@@ -5,7 +5,8 @@
   "scripts": {
     "dev:site": "astro dev --root site",
     "build:site": "astro build --root site",
-    "build:all": "node scripts/build-site.mjs"
+    "build:all": "node scripts/build-site.mjs",
+    "convert:pptx": "python scripts/convert-pptx.py"
   },
   "dependencies": {
     "@slidev/cli": "^52.0.0"

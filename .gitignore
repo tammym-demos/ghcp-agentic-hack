@@ -5,3 +5,4 @@ dist/site/
 .astro/
 .env
 workshops/*/public/
+source/pptx/*.pptx
