@@ -1,5 +1,5 @@
 ---
-theme: ../themes/github
+theme: ../../themes/github
 title: "Copilot Dev Foundations"
 info: |
   Generated from NotebookLM presentation for copilot-dev-foundations

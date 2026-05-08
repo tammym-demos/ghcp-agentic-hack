@@ -100,7 +100,7 @@ def generate_slidev(image_files, notes_list, workshop_name, title):
     """Generate a Slidev markdown deck with background images."""
     lines = [
         "---",
-        "theme: ../themes/github",
+        "theme: ../../themes/github",
         f'title: "{title}"',
         "info: |",
         f"  Generated from NotebookLM presentation for {workshop_name}",

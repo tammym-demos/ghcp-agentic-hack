@@ -12,7 +12,7 @@ Use the reusable GitHub dark theme at `themes/github/`. Set in frontmatter:
 
 ```yaml
 ---
-theme: ../themes/github
+theme: ../../themes/github
 title: "Your Title"
 info: |
   Description of the presentation.
