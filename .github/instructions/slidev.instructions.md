@@ -41,7 +41,7 @@ layout: cover
 | `two-cols` | Two-column with gradient divider | Comparisons, side-by-side data |
 | `demo` | Demo transition with 🖥️ icon | Before live demos |
 | `end` | Closing slide with dual glow orbs | Last 1-2 slides |
-| `image-full` | Transparent — lets `background:` image show through | PPTX-generated full-bleed image slides |
+| `image-full` | Full-bleed background image via `background:` frontmatter | PPTX-generated full-bleed image slides |
 
 ## Slide Density Classes
 
@@ -155,7 +155,7 @@ The mermaid glass container is set to `width: 100%` so it fills the slide width.
 
 1. **No scrolling** — every slide must fit in the viewport. Use `text-sm` or `text-xs` class
 2. **One concept per slide** — if content overflows, split into two slides
-3. **PPTX slides use `background:`** — generated decks are full-bleed images, no text content on slide
+3. **PPTX slides use `background:`** — generated decks are full-bleed images via `background:` frontmatter, no text content on slide
 4. **Cards over tables** — for 2-4 items, use `gh-box-*` cards in a `grid` instead of a table
 5. **Statement slides for impact** — use `layout: statement` for memorable one-liners between dense content
 6. **Callouts at bottom** — place `gh-callout` divs as the last content element
@@ -169,24 +169,23 @@ All slide images are stored centrally in `public/images/<workshop-folder-name>/`
 
 ### PPTX-Generated Decks (Primary Workflow)
 
-For decks generated from NotebookLM PPTX files, each slide is a full-bleed image using the `image-full` layout. Use `<img>` tags in the slide content (NOT `background:` frontmatter, which does not resolve the `--base` path on GitHub Pages):
+For decks generated from NotebookLM PPTX files, each slide is a full-bleed image using the `image-full` layout. Use `background:` in the slide frontmatter so that Slidev's `resolveAssetUrl()` correctly prepends the `--base` path for subpath deployments:
 
 ```markdown
 ---
 layout: image-full
+background: /images/copilot-dev-foundations/slide-02-a1b2c3d4.png
 ---
-
-<img src="/images/copilot-dev-foundations/slide-02-a1b2c3d4.png" alt="Slide 2" />
 
 <!-- Presenter notes for this slide -->
 ```
 
 Key rules for PPTX-generated decks:
-- **Use `layout: image-full`** — this transparent layout renders the image full-bleed
-- **Use `<img>` tags, NOT `background:`** — Slidev does not prepend `--base` to `background:` URLs at runtime, causing 404s on subpath deployments
+- **Use `layout: image-full`** — this layout renders the background image full-bleed with `background-size: contain`
+- **Use `background:` frontmatter, NOT `<img>` tags** — Slidev's `handleBackground()` calls `resolveAssetUrl()` which prepends `import.meta.env.BASE_URL` at runtime, so images load correctly on subpath deployments (e.g., GitHub Pages)
 - **No text on slides** — the image IS the slide
 - **Presenter notes in `<!-- -->`** — added manually after conversion
-- **One image per slide** — placed in the slot content
+- **One image per slide** — specified in the `background:` frontmatter
 
 ### Manually-Authored Slides with Images
 

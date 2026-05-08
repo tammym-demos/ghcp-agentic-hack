@@ -99,9 +99,10 @@ def save_image(blob, ext, slide_index, images_dir):
 def generate_slidev(image_files, notes_list, workshop_name, title):
     """Generate a Slidev markdown deck with full-bleed image slides.
 
-    Uses <img> tags instead of background: frontmatter because Slidev does
-    not prepend the --base path to background: URLs at runtime, which causes
-    404s on GitHub Pages subpath deployments.
+    Uses background: frontmatter so that Slidev's resolveAssetUrl() prepends
+    the --base path at runtime, which is required for GitHub Pages subpath
+    deployments. The image-full layout renders the background image full-bleed
+    via handleBackground().
     """
     lines = [
         "---",
@@ -116,9 +117,8 @@ def generate_slidev(image_files, notes_list, workshop_name, title):
         "transition: slide-left",
         "mdc: true",
         "layout: image-full",
+        f"background: /images/{workshop_name}/{image_files[0]}",
         "---",
-        "",
-        f'<img src="/images/{workshop_name}/{image_files[0]}" alt="{title} - Cover" />',
         "",
         f"<!-- Presenter notes for cover slide -->",
         "",
@@ -131,9 +131,8 @@ def generate_slidev(image_files, notes_list, workshop_name, title):
 
         lines.append("---")
         lines.append("layout: image-full")
+        lines.append(f"background: /images/{workshop_name}/{img_file}")
         lines.append("---")
-        lines.append("")
-        lines.append(f'<img src="/images/{workshop_name}/{img_file}" alt="Slide {i + 1}" />')
         lines.append("")
         lines.append(notes)
         lines.append("")
