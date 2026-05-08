@@ -249,6 +249,7 @@ class: text-sm
 - Prefer the narrowest useful permission scope
 - Keep secrets in inputs or environment files, not source-controlled config
 - Treat tool access and data access as approval boundaries
+- *Did you know?* **GitHub secret scanning** with push protection blocks accidental credential commits before they reach the repo
 
 </v-clicks>
 
@@ -358,6 +359,12 @@ class: text-xs
 | **Performance changes** | Low trust | Benchmark and compare resource usage before merge |
 | **Security-sensitive code, auth, secrets, data access** | Very low trust | Deep human review, automated scanning, explicit threat-model checks |
 | **Infrastructure, migrations, destructive changes** | Very low trust | Staging validation, rollback plan, peer approval, audit logging |
+
+<div class="gh-callout gh-callout-purple">
+
+**Did you know?** For low-trust and very-low-trust categories, **GitHub Dependabot** flags vulnerable dependencies and **secret scanning** blocks accidental credential commits — automated verification layers that complement human review.
+
+</div>
 
 <!--
 The message: do not use one verification pattern for every task.

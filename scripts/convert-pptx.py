@@ -110,6 +110,7 @@ def generate_slidev(image_files, notes_list, workshop_name, title):
         "  persist: false",
         "transition: slide-left",
         "mdc: true",
+        "layout: image-full",
         f"background: /images/{workshop_name}/{image_files[0]}",
         "---",
         "",
@@ -123,6 +124,7 @@ def generate_slidev(image_files, notes_list, workshop_name, title):
             notes = f"<!-- {notes} -->"
 
         lines.append("---")
+        lines.append("layout: image-full")
         lines.append(f"background: /images/{workshop_name}/{img_file}")
         lines.append("---")
         lines.append("")

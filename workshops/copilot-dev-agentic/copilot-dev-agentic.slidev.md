@@ -394,6 +394,12 @@ Hierarchical
 | **Parallel** | Independent specialists work at the same time | API + tests + docs on a shared spec | Merge conflicts or inconsistent assumptions |
 | **Hierarchical** | Lead agent decomposes and supervises sub-agents | Large initiatives with clear subdomains | Overhead and cascading coordination failures |
 
+<div class="gh-callout gh-callout-purple">
+
+**Did you know?** If your org enables **code scanning + Copilot Autofix**, agent-generated PRs get automated security feedback before human review — an extra safety net as autonomy scales.
+
+</div>
+
 <!-- notes
 Keep a human at the integration boundary, especially when multiple agents contribute changes that must merge coherently.
 -->

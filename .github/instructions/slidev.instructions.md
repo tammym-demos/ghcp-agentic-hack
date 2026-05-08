@@ -41,6 +41,7 @@ layout: cover
 | `two-cols` | Two-column with gradient divider | Comparisons, side-by-side data |
 | `demo` | Demo transition with 🖥️ icon | Before live demos |
 | `end` | Closing slide with dual glow orbs | Last 1-2 slides |
+| `image-full` | Transparent — lets `background:` image show through | PPTX-generated full-bleed image slides |
 
 ## Slide Density Classes
 
@@ -172,6 +173,7 @@ For decks generated from NotebookLM PPTX files, each slide is a full-bleed backg
 
 ```markdown
 ---
+layout: image-full
 background: /images/copilot-dev-foundations/slide-02-a1b2c3d4.png
 ---
 
@@ -179,8 +181,8 @@ background: /images/copilot-dev-foundations/slide-02-a1b2c3d4.png
 ```
 
 Key rules for PPTX-generated decks:
+- **Use `layout: image-full`** — this transparent layout lets the background image show through. Other layouts (cover, default, section) paint opaque backgrounds that hide the image.
 - **No text on slides** — the image IS the slide
-- **No layout overrides** — don't set `layout:` (background fills viewport)
 - **Presenter notes in `<!-- -->`** — added manually after conversion
 - **One image per slide** — the `background:` property handles it
 
