@@ -48,19 +48,19 @@ const visible = computed(() => $page.value > 1)
 .gh-footer-title {
   font-size: 11px;
   font-weight: 500;
-  color: #30363d;
+  color: #8b949e;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   letter-spacing: 0.02em;
 }
 
 .gh-footer-dot {
-  color: #21262d;
+  color: #6e7681;
   font-size: 11px;
 }
 
 .gh-footer-label {
   font-size: 10px;
-  color: #30363d;
+  color: #8b949e;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -69,7 +69,7 @@ const visible = computed(() => $page.value > 1)
 .gh-footer-page {
   font-size: 11px;
   font-weight: 500;
-  color: #30363d;
+  color: #8b949e;
   font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
   letter-spacing: 0.04em;
 }

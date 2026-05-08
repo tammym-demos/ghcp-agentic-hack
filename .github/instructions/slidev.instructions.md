@@ -169,22 +169,24 @@ All slide images are stored centrally in `public/images/<workshop-folder-name>/`
 
 ### PPTX-Generated Decks (Primary Workflow)
 
-For decks generated from NotebookLM PPTX files, each slide is a full-bleed background image. Use `background:` in the slide frontmatter:
+For decks generated from NotebookLM PPTX files, each slide is a full-bleed image using the `image-full` layout. Use `<img>` tags in the slide content (NOT `background:` frontmatter, which does not resolve the `--base` path on GitHub Pages):
 
 ```markdown
 ---
 layout: image-full
-background: /images/copilot-dev-foundations/slide-02-a1b2c3d4.png
 ---
+
+<img src="/images/copilot-dev-foundations/slide-02-a1b2c3d4.png" alt="Slide 2" />
 
 <!-- Presenter notes for this slide -->
 ```
 
 Key rules for PPTX-generated decks:
-- **Use `layout: image-full`** — this transparent layout lets the background image show through. Other layouts (cover, default, section) paint opaque backgrounds that hide the image.
+- **Use `layout: image-full`** — this transparent layout renders the image full-bleed
+- **Use `<img>` tags, NOT `background:`** — Slidev does not prepend `--base` to `background:` URLs at runtime, causing 404s on subpath deployments
 - **No text on slides** — the image IS the slide
 - **Presenter notes in `<!-- -->`** — added manually after conversion
-- **One image per slide** — the `background:` property handles it
+- **One image per slide** — placed in the slot content
 
 ### Manually-Authored Slides with Images
 

@@ -47,13 +47,13 @@ const visible = computed(() => $page.value > 1)
 .gh-header-logo {
   width: 20px;
   height: 20px;
-  color: #30363d;
+  color: #8b949e;
 }
 
 .gh-header-text {
   font-size: 12px;
   font-weight: 600;
-  color: #30363d;
+  color: #8b949e;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   letter-spacing: 0.02em;
   text-transform: uppercase;

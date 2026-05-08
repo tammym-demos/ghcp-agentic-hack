@@ -9,6 +9,16 @@
   width: 100%;
   height: 100%;
   position: relative;
-  /* Transparent — Slidev's background: frontmatter shows through */
+  overflow: hidden;
+  background: #000;
+}
+
+.gh-image-full :deep(img) {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
 }
 </style>
