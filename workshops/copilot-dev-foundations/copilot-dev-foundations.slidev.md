@@ -1,94 +1,93 @@
 ---
 theme: ../themes/github
-title: "Module 1: Foundations"
+title: "Copilot Dev Foundations"
 info: |
-  Generated Slidev deck for Module 1: Foundations
-ghFooterTitle: "Module 1: Foundations"
+  Generated from NotebookLM presentation for copilot-dev-foundations
+ghFooterTitle: "Copilot Dev Foundations"
 ghFooterLabel: ""
 drawings:
   persist: false
 transition: slide-left
 mdc: true
-background: /images/copilot-dev-foundations/slide-02-1-610d49b4.png
+background: /images/copilot-dev-foundations/slide-01-94b90d98.png
 ---
 
-<!-- Cover slide — Module 1: Foundations overview -->
+<!-- Presenter notes for cover slide -->
 
 ---
-background: /images/copilot-dev-foundations/slide-03-1-bbd5d1de.png
----
-
-<!-- Presenter notes -->
-
----
-background: /images/copilot-dev-foundations/slide-04-1-bf0ae9d7.png
+background: /images/copilot-dev-foundations/slide-02-0a802fe5.png
 ---
 
 <!-- Presenter notes -->
 
 ---
-background: /images/copilot-dev-foundations/slide-05-1-29fd14f8.png
+background: /images/copilot-dev-foundations/slide-03-4e370d54.png
 ---
 
 <!-- Presenter notes -->
 
 ---
-background: /images/copilot-dev-foundations/slide-06-1-49dbbf59.png
+background: /images/copilot-dev-foundations/slide-04-cfa627c9.png
 ---
 
 <!-- Presenter notes -->
 
 ---
-background: /images/copilot-dev-foundations/slide-07-1-029537eb.png
+background: /images/copilot-dev-foundations/slide-05-04e90580.png
 ---
 
 <!-- Presenter notes -->
 
 ---
-background: /images/copilot-dev-foundations/slide-08-1-edc85db0.png
+background: /images/copilot-dev-foundations/slide-06-0cc9dadc.png
 ---
 
 <!-- Presenter notes -->
 
 ---
-background: /images/copilot-dev-foundations/slide-09-1-031b438c.png
+background: /images/copilot-dev-foundations/slide-07-b630961f.png
 ---
 
 <!-- Presenter notes -->
 
 ---
-background: /images/copilot-dev-foundations/slide-10-1-06c169a7.png
+background: /images/copilot-dev-foundations/slide-08-15ad442c.png
 ---
 
 <!-- Presenter notes -->
 
 ---
-background: /images/copilot-dev-foundations/slide-11-1-b3871309.png
+background: /images/copilot-dev-foundations/slide-09-7c42d106.png
 ---
 
 <!-- Presenter notes -->
 
 ---
-background: /images/copilot-dev-foundations/slide-12-1-d1c71edb.png
+background: /images/copilot-dev-foundations/slide-10-46e86b21.png
 ---
 
 <!-- Presenter notes -->
 
 ---
-background: /images/copilot-dev-foundations/slide-13-1-3db870bb.png
+background: /images/copilot-dev-foundations/slide-11-d3837355.png
 ---
 
 <!-- Presenter notes -->
 
 ---
-background: /images/copilot-dev-foundations/slide-14-1-aaffa8ab.png
+background: /images/copilot-dev-foundations/slide-12-6d9e0330.png
 ---
 
 <!-- Presenter notes -->
 
 ---
-background: /images/copilot-dev-foundations/slide-15-1-1da1d6dd.png
+background: /images/copilot-dev-foundations/slide-13-c5cac0e8.png
 ---
 
 <!-- Presenter notes -->
-<!-- *Slide deck for Module 1: Foundations — Copilot Developer Training* -->
+
+---
+background: /images/copilot-dev-foundations/slide-14-fecb6c8d.png
+---
+
+<!-- Presenter notes -->
