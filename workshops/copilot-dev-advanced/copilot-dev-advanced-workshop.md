@@ -1,0 +1,442 @@
+# Module 3: Advanced Topics — Workshop Guide
+
+**Duration**: ~90 min (condensed delivery)  
+**Format**: Presentation + Live Demo + Hands-On  
+**Audience**: Developers who completed Modules 1 & 2  
+**Prerequisites**: Completed Modules 1 & 2, VS Code with Copilot, a local project
+
+---
+
+## Workshop Overview
+
+Module 3 moves from "using Copilot effectively" to **operating Copilot responsibly in real engineering workflows**. The focus is not on basic prompting, but on the advanced surfaces that shape how agentic systems behave: VS Code chat participants, trusted extensions, MCP-based tool connections, evaluation frameworks, and diagnostics. In the full curriculum, these topics span Sessions 6-8 over roughly 3 hours and 20 minutes; this condensed workshop keeps the architectural and decision-making content while shortening the demos and discussion loops.
+
+The throughline for the module is **capability, confidence, and control**. Capability comes from extensions and MCP servers that broaden what Copilot can see and do. Confidence comes from evaluation rubrics, SMART success criteria, and trust-calibrated verification strategies. Control comes from diagnostic visibility: understanding prompt construction, context selection, tool calls, retries, file changes, and failure modes instead of treating AI output as a black box.
+
+Participants should leave with a practical mental model for deciding when to install third-party capabilities, how to judge the quality of AI-generated code, how to control cost and feedback loops, and how to debug agent behavior when results are surprising or unsafe.
+
+### Learning Objectives
+
+- Explain when to use VS Code chat participants such as `@workspace`, `@vscode`, and `@terminal`
+- Evaluate Copilot extensions and MCP servers using a third-party trust and least-privilege checklist
+- Describe MCP architecture, configure MCP servers in VS Code, and outline the design of a custom MCP server
+- Define SMART success criteria for agentic coding tasks and score output with a repeatable quality rubric
+- Select the right verification pattern for different task types, from low-risk drafting to high-risk production changes
+- Measure quality, usage, and cost with simple feedback loops that improve prompts, agents, and workflows over time
+- Diagnose agentic failures by reading chat logs, debug views, tool traces, and changed files
+
+---
+
+## Session Agenda
+
+| Section | Topic | Time |
+|---------|-------|------|
+| 1 | Extensions, Chat Participants, and MCP | 30 min |
+| 2 | Evaluating Agentic Output | 35 min |
+| 3 | Troubleshooting and Diagnostics | 25 min |
+
+---
+
+## 1. Extensions, Chat Participants, and MCP (30 min)
+
+### Key Points
+
+- **Chat participants are scoped helpers** inside VS Code chat. They change the lens Copilot uses before a prompt is even answered.
+- **Copilot extensions** package domain-specific capabilities and workflows. Treat them like any other third-party dependency: useful, but worthy of review.
+- **MCP (Model Context Protocol)** is the standard way to connect models and agents to external tools and data sources through a consistent protocol.
+- **Server configuration matters**. The same MCP server can be safe and useful in one setup, or over-privileged and noisy in another.
+- **Custom MCP servers** should expose narrow, auditable tools with clear input schemas, explicit side effects, and structured logging.
+
+| Participant | Best used for | Typical question | Teaching emphasis |
+|---------|---------|---------|---------|
+| `@workspace` | Repo-aware reasoning | "Where is auth enforced in this project?" | Uses codebase context and cross-file search |
+| `@vscode` | Editor and IDE behavior | "Why is this task failing in the Problems panel?" | Focuses on VS Code features, settings, and commands |
+| `@terminal` | Command-line guidance | "What command should I run to rebuild only the API package?" | Grounds the answer in shell workflows and command construction |
+
+> **Important**: Participants, extensions, and MCP servers all change what the model can access or invoke. That makes them architecture decisions, not just convenience settings.
+
+#### MCP Architecture Mental Model
+
+```text
+┌──────────────────────┐
+│ Developer in VS Code │
+└──────────┬───────────┘
+           │ prompt / task
+           ▼
+┌──────────────────────┐
+│ Copilot Chat / Agent │
+│ host + planner       │
+└──────────┬───────────┘
+           │ tool request over MCP
+           ▼
+┌──────────────────────┐
+│ MCP Client in host   │
+│ connection manager   │
+└──────────┬───────────┘
+           │ stdio / socket transport
+           ▼
+┌──────────────────────┐
+│ MCP Server           │
+│ exposes tools        │
+└──────────┬───────────┘
+           │ API calls / local execution
+           ▼
+┌──────────────────────┐
+│ External systems     │
+│ files, APIs, data    │
+└──────────────────────┘
+```
+
+**Teaching frame**:
+
+- The **host** is VS Code or another Copilot surface coordinating the experience.
+- The **client** manages the connection to one or more MCP servers.
+- The **server** advertises tools, resources, and prompts the host can invoke.
+- The **tool boundary** is the trust boundary. Every exposed tool increases reach, so tool design and permissions matter.
+
+#### Extension Security Checklist — "Third-Party Trust"
+
+| Check | Why it matters | Good signs | Red flags |
+|---------|---------|---------|---------|
+| **Publisher verification** | Confirms who owns the extension | Verified publisher, clear org identity, support policy | Unknown publisher, no contact path, copycat naming |
+| **Permission scope** | Limits blast radius | Narrow capability, explicit config, read-only by default | Broad filesystem or command execution without clear need |
+| **Maintenance activity** | Indicates health and security posture | Recent releases, issue responses, changelog | Long-abandoned package, unresolved security reports |
+| **Source transparency** | Supports reviewability | Public repo, documented behavior, sample configs | No source, vague claims, hidden telemetry behavior |
+| **Dependency hygiene** | Affects supply-chain risk | Minimal dependencies, lockfile, update cadence | Large unreviewed dependency tree |
+| **Operational fit** | Prevents accidental policy violations | Works with approved systems and auth flows | Requires personal tokens, bypasses approved controls |
+
+> **Note**: The right question is not "Does this extension look useful?" but "Would I allow this capability inside a production development environment?"
+
+#### MCP Server Configuration Example
+
+Use `.vscode\mcp.json` to declare local or package-based servers:
+
+```json
+{
+  "servers": {
+    "fetch": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-fetch"]
+    },
+    "repo-metrics": {
+      "command": "node",
+      "args": ["tools/mcp/repo-metrics-server.js"],
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "LOG_LEVEL": "debug",
+        "GITHUB_TOKEN": "${env:GITHUB_TOKEN}"
+      }
+    }
+  }
+}
+```
+
+What to teach from this example:
+
+- `command` and `args` define the executable boundary
+- `cwd` should point to the narrowest working directory needed
+- `env` is safer than hard-coding secrets in source-controlled files
+- `LOG_LEVEL` is valuable during setup, but should be reduced once the server is stable
+
+#### Debugging MCP Configuration
+
+| Symptom | Likely cause | What to check | Fix |
+|---------|---------|---------|---------|
+| Server never appears in Copilot tools | Invalid path or executable | `command`, `args`, local package install | Run the command manually and correct the path |
+| Server starts but tool calls fail | Missing auth or environment variables | `env` values, token scope, working directory | Inject required env vars and restart VS Code |
+| Tool works once, then disappears | Server crashes after request | Server logs, unhandled exceptions | Add structured error handling and per-request logging |
+| Response is slow or inconsistent | Tool does too much work | Network timeouts, large payloads, repeated queries | Narrow the tool contract and cache safe reads |
+
+#### Building Custom MCP Servers
+
+Design principles to emphasize:
+
+- **Start with one narrow tool**, not a full platform integration
+- **Separate read tools from write tools** so approval boundaries stay clear
+- **Validate every input** before touching the filesystem, shell, or network
+- **Return structured JSON** that is easy for the model and the user to inspect
+- **Log requests, outputs, and errors** so failures can be replayed and explained
+
+| Design choice | Good practice | Poor practice |
+|---------|---------|---------|
+| **Tool naming** | `listOpenPullRequests` | `doGitHubStuff` |
+| **Input schema** | Required fields and explicit enums | Free-form text blob |
+| **Side effects** | Read-only by default | Implicit writes without confirmation |
+| **Output format** | Structured objects with stable keys | Unstructured prose only |
+| **Observability** | Request ID + timing + error reason | Silent failure |
+
+### 🖥️ Demo: Inspecting Participants, Extensions, and an MCP Tool Call
+
+- Ask the same repo question three ways: plain chat, `@workspace`, and `@terminal`; compare the framing and the evidence each response uses.
+- Show the extension marketplace listing for one Copilot extension and walk through the security checklist before installation.
+- Open `.vscode\mcp.json`, explain each field, then reload VS Code and invoke a simple MCP-backed action.
+- Call out the trust boundary explicitly: what data leaves the editor, what code executes locally, and what would require approval in an enterprise environment.
+
+### Discussion Points
+
+- Which participant changes the answer quality the most in your day-to-day workflow, and why?
+- What review standard should your team apply before enabling a third-party Copilot extension?
+- Where should you draw the line between a simple script, a VS Code extension, and a custom MCP server?
+- What is the minimum logging and approval behavior you would require before allowing a write-capable MCP tool?
+
+---
+
+## 2. Evaluating Agentic Output (35 min)
+
+### Key Points
+
+- **Agentic output should be evaluated against explicit success criteria**, not against whether it "looks plausible."
+- **SMART criteria** improve prompt quality and evaluation quality at the same time.
+- **Rubrics create consistency** across reviewers, especially when outputs differ in style but not in substance.
+- **Verification effort should scale with risk**. High-impact or high-privilege tasks need deeper checks than low-risk drafting tasks.
+- **Usage, billing, and cost strategy** should focus on outcomes per accepted change, not just raw prompt volume.
+
+#### SMART Success Criteria
+
+| Weak request | SMART rewrite | How to verify |
+|---------|---------|---------|
+| "Improve this API." | "Refactor the `orders` API to remove duplicate validation logic, keep the response contract unchanged, and ensure all existing tests pass by the end of the task." | Run current tests, diff the response schema, inspect duplicate logic removal |
+| "Make it more secure." | "Add input validation and authorization checks to the admin endpoint, prevent unauthenticated writes, and include tests for authorized and unauthorized cases." | Security review, negative-path tests, auth behavior in local run |
+| "Speed this up." | "Reduce the p95 latency of the search endpoint from 900 ms to under 500 ms on the current benchmark dataset without increasing memory usage by more than 10%." | Benchmark before and after, compare memory profile |
+
+> **Important**: If success is not measurable, the model cannot optimize for it and the team cannot verify it.
+
+#### Output Quality Rubric
+
+Score each category from **1 (poor)** to **5 (strong)**. Teams can accept work at different thresholds, but they should agree on those thresholds before the exercise.
+
+| Category | 1 — Poor | 3 — Acceptable | 5 — Strong | Verification evidence |
+|---------|---------|---------|---------|---------|
+| **Correctness** | Fails requirements, breaks behavior, or invents APIs | Meets core requirement with minor gaps | Fully satisfies requirements with edge cases covered | Tests, manual path checks, schema or contract comparison |
+| **Readability & maintainability** | Hard to follow, inconsistent naming, excessive complexity | Understandable but uneven | Clear intent, good decomposition, idiomatic patterns | Code review, diff readability, consistency with repo patterns |
+| **Performance** | Regresses runtime, memory, or query volume | Neutral performance impact | Measurable improvement or efficient implementation | Benchmarks, profiler output, query counts |
+| **Security** | Introduces trust boundary gaps or unsafe defaults | No obvious new issues | Explicit validation, least privilege, secure defaults, safe error handling | Static analysis, manual threat review, auth and input checks |
+| **Test coverage** | No new tests for changed behavior | Some positive-path tests | Positive, negative, and edge-path coverage tied to requirements | Unit, integration, or acceptance tests |
+
+A practical scoring pattern:
+
+- **20-25**: Strong candidate for merge after normal review
+- **15-19**: Needs targeted revisions before acceptance
+- **Below 15**: Re-prompt, constrain the task further, or revert to manual implementation
+
+#### Trust Calibration — "When to Trust, When to Verify"
+
+| Task type | Default posture | Verification strategy |
+|---------|---------|---------|
+| **Docs, comments, naming suggestions** | Higher trust | Fast human review for tone and factual accuracy |
+| **Unit tests for existing behavior** | Medium trust | Run tests, inspect assertions, add missing edge cases |
+| **Refactors with unchanged behavior** | Medium trust | Compare diff size, run regression suite, spot-check architecture fit |
+| **Performance changes** | Low trust | Benchmark and compare resource usage before merge |
+| **Security-sensitive code, auth, secrets, data access** | Very low trust | Deep human review, automated scanning, explicit threat-model checks |
+| **Infrastructure, migrations, destructive changes** | Very low trust | Staging validation, rollback plan, peer approval, audit logging |
+
+#### Evaluation Methods
+
+| Method | Best for | Strength | Limitation |
+|---------|---------|---------|---------|
+| **Automated checks** | Regressions, policy gates, repeatable standards | Fast and scalable | Only catches what is encoded |
+| **Human review** | Architectural fit, clarity, risk judgment | Strong context awareness | Slower and less consistent without a rubric |
+| **A/B testing** | Comparing prompts, agents, or tool chains | Good for workflow optimization | Requires controlled inputs and scoring discipline |
+| **Shadow evaluation** | New prompts or agents in low-risk rollout | Safe learning before production use | Takes more setup and data collection |
+
+#### Metrics and Feedback Loops
+
+Recommended module-level metrics:
+
+- **Acceptance rate**: percent of agent outputs merged with only minor edits
+- **Rework rate**: percent of outputs that require major rewrite
+- **Time-to-verification**: how long reviewers spend proving the output is safe
+- **Failure taxonomy**: recurring failure modes such as hallucinated APIs, missing tests, insecure defaults, or over-broad edits
+- **Tool efficiency**: number of retries, unnecessary file reads, or redundant tool calls in an agent workflow
+
+Simple feedback loop to teach:
+
+```text
+Define criteria → run task → score output → capture failure mode
+        ↑                                      ↓
+  refine prompt, agent, tool scope, or review gate
+```
+
+#### Usage, Billing, and Cost Strategy
+
+Teach cost as a **workflow design problem**, not just a licensing line item:
+
+- Use the **simplest capable workflow** for the task; not every prompt needs agent mode or external tools
+- Reserve expensive, multi-step agent runs for work that benefits from planning, tool use, and validation
+- Track **cost per accepted change**, not just cost per prompt
+- Reduce retries by tightening scope, improving success criteria, and pruning unnecessary context
+- Prefer **batched evaluation** for prompt experiments instead of ad hoc repeated testing by every developer
+
+Illustrative planning math:
+
+```text
+18 developers × 8 agentic tasks per day × 20 workdays = 2,880 tasks / month
+Average evaluation pattern = 1 generation + 2 verification passes = 3 runs / task
+Estimated internal chargeback = $0.04 per run
+
+Monthly workflow cost = 2,880 × 3 × $0.04 = $345.60
+If 720 accepted changes result, cost per accepted change = $345.60 ÷ 720 = $0.48
+```
+
+> **Note**: The dollar figure above is illustrative. Replace it with your actual vendor cost, internal chargeback, or capacity model.
+
+### 🖥️ Demo: Scoring One Agentic Change with a Rubric
+
+- Start with a prompt that has weak success criteria, then rewrite it into SMART criteria before generating code.
+- Review the resulting change against the rubric row by row, assigning a visible score for correctness, readability, performance, security, and test coverage.
+- Show how trust calibration changes the workflow: a documentation update can move fast, but an auth change triggers deeper verification.
+- Close by calculating an estimated cost per accepted change and discussing whether the workflow is justified by the value delivered.
+
+### Discussion Points
+
+- Which rubric category is most often under-specified in your team today?
+- For which task types would you allow near-direct acceptance of Copilot output, and for which would you require multiple reviewers?
+- What metric would best reveal whether agent mode is improving delivery instead of simply adding activity?
+- How would you explain "cost per accepted change" to an engineering leader who only sees total license spend?
+
+---
+
+## 3. Troubleshooting and Diagnostics (25 min)
+
+### Key Points
+
+- **The Copilot output channels are evidence**, not noise. They reveal context selection, model behavior, retries, and tool usage.
+- **Chat debug mode** helps explain prompt construction, included context, and token counts when a response feels incomplete or off-target.
+- **Agent debug logs** make planning visible: what the agent intended to do, what actions it took, which files it changed, and why it retried.
+- **Diagnostics collection and export** help escalate persistent issues with reproducible evidence instead of anecdotes.
+- **Common failure modes are often configuration problems**: stale context, broad instructions, missing tools, trust mismatches, or hidden assumptions.
+
+#### Reading Log Output
+
+Illustrative debug snippet:
+
+```text
+[copilot.chat] requestId=8f4c mode=agent model=gpt-4.1
+[copilot.chat] context: 6 files, 12,482 input tokens, 1 instruction file
+[copilot.chat] plan: inspect auth flow -> update middleware -> run tests
+[copilot.chat] tool: readFile src/auth/middleware.ts
+[copilot.chat] tool: editFile src/auth/middleware.ts
+[copilot.chat] tool: runInTerminal npm test -- auth
+[copilot.chat] retry: tests failed on unauthorized-user case
+[copilot.chat] changedFiles: 3 written, 2 read-only inspected
+```
+
+How to interpret it:
+
+| Log line | What it tells you | Why it matters |
+|---------|---------|---------|
+| `mode=agent model=...` | Which interaction mode and model were used | Helps explain behavior, latency, and capability |
+| `context: 6 files...` | What the model actually received | Missing context often explains weak or generic output |
+| `plan: ...` | The high-level intended sequence | Useful for spotting bad assumptions before more actions happen |
+| `tool: ...` | Which tools were invoked | Reveals unexpected access or wasted steps |
+| `retry: ...` | Why the agent loop continued | Distinguishes productive retries from confusion |
+| `changedFiles: ...` | Scope of impact | Important for blast-radius review |
+
+#### Troubleshooting Decision Tree
+
+```text
+┌─────────────────────────────────────┐
+│ Output is wrong, risky, or unhelpful│
+└──────────────────┬──────────────────┘
+                   ▼
+        ┌──────────────────────────┐
+        │ Is the task well-scoped? │
+        └───────┬─────────┬────────┘
+                │YES      │NO
+                │         ▼
+                │  Rewrite prompt with
+                │  SMART criteria
+                ▼
+   ┌───────────────────────────────┐
+   │ Did Copilot have the context? │
+   └───────┬─────────┬─────────────┘
+           │YES      │NO
+           │         ▼
+           │   Add files, use the right
+           │   participant, or reduce scope
+           ▼
+┌────────────────────────────────────┐
+│ Did the tool or MCP call succeed? │
+└───────┬────────────┬──────────────┘
+        │YES         │NO
+        │            ▼
+        │      Fix config, auth,
+        │      path, or server logs
+        ▼
+┌────────────────────────────────────┐
+│ Is the result still low quality?  │
+└───────┬────────────┬──────────────┘
+        │YES         │NO
+        │            ▼
+        │      Accept with normal
+        │      verification flow
+        ▼
+Tighten instructions, lower tool access,
+switch review pattern, or do manual fix
+```
+
+#### Common Failure Modes and Fixes
+
+| Failure mode | What it looks like | Likely root cause | Typical fix |
+|---------|---------|---------|---------|
+| **Hallucinated project structure** | References files or APIs that do not exist | Missing workspace context or over-general prompt | Add concrete files, ask for repo-grounded reasoning, use `@workspace` |
+| **Too-broad edits** | Agent modifies unrelated files | Vague goal, weak boundaries, excessive tool access | Constrain target files and acceptance criteria |
+| **Broken tool invocation** | Agent says it cannot access data or tools | MCP server not running, auth missing, bad path | Validate config and test the server manually |
+| **Token pressure / truncation** | Response ignores part of the request | Too much context, long prompt, large file set | Reduce scope, split the task, prioritize critical files |
+| **Unsafe confidence** | Polished answer with little evidence | Trust mismatch and insufficient review | Force evidence in the prompt and apply the rubric |
+| **Retry loops** | Agent repeats similar actions without progress | Weak stop criteria or unclear failure reason | Add success checks, reduce autonomy, inspect logs earlier |
+
+#### Diagnostics Collection and Export
+
+When an issue persists across retries:
+
+- Capture the **prompt**, the **mode used**, and the **visible output**
+- Export or save the relevant **debug logs** and **agent traces**
+- Record the **changed files**, the **tool calls**, and the **failure symptom**
+- Reduce the case to the smallest reproducible scenario before escalation
+
+> **Important**: Transparency is a safety feature. The goal of diagnostics is not to prove the model is "thinking correctly"; it is to show what inputs, tools, and actions created the observed result.
+
+#### "Debugging the Black Box" Teaching Frame
+
+Use this section to normalize inspection over intuition:
+
+- Ask "What evidence did the system use?" before asking "Why did it make that choice?"
+- Compare **stated reasoning** to **actual file changes and tool traces**
+- Treat logs and diffs as the source of truth when the narrative sounds more confident than the evidence
+- Remind learners that AI transparency is often partial, but partial visibility is still enough to improve safety and reliability
+
+### 🖥️ Demo: Following a Failed Agent Run to Root Cause
+
+- Trigger a deliberately underspecified task, then inspect the output channel and debug view to show the missing context.
+- Repeat the task with stronger instructions and point out the change in plan, file selection, and tool usage.
+- Show a failing MCP-backed action, trace it to configuration or authentication, and fix the issue live.
+- End by reviewing changed files and summarizing what evidence would be attached to a support escalation.
+
+### Discussion Points
+
+- Which diagnostic signal gives you the earliest warning that an agent is going off track?
+- How much plan visibility is enough for a developer to trust an autonomous workflow?
+- When should a team stop retrying prompts and switch to manual debugging or manual implementation?
+- What evidence should be mandatory before escalating an AI-assistant issue to platform support?
+
+---
+
+## Appendix
+
+### Facilitator Emphasis
+
+- Keep the distinction clear between **capability expansion** (extensions, MCP) and **quality control** (evaluation, diagnostics).
+- Reinforce that **verification strategy depends on task risk**, not on how polished the answer sounds.
+- Use the demos to make invisible system behavior visible: participants, tool calls, plan traces, and changed files.
+
+### Suggested Demo Assets
+
+| Asset | Why it helps |
+|---------|---------|
+| A small local repo with tests | Supports evaluation and troubleshooting examples |
+| One trusted MCP server config | Demonstrates safe configuration patterns |
+| One intentionally broken MCP config | Makes diagnosis concrete |
+| A saved low-quality output example | Useful for rubric scoring and trust calibration |
+
+*Workshop guide for Module 3: Advanced Topics — Copilot Developer Training*
