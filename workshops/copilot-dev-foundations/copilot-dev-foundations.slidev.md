@@ -1,8 +1,8 @@
 ---
 theme: ../themes/github
-title: "Copilot Dev Foundations"
+title: "Module 1: Foundations"
 info: |
-  Generated from NotebookLM presentation for copilot-dev-foundations
+  Generated Slidev deck for Module 1: Foundations
 ghFooterTitle: "Module 1: Foundations"
 ghFooterLabel: ""
 drawings:
@@ -91,3 +91,4 @@ background: /images/copilot-dev-foundations/slide-15-1-1da1d6dd.png
 ---
 
 <!-- Presenter notes -->
+<!-- *Slide deck for Module 1: Foundations — Copilot Developer Training* -->

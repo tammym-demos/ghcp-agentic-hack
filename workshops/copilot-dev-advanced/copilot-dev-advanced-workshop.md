@@ -18,12 +18,13 @@ Participants should leave with a practical mental model for deciding when to ins
 ### Learning Objectives
 
 - Explain when to use VS Code chat participants such as `@workspace`, `@vscode`, and `@terminal`
-- Evaluate Copilot extensions and MCP servers using a third-party trust and least-privilege checklist
-- Describe MCP architecture, configure MCP servers in VS Code, and outline the design of a custom MCP server
+- Distinguish built-in participants, extension-contributed capabilities, Copilot Extensions, and MCP tools
+- Evaluate VS Code extensions, Copilot Extensions, and MCP servers using a third-party trust and least-privilege checklist
+- Describe MCP architecture, configure MCP servers in workspace or user `mcp.json`, and outline the design of a custom MCP server
 - Define SMART success criteria for agentic coding tasks and score output with a repeatable quality rubric
 - Select the right verification pattern for different task types, from low-risk drafting to high-risk production changes
 - Measure quality, usage, and cost with simple feedback loops that improve prompts, agents, and workflows over time
-- Diagnose agentic failures by reading chat logs, debug views, tool traces, and changed files
+- Diagnose agentic failures by reading output channels, the Agent Debug Log panel, the Chat Debug View, MCP server output, and diagnostics exports
 
 ---
 
@@ -42,7 +43,7 @@ Participants should leave with a practical mental model for deciding when to ins
 ### Key Points
 
 - **Chat participants are scoped helpers** inside VS Code chat. They change the lens Copilot uses before a prompt is even answered.
-- **Copilot extensions** package domain-specific capabilities and workflows. Treat them like any other third-party dependency: useful, but worthy of review.
+- **Extensions and Copilot Extensions are installable capability surfaces**. Review them like any other dependency: publisher, permissions, maintenance, and data access still matter.
 - **MCP (Model Context Protocol)** is the standard way to connect models and agents to external tools and data sources through a consistent protocol.
 - **Server configuration matters**. The same MCP server can be safe and useful in one setup, or over-privileged and noisy in another.
 - **Custom MCP servers** should expose narrow, auditable tools with clear input schemas, explicit side effects, and structured logging.
@@ -51,9 +52,16 @@ Participants should leave with a practical mental model for deciding when to ins
 |---------|---------|---------|---------|
 | `@workspace` | Repo-aware reasoning | "Where is auth enforced in this project?" | Uses codebase context and cross-file search |
 | `@vscode` | Editor and IDE behavior | "Why is this task failing in the Problems panel?" | Focuses on VS Code features, settings, and commands |
-| `@terminal` | Command-line guidance | "What command should I run to rebuild only the API package?" | Grounds the answer in shell workflows and command construction |
+| `@terminal` | Terminal output and command-line guidance | "What command should I run to rebuild only the API package?" | Grounds the answer in shell workflows, command output, and next steps |
 
-> **Important**: Participants, extensions, and MCP servers all change what the model can access or invoke. That makes them architecture decisions, not just convenience settings.
+| Surface | Installed from | Best for | Trust question |
+|---------|---------|---------|---------|
+| **Built-in participants** | Included with VS Code | Domain-specific help such as editor or terminal questions | What context can this participant already see or act on? |
+| **Extension-contributed participants** | Extensions view / Visual Studio Marketplace | Domain workflows that live inside the IDE | Do we trust the publisher, permissions, and update cadence? |
+| **Copilot Extensions** | GitHub Marketplace listings | Service integrations that extend Copilot across supported surfaces | Does the integration expose approved data, actions, and auth flows? |
+| **MCP servers** | Workspace or user `mcp.json` | Local or remote tools, resources, prompts, and apps | What code runs, with what credentials, and where? |
+
+> **Important — AI Safety**: Participants, extensions, Copilot Extensions, and MCP servers all change what the model can access or invoke. That makes them architecture decisions, not just convenience settings.
 
 #### MCP Architecture Mental Model
 
@@ -91,40 +99,56 @@ Participants should leave with a practical mental model for deciding when to ins
 
 - The **host** is VS Code or another Copilot surface coordinating the experience.
 - The **client** manages the connection to one or more MCP servers.
-- The **server** advertises tools, resources, and prompts the host can invoke.
+- The **server** advertises tools, resources, prompts, and optional apps the host can invoke.
 - The **tool boundary** is the trust boundary. Every exposed tool increases reach, so tool design and permissions matter.
 
 #### Extension Security Checklist — "Third-Party Trust"
 
 | Check | Why it matters | Good signs | Red flags |
 |---------|---------|---------|---------|
-| **Publisher verification** | Confirms who owns the extension | Verified publisher, clear org identity, support policy | Unknown publisher, no contact path, copycat naming |
+| **Publisher verification** | Confirms who owns the extension or integration | Verified publisher, clear org identity, support policy | Unknown publisher, no contact path, copycat naming |
 | **Permission scope** | Limits blast radius | Narrow capability, explicit config, read-only by default | Broad filesystem or command execution without clear need |
 | **Maintenance activity** | Indicates health and security posture | Recent releases, issue responses, changelog | Long-abandoned package, unresolved security reports |
 | **Source transparency** | Supports reviewability | Public repo, documented behavior, sample configs | No source, vague claims, hidden telemetry behavior |
 | **Dependency hygiene** | Affects supply-chain risk | Minimal dependencies, lockfile, update cadence | Large unreviewed dependency tree |
 | **Operational fit** | Prevents accidental policy violations | Works with approved systems and auth flows | Requires personal tokens, bypasses approved controls |
 
-> **Note**: The right question is not "Does this extension look useful?" but "Would I allow this capability inside a production development environment?"
+> **Note**: In VS Code, extension-contributed participants are typically installed from the Extensions view. Public Copilot Extensions are listed in GitHub Marketplace, while workspace-specific MCP servers are usually configured in source-controlled `.vscode\mcp.json` files.
 
 #### MCP Server Configuration Example
 
-Use `.vscode\mcp.json` to declare local or package-based servers:
+Use `.vscode\mcp.json` for workspace-shared servers, or open your user profile `mcp.json` with **MCP: Open User Configuration** for personal servers.
 
 ```json
 {
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "github-token",
+      "description": "GitHub token for repo metrics",
+      "password": true
+    }
+  ],
   "servers": {
-    "fetch": {
+    "filesystem": {
+      "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-fetch"]
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "${workspaceFolder}"
+      ],
+      "env": {
+        "MCP_LOG_LEVEL": "info"
+      }
     },
-    "repo-metrics": {
+    "repoMetrics": {
+      "type": "stdio",
       "command": "node",
       "args": ["tools/mcp/repo-metrics-server.js"],
       "cwd": "${workspaceFolder}",
       "env": {
-        "LOG_LEVEL": "debug",
-        "GITHUB_TOKEN": "${env:GITHUB_TOKEN}"
+        "GITHUB_TOKEN": "${input:github-token}"
       }
     }
   }
@@ -133,18 +157,19 @@ Use `.vscode\mcp.json` to declare local or package-based servers:
 
 What to teach from this example:
 
-- `command` and `args` define the executable boundary
+- `type`, `command`, and `args` define the executable boundary
 - `cwd` should point to the narrowest working directory needed
-- `env` is safer than hard-coding secrets in source-controlled files
-- `LOG_LEVEL` is valuable during setup, but should be reduced once the server is stable
+- `inputs`, `env`, and `envFile` are safer than hard-coding secrets in source-controlled files
+- Workspace and user servers use the same schema; the difference is the location of the `mcp.json` file, not a different JSON wrapper
+- `MCP_LOG_LEVEL` is valuable during setup, but should be reduced once the server is stable
 
 #### Debugging MCP Configuration
 
 | Symptom | Likely cause | What to check | Fix |
 |---------|---------|---------|---------|
-| Server never appears in Copilot tools | Invalid path or executable | `command`, `args`, local package install | Run the command manually and correct the path |
-| Server starts but tool calls fail | Missing auth or environment variables | `env` values, token scope, working directory | Inject required env vars and restart VS Code |
-| Tool works once, then disappears | Server crashes after request | Server logs, unhandled exceptions | Add structured error handling and per-request logging |
+| Server never appears in Copilot tools | Invalid path or executable | `type`, `command`, `args`, local package install | Run the command manually or use **MCP: List Servers** and correct the path |
+| Server starts but tool calls fail | Missing auth or environment variables | `inputs`, `env`, token scope, working directory | Inject required values and restart the server |
+| Tool works once, then disappears | Server crashes after request | Server output, unhandled exceptions | Add structured error handling and per-request logging |
 | Response is slow or inconsistent | Tool does too much work | Network timeouts, large payloads, repeated queries | Narrow the tool contract and cache safe reads |
 
 #### Building Custom MCP Servers
@@ -168,15 +193,15 @@ Design principles to emphasize:
 ### 🖥️ Demo: Inspecting Participants, Extensions, and an MCP Tool Call
 
 - Ask the same repo question three ways: plain chat, `@workspace`, and `@terminal`; compare the framing and the evidence each response uses.
-- Show the extension marketplace listing for one Copilot extension and walk through the security checklist before installation.
-- Open `.vscode\mcp.json`, explain each field, then reload VS Code and invoke a simple MCP-backed action.
+- Open a VS Code extension listing or a Copilot Extension listing in GitHub Marketplace and walk through the security checklist before installation.
+- Open `.vscode\mcp.json`, explain each field, then use **MCP: List Servers** to confirm the server is running.
 - Call out the trust boundary explicitly: what data leaves the editor, what code executes locally, and what would require approval in an enterprise environment.
 
 ### Discussion Points
 
 - Which participant changes the answer quality the most in your day-to-day workflow, and why?
-- What review standard should your team apply before enabling a third-party Copilot extension?
-- Where should you draw the line between a simple script, a VS Code extension, and a custom MCP server?
+- What review standard should your team apply before enabling a third-party Copilot capability?
+- Where should you draw the line between a simple script, a VS Code extension, a Copilot Extension, and a custom MCP server?
 - What is the minimum logging and approval behavior you would require before allowing a write-capable MCP tool?
 
 ---
@@ -229,6 +254,8 @@ A practical scoring pattern:
 | **Performance changes** | Low trust | Benchmark and compare resource usage before merge |
 | **Security-sensitive code, auth, secrets, data access** | Very low trust | Deep human review, automated scanning, explicit threat-model checks |
 | **Infrastructure, migrations, destructive changes** | Very low trust | Staging validation, rollback plan, peer approval, audit logging |
+
+> **Important — AI Safety**: High-confidence prose is not evidence. For security-sensitive or high-impact changes, require tests, scans, and human review even when the answer sounds polished.
 
 #### Evaluation Methods
 
@@ -300,37 +327,32 @@ If 720 accepted changes result, cost per accepted change = $345.60 ÷ 720 = $0.4
 
 ### Key Points
 
-- **The Copilot output channels are evidence**, not noise. They reveal context selection, model behavior, retries, and tool usage.
-- **Chat debug mode** helps explain prompt construction, included context, and token counts when a response feels incomplete or off-target.
-- **Agent debug logs** make planning visible: what the agent intended to do, what actions it took, which files it changed, and why it retried.
+- **The Copilot output channels are evidence**, not noise. They reveal connection issues, request flow, retries, and extension errors.
+- **The Agent Debug Log panel and Chat Debug View** make prompt construction, context selection, tool calls, and payloads visible when a response feels incomplete or off-target.
 - **Diagnostics collection and export** help escalate persistent issues with reproducible evidence instead of anecdotes.
 - **Common failure modes are often configuration problems**: stale context, broad instructions, missing tools, trust mismatches, or hidden assumptions.
+- **MCP-specific issues need MCP-specific evidence** such as server status, server output, and restart attempts.
 
-#### Reading Log Output
+#### VS Code Diagnostic Surfaces
 
-Illustrative debug snippet:
+| Surface | How to open | Best for | What you learn |
+|---------|---------|---------|---------|
+| **Output panel — `GitHub Copilot` / `GitHub Copilot Chat`** | Set **Developer: Set Log Level** to **Trace**, then run **Output: Show Output Channels** | Extension errors, request timing, connection issues | Request flow, extension logs, network or auth failures |
+| **Agent Debug Log panel (Preview)** | Enable `github.copilot.chat.agentDebugLog.fileLogging.enabled`, then use Chat `...` → **Show Agent Debug Logs** or **Developer: Open Agent Debug Logs** | Agent tool flows, retries, prompt discovery, export | Event timeline, tool calls, LLM requests, errors, summary metrics |
+| **Chat Debug View** | Chat `...` → **Show Chat Debug View** or **Developer: Show Chat Debug View** | Exact request and response payload inspection | System prompt, resolved user prompt, attached context, tool payloads |
+| **`GitHub Copilot: Collect Diagnostics`** | Command Palette | Connectivity and environment snapshot for support | Network, proxy, and environment diagnostics |
+| **`/troubleshoot`** | Chat input after debug logging is enabled | Asking Copilot to interpret one session's debug events | Token counts, prompt discovery paths, and tool attempts |
+| **`MCP: List Servers` → Show Output** | Command Palette | MCP-specific failures | Server status, output, restart controls |
 
-```text
-[copilot.chat] requestId=8f4c mode=agent model=gpt-4.1
-[copilot.chat] context: 6 files, 12,482 input tokens, 1 instruction file
-[copilot.chat] plan: inspect auth flow -> update middleware -> run tests
-[copilot.chat] tool: readFile src/auth/middleware.ts
-[copilot.chat] tool: editFile src/auth/middleware.ts
-[copilot.chat] tool: runInTerminal npm test -- auth
-[copilot.chat] retry: tests failed on unauthorized-user case
-[copilot.chat] changedFiles: 3 written, 2 read-only inspected
-```
+#### Reading the Evidence
 
-How to interpret it:
-
-| Log line | What it tells you | Why it matters |
+| Signal | Where to inspect it | Why it matters |
 |---------|---------|---------|
-| `mode=agent model=...` | Which interaction mode and model were used | Helps explain behavior, latency, and capability |
-| `context: 6 files...` | What the model actually received | Missing context often explains weak or generic output |
-| `plan: ...` | The high-level intended sequence | Useful for spotting bad assumptions before more actions happen |
-| `tool: ...` | Which tools were invoked | Reveals unexpected access or wasted steps |
-| `retry: ...` | Why the agent loop continued | Distinguishes productive retries from confusion |
-| `changedFiles: ...` | Scope of impact | Important for blast-radius review |
+| **Model used** | Output panel, Agent Debug summary, Chat Debug View | Helps explain behavior, latency, and capability |
+| **Context included** | Chat Debug View, Agent Debug events | Missing context often explains weak or generic output |
+| **Tool calls** | Agent Debug Log panel | Reveals unexpected access, retries, or wasted steps |
+| **Changed files** | Agent Debug Log panel and source control diff | Important for blast-radius review |
+| **Server status** | `MCP: List Servers` and server output | Distinguishes prompt problems from infrastructure problems |
 
 #### Troubleshooting Decision Tree
 
@@ -391,11 +413,12 @@ switch review pattern, or do manual fix
 When an issue persists across retries:
 
 - Capture the **prompt**, the **mode used**, and the **visible output**
-- Export or save the relevant **debug logs** and **agent traces**
+- Export the relevant **Agent Debug Log** session or attach a debug snapshot to chat for investigation
+- Save **Output panel logs**, **MCP server output**, and the results of **GitHub Copilot: Collect Diagnostics** when connectivity is in doubt
 - Record the **changed files**, the **tool calls**, and the **failure symptom**
 - Reduce the case to the smallest reproducible scenario before escalation
 
-> **Important**: Transparency is a safety feature. The goal of diagnostics is not to prove the model is "thinking correctly"; it is to show what inputs, tools, and actions created the observed result.
+> **Important — AI Safety**: Transparency is a safety feature. The goal of diagnostics is not to prove the model is "thinking correctly"; it is to show what inputs, tools, and actions created the observed result.
 
 #### "Debugging the Black Box" Teaching Frame
 
@@ -408,10 +431,10 @@ Use this section to normalize inspection over intuition:
 
 ### 🖥️ Demo: Following a Failed Agent Run to Root Cause
 
-- Trigger a deliberately underspecified task, then inspect the output channel and debug view to show the missing context.
+- Trigger a deliberately underspecified task, then inspect the output channel and Chat Debug View to show the missing context.
 - Repeat the task with stronger instructions and point out the change in plan, file selection, and tool usage.
-- Show a failing MCP-backed action, trace it to configuration or authentication, and fix the issue live.
-- End by reviewing changed files and summarizing what evidence would be attached to a support escalation.
+- Show a failing MCP-backed action, trace it to configuration or authentication, and fix the issue live with **MCP: List Servers** and server output.
+- End by exporting or attaching debug evidence and summarizing what would be included in a support escalation.
 
 ### Discussion Points
 
@@ -426,9 +449,9 @@ Use this section to normalize inspection over intuition:
 
 ### Facilitator Emphasis
 
-- Keep the distinction clear between **capability expansion** (extensions, MCP) and **quality control** (evaluation, diagnostics).
+- Keep the distinction clear between **capability expansion** (extensions, Copilot Extensions, MCP) and **quality control** (evaluation, diagnostics).
 - Reinforce that **verification strategy depends on task risk**, not on how polished the answer sounds.
-- Use the demos to make invisible system behavior visible: participants, tool calls, plan traces, and changed files.
+- Use the demos to make invisible system behavior visible: participants, tool calls, plan traces, changed files, and exported diagnostics.
 
 ### Suggested Demo Assets
 

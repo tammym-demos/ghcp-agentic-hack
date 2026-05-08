@@ -3,7 +3,7 @@
 **Duration**: ~90 min (condensed delivery)
 **Format**: Presentation + Live Demo + Hands-On
 **Audience**: Developers with basic Copilot exposure
-**Prerequisites**: VS Code, GitHub Copilot extension, GitHub CLI
+**Prerequisites**: VS Code, GitHub Copilot extension, GitHub Copilot CLI
 
 ---
 
@@ -11,19 +11,19 @@
 
 Module 1 establishes the operating model for the rest of the Copilot Developer Training curriculum. In the full program, this content spans three sessions over roughly 3 hours and 15 minutes. In this condensed instructor-led delivery, the goal is not to cover every click path exhaustively, but to give attendees the mental models they need to use Copilot deliberately: where suggestions appear, how context is assembled, how instructions shape behavior, and how model and agent choices affect quality, speed, and cost.
 
-The first portion of the module is a guided tour of **Copilot interaction surfaces**: inline completions in the editor, chat in the panel, inline chat for local edits, and quick chat for lightweight questions. Attendees learn the practical differences between **Ask**, **Edit**, and **Agent** mode; when to use slash commands; how `@workspace`, `@selection`, and `@vscode` change context; and why multi-session management matters when moving between unrelated tasks.
+The first portion of the module is a guided tour of **Copilot interaction surfaces**: inline completions in the editor, chat in the panel, inline chat for focused edits, quick chat for lightweight questions, and prompt-first terminal workflows with GitHub Copilot CLI. Attendees learn the practical differences between **Ask**, **Plan**, and **Agent** mode; when to use slash commands; how `@workspace`, `@terminal`, `@vscode`, `#file`, and `#selection` change context; and why multi-session management matters when moving between unrelated tasks.
 
-The second half of the module explains why Copilot output quality is largely a **context management** problem. Developers see how the context window is constructed, what happens when token budgets get tight, how repository and file-scoped instructions reduce repetition, and how stronger prompts produce more reliable output. The module closes by connecting **models, agents, and token economics**: choosing the right model for the task, recognizing input vs. output token tradeoffs, understanding built-in vs. custom agents, and using repository setup guidance such as `copilot-setup-steps.yml` to make good practices repeatable.
+The second half of the module explains why Copilot output quality is largely a **context management** problem. Developers see how the context window is constructed, what happens when token budgets get tight, how repository and file-scoped instructions reduce repetition, and how stronger prompts produce more reliable output. The module closes by connecting **models, agents, and usage economics**: choosing the right model for the task, recognizing context-window and premium-request tradeoffs, understanding built-in vs. custom agents, and using repository setup guidance such as `.github/workflows/copilot-setup-steps.yml` to make good practices repeatable.
 
 ### Learning Objectives
 
-- Explain the difference between inline completions, chat surfaces, and agentic workflows
-- Choose appropriately between **Ask**, **Edit**, and **Agent** mode for a given task
-- Use slash commands and `@` participants to narrow or widen Copilot context intentionally
+- Explain the difference between inline completions, IDE chat surfaces, Copilot CLI prompts, and agentic workflows
+- Choose appropriately between **Ask**, **Plan**, and **Agent** mode for a given task
+- Use slash commands, chat variables, and `@` participants to narrow or widen Copilot context intentionally
 - Describe how the context window is assembled, prioritized, and truncated
 - Create and explain repository-level and file-scoped instruction files
 - Craft prompts that specify task, scope, constraints, and definition of done
-- Compare models and agent options based on capability, latency, autonomy, safety, and token cost
+- Compare models and agent options based on capability, latency, autonomy, safety, and usage cost
 
 ### Prerequisites
 
@@ -32,9 +32,9 @@ The second half of the module explains why Copilot output quality is largely a *
 | **GitHub account** | Copilot-enabled account with access to chat features and model switching appropriate to the attendee's plan |
 | **VS Code** | Latest stable build recommended so panel chat, inline chat, and quick chat behaviors match the live demo |
 | **GitHub Copilot extension** | Signed in and working before the session begins |
-| **GitHub CLI** | Installed for broader training continuity and later modules, even if this workshop guide focuses primarily on the IDE experience |
+| **GitHub Copilot CLI** | Installed for terminal-based prompt workflows that complement the IDE demos and lab |
 | **Sample repository** | Any non-trivial project with multiple files so workspace context, instructions, and agent behavior are visible |
-| **Output visibility** | Ability to open VS Code output/log views for token and model troubleshooting if needed |
+| **Usage visibility** | Ability to open Copilot usage/status views and output/log views for model or request troubleshooting if needed |
 
 ---
 
@@ -44,7 +44,7 @@ The second half of the module explains why Copilot output quality is largely a *
 |---------|-------|------|
 | 1 | Foundations framing, safety, and workflow map | 10 min |
 | 2 | Copilot Chat Tour | 25 min |
-| 3 | Memory & Context | 25 min |
+| 3 | Memory, Context & Instructions | 25 min |
 | 4 | Models, Agents & Tokens | 25 min |
 | 5 | Wrap-up, hand-off to lab, and Q&A | 5 min |
 
@@ -85,7 +85,8 @@ Inline Completions → Chat Modes → Context & Instructions → Models & Agents
   - Copilot Chat panel
   - Inline chat entry point on a selected block of code
   - Quick chat or lightweight prompt entry surface
-  - Model/mode selector and chat session list
+  - Model/agent selector and chat session list
+  - Terminal access for a quick `copilot -p "..."` example
 - Explain that the same repository can produce very different answers depending on:
   - What file is active
   - What text is selected
@@ -130,8 +131,10 @@ Inline Completions → Chat Modes → Context & Instructions → Models & Agents
   | Mode | Use When | Typical Output | Instructor Talking Point |
   |------|----------|----------------|--------------------------|
   | **Ask** | You need explanation, comparison, or orientation | Read-only analysis, suggestions in chat | "Ask mode is for understanding before changing." |
-  | **Edit** | You want a targeted change in a focused scope | Proposed edits to the selected code or file | "Edit mode is for bounded change with local intent." |
-  | **Agent** | The task spans files, commands, or iterative work | Multi-step plan, file edits, tool usage | "Agent mode is for delegated execution with review checkpoints." |
+  | **Plan** | You want a structured implementation plan before editing | Ordered steps, assumptions, and open questions | "Plan mode is for thinking through the work before touching files." |
+  | **Agent** | The task spans files, commands, or iterative work | Multi-step execution, file edits, tool usage | "Agent mode is for delegated execution with review checkpoints." |
+
+- Focused edits still matter, but they are best taught as a **workflow** rather than a permanent mode name: select code, use inline chat or a precise prompt, then review the proposed diff before accepting.
 
 - Slash commands reduce prompt writing overhead for common intents:
 
@@ -140,15 +143,24 @@ Inline Completions → Chat Modes → Context & Instructions → Models & Agents
   | `/explain` | Explain existing code or behavior | "Explain this function's error handling path." |
   | `/fix` | Propose a correction for an error or smell | "Fix this null reference bug without changing the public API." |
   | `/tests` | Generate or expand tests | "Add edge-case tests for invalid input and empty state." |
-  | `/refactor` | Improve structure while preserving behavior | "Refactor for readability and keep function signatures unchanged." |
+  | `/help` | Show available commands and guidance | "Show me the current slash commands I can use here." |
 
 - `@` participants let the user steer context deliberately:
 
   | Participant | Best Use | Typical Question |
   |-------------|----------|------------------|
   | `@workspace` | Repo-wide architecture, symbols, dependencies | "Where is authentication enforced across this codebase?" |
-  | `@selection` | A highlighted snippet or focused local logic | "Simplify this block without changing behavior." |
+  | `@terminal` | Shell commands and terminal debugging help | "Explain the last command and why it failed." |
   | `@vscode` | Editor or tooling guidance | "How do I compare changes and inspect the Output panel?" |
+
+- Chat variables are equally important for shaping scope:
+
+  | Variable | Best Use | Typical Question |
+  |----------|----------|------------------|
+  | `#selection` | A highlighted snippet or focused local logic | "Explain the risks in `#selection` before I change it." |
+  | `#file` | A specific file you want Copilot to inspect | "`#file:package.json` explain the dependencies I should care about first." |
+
+- GitHub Copilot CLI extends the same prompt-first workflow to the terminal. The current entry point is `copilot`, or `copilot -p "..."` for one-shot prompts, replacing the older `gh copilot` extension flow.
 
 - Multi-session management is a productivity skill:
   - Start a **new session** when the task changes materially.
@@ -170,12 +182,13 @@ Inline Completions → Chat Modes → Context & Instructions → Models & Agents
   @workspace Explain how this repository is structured for a developer who just joined the team.
   ```
 
-- Use **inline chat** in **Edit** mode on a selected function:
+- Use **inline chat** for a focused edit on a selected function:
 
   ```text
   Refactor this function for readability. Preserve behavior and keep the public API unchanged.
   ```
 
+- Switch to **Plan** mode for a bounded task such as drafting README updates, review the proposed steps, then choose whether to continue.
 - Switch to **Agent** mode for a bounded multi-step task such as adding tests or improving documentation, and narrate the review checkpoints before accepting changes.
 - Run one or two slash commands on real code:
 
@@ -184,18 +197,24 @@ Inline Completions → Chat Modes → Context & Instructions → Models & Agents
   /tests
   ```
 
+- Show the terminal equivalent for a one-shot prompt:
+
+  ```bash
+  copilot -p "Explain this Git command: git rebase -i HEAD~3"
+  ```
+
 - Start a second chat session and show why a fresh conversation often produces cleaner reasoning for a new task.
 
 ### Discussion Points
 
-- Which tasks in attendees' daily work are naturally **Ask**, **Edit**, or **Agent** tasks?
+- Which tasks in attendees' daily work are naturally **Ask**, **Plan**, or **Agent** tasks?
 - Where do slash commands save the most time compared to writing a prompt from scratch?
 - What kinds of mistakes are easiest to miss in inline completions versus chat output?
 - How might multi-session discipline improve both answer quality and token efficiency?
 
 ---
 
-## 3. Memory & Context (25 min)
+## 3. Memory, Context & Instructions (25 min)
 
 ### Key Points
 
@@ -251,7 +270,7 @@ Inline Completions → Chat Modes → Context & Instructions → Models & Agents
 
   ```markdown
   ---
-  applyTo: "**/*.test.ts"
+  applyTo: "**/*.test.*"
   ---
 
   - Use Jest and `describe` / `it` blocks.
@@ -265,7 +284,7 @@ Inline Completions → Chat Modes → Context & Instructions → Models & Agents
   |-------|---------|---------|
   | **Global / personal / enterprise guidance** | Broad defaults and organizational norms | "Do not generate secrets; prefer approved frameworks." |
   | **Repository instructions** | Shared rules for this codebase | `.github/copilot-instructions.md` |
-  | **File-scoped instructions** | Language or file-type specialization | `applyTo: "**/*.test.ts"` |
+  | **File-scoped instructions** | Language or file-type specialization | `applyTo: "**/*.test.*"` |
   | **Session and prompt context** | Task-specific intent for the current moment | "Add tests for invalid dates only; do not touch production code." |
 
 - The most reliable prompt formula for this module is:
@@ -324,8 +343,8 @@ Inline Completions → Chat Modes → Context & Instructions → Models & Agents
 
   | Model Family | Strengths | Best Teaching Scenario | Watch-Outs |
   |--------------|-----------|------------------------|------------|
-  | **GPT-4o / fast general-purpose models** | Fast answers, strong broad capability, good live-demo responsiveness | Repo tours, first-pass explanations, quick rewrites | Can encourage shallow iteration if the task really needs deeper planning |
-  | **Claude Sonnet / stronger reasoning models** | Strong synthesis across larger context, nuanced explanation, thoughtful plans | Multi-file reasoning, architecture analysis, prompt comparison demos | Often slower and may consume more tokens on rich prompts |
+  | **GPT-5.x / fast general-purpose models** | Fast answers, strong broad capability, good live-demo responsiveness | Repo tours, first-pass explanations, quick rewrites | Can encourage shallow iteration if the task really needs deeper planning |
+  | **Claude Sonnet 4.6 / stronger reasoning models** | Strong synthesis across larger context, nuanced explanation, thoughtful plans | Multi-file reasoning, architecture analysis, prompt comparison demos | Often slower and may consume more premium budget on rich prompts |
   | **Smaller / lower-cost models** | Lower latency and lower cost for repetitive work | Fast experimentation, boilerplate cleanup, low-risk drafts | More likely to need tighter prompts and stronger review |
 
 - Model names and availability can vary by plan, IDE, rollout, and date. The workshop point is not "memorize the lineup"; it is **recognize the decision criteria**.
@@ -357,7 +376,7 @@ Total request cost = input context + retrieved context + model response
   | Strategy | What It Saves | Example |
   |----------|---------------|---------|
   | **Start fresh for new work** | Old chat history tokens | New bug, new thread |
-  | **Scope context intentionally** | Unnecessary workspace retrieval | Use `@selection` or a single file before `@workspace` |
+  | **Scope context intentionally** | Unnecessary workspace retrieval | Use `#selection` or a single file before `@workspace` |
   | **Summarize before pasting** | Large log and stack trace overhead | Paste the key error plus 5-10 lines, not 500 |
   | **Split large tasks** | Overlong prompts and bloated output | Plan first, implement second, test third |
   | **Move stable guidance into instructions** | Repeated prompt boilerplate | Security and test expectations belong in instruction files |
@@ -384,22 +403,31 @@ Total request cost = input context + retrieved context + model response
   Focus only on test files unless the user explicitly requests otherwise.
   ```
 
-- `copilot-setup-steps.yml` is the repository's way to make good setup habits discoverable. A minimal example:
+- `.github/workflows/copilot-setup-steps.yml` is the repository's way to make good setup habits discoverable. A minimal example:
 
   ```yaml
-  # .github/copilot-setup-steps.yml
-  setup-steps:
-    - title: Install dependencies
-      description: Run `npm install` before asking Copilot to make project-wide changes.
-    - title: Run the test suite
-      description: Use `npm test` so Copilot suggestions can be validated against the current baseline.
+  # .github/workflows/copilot-setup-steps.yml
+  name: Copilot Setup Steps
+
+  on:
+    workflow_dispatch:
+
+  jobs:
+    copilot-setup-steps:
+      runs-on: ubuntu-latest
+      permissions:
+        contents: read
+      steps:
+        - uses: actions/checkout@v4
+        - run: npm ci
+        - run: npm test
   ```
 
 - This file matters because it shortens the gap between "the agent can edit code" and "the environment is actually ready for trustworthy changes."
 
 > **Important**: **Model Selection — Capability vs. Risk** belongs here. Use the most autonomous or expensive option only when the task justifies it. Ambiguous tasks plus powerful agents create avoidable review risk.
 
-> **Note**: Token tracking surfaces differ across clients. In practice, teach attendees to look in the IDE output logs, usage views, or repository usage dashboards available in their environment.
+> **Note**: Usage and diagnostics surfaces differ across clients. In practice, teach attendees to look in the IDE usage view or status bar first, then output logs or billing dashboards when they need deeper troubleshooting.
 
 ### 🖥️ Demo: Compare Models, Inspect Costs, and Show the Path to Customization
 
@@ -414,18 +442,18 @@ Total request cost = input context + retrieved context + model response
   - Clarity of structure
   - Actionability
   - Latency
-- Open the relevant output or diagnostic view and point out where model selection and token-related details can be inspected.
+- Open the relevant output or diagnostic view and point out where model selection and usage-related details can be inspected.
 - Show a sample custom agent file and explain how it differs from repository instructions:
   - Instructions shape **all** interactions
   - A custom agent shapes a **specialized workflow**
-- Show a sample `copilot-setup-steps.yml` and explain how repository onboarding reduces unforced errors for both humans and agents.
+- Show a sample `.github/workflows/copilot-setup-steps.yml` and explain how repository onboarding reduces unforced errors for both humans and agents.
 
 ### Discussion Points
 
 - What tasks in attendees' environment deserve a stronger model, and what tasks do not?
 - When is a custom agent worth creating instead of relying on generic Agent mode plus good prompts?
 - Which token-saving habits would improve both cost and answer quality for their teams?
-- How should teams decide when higher autonomy is appropriate versus when they should stay in Ask or Edit mode?
+- How should teams decide when higher autonomy is appropriate versus when they should stay in Ask mode or use a focused inline edit workflow?
 
 ---
 
@@ -458,7 +486,8 @@ Better outputs come from better scope, better context, better instructions, and 
   - Better scoped context
   - Better model choice
 - Point attendees to the hands-on lab as the place to practice:
-  - Chat surfaces and slash commands
+  - Chat surfaces, chat variables, and slash commands
+  - Copilot CLI prompt workflows
   - Repository and file-scoped instructions
   - Model comparisons
   - Token-aware workflow habits

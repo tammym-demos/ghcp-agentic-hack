@@ -23,7 +23,7 @@ The second half focuses on **how to design agents responsibly**. Attendees compa
 - Break down agent behavior using the **PAOR cycle** and recognize what good reflection looks like
 - Describe the **Ralph loop** and identify when repeated retries indicate real progress vs. thrashing
 - Use the **rubber duck cross-model review** technique to get a second opinion on important logic
-- Decide when to use a **single agent with multiple skills** vs. a **multi-agent specialist team**
+- Decide when to use a **single agent with multiple skills** vs. a **multi-agent specialist team**, and choose between **sequential, parallel, and hierarchical** orchestration topologies
 - Diagnose the eight major **agent antipatterns** and redesign prompts, workflows, and safeguards to avoid them
 
 ---
@@ -48,9 +48,11 @@ The second half focuses on **how to design agents responsibly**. Attendees compa
 ### Key Points
 
 - **Autonomy is a spectrum**, not a switch: each step adds initiative, tool reach, and the need for stronger oversight
-- The spectrum for this module is: **completions → chat → agent → coding agent**
+- The spectrum for this module is: **completions → chat (Ask/Plan) → agent → coding agent**
 - As autonomy increases, the human moves from **authoring every token** to **defining scope, checkpoints, and approval gates**
 - Safety question for this section: **"What must a human still approve at this level of autonomy?"**
+
+> **Note**: In VS Code today, the lower-autonomy chat layer is typically surfaced as **Ask** and **Plan**. This workshop groups both under **chat** because the core distinction is whether Copilot is primarily advising or autonomously acting.
 
 ### The Autonomy Spectrum
 
@@ -86,14 +88,14 @@ The second half focuses on **how to design agents responsibly**. Attendees compa
 Use the same user story — "Add validation to `POST /users`" — and walk it through four interaction styles:
 
 1. **Completions** — show inline suggestion for a validation `if` block
-2. **Chat** — ask for a validation approach and expected edge cases
+2. **Chat / Ask** — ask for a validation approach and expected edge cases
 3. **Agent** — ask the agent to implement validation and tests, then review the plan and diff
 4. **Coding Agent** — show the issue text that would be needed for an issue-to-PR workflow
 
 **Teaching prompt examples**:
 
 ```text
-Chat: Propose a validation strategy for POST /users in this codebase. Include error cases and test ideas.
+Ask: Propose a validation strategy for POST /users in this codebase. Include error cases and test ideas.
 ```
 
 ```text

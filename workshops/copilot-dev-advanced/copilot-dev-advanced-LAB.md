@@ -2,9 +2,9 @@
 
 ## Overview
 
-This self-guided lab gives you a fast, practical way to apply advanced Copilot techniques in your own VS Code workspace: custom agents, MCP servers, debug logs, and layered context.
+This self-guided lab gives you a practical way to apply the Module 3 topics in your own VS Code workspace: built-in chat participants, extension trust review, MCP configuration, output evaluation, and diagnostics.
 
-**Total time**: ~28 minutes  
+**Total time**: ~30 minutes  
 **Prerequisites**:
 
 - Completed Module 1: Foundations
@@ -14,82 +14,56 @@ This self-guided lab gives you a fast, practical way to apply advanced Copilot t
 
 > **Note**: The prompts below use `src/app.ts` as an example. If your project uses a different main file, substitute an equivalent file in your repo.
 
-## Exercise 1: Agent Architecture (7 min)
+## 1. Extensions, Chat Participants, and MCP (17 min)
 
-**Objective**: Compare one broad agent with two specialized agents.
+This section aligns to Session 1 of the workshop guide.
+
+### Exercise 1: Compare Participants and Review Trust (7 min)
+
+**Objective**: Compare how built-in participants frame the same question, then review one installable capability surface with a trust checklist.
 
 ### Steps
 
-1. Create a `.github/agents/` folder if it does not already exist.
-
-```powershell
-New-Item -ItemType Directory -Path .github\agents -Force
-```
-
-2. Create `.github/agents/helper.md` with the following content:
-
-```markdown
-You are a general-purpose development helper. You can:
-- Review code for bugs and style issues
-- Generate unit tests
-- Write documentation
-- Suggest refactoring improvements
-
-Always explain your reasoning before making changes.
-```
-
-3. In Chat, test the broad agent:
+1. Ask the same question three different ways in Copilot Chat:
 
 ```text
-@helper review src/app.ts for potential issues
-```
-
-4. Create `.github/agents/tester.md` for test generation only:
-
-```markdown
-You are a test-generation specialist. You can:
-- Generate unit tests
-- Suggest edge cases
-- Improve test coverage
-
-Only help with tests. Keep responses focused on test strategy and test code.
-```
-
-5. Create `.github/agents/documenter.md` for documentation only:
-
-```markdown
-You are a documentation specialist. You can:
-- Write README content
-- Add code comments and docstrings
-- Improve developer-facing documentation
-
-Only help with documentation. Keep responses focused on clarity and completeness.
-```
-
-6. Compare specialized output with prompts like these:
-
-```text
-@tester generate unit tests for src/app.ts
+@workspace explain how the main request flow works in this repo
 ```
 
 ```text
-@documenter write documentation for src/app.ts
+@vscode which VS Code features would help me trace this flow safely?
 ```
 
-7. Reflect on the difference: specialized agents should produce more focused, higher-quality output in their domain. Discuss when one general agent is enough versus when multiple specialized agents are better.
+```text
+@terminal summarize the last build or test output and suggest the next command
+```
 
-8. **🛡️ Safety checkpoint**: In your multi-agent design, which agent has the most powerful tool access? Could you reduce its scope without losing functionality? Least-privilege applies to AI agents too.
+2. Compare the results. Note which response used repo context, which one focused on editor features, and which one reasoned from terminal output.
+
+3. Open the Extensions view with **Ctrl+Shift+X** and inspect one extension that could affect your workflow. If you want a Copilot-specific example, also browse <https://github.com/marketplace?type=github-copilot-extensions> in your browser.
+
+4. Review the capability with this checklist:
+
+- Publisher verification
+- Permission scope
+- Maintenance activity
+- Source transparency
+- Operational fit for your organization
+
+5. Decide whether you would allow the capability in a production development environment, only in a sandbox, or not at all.
+
+6. **🛡️ Safety checkpoint**: What is the narrowest tool, permission, or install scope that still solves your problem?
 
 ### Success Criteria
 
-- ✅ Created one general agent and two specialized agents
-- ✅ Tested the broad agent and specialized agents in Chat
-- ✅ Compared the quality and focus of their outputs
-- ✅ Identified the most-privileged agent and considered scope reduction
+- ✅ Compared `@workspace`, `@vscode`, and `@terminal` on the same task
+- ✅ Identified how each participant changed the answer framing
+- ✅ Reviewed one extension or Copilot Extension with a trust checklist
+- ✅ Chose an approval decision based on least privilege and maintenance quality
 
-## Exercise 2: MCP Setup (10 min)
+### Exercise 2: Configure an MCP Server (10 min)
 
-**Objective**: Configure an MCP server and verify that Copilot can use it.
+**Objective**: Add a workspace-scoped MCP server, confirm that VS Code recognizes it, and verify that its tools are available.
 
 ### Steps
 
@@ -98,110 +72,135 @@ Only help with documentation. Keep responses focused on clarity and completeness
 ```json
 {
   "servers": {
-    "fetch": {
+    "filesystem": {
+      "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@anthropic-ai/mcp-fetch"]
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "${workspaceFolder}"
+      ],
+      "env": {
+        "MCP_LOG_LEVEL": "info"
+      }
     }
   }
 }
 ```
 
-2. Reload VS Code with **Ctrl+Shift+P** and run **Developer: Reload Window**.
+2. Run **MCP: List Servers** from the Command Palette and confirm that the `filesystem` server appears.
 
-3. In Chat using Agent mode, ask Copilot to fetch external content:
+3. If the server is not running yet, start or restart it from the same MCP command flow.
+
+4. Open Copilot Chat, use **Configure Tools** (or inspect the Agent Debug Log panel later), and confirm that tools from the `filesystem` server are available.
+
+5. Ask Copilot to perform a small file-oriented task in your repo. For example:
 
 ```text
-Fetch the content from https://api.github.com/zen and tell me what it says
+Summarize the top-level folders in this workspace and explain what each one is for.
 ```
 
-4. Watch for tool call indicators in Chat. You should see Copilot using the MCP fetch server.
+6. Use **MCP: List Servers** → **Show Output** or the Agent Debug Log panel to confirm that the server started cleanly and that at least one tool path was available during the session.
 
-5. **🛡️ Safety checkpoint**: The MCP server you just installed runs code on your machine. Check the npm package for maintenance activity and known vulnerabilities before using it in a real project.
-
-6. Explore one more MCP server option at <https://mcp.so> or on npm by searching for `@modelcontextprotocol`.
-
-> **Note**: If `npx` is not available, install Node.js first. The MCP fetch server requires no extra configuration beyond the `mcp.json` entry.
+7. **🛡️ Safety checkpoint**: Is this server better kept in workspace `.vscode/mcp.json` for the team, or in your user-profile `mcp.json` for personal use only?
 
 ### Success Criteria
 
-- ✅ Added an MCP server to `.vscode/mcp.json`
-- ✅ Reloaded VS Code successfully
-- ✅ Saw Copilot use the MCP server to fetch external data
-- ✅ Checked the MCP server package for trustworthiness and maintenance
+- ✅ Added a valid MCP server definition to `.vscode/mcp.json`
+- ✅ Confirmed the server appears in **MCP: List Servers**
+- ✅ Verified that the server's tools were available in chat
+- ✅ Decided whether the server belongs at workspace scope or user scope
 
-## Exercise 3: Debugging Chat & Agents (5 min)
+## 2. Evaluating Agentic Output (6 min)
 
-**Objective**: Trace what Copilot sends, selects, and executes.
+This section aligns to Session 2 of the workshop guide.
+
+### Exercise 3: Apply SMART Criteria and the Rubric (6 min)
+
+**Objective**: Rewrite one weak request into a measurable task, then score the result with the workshop rubric.
 
 ### Steps
 
-1. Open the Output panel with **View → Output** or **Ctrl+Shift+U**.
+1. Pick a small, low-risk change in your project.
 
-2. In the Output panel dropdown, choose **GitHub Copilot Chat**.
-
-3. Ask a normal chat question and watch the log output:
+2. Start with a weak request such as:
 
 ```text
-Explain what this file does and suggest one improvement.
+Improve this file.
 ```
 
-4. Identify the request details in the log:
-
-- Context included with the request
-- Model selected
-- Token usage
-- Response timing
-
-5. Switch to Agent mode and give it a multi-step task:
+3. Rewrite it into a SMART request. For example:
 
 ```text
-Refactor this module to reduce duplication and add tests for the changed behavior.
+Refactor src/app.ts to remove duplicate validation logic, keep the public response shape unchanged, and leave the existing test suite passing.
 ```
 
-6. Watch the Output panel as the agent runs. Look for the iteration count, tools used, retries, and any errors.
+4. Ask Copilot to produce the change, suggestion, or plan.
 
-7. **🛡️ Safety checkpoint**: In the agent logs, did the agent access files or run commands you didn't expect? Unexpected tool usage is a signal that instructions may be too broad.
+5. Score the result from **1-5** for these dimensions:
+
+- Correctness
+- Readability and maintainability
+- Security
+- Test coverage
+
+6. Decide what verification the task deserves: quick human review, tests plus review, or deeper review and scans.
+
+7. **🛡️ Safety checkpoint**: If this were an auth change, data-access change, or destructive operation, what extra evidence would you require before merge?
 
 ### Success Criteria
 
-- ✅ Opened the correct Copilot output channel
-- ✅ Identified context, model choice, and token usage
-- ✅ Traced at least one agent loop in the logs
-- ✅ Identified whether the agent used any unexpected tools or files
+- ✅ Rewrote one vague prompt into SMART criteria
+- ✅ Generated or reviewed one Copilot output against that SMART request
+- ✅ Scored the output with the rubric dimensions from the workshop
+- ✅ Chose a verification pattern that matched the task's risk
 
-## Exercise 4: Full Stack Agent (6 min)
+## 3. Troubleshooting and Diagnostics (7 min)
 
-**Objective**: Use repo instructions, a custom agent, and MCP together in one workflow.
+This section aligns to Session 3 of the workshop guide.
+
+### Exercise 4: Inspect Logs, Debug Views, and Diagnostics (7 min)
+
+**Objective**: Use the real VS Code diagnostics surfaces to understand what Copilot saw and did.
 
 ### Steps
 
-1. Confirm these files already exist from earlier modules:
+1. Open the Command Palette and run **Developer: Set Log Level**. Set **GitHub Copilot** and **GitHub Copilot Chat** to **Trace**.
 
-- `.github/copilot-instructions.md`
-- `.github/agents/reviewer.md`
-- `.vscode/mcp.json`
+2. Open the Output panel with **View → Output** or **Ctrl+Shift+U**. Inspect the **GitHub Copilot** and **GitHub Copilot Chat** output channels.
 
-2. In Chat, run the reviewer agent with this prompt:
+3. Enable `github.copilot.chat.agentDebugLog.fileLogging.enabled` in Settings if it is not already enabled.
+
+4. In the Chat view, open the `...` menu and select **Show Agent Debug Logs**.
+
+5. From the same Chat menu, select **Show Chat Debug View**.
+
+6. Run one prompt or agent task, such as:
 
 ```text
-@reviewer Review the main module and check if the API patterns match current best practices
+Explain what this file does, point out one risk, and suggest the safest next improvement.
 ```
 
-3. Observe how the response benefits from three layers at once:
+7. Capture at least three pieces of evidence from the debug surfaces, such as:
 
-- Repo-wide guidance from `.github/copilot-instructions.md`
-- Task specialization from `@reviewer`
-- External tool access from MCP, when relevant
+- Which model was used
+- What context was attached
+- What tool calls ran
+- Which files changed or were inspected
 
-4. Open the Output panel again and trace how those layers show up in the request and tool activity.
+8. If something looks wrong, try one of these:
 
-5. **🛡️ Safety checkpoint**: Your agent stack is powerful. What happens if it produces code with a security flaw? Confirm that human review (or automated scanning like GHAS) would catch it before merge.
+- Use `/troubleshoot` in chat to ask about the current session
+- Run **GitHub Copilot: Collect Diagnostics** for a support snapshot
+- Use **MCP: List Servers** → **Show Output** if the issue appears MCP-related
+
+9. **🛡️ Safety checkpoint**: Did the logs show any file access, tool invocation, or retry loop you would want to tighten before trusting this workflow in daily use?
 
 ### Success Criteria
 
-- ✅ Used a custom agent with repo instructions already in place
-- ✅ Confirmed MCP tools were available to the workflow
-- ✅ Traced how instructions, agent behavior, and tools combined in the logs
-- ✅ Confirmed a safety gate (human review or automated scanning) exists for agent-generated code
+- ✅ Enabled detailed Copilot logging and opened the correct output channels
+- ✅ Opened the Agent Debug Log panel and Chat Debug View
+- ✅ Identified context, model, and tool evidence from one session
+- ✅ Used at least one troubleshooting path for a suspicious or surprising result
 
 *Hands-on lab for Module 3: Advanced Topics — Copilot Developer Training*
