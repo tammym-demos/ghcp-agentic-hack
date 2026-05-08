@@ -134,6 +134,12 @@ class: text-xs
 
 </div>
 
+<div class="gh-callout gh-callout-purple">
+
+**Safety tip**: More context is not always safer. Overly broad context can lead to hallucinated connections between unrelated code — verify Copilot's reasoning before acting on cross-file suggestions.
+
+</div>
+
 <!-- notes
 These are the habits attendees can use immediately after the workshop. Keep it practical and connect each tip to token budget and relevance.
 -->
@@ -241,6 +247,12 @@ class: text-xs
 
 </v-clicks>
 
+<div class="gh-callout gh-callout-purple">
+
+**Trust but verify**: Scaffolded code may include outdated patterns or hallucinated packages. Always review generated dependencies before running `npm install` — and if you enable **Dependabot**, it flags known CVEs automatically.
+
+</div>
+
 <!-- notes
 Explain the difference: `/new` is a scaffold-first workflow; Agent mode is a task-first workflow. Both are useful, but both still need review.
 -->
@@ -267,6 +279,12 @@ graph LR
 - The output is a PR: branch, commits, and agent notes for you to review before merge.
 
 </v-clicks>
+
+<div class="gh-callout gh-callout-purple">
+
+**Responsible autonomy**: The coding agent generates a PR, not a deployment. Human review is the safety gate. *Bonus*: enable **code scanning + Copilot Autofix** and the PR gets automated security feedback too.
+
+</div>
 
 <!-- notes
 Position this as a higher-autonomy workflow than local Agent mode. It is ideal for well-scoped issues with clear acceptance criteria.
@@ -494,6 +512,12 @@ class: text-sm
 
 </div>
 
+<div class="gh-callout gh-callout-purple">
+
+**Know your agent's reach**: Every tool is a capability *and* a risk surface. If an agent can run terminal commands, it can install packages or hit external APIs. Constrain permissions to what the task requires.
+
+</div>
+
 <!-- notes
 This is the key to Agent mode: it is not just “better autocomplete.” It can decide to inspect files, run tests, or search the codebase as part of solving the task.
 -->
@@ -545,6 +569,12 @@ class: text-sm
 <div class="gh-callout gh-callout-blue">
 
 **Why it matters**: Squad shows how multi-agent routing can work with built-in governance. Each specialist agent fans out in parallel while humans keep final decision authority.
+
+</div>
+
+<div class="gh-callout gh-callout-purple">
+
+**Governance scales with autonomy**: As you add agents, add oversight — file-write guards, approval steps, and audit logs. Multi-agent coordination amplifies both power and risk.
 
 </div>
 
@@ -668,6 +698,12 @@ class: text-sm
 
 </div>
 
+<div class="gh-callout gh-callout-purple">
+
+**Self-correction ≠ correctness**: An agent that retries until tests pass may mask a deeper design flaw. If the agent loops more than 2–3 times, pause and review whether the *approach* — not just the code — is right.
+
+</div>
+
 <!-- notes
 Call out the difference from manual chat. In non-agentic chat, the developer has to paste the error back. In Agent mode, the agent reads it directly and tries again.
 -->
@@ -691,6 +727,12 @@ class: text-sm
 - Think of it as a fast second opinion before you merge or hand work to a teammate.
 
 </v-clicks>
+
+<div class="gh-callout gh-callout-purple">
+
+**Over-trust antidote**: Using a second model to review the first is a lightweight safety practice. Different models have different blind spots — a review pass catches hallucinated logic the first model was confident about.
+
+</div>
 
 <!-- notes
 Keep this practical. This is not a separate product feature; it is a workflow pattern. One model writes, another critiques, and the developer decides what to keep.

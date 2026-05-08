@@ -33,7 +33,10 @@ This standalone lab gives attendees four short exercises to practice context con
    ```
 
 5. Compare the two answers. The `#file` version should feel narrower, more specific, and more relevant to the file you chose.
-6. Click the **+** icon in Chat to start a new session.
+
+6. **🛡️ Safety checkpoint**: In the `#codebase` response, did Copilot make any claims you can't immediately verify? Pick one claim and check it against the actual code. Broad context increases the risk of plausible-sounding but incorrect answers.
+
+7. Click the **+** icon in Chat to start a new session.
 7. In the new session, ask a simple follow-up question about the same file:
 
    ```text
@@ -47,6 +50,7 @@ This standalone lab gives attendees four short exercises to practice context con
 - ✅ Compared a broad `#codebase` question with a targeted `#file` question
 - ✅ Observed the difference in scope and relevance
 - ✅ Started a fresh chat session and confirmed that prior history was not carried over
+- ✅ Identified at least one claim to verify and checked it against the source
 
 ## Exercise 2: Project Bootstrap
 
@@ -64,7 +68,10 @@ This standalone lab gives attendees four short exercises to practice context con
 
 4. Watch how Copilot proposes folders, files, package setup, and commands such as `npm init` or dependency installation.
 5. Review the generated structure before accepting the changes.
-6. If you want to compare workflows, try the workspace scaffold command in a separate chat:
+
+6. **🛡️ Safety checkpoint**: Before accepting the scaffold, check `package.json` for unfamiliar dependencies. Would you install these in production without vetting them? (*Tip*: Dependabot can automate this check for you.)
+
+7. If you want to compare workflows, try the workspace scaffold command in a separate chat:
 
    ```text
    @workspace /new Create a simple Node.js Express API with a /health endpoint and a /users endpoint that returns mock data
@@ -92,6 +99,7 @@ This standalone lab gives attendees four short exercises to practice context con
 - ✅ Reviewed the generated files and structure before accepting
 - ✅ Tried Agent mode or `@workspace /new` as a project bootstrap workflow
 - ✅ Compared a vague prompt with a PRD-quality prompt and observed the difference in agent output
+- ✅ Reviewed generated dependencies for unfamiliar or potentially risky packages
 
 ## Exercise 3: Agents & Skills
 
@@ -123,7 +131,9 @@ This standalone lab gives attendees four short exercises to practice context con
    - Be concise and actionable
    ```
 
-6. Invoke the custom agent against the main entry point of your project:
+6. **🛡️ Safety checkpoint**: Review your agent's instructions. Could they be interpreted to cause overly broad actions? Good agent instructions include explicit scope boundaries ("do NOT modify files outside `src/`").
+
+7. Invoke the custom agent against the main entry point of your project:
 
    ```text
    @reviewer review the main entry point of this project
@@ -137,6 +147,7 @@ This standalone lab gives attendees four short exercises to practice context con
 - ✅ Observed tool calls in the chat transcript
 - ✅ Created `.github/agents/reviewer.md`
 - ✅ Invoked `@reviewer` successfully
+- ✅ Reviewed custom agent instructions for clear scope boundaries
 
 ## Exercise 4: Agentic Loops & Rubber Duck
 
@@ -151,7 +162,10 @@ This standalone lab gives attendees four short exercises to practice context con
    ```
 
 2. Watch the loop as Copilot plans the task, edits files, runs tests, and responds to the results.
-3. If the project passes immediately, intentionally break a test or validation rule, then ask Copilot to recover:
+
+3. **🛡️ Safety checkpoint**: Count how many iterations the agent took. If it looped more than 2–3 times, review the final result carefully — repeated retries can indicate the agent patched symptoms rather than fixing root causes.
+
+4. If the project passes immediately, intentionally break a test or validation rule, then ask Copilot to recover:
 
    ```text
    Fix the failing tests
@@ -177,5 +191,6 @@ This standalone lab gives attendees four short exercises to practice context con
 - ✅ Saw Copilot recover from a failing test or broken implementation
 - ✅ Switched models and used one model to review another model's output
 - ✅ Compared the review feedback for bugs and edge cases
+- ✅ Checked whether the agent's iteration count suggests confident resolution or repeated guessing
 
 *Hands-on lab for Module 2: Agentic Patterns — Copilot Developer Training*

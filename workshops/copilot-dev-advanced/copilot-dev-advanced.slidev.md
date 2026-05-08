@@ -99,6 +99,12 @@ graph LR
 
 </div>
 
+<div class="gh-callout gh-callout-purple">
+
+**Responsible autonomy**: A single agent with many tools is powerful but has a wide blast radius. Limit tool access to what the current task *actually needs* — you can always expand scope for the next prompt.
+
+</div>
+
 <!--
 The key teaching point: single-agent is the baseline architecture. It is simpler, easier to explain, and usually good enough until there is a real reason to add orchestration.
 -->
@@ -360,6 +366,12 @@ class: text-sm
 
 </div>
 
+<div class="gh-callout gh-callout-purple">
+
+**Safety tip**: MCP servers may need credentials (API keys, tokens). Never hard-code secrets in `mcp.json` — use environment variables. (*If your org uses GitHub secret scanning, push protection blocks accidental commits automatically.*)
+
+</div>
+
 <!--
 This is the bridge to the next section: MCP is capability, not behavior. Instructions shape behavior; MCP adds reachable tools.
 -->
@@ -557,6 +569,12 @@ graph LR
 <div class="gh-callout gh-callout-purple">
 
 **Shared memory, curated over time**: one validated fact can save rediscovery for every future session in the repository.
+
+</div>
+
+<div class="gh-callout gh-callout-purple">
+
+**Safety tip**: Memory is shared across contributors. Never store secrets, PII, or sensitive config as memory — it persists and surfaces for everyone. Treat memory like public documentation.
 
 </div>
 
@@ -839,6 +857,12 @@ graph LR
 - **The developer** still reviews outputs and decides what ships
 
 </v-clicks>
+
+<div class="gh-callout gh-callout-purple">
+
+**Defense in depth**: Each layer adds capability AND risk. Human review remains the primary gate — and tools like **code scanning + Copilot Autofix** can add an automated safety net if your org enables them.
+
+</div>
 
 <!--
 This is the architecture summary slide. If attendees remember one diagram from the module, make it this one.

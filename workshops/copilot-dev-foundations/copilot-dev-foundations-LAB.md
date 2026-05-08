@@ -46,6 +46,8 @@ This standalone lab helps attendees practice the core Copilot workflows from Mod
 
     Observe how Copilot plans multiple steps, gathers context, and proposes file changes.
 
+6. **🛡️ Safety checkpoint**: Agent mode can create and modify files. Before accepting any agent-generated changes, review the diff. This is your human review gate — never commit changes you haven't read.
+
 6. Select a function and run:
 
     ```text
@@ -78,6 +80,7 @@ This standalone lab helps attendees practice the core Copilot workflows from Mod
 - ✅ Tried at least two slash commands
 - ✅ Used `@workspace`
 - ✅ Used `#file`
+- ✅ Reviewed agent-generated changes before accepting
 
 ## Exercise 2: GitHub CLI
 
@@ -167,6 +170,8 @@ gh extension install github/gh-copilot
 
     Check whether the response uses Jest-style structure and includes edge cases.
 
+5. **🛡️ Safety checkpoint**: Add another instruction: `"Never hard-code secrets or API keys — use environment variables."` Then ask Copilot to write code that connects to an API. Verify it uses environment variables instead of inline credentials. This is a good habit — and if your org enables GitHub Secret Scanning, it catches any that slip through.
+
 > **Note**: File-targeted instructions are only applied when the active file matches the `applyTo` pattern.
 
 ### ✅ Success Criteria
@@ -174,6 +179,7 @@ gh extension install github/gh-copilot
 - ✅ Created a repository-level instruction file
 - ✅ Created a targeted instruction file
 - ✅ Verified Copilot followed both instruction sets
+- ✅ Added a security-focused custom instruction and verified Copilot follows it
 
 ## Exercise 4: Models & Tokens
 
@@ -198,7 +204,9 @@ gh extension install github/gh-copilot
 
 5. Compare the two responses for tone, detail, and actionability.
 
-6. Open **View → Output** in VS Code, then choose **GitHub Copilot Chat** from the output dropdown.
+6. **🛡️ Safety checkpoint**: Did either model produce code or suggestions that look confident but might be wrong? Different models can produce different security postures in generated code. If one model's output looks correct but the other raises concerns, investigate — over-trust in a confident-sounding response is the most common AI safety risk.
+
+7. Open **View → Output** in VS Code, then choose **GitHub Copilot Chat** from the output dropdown.
 
 7. Review the recent log entries and look for model and token usage details tied to your prompts.
 
@@ -210,5 +218,6 @@ gh extension install github/gh-copilot
 - ✅ Compared responses from two models
 - ✅ Located the GitHub Copilot Chat output logs
 - ✅ Observed token-related information in the logs
+- ✅ Compared responses for potential security differences
 
 *Hands-on lab for Module 1: Foundations — Copilot Developer Training*

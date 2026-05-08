@@ -12,14 +12,12 @@ workshops/
   copilot-dev-foundations/   # Module 1: Foundations (Slidev deck + LAB)
   copilot-dev-agentic/       # Module 2: Agentic Patterns (Slidev deck + LAB)
   copilot-dev-advanced/      # Module 3: Advanced Topics (Slidev deck + LAB)
-  copilot-dev-hack/          # Module 4: Hack (Slidev deck + workshop guide)
   copilot-workshop-c++/      # Standalone: Zero to Agents C++ / ODrive variant
-  <workshop>/public → ../public  # Symlink/junction (gitignored, created by build script)
 public/
   images/                    # Centralized image assets for Slidev decks
-    copilot-dev-foundations/  # Images referenced by Module 1 slides
-    copilot-dev-agentic/     # Images referenced by Module 2 slides
-    copilot-dev-advanced/    # Images referenced by Module 3 slides
+    copilot-dev-foundations/  # PPTX-extracted slide images for Module 1
+    copilot-dev-agentic/     # PPTX-extracted slide images for Module 2
+    copilot-dev-advanced/    # PPTX-extracted slide images for Module 3
 source/
   pptx/                      # Input PPTX files for conversion (gitignored)
 site/                        # Astro site (landing page, lab pages)
@@ -29,11 +27,14 @@ site/                        # Astro site (landing page, lab pages)
   layouts/Base.astro         # Shared layout (header, dark theme)
 scripts/
   build-site.mjs             # Full build: creates public/ symlinks → Slidev decks → Astro site
-  convert-pptx.py            # PPTX → Slidev conversion (requires python-pptx)
+  convert-pptx.py            # PPTX → Slidev conversion (full-bleed background images)
 themes/                      # Slidev theme (github/)
 ```
 
-Each module folder contains a `*.slidev.md` slide deck and an optional `*-LAB.md` for hands-on exercises. The `copilot-dev-training/` parent folder holds curriculum-level planning documents.
+Each module folder contains:
+- `<name>-workshop.md` — source of truth content (NotebookLM input)
+- `<name>.slidev.md` — generated presentation (full-bleed background images + presenter notes)
+- `<name>-LAB.md` — optional hands-on exercises
 
 ## Build & Deployment
 
@@ -96,8 +97,8 @@ When editing either file in a module, **always check the other for consistency**
 - `### Success Criteria` with `✅` checkmarks
 - Fenced code blocks for all commands and prompts (ensures copy button on GitHub)
 
-### Workshop Files (`*-workshop.md`) — Legacy
-- Some modules may still have workshop guide files; the Slidev deck + LAB are the primary deliverables
+### Workshop Files (`*-workshop.md`) — Source of Truth
+- The workshop file is the **authoritative content** for each module. It is the input for NotebookLM to generate visual slides.
 - **Header**: H1 title → bold metadata fields → `## Workshop Overview` → `### Learning Objectives`
 - **Sections**: `## N. Section Title (XX min)` (H2, numbered, with time in parentheses)
 - **Subsections**: `### Key Points`, `### 🖥️ Demo: Title`, `### Discussion Points`
@@ -137,63 +138,15 @@ All slide images live in `public/images/<workshop-folder-name>/`. This centraliz
 
 ### Core principle
 
-Images belong **on existing content slides** using the `image-right` layout — not on standalone image-only slides. Every image should accompany the text it supports.
+For PPTX-generated decks (the default workflow), each slide IS a full-bleed background image. The `.slidev.md` file uses `background:` in slide frontmatter — no `<img>` tags, no layout overrides.
 
-### Adding images
+### Image storage
 
-1. Place the image in the correct subfolder:
-
-   ```
-   public/images/copilot-dev-agentic/agent-harness.png
-   ```
-
-2. Add an entry to the `images.yaml` manifest in that subfolder:
-
-   ```yaml
-   - file: agent-harness.png
-     slide: "What is an Agent Harness?"
-     alt: "Agent harness architecture"
-     position: right
-     section: "Agent Architecture"
-   ```
-
-3. Use `layout: image-right` on the target slide. Place the image in the `::image::` slot:
-
-   ```markdown
-   ---
-   layout: image-right
-   class: text-sm
-   ---
-
-   # What is an Agent Harness?
-
-   - **Point one** — explanation
-   - **Point two** — explanation
-
-   ::image::
-
-   <img src="/images/copilot-dev-agentic/agent-harness.png" alt="Agent harness architecture" />
-   ```
-
-### Image manifest fields
-
-| Field | Required | Description |
-|-------|----------|-------------|
-| `file` | ✅ | Image filename |
-| `slide` | ✅ | Target slide title (exact `# Heading` text) |
-| `alt` | ✅ | Alt text for accessibility |
-| `position` | No | `right` (image-right layout) or `center` (full-width) |
-| `section` | No | Logical section the slide belongs to |
-
-### Image rules
-
-- Use `<img>` tags (not markdown `![]()`) for `alt` control
-- Always include `alt` attributes
-- Keep images under 500 KB; prefer PNG for diagrams, SVG where possible
-- Name files with kebab-case matching the concept shown (e.g., `memory-landscape.png`)
-- Create the workshop subfolder under `public/images/` if it does not exist yet
-- Always update `images.yaml` when adding, renaming, or removing images
-- Do **not** create standalone image-only slides — embed images into content slides
+```
+public/images/copilot-dev-foundations/slide-01-a1b2c3d4.png
+public/images/copilot-dev-foundations/slide-02-e5f6g7h8.png
+...
+```
 
 ### How Slidev resolves images (public/ symlinks)
 
@@ -212,57 +165,62 @@ Slidev uses the `.slidev.md` file's directory as its Vite project root, so `/ima
   ln -s ../../public workshops/copilot-dev-foundations/public
   ```
 
-When adding a **new workshop folder**, the build script will auto-create the junction for it. No manual step is needed unless you want to preview locally before running a full build.
+### Image rules
 
-### Pre-build image sync check
+- Keep images under 500 KB; prefer PNG for diagrams, SVG where possible
+- Name files with kebab-case matching the concept shown (e.g., `memory-landscape.png`)
+- PPTX-extracted images use the naming pattern: `slide-NN-HASH.ext`
+- Create the workshop subfolder under `public/images/` if it does not exist yet
 
-Before running any build (`npm run build:site`, `npm run build:all`, or `npx slidev build`), review each `public/images/*/images.yaml` manifest for consistency:
+## PPTX Conversion Pipeline (Content Workflow)
 
-1. **Every image file** in the directory has a corresponding entry in `images.yaml`
-2. **Every manifest entry** references a file that actually exists
-3. **Every `<img>` tag** in the matching Slidev deck uses the `alt` and `src` from the manifest
-4. **Slide titles** in the manifest still match the actual `# Heading` in the Slidev file
+The primary content workflow for this repo:
 
-If any mismatches are found, fix them before proceeding with the build.
+```
+-workshop.md  →  NotebookLM  →  .pptx (local, gitignored)
+                                    ↓
+                              convert-pptx.py
+                                    ↓
+                    public/images/<workshop>/slide-NN.png  (committed)
+                    <workshop>.slidev.md                   (committed)
+```
 
-## PPTX Conversion Pipeline
+### Roles of each file
 
-The repo supports converting NotebookLM-generated PPTX files into Slidev decks.
+| File | Role | Committed? |
+|------|------|-----------|
+| `*-workshop.md` | Source of truth — rich content fed into NotebookLM | ✅ Yes |
+| `source/pptx/*.pptx` | Generated by NotebookLM — binary, too large for git | ❌ Gitignored |
+| `public/images/<workshop>/slide-*.png` | Extracted slide images | ✅ Yes |
+| `*.slidev.md` | Generated presentation — full-bleed image backgrounds + presenter notes | ✅ Yes |
 
-### Workflow
+### Running the conversion
 
-1. **Generate** a PPTX from NotebookLM (or any presentation tool)
-2. **Drop** it into `source/pptx/<workshop-folder-name>.pptx`
-3. **Run** the conversion:
+```bash
+npm run convert:pptx -- <workshop-folder-name>
+```
 
-   ```bash
-   npm run convert:pptx -- <workshop-folder-name>
-   ```
-
-4. **Review** the generated `.slidev.md` and adjust layouts/density as needed
-5. **Preview** with `npx slidev workshops/<workshop>/<workshop>.slidev.md`
-
-### What the script does
-
-- Extracts text from each PPTX slide (title + body bullets)
-- Extracts embedded images and saves to `public/images/<workshop>/`
-- Auto-detects the best Slidev layout for each slide (cover, section, image-right, statement, default)
-- Generates `images.yaml` manifest for all extracted images
-- Formats body text as markdown bullets with `<v-clicks>` progressive reveal
-
-### Re-running after updates
-
-The script is **idempotent** — re-running it overwrites previous output. Drop an updated PPTX into the same location and re-run:
+Example:
 
 ```bash
 npm run convert:pptx -- copilot-dev-foundations
 ```
 
-### Source files
+### What the script produces
 
-- Script: `scripts/convert-pptx.py` (requires `python-pptx` and optional `Pillow`)
-- Input: `source/pptx/*.pptx` (gitignored — local only, not committed)
-- Output: `workshops/<name>/<name>.slidev.md` + `public/images/<name>/`
+Each slide becomes a full-bleed background image:
+
+```markdown
+---
+background: /images/copilot-dev-foundations/slide-02-a1b2c3d4.png
+---
+
+<!-- Presenter notes describing what to say about this slide -->
+```
+
+- No text content on slides (the image IS the slide)
+- Presenter notes in `<!-- -->` comments are added manually after generation
+- Re-running overwrites previous output (idempotent)
 
 ### Python dependency
 

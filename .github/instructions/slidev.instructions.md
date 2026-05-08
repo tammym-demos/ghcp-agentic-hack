@@ -154,7 +154,7 @@ The mermaid glass container is set to `width: 100%` so it fills the slide width.
 
 1. **No scrolling** — every slide must fit in the viewport. Use `text-sm` or `text-xs` class
 2. **One concept per slide** — if content overflows, split into two slides
-3. **Images on content slides** — use `layout: image-right`, never standalone image-only slides
+3. **PPTX slides use `background:`** — generated decks are full-bleed images, no text content on slide
 4. **Cards over tables** — for 2-4 items, use `gh-box-*` cards in a `grid` instead of a table
 5. **Statement slides for impact** — use `layout: statement` for memorable one-liners between dense content
 6. **Callouts at bottom** — place `gh-callout` divs as the last content element
@@ -164,25 +164,29 @@ The mermaid glass container is set to `width: 100%` so it fills the slide width.
 
 ## Images
 
-All slide images are stored centrally in `public/images/<workshop-folder-name>/`. Each subfolder contains an `images.yaml` manifest that maps images to slides.
+All slide images are stored centrally in `public/images/<workshop-folder-name>/`.
 
-### Core principle
+### PPTX-Generated Decks (Primary Workflow)
 
-Images belong **on existing content slides**, not on standalone image-only slides. Use the `image-right` layout to pair an image with the slide's text content. Do **not** create separate recap or image-only slides.
+For decks generated from NotebookLM PPTX files, each slide is a full-bleed background image. Use `background:` in the slide frontmatter:
 
-### Manifest format
+```markdown
+---
+background: /images/copilot-dev-foundations/slide-02-a1b2c3d4.png
+---
 
-```yaml
-- file: agent-harness.png
-  slide: "What is an Agent Harness?"   # exact slide heading
-  alt: "Agent harness architecture"
-  position: right                      # right (image-right layout) or center
-  section: "Agent Architecture"        # logical section (optional)
+<!-- Presenter notes for this slide -->
 ```
 
-### Using `image-right` layout
+Key rules for PPTX-generated decks:
+- **No text on slides** — the image IS the slide
+- **No layout overrides** — don't set `layout:` (background fills viewport)
+- **Presenter notes in `<!-- -->`** — added manually after conversion
+- **One image per slide** — the `background:` property handles it
 
-Place the image in the `::image::` slot. The layout frames it with a glass border and ambient glow:
+### Manually-Authored Slides with Images
+
+For slides authored by hand (not generated from PPTX), use the `image-right` layout to pair an image with text content:
 
 ```markdown
 ---
@@ -204,17 +208,13 @@ class: text-sm
 <img src="/images/<workshop>/image.png" alt="Description" />
 ```
 
-The layout auto-sizes the image. For full-width visuals (rare), use `layout: center` instead.
+### Rules (all slides)
 
-### Rules
-
-- Use `<img>` tags (not markdown `![]()`) for `alt` control
+- Use `<img>` tags (not markdown `![]()`) for `alt` control when using `image-right`
 - Always include `alt` attributes
 - Keep images under 500 KB; prefer PNG for diagrams, SVG where possible
 - Name files with kebab-case matching the concept shown
-- Always update `images.yaml` when adding, renaming, or removing images
 - Do **not** place images in per-workshop `assets/` directories
-- Do **not** create standalone image-only slides — embed images into content slides
 
 ### How image resolution works
 

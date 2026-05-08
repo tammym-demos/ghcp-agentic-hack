@@ -1,9 +1,0 @@
-# Image manifest for copilot-dev-advanced Slidev deck
-# Used by Copilot to place images on the correct slides
-
-- file: memory-landscape.png
-  slide: "Managing Memory as a Developer"
-  alt: "Memory types and scope"
-  width: 600
-  position: right  # two-cols layout, right column
-  section: "Memory & Context"

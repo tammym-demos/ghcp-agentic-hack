@@ -78,11 +78,14 @@ Only help with documentation. Keep responses focused on clarity and completeness
 
 7. Reflect on the difference: specialized agents should produce more focused, higher-quality output in their domain. Discuss when one general agent is enough versus when multiple specialized agents are better.
 
+8. **🛡️ Safety checkpoint**: In your multi-agent design, which agent has the most powerful tool access? Could you reduce its scope without losing functionality? Least-privilege applies to AI agents too.
+
 ### Success Criteria
 
 - ✅ Created one general agent and two specialized agents
 - ✅ Tested the broad agent and specialized agents in Chat
 - ✅ Compared the quality and focus of their outputs
+- ✅ Identified the most-privileged agent and considered scope reduction
 
 ## Exercise 2: MCP Setup (10 min)
 
@@ -113,7 +116,9 @@ Fetch the content from https://api.github.com/zen and tell me what it says
 
 4. Watch for tool call indicators in Chat. You should see Copilot using the MCP fetch server.
 
-5. Explore one more MCP server option at <https://mcp.so> or on npm by searching for `@modelcontextprotocol`.
+5. **🛡️ Safety checkpoint**: The MCP server you just installed runs code on your machine. Check the npm package for maintenance activity and known vulnerabilities before using it in a real project.
+
+6. Explore one more MCP server option at <https://mcp.so> or on npm by searching for `@modelcontextprotocol`.
 
 > **Note**: If `npx` is not available, install Node.js first. The MCP fetch server requires no extra configuration beyond the `mcp.json` entry.
 
@@ -122,6 +127,7 @@ Fetch the content from https://api.github.com/zen and tell me what it says
 - ✅ Added an MCP server to `.vscode/mcp.json`
 - ✅ Reloaded VS Code successfully
 - ✅ Saw Copilot use the MCP server to fetch external data
+- ✅ Checked the MCP server package for trustworthiness and maintenance
 
 ## Exercise 3: Debugging Chat & Agents (5 min)
 
@@ -154,11 +160,14 @@ Refactor this module to reduce duplication and add tests for the changed behavio
 
 6. Watch the Output panel as the agent runs. Look for the iteration count, tools used, retries, and any errors.
 
+7. **🛡️ Safety checkpoint**: In the agent logs, did the agent access files or run commands you didn't expect? Unexpected tool usage is a signal that instructions may be too broad.
+
 ### Success Criteria
 
 - ✅ Opened the correct Copilot output channel
 - ✅ Identified context, model choice, and token usage
 - ✅ Traced at least one agent loop in the logs
+- ✅ Identified whether the agent used any unexpected tools or files
 
 ## Exercise 4: Full Stack Agent (6 min)
 
@@ -186,10 +195,13 @@ Refactor this module to reduce duplication and add tests for the changed behavio
 
 4. Open the Output panel again and trace how those layers show up in the request and tool activity.
 
+5. **🛡️ Safety checkpoint**: Your agent stack is powerful. What happens if it produces code with a security flaw? Confirm that human review (or automated scanning like GHAS) would catch it before merge.
+
 ### Success Criteria
 
 - ✅ Used a custom agent with repo instructions already in place
 - ✅ Confirmed MCP tools were available to the workflow
 - ✅ Traced how instructions, agent behavior, and tools combined in the logs
+- ✅ Confirmed a safety gate (human review or automated scanning) exists for agent-generated code
 
 *Hands-on lab for Module 3: Advanced Topics — Copilot Developer Training*
