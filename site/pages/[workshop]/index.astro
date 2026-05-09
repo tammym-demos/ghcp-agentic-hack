@@ -67,6 +67,7 @@ export function getStaticPaths() {
 
 const { label, desc, icon, hasWorkshop, hasLab, hasSlides, hasQuiz, modules, prerequisites } = Astro.props
 const { workshop } = Astro.params
+const workshopsDir: string = __WORKSHOPS_DIR__
 ---
 
 <Base title={label}>
@@ -81,7 +82,13 @@ const { workshop } = Astro.params
 
     <div class="resource-grid">
       {modules ? (
-        modules.map(m => (
+        modules.map(m => {
+          const mDir = resolve(workshopsDir, m.folder)
+          const mFiles = existsSync(mDir) ? readdirSync(mDir) : []
+          const mHasLab = mFiles.some((f: string) => f.endsWith('-LAB.md'))
+          const mHasSlides = mFiles.some((f: string) => f.endsWith('.slidev.md'))
+          const mHasQuiz = mFiles.some((f: string) => f.endsWith('-QUIZ.md'))
+          return (
           <div class="module-card">
             <div class="module-header">
               <span class="module-icon">{m.icon}</span>
@@ -91,12 +98,13 @@ const { workshop } = Astro.params
               </div>
             </div>
             <div class="module-links">
-              <a href={`${base}${m.folder}/lab`} class="module-link module-link-lab">Lab</a>
-              <a href={`${base}${m.folder}/slides/1`} target="_blank" rel="noopener noreferrer" onclick={`window.open(this.href,'_blank','width=1280,height=720,menubar=no,toolbar=no,location=no,status=no');return false;`} class="module-link module-link-slides">Slides</a>
-              <a href={`${base}${m.folder}/quiz`} class="module-link module-link-quiz">Quiz</a>
+              {mHasLab && <a href={`${base}${m.folder}/lab`} class="module-link module-link-lab">Lab</a>}
+              {mHasSlides && <a href={`${base}${m.folder}/slides/1`} target="_blank" rel="noopener noreferrer" onclick={`window.open(this.href,'_blank','width=1280,height=720,menubar=no,toolbar=no,location=no,status=no');return false;`} class="module-link module-link-slides">Slides</a>}
+              {mHasQuiz && <a href={`${base}${m.folder}/quiz`} class="module-link module-link-quiz">Quiz</a>}
             </div>
           </div>
-        ))
+          )
+        })
       ) : (
       <>
       {false && hasWorkshop && (
