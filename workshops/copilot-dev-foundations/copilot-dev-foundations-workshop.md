@@ -9,11 +9,11 @@
 
 ## Workshop Overview
 
-Module 1 establishes the operating model for the rest of the Copilot Developer Training curriculum. In the full program, this content spans three sessions over roughly 3 hours and 15 minutes. In this condensed instructor-led delivery, the goal is not to cover every click path exhaustively, but to give attendees the mental models they need to use Copilot deliberately: where suggestions appear, how context is assembled, how instructions shape behavior, and how model and agent choices affect quality, speed, and cost.
+Module 1 establishes the operating model for the rest of the Copilot Developer Training curriculum. In the full program, this content spans three sessions over roughly 3 hours and 15 minutes. In this condensed instructor-led delivery, the goal is to give attendees the mental models they need to use Copilot deliberately: where the main interaction surfaces live, how context is assembled, how instructions shape behavior, and how modes, models, agents, skills, and reusable prompts affect quality, speed, and cost.
 
-The first portion of the module is a guided tour of **Copilot interaction surfaces**: inline completions in the editor, chat in the panel, inline chat for focused edits, quick chat for lightweight questions, and prompt-first terminal workflows with GitHub Copilot CLI. Attendees learn the practical differences between **Ask**, **Plan**, and **Agent** mode; when to use slash commands; how `@workspace`, `@terminal`, `@vscode`, `#file`, and `#selection` change context; and why multi-session management matters when moving between unrelated tasks.
+The first portion of the module is a guided tour of **Copilot interaction surfaces** with the emphasis shifted away from basic ghost text mechanics and toward higher-value control surfaces. Attendees learn the practical differences between **Ask**, **Plan**, and **Agent** mode; when to use slash commands; how `@workspace`, `@terminal`, `@vscode`, `#file`, and `#selection` change context; why GitHub Copilot CLI belongs in the same workflow family; and why multi-session management matters when moving between unrelated tasks.
 
-The second half of the module explains why Copilot output quality is largely a **context management** problem. Developers see how the context window is constructed, what happens when token budgets get tight, how repository and file-scoped instructions reduce repetition, and how stronger prompts produce more reliable output. The module closes by connecting **models, agents, and usage economics**: choosing the right model for the task, recognizing context-window and premium-request tradeoffs, understanding built-in vs. custom agents, and using repository setup guidance such as `.github/workflows/copilot-setup-steps.yml` to make good practices repeatable.
+The second half of the module explains why Copilot output quality is largely a **context management** problem. Developers see how the context window is constructed, what happens when token budgets get tight, how repository and file-scoped instructions reduce repetition, and how stronger prompts produce more reliable output. The module closes by connecting **models, agents, skills, reusable prompts, and usage economics**: choosing the right model for the task, recognizing context-window and premium-request tradeoffs, understanding built-in vs. custom agents, packaging repeatable workflows, and using repository setup guidance such as `.github/workflows/copilot-setup-steps.yml` to make good practices repeatable.
 
 ### Learning Objectives
 
@@ -24,6 +24,7 @@ The second half of the module explains why Copilot output quality is largely a *
 - Create and explain repository-level and file-scoped instruction files
 - Craft prompts that specify task, scope, constraints, and definition of done
 - Compare models and agent options based on capability, latency, autonomy, safety, and usage cost
+- Create and invoke a custom agent and a reusable prompt
 
 ### Prerequisites
 
@@ -42,19 +43,19 @@ The second half of the module explains why Copilot output quality is largely a *
 
 | Section | Topic | Time |
 |---------|-------|------|
-| 1 | Foundations framing, safety, and workflow map | 10 min |
-| 2 | Copilot Chat Tour | 25 min |
+| 1 | Foundations framing, safety, and workflow map | 5 min |
+| 2 | Copilot Chat Tour | 18 min |
 | 3 | Memory, Context & Instructions | 25 min |
-| 4 | Models, Agents & Tokens | 25 min |
+| 4 | Models, Agents, Skills & Customization | 32 min |
 | 5 | Wrap-up, hand-off to lab, and Q&A | 5 min |
 
 ---
 
-## 1. Foundations Framing, Safety, and Workflow Map (10 min)
+## 1. Foundations Framing, Safety, and Workflow Map (5 min)
 
 ### Key Points
 
-- Module 1 is the shared vocabulary layer for the rest of the training. If attendees do not understand how suggestions are generated and scoped here, later agentic workflows feel random or risky.
+- Module 1 starts with one framing idea: Copilot offers increasing autonomy as you move from **completion** to **chat** to **agent** workflows.
 - Copilot should be presented as an **acceleration layer**, not an autonomous replacement for software judgment. The highest-value habit in this module is not "prompt harder" — it is **review deliberately**.
 - The instructional arc for the module is:
 
@@ -75,25 +76,20 @@ Inline Completions → Chat Modes → Context & Instructions → Models & Agents
   - **S1 — AI as Partner, Not Replacement**: The human remains accountable for correctness, security, and business fit.
   - **S2 — What Gets Shared?**: Context selection is a privacy and governance decision, not just a convenience feature.
   - **S3 — Model Selection: Capability vs. Risk**: More capability and autonomy are useful, but they also increase blast radius if the task is poorly framed.
+- The rest of the module is about learning to control those variables instead of treating Copilot as a black box.
 
 > **Important**: The fastest route to poor Copilot results is silent over-trust. In this workshop, every recommendation should reinforce trust calibration: inspect the suggestion, inspect the context, inspect the result.
 
 ### 🖥️ Demo: Environment Tour and Mental Model Setup
 
-- Open VS Code with a sample repository and show the minimum surfaces attendees need to recognize:
-  - Editor with inline completion enabled
+- Open VS Code with a sample repository and quickly point out the surfaces attendees will use for the rest of the module:
   - Copilot Chat panel
-  - Inline chat entry point on a selected block of code
-  - Quick chat or lightweight prompt entry surface
-  - Model/agent selector and chat session list
-  - Terminal access for a quick `copilot -p "..."` example
-- Explain that the same repository can produce very different answers depending on:
-  - What file is active
-  - What text is selected
-  - What instructions are present
-  - Which mode and model are chosen
-  - Whether the user is continuing an old session or starting fresh
-- Frame the rest of the workshop as learning to control those variables instead of treating Copilot as a black box.
+  - Model / mode selector
+  - Chat session list
+  - Inline chat entry point on a selected block
+  - Terminal access for `copilot -p "..."` workflows
+- Show the completion → chat → agent progression, then explain that the same repository produces different answers based on mode, context, instructions, and model choice.
+- Frame the workshop as learning to control those variables quickly and safely.
 
 ### Discussion Points
 
@@ -104,19 +100,11 @@ Inline Completions → Chat Modes → Context & Instructions → Models & Agents
 
 ---
 
-## 2. Copilot Chat Tour (25 min)
+## 2. Copilot Chat Tour (18 min)
 
 ### Key Points
 
-- **Inline completions** are the fastest Copilot interaction. They work best when the local file already contains strong patterns. Developers should think of them as high-speed continuation, not high-confidence design.
-- The completion workflow has four behaviors worth naming explicitly:
-
-  | Capability | What It Looks Like | Why It Matters |
-  |------------|--------------------|----------------|
-  | **Ghost text** | Suggested code appears inline before acceptance | Enables low-friction review before insertion |
-  | **Tab accept** | Accept the full suggestion | Best when the suggestion is correct as shown |
-  | **Partial accept** | Accept only the useful portion of a suggestion | Keeps the human in control of structure and naming |
-  | **Pattern continuation** | Similar code patterns are suggested after a few examples | Rewards clean local code and consistent style |
+- Because this audience already knows inline completions, this section should move quickly past ghost text and focus on the higher-value chat and agent controls that shape larger tasks.
 
 - **Chat surfaces** solve different interaction problems:
 
@@ -172,20 +160,12 @@ Inline Completions → Chat Modes → Context & Instructions → Models & Agents
 
 > **Important**: **AI as Partner, Not Replacement** is most visible in this section. Inline completions feel frictionless, which is why they are also the easiest place to over-trust unreviewed output.
 
-### 🖥️ Demo: From Ghost Text to Agent Mode
+### 🖥️ Demo: From Chat Control to Agent Mode
 
-- Open a function with obvious repetition and pause to let **ghost text** appear.
-- Accept one suggestion fully, then demonstrate **partial acceptance** to keep only the useful prefix.
 - Open the **chat panel** in **Ask** mode and ask a workspace-level orientation question such as:
 
   ```text
   @workspace Explain how this repository is structured for a developer who just joined the team.
-  ```
-
-- Use **inline chat** for a focused edit on a selected function:
-
-  ```text
-  Refactor this function for readability. Preserve behavior and keep the public API unchanged.
   ```
 
 - Switch to **Plan** mode for a bounded task such as drafting README updates, review the proposed steps, then choose whether to continue.
@@ -334,7 +314,7 @@ Inline Completions → Chat Modes → Context & Instructions → Models & Agents
 
 ---
 
-## 4. Models, Agents & Tokens (25 min)
+## 4. Models, Agents, Skills & Customization (32 min)
 
 ### Key Points
 
@@ -389,6 +369,16 @@ Total request cost = input context + retrieved context + model response
   | **Built-in agent workflows** | General coding, explanation, editing, or multi-step task execution | Using Agent mode to create tests or update a README |
   | **Custom agents** | Reusable, team-specific specialization | A repo-defined test specialist or documentation specialist |
 
+### Agents, Skills, and Reusable Prompts
+
+- These three concepts give teams reusable control surfaces beyond one-off prompting:
+
+  | Concept | Definition | Where It Lives |
+  |---------|------------|----------------|
+  | **Agent** | A goal-directed workflow with tool access that can plan, act, observe, and adjust | Built-in (Agent mode) or custom (`.github/agents/`) |
+  | **Skill** | A specific tool capability an agent can use | File operations, terminal, search, web, GitHub APIs |
+  | **Reusable prompt** | A saved prompt template invokable from the command palette | `.github/prompts/*.prompt.md` |
+
 - A concrete custom agent example can make the idea tangible:
 
   ```markdown
@@ -402,6 +392,41 @@ Total request cost = input context + retrieved context + model response
   You are a testing specialist focused on improving code quality through comprehensive testing.
   Focus only on test files unless the user explicitly requests otherwise.
   ```
+
+- Agent files have four important parts:
+  - `name` — this is how the agent is invoked in chat, such as `@test-specialist`
+  - `description` — helps Copilot understand when this agent should be suggested or selected
+  - `tools` — scopes what the agent can do, such as `read`, `search`, `edit`, or terminal access
+  - The system prompt below the frontmatter — shapes behavior, boundaries, and output style
+
+- Reusable prompts complement agents when the task is repeatable but does not need a dedicated persona or tool scope:
+
+  ```markdown
+  <!-- .github/prompts/explain-function.prompt.md -->
+  ---
+  description: 'Explain a function with context, edge cases, and improvement suggestions'
+  ---
+
+  Explain the selected function. Cover:
+  1. What it does and why
+  2. Key parameters and return values
+  3. Edge cases and error handling
+  4. One improvement suggestion
+  ```
+
+- Invoke reusable prompts from the Command Palette: **Run Prompt** → select the prompt file.
+
+- A practical built-in skills inventory is:
+
+  | Skill | What It Does | Available In |
+  |-------|--------------|--------------|
+  | **File read/write** | Read and edit files in the workspace | Agent mode, custom agents |
+  | **Terminal** | Run shell commands | Agent mode |
+  | **Search** | Find symbols, files, and text across the workspace | All modes |
+  | **Web search** | Search the internet for current information | Agent mode |
+  | **GitHub APIs** | Create issues, PRs, read repo metadata | Coding agent |
+
+- The coding agent takes autonomy further: it receives an issue, creates a branch, implements changes in a cloud environment, and opens a PR — all without the developer's IDE open. Module 2 ("The Agentic Shift") teaches you how to design, supervise, and review this level of autonomy responsibly.
 
 - `.github/workflows/copilot-setup-steps.yml` is the repository's way to make good setup habits discoverable. A minimal example:
 
@@ -470,12 +495,13 @@ Total request cost = input context + retrieved context + model response
   | **Instructions** | "What rules should stay stable?" |
   | **Model / agent choice** | "What level of capability and autonomy is appropriate?" |
 
+- Agents, skills, and reusable prompts are additional control surfaces for repeatable work: they let teams package intent, tool access, and preferred output shape instead of re-explaining the same task every time.
 - The hands-on lab should reinforce practice, not replace explanation. Attendees should leave the lecture portion with a clear decision framework, then use the lab to build muscle memory.
 - The cleanest end-of-module summary is:
 
 ```
-Better outputs do not come from "magic prompts."
-Better outputs come from better scope, better context, better instructions, and better review.
+Better outputs come from better scope, better context, better instructions,
+better model choice, and better customization of agents and prompts.
 ```
 
 ### 🖥️ Demo: Transition from Concepts to Practice
@@ -485,17 +511,19 @@ Better outputs come from better scope, better context, better instructions, and 
   - Better prompt structure
   - Better scoped context
   - Better model choice
+  - Better agent or prompt customization
 - Point attendees to the hands-on lab as the place to practice:
   - Chat surfaces, chat variables, and slash commands
   - Copilot CLI prompt workflows
   - Repository and file-scoped instructions
   - Model comparisons
+  - Custom agents and reusable prompts
   - Token-aware workflow habits
 
 ### Discussion Points
 
 - What is the single most useful workflow change attendees will try immediately after this module?
-- Which team-level standards should be captured in instructions or setup steps first?
+- Which team-level standards should be captured in instructions, agents, reusable prompts, or setup steps first?
 - Where do attendees still feel uncertainty: trust, privacy, model choice, or token cost?
 
 *Workshop guide for Module 1: Foundations — Copilot Developer Training*

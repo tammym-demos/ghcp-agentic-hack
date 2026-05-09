@@ -25,9 +25,10 @@ site/                        # Astro site (landing page, lab pages)
   astro.config.mjs           # Astro config — base path set to /ghcp-agentic-hack/
   pages/index.astro          # Main landing page with workshop cards
   pages/[workshop]/index.astro  # Workshop detail page (modules, resources)
-  pages/[workshop]/lab.astro    # Dynamic lab page route
+  pages/[workshop]/lab.astro    # Dynamic lab page route (syntax highlighting, TOC sidebar)
+  pages/[workshop]/quiz.astro   # Interactive quiz page route
   pages/[workshop]/workshop.astro # Workshop guide page
-  layouts/Base.astro         # Shared layout (header, dark theme)
+  layouts/Base.astro         # Shared layout (header, light theme)
 scripts/
   build-site.mjs             # Full build: creates public/ symlinks → Slidev decks → Astro site
   convert-pptx.py            # PPTX → Slidev conversion (full-bleed background images)
@@ -38,6 +39,7 @@ Each module folder contains:
 - `<name>-workshop.md` — source of truth content (NotebookLM input)
 - `<name>.slidev.md` — generated presentation (full-bleed background images + presenter notes)
 - `<name>-LAB.md` — optional hands-on exercises
+- `<name>-QUIZ.md` — optional interactive quiz (generated from NotebookLM Quiz feature)
 
 ## Build & Deployment
 
@@ -97,8 +99,43 @@ When editing either file in a module, **always check the other for consistency**
 
 ### LAB Files (`*-LAB.md`)
 - Hands-on exercises with step-by-step instructions
+- Each exercise wrapped in `<details><summary>` for collapsibility
 - `### Success Criteria` with `✅` checkmarks
 - Fenced code blocks for all commands and prompts (ensures copy button on GitHub)
+- Timing badge in each exercise summary: `(~X min)`
+- Use `.github/prompts/format-lab.prompt.md` to reformat existing LAB files to the standard structure
+
+### Quiz Files (`*-QUIZ.md`)
+
+Quiz files are generated from the NotebookLM Quiz feature and rendered as interactive pages on the Astro site.
+
+**Format:**
+
+```markdown
+# Module Name — Quiz
+
+---
+
+### 1. Question text here?
+
+- A) Option text
+- B) Option text
+- C) Option text
+- D) Option text
+
+<!--answer: B-->
+<!--explanation: Why B is correct...-->
+
+---
+```
+
+**Rules:**
+- Questions separated by `---` horizontal rules
+- Heading: `### N. Question text` (numbered, H3)
+- Options: unordered list with `A)`, `B)`, `C)`, `D)` prefix
+- Answer in HTML comment: `<!--answer: B-->` (hidden when rendered as markdown)
+- Explanation in HTML comment: `<!--explanation: text-->` (shown after answering)
+- File naming: `<module-name>-QUIZ.md` (e.g., `copilot-dev-foundations-QUIZ.md`)
 
 ### Workshop Files (`*-workshop.md`) — Source of Truth
 - The workshop file is the **authoritative content** for each module. It is the input for NotebookLM to generate visual slides.

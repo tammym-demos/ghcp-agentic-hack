@@ -11,13 +11,13 @@ const showDrafts: boolean = __SHOW_DRAFTS__
 // Workshops with `modules` are multi-module curricula: one parent card links to child module folders.
 const workshopMeta: Record<string, { label: string; desc: string; icon: string; modules?: { folder: string; label: string; desc: string; icon: string }[]; prerequisites?: string[] }> = {
   'copilot-dev-training': {
-    label: 'Zero to Agentic: GitHub Copilot',
-    desc: '4.5-hour developer workshop — foundations, agentic patterns, and advanced topics.',
+    label: 'Beyond Autocomplete',
+    desc: 'GitHub Copilot Developer Training — foundations, agentic patterns, and advanced operations.',
     icon: '🎓',
     modules: [
-      { folder: 'copilot-dev-foundations', label: 'Module 1: Foundations', desc: '90 min · Chat tour, GitHub CLI, context & instructions, models & tokens', icon: '🎓' },
-      { folder: 'copilot-dev-agentic', label: 'Module 2: Agentic Patterns', desc: '90 min · Context management, project bootstrap, agents & skills, agentic loops', icon: '🤖' },
-      { folder: 'copilot-dev-advanced', label: 'Module 3: Advanced Topics', desc: '90 min · Agent architecture patterns, MCP setup, debugging, full-stack agents', icon: '🔬' },
+      { folder: 'copilot-dev-foundations', label: 'Controlling the Variables', desc: 'Modes, context, instructions, models, agents, skills & customization', icon: '🎓' },
+      { folder: 'copilot-dev-agentic', label: 'The Agentic Shift', desc: 'Designing, supervising, and reviewing autonomous workflows', icon: '🤖' },
+      { folder: 'copilot-dev-advanced', label: 'Operating Copilot Responsibly', desc: 'Advanced workflows, architecture, and diagnostics', icon: '🔬' },
       { folder: 'copilot-dev-hack', label: 'Module 4: Hack', desc: '60 min · Hands-on hackathon — build custom Copilot agents for real business problems', icon: '🚀' }
     ],
     prerequisites: [
@@ -78,14 +78,12 @@ for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d =>
 <Base title="GitHub Workshops">
   <section class="hero">
     <div class="hero-text">
-      <span class="hero-label">Enterprise Training</span>
-      <h1 class="hero-heading">GitHub Workshops</h1>
-      <p class="hero-description">Curated slide decks, hands-on labs, and demo scripts for enterprise teams adopting GitHub.</p>
+      <span class="hero-label">Developer Training</span>
+      <h1 class="hero-heading">Beyond Autocomplete</h1>
+      <p class="hero-description">Curated slide decks, hands-on labs, and interactive quizzes for teams mastering GitHub Copilot — from foundations to agentic patterns.</p>
     </div>
     <div class="hero-graphic" aria-hidden="true">
-      <svg class="hero-octocat" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" clip-rule="evenodd" fill="white" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"/>
-      </svg>
+      <div class="hero-grid"></div>
     </div>
   </section>
 
@@ -120,9 +118,9 @@ for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d =>
   </section>
 
   <style>
-    /* ── Hero (left-aligned, Primer Brand pattern) ── */
+    /* ── Hero (PPTX-inspired: light, geometric, bold) ── */
     .hero {
-      padding: 24px 0 32px;
+      padding: 48px 0 40px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -141,15 +139,20 @@ for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d =>
       align-items: center;
       justify-content: center;
     }
-    .hero-octocat {
+    .hero-grid {
       width: 200px;
       height: 200px;
-      opacity: 0.85;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 20px 20px;
+      border-radius: 12px;
+      opacity: 0.6;
     }
     @media (max-width: 768px) {
       .hero { flex-direction: column; gap: 32px; }
       .hero-graphic { width: 180px; height: 180px; }
-      .hero-octocat { width: 140px; height: 140px; }
+      .hero-grid { width: 140px; height: 140px; }
     }
     .hero-label {
       display: inline-block;
@@ -158,7 +161,7 @@ for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d =>
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: var(--brand);
-      border: 1px solid rgba(88, 166, 255, 0.25);
+      border: 1px solid rgba(9, 105, 218, 0.25);
       border-radius: 100px;
       padding: 4px 14px;
       margin-bottom: 24px;
@@ -168,10 +171,7 @@ for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d =>
       font-weight: 800;
       letter-spacing: -0.04em;
       line-height: 1.05;
-      background: linear-gradient(135deg, #58a6ff 0%, #79c0ff 50%, #a5d6ff 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--text-1);
       margin-bottom: 20px;
     }
     .hero-description {
@@ -210,7 +210,7 @@ for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d =>
 
     /* ── Card ── */
     .workshop-card {
-      background: var(--bg-soft);
+      background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 24px;
@@ -221,8 +221,8 @@ for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d =>
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
     .workshop-card:hover {
-      border-color: #484f58;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(88, 166, 255, 0.1);
+      border-color: #afb8c1;
+      box-shadow: 0 8px 24px rgba(140, 149, 159, 0.15);
       color: inherit;
     }
 
@@ -281,20 +281,20 @@ for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d =>
       letter-spacing: 0.04em;
     }
     .badge-workshop {
-      background: rgba(88, 166, 255, 0.15);
-      color: #58a6ff;
+      background: rgba(9, 105, 218, 0.1);
+      color: #0969da;
     }
     .badge-lab {
-      background: rgba(63, 185, 80, 0.15);
-      color: #3fb950;
+      background: rgba(26, 127, 55, 0.1);
+      color: #1a7f37;
     }
     .badge-slides {
-      background: rgba(210, 168, 255, 0.15);
-      color: #d2a8ff;
+      background: rgba(130, 80, 223, 0.1);
+      color: #8250df;
     }
     .badge-modules {
-      background: rgba(240, 185, 11, 0.15);
-      color: #f0b90b;
+      background: rgba(191, 135, 0, 0.1);
+      color: #9a6700;
     }
   </style>
 </Base>

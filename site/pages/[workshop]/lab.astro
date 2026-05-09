@@ -2,13 +2,25 @@
 import Base from '../../layouts/Base.astro'
 import { readdirSync, readFileSync, existsSync } from 'node:fs'
 import { resolve } from 'node:path'
-import { marked } from 'marked'
-import 'github-markdown-css/github-markdown-dark.css'
+import { Marked } from 'marked'
+import { markedHighlight } from 'marked-highlight'
+import hljs from 'highlight.js'
 
 export function getStaticPaths() {
+  const markedInstance = new Marked(
+    markedHighlight({
+      emptyLangClass: 'hljs',
+      langPrefix: 'hljs language-',
+      highlight(code: string, lang: string) {
+        const language = hljs.getLanguage(lang) ? lang : 'plaintext'
+        return hljs.highlight(code, { language }).value
+      }
+    })
+  )
+
   const workshopsDir: string = __WORKSHOPS_DIR__
   const showDrafts: boolean = __SHOW_DRAFTS__
-  const paths: { params: { workshop: string }; props: { html: string; title: string } }[] = []
+  const paths: { params: { workshop: string }; props: { html: string; title: string; toc: { id: string; text: string }[] } }[] = []
 
   for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d => d.isDirectory())) {
     const dirPath = resolve(workshopsDir, dir.name)
@@ -22,67 +34,196 @@ export function getStaticPaths() {
     const content = readFileSync(resolve(dirPath, labFile), 'utf-8')
     const titleMatch = content.match(/^#\s+(.+)/m)
     const title = titleMatch ? titleMatch[1] : dir.name
-    const rawHtml = marked.parse(content) as string
+
+    // Collect TOC entries from H2 headings
+    const toc: { id: string; text: string }[] = []
+    const rawHtml = markedInstance.parse(content) as string
     const html = rawHtml.replace(/<h([1-6])>(.*?)<\/h[1-6]>/g, (_match: string, level: string, inner: string) => {
       const plain = inner.replace(/<[^>]*>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'")
       const slug = plain.toLowerCase().replace(/[^\w -]/g, '').replace(/ /g, '-')
+      if (level === '2') {
+        toc.push({ id: slug, text: plain })
+      }
       return `<h${level} id="${slug}">${inner}</h${level}>`
     })
 
     paths.push({
       params: { workshop: dir.name },
-      props: { html, title }
+      props: { html, title, toc }
     })
   }
   return paths
 }
 
-const { html, title } = Astro.props
+const { html, title, toc } = Astro.props
+const exerciseCount = toc.filter(t => /exercise|lab\s+\d/i.test(t.text)).length || toc.length
 ---
 
 <Base title={title}>
-  <article class="markdown-body" set:html={html}>
-  </article>
+  <div class="lab-layout">
+    {toc.length > 1 && (
+      <nav class="lab-toc" aria-label="Table of contents">
+        <div class="toc-header">Contents</div>
+        <div class="toc-progress">
+          <span class="toc-progress-text">{exerciseCount} exercises</span>
+        </div>
+        <ul class="toc-list">
+          {toc.map((item) => (
+            <li>
+              <a href={`#${item.id}`} class="toc-link">{item.text}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    )}
+    <article class="lab-content prose" set:html={html} />
+  </div>
 </Base>
 
 <style is:global>
-  .markdown-body {
-    background: transparent;
-  }
-
-  /* Copy button on code blocks */
-  .markdown-body pre {
+  /* highlight.js GitHub theme overrides for code blocks */
+  .lab-content pre {
+    background: #0d1117 !important;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 16px;
+    overflow-x: auto;
+    margin: 0 0 16px;
     position: relative;
   }
+  .lab-content pre code {
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    font-size: 0.875em;
+    color: #e6edf3;
+  }
+  .lab-content code {
+    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  }
+  .lab-content :not(pre) > code {
+    background: var(--bg-soft, #f0f2f5);
+    border: 1px solid var(--border, #d0d7de);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 0.9em;
+  }
+
+  /* highlight.js token colors (GitHub Dark) */
+  .hljs { color: #e6edf3; }
+  .hljs-comment, .hljs-quote { color: #8b949e; font-style: italic; }
+  .hljs-keyword, .hljs-selector-tag { color: #ff7b72; }
+  .hljs-string, .hljs-addition { color: #a5d6ff; }
+  .hljs-number, .hljs-literal { color: #79c0ff; }
+  .hljs-built_in { color: #ffa657; }
+  .hljs-type, .hljs-class .hljs-title { color: #ffa657; }
+  .hljs-attr, .hljs-variable, .hljs-template-variable { color: #79c0ff; }
+  .hljs-symbol, .hljs-bullet { color: #f2cc60; }
+  .hljs-section, .hljs-title { color: #d2a8ff; }
+  .hljs-meta { color: #79c0ff; }
+  .hljs-deletion { color: #ffa198; background: rgba(248,81,73,0.1); }
+  .hljs-addition { background: rgba(63,185,80,0.1); }
+  .hljs-emphasis { font-style: italic; }
+  .hljs-strong { font-weight: 700; }
+
+  /* Copy button on code blocks */
   .copy-btn {
     position: absolute;
     top: 8px;
     right: 8px;
     padding: 4px 8px;
-    border: 1px solid var(--border, #30363d);
+    border: 1px solid #30363d;
     border-radius: 6px;
-    background: var(--bg-soft, #161b22);
-    color: var(--text-2, #8b949e);
+    background: #21262d;
+    color: #8b949e;
     cursor: pointer;
     font-size: 12px;
     line-height: 1;
     opacity: 0;
     transition: opacity 0.15s;
+    z-index: 1;
   }
-  pre:hover .copy-btn {
-    opacity: 1;
+  pre:hover .copy-btn { opacity: 1; }
+  .copy-btn:hover { color: #e6edf3; border-color: #8b949e; }
+  .copy-btn.copied { color: #3fb950; border-color: #3fb950; }
+</style>
+
+<style>
+  .lab-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: start;
   }
-  .copy-btn:hover {
-    color: var(--text-1, #e6edf3);
-    border-color: var(--text-2, #8b949e);
+  @media (max-width: 900px) {
+    .lab-layout {
+      grid-template-columns: 1fr;
+    }
+    .lab-toc { display: none; }
   }
-  .copy-btn.copied {
-    color: #3fb950;
-    border-color: #3fb950;
+
+  /* TOC sidebar */
+  .lab-toc {
+    position: sticky;
+    top: 80px;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    padding: 16px 0;
+  }
+  .toc-header {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-2);
+    padding: 0 12px 8px;
+  }
+  .toc-progress {
+    padding: 0 12px 12px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 8px;
+  }
+  .toc-progress-text {
+    font-size: 13px;
+    color: var(--text-2);
+  }
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .toc-list li { margin: 0; }
+  .toc-link {
+    display: block;
+    padding: 6px 12px;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--text-2);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+  }
+  .toc-link:hover {
+    color: var(--text-1);
+    background: var(--bg-soft);
+  }
+  .toc-link.active {
+    color: var(--brand);
+    border-left-color: var(--brand);
+    font-weight: 600;
+  }
+
+  /* Lab content area */
+  .lab-content {
+    min-width: 0;
+    padding: 16px 0 64px;
   }
 </style>
 
 <script>
+  // Copy buttons
   document.querySelectorAll('pre').forEach(pre => {
     const btn = document.createElement('button');
     btn.className = 'copy-btn';
@@ -93,11 +234,28 @@ const { html, title } = Astro.props
       await navigator.clipboard.writeText(text);
       btn.textContent = 'Copied!';
       btn.classList.add('copied');
-      setTimeout(() => {
-        btn.textContent = 'Copy';
-        btn.classList.remove('copied');
-      }, 2000);
+      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
     });
     pre.appendChild(btn);
   });
+
+  // Scroll-spy for TOC
+  const tocLinks = document.querySelectorAll('.toc-link');
+  const headings = Array.from(tocLinks).map(link => {
+    const id = link.getAttribute('href')?.slice(1);
+    return id ? document.getElementById(id) : null;
+  }).filter(Boolean) as HTMLElement[];
+
+  function updateActiveToc() {
+    let activeIndex = 0;
+    const scrollY = window.scrollY + 120;
+    for (let i = headings.length - 1; i >= 0; i--) {
+      if (headings[i].offsetTop <= scrollY) { activeIndex = i; break; }
+    }
+    tocLinks.forEach((link, i) => {
+      link.classList.toggle('active', i === activeIndex);
+    });
+  }
+  window.addEventListener('scroll', updateActiveToc, { passive: true });
+  updateActiveToc();
 </script>

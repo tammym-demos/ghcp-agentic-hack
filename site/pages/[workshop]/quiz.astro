@@ -1,0 +1,335 @@
+---
+import Base from '../../layouts/Base.astro'
+import { readdirSync, readFileSync, existsSync } from 'node:fs'
+import { resolve } from 'node:path'
+
+export function getStaticPaths() {
+  const workshopsDir: string = __WORKSHOPS_DIR__
+  const showDrafts: boolean = __SHOW_DRAFTS__
+  const paths: { params: { workshop: string }; props: { questions: Question[]; title: string } }[] = []
+
+  interface Question {
+    number: number
+    text: string
+    options: { letter: string; text: string }[]
+    answer: string
+    explanation: string
+  }
+
+  for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d => d.isDirectory())) {
+    const dirPath = resolve(workshopsDir, dir.name)
+    const isDraft = existsSync(resolve(dirPath, '.draft'))
+    if (isDraft && !showDrafts) continue
+
+    const files = readdirSync(dirPath)
+    const quizFile = files.find(f => f.endsWith('-QUIZ.md'))
+    if (!quizFile) continue
+
+    const content = readFileSync(resolve(dirPath, quizFile), 'utf-8')
+    const titleMatch = content.match(/^#\s+(.+)/m)
+    const title = titleMatch ? titleMatch[1] : `${dir.name} Quiz`
+
+    // Parse quiz format: questions separated by ---
+    const blocks = content.split(/^---$/m).filter(b => b.trim())
+    const questions: Question[] = []
+    let qNum = 0
+
+    for (const block of blocks) {
+      // Look for a question heading: ### N. Question text
+      const qMatch = block.match(/###\s+(\d+)\.\s+(.+?)(?:\n|$)/)
+      if (!qMatch) continue
+      qNum++
+      const text = qMatch[2].trim()
+
+      // Extract options: - A) text, - B) text, etc.
+      const optionMatches = [...block.matchAll(/^-\s+([A-D])\)\s+(.+)/gm)]
+      const options = optionMatches.map(m => ({ letter: m[1], text: m[2].trim() }))
+
+      // Extract answer from HTML comment: <!--answer: B-->
+      const answerMatch = block.match(/<!--\s*answer:\s*([A-D])\s*-->/)
+      const answer = answerMatch ? answerMatch[1] : ''
+
+      // Extract explanation from HTML comment: <!--explanation: ...-->
+      const explMatch = block.match(/<!--\s*explanation:\s*([\s\S]*?)\s*-->/)
+      const explanation = explMatch ? explMatch[1].trim() : ''
+
+      if (options.length > 0) {
+        questions.push({ number: qNum, text, options, answer, explanation })
+      }
+    }
+
+    if (questions.length > 0) {
+      paths.push({
+        params: { workshop: dir.name },
+        props: { questions, title }
+      })
+    }
+  }
+  return paths
+}
+
+const { questions, title } = Astro.props
+---
+
+<Base title={title}>
+  <div class="quiz-container">
+    <div class="quiz-header">
+      <h1 class="quiz-title">{title}</h1>
+      <p class="quiz-subtitle">{questions.length} questions · Select an answer for each, then check your score</p>
+    </div>
+
+    <form id="quiz-form" class="quiz-form">
+      {questions.map((q) => (
+        <div class="quiz-question" data-answer={q.answer} data-explanation={q.explanation}>
+          <div class="question-number">{q.number}</div>
+          <h3 class="question-text">{q.text}</h3>
+          <div class="options-list">
+            {q.options.map((opt) => (
+              <label class="option-label" data-letter={opt.letter}>
+                <input type="radio" name={`q${q.number}`} value={opt.letter} class="option-radio" />
+                <span class="option-letter">{opt.letter}</span>
+                <span class="option-text">{opt.text}</span>
+              </label>
+            ))}
+          </div>
+          <div class="question-feedback" hidden>
+            <div class="feedback-icon"></div>
+            <div class="feedback-text"></div>
+          </div>
+        </div>
+      ))}
+
+      <div class="quiz-actions">
+        <button type="button" id="check-btn" class="quiz-btn quiz-btn-primary">Check Answers</button>
+        <button type="button" id="reset-btn" class="quiz-btn quiz-btn-secondary" hidden>Try Again</button>
+      </div>
+
+      <div id="quiz-score" class="quiz-score" hidden>
+        <div class="score-circle">
+          <span class="score-value">0</span>
+          <span class="score-total">/ {questions.length}</span>
+        </div>
+        <p class="score-label">Correct</p>
+      </div>
+    </form>
+  </div>
+</Base>
+
+<style>
+  .quiz-container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px 0 64px;
+  }
+  .quiz-header { margin-bottom: 32px; }
+  .quiz-title {
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--text-1);
+    margin-bottom: 8px;
+  }
+  .quiz-subtitle {
+    font-size: 15px;
+    color: var(--text-2);
+  }
+
+  .quiz-question {
+    position: relative;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 24px 24px 72px;
+    margin-bottom: 16px;
+    transition: border-color 0.2s;
+  }
+  .quiz-question.correct { border-color: #3fb950; }
+  .quiz-question.incorrect { border-color: #f85149; }
+
+  .question-number {
+    position: absolute;
+    left: 20px;
+    top: 24px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--border);
+    color: var(--text-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .quiz-question.correct .question-number { background: rgba(63,185,80,0.2); color: #3fb950; }
+  .quiz-question.incorrect .question-number { background: rgba(248,81,73,0.2); color: #f85149; }
+
+  .question-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-1);
+    margin: 0 0 16px;
+    line-height: 1.4;
+  }
+
+  .options-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .option-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    font-size: 14px;
+  }
+  .option-label:hover { border-color: var(--text-2); background: rgba(0,0,0,0.03); }
+
+  .option-radio {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .option-radio:checked + .option-letter {
+    background: var(--brand);
+    color: #fff;
+    border-color: var(--brand);
+  }
+  .option-radio:checked ~ .option-text { font-weight: 600; }
+
+  .option-letter {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+  .option-text { color: var(--text-1); }
+
+  /* Correct/incorrect option highlighting */
+  .option-label.is-correct { border-color: #3fb950; background: rgba(63,185,80,0.08); }
+  .option-label.is-correct .option-letter { background: #3fb950; color: #fff; border-color: #3fb950; }
+  .option-label.is-wrong { border-color: #f85149; background: rgba(248,81,73,0.08); }
+  .option-label.is-wrong .option-letter { background: #f85149; color: #fff; border-color: #f85149; }
+
+  /* Feedback */
+  .question-feedback {
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .quiz-question.correct .question-feedback { background: rgba(63,185,80,0.08); color: #3fb950; }
+  .quiz-question.incorrect .question-feedback { background: rgba(248,81,73,0.08); color: #f85149; }
+  .feedback-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .feedback-text { color: var(--text-1); }
+
+  /* Actions */
+  .quiz-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    justify-content: center;
+  }
+  .quiz-btn {
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.15s;
+  }
+  .quiz-btn:hover { opacity: 0.85; }
+  .quiz-btn-primary { background: var(--brand); color: #fff; }
+  .quiz-btn-secondary { background: var(--bg-soft); color: var(--text-1); border: 1px solid var(--border); }
+
+  /* Score */
+  .quiz-score {
+    text-align: center;
+    margin-top: 32px;
+    padding: 32px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+  .score-circle { display: inline-flex; align-items: baseline; gap: 4px; }
+  .score-value { font-size: 48px; font-weight: 800; color: var(--brand); }
+  .score-total { font-size: 20px; color: var(--text-2); }
+  .score-label { font-size: 14px; color: var(--text-2); margin-top: 4px; }
+
+  /* Locked state after check */
+  .quiz-form.locked .option-label { pointer-events: none; }
+</style>
+
+<script>
+  const form = document.getElementById('quiz-form') as HTMLFormElement;
+  const checkBtn = document.getElementById('check-btn') as HTMLButtonElement;
+  const resetBtn = document.getElementById('reset-btn') as HTMLButtonElement;
+  const scoreEl = document.getElementById('quiz-score') as HTMLDivElement;
+
+  checkBtn.addEventListener('click', () => {
+    const questions = document.querySelectorAll('.quiz-question');
+    let correct = 0;
+
+    questions.forEach((q) => {
+      const answer = q.getAttribute('data-answer') || '';
+      const explanation = q.getAttribute('data-explanation') || '';
+      const selected = (q.querySelector('input[type="radio"]:checked') as HTMLInputElement)?.value || '';
+
+      const isCorrect = selected === answer;
+      q.classList.add(isCorrect ? 'correct' : 'incorrect');
+      if (isCorrect) correct++;
+
+      // Highlight correct/wrong options
+      q.querySelectorAll('.option-label').forEach((label) => {
+        const letter = label.getAttribute('data-letter');
+        if (letter === answer) label.classList.add('is-correct');
+        else if (letter === selected && !isCorrect) label.classList.add('is-wrong');
+      });
+
+      // Show feedback
+      const feedback = q.querySelector('.question-feedback') as HTMLDivElement;
+      const icon = feedback.querySelector('.feedback-icon') as HTMLDivElement;
+      const text = feedback.querySelector('.feedback-text') as HTMLDivElement;
+      icon.textContent = isCorrect ? '✓' : '✗';
+      text.textContent = explanation || (isCorrect ? 'Correct!' : `Incorrect — the answer is ${answer}.`);
+      feedback.hidden = false;
+    });
+
+    // Show score
+    const scoreValue = scoreEl.querySelector('.score-value') as HTMLSpanElement;
+    scoreValue.textContent = String(correct);
+    scoreEl.hidden = false;
+    checkBtn.hidden = true;
+    resetBtn.hidden = false;
+    form.classList.add('locked');
+  });
+
+  resetBtn.addEventListener('click', () => {
+    form.reset();
+    form.classList.remove('locked');
+    document.querySelectorAll('.quiz-question').forEach(q => {
+      q.classList.remove('correct', 'incorrect');
+      q.querySelectorAll('.option-label').forEach(l => l.classList.remove('is-correct', 'is-wrong'));
+      const fb = q.querySelector('.question-feedback') as HTMLDivElement;
+      if (fb) fb.hidden = true;
+    });
+    scoreEl.hidden = true;
+    checkBtn.hidden = false;
+    resetBtn.hidden = true;
+  });
+</script>

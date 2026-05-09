@@ -10,13 +10,13 @@ export function getStaticPaths() {
   const showDrafts: boolean = __SHOW_DRAFTS__
   const workshopMeta: Record<string, { label: string; desc: string; icon: string; modules?: { folder: string; label: string; desc: string; icon: string }[]; prerequisites?: string[] }> = {
     'copilot-dev-training': {
-      label: 'Zero to Agentic: GitHub Copilot',
-      desc: '4.5-hour developer workshop — foundations, agentic patterns, and advanced topics.',
+      label: 'Beyond Autocomplete',
+      desc: 'GitHub Copilot Developer Training — foundations, agentic patterns, and advanced operations.',
       icon: '🎓',
       modules: [
-        { folder: 'copilot-dev-foundations', label: 'Module 1: Foundations', desc: '90 min · Chat tour, GitHub CLI, context & instructions, models & tokens', icon: '🎓' },
-        { folder: 'copilot-dev-agentic', label: 'Module 2: Agentic Patterns', desc: '90 min · Context management, project bootstrap, agents & skills, agentic loops', icon: '🤖' },
-        { folder: 'copilot-dev-advanced', label: 'Module 3: Advanced Topics', desc: '90 min · Agent architecture patterns, MCP setup, debugging, full-stack agents', icon: '🔬' },
+        { folder: 'copilot-dev-foundations', label: 'Controlling the Variables', desc: 'Modes, context, instructions, models, agents, skills & customization', icon: '🎓' },
+        { folder: 'copilot-dev-agentic', label: 'The Agentic Shift', desc: 'Designing, supervising, and reviewing autonomous workflows', icon: '🤖' },
+        { folder: 'copilot-dev-advanced', label: 'Operating Copilot Responsibly', desc: 'Advanced workflows, architecture, and diagnostics', icon: '🔬' },
         { folder: 'copilot-dev-hack', label: 'Module 4: Hack', desc: '60 min · Hands-on hackathon — build custom Copilot agents for real business problems', icon: '🚀' }
         ],
         prerequisites: [
@@ -37,7 +37,7 @@ export function getStaticPaths() {
     }
   }
 
-  const paths: { params: { workshop: string }; props: { label: string; desc: string; icon: string; hasWorkshop: boolean; hasLab: boolean; hasSlides: boolean; modules?: typeof workshopMeta[string]['modules']; prerequisites?: string[] } }[] = []
+  const paths: { params: { workshop: string }; props: { label: string; desc: string; icon: string; hasWorkshop: boolean; hasLab: boolean; hasSlides: boolean; hasQuiz: boolean; modules?: typeof workshopMeta[string]['modules']; prerequisites?: string[] } }[] = []
 
   for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d => d.isDirectory())) {
     const dirPath = resolve(workshopsDir, dir.name)
@@ -48,6 +48,7 @@ export function getStaticPaths() {
     const hasWorkshop = files.some(f => f.endsWith('-workshop.md'))
     const hasLab = files.some(f => f.endsWith('-LAB.md'))
     const hasSlides = files.some(f => f.endsWith('.slidev.md'))
+    const hasQuiz = files.some(f => f.endsWith('-QUIZ.md'))
 
     const meta = workshopMeta[dir.name]
     if (!meta?.modules && !hasWorkshop && !hasLab && !hasSlides) continue
@@ -58,13 +59,13 @@ export function getStaticPaths() {
 
     paths.push({
       params: { workshop: dir.name },
-      props: { label, desc, icon, hasWorkshop, hasLab, hasSlides, modules: meta?.modules, prerequisites: meta?.prerequisites }
+      props: { label, desc, icon, hasWorkshop, hasLab, hasSlides, hasQuiz, modules: meta?.modules, prerequisites: meta?.prerequisites }
     })
   }
   return paths
 }
 
-const { label, desc, icon, hasWorkshop, hasLab, hasSlides, modules, prerequisites } = Astro.props
+const { label, desc, icon, hasWorkshop, hasLab, hasSlides, hasQuiz, modules, prerequisites } = Astro.props
 const { workshop } = Astro.params
 ---
 
@@ -92,6 +93,7 @@ const { workshop } = Astro.params
             <div class="module-links">
               <a href={`${base}${m.folder}/lab`} class="module-link module-link-lab">Lab</a>
               <a href={`${base}${m.folder}/slides/1`} target="_blank" rel="noopener noreferrer" onclick={`window.open(this.href,'_blank','width=1280,height=720,menubar=no,toolbar=no,location=no,status=no');return false;`} class="module-link module-link-slides">Slides</a>
+              <a href={`${base}${m.folder}/quiz`} class="module-link module-link-quiz">Quiz</a>
             </div>
           </div>
         ))
@@ -219,8 +221,8 @@ const { workshop } = Astro.params
     transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
   }
   .resource-card:hover {
-    border-color: #484f58;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(88, 166, 255, 0.1);
+    border-color: #afb8c1;
+    box-shadow: 0 8px 24px rgba(140, 149, 159, 0.15);
     transform: translateY(-2px);
   }
 
@@ -234,16 +236,16 @@ const { workshop } = Astro.params
     margin-bottom: 16px;
   }
   .slides-icon {
-    background: rgba(210, 168, 255, 0.15);
-    color: #d2a8ff;
+    background: rgba(130, 80, 223, 0.1);
+    color: #8250df;
   }
   .workshop-guide-icon {
-    background: rgba(88, 166, 255, 0.15);
-    color: #58a6ff;
+    background: rgba(9, 105, 218, 0.1);
+    color: #0969da;
   }
   .lab-icon {
-    background: rgba(63, 185, 80, 0.15);
-    color: #3fb950;
+    background: rgba(26, 127, 55, 0.1);
+    color: #1a7f37;
   }
 
   .resource-title {
@@ -286,8 +288,8 @@ const { workshop } = Astro.params
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
   .module-card:hover {
-    border-color: #484f58;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    border-color: #afb8c1;
+    box-shadow: 0 4px 16px rgba(140, 149, 159, 0.12);
   }
   .module-header {
     display: flex;
@@ -328,16 +330,20 @@ const { workshop } = Astro.params
   }
   .module-link:hover { opacity: 0.85; }
   .module-link-workshop {
-    background: rgba(88, 166, 255, 0.15);
-    color: #58a6ff;
+    background: rgba(9, 105, 218, 0.1);
+    color: #0969da;
   }
   .module-link-lab {
-    background: rgba(63, 185, 80, 0.15);
-    color: #3fb950;
+    background: rgba(26, 127, 55, 0.1);
+    color: #1a7f37;
   }
   .module-link-slides {
-    background: rgba(210, 168, 255, 0.15);
-    color: #d2a8ff;
+    background: rgba(130, 80, 223, 0.1);
+    color: #8250df;
+  }
+  .module-link-quiz {
+    background: rgba(191, 135, 0, 0.1);
+    color: #9a6700;
   }
   @media (max-width: 600px) {
     .module-card { flex-direction: column; align-items: flex-start; }
@@ -383,7 +389,7 @@ const { workshop } = Astro.params
     padding: 12px 16px;
   }
   .prerequisites-check {
-    color: #3fb950;
+    color: #1a7f37;
     font-weight: 700;
     flex-shrink: 0;
     margin-top: 1px;

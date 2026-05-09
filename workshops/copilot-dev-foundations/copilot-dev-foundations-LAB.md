@@ -2,20 +2,21 @@
 
 ## Overview
 
-This lab mirrors the four teaching sections in Module 1: foundations framing, Copilot chat workflows, memory/context shaping, and model/usage awareness.
+This lab mirrors the expanded teaching sections in Module 1: foundations framing, Copilot chat workflows, memory/context shaping, model/usage awareness, and lightweight customization with agents and reusable prompts.
 
-- **Total time**: ~35 minutes
+- **Total time**: ~38 minutes
 - **Prerequisites**:
   - VS Code installed
   - GitHub Copilot extension installed and signed in
   - GitHub Copilot CLI installed
   - Any local project open in VS Code
+  - A project with a `.github/` directory (or permission to create one)
 
 > **Note**: A project with source files and a `package.json` file works best, but any codebase is enough for this lab.
 
 ## Exercise 1: Foundations Framing, Safety, and Workflow Map
 
-**⏱️ Time**: 5 min  
+**⏱️ Time**: 3 min  
 **📋 Objective**: Choose the right Copilot workflow before you start typing prompts or accepting changes.
 
 1. Open any local project in VS Code.
@@ -26,47 +27,25 @@ This lab mirrors the four teaching sections in Module 1: foundations framing, Co
    - Draft a plan to add validation to the signup flow without editing files yet.
    - Implement validation across the schema, controller, and tests.
 
-3. Write down two review habits you will use for the rest of the lab:
-
-   - Review diffs before accepting changes.
-   - Avoid sharing secrets, tokens, customer data, or proprietary content in prompts or attached context.
-
-4. Open GitHub Copilot Chat and verify you can see the agents/model controls at the bottom of the chat view.
+3. Open GitHub Copilot Chat and verify you can see the agents/model controls at the bottom of the chat view.
 
 > **Important**: This module treats safety as a workflow habit, not a separate lecture. Every later exercise assumes you will scope context intentionally and review AI-generated output before keeping it.
 
 ### ✅ Success Criteria
 
 - ✅ Matched common tasks to **Ask**, **Plan**, or **Agent**
-- ✅ Identified at least two human review habits
 - ✅ Confirmed Copilot Chat is ready in VS Code
 
 ## Exercise 2: Copilot Chat Tour
 
-**⏱️ Time**: 12 min  
+**⏱️ Time**: 10 min  
 **📋 Objective**: Explore Copilot Chat modes, built-in commands, contextual prompting, and prompt-first terminal workflows.
 
 1. Open any project folder in VS Code.
 
 2. Open GitHub Copilot Chat from the sidebar, or press `Ctrl+Shift+I`.
 
-3. In **Ask** mode, enter:
-
-    ```text
-    What does this project do?
-    ```
-
-    Review the response. It should describe the project without making changes.
-
-4. Use **inline chat** on a selected block of code, then enter:
-
-    ```text
-    Refactor this function for readability. Preserve behavior and keep the public API unchanged.
-    ```
-
-    Review the proposed inline changes before accepting or discarding them.
-
-5. Switch to **Plan** mode and enter:
+3. Switch to **Plan** mode and enter:
 
     ```text
     Create a plan to add a README.md for this project. Show the steps first and do not make changes yet.
@@ -74,7 +53,7 @@ This lab mirrors the four teaching sections in Module 1: foundations framing, Co
 
     Review the proposed plan and the assumptions Copilot makes.
 
-6. Switch to **Agent** mode and enter:
+4. Switch to **Agent** mode and enter:
 
     ```text
     Create a README.md for this project
@@ -82,9 +61,9 @@ This lab mirrors the four teaching sections in Module 1: foundations framing, Co
 
     Observe how Copilot plans multiple steps, gathers context, and proposes file changes.
 
-7. **🛡️ Safety checkpoint**: Agent mode can create and modify files. Before accepting any agent-generated changes, review the diff. This is your human review gate — never commit changes you haven't read.
+5. **🛡️ Safety checkpoint**: Agent mode can create and modify files. Before accepting any agent-generated changes, review the diff. This is your human review gate — never commit changes you haven't read.
 
-8. Select a function and run:
+6. Select a function and run:
 
     ```text
     /explain
@@ -96,19 +75,19 @@ This lab mirrors the four teaching sections in Module 1: foundations framing, Co
     /fix
     ```
 
-9. Ask a workspace-wide question:
+7. Ask a workspace-wide question:
 
     ```text
     @workspace what frameworks does this project use?
     ```
 
-10. Attach a specific file as context:
+8. Attach a specific file as context:
 
     ```text
     #file:package.json explain the dependencies
     ```
 
-11. If GitHub Copilot CLI is not installed yet, install it with one of the supported options for your machine:
+9. If GitHub Copilot CLI is not installed yet, install it with one of the supported options for your machine:
 
     ```bash
     winget install GitHub.Copilot
@@ -118,24 +97,22 @@ This lab mirrors the four teaching sections in Module 1: foundations framing, Co
     npm install -g @github/copilot
     ```
 
-12. Open the integrated terminal in VS Code and run:
+10. Open the integrated terminal in VS Code and run:
 
     ```bash
     copilot -p "Explain this Git command: git rebase -i HEAD~3"
     ```
 
-13. Then run:
+11. Then run:
 
     ```bash
     copilot -p "Suggest a shell command to find all files larger than 10MB in this repository"
     ```
 
-14. **🛡️ Safety checkpoint**: Review any shell command Copilot suggests before you run it. Terminal suggestions can affect real files, processes, and credentials.
+12. **🛡️ Safety checkpoint**: Review any shell command Copilot suggests before you run it. Terminal suggestions can affect real files, processes, and credentials.
 
 ### ✅ Success Criteria
 
-- ✅ Used Ask mode
-- ✅ Used inline chat for a focused edit
 - ✅ Used Plan mode
 - ✅ Used Agent mode
 - ✅ Tried at least two slash commands
@@ -246,5 +223,62 @@ This lab mirrors the four teaching sections in Module 1: foundations framing, Co
 - ✅ Observed model or request diagnostics in the IDE
 - ✅ Connected model choice to task autonomy
 - ✅ Compared responses for potential security differences
+
+## Exercise 5: Create a Custom Agent & Reusable Prompt
+
+**⏱️ Time**: 10 min  
+**📋 Objective**: Create a custom agent file and a reusable prompt, then invoke both in VS Code.
+
+1. Create `.github/agents/code-reviewer.agent.md` in your project with this content:
+
+    ```markdown
+    ---
+    name: code-reviewer
+    description: Reviews code for bugs, security issues, and style improvements
+    tools: ["read", "search"]
+    ---
+
+    You are a code reviewer. When asked to review code:
+    1. Check for bugs, null references, and unhandled errors
+    2. Flag any security concerns (hardcoded secrets, injection risks)
+    3. Suggest readability improvements
+    4. Keep feedback actionable and specific
+    ```
+
+2. Open Copilot Chat and invoke your custom agent:
+
+    ```text
+    @code-reviewer Review the main entry point of this project
+    ```
+
+3. Review the response. It should focus on bugs, security, and readability — not general explanation.
+
+4. Create `.github/prompts/explain-function.prompt.md` with this content:
+
+    ```markdown
+    ---
+    description: 'Explain a function with context, edge cases, and improvement suggestions'
+    ---
+
+    Explain the selected function. Cover:
+    1. What it does and why
+    2. Key parameters and return values
+    3. Edge cases and error handling
+    4. One improvement suggestion
+    ```
+
+5. Select a function in your editor, open the Command Palette (`Ctrl+Shift+P`), type "Run Prompt", and select `explain-function`.
+
+6. Review the response and compare it to asking the same question without the prompt template.
+
+7. **🛡️ Safety checkpoint**: Custom agents and prompts shape Copilot's behavior for your whole team. Before committing agent or prompt files, review them for: appropriate tool scoping, no embedded secrets, and clear behavioral boundaries.
+
+### ✅ Success Criteria
+
+- ✅ Created a custom agent file in `.github/agents/`
+- ✅ Invoked the custom agent with `@code-reviewer`
+- ✅ Created a reusable prompt in `.github/prompts/`
+- ✅ Ran the prompt from the Command Palette
+- ✅ Compared agent-targeted output to generic chat output
 
 *Hands-on lab for Module 1: Foundations — Copilot Developer Training*
