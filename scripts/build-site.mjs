@@ -31,7 +31,7 @@ loadEnv({ path: resolve(ROOT, '.env') })
 const WORKSHOPS_DIR = resolve(ROOT, 'workshops')
 const PUBLIC_DIR = resolve(ROOT, 'public')
 const SITE_DIST = resolve(ROOT, 'dist', 'site')
-const BASE_PATH = process.env.BASE_PATH || '/GH-Hack/'
+const BASE_PATH = process.env.BASE_PATH || '/ghcp-agentic-hack/'
 const SHOW_DRAFTS = process.env.SHOW_DRAFTS === 'true'
 
 function run(cmd, opts = {}) {

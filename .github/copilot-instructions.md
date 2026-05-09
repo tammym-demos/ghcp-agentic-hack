@@ -24,7 +24,9 @@ source/
 site/                        # Astro site (landing page, lab pages)
   astro.config.mjs           # Astro config — base path set to /ghcp-agentic-hack/
   pages/index.astro          # Main landing page with workshop cards
-  pages/[workshop]/lab.astro # Dynamic lab page route
+  pages/[workshop]/index.astro  # Workshop detail page (modules, resources)
+  pages/[workshop]/lab.astro    # Dynamic lab page route
+  pages/[workshop]/workshop.astro # Workshop guide page
   layouts/Base.astro         # Shared layout (header, dark theme)
 scripts/
   build-site.mjs             # Full build: creates public/ symlinks → Slidev decks → Astro site
@@ -83,14 +85,14 @@ When editing either file in a module, **always check the other for consistency**
 
 ### Slidev Files (`*.slidev.md`)
 - **Frontmatter**: YAML frontmatter with `theme`, `title`, `info`, layout, and transition settings
-- **Theme reference**: `theme: ../themes/github` (relative path from workshop subfolder to repo root)
+- **Theme reference**: `theme: ../../themes/github` (relative path from `workshops/<name>/` up to repo root)
 - **Slide separator**: `---` between every slide
 - **Speaker notes**: `<!-- notes -->` HTML comments below slide content
 - **Section dividers**: Use `layout: section` in slide frontmatter
 - **Demo transitions**: `layout: demo` for live demo slides
 - **Breaks**: Slide with `# ☕ Break — 10 Minutes`
 - **Mermaid diagrams**: Native `mermaid` fenced code blocks (rendered by Slidev)
-- **Images**: Use centralized `public/images/<workshop>/` assets with `<img>` tags (see Images section below)
+- **Images**: Use centralized `public/images/<workshop>/` assets; PPTX-generated slides use `background:` frontmatter, manually-authored slides use `<img>` tags in slots (see Images section below)
 - **Markdownlint**: Disabled in Slidev files via `.markdownlintignore` or `<!-- markdownlint-disable -->` at the top
 
 ### LAB Files (`*-LAB.md`)
@@ -139,7 +141,7 @@ All slide images live in `public/images/<workshop-folder-name>/`. This centraliz
 
 ### Core principle
 
-For PPTX-generated decks (the default workflow), each slide IS a full-bleed background image. The `.slidev.md` file uses `background:` in slide frontmatter — no `<img>` tags, no layout overrides.
+For PPTX-generated decks (the default workflow), each slide IS a full-bleed background image. The `.slidev.md` file uses `layout: image-full` with `background:` in slide frontmatter — no `<img>` tags, no text content on the slide.
 
 ### Image storage
 
@@ -209,10 +211,11 @@ npm run convert:pptx -- copilot-dev-foundations
 
 ### What the script produces
 
-Each slide becomes a full-bleed background image:
+Each slide becomes a full-bleed background image using the `image-full` layout:
 
 ```markdown
 ---
+layout: image-full
 background: /images/copilot-dev-foundations/slide-02-a1b2c3d4.png
 ---
 

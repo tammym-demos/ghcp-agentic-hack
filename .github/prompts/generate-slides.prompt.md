@@ -16,18 +16,18 @@ The user will specify a workshop file (e.g., `workshops/ghe-governance/ghe-gover
 
 1. **Read the workshop file** to understand all sections, timing, and content
 2. **Read the scoped instructions** at `.github/instructions/slidev.instructions.md` for theme conventions
-3. **Reference the existing deck** at `copilot-workshops/copilot-zero-to-agents-slides.slidev.md` as a structural example
+3. **Reference an existing deck** (e.g., `workshops/copilot-dev-foundations/copilot-dev-foundations.slidev.md`) as a structural example
 4. **Generate the `.slidev.md` file** following the structure below
 
 ## Output Structure
 
-Create a `<topic>-slides.slidev.md` file alongside the workshop file with this structure:
+Create a `<topic>.slidev.md` file alongside the workshop file with this structure:
 
 ### Frontmatter (first slide is always cover layout)
 
 ```yaml
 ---
-theme: ../themes/github
+theme: ../../themes/github
 title: "Workshop Title"
 info: |
   Workshop description from the source file.
@@ -84,6 +84,6 @@ graph LR
 - [ ] Section dividers before each major topic
 - [ ] Demo slides after concept sections
 - [ ] Speaker notes on every content slide
-- [ ] Frontmatter has correct theme path (`../themes/github`)
+- [ ] Frontmatter has correct theme path (`../../themes/github`)
 - [ ] Blank lines around all HTML div blocks
 - [ ] No bare URLs in tables (use angle brackets)
