@@ -1,6 +1,6 @@
 # Module 3: Advanced Topics — Workshop Guide
 
-**Duration**: ~90 min (condensed delivery)  
+**Duration**: ~110 min (condensed delivery)  
 **Format**: Presentation + Live Demo + Hands-On  
 **Audience**: Developers who completed Modules 1 & 2  
 **Prerequisites**: Completed Modules 1 & 2, VS Code with Copilot, a local project
@@ -25,6 +25,9 @@ Participants should leave with a practical mental model for deciding when to ins
 - Select the right verification pattern for different task types, from low-risk drafting to high-risk production changes
 - Measure quality, usage, and cost with simple feedback loops that improve prompts, agents, and workflows over time
 - Diagnose agentic failures by reading output channels, the Agent Debug Log panel, the Chat Debug View, MCP server output, and diagnostics exports
+- Explain how Copilot resolves custom instructions from repository, scoped, and user-level files
+- Use Copilot CLI session persistence and the memory system to maintain context across sessions
+- Navigate key Copilot CLI slash commands for inspecting environment, instructions, and session state
 
 ---
 
@@ -35,6 +38,7 @@ Participants should leave with a practical mental model for deciding when to ins
 | 1 | Extensions, Chat Participants, and MCP | 30 min |
 | 2 | Evaluating Agentic Output | 35 min |
 | 3 | Troubleshooting and Diagnostics | 25 min |
+| 4 | Copilot CLI: Instructions, Sessions, and Memory | 20 min |
 
 ---
 
@@ -442,6 +446,116 @@ Use this section to normalize inspection over intuition:
 - How much plan visibility is enough for a developer to trust an autonomous workflow?
 - When should a team stop retrying prompts and switch to manual debugging or manual implementation?
 - What evidence should be mandatory before escalating an AI-assistant issue to platform support?
+
+---
+
+## 4. Copilot CLI: Instructions, Sessions, and Memory (20 min)
+
+### Key Points
+
+- **Copilot CLI is the terminal-native surface** for the same agentic capabilities available in VS Code. It runs locally, authenticates via GitHub, and supports the full tool-use loop: planning, file edits, shell commands, and MCP servers.
+- **Custom instructions are layered and merged at runtime**. Understanding the resolution order helps developers write instructions that apply at the right scope without conflicts.
+- **Sessions persist across invocations**. Every turn, tool call, and file operation is recorded locally and synced to the cloud. Developers can resume sessions, search history, and recover artifacts even if they were never committed.
+- **The memory system captures durable facts** that survive across sessions. Memories are scoped (user or repository) and surfaced automatically in future sessions, making Copilot's behavior improve over time as conventions are recorded.
+
+#### Instruction Resolution Order
+
+Copilot CLI loads instructions from multiple locations and merges them into the system prompt. The resolution order (later entries override earlier ones for conflicting guidance):
+
+| Priority | Source | Location | Scope |
+|----------|--------|----------|-------|
+| 1 (lowest) | User-level instructions | `~/.copilot/copilot-instructions.md` | Personal defaults across all repos |
+| 2 | Repository instructions | `.github/copilot-instructions.md` | All contributors in this repo |
+| 3 | Scoped instructions | `.github/instructions/**/*.instructions.md` | Files matching the `applyTo` glob pattern |
+| 4 | Agent-specific files | `CLAUDE.md`, `GEMINI.md`, `AGENTS.md` | Git root and current working directory |
+| 5 (highest) | Session/prompt context | Direct user messages, `/instructions` toggles | Current session only |
+
+> **Important — AI Safety**: Instructions shape every response the model produces. Treat them like configuration, not comments — review them in PRs, scope them narrowly, and avoid putting secrets or credentials in instruction files.
+
+#### Key Copilot CLI Slash Commands
+
+| Command | Purpose |
+|---------|---------|
+| `/instructions` | View and toggle which instruction files are active |
+| `/env` | Show loaded environment: instructions, MCP servers, skills, agents, plugins, LSPs |
+| `/session` | View and manage sessions — list, rename, share |
+| `/resume` | Switch to a different session by ID, task ID, or name |
+| `/context` | Show context window token usage and visualization |
+| `/usage` | Display session usage metrics and statistics |
+| `/share` | Export session to markdown, HTML, or GitHub gist |
+| `/chronicle` | Session history tools and insights |
+
+#### Session Storage Architecture
+
+```text
+┌─────────────────────────────────────┐
+│ Copilot CLI Session                 │
+│ (every turn, tool call, file edit)  │
+└──────────────┬──────────────────────┘
+               │ persisted to
+       ┌───────┴───────┐
+       ▼               ▼
+┌──────────────┐ ┌──────────────────┐
+│ Local Store  │ │ Cloud Store      │
+│ ~/.copilot/  │ │ GitHub-hosted    │
+│ session-     │ │ queryable via    │
+│ state/<id>/  │ │ session store    │
+│              │ │ SQL (DuckDB)     │
+│ • checkpoints│ │                  │
+│ • files/     │ │ • sessions       │
+│ • SQLite DB  │ │ • turns          │
+│              │ │ • tool_requests  │
+│              │ │ • session_files  │
+│              │ │ • events         │
+└──────────────┘ └──────────────────┘
+```
+
+**Teaching frame**:
+
+- Sessions are not throwaway conversations — they are recoverable work artifacts
+- The cloud store enables querying across all past sessions ("what did I do last week?", "how did I handle auth before?")
+- Local `files/` directory persists session artifacts that should not be committed (architecture diagrams, notes, intermediate results)
+
+#### The Memory System
+
+Copilot CLI can store durable facts that persist across sessions. Memories are stored when patterns, conventions, or preferences are discovered during work.
+
+| Aspect | Detail |
+|--------|--------|
+| **User-scoped** | Personal preferences applied across all repos (e.g., "I prefer concise commit messages") |
+| **Repository-scoped** | Codebase conventions applied for all contributors (e.g., "Build with `npm run build:all`") |
+| **Upvoting** | Confirms a memory is accurate and useful — increases its weight |
+| **Downvoting** | Marks a memory as incorrect or outdated — decreases its weight |
+| **Citations** | Each memory includes source references (file paths or user input) for verification |
+
+> **Important — AI Safety**: The memory system does not store secrets, credentials, sensitive personal data, or ephemeral task-specific instructions. Memories are facts about conventions and preferences, not data storage.
+
+#### User-Level Instructions
+
+The user-level instruction file at `~/.copilot/copilot-instructions.md` is the least-known but most powerful personalization surface. It applies to every Copilot CLI session across all repositories.
+
+Example use cases:
+
+- Default coding style preferences (naming conventions, comment style)
+- Personal workflow habits (preferred git branching strategy, commit message format)
+- Safety defaults ("always run tests before committing", "never force-push to main")
+- Tool preferences ("use PowerShell, not cmd", "prefer npm over yarn")
+
+### 🖥️ Demo: Exploring the Copilot CLI Environment
+
+- Run `/env` to show which instructions, MCP servers, and skills are loaded
+- Run `/instructions` to show and toggle active instruction files
+- Run `/session` to list recent sessions, then `/resume` to switch to a previous session
+- Run `/context` to visualize the current token budget and what's consuming it
+- Show how a stored memory surfaces automatically in a new session
+- Demonstrate `/share` to export a session as a markdown file or gist
+
+### Discussion Points
+
+- How would your team use repository-scoped instructions to enforce coding standards automatically?
+- What conventions or patterns from your project would benefit from being stored as memories?
+- When would you use user-level instructions vs repository instructions?
+- How could session persistence change how you hand off work between team members or across days?
 
 ---
 

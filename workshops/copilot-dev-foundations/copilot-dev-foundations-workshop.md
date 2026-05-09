@@ -282,7 +282,7 @@ Inline Completions → Chat Modes → Context & Instructions → Models & Agents
 
   | Layer | Purpose | Example |
   |-------|---------|---------|
-  | **Global / personal / enterprise guidance** | Broad defaults and organizational norms | "Do not generate secrets; prefer approved frameworks." |
+  | **User-level instructions** | Personal defaults across all repos | `~/.copilot/copilot-instructions.md` — "Prefer concise commit messages; use PowerShell on Windows." |
   | **Repository instructions** | Shared rules for this codebase | `.github/copilot-instructions.md` |
   | **File-scoped instructions** | Language or file-type specialization | `applyTo: "**/*.test.*"` |
   | **Session and prompt context** | Task-specific intent for the current moment | "Add tests for invalid dates only; do not touch production code." |

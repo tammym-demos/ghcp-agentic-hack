@@ -2,14 +2,15 @@
 
 ## Overview
 
-This self-guided lab gives you a practical way to apply the Module 3 topics in your own VS Code workspace: built-in chat participants, extension trust review, MCP configuration, output evaluation, and diagnostics.
+This self-guided lab gives you a practical way to apply the Module 3 topics in your own VS Code workspace: built-in chat participants, extension trust review, MCP configuration, output evaluation, diagnostics, and Copilot CLI internals (instructions, sessions, and memory).
 
-**Total time**: ~30 minutes  
+**Total time**: ~40 minutes  
 **Prerequisites**:
 
 - Completed Module 1: Foundations
 - Completed Module 2: Agentic Patterns
 - VS Code with GitHub Copilot and GitHub Copilot Chat enabled
+- Copilot CLI installed (`copilot --version` to verify)
 - A local project open in VS Code
 
 > **Note**: The prompts below use `src/app.ts` as an example. If your project uses a different main file, substitute an equivalent file in your repo.
@@ -202,5 +203,59 @@ Explain what this file does, point out one risk, and suggest the safest next imp
 - ✅ Opened the Agent Debug Log panel and Chat Debug View
 - ✅ Identified context, model, and tool evidence from one session
 - ✅ Used at least one troubleshooting path for a suspicious or surprising result
+
+## 4. Copilot CLI: Instructions, Sessions, and Memory (10 min)
+
+This section aligns to Session 4 of the workshop guide.
+
+### Exercise 5: Explore Instructions, Sessions, and Memory (10 min)
+
+**Objective**: Use Copilot CLI to inspect the instruction resolution stack, explore session persistence, and understand the memory system.
+
+### Steps
+
+1. Open a terminal and launch Copilot CLI in your project directory:
+
+```text
+copilot
+```
+
+2. Run `/env` to see what's loaded. Note which instruction files, MCP servers, and skills are active.
+
+3. Run `/instructions` to see the full list of instruction files. Toggle one off and on to see the effect.
+
+4. Run `/context` to visualize the current token budget. Note how much is consumed by instructions vs conversation history.
+
+5. Ask Copilot to explain the instruction layering:
+
+```text
+What instruction files are currently active and in what priority order do they apply?
+```
+
+6. Run `/session` to see your recent session history. Note the session IDs and summaries.
+
+7. Start a new session with `/new`, then use `/resume` to switch back to your current session. Confirm your conversation history is preserved.
+
+8. Ask Copilot about a convention in your project to see if any stored memories surface:
+
+```text
+What are the build and test commands for this project?
+```
+
+9. If you have a user-level instruction file at `~/.copilot/copilot-instructions.md`, open it and note what's in it. If you don't have one, create it with a simple preference:
+
+```text
+I prefer concise commit messages with conventional commit prefixes (feat:, fix:, docs:, etc.).
+```
+
+10. **🛡️ Safety checkpoint**: Review the loaded instructions from `/env`. Are there any instruction files you didn't expect? Could a malicious instruction file in a cloned repo change Copilot's behavior in ways that affect security?
+
+### Success Criteria
+
+- ✅ Used `/env` and `/instructions` to inspect the active instruction stack
+- ✅ Used `/context` to view token budget allocation
+- ✅ Used `/session` and `/resume` to navigate session history
+- ✅ Identified whether stored memories surfaced for your project
+- ✅ Considered security implications of instruction file loading
 
 *Hands-on lab for Module 3: Advanced Topics — Copilot Developer Training*
