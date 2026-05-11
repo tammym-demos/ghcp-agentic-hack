@@ -1,53 +1,65 @@
-# Controlling the Variables — Quiz
+# Module 1: Foundations — Quiz
 
 ---
 
-### 1. You just joined a repository and need to understand how authentication is enforced before proposing any code changes. Which Copilot approach is the best first step?
+### 1. You are exploring an unfamiliar repository and want GitHub Copilot to outline the safest implementation approach for a medium-sized change before any files are edited. Which option is the best fit?
 
-- A) Use Ask mode with `@workspace` to explain where authentication is enforced across the codebase
-- B) Use a focused inline edit on the open file to rewrite the login flow immediately
-- C) Use Agent mode to change the auth files and run tests before you understand the design
-- D) Paste large code excerpts from several files into quick chat and ask for a summary
-
-<!--answer: A-->
-<!--explanation: Ask mode is intended for explanation and orientation before editing. Adding `@workspace` gives repo-wide context without prematurely delegating changes.-->
-
----
-
-### 2. You are fixing a null reference inside one function in a large service file and want Copilot to stay tightly focused on the local code. What should you do first?
-
-- A) Start with `@workspace` and all open tabs so Copilot sees as much context as possible
-- B) Use `#file` or `#selection` for the target code and ask for the smallest safe fix
-- C) Continue the same long-running chat session from an unrelated task so prior context is preserved
-- D) Switch directly to Agent mode and let it inspect the whole repository before narrowing scope
+- A) Use **Ask** mode and request a final code patch immediately
+- B) Use **Plan** mode so GitHub Copilot can propose steps, risks, and validation without editing files
+- C) Use **Agent** mode because it always provides the most accurate architectural explanation
+- D) Start a brand-new session in **Agent** mode and skip any prompt details
 
 <!--answer: B-->
-<!--explanation: `#file` and `#selection` keep the request grounded in the most relevant code and reduce token waste. That improves the odds of a small, accurate fix instead of broad, noisy advice.-->
+<!--explanation: Plan mode is designed for analysis and implementation planning without making file changes. It is the safest choice when you want a structured proposal, risk awareness, and validation steps before execution.-->
 
 ---
 
-### 3. Your team wants Copilot to consistently use Jest patterns in test files and avoid changing production code when generating tests. Which action makes that guidance most durable?
+### 2. You want GitHub Copilot to explain only a highlighted loop inside `parser.ts`, while still allowing it to reference the broader repository if needed. Which prompt setup is most effective?
 
-- A) Re-type the same testing rules in every prompt
-- B) Add repository instructions plus a file-scoped instruction for `**/*.test.*`
-- C) Switch to a stronger model so it can infer the conventions on its own
-- D) Keep one chat thread open for all testing work so Copilot remembers the pattern
+- A) `@workspace Explain this project`
+- B) `#file Explain everything in this file from top to bottom`
+- C) `@workspace Explain #selection in the context of the surrounding project`
+- D) Start a fresh session and paste the entire repository tree into chat
+
+<!--answer: C-->
+<!--explanation: `#selection` narrows the primary focus to the highlighted code, while `@workspace` supplies broader repo context when needed. This combination is more precise than asking about the whole file or entire project without scope.-->
+
+---
+
+### 3. Your team wants GitHub Copilot to always prefer early returns across the repo, but also wants test files to follow Arrange-Act-Assert without forcing that rule onto production code. Which setup is correct?
+
+- A) Put every rule in `.github/copilot-instructions.md` and avoid scoped files
+- B) Put the early-return rule in `.github/copilot-instructions.md` and the test-specific rule in `.github/instructions/tests.instructions.md`
+- C) Put the test rule in `.github/prompts/tests.prompt.md` because prompts always load automatically
+- D) Put both rules in a single `README.md` because GitHub Copilot reads all markdown equally
 
 <!--answer: B-->
-<!--explanation: Stable rules belong in instructions, not repeated prompts or chat history. Repository instructions set the baseline, and file-scoped instructions specialize behavior for test files.-->
+<!--explanation: Repository-wide rules belong in `.github/copilot-instructions.md`, while file-specific guidance belongs in `.github/instructions/*.instructions.md` with an appropriate `applyTo` scope. That keeps durable global guidance separate from targeted rules.-->
 
 ---
 
-### 4. You need to compare two implementation approaches across four files, then make a bounded change and run validation commands. What is the best starting strategy?
+### 4. You need a fast answer for a routine question in a familiar codebase, but later you must reason through a multi-file refactor with several tradeoffs. Which model strategy is usually best?
 
-- A) Use the fastest low-cost model in Ask mode because latency matters more than cross-file reasoning
-- B) Use a stronger reasoning model first, then move to Agent mode when you want tool-assisted multi-step execution
-- C) Stay in a focused inline edit workflow because file-by-file edits are always safer than broader reasoning
-- D) Create a reusable prompt because prompts can perform terminal and file-edit skills on their own
+- A) Always use the largest reasoning model for every request to maximize consistency
+- B) Use a faster or routed default model for the routine question, then switch to a stronger reasoning model for the complex refactor
+- C) Use inline completions for both tasks because they are optimized for deep architectural reasoning
+- D) Avoid changing models because speed, reasoning depth, and premium usage are unrelated
 
 <!--answer: B-->
-<!--explanation: Cross-file comparison benefits from a stronger reasoning model, and Agent mode is appropriate once the task expands to edits and commands. Agent workflows can use skills like file operations and terminal access, while reusable prompts do not replace that tool use.-->
+<!--explanation: Smaller or routed default models are often a better fit for quick, low-risk tasks, while larger reasoning models are better reserved for complex planning and tradeoff-heavy work. This balances speed, quality, and cost.-->
 
 ---
 
-*Quiz for the Controlling the Variables module of Beyond Autocomplete — GitHub Copilot Developer Training*
+### 5. A long chat thread began with debugging a failing test, then drifted into architecture discussions and terminal troubleshooting. GitHub Copilot now keeps referencing outdated assumptions from earlier in the conversation. What should you do next?
+
+- A) Keep replying in the same session so GitHub Copilot has as much history as possible
+- B) Start a new session focused on the current objective and restate the relevant context cleanly
+- C) Switch to **Agent** mode because mode changes automatically clear stale context
+- D) Remove all repository instruction files so the thread becomes shorter
+
+<!--answer: B-->
+<!--explanation: When a conversation has drifted or accumulated stale assumptions, starting a fresh session is the best way to reset context and reduce noise. Continue a session when the task is still coherent; start fresh when the objective or assumptions have changed.-->
+
+---
+
+*Quiz for Module 1: Foundations — GitHub Copilot Developer Training*

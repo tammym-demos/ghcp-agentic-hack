@@ -1,53 +1,65 @@
-# The Agentic Shift — Quiz
+# Module 2: Agentic Patterns — Quiz
 
 ---
 
-### 1. Your team says an agent keeps making poor next-step decisions because its test failures are summarized only as "validation failed." What is the best fix?
+### 1. Your teammate asks GitHub Copilot to rename a variable in one file, but you need GitHub Copilot to inspect several files, refactor a helper, update tests, and adapt the plan if it finds unexpected dependencies. Which approach is the best fit?
 
-- A) Increase the number of retries so the agent has more chances to guess
-- B) Improve the observation layer so the agent sees the exact command output, diff, and failing assertions
-- C) Give the agent the full repository history before every attempt
-- D) Skip validation until the final step so the loop moves faster
+- A) Use a direct skill or one-shot command because every change is still deterministic
+- B) Use an agent because the task is multi-step, requires judgment, and may need to adapt based on intermediate results
+- C) Use `/init` because scaffolding is the fastest way to handle multi-file work
+- D) Use a quiz-style prompt because that reduces the need for context
 
 <!--answer: B-->
-<!--explanation: Strong agentic loops depend on useful observations. Exact outputs make reflection better, while vague summaries lead to weak or repetitive decisions.-->
+<!--explanation: Agents are the right fit for multi-step, adaptive work that requires judgment during execution. A direct skill or one-shot command is better for deterministic single-step tasks.-->
 
 ---
 
-### 2. A repo-wide coding assistant is slow because every prompt includes 30 files plus repeated rules about allowed directories, validation commands, and review expectations. What redesign is best?
+### 2. A team wants one workflow that can investigate a bug while a developer keeps coding locally, and another workflow that can take a GitHub issue, implement it in a cloud environment, and open a pull request. Which pairing is correct?
 
-- A) Keep the large prompt, but add more chat history so the model can infer priorities
-- B) Move durable repo rules into custom instructions and pass only the working-set files needed for this task
-- C) Ask the agent to open every file first so it can build a complete mental model
-- D) Remove file boundaries so the agent can decide what context matters on its own
-
-<!--answer: B-->
-<!--explanation: This reduces context bloat and keeps the working set focused. Durable guidance belongs in reusable instructions, while task prompts should stay narrow and relevant.-->
-
----
-
-### 3. You want a coding agent to take a backlog item from issue to PR. Which setup reflects the safest workflow from this module?
-
-- A) Let the agent keep editing until all checks pass, then allow it to merge automatically
-- B) Start with a loosely worded issue so the agent has room to be creative
-- C) Give the agent clear acceptance criteria, review PR updates and failed checks during execution, and require human approval before merge
-- D) Skip intermediate review and focus only on whether the final summary sounds correct
-
-<!--answer: C-->
-<!--explanation: Coding agents work best on well-scoped tasks with explicit acceptance criteria. Higher autonomy requires stronger checkpoints, including PR review and final human approval.-->
-
----
-
-### 4. A team wants an agent to pull approved ticket data and internal runbooks into its workflow without copying everything into the prompt each time. What is the best approach?
-
-- A) Use MCP to connect approved tools and data sources, while still keeping scope limits and reviewer checkpoints
-- B) Paste the full wiki and all open tickets into every request so nothing is missed
-- C) Give the agent unrestricted web access and trust it to find the right sources
-- D) Add more specialist agents first, then decide how they will access tools later
+- A) Background agent for the local long-running investigation, and Coding Agent for the issue-to-PR cloud workflow
+- B) `/init` for the local investigation, and Ask mode for the cloud pull request workflow
+- C) Ask mode for the local investigation, and a file-scoped instruction for the cloud pull request workflow
+- D) Coding Agent for both cases, because background agents and cloud agents are the same thing
 
 <!--answer: A-->
-<!--explanation: MCP is the right pattern for giving agents structured access to approved external context and tools. It works best when paired with the same guardrails and supervision used elsewhere in the workflow.-->
+<!--explanation: Background agents are suited to long-running work that continues while the developer does something else locally. Coding Agent is the cloud-oriented issue → branch → implement → pull request workflow.-->
 
 ---
 
-*Quiz for The Agentic Shift module of Beyond Autocomplete — GitHub Copilot Developer Training*
+### 3. Your organization blocks certain models at the org level. In your repository, you add `.github/copilot-instructions.md` asking GitHub Copilot to prefer a blocked model, and in a test instruction file you add test-specific formatting rules. What outcome should you expect?
+
+- A) The repository instruction overrides the org policy because repo files are more specific than org settings
+- B) The test instruction overrides both the repository instruction and the org policy
+- C) The org policy still applies, while the repository and file-scoped instructions compose only within the allowed guardrails
+- D) Only the session prompt applies because instruction files cancel each other out
+
+<!--answer: C-->
+<!--explanation: Organization-level guardrails cannot be overridden by repository or file-scoped instructions. More specific instructions can shape behavior only inside the boundaries allowed by the higher-level policy.-->
+
+---
+
+### 4. You are starting a new internal service and want GitHub Copilot to generate a sensible starter structure with tests and configuration, but you also want to avoid blindly committing generated boilerplate. What is the best practice?
+
+- A) Run GitHub Copilot `/init`, then review the generated structure, dependencies, and defaults before committing
+- B) Avoid `/init` completely because generated scaffolding should never be used in production
+- C) Use `/init` and commit everything immediately so the project can evolve later
+- D) Use a multi-agent workflow first, because `/init` is only for debugging existing projects
+
+<!--answer: A-->
+<!--explanation: `/init` is useful for accelerating project bootstrapping, but the generated output still needs human review. The correct practice is to inspect the scaffolded files, defaults, and dependencies before treating them as your project baseline.-->
+
+---
+
+### 5. Your team is considering a three-agent workflow: one agent writes code, one reviews for defects, and one adds tests. The actual task is a tiny one-file comment cleanup with no behavior change. Which answer best reflects a good multi-agent decision?
+
+- A) Use the multi-agent workflow anyway because more agents always improve quality
+- B) Skip automation entirely because agents should never handle low-risk tasks
+- C) Use a single well-scoped agent or direct edit instead, because multi-agent coordination is overkill for such a small task
+- D) Replace the three-agent workflow with `/init`
+
+<!--answer: C-->
+<!--explanation: Multi-agent orchestration is most valuable when specialized roles materially improve the outcome. For a tiny low-risk task, the coordination overhead outweighs the benefit, so a single scoped agent or direct edit is the better choice.-->
+
+---
+
+*Quiz for Module 2: Agentic Patterns — GitHub Copilot Developer Training*

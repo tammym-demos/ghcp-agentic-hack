@@ -1,53 +1,65 @@
-# Operating Copilot Responsibly — Quiz
+# Module 3: Advanced Topics — Quiz
 
 ---
 
-### 1. Your team wants Copilot to inspect GitHub repo health before a full-stack reliability change. Which MCP server design is the safest first step?
+### 1. Your team wants GitHub Copilot to answer questions using an internal API catalog that is not stored in the repository. What is the best next step?
 
-- A) Expose a read-only `listOpenPullRequests` tool with explicit parameters and structured JSON output
-- B) Expose a single `runGitHubTask` tool that accepts free-form text and can create, close, or merge PRs
-- C) Give the server broad shell access so the model can choose any local command it wants
-- D) Store a personal access token directly in `.vscode\mcp.json` so everyone can use the tool immediately
-
-<!--answer: A-->
-<!--explanation: The module recommends starting with one narrow, auditable, read-only tool that has a clear schema and structured output. Broad shell access, implicit writes, and hard-coded secrets increase risk and reduce control.-->
-
----
-
-### 2. An agent proposes a refactor to the `orders` API. Which prompt and review plan best matches the module's evaluation guidance?
-
-- A) "Improve the orders API" and merge if the diff looks cleaner than before
-- B) "Refactor the `orders` API to remove duplicate validation logic, keep the response contract unchanged, and ensure all existing tests pass," then run tests and compare the contract
-- C) "Make it more secure and faster," then judge the result by how confident the explanation sounds
-- D) Ask for three alternative rewrites and choose the version with the shortest diff
+- A) Turn on `@workspace` so GitHub Copilot automatically searches every external system
+- B) Configure an approved MCP server or integration that exposes the API catalog as a tool or resource
+- C) Paste the entire API catalog into every chat prompt
+- D) Rely on inline code completion because it has broader network access than chat
 
 <!--answer: B-->
-<!--explanation: The workshop emphasizes SMART success criteria plus evidence-based verification. A measurable request tied to unchanged behavior and passing tests is stronger than trusting plausibility or style alone.-->
+<!--explanation: MCP is the right fit when GitHub Copilot needs structured, repeatable access to an external system such as internal API documentation or service metadata.-->
 
 ---
 
-### 3. In VS Code, an agent keeps retrying a repo-metrics tool and claims it cannot access the data. What should you inspect first?
+### 2. Which item is the best candidate for GitHub Copilot memory instead of session-only context?
 
-- A) The final natural-language answer only, because it summarizes the failure for you
-- B) The git diff only, because tool failures do not matter if no files changed yet
-- C) The Agent Debug Log panel and `MCP: List Servers` output to confirm tool attempts, server status, and auth or path problems
-- D) Restart VS Code immediately without capturing logs, because fresh state is more useful than evidence
+- A) A one-time reminder to use branch name `fix-login-today`
+- B) A temporary note that this sprint excludes database changes
+- C) A durable preference that your team writes integration tests before merging API changes
+- D) The exact prompt you used earlier to debug a flaky build
 
 <!--answer: C-->
-<!--explanation: The module teaches using evidence, not intuition, to debug agent behavior. Agent Debug logs and MCP server output reveal request flow, retries, server status, and configuration failures.-->
+<!--explanation: Memory works best for durable preferences and conventions that should help in future sessions, while one-off task details should stay ephemeral.-->
 
 ---
 
-### 4. In a new Copilot CLI session, you need an uncommitted architecture diagram from last week's run and want the verified build command to be reusable for everyone in this repo. What is the best approach?
+### 3. GitHub Copilot returned an answer that cited files you did not expect. What is the best way to diagnose what context it actually used?
 
-- A) Recreate the diagram manually and keep the build command only in the current prompt
-- B) Use session history or persisted session artifacts to recover the diagram, and store the build command as a repository-scoped memory
-- C) Store both the diagram and build command as user-scoped memories so they apply everywhere
-- D) Put both items in `~/.copilot/copilot-instructions.md` because user instructions have the highest long-term priority
+- A) Open the VS Code Output panel, switch to GitHub Copilot Chat logs, and inspect the request payload
+- B) Rephrase the prompt repeatedly until the answer changes
+- C) Disable syntax highlighting so the model sees less code
+- D) Close and reopen VS Code, because context cannot be inspected directly
+
+<!--answer: A-->
+<!--explanation: Chat and agent debug logs help you inspect the actual request, attached context, and resulting response so you can diagnose why the model answered the way it did.-->
+
+---
+
+### 4. In an agentic loop, what should happen immediately after the agent executes a step such as editing code or running a tool?
+
+- A) End the task automatically because execution means the plan succeeded
+- B) Observe the result, reflect on whether it moved the task forward, and adjust the next step if needed
+- C) Ask the user to restate the original task before continuing
+- D) Start a new loop with a different goal to avoid local optimization
 
 <!--answer: B-->
-<!--explanation: Session storage is for recoverable work artifacts from earlier runs, while memories store durable conventions. A verified repo build command belongs in repository-scoped memory, not as a transient prompt or cross-repo personal preference.-->
+<!--explanation: Agentic loops are iterative. After execution, the agent should inspect what happened, reflect on the outcome, and then continue or adjust instead of assuming success.-->
 
 ---
 
-*Quiz for the Operating Copilot Responsibly module of Beyond Autocomplete — GitHub Copilot Developer Training*
+### 5. You ask GitHub Copilot to migrate a project to OAuth, but the repository has no authentication system and no deployment details. What is the best off-ramp behavior?
+
+- A) Pick a popular OAuth library, rewrite the project, and hope the assumptions are acceptable
+- B) Stop, explain what required context or prerequisites are missing, and hand the decision back to the human with options
+- C) Continue with placeholder code and mark everything as complete
+- D) Skip directly to updating documentation so the task appears partially finished
+
+<!--answer: B-->
+<!--explanation: Off-ramp design means the agent should not guess when critical context is missing. It should stop, explain the gap, and let the human choose the next path.-->
+
+---
+
+*Quiz for Module 3: Advanced Topics — GitHub Copilot Developer Training*

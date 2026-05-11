@@ -2,283 +2,176 @@
 
 ## Overview
 
-This lab mirrors the expanded teaching sections in Module 1: foundations framing, Copilot chat workflows, memory/context shaping, model/usage awareness, and lightweight customization with agents and reusable prompts.
+This short lab mirrors the workshop flow: first you practice choosing the right GitHub Copilot interaction mode, then you shape output with instructions and scoped context, and finally you compare models while trying a lightweight customization workflow. The goal is to build confidence with safe, repeatable habits rather than to complete a large coding task.
 
-- **Total time**: ~38 minutes
+- **Total time**: ~15 minutes
 - **Prerequisites**:
   - VS Code installed
   - GitHub Copilot extension installed and signed in
   - GitHub Copilot CLI installed
   - Any local project open in VS Code
-  - A project with a `.github/` directory (or permission to create one)
 
-> **Note**: A project with source files and a `package.json` file works best, but any codebase is enough for this lab.
+## Exercise 1: Copilot Chat Tour — Modes, Commands, and CLI
 
-## Exercise 1: Foundations Framing, Safety, and Workflow Map
+**⏱️ Time**: 5 min
+**📋 Objective**: Explore Chat modes, slash commands, and the CLI
 
-**⏱️ Time**: 3 min  
-**📋 Objective**: Choose the right Copilot workflow before you start typing prompts or accepting changes.
+1. Open any multi-file project in VS Code and open **GitHub Copilot Chat**.
+2. In **Ask** mode, open a file you understand only partially, then run:
 
-1. Open any local project in VS Code.
+   ```text
+   @workspace Summarize how this project is organized and explain what #file is responsible for.
+   ```
 
-2. For each task below, decide whether you would start in **Ask**, **Plan**, or **Agent** mode:
+3. Switch to **Plan** mode and ask GitHub Copilot to propose a safe change without editing files:
 
-   - Explain how this project is structured for a new developer.
-   - Draft a plan to add validation to the signup flow without editing files yet.
-   - Implement validation across the schema, controller, and tests.
+   ```text
+   Plan a small improvement to #file. Include risks, affected files, and how you would verify the change.
+   ```
 
-3. Open GitHub Copilot Chat and verify you can see the agents/model controls at the bottom of the chat view.
+4. Switch to **Agent** mode and give GitHub Copilot a small, reversible task such as renaming a variable, clarifying a comment, or improving a README section:
 
-> **Important**: This module treats safety as a workflow habit, not a separate lecture. Every later exercise assumes you will scope context intentionally and review AI-generated output before keeping it.
+   ```text
+   Improve #selection for readability, explain the proposed change first, and keep the edit limited to this file.
+   ```
 
-### ✅ Success Criteria
+5. While still in chat, try a slash command:
 
-- ✅ Matched common tasks to **Ask**, **Plan**, or **Agent**
-- ✅ Confirmed Copilot Chat is ready in VS Code
+   ```text
+   /explain #selection
+   ```
 
-## Exercise 2: Copilot Chat Tour
+6. In the terminal, start GitHub Copilot CLI and inspect available commands:
 
-**⏱️ Time**: 10 min  
-**📋 Objective**: Explore Copilot Chat modes, built-in commands, contextual prompting, and prompt-first terminal workflows.
+   ```powershell
+   copilot
+   /help
+   ```
 
-1. Open any project folder in VS Code.
+7. Exit the interactive session, then try a direct prompt:
 
-2. Open GitHub Copilot Chat from the sidebar, or press `Ctrl+Shift+I`.
+   ```powershell
+   copilot -p "Give me an overview of this project."
+   ```
 
-3. Switch to **Plan** mode and enter:
-
-    ```text
-    Create a plan to add a README.md for this project. Show the steps first and do not make changes yet.
-    ```
-
-    Review the proposed plan and the assumptions Copilot makes.
-
-4. Switch to **Agent** mode and enter:
-
-    ```text
-    Create a README.md for this project
-    ```
-
-    Observe how Copilot plans multiple steps, gathers context, and proposes file changes.
-
-5. **🛡️ Safety checkpoint**: Agent mode can create and modify files. Before accepting any agent-generated changes, review the diff. This is your human review gate — never commit changes you haven't read.
-
-6. Select a function and run:
-
-    ```text
-    /explain
-    ```
-
-    Then select a block with an error and run:
-
-    ```text
-    /fix
-    ```
-
-7. Ask a workspace-wide question:
-
-    ```text
-    @workspace what frameworks does this project use?
-    ```
-
-8. Attach a specific file as context:
-
-    ```text
-    #file:package.json explain the dependencies
-    ```
-
-9. If GitHub Copilot CLI is not installed yet, install it with one of the supported options for your machine:
-
-    ```bash
-    winget install GitHub.Copilot
-    ```
-
-    ```bash
-    npm install -g @github/copilot
-    ```
-
-10. Open the integrated terminal in VS Code and run:
-
-    ```bash
-    copilot -p "Explain this Git command: git rebase -i HEAD~3"
-    ```
-
-11. Then run:
-
-    ```bash
-    copilot -p "Suggest a shell command to find all files larger than 10MB in this repository"
-    ```
-
-12. **🛡️ Safety checkpoint**: Review any shell command Copilot suggests before you run it. Terminal suggestions can affect real files, processes, and credentials.
+**🛡️ Safety checkpoint**: Review any agent-generated edits before accepting them, and do not assume an inline completion or CLI response is correct without checking it against the codebase.
 
 ### ✅ Success Criteria
 
-- ✅ Used Plan mode
-- ✅ Used Agent mode
-- ✅ Tried at least two slash commands
-- ✅ Used `@workspace`
-- ✅ Used `#file`
-- ✅ Used GitHub Copilot CLI
-- ✅ Reviewed agent-generated changes before accepting
+- ✅ Used **Ask**, **Plan**, and **Agent** mode at least once
+- ✅ Used at least one slash command
+- ✅ Used at least one chat variable or participant such as `#file`, `#selection`, or `@workspace`
+- ✅ Ran at least one GitHub Copilot CLI command
 
-## Exercise 3: Memory, Context & Instructions
+## Exercise 2: Memory, Context & Instructions
 
-**⏱️ Time**: 8 min  
-**📋 Objective**: Create repository-level and file-targeted instructions, then improve a prompt by tightening scope and constraints.
+**⏱️ Time**: 5 min
+**📋 Objective**: Create instruction files and see how they affect GitHub Copilot behavior
 
-1. Create `.github/copilot-instructions.md` in your project root with this content:
+1. In your project, create `.github/copilot-instructions.md` with a simple repository-wide rule set:
 
-    ```markdown
-    - Always use TypeScript strict mode
-    - Prefer async/await over callbacks
-    - Use descriptive variable names
-    ```
+   ```markdown
+   # Repository Instructions
 
-2. Open Chat and ask:
+   - Always use TypeScript strict mode for new TypeScript code
+   - Prefer early returns over deeply nested conditionals
+   - Add or update tests when behavior changes
+   ```
 
-    ```text
-    Write a function to fetch user data from an API
-    ```
+2. Open a file where GitHub Copilot can generate or revise code, then ask:
 
-    Review the response and check whether it uses async/await, strong typing, and descriptive names.
+   ```text
+   Generate a small helper in #file and explain which repository instructions you followed.
+   ```
 
-3. Refine the prompt by adding task, scope, constraints, and output expectations:
+3. Create a scoped instruction file at `.github/instructions/tests.instructions.md`:
 
-    ```text
-    Write a TypeScript function to fetch user data from an API. Use async/await, return a typed result, and include basic error handling. Do not add any UI code.
-    ```
+   ```markdown
+   ---
+   applyTo: "**/*.{test,spec}.{ts,tsx,js,jsx}"
+   ---
 
-    Compare the result to the shorter prompt and note what improved.
+   # Test File Instructions
 
-4. Create `.github/instructions/tests.instructions.md` with this content:
+   - Use Arrange-Act-Assert structure
+   - Prefer descriptive test names
+   - Avoid live network calls in unit tests
+   ```
 
-    ```markdown
-    ---
-    applyTo: "**/*.test.*"
-    ---
+4. Open a matching test file and ask GitHub Copilot to create or revise a test:
 
-    - Use Jest
-    - Prefer describe/it blocks
-    - Always include edge cases
-    ```
+   ```text
+   Create a focused unit test in #file and tell me which scoped instructions apply here.
+   ```
 
-5. Open a test file and ask Copilot to generate tests:
+5. Compare the response you got in a regular source file with the one you got in a test file, and note how the scoped instruction changes the output.
 
-    ```text
-    Write tests for this code
-    ```
-
-    Check whether the response uses Jest-style structure and includes edge cases.
-
-6. **🛡️ Safety checkpoint**: Add another instruction: `"Never hard-code secrets or API keys — use environment variables."` Then ask Copilot to write code that connects to an API. Verify it uses environment variables instead of inline credentials. This is a good habit — and if your org enables GitHub Secret Scanning, it catches any that slip through.
-
-> **Note**: File-targeted instructions are only applied when the active file matches the `applyTo` pattern.
+**🛡️ Safety checkpoint**: Review what context you are sharing. Instruction files become visible to collaborators and should contain durable project guidance, not secrets or sensitive data.
 
 ### ✅ Success Criteria
 
 - ✅ Created a repository-level instruction file
-- ✅ Created a targeted instruction file
-- ✅ Improved a prompt by adding scope and constraints
-- ✅ Verified Copilot followed both instruction sets
-- ✅ Added a security-focused custom instruction and verified Copilot follows it
+- ✅ Created a file-scoped instruction file using `applyTo`
+- ✅ Observed GitHub Copilot referencing or following those instructions
+- ✅ Compared behavior between a general source file and a matching scoped file
 
-## Exercise 4: Models, Agents & Tokens
+## Exercise 3: Models, Agents & Custom Prompt
 
-**⏱️ Time**: 10 min  
-**📋 Objective**: Compare model behavior and locate usage or diagnostic details in VS Code.
+**⏱️ Time**: 5 min
+**📋 Objective**: Switch models, create a custom agent, and use a reusable prompt
 
-1. In the Chat panel, find the model selector dropdown near the bottom of the chat window.
+1. In GitHub Copilot Chat, switch to a different available model and ask the same question twice so you can compare depth, style, and speed:
 
-2. In **Ask** mode, ask this question with your current model:
+   ```text
+   Compare two safe ways to improve #file and recommend one based on maintainability and test impact.
+   ```
 
-    ```text
-    Explain how this project is structured for a new developer.
-    ```
+2. Create a simple custom agent file at `.github/agents/refactor-coach.agent.md`:
 
-3. Switch to a different model, such as moving from **GPT-5.5** or **GPT-4o** to **Claude Sonnet 4.6**, depending on what your plan makes available.
+   ```yaml
+   ---
+   tools: ['codebase', 'search', 'editFiles']
+   description: Help implement small, low-risk refactors with explanations
+   model: Claude Sonnet 4
+   ---
 
-4. Ask the exact same question again:
+   You are a careful refactoring partner for this repository.
 
-    ```text
-    Explain how this project is structured for a new developer.
-    ```
+   - Explain the plan before editing files
+   - Keep changes limited to the active task
+   - Prefer small, reversible edits
+   ```
 
-5. Compare the two responses for tone, detail, and actionability.
+3. If your VS Code setup shows custom agents in the mode picker, select the new agent and give it a small task in the current file.
+4. Create a reusable prompt at `.github/prompts/refactor-checklist.prompt.md`:
 
-6. **🛡️ Safety checkpoint**: Did either model produce code or suggestions that look confident but might be wrong? Different models can produce different security postures in generated code. If one model's output looks correct but the other raises concerns, investigate — over-trust in a confident-sounding response is the most common AI safety risk.
+   ```yaml
+   ---
+   mode: 'agent'
+   description: 'Review the active file, propose a safe refactor, and suggest validation steps'
+   tools: ['codebase', 'search', 'editFiles']
+   ---
 
-7. Click the GitHub Copilot icon in the VS Code status bar and review the usage information that is available for your plan.
+   # Safe Refactor Checklist
 
-8. Optionally, open **View → Output** in VS Code, then choose **GitHub Copilot Chat** from the output dropdown, or use any available debug/usage panel in your environment, and look for model or request diagnostics tied to your prompts.
+   ## Objective
+   Improve the active file without changing intended behavior.
 
-9. Note which model you would pair with **Ask**, **Plan**, or **Agent** mode for this kind of task.
+   ## Requirements
+   - Explain the current structure first
+   - Suggest the smallest useful improvement
+   - Call out risks and recommended tests
+   ```
 
-> **Note**: The exact usage, token, or diagnostic fields shown can vary by VS Code version, Copilot plan, and model.
+5. Run the reusable prompt and compare that experience with the custom agent workflow.
 
-### ✅ Success Criteria
-
-- ✅ Switched between models
-- ✅ Compared responses from two models
-- ✅ Located Copilot usage information in the IDE
-- ✅ Observed model or request diagnostics in the IDE
-- ✅ Connected model choice to task autonomy
-- ✅ Compared responses for potential security differences
-
-## Exercise 5: Create a Custom Agent & Reusable Prompt
-
-**⏱️ Time**: 10 min  
-**📋 Objective**: Create a custom agent file and a reusable prompt, then invoke both in VS Code.
-
-1. Create `.github/agents/code-reviewer.agent.md` in your project with this content:
-
-    ```markdown
-    ---
-    name: code-reviewer
-    description: Reviews code for bugs, security issues, and style improvements
-    tools: ["read", "search"]
-    ---
-
-    You are a code reviewer. When asked to review code:
-    1. Check for bugs, null references, and unhandled errors
-    2. Flag any security concerns (hardcoded secrets, injection risks)
-    3. Suggest readability improvements
-    4. Keep feedback actionable and specific
-    ```
-
-2. Open Copilot Chat and invoke your custom agent:
-
-    ```text
-    @code-reviewer Review the main entry point of this project
-    ```
-
-3. Review the response. It should focus on bugs, security, and readability — not general explanation.
-
-4. Create `.github/prompts/explain-function.prompt.md` with this content:
-
-    ```markdown
-    ---
-    description: 'Explain a function with context, edge cases, and improvement suggestions'
-    ---
-
-    Explain the selected function. Cover:
-    1. What it does and why
-    2. Key parameters and return values
-    3. Edge cases and error handling
-    4. One improvement suggestion
-    ```
-
-5. Select a function in your editor, open the Command Palette (`Ctrl+Shift+P`), type "Run Prompt", and select `explain-function`.
-
-6. Review the response and compare it to asking the same question without the prompt template.
-
-7. **🛡️ Safety checkpoint**: Custom agents and prompts shape Copilot's behavior for your whole team. Before committing agent or prompt files, review them for: appropriate tool scoping, no embedded secrets, and clear behavioral boundaries.
+**🛡️ Safety checkpoint**: Consider the blast radius before granting broad autonomy. A custom agent or prompt with edit tools can make widespread changes quickly if the task scope is vague.
 
 ### ✅ Success Criteria
 
-- ✅ Created a custom agent file in `.github/agents/`
-- ✅ Invoked the custom agent with `@code-reviewer`
-- ✅ Created a reusable prompt in `.github/prompts/`
-- ✅ Ran the prompt from the Command Palette
-- ✅ Compared agent-targeted output to generic chat output
+- ✅ Switched models and compared the outputs
+- ✅ Created a custom agent file
+- ✅ Created a reusable prompt file
+- ✅ Invoked at least one customization workflow and reflected on when to use it
 
-*Hands-on lab for Module 1: Foundations — Copilot Developer Training*
+*Hands-on lab for Module 1: Foundations — GitHub Copilot Developer Training*

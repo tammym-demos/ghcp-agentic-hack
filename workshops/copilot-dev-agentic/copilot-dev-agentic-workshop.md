@@ -1,30 +1,36 @@
 # Module 2: Agentic Patterns — Workshop Guide
 
-**Duration**: ~90 min (condensed delivery)  
-**Format**: Presentation + Live Demo + Hands-On  
-**Audience**: Developers who completed Module 1: Foundations  
-**Prerequisites**: Completed Module 1, VS Code with Copilot  
-**Curriculum Mapping**: Condenses Session 4 (*Agentic Loops & Rubber Duck*) and Session 5 (*Agent Patterns & Antipatterns*) from the full ~2h 15m module
+**Duration**: ~90 min
+**Format**: Presentation + Live Demo + Hands-On
+**Audience**: Developers with basic GitHub Copilot exposure
+**Prerequisites**: Completion of Module 1: Foundations
 
 ---
 
 ## Workshop Overview
 
-Module 2 shifts the audience from **using Copilot as an assistant** to **designing, supervising, and reviewing agentic work**. The core message is that autonomy is not binary: developers choose how much initiative the system has, how much context it can touch, which tools it can use, and where human review must remain in the loop. This workshop gives attendees a practical vocabulary for that design space: autonomy spectrum, agentic loop, PAOR cycle, Ralph loop, orchestration topology, and guardrails.
-
-The first half of the module focuses on **how agents work**. Attendees learn the autonomy spectrum from completions through coding agents, unpack the architecture of an agentic loop, and practice reading multi-step work through the **Plan → Act → Observe → Reflect (PAOR)** cycle. They also examine the **Ralph loop** — the coding agent's internal validation-and-repair loop — so they can tell the difference between productive self-correction and blind retry behavior.
-
-The second half focuses on **how to design agents responsibly**. Attendees compare **single-agent multi-skill** designs with **multi-agent specialist teams**, review common orchestration topologies, and work through eight high-frequency antipatterns. The goal is not maximum autonomy; it is **bounded autonomy with explicit success criteria, validation, off-ramps, and human checkpoints**.
+Module 2 helps developers move from "GitHub Copilot as a smart assistant" to "GitHub Copilot as a scoped autonomous teammate." Participants learn how agents coordinate skills, when to choose direct tool use instead of delegation, how background and cloud agents change the workflow, and how instruction layering and multi-agent patterns shape safe adoption. The emphasis throughout is practical trust calibration: delegate intentionally, keep review gates in place, and design workflows that still leave the developer in control.
 
 ### Learning Objectives
 
-- Place a Copilot workflow on the **autonomy spectrum** and choose the right human checkpoint for it
-- Explain the core components of an **agentic loop** and how tools, context, and validation fit together
-- Break down agent behavior using the **PAOR cycle** and recognize what good reflection looks like
-- Describe the **Ralph loop** and identify when repeated retries indicate real progress vs. thrashing
-- Use the **rubber duck cross-model review** technique to get a second opinion on important logic
-- Decide when to use a **single agent with multiple skills** vs. a **multi-agent specialist team**, and choose between **sequential, parallel, and hierarchical** orchestration topologies
-- Diagnose the eight major **agent antipatterns** and redesign prompts, workflows, and safeguards to avoid them
+- Explain the difference between a GitHub Copilot agent and a skill, including the plan → act → observe → adjust loop
+- Choose between direct tool use and agentic orchestration based on scope, judgment, and adaptation needs
+- Describe how background agents and cloud agents support different parts of the development workflow
+- Use GitHub Copilot `/init` as a bootstrapping accelerator without skipping review of generated output
+- Explain how organization, repository, file-scoped, user, and session instructions compose
+- Identify when multi-agent collaboration adds value and when a single well-scoped agent is enough
+- Use GitHub Copilot as a rubber duck for reasoning, debugging, and design review
+
+### Prerequisites
+
+| Requirement | Details |
+|-------------|---------|
+| **Module 1 completion** | Participants should already understand core chat modes, instructions, and basic customization |
+| **VS Code** | Latest stable version with GitHub Copilot and GitHub Copilot Chat enabled |
+| **GitHub account** | Signed in with GitHub Copilot access |
+| **Local project** | Any multi-file repository open for demos and lab exercises |
+| **Terminal access** | Needed for GitHub Copilot CLI and repo scaffolding workflows |
+| **Internet access** | Required for GitHub Copilot model calls, background workflows, and cloud features |
 
 ---
 
@@ -32,642 +38,350 @@ The second half focuses on **how to design agents responsibly**. Attendees compa
 
 | Section | Topic | Time |
 |---------|-------|------|
-| 1 | Autonomy Spectrum & Human Checkpoints | 12 min |
-| 2 | Agentic Loop Definition & Architecture | 15 min |
-| 3 | PAOR Cycle & Ralph Loop Deep Dive | 18 min |
-| 4 | Rubber Duck Cross-Model Review | 10 min |
-| 5 | Single-Agent vs. Multi-Agent Patterns | 15 min |
-| 6 | Responsible Agent Design: Antipatterns & Safeguards | 20 min |
-
-**Total**: ~90 min condensed delivery
+| 1 | What is an Agent? What is a Skill? (framing + safety) | 10 min |
+| 2 | Agent vs. Skill — When to Use Each | 12 min |
+| 3 | Background Agents and Cloud Agents (Coding Agent) | 15 min |
+| 4 | Copilot `/init` and Project Bootstrapping | 8 min |
+| 5 | Instruction Layering — Org, Repo, and File-Scoped | 15 min |
+| 6 | Multi-Agent Patterns — Squad as a Worked Example | 15 min |
+| 7 | Rubber Duck Debugging with Copilot | 5 min |
+| 8 | Wrap-up, hand-off to lab, and Q&A | 5 min |
 
 ---
 
-## 1. Autonomy Spectrum & Human Checkpoints (12 min)
+## 1. What Is an Agent? What Is a Skill? (10 min)
 
 ### Key Points
 
-- **Autonomy is a spectrum**, not a switch: each step adds initiative, tool reach, and the need for stronger oversight
-- The spectrum for this module is: **completions → chat (Ask/Plan) → agent → coding agent**
-- As autonomy increases, the human moves from **authoring every token** to **defining scope, checkpoints, and approval gates**
-- Safety question for this section: **"What must a human still approve at this level of autonomy?"**
-
-> **Note**: In VS Code today, the lower-autonomy chat layer is typically surfaced as **Ask** and **Plan**. This workshop groups both under **chat** because the core distinction is whether Copilot is primarily advising or autonomously acting.
-
-### The Autonomy Spectrum
+- An **agent** is a goal-directed workflow that can plan, take actions with tools, observe the result, and adjust based on what it learns
+- A useful mental model for agentic execution is:
 
 ```text
-┌────────────────────┐    ┌────────────────────┐    ┌────────────────────┐    ┌────────────────────────┐
-│ Completions        │ →  │ Chat               │ →  │ Agent              │ →  │ Coding Agent           │
-│ Inline suggestions │    │ Conversational     │    │ Tool-using worker  │    │ Issue-to-PR execution  │
-│ Human drives       │    │ Human steers       │    │ Shared control     │    │ Human reviews outputs  │
-└────────────────────┘    └────────────────────┘    └────────────────────┘    └────────────────────────┘
-            lower autonomy                                                              higher autonomy
+Plan → Act → Observe → Adjust
 ```
 
-| Level | Typical behavior | Tool access | Best use | Human checkpoint |
-|------|-------------------|-------------|----------|------------------|
-| **Completions** | Suggests the next line, block, or edit | None beyond editor context | Fast local drafting | Accept or reject each suggestion |
-| **Chat** | Explains, compares, drafts, and answers | Read-oriented context | Learning, planning, exploration | Review each answer before acting |
-| **Agent** | Searches, edits files, runs commands, iterates | Local tools and workspace | Multi-step implementation inside the repo | Review plan, commands, diff, and validation results |
-| **Coding Agent** | Works from an issue or task to produce a PR | Remote execution environment with repo setup | Well-scoped backlog items with clear acceptance criteria | Review issue quality, PR diff, checks, and merge decision |
+- A **skill** is a specific capability the agent can invoke, such as file edits, terminal access, search, web browsing, or GitHub API calls
+- Agents do not replace skills; they orchestrate skills to complete a larger outcome
+- Distinguish carefully between **the agent** as the autonomous orchestrator and **a skill** as a single tool call within the workflow
 
-### Human Checkpoints by Autonomy Level
+### 🛡️ Safety Moment
 
-| Level | Human decides before work starts | Human reviews during work | Human approves at the end |
-|------|----------------------------------|---------------------------|---------------------------|
-| **Completions** | Whether to keep typing with AI assistance | Every accepted suggestion | Saved code |
-| **Chat** | Question framing and context | Follow-up prompts and clarifications | Whether to trust or apply the answer |
-| **Agent** | Scope, success criteria, file boundaries, validation rules | Command proposals, retries, risky edits | Final diff, tests, and commit |
-| **Coding Agent** | Issue quality, repo access, environment, branch policy | PR updates, failed checks, escalation notes | PR approval and merge |
+- Autonomy starts with understanding what you are delegating before you delegate it
+- Developers should know the expected goal, available tools, and approval boundary before letting an agent run
+- If you cannot clearly describe the task scope, the agent is not ready to own it
 
-> **Important**: More autonomy should mean **more explicit checkpoints**, not fewer. The mistake is to increase tool reach without increasing review discipline.
+### 🖥️ Demo: Framing the Agent Loop
 
-### 🖥️ Demo: One Task Across Four Autonomy Levels
+1. Ask GitHub Copilot to explain a task as both an agent workflow and a direct tool action:
 
-Use the same user story — "Add validation to `POST /users`" — and walk it through four interaction styles:
+   ```text
+   Explain the difference between an agent workflow and a single skill call for this repository. Give me one example of each.
+   ```
 
-1. **Completions** — show inline suggestion for a validation `if` block
-2. **Chat / Ask** — ask for a validation approach and expected edge cases
-3. **Agent** — ask the agent to implement validation and tests, then review the plan and diff
-4. **Coding Agent** — show the issue text that would be needed for an issue-to-PR workflow
-
-**Teaching prompt examples**:
-
-```text
-Ask: Propose a validation strategy for POST /users in this codebase. Include error cases and test ideas.
-```
-
-```text
-Agent: Add validation to POST /users, add targeted tests, and stop if you need to change files outside src/users.
-```
-
-```text
-Issue: Add validation to POST /users. Return 400 for missing name/email, preserve existing success behavior, add tests in tests/users.test.ts, do not modify auth or database code.
-```
+2. Call out where planning happens, where a skill is used, and where the developer still reviews the result.
 
 ### Discussion Points
 
-- Where does your team currently spend most of its time on the autonomy spectrum?
-- Which checkpoint is most often skipped: plan review, command review, diff review, or PR review?
-- What kinds of work are too risky for high autonomy without a stronger approval flow?
-- How would you explain the difference between **agent** and **coding agent** to a new team member?
+- What tasks would you trust an agent to handle autonomously?
+- What would you always want to review before accepting?
+- Where does your current comfort level change from "assist me" to "act for me"?
 
 ---
 
-## 2. Agentic Loop Definition & Architecture (15 min)
+## 2. Agent vs. Skill — When to Use Each (12 min)
 
 ### Key Points
 
-- An **agentic loop** is a repeated cycle where the system plans work, takes an action, observes results, and adjusts behavior
-- The loop exists because multi-step tasks are rarely solved in one pass; the agent needs **feedback from the environment**
-- A useful mental model is: **goal + context + tools + validation + stop conditions**
-- The loop ends for one of three reasons: **success**, **escalation to a human**, or **budget/guardrail limit reached**
-
-### Agentic Loop Architecture
+- Use an **agent** when the task is multi-step, goal-directed, and likely to require judgment during execution
+- Use a **skill** or direct tool invocation when the task is single-step, deterministic, and does not need adaptation
+- A simple decision framework:
 
 ```text
-┌──────────────────────────────┐
-│ Goal + success criteria      │
-│ Constraints + safety limits  │
-└──────────────┬───────────────┘
-               ▼
-┌──────────────────────────────┐
-│ Plan                         │
-│ Break task into next actions │
-└──────────────┬───────────────┘
-               ▼
-┌──────────────────────────────┐
-│ Act                          │
-│ Edit files / run tool / ask  │
-└──────────────┬───────────────┘
-               ▼
-┌──────────────────────────────┐
-│ Observe                      │
-│ Read outputs, diffs, errors  │
-└──────────────┬───────────────┘
-               ▼
-┌──────────────────────────────┐
-│ Reflect                      │
-│ Continue / revise / stop     │
-└───────┬───────────────┬──────┘
-        │               │
-        │ continue      │ escalate
-        ▼               ▼
-      Plan        Human checkpoint
+Is the task multi-step?
+Does it require judgment?
+Does it need to adapt based on intermediate results?
+
+If yes → use an agent
+If no → use a direct skill or tool call
 ```
 
-### Architecture Components
+- Agents are strongest when they can sequence actions, inspect results, and revise the next step
+- Direct skills are strongest when you already know exactly what action is needed
 
-| Component | Purpose | Typical signals |
-|----------|---------|-----------------|
-| **Goal definition** | States what "done" means | Acceptance criteria, file scope, test expectations |
-| **Context pack** | Supplies the working set | Referenced files, repo instructions, recent turns |
-| **Tool layer** | Gives the agent ways to act | Search, edit, terminal, web, issue/PR APIs |
-| **Observation layer** | Returns feedback from actions | Diff, stdout/stderr, failing tests, API responses |
-| **Reflection layer** | Decides the next move | Retry, change approach, narrow scope, or stop |
-| **Guardrails** | Bound risk and cost | Iteration limit, file limits, approval gates, sandbox rules |
+### 🛡️ Safety Moment
 
-### Why Agentic Loops Matter
+- Scope control matters more than capability breadth
+- Give agents only the tools they need for the task instead of every tool available
+- The smaller the tool set, the easier it is to predict and review behavior
 
-- **Without a loop**, the model can only draft an answer
-- **With a loop**, the model can inspect reality, detect failure, and revise
-- The quality of the loop depends on the quality of the **observations**: vague error summaries produce weak reflection
-- Strong loops are **instrumented** and **bounded**; weak loops are opaque and open-ended
+### 🖥️ Demo: One Goal, Two Interaction Styles
 
-> **Note**: Agents do not become reliable because they are autonomous. They become reliable when the loop includes **useful feedback** and **clear stop conditions**.
+1. Show a multi-step agent request:
 
-### 🖥️ Demo: Reading an Agentic Loop in Real Time
+   ```text
+   Refactor #file for readability, update any impacted tests, and summarize the risks before I accept the changes.
+   ```
 
-Use Agent mode on a small repo task such as:
+2. Show a direct explanation request:
 
-```text
-Add request validation to POST /orders, add focused tests, and summarize any assumptions before you finish.
-```
+   ```text
+   Explain what #selection does and why it exists.
+   ```
 
-Narrate the loop while the agent works:
-
-1. **Plan** — what files and checks did it choose?
-2. **Act** — what did it actually edit or run?
-3. **Observe** — what signals came back from tests or lint?
-4. **Reflect** — did it change direction, retry, or escalate?
+3. Compare the difference in planning, tool use, and review burden.
 
 ### Discussion Points
 
-- Which part of the loop is most fragile in your environment: context, tools, validation, or reflection?
-- What signals make an agent more trustworthy: passing tests, explicit assumptions, smaller diffs, or fewer retries?
-- How do you want agents to behave when they hit an ambiguous requirement?
-- What should always terminate a loop immediately in your repos?
+- Which tasks in your daily workflow are agent-worthy?
+- Which tasks are better handled as direct answers or single tool calls?
+- Where do you see teams overusing autonomy instead of choosing the simpler path?
 
 ---
 
-## 3. PAOR Cycle & Ralph Loop Deep Dive (18 min)
+## 3. Background Agents and Cloud Agents — Coding Agent (15 min)
 
 ### Key Points
 
-- **PAOR** is the practical vocabulary for reading and designing agent behavior: **Plan → Act → Observe → Reflect**
-- The **Plan** should be short, concrete, and tied to success criteria
-- The **Observe** step is where the environment pushes back with evidence
-- The **Reflect** step is the quality gate: it should explain whether to continue, change strategy, or stop
-- The **Ralph loop** is the coding agent's **inner validation loop** inside PAOR: edit, run checks, inspect outcomes, repair, and revalidate
+- **Background agents** are long-running agents that keep working while the developer continues with other tasks
+- Developers launch them, monitor progress, review intermediate output, and inspect the final result before accepting it
+- **Cloud agents**, including **Coding Agent**, extend the workflow beyond the local IDE into an issue → branch → implement → pull request flow
+- Coding Agent can work from a GitHub issue, create a branch, implement the change in a cloud environment, and open a PR for review
+- `copilot-setup-steps.yml` helps prepare the cloud environment with required dependencies, tools, and setup steps
+- Trust calibration matters: the more autonomy you grant, the more important review gates become
 
-### PAOR Explained Step by Step
+### 🛡️ Safety Moment
 
-| Step | What good behavior looks like | Failure mode to watch for |
-|------|-------------------------------|---------------------------|
-| **Plan** | Names files, checks, and order of operations | Vague "I'll fix it" plan with no measurable endpoint |
-| **Act** | Makes scoped changes and runs relevant tools | Large uncontrolled edits across unrelated files |
-| **Observe** | Reads exact errors, diffs, and outputs | Ignores stderr, skips failing tests, or summarizes loosely |
-| **Reflect** | Updates approach based on evidence | Retries the same action without a new hypothesis |
+- Always review pull requests created by coding agents
+- Treat autonomous code generation as draft output until a human validates correctness, security, and fit with team standards
+- Review gates are not friction; they are how you scale autonomy safely
 
-### Example: PAOR as an Agent Conversation
+### 🖥️ Demo: Launch, Monitor, Review
 
-```text
-User: Add validation to POST /users. Return 400 for missing name or email. Add tests.
+1. Show a background agent working on a multi-step task while you continue narrating:
 
-Agent (Plan): I will inspect the current route and tests, add validation in the request handler,
-create negative-path tests, then run the targeted user test suite.
+   ```text
+   Investigate this failing test, propose a fix, and keep me updated as you work.
+   ```
 
-Agent (Act): Opens src/routes/users.ts, src/lib/validators.ts, and tests/users.test.ts.
-Updates the route and adds two failing tests for missing fields.
+2. Walk through the cloud workflow conceptually:
 
-Agent (Observe): tests/users.test.ts fails. Expected 400, received 500.
-Stack trace shows the validation error bypasses the error middleware.
+   ```text
+   Issue assigned → branch created → implementation runs in cloud → PR opened for review
+   ```
 
-Agent (Reflect): The route is throwing instead of returning a structured response.
-I will move validation before the handler body and normalize the error response.
+3. Show a sample `copilot-setup-steps.yml` snippet and explain why environment preparation matters:
 
-Agent (Act): Updates middleware ordering and reruns the targeted tests.
+   ```yaml
+   - name: Install dependencies
+     run: npm ci
 
-Agent (Observe): Targeted tests pass.
+   - name: Build project
+     run: npm run build
 
-Agent (Reflect): Goal met for route behavior and focused tests. I will summarize the change
-and note that full regression tests were not run.
-```
-
-### The Ralph Loop: Internal Validation and Repair
-
-This workshop uses **Ralph loop** as the name for the coding agent's **inner validation loop** — the repeated cycle that happens *inside* the broader PAOR flow after a code change is made.
-
-```text
-Outer loop:   Plan → Act → Observe → Reflect
-                         │
-                         ▼
-Inner loop:   edit → run check → inspect output → patch → rerun
-                         │
-                         └── stop after bounded retries or escalate
-```
-
-### Ralph Loop Decision Table
-
-| Signal after a change | Healthy Ralph-loop response | Warning sign |
-|-----------------------|-----------------------------|--------------|
-| **One focused test fails** | Patch the relevant file and rerun the same focused test | Jumps to unrelated files or broad refactors |
-| **Lint/type error appears** | Fix the exact error and rerun validation | Suppresses the error without understanding it |
-| **No validation exists** | Add the smallest useful check before claiming success | Declares done without evidence |
-| **Repeated similar failures** | Stop, summarize blocker, and ask for guidance or narrower scope | Continues blind retries past the iteration limit |
-
-### Reading Reflection Quality
-
-Good reflection sounds like:
-
-```text
-The failure indicates middleware order, not schema shape. I will move validation earlier and rerun only the user-route tests.
-```
-
-Poor reflection sounds like:
-
-```text
-That did not work. I will try something else.
-```
-
-> **Important**: A loop that retries quickly is not automatically intelligent. What matters is whether each retry is driven by a **new evidence-based hypothesis**.
-
-### 🖥️ Demo: Spot the Outer Loop vs. the Ralph Loop
-
-Run a task that is likely to require at least one correction:
-
-```text
-Add email validation to the signup flow, include tests for invalid format, and stop if a database migration is required.
-```
-
-While the agent works, ask attendees to label each step:
-
-1. Which message is **Plan**?
-2. Which edits and commands are **Act**?
-3. Which outputs are **Observe**?
-4. Which summary is **Reflect**?
-5. When did the agent enter a **Ralph-loop retry** instead of moving the main task forward?
+   - name: Run tests
+     run: npm test
+   ```
 
 ### Discussion Points
 
-- What is the difference between a productive retry and an unproductive retry?
-- When should a Ralph loop stop and escalate rather than keep repairing?
-- How much reflection do you want visible to the human reviewer?
-- Which is harder to teach teams: writing better plans or recognizing bad reflection?
+- What guardrails would your team need before adopting Coding Agent?
+- Which tasks fit a background agent well versus a cloud agent workflow?
+- What review signals would help you calibrate trust in autonomous changes?
 
 ---
 
-## 4. Rubber Duck Cross-Model Review (10 min)
+## 4. GitHub Copilot `/init` and Project Bootstrapping (8 min)
 
 ### Key Points
 
-- The **rubber duck** pattern uses a second model or agent as a reviewer for the first model's output
-- The goal is not "best model wins"; the goal is **independent critique**
-- Cross-model review is especially valuable for **validation logic, parsing, edge cases, test quality, and security-sensitive changes**
-- The human remains the final adjudicator; do not auto-merge one model's opinions into another model's changes
+- GitHub Copilot `/init` helps scaffold a new project by generating structure, configuration, and starter boilerplate
+- It is most useful when you want to accelerate a standard project setup rather than hand-author every starter file
+- `/init` is not a replacement for design decisions; it is a starting point that still needs developer review
+- Teams can customize the scaffold by being explicit about stack, architecture, testing, and deployment expectations
+- Generated output should always be reviewed before committing
 
-### Rubber Duck Workflow
+### 🛡️ Safety Moment
 
-```text
-┌────────────────┐    ┌────────────────────┐    ┌────────────────────┐
-│ Model A builds │ →  │ Model B critiques  │ →  │ Human decides      │
-│ or proposes    │    │ bugs / edge cases  │    │ what to keep       │
-└────────────────┘    └────────────────────┘    └────────────────────┘
-```
+- Never blindly accept scaffolded project output
+- Validate generated files, package choices, defaults, and security posture before treating the scaffold as your baseline
+- Boilerplate can save time, but it can also import the wrong assumptions
 
-### When Rubber Duck Review Adds the Most Value
+### 🖥️ Demo: Bootstrapping a Small Project
 
-| Use it when... | Why it helps |
-|----------------|--------------|
-| **Logic is tricky** | Different models catch different assumptions |
-| **Tests look too happy-path** | Reviewer can ask for negative and edge cases |
-| **The first result feels overconfident** | A second model often surfaces missing caveats |
-| **You want a fast pre-review before a human PR review** | It is cheaper than discovering issues after merge |
+1. Run an initialization request:
 
-### Example: Cross-Model Review Prompt Pair
+   ```text
+   /init Create a small TypeScript API with linting, tests, and a README. Keep the structure minimal and beginner-friendly.
+   ```
 
-```text
-Model A: Write a helper that validates a user object with name and email fields.
-```
-
-```text
-Model B: Review this helper for bugs, edge cases, unsafe assumptions, and missing tests.
-Focus on normalization, empty strings, malformed email input, and error reporting.
-```
-
-### Example Review Outcome
-
-| First model output | Second model review catches | Human decision |
-|-------------------|-----------------------------|----------------|
-| Accepts any non-empty email string | Missing trim, uppercase normalization, malformed email cases | Keep schema shape, add normalization + tests |
-| Returns generic `false` | Poor error diagnostics for callers | Add structured error messages |
-| Has only happy-path tests | No tests for whitespace-only name or `null` email | Add negative-path tests |
-
-> **Note**: Rubber duck review is a **workflow pattern**, not a product feature. You are deliberately creating independent perspective before you trust the result.
-
-### 🖥️ Demo: One Model Writes, Another Reviews
-
-1. Use one model or agent to generate a small validation helper
-2. Copy the result into a second model and ask for a review with named failure modes
-3. Compare the feedback:
-   - Did the second model find missing edge cases?
-   - Did it challenge hidden assumptions?
-   - Did it recommend more useful tests?
-4. Apply only the feedback that survives human scrutiny
+2. Review what GitHub Copilot generated and identify which files you would inspect first.
+3. Call out when manual setup is still the better choice.
 
 ### Discussion Points
 
-- Where would cross-model review save your team the most time today?
-- What kinds of tasks should never skip a human reviewer even after a rubber duck pass?
-- How do you prevent "review laundering," where one model's confidence convinces another model too easily?
-- Would you use a second model more often for implementation review or test review?
+- How would you integrate `/init` into your team's project creation workflow?
+- What defaults would you always verify before committing scaffolded output?
+- Where would custom starter templates still outperform generated scaffolding?
 
 ---
 
-## 5. Single-Agent vs. Multi-Agent Patterns (15 min)
+## 5. Instruction Layering — Org, Repo, and File-Scoped (15 min)
 
 ### Key Points
 
-- A **single-agent multi-skill** design keeps one planner in control and gives it multiple capabilities
-- A **multi-agent specialist team** splits work across agents with narrower roles such as planner, implementer, tester, or reviewer
-- Multi-agent systems are powerful when work can be divided cleanly, but they add **coordination cost, context handoffs, and failure surfaces**
-- Choose the smallest orchestration pattern that reliably solves the task
+- GitHub Copilot behavior is shaped by a layered instruction stack, from broad organizational guardrails down to the current chat request
+- The full stack looks like this:
 
-### Single-Agent vs. Multi-Agent Decision Guide
+| Layer | File / Location | Purpose | Example |
+|-------|-----------------|---------|---------|
+| Organization | GitHub org-level Copilot policy settings | Enterprise-wide guardrails | Content exclusions, allowed models |
+| Repository | `.github/copilot-instructions.md` | Shared rules for this codebase | "Prefer TypeScript strict mode" |
+| File-scoped | `.github/instructions/*.instructions.md` with `applyTo` | Language or file-type specialization | `applyTo: "**/*.test.*"` |
+| User-level | Personal settings | Personal defaults across repos | "Use PowerShell on Windows" |
+| Session/prompt | Current chat prompt | Task-specific intent | "Add validation for email fields" |
 
-| Pattern | Best for | Strengths | Risks | Use when |
-|---------|----------|-----------|-------|----------|
-| **Single agent, multiple skills** | Most day-to-day coding tasks | Lower overhead, shared context, fewer handoffs | One agent may overreach or miss specialist concerns | The work fits one clear plan and one working set |
-| **Multi-agent specialist team** | Complex, decomposable workflows | Parallelism, role clarity, independent review | Coordination cost, duplicated context, agent thrashing | Work naturally separates into planner / builder / validator stages |
+- In practice, the most specific applicable instruction wins when guidance conflicts
+- Organization-level guardrails cannot be overridden by repository instructions
+- Well-designed instruction layering helps teams scale consistency without forcing every prompt to restate the same rules
 
-### When to Choose Each Approach
+### 🛡️ Safety Moment
 
-| Question | Favor single agent if... | Favor multi-agent if... |
-|---------|---------------------------|--------------------------|
-| **How shared is the context?** | One repo slice or one feature area is enough | Different subproblems require different context packs |
-| **Can work happen in parallel?** | No, steps are tightly coupled | Yes, independent branches can move simultaneously |
-| **Do you need independent critique?** | One bounded implementation is enough | You need separate review, testing, or policy roles |
-| **Is coordination expensive?** | Yes, handoffs would outweigh gains | No, the task is large enough to justify orchestration |
+- Organization-level guardrails exist for a reason
+- Do not try to bypass safety, model, or content policies with repository-level instructions
+- Shared instructions should encode durable standards, not attempts to override governance
 
-### Orchestration Topologies
+### 🖥️ Demo: Watching the Layers Compose
 
-```text
-Sequential
-┌─────────┐   ┌────────────┐   ┌──────────┐
-│ Planner │ → │ Implementer│ → │ Reviewer │
-└─────────┘   └────────────┘   └──────────┘
+1. Show a repository-wide rule in `.github/copilot-instructions.md`:
 
-Parallel
-              ┌──────────┐
-            ┌→│ API agent│─┐
-┌─────────┐ │ └──────────┘ │
-│ Planner │─┼→┌──────────┐ ├→┌──────────┐
-└─────────┘ │ │ Test agent│─┘ │ Integrator│
-            └→└──────────┘    └──────────┘
+   ```markdown
+   # Repository Instructions
 
-Hierarchical
-┌─────────────────┐
-│ Lead orchestrator│
-└──────┬──────┬───┘
-       │      │
-       ▼      ▼
-  ┌────────┐ ┌────────┐
-  │Agent A │ │Agent B │
-  └────┬───┘ └───┬────┘
-       ▼         ▼
-   subtasks   subtasks
-```
+   - Prefer TypeScript strict mode
+   - Add or update tests when behavior changes
+   ```
 
-### Topology Comparison
+2. Add a file-scoped rule for tests:
 
-| Topology | How it works | Good fit | Failure mode |
-|---------|---------------|----------|--------------|
-| **Sequential** | One agent hands work to the next | Change-control pipelines, plan → build → review | Bottlenecks if one stage is weak |
-| **Parallel** | Independent specialists work at the same time | API + tests + docs on a shared spec | Merge conflicts or inconsistent assumptions |
-| **Hierarchical** | Lead agent decomposes and supervises sub-agents | Large initiatives with clear subdomains | Overhead and cascading coordination failures |
+   ```markdown
+   ---
+   applyTo: "**/*.test.*"
+   ---
 
-### Practical Pattern Guidance
+   # Test Instructions
 
-- Start with **single-agent multi-skill** for feature work inside one repo slice
-- Add **specialist reviewers** before adding specialist implementers
-- Use **parallelism** only when outputs can be merged against a shared contract
-- Keep a human at the **integration boundary** whenever multiple agents contribute changes
+   - Use describe/it blocks
+   - Cover edge cases before happy paths
+   ```
 
-### 🖥️ Demo: Design the Right Team for the Task
-
-Use three sample tasks and ask attendees which pattern fits best:
-
-1. **Rename one API field across two files** → single agent
-2. **Add a feature plus tests plus documentation** → single agent or sequential planner/implementer/reviewer
-3. **Refactor three services with shared interface contracts** → hierarchical or parallel with a human integration checkpoint
-
-Then show how the same task changes when you add one more constraint: separate compliance review, separate test generation, or separate documentation ownership.
+3. Compare a generation request in a source file versus a test file and call out which layers are active.
 
 ### Discussion Points
 
-- Where does your team over-engineer with too many agents today?
-- Which role is most valuable to split out first: planner, reviewer, tester, or docs writer?
-- What kinds of tasks look parallel but actually require sequential control?
-- If multiple agents touch one PR, where should the human integration checkpoint live?
+- What organizational guardrails should your team implement?
+- Which conventions belong in repo instructions versus scoped instructions?
+- Where have you seen prompt quality improve when durable instructions were already in place?
 
 ---
 
-## 6. Responsible Agent Design: Antipatterns & Safeguards (20 min)
+## 6. Multi-Agent Patterns — Squad as a Worked Example (15 min)
 
 ### Key Points
 
-- Responsible agents are built around **guardrails, safety boundaries, and explicit failure modes**
-- The most common agent failures are not dramatic; they are subtle workflow design mistakes
-- Fixing antipatterns usually means improving one of four things: **scope, validation, stop conditions, or role clarity**
-- Safety question for this section: **"If this agent fails, how does it fail safely?"**
+- Multi-agent workflows are useful when distinct roles benefit from different goals, tools, or evaluation criteria
+- A concrete reference is **Squad**: <https://github.com/bradygaster/squad>
+- In a multi-agent pattern, one agent might write code, another might review for defects, and another might expand or validate tests
+- Effective orchestration depends on clearly defined roles, crisp handoff points, and a shared definition of done
+- Multi-agent setups are powerful when specialization improves quality, but they become overkill when one well-scoped agent can finish the task safely
+- Before adding more agents, ask whether complexity is solving a real problem or just creating more coordination overhead
 
-### Guardrail Checklist
+### 🛡️ Safety Moment
 
-| Guardrail | Why it matters | Example |
-|----------|----------------|---------|
-| **Success criteria** | Prevents wandering and premature "done" claims | "Add `POST /users` validation, return 400 on missing fields, add tests, run targeted suite" |
-| **Scope boundary** | Limits blast radius | "Modify only `src/users/**` and `tests/users.test.ts`" |
-| **Validation rule** | Requires evidence before completion | "Run targeted tests and report exact command + result" |
-| **Iteration limit** | Prevents unbounded retries | "Stop after 2 repair attempts and summarize the blocker" |
-| **Escalation path** | Enables safe handoff | "Ask for help if auth, secrets, or schema migrations are required" |
-| **Human checkpoint** | Preserves oversight | "Do not commit or merge without reviewer approval" |
+- Design an off-ramp before you design more autonomy
+- If the optimal path is blocked, agents should know when to stop, escalate, or return a partial result instead of improvising beyond the safe boundary
+- A graceful handoff is often better than a risky autonomous guess
 
-### 1. Unbounded Loops
+### 🖥️ Demo: Mapping Roles and Handoffs
 
-**Why it happens**: The agent has permission to keep retrying but no iteration ceiling or escalation rule.
+1. Walk through a simple role split:
 
-**Before**:
+   ```text
+   Agent 1: Implement change
+   Agent 2: Review change for bugs and maintainability
+   Agent 3: Add or improve tests
+   ```
 
-```text
-Keep trying until it works.
-```
-
-**After**:
-
-```text
-Try at most 2 repair cycles. If tests still fail, stop and summarize the root cause, files touched, and recommended next step.
-```
-
-### 2. Context Bloat
-
-**Why it happens**: The prompt includes too much history, too many files, or an entire repo when the task only needs a few artifacts.
-
-**Before**:
-
-```text
-#codebase Here are 30 files and the full project history. Update the validation behavior.
-```
-
-**After**:
-
-```text
-#file:src/routes/users.ts #file:tests/users.test.ts Add validation to POST /users and update only the related tests.
-```
-
-### 3. Poor Error Handling
-
-**Why it happens**: The workflow treats any failure as "try again" instead of classifying the error.
-
-**Before**:
-
-```text
-If a command fails, just keep going and see if another change fixes it.
-```
-
-**After**:
-
-```text
-If a command fails, read the exact error output. Retry only for code-level issues. Stop immediately for auth errors, missing secrets, network failures, or unavailable services.
-```
-
-### 4. Inadequate Validation
-
-**Why it happens**: The agent is allowed to claim success based on code edits alone.
-
-**Before**:
-
-```text
-Implement the change and let me know when you're done.
-```
-
-**After**:
-
-```text
-Implement the change, run the focused validation commands, and report the exact results. Do not claim success if the checks were not run.
-```
-
-### 5. Missing Safeguards
-
-**Why it happens**: The agent has broad permission but no protected boundaries.
-
-**Before**:
-
-```text
-Refactor anything necessary to make this better.
-```
-
-**After**:
-
-```text
-Modify only src/orders/**. Do not change infrastructure, secrets, CI, or dependency versions. Stop and ask if the fix requires broader changes.
-```
-
-### 6. Unclear Success Criteria
-
-**Why it happens**: The task asks for improvement without defining "done."
-
-**Before**:
-
-```text
-Improve onboarding.
-```
-
-**After**:
-
-```text
-Improve onboarding by adding a Quick Start section to README.md, documenting local setup in 5 steps, and adding one troubleshooting section for missing environment variables.
-```
-
-### 7. Agent Thrashing
-
-**Why it happens**: Multiple agents are assigned overlapping responsibilities and keep handing the same work back and forth.
-
-**Before**:
-
-```text
-@architect @reviewer @tester @api-agent Solve this bug together.
-```
-
-**After**:
-
-```text
-@architect define the approach.
-@api-agent implement the change.
-@tester add and run focused tests.
-@reviewer review the final diff for risks and missing edge cases.
-```
-
-### 8. Inefficient Tool Use
-
-**Why it happens**: The agent uses the wrong tool sequence — broad scans, full-suite reruns, or too many file opens for a narrow task.
-
-**Before**:
-
-```text
-Open every file that mentions users, run the full test suite after each edit, and inspect all warnings.
-```
-
-**After**:
-
-```text
-Search for the user route, open only the relevant handler and tests, run focused tests first, and run the broader suite only after the local fix passes.
-```
-
-### Antipattern Summary Table
-
-| Antipattern | Root cause | Primary fix |
-|-------------|------------|-------------|
-| **Unbounded loops** | No stop rule | Add retry limit + escalation |
-| **Context bloat** | Too much irrelevant context | Narrow to the working set |
-| **Poor error handling** | Failure not classified | Separate retryable vs. non-retryable errors |
-| **Inadequate validation** | No evidence required | Make checks part of "done" |
-| **Missing safeguards** | Blast radius too large | Add file, tool, and approval boundaries |
-| **Unclear success criteria** | Ambiguous goal | Define acceptance criteria in concrete terms |
-| **Agent thrashing** | Role overlap | Assign explicit ownership by stage |
-| **Inefficient tool use** | Wrong action order | Search narrowly, validate incrementally |
-
-### Designing Responsible Agents
-
-- Give every agent an **off-ramp**: what should make it stop and ask?
-- Treat **validation output** as first-class evidence, not background noise
-- Prefer **small scopes and fast feedback loops** over heroic autonomy
-- Add a **human checkpoint at the integration boundary**: before commit, before PR, or before merge
-
-> **Important**: The safest agent is not the one that never fails. It is the one that fails **predictably, transparently, and within a bounded blast radius**.
-
-### 🖥️ Demo: Rewrite a Fragile Prompt into a Responsible Agent Contract
-
-Start with a weak prompt:
-
-```text
-Fix the user API and make the tests better.
-```
-
-Refactor it live into a responsible agent contract:
-
-```text
-Update POST /users in src/routes/users.ts to validate missing name and email.
-Add focused tests in tests/users.test.ts for both failure cases.
-Run the targeted user test suite and report the exact command and result.
-Do not modify auth, database, or CI files.
-Stop after 2 repair attempts or if a schema migration is required.
-```
-
-Explain which antipatterns the rewrite removes:
-
-- unclear success criteria
-- missing safeguards
-- inadequate validation
-- unbounded loops
+2. Show where handoffs happen and what each agent must receive as context.
+3. Discuss when the same task would be simpler with one agent and a tighter prompt.
 
 ### Discussion Points
 
-- Which antipattern shows up most often in your team's current AI workflows?
-- What is the minimum validation evidence you require before trusting an agent's answer?
-- Where should your default escalation boundary sit: dependency changes, secrets, schema changes, or production config?
-- How would you turn one of your existing prompts into a safer agent contract this week?
+- What specialized agent roles would benefit your team's workflow?
+- Where would multi-agent orchestration improve quality or speed?
+- What signs tell you that multi-agent design is overkill for the task at hand?
 
 ---
 
-*Workshop guide for Module 2: Agentic Patterns — Copilot Developer Training*
+## 7. Rubber Duck Debugging with GitHub Copilot (5 min)
+
+### Key Points
+
+- GitHub Copilot can act as a thought partner when you explain a bug, design tradeoff, or architectural concern out loud in writing
+- The act of explaining your reasoning often reveals missing assumptions, hidden dependencies, or weak logic
+- Cross-model review can help by giving you a second perspective on the same problem
+- AI reasoning can be useful for surfacing possibilities, but design decisions still need independent validation
+
+### 🛡️ Safety Moment
+
+- Confident-sounding reasoning is not the same as correct reasoning
+- Validate root-cause analysis, architectural advice, and debugging conclusions against the code and runtime evidence
+- Use GitHub Copilot to sharpen your thinking, not to replace verification
+
+### 🖥️ Demo: Talking Through a Bug
+
+1. Frame the bug as a reasoning problem:
+
+   ```text
+   I think this bug happens because the cache invalidation path runs before the async write completes. Challenge my reasoning and point out what I may be missing.
+   ```
+
+2. Ask a second model or a fresh thread to critique the first answer.
+
+### Discussion Points
+
+- When have you caught a bug by explaining it to someone else?
+- How could GitHub Copilot serve that rubber-duck role in your daily work?
+- What design decisions would you still insist on validating independently?
+
+---
+
+## 8. Wrap-up, Hand-off to Lab, and Q&A (5 min)
+
+### Key Points
+
+- Agents coordinate skills; skills perform specific actions
+- Choose agentic workflows when the task is multi-step and adaptive, and direct tool use when the task is simple and deterministic
+- Background agents, cloud agents, and Coding Agent expand where work happens, but review gates remain essential
+- GitHub Copilot `/init`, instruction layering, and custom orchestration patterns are force multipliers when paired with clear constraints
+- The lab focuses on three practical takeaways: choosing agent versus direct interaction, observing instruction layering, and creating a lightweight custom agent
+- Module 3 will extend this foundation into advanced integrations, memory, APIs, and deeper debugging patterns
+
+### 🖥️ Demo: Lab Preview and Transition
+
+1. Preview the lab sequence:
+
+   ```text
+   Exercise 1 → Compare agent vs. direct interaction
+   Exercise 2 → Create layered instructions
+   Exercise 3 → Build a custom review agent
+   ```
+
+2. Re-emphasize that the goal is safe experimentation, not maximum autonomy.
+
+### Discussion Points
+
+- Which pattern from today feels immediately usable in your workflow?
+- What still feels risky or unclear about agentic development?
+- What do you want to explore more deeply in Module 3?
+
+*Workshop guide for Module 2: Agentic Patterns — GitHub Copilot Developer Training*

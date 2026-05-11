@@ -2,260 +2,116 @@
 
 ## Overview
 
-This self-guided lab gives you a practical way to apply the Module 3 topics in your own VS Code workspace: built-in chat participants, extension trust review, MCP configuration, output evaluation, diagnostics, and Copilot CLI internals (instructions, sessions, and memory).
+This lab gives participants a fast, practical tour of three advanced GitHub Copilot capabilities: MCP tool usage, debug log inspection, and agentic loop behavior. The goal is not to master every option, but to observe how these features behave in a real workspace and build better instincts about trust, context, and control.
 
-**Total time**: ~40 minutes  
-**Prerequisites**:
+- **Total time**: ~15 minutes
+- **Prerequisites**:
+  - Completion of Modules 1-2 labs
+  - VS Code with GitHub Copilot
+  - Any local project open
+  - Node.js and `npx` available for a sample MCP server
 
-- Completed Module 1: Foundations
-- Completed Module 2: Agentic Patterns
-- VS Code with GitHub Copilot and GitHub Copilot Chat enabled
-- Copilot CLI installed (`copilot --version` to verify)
-- A local project open in VS Code
+## Exercise 1: Configure and Use an MCP Server
 
-> **Note**: The prompts below use `src/app.ts` as an example. If your project uses a different main file, substitute an equivalent file in your repo.
+**⏱️ Time**: 5 min
+**📋 Objective**: Configure an MCP server and observe GitHub Copilot using an external tool.
 
-## 1. Extensions, Chat Participants, and MCP (17 min)
+> **Note**: Exact MCP setup can vary by version and organization policy. If your team already provides an approved MCP server, use that instead of the sample below.
 
-This section aligns to Session 1 of the workshop guide.
+1. Open your project settings and create a `.vscode/mcp.json` file if one does not already exist.
 
-### Exercise 1: Compare Participants and Review Trust (7 min)
+2. Add a simple MCP server configuration such as this fetch server example:
 
-**Objective**: Compare how built-in participants frame the same question, then review one installable capability surface with a trust checklist.
-
-### Steps
-
-1. Ask the same question three different ways in Copilot Chat:
-
-```text
-@workspace explain how the main request flow works in this repo
-```
-
-```text
-@vscode which VS Code features would help me trace this flow safely?
-```
-
-```text
-@terminal summarize the last build or test output and suggest the next command
-```
-
-2. Compare the results. Note which response used repo context, which one focused on editor features, and which one reasoned from terminal output.
-
-3. Open the Extensions view with **Ctrl+Shift+X** and inspect one extension that could affect your workflow. If you want a Copilot-specific example, also browse <https://github.com/marketplace?type=github-copilot-extensions> in your browser.
-
-4. Review the capability with this checklist:
-
-- Publisher verification
-- Permission scope
-- Maintenance activity
-- Source transparency
-- Operational fit for your organization
-
-5. Decide whether you would allow the capability in a production development environment, only in a sandbox, or not at all.
-
-6. **🛡️ Safety checkpoint**: What is the narrowest tool, permission, or install scope that still solves your problem?
-
-### Success Criteria
-
-- ✅ Compared `@workspace`, `@vscode`, and `@terminal` on the same task
-- ✅ Identified how each participant changed the answer framing
-- ✅ Reviewed one extension or Copilot Extension with a trust checklist
-- ✅ Chose an approval decision based on least privilege and maintenance quality
-
-### Exercise 2: Configure an MCP Server (10 min)
-
-**Objective**: Add a workspace-scoped MCP server, confirm that VS Code recognizes it, and verify that its tools are available.
-
-### Steps
-
-1. Create or update `.vscode/mcp.json` with the following configuration:
-
-```json
-{
-  "servers": {
-    "filesystem": {
-      "type": "stdio",
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-filesystem",
-        "${workspaceFolder}"
-      ],
-      "env": {
-        "MCP_LOG_LEVEL": "info"
+    ```json
+    {
+      "servers": {
+        "fetch": {
+          "type": "stdio",
+          "command": "npx",
+          "args": ["-y", "@modelcontextprotocol/server-fetch"]
+        }
       }
     }
-  }
-}
-```
+    ```
 
-2. Run **MCP: List Servers** from the Command Palette and confirm that the `filesystem` server appears.
+3. Open GitHub Copilot Chat in Agent mode and ask for information that requires an external fetch.
 
-3. If the server is not running yet, start or restart it from the same MCP command flow.
+    ```text
+    Use the configured MCP fetch tool to summarize the main ideas from https://github.blog/ai-and-ml/github-copilot/ and tell me what is relevant to developers.
+    ```
 
-4. Open Copilot Chat, use **Configure Tools** (or inspect the Agent Debug Log panel later), and confirm that tools from the `filesystem` server are available.
+4. Observe the tool approval flow. Before approving, inspect what GitHub Copilot says it will access and why it needs the MCP tool.
 
-5. Ask Copilot to perform a small file-oriented task in your repo. For example:
+5. Approve the call, review the result, and note what data was sent to the MCP server versus what stayed local.
 
-```text
-Summarize the top-level folders in this workspace and explain what each one is for.
-```
+6. **🛡️ Safety checkpoint**: Review the MCP server's permissions before approving tool calls. What data can it access, and is that acceptable for your environment?
 
-6. Use **MCP: List Servers** → **Show Output** or the Agent Debug Log panel to confirm that the server started cleanly and that at least one tool path was available during the session.
+### ✅ Success Criteria
 
-7. **🛡️ Safety checkpoint**: Is this server better kept in workspace `.vscode/mcp.json` for the team, or in your user-profile `mcp.json` for personal use only?
+- ✅ Configured an MCP server
+- ✅ Observed GitHub Copilot discovering MCP tools
+- ✅ Approved an MCP tool call and reviewed the result
 
-### Success Criteria
+## Exercise 2: Debugging — Inspect Chat and Agent Logs
 
-- ✅ Added a valid MCP server definition to `.vscode/mcp.json`
-- ✅ Confirmed the server appears in **MCP: List Servers**
-- ✅ Verified that the server's tools were available in chat
-- ✅ Decided whether the server belongs at workspace scope or user scope
+**⏱️ Time**: 5 min
+**📋 Objective**: Use debug logs to understand what GitHub Copilot is doing under the hood.
 
-## 2. Evaluating Agentic Output (6 min)
+1. In VS Code, open **View → Output** and select **GitHub Copilot Chat** from the dropdown.
 
-This section aligns to Session 2 of the workshop guide.
+2. Send a simple prompt in GitHub Copilot Chat and watch the log entries appear.
 
-### Exercise 3: Apply SMART Criteria and the Rubric (6 min)
+    ```text
+    Explain how the main entry point of this project works.
+    ```
 
-**Objective**: Rewrite one weak request into a measurable task, then score the result with the workshop rubric.
+3. Identify the request payload in the logs. Note what context was included and what files or symbols GitHub Copilot referenced.
 
-### Steps
+4. Send a second prompt that explicitly asks for broader workspace context.
 
-1. Pick a small, low-risk change in your project.
+    ```text
+    @workspace Explain how the main entry point of this project works and which files it depends on.
+    ```
 
-2. Start with a weak request such as:
+5. Compare the logs from the two prompts. Note how the request context changes when you use `@workspace`, and find the corresponding model response.
 
-```text
-Improve this file.
-```
+6. **🛡️ Safety checkpoint**: Check the logs for sensitive information that was included in the context, such as file paths, variable names, or code snippets.
 
-3. Rewrite it into a SMART request. For example:
+### ✅ Success Criteria
 
-```text
-Refactor src/app.ts to remove duplicate validation logic, keep the public response shape unchanged, and leave the existing test suite passing.
-```
+- ✅ Opened and read GitHub Copilot Chat debug logs
+- ✅ Identified request context and model response
+- ✅ Compared context with and without `@workspace`
 
-4. Ask Copilot to produce the change, suggestion, or plan.
+## Exercise 3: Observe an Agentic Loop and Off-Ramp
 
-5. Score the result from **1-5** for these dimensions:
+**⏱️ Time**: 5 min
+**📋 Objective**: Observe an agentic loop cycle and understand off-ramp behavior.
 
-- Correctness
-- Readability and maintainability
-- Security
-- Test coverage
+1. Open Agent mode in GitHub Copilot Chat and give it a multi-step task that requires planning.
 
-6. Decide what verification the task deserves: quick human review, tests plus review, or deeper review and scans.
+    ```text
+    Add input validation to this form, write tests for invalid input, and update the documentation with the new validation rules.
+    ```
 
-7. **🛡️ Safety checkpoint**: If this were an auth change, data-access change, or destructive operation, what extra evidence would you require before merge?
+2. Watch the chat output and identify the loop pattern: plan → execute → observe → reflect. Look for places where GitHub Copilot checks its own progress before continuing.
 
-### Success Criteria
+3. Now give GitHub Copilot a task that should force an off-ramp because the project lacks enough context or prerequisites.
 
-- ✅ Rewrote one vague prompt into SMART criteria
-- ✅ Generated or reviewed one Copilot output against that SMART request
-- ✅ Scored the output with the rubric dimensions from the workshop
-- ✅ Chose a verification pattern that matched the task's risk
+    ```text
+    Refactor this project to use OAuth-based authentication and update the deployment configuration for the new auth flow.
+    ```
 
-## 3. Troubleshooting and Diagnostics (7 min)
+4. Observe whether GitHub Copilot stops to clarify assumptions, explains what is missing, or proceeds anyway.
 
-This section aligns to Session 3 of the workshop guide.
+5. Capture one sentence describing what a better off-ramp would look like if the agent guessed too much.
 
-### Exercise 4: Inspect Logs, Debug Views, and Diagnostics (7 min)
+6. **🛡️ Safety checkpoint**: If the agent proceeds without asking for clarification on an ambiguous task, that is a sign you need stronger off-ramp instructions.
 
-**Objective**: Use the real VS Code diagnostics surfaces to understand what Copilot saw and did.
+### ✅ Success Criteria
 
-### Steps
+- ✅ Observed an agentic loop with clear plan → execute → observe → reflect steps
+- ✅ Identified an off-ramp scenario
+- ✅ Understood when the agent should stop and ask versus proceed
 
-1. Open the Command Palette and run **Developer: Set Log Level**. Set **GitHub Copilot** and **GitHub Copilot Chat** to **Trace**.
-
-2. Open the Output panel with **View → Output** or **Ctrl+Shift+U**. Inspect the **GitHub Copilot** and **GitHub Copilot Chat** output channels.
-
-3. Enable `github.copilot.chat.agentDebugLog.fileLogging.enabled` in Settings if it is not already enabled.
-
-4. In the Chat view, open the `...` menu and select **Show Agent Debug Logs**.
-
-5. From the same Chat menu, select **Show Chat Debug View**.
-
-6. Run one prompt or agent task, such as:
-
-```text
-Explain what this file does, point out one risk, and suggest the safest next improvement.
-```
-
-7. Capture at least three pieces of evidence from the debug surfaces, such as:
-
-- Which model was used
-- What context was attached
-- What tool calls ran
-- Which files changed or were inspected
-
-8. If something looks wrong, try one of these:
-
-- Use `/troubleshoot` in chat to ask about the current session
-- Run **GitHub Copilot: Collect Diagnostics** for a support snapshot
-- Use **MCP: List Servers** → **Show Output** if the issue appears MCP-related
-
-9. **🛡️ Safety checkpoint**: Did the logs show any file access, tool invocation, or retry loop you would want to tighten before trusting this workflow in daily use?
-
-### Success Criteria
-
-- ✅ Enabled detailed Copilot logging and opened the correct output channels
-- ✅ Opened the Agent Debug Log panel and Chat Debug View
-- ✅ Identified context, model, and tool evidence from one session
-- ✅ Used at least one troubleshooting path for a suspicious or surprising result
-
-## 4. Copilot CLI: Instructions, Sessions, and Memory (10 min)
-
-This section aligns to Session 4 of the workshop guide.
-
-### Exercise 5: Explore Instructions, Sessions, and Memory (10 min)
-
-**Objective**: Use Copilot CLI to inspect the instruction resolution stack, explore session persistence, and understand the memory system.
-
-### Steps
-
-1. Open a terminal and launch Copilot CLI in your project directory:
-
-```text
-copilot
-```
-
-2. Run `/env` to see what's loaded. Note which instruction files, MCP servers, and skills are active.
-
-3. Run `/instructions` to see the full list of instruction files. Toggle one off and on to see the effect.
-
-4. Run `/context` to visualize the current token budget. Note how much is consumed by instructions vs conversation history.
-
-5. Ask Copilot to explain the instruction layering:
-
-```text
-What instruction files are currently active and in what priority order do they apply?
-```
-
-6. Run `/session` to see your recent session history. Note the session IDs and summaries.
-
-7. Start a new session with `/new`, then use `/resume` to switch back to your current session. Confirm your conversation history is preserved.
-
-8. Ask Copilot about a convention in your project to see if any stored memories surface:
-
-```text
-What are the build and test commands for this project?
-```
-
-9. If you have a user-level instruction file at `~/.copilot/copilot-instructions.md`, open it and note what's in it. If you don't have one, create it with a simple preference:
-
-```text
-I prefer concise commit messages with conventional commit prefixes (feat:, fix:, docs:, etc.).
-```
-
-10. **🛡️ Safety checkpoint**: Review the loaded instructions from `/env`. Are there any instruction files you didn't expect? Could a malicious instruction file in a cloned repo change Copilot's behavior in ways that affect security?
-
-### Success Criteria
-
-- ✅ Used `/env` and `/instructions` to inspect the active instruction stack
-- ✅ Used `/context` to view token budget allocation
-- ✅ Used `/session` and `/resume` to navigate session history
-- ✅ Identified whether stored memories surfaced for your project
-- ✅ Considered security implications of instruction file loading
-
-*Hands-on lab for Module 3: Advanced Topics — Copilot Developer Training*
+*Hands-on lab for Module 3: Advanced Topics — GitHub Copilot Developer Training*
