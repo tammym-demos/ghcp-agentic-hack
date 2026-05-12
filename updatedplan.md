@@ -4,8 +4,20 @@
 
 **Course Title**: Copilot Developer Training — 2 Day Hack
 **Landing Page**: `copilot-dev-training`
-**Total Day 1 Duration**: ~6 hours (presentation + labs + quizzes)
+**Total Day 1 Duration**: ~5.5 hours (presentation + labs + quizzes + breaks)
 **Day 2**: Full-day hack with enterprise problem statements (no new content needed)
+**Modules**: 3 (Foundations, Agentic Patterns, Advanced Topics)
+
+### Branding
+
+All `*-workshop.md` files must include consistent Microsoft and GitHub branding:
+
+- **Header**: Include "GitHub Copilot" as the product name — not just "Copilot"
+- **Footer**: Every file ends with `*Workshop guide for Module N: Title — GitHub Copilot Developer Training*`
+- **Logos**: Reference GitHub and Microsoft logos in slide decks (first and last slides)
+- **Tone**: Align with GitHub's developer-first voice — practical, opinionated, not marketing-speak
+- **Attribution**: "Powered by GitHub Copilot, part of the Microsoft AI platform" where appropriate (e.g., overview slides, introductory framing)
+- **No competitor comparisons** — focus on capabilities, not positioning against other tools
 
 ---
 
@@ -17,22 +29,15 @@ Each module (1–3) produces **four deliverables**:
 |-------------|------|---------|--------------|
 | Workshop Guide | `*-workshop.md` | Source of truth for slide deck — fed into NotebookLM | Copilot / manual authoring |
 | Slidev Deck | `*.slidev.md` | Presentation deck (full-bleed background images + presenter notes) | NotebookLM → PPTX → `convert-pptx.py` |
-| Hands-On Lab | `*-LAB.md` | Step-by-step exercises with success criteria | Copilot / manual authoring (NOT NotebookLM) |
+| Hands-On Lab | `*-LAB.md` | Step-by-step exercises with success criteria (~15 min per module) | Copilot / manual authoring (NOT NotebookLM) |
 | Quiz | `*-QUIZ.md` | 4–6 multiple-choice questions with hidden answers/explanations | Copilot / manual authoring (NOT NotebookLM) |
-
-Module 4 produces only:
-
-| Deliverable | File | Purpose |
-|-------------|------|---------|
-| Workshop Guide | `copilot-dev-hack-workshop.md` | Mini-hack description and problem framing |
-| Slidev Deck | `copilot-dev-hack.slidev.md` | Short presentation (no lab, no quiz) |
 
 ---
 
 ## Module 1: Foundations
 
 **Folder**: `workshops/copilot-dev-foundations/`
-**Duration**: ~90 min presentation + ~38 min lab
+**Duration**: ~90 min presentation + ~15 min lab
 **Status**: ✅ Already exists — review and update as needed
 
 ### Content Scope
@@ -50,23 +55,37 @@ Module 4 produces only:
 - Chat extension: model selector, modes (Ask, Plan, Agent), agent sessions sidebar, tooling
 - Slash commands (`/explain`, `/fix`, `/tests`, `/help`)
 - Chat variables and participants (`@workspace`, `@terminal`, `@vscode`, `#file`, `#selection`)
+- **Session management** — when to start a new chat session vs. continue an existing one:
+  - Start fresh when the task changes materially (new bug, new feature, new file area)
+  - Continue when follow-up questions build on the same context
+  - Stale context in long sessions degrades answer quality and wastes tokens
+  - Use the session sidebar to manage and revisit past sessions
 - Context window usage — how to review token usage
 - Usage billing and token-efficient strategies
-- GitHub Copilot CLI (`copilot -p "..."`)
+- GitHub Copilot CLI — installation and usage (`copilot -p "..."`)
+  - Install via: `npm install -g @githubnext/github-copilot-cli` or `winget install GitHub.Copilot` or `brew install github/gh/copilot`
+  - Verify with: `copilot --version`
 - Inline completions
 - Model comparison (GPT-5.x, Claude Sonnet, smaller models) and when to choose them
 - Auto model router
-- AI Safety moments (S1: AI as Partner, S2: What Gets Shared?, S3: Capability vs. Risk)
+- 🛡️ AI Safety moments baked into each section (see cross-module themes below)
 
-### Lab Exercises (5 exercises, ~38 min)
+**Per-section safety moments:**
+
+| Section | 🛡️ Safety Moment |
+|---------|------------------|
+| 1 — Framing | AI as partner, not replacement — human remains accountable |
+| 2 — Chat Tour | Review agent-generated changes before accepting; don't over-trust inline completions |
+| 3 — Context & Instructions | What gets shared? Context selection is a privacy and governance decision |
+| 4 — Models & Agents | Capability vs. risk — more autonomy = bigger blast radius if poorly framed |
+
+### Lab Exercises (3 exercises, ~15 min)
 
 | Exercise | Topic | Time |
 |----------|-------|------|
-| 1 | Foundations Framing, Safety, and Workflow Map | 3 min |
-| 2 | Copilot Chat Tour (modes, commands, CLI) | 10 min |
-| 3 | Memory, Context & Instructions | 8 min |
-| 4 | Models, Agents & Tokens | 10 min |
-| 5 | Create a Custom Agent & Reusable Prompt | 10 min |
+| 1 | Copilot Chat Tour — Modes, Commands, and CLI | 5 min |
+| 2 | Memory, Context & Instructions | 5 min |
+| 3 | Models, Agents & Custom Prompt | 5 min |
 
 ### Quiz (4–6 questions)
 
@@ -85,45 +104,67 @@ Module 4 produces only:
 ## Module 2: Agentic Patterns
 
 **Folder**: `workshops/copilot-dev-agentic/`
-**Duration**: ~90 min presentation + ~35 min lab
+**Duration**: ~90 min presentation + ~15 min lab
 
 ### Content Scope
 
 | Section | Topic | Time |
 |---------|-------|------|
 | 1 | What is an Agent? What is a Skill? (framing + safety) | 10 min |
-| 2 | Agent vs. Skill — When to Use Each | 15 min |
-| 3 | Copilot `/init` and Project Bootstrapping | 10 min |
-| 4 | Instructions Deep Dive (repo, file-scoped, user-level, layering) | 15 min |
-| 5 | Single Agent vs. Multi-Agent Patterns | 20 min |
-| 6 | Rubber Duck Debugging with Copilot | 10 min |
-| 7 | Wrap-up, hand-off to lab, and Q&A | 5 min |
+| 2 | Agent vs. Skill — When to Use Each | 12 min |
+| 3 | Background Agents and Cloud Agents (Coding Agent) | 15 min |
+| 4 | Copilot `/init` and Project Bootstrapping | 8 min |
+| 5 | Instruction Layering — Org, Repo, and File-Scoped | 15 min |
+| 6 | Multi-Agent Patterns — Squad as a Worked Example | 15 min |
+| 7 | Rubber Duck Debugging with Copilot | 5 min |
+| 8 | Wrap-up, hand-off to lab, and Q&A | 5 min |
 
 ### Key Topics to Cover
 
 - Agent definition: goal-directed workflows with tool access (plan → act → observe → adjust)
 - Skill definition: specific tool capability an agent can use (file ops, terminal, search, web, GitHub APIs)
 - When to use an agent with a skill vs. a skill by itself
+- **Background agents**: Long-running agents that execute in the background while you continue working — how to launch, monitor, and review their output
+- **Cloud agents (Coding Agent)**: The full issue → branch → implement → PR workflow running in a cloud environment without the developer's IDE open. Cover: assigning an issue, reviewing the PR, `copilot-setup-steps.yml` for environment prep, trust calibration for autonomous code generation
 - `copilot /init` — project scaffolding and bootstrap workflows
-- Instruction files: when and how to write them (repo-level, file-scoped, user-level)
-- Single agent patterns: built-in agent mode, custom agents, coding agent
-- Multi-agent patterns: orchestrating multiple specialized agents, when to split responsibilities
-- Rubber duck debugging: using Copilot as a thought partner for design decisions
-- AI Safety moments: autonomy boundaries, review gates, scope control in agentic workflows
+- **Instruction layering** — the full stack from org-wide policies down to file-specific rules:
 
-### Lab Exercises (~35 min)
+  | Layer | File / Location | Purpose | Example |
+  |-------|-----------------|---------|---------|
+  | **Organization** | GitHub org-level Copilot policy settings | Enterprise-wide guardrails and defaults | Content exclusions, allowed models, enabled features |
+  | **Repository** | `.github/copilot-instructions.md` | Shared rules for this codebase | "Prefer TypeScript strict mode; never hard-code secrets" |
+  | **File-scoped** | `.github/instructions/*.instructions.md` with `applyTo` | Language or file-type specialization | `applyTo: "**/*.test.*"` — "Use Jest, cover edge cases" |
+  | **User-level** | `~/.copilot/copilot-instructions.md` | Personal defaults across all repos | "Use PowerShell on Windows; prefer concise output" |
+  | **Session/prompt** | Current chat prompt | Task-specific intent | "Add validation for email fields only" |
+
+- **Multi-agent patterns**: Orchestrating multiple specialized agents, when to split responsibilities
+- **Squad** (<https://github.com/bradygaster/squad>) as a concrete multi-agent example — show how multiple agents collaborate on a task, each with a specialized role (e.g., one writes code, one reviews, one writes tests)
+- Rubber duck debugging: using Copilot as a thought partner for design decisions
+- 🛡️ AI Safety moments baked into each section (see cross-module themes below)
+
+**Per-section safety moments:**
+
+| Section | 🛡️ Safety Moment |
+|---------|------------------|
+| 1 — What is an Agent? | Autonomy boundaries — understand what you're delegating before you delegate it |
+| 2 — Agent vs. Skill | Scope control — give agents only the tools they need, not everything available |
+| 3 — Background/Cloud Agents | Review gates — always review PRs from coding agents; trust calibration for autonomous code generation |
+| 4 — `/init` | Verify scaffolded output — don't blindly accept generated project structures |
+| 5 — Instruction Layering | Org-level guardrails exist for a reason — don't override safety policies in repo instructions |
+| 6 — Multi-Agent (Squad) | Off-ramp design — what should agents do when the optimal path isn't available? |
+| 7 — Rubber Duck | AI reasoning can sound confident but be wrong — validate design decisions independently |
+
+### Lab Exercises (3 exercises, ~15 min)
 
 | Exercise | Topic | Time |
 |----------|-------|------|
-| 1 | Explore Agent vs. Skill Behavior | 5 min |
-| 2 | Use `/init` to Bootstrap a Project | 8 min |
-| 3 | Create and Layer Instruction Files | 7 min |
-| 4 | Build a Custom Agent with Scoped Tools | 8 min |
-| 5 | Multi-Agent Pattern: Orchestrate Two Agents | 7 min |
+| 1 | Agent vs. Skill — Explore the Difference | 5 min |
+| 2 | Instruction Layering — Org, Repo, and File-Scoped | 5 min |
+| 3 | Build a Custom Agent and Observe Background Execution | 5 min |
 
 ### Quiz (4–6 questions)
 
-- Cover agent vs. skill distinction, `/init` usage, instruction layering, multi-agent decision criteria
+- Cover agent vs. skill distinction, background/cloud agent workflows, instruction layering (org → repo → file), `/init` usage, multi-agent decision criteria
 - Format: `### N. Question` → `- A)` through `- D)` → `<!--answer: X-->` → `<!--explanation: ...-->`
 
 ### Deliverables
@@ -138,43 +179,69 @@ Module 4 produces only:
 ## Module 3: Advanced Topics
 
 **Folder**: `workshops/copilot-dev-advanced/`
-**Duration**: ~90 min presentation + ~35 min lab
+**Duration**: ~90 min presentation + ~15 min lab
 
 ### Content Scope
 
 | Section | Topic | Time |
 |---------|-------|------|
 | 1 | MCP (Model Context Protocol) — What, Why, How | 15 min |
-| 2 | Using APIs and Plugins with Copilot | 15 min |
-| 3 | Memory — Current State and Evolution | 15 min |
-| 4 | Agentic Loops (Ralph Loop), Subagents, and Task Review | 20 min |
-| 5 | Resources, Tools, and Ecosystem (Squad, copilot-awesome) | 10 min |
-| 6 | Wrap-up and Q&A | 5 min |
+| 2 | Using APIs and Plugins with Copilot | 12 min |
+| 3 | Memory — Current State and Evolution | 12 min |
+| 4 | Debugging — Chat Debug and Agent Debug Logs | 12 min |
+| 5 | Agentic Loops (Ralph Loop), Subagents, and Task Review | 18 min |
+| 6 | Resources, Tools, and Ecosystem (Squad, copilot-awesome) | 8 min |
+| 7 | Wrap-up and Q&A | 5 min |
 
 ### Key Topics to Cover
 
 - **MCP (Model Context Protocol)**: What it is, how it extends Copilot, configuring MCP servers, use cases
 - **APIs and Plugins**: Connecting external tools, building integrations, plugin architecture
 - **Memory**: How memory works in chat and CLI, memory evolution roadmap, strategies for effective memory use
-- **Squad** (<https://github.com/bradygaster/squad>): Quick look — multi-agent orchestration tool
 - **Copilot Awesome**: Resource list and community tools
 - **Agentic Loops (Ralph Loop)**: How agentic loops work (plan → execute → observe → reflect → adjust), loop termination, when loops are useful vs. overkill
 - **Subagents**: Delegating tasks to specialized subagents, reviewing task output, trust calibration
-- AI Safety moments: external tool trust boundaries, memory privacy, loop runaway prevention
+- **Debugging**: Chat debug logs (Output panel → GitHub Copilot Chat), agent debug logs, inspecting request/response payloads, diagnosing context issues, tracing why an agent chose a particular path
+- 🛡️ AI Safety moments baked into each section (see cross-module themes below)
 
-### Lab Exercises (~35 min)
+**Per-section safety moments:**
+
+| Section | 🛡️ Safety Moment |
+|---------|------------------|
+| 1 — MCP | External tool trust — MCP servers run code on your behalf; verify auth, permissions, and sandboxing |
+| 2 — APIs & Plugins | What gets shared? Data sent to external APIs leaves your trust boundary |
+| 3 — Memory | Memory privacy — understand what's persisted and who can see it |
+| 4 — Debugging | Use debug logs to verify the agent isn't leaking sensitive context or making unauthorized calls |
+| 5 — Agentic Loops | Loop runaway prevention — set termination criteria; off-ramp design for when the optimal path fails |
+| 6 — Resources | Community tools are not vetted — evaluate third-party MCP servers and extensions before trusting them |
+
+### AI Safety: Off-Ramp Design
+
+A dedicated safety moment in this module addresses what agents/skills should do when the optimal path is not available:
+
+- **Off-ramp instructions**: Every custom agent or skill should include instructions for what to do when it cannot complete a task safely — stop, explain why, and hand back to the human
+- **Graceful degradation**: If an agent hits an error, lacks permissions, or encounters ambiguity, it should not guess or force a suboptimal path — it should surface the decision back to the user
+- **Encoding off-ramps in agent files**: Use system prompt guidance like "If you cannot complete this task with high confidence, stop and explain what is blocking you rather than proceeding with a risky approach"
+- **Example pattern**:
+
+  ```markdown
+  ## Off-Ramp Behavior
+  - If the requested change would break existing tests, STOP and report the conflict
+  - If you lack access to a required file or service, explain what is missing
+  - If multiple valid approaches exist and none is clearly better, present options instead of choosing
+  ```
+
+### Lab Exercises (3 exercises, ~15 min)
 
 | Exercise | Topic | Time |
 |----------|-------|------|
-| 1 | Configure and Use an MCP Server | 10 min |
-| 2 | Connect an API via Plugin or MCP | 8 min |
-| 3 | Memory Strategies — Chat and CLI | 7 min |
-| 4 | Observe an Agentic Loop in Action | 5 min |
-| 5 | Subagent Delegation and Task Review | 5 min |
+| 1 | Configure and Use an MCP Server | 5 min |
+| 2 | Debugging — Inspect Chat and Agent Logs | 5 min |
+| 3 | Observe an Agentic Loop and Off-Ramp | 5 min |
 
 ### Quiz (4–6 questions)
 
-- Cover MCP configuration, API/plugin integration, memory strategies, agentic loop mechanics
+- Cover MCP configuration, API/plugin integration, memory strategies, debugging logs, agentic loop mechanics, off-ramp design
 - Format: `### N. Question` → `- A)` through `- D)` → `<!--answer: X-->` → `<!--explanation: ...-->`
 
 ### Deliverables
@@ -183,36 +250,6 @@ Module 4 produces only:
 - [ ] `copilot-dev-advanced.slidev.md`
 - [ ] `copilot-dev-advanced-LAB.md`
 - [ ] `copilot-dev-advanced-QUIZ.md`
-
----
-
-## Module 4: Mini Hack
-
-**Folder**: `workshops/copilot-dev-hack/`
-**Duration**: ~60 min (1 hour)
-**No lab or quiz required**
-
-### Content Scope
-
-| Section | Topic | Time |
-|---------|-------|------|
-| 1 | Hack Introduction and Rules | 5 min |
-| 2 | Problem Statement Options | 10 min |
-| 3 | Hack Time (build something using Day 1 skills) | 40 min |
-| 4 | Share-out and Wrap-up | 5 min |
-
-### Key Topics to Cover
-
-- Framing: Apply everything from Modules 1–3 in a 1-hour build sprint
-- Problem statement options (2–3 choices that exercise different skills)
-- Anticipation for Day 2: how Day 1 skills feed into the full-day enterprise hack
-- Encourage use of agents, custom instructions, model selection, MCP — all Day 1 learnings
-- AI Safety moment: responsible build practices under time pressure
-
-### Deliverables
-
-- [ ] `copilot-dev-hack-workshop.md`
-- [ ] `copilot-dev-hack.slidev.md`
 
 ---
 
@@ -353,15 +390,15 @@ background: /images/copilot-dev-<module>/slide-01-hash.png
 
 ## Cross-Module AI Safety Themes
 
-Every module must bake in safety moments (not as a separate lecture):
+Every module must bake in 🛡️ safety moments (not as a separate lecture). Each section should have at least one:
 
 | Theme | Description | Module Focus |
 |-------|-------------|--------------|
-| **S1 — AI as Partner, Not Replacement** | Human accountable for correctness | All modules |
-| **S2 — What Gets Shared?** | Context selection = privacy decision | Modules 1, 3 |
-| **S3 — Capability vs. Risk** | More autonomy = bigger blast radius | Modules 2, 3 |
-| **S4 — External Tool Trust** | MCP/API boundaries and permissions | Module 3 |
-| **S5 — Time Pressure ≠ Skip Review** | Responsible building under deadlines | Module 4 |
+| 🛡️ **AI as Partner, Not Replacement** | Human accountable for correctness | All modules |
+| 🛡️ **What Gets Shared?** | Context selection = privacy decision | Modules 1, 3 |
+| 🛡️ **Capability vs. Risk** | More autonomy = bigger blast radius | Modules 2, 3 |
+| 🛡️ **External Tool Trust** | MCP/API boundaries and permissions | Module 3 |
+| 🛡️ **Off-Ramp Design** | Instructions for when the optimal path isn't available — agents/skills should stop, explain, and hand back to the human rather than force a suboptimal approach | Modules 2, 3 |
 
 ---
 
@@ -369,15 +406,13 @@ Every module must bake in safety moments (not as a separate lecture):
 
 | Block | Module | Duration | Deliverables |
 |-------|--------|----------|--------------|
-| 1 | Foundations | ~90 min presentation + ~38 min lab | Workshop, Slides, Lab, Quiz |
+| 1 | Foundations | ~90 min presentation + ~15 min lab | Workshop, Slides, Lab, Quiz |
 | — | Break | 15 min | — |
-| 2 | Agentic Patterns | ~90 min presentation + ~35 min lab | Workshop, Slides, Lab, Quiz |
+| 2 | Agentic Patterns | ~90 min presentation + ~15 min lab | Workshop, Slides, Lab, Quiz |
 | — | Lunch | 60 min | — |
-| 3 | Advanced Topics | ~90 min presentation + ~35 min lab | Workshop, Slides, Lab, Quiz |
-| — | Break | 15 min | — |
-| 4 | Mini Hack | 60 min | Workshop, Slides |
+| 3 | Advanced Topics | ~90 min presentation + ~15 min lab | Workshop, Slides, Lab, Quiz |
 
-**Total**: ~6 hours (including breaks and lunch)
+**Total**: ~5 hours 30 min (including breaks and lunch)
 
 ---
 
@@ -386,9 +421,8 @@ Every module must bake in safety moments (not as a separate lecture):
 1. **Module 1 (Foundations)** — Already exists. Review for alignment with this plan; update if needed.
 2. **Module 2 (Agentic Patterns)** — Generate `workshop.md` first (slide deck source), then author LAB and QUIZ separately.
 3. **Module 3 (Advanced Topics)** — Generate `workshop.md` first (slide deck source), then author LAB and QUIZ separately.
-4. **Module 4 (Mini Hack)** — Generate `workshop.md` only (no lab, no quiz).
-5. **Slidev decks** — After each `workshop.md` is finalized, send to NotebookLM → export PPTX → run conversion pipeline (see below).
-6. **Labs and Quizzes** — Authored independently (not via NotebookLM). Follow the format in `copilot-dev-foundations-LAB.md` and `copilot-dev-foundations-QUIZ.md`.
+4. **Slidev decks** — After each `workshop.md` is finalized, send to NotebookLM → export PPTX → run conversion pipeline (see below).
+5. **Labs and Quizzes** — Authored independently (not via NotebookLM). Follow the format in `copilot-dev-foundations-LAB.md` and `copilot-dev-foundations-QUIZ.md`.
 
 ---
 
@@ -438,6 +472,48 @@ After content generation, register all modules in both:
 
 - `site/pages/index.astro` — Add modules to `workshopMeta['copilot-dev-training'].modules`
 - `site/pages/[workshop]/index.astro` — Same module entries
+
+---
+
+## Content Gaps Identified
+
+The following gaps should be addressed during content generation:
+
+### Module 1 — Foundations
+
+| Gap | Description | Recommendation |
+|-----|-------------|----------------|
+| **Copilot in other IDEs** | Plan only covers VS Code. No mention of JetBrains, Neovim, or Visual Studio support | Add a brief "Copilot Beyond VS Code" note — even a single table of IDE support levels |
+| **Copilot for Business vs. Individual vs. Enterprise** | No coverage of plan tiers and what features are gated by plan | Add a plan/tier comparison table (features, model access, admin controls) |
+| **Code review with Copilot** | PR review features (Copilot code review in GitHub.com) not mentioned | Brief mention in Section 4 as a natural extension of the agent concept |
+| **GitHub.com chat** | Copilot Chat on github.com (not just IDE) is missing | Add as an interaction surface in the Chat Tour section |
+
+### Module 2 — Agentic Patterns
+
+| Gap | Description | Recommendation |
+|-----|-------------|----------------|
+| ~~**Coding Agent (cloud agent)**~~ | ~~Plan mentions it briefly~~ | ✅ Resolved — dedicated Section 3 added |
+| **Copilot Extensions** | Third-party and org-built extensions (e.g., `@docker`, `@azure`) not covered | Add to Agent vs. Skill section as a category of agent |
+| **Agent guardrails and permissions** | How orgs control what agents can do (policy, allowed tools, content exclusions) | Tie into org-level instruction layering and off-ramp safety theme |
+| ~~**Real-world multi-agent examples**~~ | ~~Multi-agent section is conceptual~~ | ✅ Resolved — Squad added as concrete worked example |
+
+### Module 3 — Advanced Topics
+
+| Gap | Description | Recommendation |
+|-----|-------------|----------------|
+| **MCP security model** | No coverage of MCP auth, tool approval, sandboxing | Add to MCP section and tie to S4 (External Tool Trust) |
+| **Copilot Workspace** | No mention of Copilot Workspace (issue → plan → implement → PR) | Brief mention as the evolution of agentic coding |
+| **Prompt engineering for agents vs. chat** | How to write effective agent instructions differs from chat prompts — not explicitly taught | Add contrast in the agentic loops section |
+| **Testing AI-generated code** | No section on verification strategies (how to test what an agent produces) | Add to subagents/task review section — this is a critical enterprise concern |
+| **Metrics and measurement** | No guidance on measuring Copilot adoption or developer productivity impact | Add to Resources section as an enterprise concern |
+
+### Cross-Cutting
+
+| Gap | Description | Recommendation |
+|-----|-------------|----------------|
+| **Day 1 → Day 2 bridge** | With Module 4 removed, there's no explicit transition to the Day 2 hack | Add a "What's Next" slide to Module 3 wrap-up covering Day 2 expectations and problem statements |
+| **Attendee skill variance** | No guidance for instructors on handling mixed skill levels (some experts, some beginners) | Add instructor notes in each workshop.md about pacing and differentiation |
+| **Hands-on project continuity** | Each lab is standalone — attendees don't build on previous lab work | Consider making labs progressive (each builds on the previous project) |
 
 ---
 
