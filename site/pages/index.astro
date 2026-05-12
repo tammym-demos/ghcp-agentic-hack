@@ -11,7 +11,7 @@ const showDrafts: boolean = __SHOW_DRAFTS__
 // Workshops with `modules` are multi-module curricula: one parent card links to child module folders.
 const workshopMeta: Record<string, { label: string; desc: string; icon: string; modules?: { folder: string; label: string; desc: string; icon: string }[]; prerequisites?: string[] }> = {
   'copilot-dev-training': {
-    label: 'Beyond Autocomplete',
+    label: 'GitHub Copilot Dev Hack',
     desc: 'GitHub Copilot Developer Training — foundations, agentic patterns, and advanced operations.',
     icon: '🎓',
     modules: [
@@ -78,7 +78,7 @@ for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d =>
   <section class="hero">
     <div class="hero-text">
       <span class="hero-label">Developer Training</span>
-      <h1 class="hero-heading">Beyond Autocomplete</h1>
+      <h1 class="hero-heading">Available Workshops</h1>
       <p class="hero-description">Curated slide decks, hands-on labs, and interactive quizzes for teams mastering GitHub Copilot — from foundations to agentic patterns.</p>
     </div>
     <div class="hero-graphic" aria-hidden="true">
