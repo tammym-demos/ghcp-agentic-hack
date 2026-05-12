@@ -120,8 +120,57 @@ Colors: `gh-badge-blue`, `gh-badge-green`, `gh-badge-purple`, `gh-badge-yellow`,
 - **Statement slides**: Use `layout: statement` — a single `# Heading` plus one `p` line
 - **Section dividers**: Use `layout: section` — content is just `# Section Title`
 - **Demo slides**: Use `layout: demo` — `# 🖥️ LIVE DEMO` → `### Demo Title` → bullet list of what to show
-- **Presenter notes**: Use HTML comments `<!-- notes here -->`
+- **Presenter notes**: Use HTML comments `<!-- notes here -->` (see Presenter Notes section below)
 - **Progressive reveal**: Use `<v-clicks>` to reveal list items one at a time
+
+## Presenter Notes
+
+Every slide **must** have substantive presenter notes — no placeholder comments like `<!-- Presenter notes -->`. Notes are the primary way detail reaches the audience since slides are visual-first with minimal text.
+
+### Format
+
+Use HTML comments (`<!-- ... -->`) placed directly below the slide separator and any slide content:
+
+```markdown
+---
+layout: image-full
+background: /images/copilot-dev-foundations/slide-02-a1b2c3d4.png
+---
+
+<!-- 3-5 sentences of talk-track guidance for the presenter. -->
+```
+
+### What to include
+
+- **Talk-track guidance** — what the presenter should SAY, not what is ON the slide
+- **Concrete examples** — specific scenarios, commands, or anecdotes that illustrate the concept
+- **Audience interactions** — suggested questions, show-of-hands prompts, or discussion starters
+- **Safety and accountability moments** — where to emphasize review gates, trust boundaries, or human ownership
+- **Demo callouts** — preview upcoming demos or reference what was just shown
+- **Transitions** — how to connect this slide to the next topic or section
+
+### What to avoid
+
+- Do not repeat the slide title or bullet text verbatim
+- Do not write generic filler like "Discuss this topic with the audience"
+- Do not include timing instructions (timing is in the workshop file)
+
+### How to derive notes
+
+1. Identify which section of the `*-workshop.md` file maps to this slide (use section numbering and titles)
+2. Pull key talking points, discussion points, and examples from that section
+3. Adapt the content into a spoken talk-track — conversational, direct, presenter-facing
+4. Add audience engagement hooks that are not in the workshop file
+
+### Length
+
+- **Cover slides**: 3-4 sentences — welcome, frame the module, calibrate the room
+- **Content slides**: 3-5 sentences — explain the concept, give examples, engage the audience
+- **Synthesis/wrap-up slides**: 3-4 sentences — connect topics, invite questions, transition
+
+### PPTX-generated decks
+
+For decks generated from the PPTX conversion pipeline, the script produces placeholder `<!-- Presenter notes -->` comments. These **must** be replaced with real notes manually after conversion, using the corresponding `*-workshop.md` as the source of truth.
 
 ## Tables
 

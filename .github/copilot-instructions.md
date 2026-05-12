@@ -88,7 +88,7 @@ When editing either file in a module, **always check the other for consistency**
 - **Frontmatter**: YAML frontmatter with `theme`, `title`, `info`, layout, and transition settings
 - **Theme reference**: `theme: ../../themes/github` (relative path from `workshops/<name>/` up to repo root)
 - **Slide separator**: `---` between every slide
-- **Speaker notes**: `<!-- notes -->` HTML comments below slide content
+- **Speaker notes**: `<!-- notes -->` HTML comments below slide content — every slide must have substantive 3-5 sentence talk-track guidance (see `.github/instructions/slidev.instructions.md` for full spec)
 - **Section dividers**: Use `layout: section` in slide frontmatter
 - **Demo transitions**: `layout: demo` for live demo slides
 - **Breaks**: Slide with `# ☕ Break — 10 Minutes`
@@ -259,7 +259,7 @@ background: /images/copilot-dev-foundations/slide-02-a1b2c3d4.png
 ```
 
 - No text content on slides (the image IS the slide)
-- Presenter notes in `<!-- -->` comments are added manually after generation
+- Presenter notes in `<!-- -->` comments must be replaced with substantive talk-track after generation
 - Re-running overwrites previous output (idempotent)
 
 ### Python dependency

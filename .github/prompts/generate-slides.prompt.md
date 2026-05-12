@@ -61,7 +61,7 @@ layout: cover
 - Use `<div class="gh-callout gh-callout-blue">` for key insights
 - Use `<div class="gh-box-accent">` for decision frameworks or code examples
 - Use `<v-clicks>` for progressive reveal on important lists
-- Add `<!-- presenter notes -->` from workshop discussion points
+- Add substantive `<!-- presenter notes -->` on every slide — 3-5 sentences of talk-track guidance derived from the workshop file's discussion points, key concepts, and examples. Notes should tell the presenter what to SAY, not repeat slide content. Include concrete examples, audience interaction prompts, safety moments, and transitions. No placeholder comments.
 
 ### Tables
 
@@ -83,7 +83,7 @@ graph LR
 - [ ] Every slide fits in viewport (no scrolling) — use density classes
 - [ ] Section dividers before each major topic
 - [ ] Demo slides after concept sections
-- [ ] Speaker notes on every content slide
+- [ ] Speaker notes on every content slide (substantive talk-track, not placeholders)
 - [ ] Frontmatter has correct theme path (`../../themes/github`)
 - [ ] Blank lines around all HTML div blocks
 - [ ] No bare URLs in tables (use angle brackets)
