@@ -10,105 +10,84 @@ drawings:
 transition: slide-left
 mdc: true
 layout: image-full
-background: /images/copilot-dev-agentic/slide-01-8b1c6e58.png
+background: /images/copilot-dev-agentic/slide-01-21f9bc19.png
 ---
 
 <!-- Presenter notes for cover slide -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-agentic/slide-02-681c54cd.png
+background: /images/copilot-dev-agentic/slide-02-def618f2.png
 ---
 
 <!-- Presenter notes -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-agentic/slide-03-8aa1a4f7.png
+background: /images/copilot-dev-agentic/slide-03-d007efee.png
 ---
 
 <!-- Presenter notes -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-agentic/slide-04-e5514bc0.png
+background: /images/copilot-dev-agentic/slide-04-a45cb249.png
 ---
 
 <!-- Presenter notes -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-agentic/slide-05-15f7d829.png
+background: /images/copilot-dev-agentic/slide-05-d7a70617.png
 ---
 
 <!-- Presenter notes -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-agentic/slide-06-5c33805a.png
+background: /images/copilot-dev-agentic/slide-06-e46ee6ed.png
 ---
 
 <!-- Presenter notes -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-agentic/slide-07-46d81af0.png
+background: /images/copilot-dev-agentic/slide-07-a3ce305d.png
 ---
 
 <!-- Presenter notes -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-agentic/slide-08-797410ce.png
+background: /images/copilot-dev-agentic/slide-08-80808a32.png
 ---
 
 <!-- Presenter notes -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-agentic/slide-09-b85de035.png
+background: /images/copilot-dev-agentic/slide-09-efa443df.png
 ---
 
 <!-- Presenter notes -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-agentic/slide-10-7912a842.png
+background: /images/copilot-dev-agentic/slide-10-201c664c.png
 ---
 
 <!-- Presenter notes -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-agentic/slide-11-c01a657f.png
+background: /images/copilot-dev-agentic/slide-11-aae4574e.png
 ---
 
 <!-- Presenter notes -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-agentic/slide-12-fbee9358.png
----
-
-<!-- Presenter notes -->
-
----
-layout: image-full
-background: /images/copilot-dev-agentic/slide-13-a44f94b7.png
----
-
-<!-- Presenter notes -->
-
----
-layout: image-full
-background: /images/copilot-dev-agentic/slide-14-ab569d79.png
----
-
-<!-- Presenter notes -->
-
----
-layout: image-full
-background: /images/copilot-dev-agentic/slide-15-99ff836d.png
+background: /images/copilot-dev-agentic/slide-12-76082005.png
 ---
 
 <!-- Presenter notes -->

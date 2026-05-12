@@ -10,98 +10,84 @@ drawings:
 transition: slide-left
 mdc: true
 layout: image-full
-background: /images/copilot-dev-foundations/slide-01-94b90d98.png
+background: /images/copilot-dev-foundations/slide-01-c514836a.png
 ---
 
 <!-- Presenter notes for cover slide -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-foundations/slide-02-0a802fe5.png
+background: /images/copilot-dev-foundations/slide-02-ee5489f9.png
 ---
 
 <!-- Presenter notes -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-foundations/slide-03-4e370d54.png
+background: /images/copilot-dev-foundations/slide-03-01dff1c7.png
 ---
 
 <!-- Presenter notes -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-foundations/slide-04-cfa627c9.png
+background: /images/copilot-dev-foundations/slide-04-5e5b315e.png
 ---
 
 <!-- Presenter notes -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-foundations/slide-05-04e90580.png
+background: /images/copilot-dev-foundations/slide-05-0890191d.png
 ---
 
 <!-- Presenter notes -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-foundations/slide-06-0cc9dadc.png
+background: /images/copilot-dev-foundations/slide-06-407edf5c.png
 ---
 
 <!-- Presenter notes -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-foundations/slide-07-b630961f.png
+background: /images/copilot-dev-foundations/slide-07-92128624.png
 ---
 
 <!-- Presenter notes -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-foundations/slide-08-15ad442c.png
+background: /images/copilot-dev-foundations/slide-08-20e91331.png
 ---
 
 <!-- Presenter notes -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-foundations/slide-09-7c42d106.png
+background: /images/copilot-dev-foundations/slide-09-cbe57b71.png
 ---
 
 <!-- Presenter notes -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-foundations/slide-10-46e86b21.png
+background: /images/copilot-dev-foundations/slide-10-71d59600.png
 ---
 
 <!-- Presenter notes -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-foundations/slide-11-d3837355.png
+background: /images/copilot-dev-foundations/slide-11-23dbc837.png
 ---
 
 <!-- Presenter notes -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-foundations/slide-12-6d9e0330.png
----
-
-<!-- Presenter notes -->
-
----
-layout: image-full
-background: /images/copilot-dev-foundations/slide-13-c5cac0e8.png
----
-
-<!-- Presenter notes -->
-
----
-layout: image-full
-background: /images/copilot-dev-foundations/slide-14-fecb6c8d.png
+background: /images/copilot-dev-foundations/slide-12-be8f6d52.png
 ---
 
 <!-- Presenter notes -->
