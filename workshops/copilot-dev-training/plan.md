@@ -28,13 +28,13 @@ The existing Copilot Developer Training (Modules 1–4) totals ~9 hours of conte
 | Time | Duration | Activity |
 |------|----------|----------|
 | **9:00–10:30** | 90 min | **Module 1: Foundations** |
-| **10:30–12:00** | 90 min | **Module 2: Agentic Patterns** |
-| **12:00–12:30** | 30 min | 🍽️ **Lunch** |
-| **12:30–2:00** | 90 min | **Module 3: Advanced Topics** |
-| **2:00–2:15** | 15 min | **Module 4: GitHub + ADO Integration** |
-| **2:15–3:00** | 45 min | **Hack / Open Lab Time** _(out of scope — .draft)_ |
+| **10:30–12:15** | 105 min | **Module 2: Agentic Patterns** _(includes optimization section)_ |
+| **12:15–12:45** | 30 min | 🍽️ **Lunch** |
+| **12:45–2:15** | 90 min | **Module 3: Advanced Topics** |
+| **2:15–2:30** | 15 min | **Module 4: GitHub + ADO Integration** |
+| **2:30–3:00** | 30 min | **Hack / Open Lab Time** _(out of scope — .draft)_ |
 
-> **Note**: The hack is out of scope for this plan (lives in `.draft` folders). The agenda above shows it for context only. Instructional time = **285 min (~4h 45m)** across Modules 1–4.
+> **Note**: The hack is out of scope for this plan (lives in `.draft` folders). The agenda above shows it for context only. Instructional time = **300 min (5h)** across Modules 1–4.
 
 ---
 
@@ -86,7 +86,7 @@ The existing Copilot Developer Training (Modules 1–4) totals ~9 hours of conte
 
 ---
 
-## Module 2: Agentic Patterns (90 min)
+## Module 2: Agentic Patterns (105 min)
 
 **Folder**: `workshops/copilot-dev-agentic/`
 **Files to create**: `copilot-dev-agentic.slidev.md`, `copilot-dev-agentic-LAB.md`
@@ -117,8 +117,19 @@ The existing Copilot Developer Training (Modules 1–4) totals ~9 hours of conte
 | 19 | Self-correction & iteration patterns | 5 min | Examples |
 | 20 | The Rubber Duck Pattern — cross-model review | 5 min | How & when to use it |
 | 21 | 🧪 **Lab cue**: Exercise 4 — Agentic Loops & Rubber Duck | — | |
-| 22 | **Module 2 Recap** | 2 min | Key takeaways |
-| — | **Total presentation time** | ~64 min | ~26 min lab time |
+| 22 | **Section: Agent Quality & Token Optimization** | — | `layout: section` |
+| 23 | Why Quality Over Cost — ROI formula, compounding error | 5 min | Statement + callout |
+| 24 | Context windows — how tokens accumulate, stateless nature | 5 min | Mermaid diagram |
+| 25 | Context rot — lost in the middle, recency bias | 3 min | Attention callout |
+| 26 | Control 1: Model selection (24× cost difference) | 3 min | Table |
+| 27 | Control 2: Precise prompts with stop signals | 3 min | Before/after box |
+| 28 | Control 3: Split tasks — Research → Plan → Implement | 3 min | Mermaid flow |
+| 29 | Control 4: Deterministic guardrails (tests) | 2 min | Callout |
+| 30 | Control 5: Persistent instructions | 2 min | Anti-pattern callout |
+| 31 | Top 5 optimization checklist | 2 min | Statement + list |
+| 32 | 🧪 **Lab cue**: Exercise 5 — Token Optimization | — | |
+| 33 | **Module 2 Recap** | 2 min | Key takeaways |
+| — | **Total presentation time** | ~89 min | ~26 min lab time |
 
 ### Lab Outline (copilot-dev-agentic-LAB.md)
 
@@ -128,7 +139,8 @@ The existing Copilot Developer Training (Modules 1–4) totals ~9 hours of conte
 | 2 | Project Bootstrap | 6 min | Use `copilot init` to scaffold a project, explore generated structure |
 | 3 | Agents & Skills | 7 min | Trigger different agent modes, explore built-in tools, test routing behavior |
 | 4 | Agentic Loops & Rubber Duck | 7 min | Observe plan-act-observe-reflect in Agent mode, try rubber duck debugging with model switching |
-| — | **Total lab time** | ~26 min | |
+| 5 | Token Optimization | 5 min | Compare model tiers on same prompt, practice /clear + task splitting, write precise prompt with stop signal |
+| — | **Total lab time** | ~31 min | |
 
 ---
 

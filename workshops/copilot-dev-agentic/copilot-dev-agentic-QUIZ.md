@@ -62,4 +62,64 @@
 
 ---
 
+### 6. A developer's agent session has been running for 30 minutes and the context window is at ~70% capacity. The agent starts ignoring instructions from `copilot-instructions.md` and repeating earlier mistakes. What is the most likely cause?
+
+- A) The model has a bug and needs to be restarted
+- B) Recency bias — the model is deprioritizing the system prompt and instructions as the context fills with recent conversation
+- C) The instructions file is too short and needs more detail
+- D) The agent has permanently lost access to the instructions file
+
+<!--answer: B-->
+<!--explanation: At 60–70% context window fill, recency bias causes the model to deprioritize earlier tokens (including the system prompt and custom instructions) in favor of recent conversation. The fix is to start a fresh session with /clear rather than continuing to stack context.-->
+
+---
+
+### 7. Your team wants to reduce token costs by 50%. Which approach is most likely to succeed without degrading output quality?
+
+- A) Remove all custom instructions to minimize input tokens
+- B) Use the cheapest model for every task regardless of complexity
+- C) Match model tier to task complexity (reasoning for planning, mid-tier for implementation, low-tier for simple edits) and split work into focused sessions
+- D) Disable all tools so the agent cannot make tool calls
+
+<!--answer: C-->
+<!--explanation: Model selection is the biggest cost lever (up to 24× price difference between tiers). Matching model capability to task complexity — combined with task splitting to keep sessions focused — achieves cost reduction while maintaining quality. Removing instructions or using only cheap models degrades quality, which creates more retries and wastes more tokens overall.-->
+
+---
+
+### 8. A developer adds this instruction to `copilot-instructions.md`: "Here is a complete guide to React hooks including useState, useEffect, useCallback, useMemo..." (500 words of framework documentation). What is wrong with this approach?
+
+- A) The instruction is too short to be useful
+- B) Instructions should only contain test-related guidance
+- C) Framework knowledge that already exists in training data wastes always-on context tokens without improving output quality
+- D) Instructions must be written in YAML format, not prose
+
+<!--answer: C-->
+<!--explanation: Persistent instructions are sent on every single API call, so every token must earn its place. Framework documentation that already exists in the model's training data (React is ~80% of web training data) adds no value but consumes context budget on every request. Instructions should capture what the model cannot figure out independently — project-specific conventions, non-obvious patterns, and recurring agent failures.-->
+
+---
+
+### 9. A 50-step agent workflow has 99% accuracy on each individual step. What is the approximate probability that the entire workflow completes correctly end-to-end?
+
+- A) 99%
+- B) 95%
+- C) 60%
+- D) 8%
+
+<!--answer: C-->
+<!--explanation: The compounding error formula is 0.99^50 ≈ 0.605, or approximately 60%. This demonstrates why per-step quality is critical in multi-step agent workflows — even high single-step accuracy compounds into surprisingly low end-to-end success rates. At 95% per step, it drops to 0.95^50 ≈ 8%.-->
+
+---
+
+### 10. Which combination represents the optimal task-splitting strategy for a complex feature implementation?
+
+- A) Use one long session with a reasoning model for research, planning, and implementation together
+- B) Research with a cheap model (broad context), plan with a reasoning model (tight spec), implement with a mid-tier model (follow the spec)
+- C) Skip research and planning entirely — go straight to implementation with the most expensive model
+- D) Use a low-tier model for all phases to minimize cost
+
+<!--answer: B-->
+<!--explanation: The research → plan → implement split matches model tier to task requirements: cheap models for low-stakes discovery, reasoning models for the critical planning step that defines quality, and mid-tier models for execution where the spec eliminates ambiguity. This optimizes both cost and quality while keeping each context window clean and focused.-->
+
+---
+
 *Quiz for Module 2: Agentic Patterns — GitHub Copilot Developer Training*
