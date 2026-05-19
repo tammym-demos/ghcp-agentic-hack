@@ -1,6 +1,6 @@
 # Module 2: Agentic Patterns — Workshop Guide
 
-**Duration**: ~90 min
+**Duration**: ~115 min
 **Format**: Presentation + Live Demo + Hands-On
 **Audience**: Developers with basic GitHub Copilot exposure
 **Prerequisites**: Completion of Module 1: Foundations
@@ -20,6 +20,7 @@ Module 2 helps developers move from "GitHub Copilot as a smart assistant" to "Gi
 - Explain how organization, repository, file-scoped, user, and session instructions compose
 - Identify when multi-agent collaboration adds value and when a single well-scoped agent is enough
 - Use GitHub Copilot as a rubber duck for reasoning, debugging, and design review
+- Apply practical token optimization strategies including model selection, task splitting, and deterministic guardrails
 
 ### Prerequisites
 
@@ -44,8 +45,9 @@ Module 2 helps developers move from "GitHub Copilot as a smart assistant" to "Gi
 | 4 | Copilot `/init` and Project Bootstrapping | 8 min |
 | 5 | Instruction Layering — Org, Repo, and File-Scoped | 15 min |
 | 6 | Multi-Agent Patterns — Squad as a Worked Example | 15 min |
-| 7 | Rubber Duck Debugging with Copilot | 5 min |
-| 8 | Wrap-up, hand-off to lab, and Q&A | 5 min |
+| 7 | Agent Quality & Token Optimization | 25 min |
+| 8 | Rubber Duck Debugging with Copilot | 5 min |
+| 9 | Wrap-up, hand-off to lab, and Q&A | 5 min |
 
 ---
 
@@ -322,7 +324,88 @@ If no → use a direct skill or tool call
 
 ---
 
-## 7. Rubber Duck Debugging with GitHub Copilot (5 min)
+## 7. Agent Quality & Token Optimization (25 min)
+
+### Key Points
+
+- **Core principle**: "Make every token count" — focus on agent output quality, not just cost reduction
+- If the value of an agent's output is zero, even 80–90% cost reduction is just toil — quality determines ROI
+- The **compounding error problem**: even 99% single-step accuracy drops to ~60% over 50 steps; 95% accuracy drops to ~8%
+- Every agent miss wastes tokens (discarded work, fix sessions, review cycles) — improving quality often *decreases* cost naturally
+- Context engineering is the critical new developer skill for the AI era
+
+### Context Windows & Token Mechanics
+
+- LLMs are word-probability machines — irrelevant context shifts probabilities away from desired output
+- Agents are stateless: the entire conversation is re-sent to the model every loop iteration — tokens accumulate
+- **Golden rule**: "As little context as possible, but as much as required"
+- **Context rot** appears as sessions grow:
+  - **Lost in the middle** (~50% window fill): model biases toward beginning/end, forgets middle content
+  - **Recency bias** (~60–70% fill): model forgets system prompt, original goal, and custom instructions
+- Practical implication: start new sessions for new tasks; use `/clear` when shifting focus
+
+### Practical Controls (Ordered by Impact)
+
+1. **Model selection** (biggest cost lever — up to 24× price difference):
+   - Reasoning models (Opus, o-series) → planning, architecture, complex debugging
+   - Mid-tier (Sonnet, GPT-4.5) → implementation with a clear spec
+   - Low-tier (Haiku, GPT-mini) → simple edits, typo fixes, formatting
+   - Use **Auto mode** as default — it performs intent detection and routes to the right model
+
+2. **Precise prompts with stop signals**:
+   - Be specific: "Fix Issue #45 — the cache invalidation race in `src/cache.ts`, stop when tests pass"
+   - Include file references you already know (save discovery tokens)
+   - Add explicit stop conditions to prevent over-execution
+
+3. **Split tasks: Research → Plan → Implement**:
+   - Research: use cheaper models, broad context, discover files and patterns
+   - Plan: use reasoning models, create an airtight spec
+   - Implement: use mid-tier models, follow the spec, parallelize by concern
+
+4. **Deterministic guardrails (tests, linters, scanners)**:
+   - A single failing test can reset agent accuracy from a 40% drift back to 99%
+   - Tests as guardrails cost less than shipping bugs + incident response + debug sessions
+   - Linters and security scanners catch drift before it compounds
+
+5. **Persistent instructions (copilot-instructions.md)**:
+   - Keep small and precise — non-negotiables only
+   - Use as an "agent miss log" — recurring failures become instructions
+   - Do not use AI to generate them — they should capture what AI cannot figure out independently
+   - Treat as a living document; review and refresh every ~3 months
+
+### 🛡️ Safety Moment
+
+- Token optimization is not about denying the model information — it is about curating the right information
+- Starving context to save cost leads to hallucinations and off-track behavior
+- Always validate that cost-saving choices do not degrade output quality below your acceptance bar
+
+### 🖥️ Demo: Model Selection and Session Hygiene
+
+1. Show the same prompt answered by different model tiers and compare quality vs. cost:
+
+   ```text
+   Analyze the architecture of this repository and suggest three improvements for testability.
+   ```
+
+2. Demonstrate the impact of `/clear` before a new task — show how a long-running session produces worse results than a fresh one for an unrelated question.
+
+3. Show a task split in action:
+
+   ```text
+   Step 1 (research): What files handle authentication in this repo?
+   Step 2 (plan): Create a migration plan from session-based to JWT auth.
+   Step 3 (implement): Implement the plan from step 2.
+   ```
+
+### Discussion Points
+
+- Which of the five controls would have the biggest impact on your current workflow?
+- Have you noticed quality degradation in long sessions? What was the symptom?
+- How would you structure an "agent miss log" for your team?
+
+---
+
+## 8. Rubber Duck Debugging with GitHub Copilot (5 min)
 
 ### Key Points
 
@@ -355,7 +438,7 @@ If no → use a direct skill or tool call
 
 ---
 
-## 8. Wrap-up, Hand-off to Lab, and Q&A (5 min)
+## 9. Wrap-up, Hand-off to Lab, and Q&A (5 min)
 
 ### Key Points
 
@@ -363,7 +446,8 @@ If no → use a direct skill or tool call
 - Choose agentic workflows when the task is multi-step and adaptive, and direct tool use when the task is simple and deterministic
 - Background agents, cloud agents, and Coding Agent expand where work happens, but review gates remain essential
 - GitHub Copilot `/init`, instruction layering, and custom orchestration patterns are force multipliers when paired with clear constraints
-- The lab focuses on three practical takeaways: choosing agent versus direct interaction, observing instruction layering, and creating a lightweight custom agent
+- Token optimization is quality-first: right model, precise prompts, split tasks, deterministic guardrails, concise instructions
+- The lab focuses on four practical takeaways: choosing agent versus direct interaction, observing instruction layering, creating a lightweight custom agent, and optimizing a session for token efficiency
 - Module 3 will extend this foundation into advanced integrations, memory, APIs, and deeper debugging patterns
 
 ### 🖥️ Demo: Lab Preview and Transition
@@ -374,6 +458,7 @@ If no → use a direct skill or tool call
    Exercise 1 → Compare agent vs. direct interaction
    Exercise 2 → Create layered instructions
    Exercise 3 → Build a custom review agent
+   Exercise 4 → Optimize a session with model selection and task splitting
    ```
 
 2. Re-emphasize that the goal is safe experimentation, not maximum autonomy.
