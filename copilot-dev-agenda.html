@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GitHub Copilot Developer Training — Agenda</title>
+  <style>
+    :root {
+      --gh-bg: #0d1117;
+      --gh-surface: #161b22;
+      --gh-border: #30363d;
+      --gh-text: #e6edf3;
+      --gh-muted: #8b949e;
+      --gh-accent: #58a6ff;
+      --gh-green: #3fb950;
+      --gh-purple: #bc8cff;
+      --gh-orange: #d29922;
+      --gh-pink: #f778ba;
+      --radius: 12px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      background: var(--gh-bg);
+      color: var(--gh-text);
+      line-height: 1.6;
+      padding: 2rem;
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    header {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+    }
+    header .logo {
+      font-size: 2.6rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--gh-accent), var(--gh-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    header .subtitle {
+      color: var(--gh-muted);
+      font-size: 1.15rem;
+      margin-top: .4rem;
+    }
+
+    /* Day Banner */
+    .day-banner {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 2.5rem 0 1.5rem;
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius);
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+    .day-banner.day1 { background: linear-gradient(90deg, rgba(88,166,255,.15), transparent); border-left: 4px solid var(--gh-accent); }
+    .day-banner.day2 { background: linear-gradient(90deg, rgba(247,120,186,.15), transparent); border-left: 4px solid var(--gh-pink); }
+    .day-banner .tag {
+      font-size: .75rem;
+      font-weight: 600;
+      padding: .25rem .6rem;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    .day1 .tag { background: var(--gh-accent); color: var(--gh-bg); }
+    .day2 .tag { background: var(--gh-pink); color: var(--gh-bg); }
+
+    /* Module Card */
+    .module {
+      background: var(--gh-surface);
+      border: 1px solid var(--gh-border);
+      border-radius: var(--radius);
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+    .module-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      cursor: pointer;
+      user-select: none;
+    }
+    .module-header:hover { background: rgba(255,255,255,.03); }
+    .module-header h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+    .module-header .badge {
+      font-size: .7rem;
+      font-weight: 600;
+      padding: .2rem .55rem;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .badge-foundations { background: rgba(63,185,80,.2); color: var(--gh-green); }
+    .badge-agentic   { background: rgba(88,166,255,.2); color: var(--gh-accent); }
+    .badge-advanced   { background: rgba(188,140,255,.2); color: var(--gh-purple); }
+    .badge-hack       { background: rgba(247,120,186,.2); color: var(--gh-pink); }
+
+    .module-header .duration {
+      color: var(--gh-muted);
+      font-size: .85rem;
+      white-space: nowrap;
+    }
+    .module-body { padding: 0 1.5rem 1.5rem; }
+    .module-desc {
+      color: var(--gh-muted);
+      font-size: .92rem;
+      margin-bottom: 1.2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--gh-border);
+    }
+
+    /* Sections */
+    .sections { list-style: none; }
+    .sections > li {
+      position: relative;
+      padding: .5rem 0 .5rem 1.6rem;
+    }
+    .sections > li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: .85rem;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 2px solid var(--gh-accent);
+      background: var(--gh-bg);
+    }
+    .sections > li::after {
+      content: '';
+      position: absolute;
+      left: 3px;
+      top: 1.6rem;
+      width: 2px;
+      height: calc(100% - 1rem);
+      background: var(--gh-border);
+    }
+    .sections > li:last-child::after { display: none; }
+    .section-title { font-weight: 600; font-size: .95rem; }
+    .section-details {
+      color: var(--gh-muted);
+      font-size: .85rem;
+      margin-top: .15rem;
+    }
+
+    /* Labs */
+    .lab-section {
+      margin-top: 1.2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--gh-border);
+    }
+    .lab-section h3 {
+      font-size: .85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--gh-green);
+      margin-bottom: .7rem;
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+    }
+    .lab-list { list-style: none; }
+    .lab-list li {
+      padding: .45rem 0 .45rem 1.2rem;
+      position: relative;
+      font-size: .9rem;
+    }
+    .lab-list li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--gh-green);
+      font-weight: 700;
+    }
+    .lab-list li .lab-name { font-weight: 600; }
+    .lab-list li .lab-desc { color: var(--gh-muted); font-size: .83rem; }
+
+    /* Scenarios (Hack) */
+    .scenarios {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: .75rem;
+      margin-top: .75rem;
+    }
+    .scenario-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--gh-border);
+      border-radius: 8px;
+      padding: .8rem 1rem;
+    }
+    .scenario-card .sc-label {
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--gh-pink);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    .scenario-card .sc-title {
+      font-weight: 600;
+      font-size: .9rem;
+      margin-top: .2rem;
+    }
+    .scenario-card .sc-desc {
+      color: var(--gh-muted);
+      font-size: .8rem;
+      margin-top: .2rem;
+    }
+
+    /* Learning Objectives */
+    .objectives {
+      margin-top: 1rem;
+      padding-top: .8rem;
+      border-top: 1px solid var(--gh-border);
+    }
+    .objectives summary {
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--gh-muted);
+      cursor: pointer;
+      user-select: none;
+    }
+    .objectives summary:hover { color: var(--gh-text); }
+    .objectives ul {
+      margin-top: .5rem;
+      padding-left: 1.4rem;
+      color: var(--gh-muted);
+      font-size: .83rem;
+    }
+    .objectives ul li { padding: .15rem 0; }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+      color: var(--gh-muted);
+      font-size: .8rem;
+    }
+    footer a { color: var(--gh-accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      body { padding: 1rem; }
+      header .logo { font-size: 1.8rem; }
+      .day-banner { font-size: 1.05rem; }
+      .scenarios { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Header -->
+    <header>
+      <div class="logo">GitHub Copilot Developer Training</div>
+      <div class="subtitle">2-Day Workshop Agenda &amp; Outline</div>
+    </header>
+
+    <!-- ═══════════════════ DAY 1 ═══════════════════ -->
+    <div class="day-banner day1">
+      <span class="tag">Day 1</span>
+      Foundations → Agentic → Advanced
+    </div>
+
+    <!-- Module 1: Foundations -->
+    <div class="module">
+      <div class="module-header">
+        <h2>
+          <span class="badge badge-foundations">Module 1</span>
+          Copilot Dev Foundations
+        </h2>
+        <span class="duration">~90 min</span>
+      </div>
+      <div class="module-body">
+        <p class="module-desc">
+          Build intentional Copilot usage: mode selection, context management, instructions, models, agents, and prompts.
+        </p>
+
+        <ol class="sections">
+          <li>
+            <span class="section-title">Foundations Framing, Safety &amp; Workflow Map</span>
+            <div class="section-details">Copilot as an acceleration layer, not a replacement for judgment. Autonomy spectrum: Completion → Ask/Chat → Plan → Agent. Safe mode choice and review boundaries.</div>
+          </li>
+          <li>
+            <span class="section-title">Copilot Chat Tour</span>
+            <div class="section-details">Ask, Plan, and Agent modes. Slash commands, <code>@workspace</code>, <code>@terminal</code>, <code>#file</code>, <code>#selection</code> participants.</div>
+          </li>
+          <li>
+            <span class="section-title">Memory, Context &amp; Instructions</span>
+            <div class="section-details">Context window discipline and prompt quality. Repo-scoped and file-scoped instructions. Reusable prompts.</div>
+          </li>
+          <li>
+            <span class="section-title">Models, Agents, Skills &amp; Customization</span>
+            <div class="section-details">Model tradeoffs: speed vs reasoning depth vs cost. Lightweight customization: custom agents and prompts.</div>
+          </li>
+          <li>
+            <span class="section-title">Wrap-up &amp; Hand-off to Lab</span>
+            <div class="section-details">Q&amp;A and transition to hands-on exercises.</div>
+          </li>
+        </ol>
+
+        <div class="lab-section">
+          <h3>🧪 Lab Exercises</h3>
+          <ul class="lab-list">
+            <li>
+              <span class="lab-name">Lab 1 — Copilot Chat Tour: Modes, Commands &amp; CLI</span><br />
+              <span class="lab-desc">Practice Ask / Plan / Agent modes, slash commands, participants, and the Copilot CLI.</span>
+            </li>
+            <li>
+              <span class="lab-name">Lab 2 — Memory, Context &amp; Instructions</span><br />
+              <span class="lab-desc">Create repo instructions and file-scoped instructions; observe how output changes.</span>
+            </li>
+            <li>
+              <span class="lab-name">Lab 3 — Models, Agents &amp; Custom Prompt</span><br />
+              <span class="lab-desc">Compare models, create a custom agent, and build a reusable prompt.</span>
+            </li>
+          </ul>
+        </div>
+
+        <details class="objectives">
+          <summary>Learning Objectives</summary>
+          <ul>
+            <li>Choose the right chat mode for the task at hand</li>
+            <li>Use scoped context and instructions effectively</li>
+            <li>Create repo-level and file-level instructions</li>
+            <li>Compare model, agent, and prompt tradeoffs</li>
+            <li>Prepare for safe, productive lab work</li>
+          </ul>
+        </details>
+      </div>
+    </div>
+
+    <!-- Module 2: Agentic -->
+    <div class="module">
+      <div class="module-header">
+        <h2>
+          <span class="badge badge-agentic">Module 2</span>
+          Copilot Dev Agentic
+        </h2>
+        <span class="duration">~90 min</span>
+      </div>
+      <div class="module-body">
+        <p class="module-desc">
+          Move from assistant-style Copilot to scoped autonomy: agents, skills, background/cloud agents, instruction layering, multi-agent patterns, and debugging habits.
+        </p>
+
+        <ol class="sections">
+          <li>
+            <span class="section-title">What Is an Agent? What Is a Skill?</span>
+            <div class="section-details">The agent loop: Plan → Act → Observe → Adjust. Skills as single actions vs agents as orchestrators.</div>
+          </li>
+          <li>
+            <span class="section-title">Agent vs. Skill — When to Use Each</span>
+            <div class="section-details">When to delegate to an agent vs when to use a direct tool or skill.</div>
+          </li>
+          <li>
+            <span class="section-title">Background Agents &amp; Cloud Agents (Coding Agent)</span>
+            <div class="section-details">Background agents for async work. Cloud coding agent for the issue → branch → PR flow.</div>
+          </li>
+          <li>
+            <span class="section-title">GitHub Copilot <code>/init</code> &amp; Project Bootstrapping</span>
+            <div class="section-details">Using <code>/init</code> as a scaffold accelerator, with review required.</div>
+          </li>
+          <li>
+            <span class="section-title">Instruction Layering — Org, Repo &amp; File-Scoped</span>
+            <div class="section-details">The instruction stack: org → repo → file-scoped → user → session.</div>
+          </li>
+          <li>
+            <span class="section-title">Multi-Agent Patterns — Squad as a Worked Example</span>
+            <div class="section-details">The multi-agent "Squad" pattern and off-ramp safety.</div>
+          </li>
+          <li>
+            <span class="section-title">Rubber Duck Debugging with Copilot</span>
+            <div class="section-details">Using Copilot as a reasoning partner and cross-model review strategy.</div>
+          </li>
+          <li>
+            <span class="section-title">Wrap-up &amp; Hand-off to Lab</span>
+            <div class="section-details">Q&amp;A and transition to hands-on exercises.</div>
+          </li>
+        </ol>
+
+        <div class="lab-section">
+          <h3>🧪 Lab Exercises</h3>
+          <ul class="lab-list">
+            <li>
+              <span class="lab-name">Lab 1 — Agent vs. Skill: Explore the Difference</span><br />
+              <span class="lab-desc">Compare Agent mode to Ask mode and observe behavioral differences.</span>
+            </li>
+            <li>
+              <span class="lab-name">Lab 2 — Instruction Layering: Org, Repo &amp; File-Scoped</span><br />
+              <span class="lab-desc">Create layered instructions at each level and compare outputs.</span>
+            </li>
+            <li>
+              <span class="lab-name">Lab 3 — Build a Custom Agent &amp; Observe Background Execution</span><br />
+              <span class="lab-desc">Create a custom review agent and observe its background behavior.</span>
+            </li>
+          </ul>
+        </div>
+
+        <details class="objectives">
+          <summary>Learning Objectives</summary>
+          <ul>
+            <li>Explain the difference between an agent and a skill</li>
+            <li>Choose between direct tools and agent orchestration</li>
+            <li>Describe background and cloud agent workflows</li>
+            <li>Explain instruction layering and its precedence</li>
+            <li>Identify when multi-agent setups help</li>
+            <li>Use Copilot for reasoning and debug review</li>
+          </ul>
+        </details>
+      </div>
+    </div>
+
+    <!-- Module 3: Advanced -->
+    <div class="module">
+      <div class="module-header">
+        <h2>
+          <span class="badge badge-advanced">Module 3</span>
+          Copilot Dev Advanced
+        </h2>
+        <span class="duration">~90 min</span>
+      </div>
+      <div class="module-body">
+        <p class="module-desc">
+          Advanced integration and control: MCP, APIs/plugins, memory, debugging, agentic loops, subagents, off-ramps, and ecosystem tools.
+        </p>
+
+        <ol class="sections">
+          <li>
+            <span class="section-title">MCP (Model Context Protocol) — What, Why, How</span>
+            <div class="section-details">MCP servers and approving tool calls. Configuring and consuming MCP endpoints.</div>
+          </li>
+          <li>
+            <span class="section-title">Using APIs &amp; Plugins with Copilot</span>
+            <div class="section-details">API-aware workflows and specialized plugins for extended capabilities.</div>
+          </li>
+          <li>
+            <span class="section-title">Memory — Current State &amp; Evolution</span>
+            <div class="section-details">Memory lifecycle: save, verify, manage. Responsible memory practices.</div>
+          </li>
+          <li>
+            <span class="section-title">Debugging — Chat Debug &amp; Agent Debug Logs</span>
+            <div class="section-details">Debugging chat and agent traces. Diagnosing context issues.</div>
+          </li>
+          <li>
+            <span class="section-title">Agentic Loops, Subagents &amp; Task Review</span>
+            <div class="section-details">The Ralph Loop pattern. Subagent orchestration and off-ramp design.</div>
+          </li>
+          <li>
+            <span class="section-title">Resources, Tools &amp; Ecosystem</span>
+            <div class="section-details">Ecosystem overview and closing synthesis of all modules.</div>
+          </li>
+          <li>
+            <span class="section-title">Wrap-up &amp; Q&amp;A</span>
+            <div class="section-details">Final questions and day 1 close.</div>
+          </li>
+        </ol>
+
+        <div class="lab-section">
+          <h3>🧪 Lab Exercises</h3>
+          <ul class="lab-list">
+            <li>
+              <span class="lab-name">Lab 1 — Configure &amp; Use an MCP Server</span><br />
+              <span class="lab-desc">Set up an MCP server, approve tool calls, and integrate it into a Copilot workflow.</span>
+            </li>
+            <li>
+              <span class="lab-name">Lab 2 — Debugging: Inspect Chat &amp; Agent Logs</span><br />
+              <span class="lab-desc">Walk through debug traces to identify context and reasoning issues.</span>
+            </li>
+            <li>
+              <span class="lab-name">Lab 3 — Observe an Agentic Loop &amp; Off-Ramp</span><br />
+              <span class="lab-desc">Trigger an agentic loop, observe its iterations, and identify off-ramp decision points.</span>
+            </li>
+          </ul>
+        </div>
+
+        <details class="objectives">
+          <summary>Learning Objectives</summary>
+          <ul>
+            <li>Configure and use MCP servers</li>
+            <li>Integrate APIs and plugins into Copilot workflows</li>
+            <li>Manage memory responsibly</li>
+            <li>Debug chat and agent behavior</li>
+            <li>Recognize loops, subagents, and off-ramps in agentic workflows</li>
+          </ul>
+        </details>
+      </div>
+    </div>
+
+    <!-- ═══════════════════ DAY 2 ═══════════════════ -->
+    <div class="day-banner day2">
+      <span class="tag">Day 2</span>
+      Hack — Business Problem Solving
+    </div>
+
+    <!-- Module 4: Hack -->
+    <div class="module">
+      <div class="module-header">
+        <h2>
+          <span class="badge badge-hack">Module 4</span>
+          Copilot Dev Hack
+        </h2>
+        <span class="duration">~60 min</span>
+      </div>
+      <div class="module-body">
+        <p class="module-desc">
+          Hands-on hackathon: pick a real business problem, build a Copilot-powered agent or workflow, then demo and iterate.
+        </p>
+
+        <ol class="sections">
+          <li>
+            <span class="section-title">Business Problem Framing</span>
+            <div class="section-details">Choose a scenario and define what success looks like.</div>
+          </li>
+          <li>
+            <span class="section-title">Phase 1 — Planning</span>
+            <div class="section-details">Set up the project, write custom instructions, and outline the agent design.</div>
+          </li>
+          <li>
+            <span class="section-title">Phase 2 — Building</span>
+            <div class="section-details">Create the agent, connect tools/context, and iterate on behavior.</div>
+          </li>
+          <li>
+            <span class="section-title">Phase 3 — Demo &amp; Feedback</span>
+            <div class="section-details">Present your solution, gather peer feedback, and identify improvements.</div>
+          </li>
+          <li>
+            <span class="section-title">Success Criteria &amp; Next Steps</span>
+            <div class="section-details">Walk through the success checklist. Resources for continued learning.</div>
+          </li>
+        </ol>
+
+        <div class="lab-section">
+          <h3>🎯 Hack Format</h3>
+          <p style="color: var(--gh-muted); font-size: .9rem;">Participants bring their own business problem and build a Copilot-powered solution using the skills learned in Day 1.</p>
+        </div>
+
+        <details class="objectives">
+          <summary>Learning Objectives</summary>
+          <ul>
+            <li>Pick a real business problem and scope it</li>
+            <li>Define clear success criteria</li>
+            <li>Build a Copilot-based solution end-to-end</li>
+            <li>Test and demo the solution to peers</li>
+            <li>Share feedback and plan next iterations</li>
+          </ul>
+        </details>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>GitHub Copilot Developer Training &mdash; generated from workshop content</p>
+      <p style="margin-top:.3rem;">
+        <a href="https://github.com/tammym-demos/ghcp-agentic-hack">tammym-demos/ghcp-agentic-hack</a>
+      </p>
+    </footer>
+
+  </div>
+</body>
+</html>
