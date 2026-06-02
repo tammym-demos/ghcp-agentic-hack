@@ -280,6 +280,11 @@ pip install python-pptx Pillow
 - Every workshop section should end with **Discussion Points**
 - Slide presenter notes provide talk-track guidance, not repeat slide content
 
+## Git Workflow
+
+- The `main` branch is protected — all changes must go through a pull request
+- Never commit directly to `main`; always create a feature branch and open a PR
+
 ## Markdown Formatting Rules
 
 This repo uses **markdownlint** (configured in `.markdownlint.json` at the repo root). All Markdown files must pass with **zero warnings**. Follow these rules when writing or editing content:
