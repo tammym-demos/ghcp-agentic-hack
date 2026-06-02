@@ -8,7 +8,7 @@ const base = import.meta.env.BASE_URL
 export function getStaticPaths() {
   const workshopsDir: string = __WORKSHOPS_DIR__
   const showDrafts: boolean = __SHOW_DRAFTS__
-  const workshopMeta: Record<string, { label: string; desc: string; icon: string; modules?: { folder: string; label: string; desc: string; icon: string }[]; prerequisites?: string[] }> = {
+  const workshopMeta: Record<string, { label: string; desc: string; icon: string; modules?: { folder: string; label: string; desc: string; icon: string }[]; prerequisites?: string[]; agenda?: { day: string; subtitle: string; items: { time: string; duration: string; activity: string }[] }[] }> = {
     'copilot-dev-training': {
       label: 'GitHub Copilot Dev Hack',
       desc: 'GitHub Copilot Developer Training — foundations, agentic patterns, and advanced operations.',
@@ -27,6 +27,34 @@ export function getStaticPaths() {
           'Local admin rights — ability to install extensions, CLI tools, and plugins',
           'A local project — any codebase open in VS Code (multi-file project preferred)',
           'Internet access — required for Copilot API calls'
+        ],
+        agenda: [
+          {
+            day: 'Day 1 — Modules & Labs',
+            subtitle: '9:00 AM – 5:00 PM',
+            items: [
+              { time: '9:00 – 9:15', duration: '15 min', activity: 'Welcome & Setup' },
+              { time: '9:15 – 10:45', duration: '90 min', activity: 'Module 1: Foundations (presentation + lab)' },
+              { time: '10:45 – 11:00', duration: '15 min', activity: '☕ Break' },
+              { time: '11:00 – 12:55', duration: '115 min', activity: 'Module 2: Agentic Patterns (presentation + lab)' },
+              { time: '12:55 – 1:40', duration: '45 min', activity: '🍽️ Lunch' },
+              { time: '1:40 – 3:10', duration: '90 min', activity: 'Module 3: Advanced Topics (presentation + lab)' },
+              { time: '3:10 – 3:25', duration: '15 min', activity: '☕ Break' },
+              { time: '3:25 – 4:45', duration: '80 min', activity: 'Open Lab / Hack Prep' },
+              { time: '4:45 – 5:00', duration: '15 min', activity: 'Day 1 Wrap-up & Day 2 Preview' }
+            ]
+          },
+          {
+            day: 'Day 2 — Hack Day',
+            subtitle: '9:00 AM – 3:00 PM',
+            items: [
+              { time: '9:00 – 9:15', duration: '15 min', activity: 'Day 2 Kickoff & Team Formation' },
+              { time: '9:15 – 12:00', duration: '165 min', activity: '🚀 Hack — Build with Copilot' },
+              { time: '12:00 – 12:45', duration: '45 min', activity: '🍽️ Lunch' },
+              { time: '12:45 – 2:00', duration: '75 min', activity: '🚀 Hack — Continue Building' },
+              { time: '2:00 – 3:00', duration: '60 min', activity: '🎤 Project Readouts & Wrap-up' }
+            ]
+          }
         ]
       },
     'copilot-workshop-c++': {
@@ -36,7 +64,7 @@ export function getStaticPaths() {
     }
   }
 
-  const paths: { params: { workshop: string }; props: { label: string; desc: string; icon: string; hasWorkshop: boolean; hasLab: boolean; hasSlides: boolean; hasQuiz: boolean; modules?: typeof workshopMeta[string]['modules']; prerequisites?: string[] } }[] = []
+  const paths: { params: { workshop: string }; props: { label: string; desc: string; icon: string; hasWorkshop: boolean; hasLab: boolean; hasSlides: boolean; hasQuiz: boolean; modules?: typeof workshopMeta[string]['modules']; prerequisites?: string[]; agenda?: typeof workshopMeta[string]['agenda'] } }[] = []
 
   for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d => d.isDirectory())) {
     const dirPath = resolve(workshopsDir, dir.name)
@@ -58,13 +86,13 @@ export function getStaticPaths() {
 
     paths.push({
       params: { workshop: dir.name },
-      props: { label, desc, icon, hasWorkshop, hasLab, hasSlides, hasQuiz, modules: meta?.modules, prerequisites: meta?.prerequisites }
+      props: { label, desc, icon, hasWorkshop, hasLab, hasSlides, hasQuiz, modules: meta?.modules, prerequisites: meta?.prerequisites, agenda: meta?.agenda }
     })
   }
   return paths
 }
 
-const { label, desc, icon, hasWorkshop, hasLab, hasSlides, hasQuiz, modules, prerequisites } = Astro.props
+const { label, desc, icon, hasWorkshop, hasLab, hasSlides, hasQuiz, modules, prerequisites, agenda } = Astro.props
 const { workshop } = Astro.params
 const workshopsDir: string = __WORKSHOPS_DIR__
 ---
@@ -152,6 +180,36 @@ const workshopsDir: string = __WORKSHOPS_DIR__
             </li>
           ))}
         </ul>
+      </section>
+    )}
+
+    {agenda && agenda.length > 0 && (
+      <section class="agenda-section">
+        <h2 class="agenda-heading">Agenda</h2>
+        {agenda.map(day => (
+          <div class="agenda-day">
+            <h3 class="agenda-day-title">{day.day}</h3>
+            <p class="agenda-day-subtitle">{day.subtitle}</p>
+            <table class="agenda-table">
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Duration</th>
+                  <th>Activity</th>
+                </tr>
+              </thead>
+              <tbody>
+                {day.items.map(item => (
+                  <tr>
+                    <td class="agenda-time">{item.time}</td>
+                    <td class="agenda-duration">{item.duration}</td>
+                    <td>{item.activity}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ))}
       </section>
     )}
   </div>
@@ -400,5 +458,67 @@ const workshopsDir: string = __WORKSHOPS_DIR__
     font-weight: 700;
     flex-shrink: 0;
     margin-top: 1px;
+  }
+
+  /* ── Agenda ── */
+  .agenda-section {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+  .agenda-heading {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-1);
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+  }
+  .agenda-day {
+    margin-bottom: 32px;
+  }
+  .agenda-day-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-1);
+    margin-bottom: 2px;
+  }
+  .agenda-day-subtitle {
+    font-size: 13px;
+    color: var(--text-2);
+    margin-bottom: 12px;
+  }
+  .agenda-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .agenda-table thead {
+    background: var(--bg-soft);
+  }
+  .agenda-table th {
+    text-align: left;
+    padding: 10px 14px;
+    font-weight: 600;
+    color: var(--text-1);
+    border-bottom: 1px solid var(--border);
+  }
+  .agenda-table td {
+    padding: 10px 14px;
+    color: var(--text-2);
+    border-bottom: 1px solid var(--border);
+  }
+  .agenda-table tr:last-child td {
+    border-bottom: none;
+  }
+  .agenda-time {
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .agenda-duration {
+    white-space: nowrap;
+    color: var(--text-3, var(--text-2));
   }
 </style>
