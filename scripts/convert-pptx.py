@@ -21,6 +21,7 @@ Usage:
 
 import sys
 import io
+import re
 import hashlib
 from pathlib import Path
 
@@ -165,6 +166,140 @@ def save_image(blob, ext, slide_index, images_dir):
     return filename
 
 
+import re
+
+
+def parse_workshop_sections(workshop_path):
+    """Parse the workshop markdown file into numbered sections with content.
+
+    Returns a list of dicts: [{'title': str, 'content': str}, ...]
+    """
+    if not workshop_path.exists():
+        return []
+
+    text = workshop_path.read_text(encoding='utf-8')
+
+    # Split on H2 headers that start with a number: ## 1. Title (XX min)
+    section_pattern = re.compile(r'^## (\d+)\. (.+?)$', re.MULTILINE)
+    matches = list(section_pattern.finditer(text))
+
+    if not matches:
+        return []
+
+    sections = []
+    for i, match in enumerate(matches):
+        title = match.group(2).strip()
+        start = match.end()
+        end = matches[i + 1].start() if i + 1 < len(matches) else len(text)
+        content = text[start:end].strip()
+        sections.append({'title': title, 'content': content})
+
+    return sections
+
+
+def extract_talking_points(section_content):
+    """Extract key talking points from a workshop section for presenter notes.
+
+    Pulls from Key Points, Safety Moments, and Discussion Points subsections.
+    Returns a condensed talk-track string.
+    """
+    points = []
+
+    # Extract Key Points bullets
+    key_points_match = re.search(
+        r'### Key Points\s*\n(.*?)(?=\n###|\n---|\Z)',
+        section_content, re.DOTALL
+    )
+    if key_points_match:
+        bullets = re.findall(r'^- (.+?)$', key_points_match.group(1), re.MULTILINE)
+        # Take the most important bullets (first 3-4)
+        for b in bullets[:4]:
+            # Strip markdown formatting
+            clean = re.sub(r'\*\*(.+?)\*\*', r'\1', b)
+            clean = re.sub(r'`(.+?)`', r'\1', clean)
+            points.append(clean.strip())
+
+    # Extract Safety Moment
+    safety_match = re.search(
+        r'### .+?Safety Moment\s*\n(.*?)(?=\n###|\n---|\Z)',
+        section_content, re.DOTALL
+    )
+    if safety_match:
+        bullets = re.findall(r'^- (.+?)$', safety_match.group(1), re.MULTILINE)
+        if bullets:
+            clean = re.sub(r'\*\*(.+?)\*\*', r'\1', bullets[0])
+            points.append(f"Safety: {clean.strip()}")
+
+    # Extract Discussion Points (just first one as audience hook)
+    discussion_match = re.search(
+        r'### Discussion Points\s*\n(.*?)(?=\n###|\n---|\Z)',
+        section_content, re.DOTALL
+    )
+    if discussion_match:
+        bullets = re.findall(r'^- (.+?)$', discussion_match.group(1), re.MULTILINE)
+        if bullets:
+            points.append(f"Ask the audience: {bullets[0].strip()}")
+
+    return points
+
+
+def generate_notes_from_workshop(workshop_path, num_slides):
+    """Generate presenter notes for each slide from the workshop source file.
+
+    Distributes workshop sections across slides proportionally. The first
+    slide gets a cover note, the last slide gets a wrap-up note.
+    """
+    sections = parse_workshop_sections(workshop_path)
+    if not sections:
+        return ["" for _ in range(num_slides)]
+
+    notes = [""] * num_slides
+
+    # Generate cover slide note from workshop overview
+    text = workshop_path.read_text(encoding='utf-8')
+    overview_match = re.search(
+        r'## Workshop Overview\s*\n(.*?)(?=\n##|\n---)',
+        text, re.DOTALL
+    )
+    if overview_match:
+        overview = overview_match.group(1).strip()
+        # Take first paragraph as cover note
+        first_para = overview.split('\n\n')[0].strip()
+        # Remove markdown formatting
+        first_para = re.sub(r'\*\*(.+?)\*\*', r'\1', first_para)
+        notes[0] = f"Welcome and frame the module. {first_para}"
+
+    # Remaining slides distributed across sections
+    content_slides = num_slides - 1  # exclude cover
+    slides_per_section = max(1, content_slides / len(sections))
+
+    for sec_idx, section in enumerate(sections):
+        # Which slide range does this section map to?
+        start_slide = 1 + int(sec_idx * slides_per_section)
+        end_slide = 1 + int((sec_idx + 1) * slides_per_section)
+        end_slide = min(end_slide, num_slides)
+
+        points = extract_talking_points(section['content'])
+        if not points:
+            continue
+
+        # First slide of the section gets the bulk of the notes
+        section_intro = f"Section: {section['title']}. "
+        first_slide_points = points[:3]
+        note_text = section_intro + " ".join(first_slide_points)
+        if start_slide < num_slides:
+            notes[start_slide] = note_text
+
+        # Additional slides in this section get remaining points
+        remaining_points = points[3:]
+        for offset, point in enumerate(remaining_points):
+            slide_idx = start_slide + 1 + offset
+            if slide_idx < end_slide and slide_idx < num_slides:
+                notes[slide_idx] = point
+
+    return notes
+
+
 def generate_slidev(image_files, notes_list, workshop_name, title):
     """Generate a Slidev markdown deck with full-bleed image slides.
 
@@ -189,9 +324,14 @@ def generate_slidev(image_files, notes_list, workshop_name, title):
         f"background: /images/{workshop_name}/{image_files[0]}",
         "---",
         "",
-        f"<!-- Presenter notes for cover slide -->",
-        "",
     ]
+
+    # Cover slide notes (index 0)
+    cover_note = notes_list[0] if notes_list and notes_list[0] else "Presenter notes for cover slide"
+    if not cover_note.startswith("<!--"):
+        cover_note = f"<!-- {cover_note} -->"
+    lines.append(cover_note)
+    lines.append("")
 
     for i, img_file in enumerate(image_files[1:], start=1):
         notes = notes_list[i] if i < len(notes_list) and notes_list[i] else "<!-- Presenter notes -->"
@@ -272,6 +412,17 @@ def main():
             break
 
     print(f"Title:      {title}")
+
+    # Generate presenter notes from workshop source if PPTX has no notes
+    has_pptx_notes = any(n for n in notes_list)
+    if not has_pptx_notes:
+        workshop_file = workshop_dir / f"{workshop_name}-workshop.md"
+        if workshop_file.exists():
+            print(f"Notes:      Generating from {workshop_file.name}")
+            workshop_notes = generate_notes_from_workshop(workshop_file, len(image_files))
+            notes_list = workshop_notes
+        else:
+            print(f"Notes:      No workshop file found, using placeholders")
 
     # Generate Slidev markdown
     md_content = generate_slidev(image_files, notes_list, workshop_name, title)
