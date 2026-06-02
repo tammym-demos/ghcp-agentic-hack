@@ -43,6 +43,45 @@ PUBLIC_DIR = ROOT / "public" / "images"
 SOURCE_DIR = ROOT / "source" / "pptx"
 
 
+def remove_footers(prs):
+    """Remove headers, footers, and NotebookLM watermarks (text + logo) from all slides."""
+    try:
+        # Get slide dimensions from presentation
+        slide_width = prs.slide_width
+        slide_height = prs.slide_height
+        
+        for slide in prs.slides:
+            shapes_to_remove = []
+            
+            for shape in slide.shapes:
+                # Remove footer placeholders
+                if hasattr(shape, "is_placeholder") and shape.is_placeholder:
+                    phf = shape.placeholder_format
+                    if phf.type in (14, 15, 16):  # Footer, slide number, date placeholders
+                        shapes_to_remove.append(shape)
+                
+                # Remove text shapes containing "NotebookLM"
+                if hasattr(shape, "text") and "NotebookLM" in shape.text:
+                    shapes_to_remove.append(shape)
+                
+                # Remove small shapes at bottom-right that might be the logo
+                # (positioned near the NotebookLM text)
+                if hasattr(shape, "left") and hasattr(shape, "top"):
+                    # Check if shape is in bottom-right area (roughly last 30% x 15%)
+                    if (shape.left > slide_width * 0.7 and 
+                        shape.top > slide_height * 0.85 and
+                        shape.width < slide_width * 0.25):
+                        # Likely a small logo/image at bottom-right
+                        shapes_to_remove.append(shape)
+            
+            # Remove identified shapes
+            for shape in shapes_to_remove:
+                sp = shape.element
+                sp.getparent().remove(sp)
+    except Exception as e:
+        print(f"  Warning: Could not remove footers/watermarks: {e}")
+
+
 def extract_largest_image(slide):
     """Extract the largest image from a slide (by byte size)."""
     best = None
@@ -74,6 +113,35 @@ def extract_notes(slide):
     return ""
 
 
+def remove_watermark(img):
+    """Remove the NotebookLM watermark from the bottom-right corner of an image.
+
+    Copies a horizontal strip of pixels from immediately left of the watermark
+    region and pastes it over the watermark. This preserves any underlying
+    background color or texture (solid, gradient, graph paper, etc.) and avoids
+    single-color fill artifacts on non-uniform backgrounds.
+
+    Only processes 1376x768 images (the standard NotebookLM export size).
+    """
+    # Only 1376x768 slides carry the NotebookLM watermark
+    if img.size != (1376, 768):
+        return img
+
+    # Watermark bounding box (pixel-exact, with generous margin)
+    WM_LEFT, WM_TOP, WM_RIGHT, WM_BOTTOM = 1224, 735, 1376, 766
+    WM_W = WM_RIGHT - WM_LEFT
+
+    # Source patch: same y range, directly left of the watermark
+    SRC_LEFT = WM_LEFT - WM_W
+    SRC_RIGHT = WM_LEFT
+
+    img = img.copy()
+    patch = img.crop((SRC_LEFT, WM_TOP, SRC_RIGHT, WM_BOTTOM))
+    img.paste(patch, (WM_LEFT, WM_TOP))
+
+    return img
+
+
 def save_image(blob, ext, slide_index, images_dir):
     """Save an image blob and return the filename."""
     content_hash = hashlib.md5(blob).hexdigest()[:8]
@@ -87,6 +155,7 @@ def save_image(blob, ext, slide_index, images_dir):
                 ratio = 1920 / img.width
                 new_size = (1920, int(img.height * ratio))
                 img = img.resize(new_size, Image.LANCZOS)
+            img = remove_watermark(img)
             img.save(filepath, optimize=True)
             return filename
         except Exception:
@@ -171,6 +240,9 @@ def main():
     prs = Presentation(str(pptx_path))
     total_slides = len(prs.slides)
     print(f"Slides:     {total_slides}")
+    
+    # Remove footers from presentation
+    remove_footers(prs)
 
     # Extract images and notes from each slide
     image_files = []
@@ -208,7 +280,7 @@ def main():
     output_path = workshop_dir / f"{workshop_name}.slidev.md"
     output_path.write_text(md_content, encoding='utf-8')
     print(f"\nOutput:     {output_path}")
-    print(f"\n✓ Conversion complete!")
+    print(f"\nConversion complete!")
     print(f"  - {len(image_files)} slides with background images")
     print(f"  - Add presenter notes in <!-- --> comments")
     print(f"  - Preview: npx slidev {output_path.relative_to(ROOT)}")
