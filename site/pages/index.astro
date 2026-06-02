@@ -34,12 +34,12 @@ const workshopMeta: Record<string, { label: string; desc: string; icon: string; 
         day: 'Day 1 — Modules & Labs',
         subtitle: '9:00 AM – 5:00 PM',
         items: [
-          { time: '9:00 – 9:15', duration: '15 min', activity: 'Welcome & Setup' },
-          { time: '9:15 – 10:45', duration: '90 min', activity: 'Module 1: Foundations (presentation + lab)' },
+          { time: '9:00 – 9:15', duration: '15 min', activity: 'Welcome & Kickoff' },
+          { time: '9:15 – 10:45', duration: '90 min', activity: 'Module 1: Foundations (presentation + lab) — Speakers 1 & 2' },
           { time: '10:45 – 11:00', duration: '15 min', activity: '☕ Break' },
-          { time: '11:00 – 12:55', duration: '115 min', activity: 'Module 2: Agentic Patterns (presentation + lab)' },
+          { time: '11:00 – 12:55', duration: '115 min', activity: 'Module 2: Agentic Patterns (presentation + lab) — Speakers 2, 3 & 4' },
           { time: '12:55 – 1:40', duration: '45 min', activity: '🍽️ Lunch' },
-          { time: '1:40 – 3:10', duration: '90 min', activity: 'Module 3: Advanced Topics (presentation + lab)' },
+          { time: '1:40 – 3:10', duration: '90 min', activity: 'Module 3: Advanced Topics (presentation + lab) — Speakers 4 & 5' },
           { time: '3:10 – 3:25', duration: '15 min', activity: '☕ Break' },
           { time: '3:25 – 4:45', duration: '80 min', activity: 'Open Lab / Hack Prep' },
           { time: '4:45 – 5:00', duration: '15 min', activity: 'Day 1 Wrap-up & Day 2 Preview' }
@@ -47,13 +47,14 @@ const workshopMeta: Record<string, { label: string; desc: string; icon: string; 
       },
       {
         day: 'Day 2 — Hack Day',
-        subtitle: '9:00 AM – 3:00 PM',
+        subtitle: '9:00 AM – 5:00 PM',
         items: [
           { time: '9:00 – 9:15', duration: '15 min', activity: 'Day 2 Kickoff & Team Formation' },
           { time: '9:15 – 12:00', duration: '165 min', activity: '🚀 Hack — Build with Copilot' },
           { time: '12:00 – 12:45', duration: '45 min', activity: '🍽️ Lunch' },
-          { time: '12:45 – 2:00', duration: '75 min', activity: '🚀 Hack — Continue Building' },
-          { time: '2:00 – 3:00', duration: '60 min', activity: '🎤 Project Readouts & Wrap-up' }
+          { time: '12:45 – 3:00', duration: '135 min', activity: '🚀 Hack — Continue Building' },
+          { time: '3:00 – 4:30', duration: '90 min', activity: '🎤 Project Readouts' },
+          { time: '4:30 – 5:00', duration: '30 min', activity: 'Wrap-up & Next Steps' }
         ]
       }
     ]
