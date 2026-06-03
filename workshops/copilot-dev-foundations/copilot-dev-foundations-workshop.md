@@ -14,10 +14,12 @@ Module 1 establishes the mental model and operating habits that make GitHub Copi
 ### Learning Objectives
 
 - Explain how GitHub Copilot fits into a developer workflow from completion to chat to agentic execution
-- Choose the right chat mode for a task and use slash commands, participants, and scoped context effectively
+- Use code completions, inline chat, and chat modes effectively for different task types
+- Describe Copilot's privacy model, data handling, and IP indemnity protections for enterprise use
 - Describe how context, memory, instructions, and prompt quality shape Copilot output
 - Create repository-wide and file-scoped instructions that align Copilot with team conventions
 - Compare model, agent, and prompt options based on speed, reasoning depth, and cost tradeoffs
+- Understand how Copilot Code Review fits into pull request workflows as a complement to human review
 - Prepare for the lab by practicing safe review habits and lightweight customization patterns
 
 ### Prerequisites
@@ -37,15 +39,15 @@ Module 1 establishes the mental model and operating habits that make GitHub Copi
 
 | Section | Topic | Time |
 |---------|-------|------|
-| 1 | Foundations framing, safety, and workflow map | 5 min |
-| 2 | Copilot Chat Tour (modes, slash commands, @ participants, CLI) | 18 min |
-| 3 | Memory, Context & Instructions (context window, instruction files, prompts) | 25 min |
-| 4 | Models, Agents, Skills & Customization (model comparison, agents, reusable prompts, tokens) | 32 min |
+| 1 | Foundations framing, safety, privacy, and workflow map | 5 min |
+| 2 | Copilot Interaction Modes (completions, inline chat, modes, code review, CLI) | 20 min |
+| 3 | Memory, Context & Instructions (context window, memory, instruction files, prompts) | 25 min |
+| 4 | Models, Agents, Skills & Customization (model comparison, agents, reusable prompts, tokens) | 30 min |
 | 5 | Wrap-up, hand-off to lab, and Q&A | 5 min |
 
 ---
 
-## 1. Foundations Framing, Safety, and Workflow Map (5 min)
+## 1. Foundations Framing, Safety, Privacy, and Workflow Map (5 min)
 
 ### Key Points
 
@@ -62,6 +64,26 @@ Agent → multi-step execution with human review
 ```
 
 - The most effective workflow is not "use AI everywhere"; it is "use the lowest-autonomy tool that solves the current problem well"
+- **Where GitHub Copilot lives** — Copilot is available across multiple surfaces, each optimized for a different workflow:
+
+| Surface | Best For | Key Capabilities |
+|---------|----------|-----------------|
+| **VS Code** | Daily development — editing, debugging, testing | Completions, inline chat, Chat panel (Ask/Plan/Agent), terminal integration, extensions, custom agents |
+| **Visual Studio** | Enterprise .NET/C++ development | Completions, Chat panel, inline chat, deep integration with Solution Explorer, debugging, and project-aware context |
+| **GitHub Copilot CLI** | Terminal-first workflows, automation, scripting | Interactive chat in the shell, direct prompts, project overviews, command explanation — works outside any IDE |
+| **GitHub.com (Copilot Chat)** | Code review, repo exploration, issue triage | Chat on any repo page, PR review assistance, commit explanations, issue drafting — no local clone needed |
+
+- VS Code and Visual Studio provide the deepest integration (completions + chat + agents + extensions)
+- The CLI is ideal for developers who prefer terminal workflows or need Copilot in CI/automation contexts
+- GitHub.com Copilot Chat is useful for quick repo exploration, reviewing PRs on the go, or working from a browser without a local environment
+- All surfaces share the same underlying models and respect the same organization policy settings
+
+- **Privacy and data handling** are essential context for enterprise adoption:
+  - Prompts and code snippets are sent to GitHub's hosted models for processing but are **not retained for model training** on Business and Enterprise plans
+  - GitHub Copilot Business/Enterprise includes IP indemnity — Microsoft provides intellectual property protection for Copilot output used in qualifying scenarios
+  - The **public code filter** can be enabled to suppress suggestions that closely match publicly available code on GitHub, reducing licensing risk
+  - Organization admins control policy settings (which features are enabled, which models are available, whether telemetry is collected) via GitHub organization settings
+  - Developers should still avoid pasting secrets, credentials, or highly sensitive data into prompts — Copilot is not a secrets manager
 
 ### 🛡️ Safety Moment
 
@@ -77,10 +99,20 @@ Agent → multi-step execution with human review
 
 ---
 
-## 2. Copilot Chat Tour (18 min)
+## 2. Copilot Interaction Modes (20 min)
 
 ### Key Points
 
+- **Code Completions (Ghost Text)** are the most-used Copilot feature and the fastest interaction mode:
+  - Suggestions appear inline as you type — accept with `Tab`, dismiss with `Esc`, cycle alternatives with `Alt+]` / `Alt+[`
+  - Multi-line completions generate entire blocks (functions, loops, test cases) based on surrounding code and comments
+  - **Partial accept** lets you take part of a suggestion word-by-word with `Ctrl+→` (Cmd+→ on macOS) instead of accepting the whole block
+  - **Next Edit Suggestions (NES)** proactively predict your next likely edit location and offer completions there, reducing navigation effort
+  - Completions work best when you write clear function signatures, descriptive comments, or name variables intentionally — the model uses nearby context to infer intent
+- **Inline Chat** (`Ctrl+I` / `Cmd+I`) provides a lightweight prompt experience directly in the editor without opening the Chat panel:
+  - Best for quick, targeted edits: "add error handling here", "refactor this to use async/await", "add JSDoc to this function"
+  - The prompt applies to the current selection or cursor position, keeping scope tight and diffs easy to review
+  - Results appear as an inline diff — accept, reject, or iterate without leaving the editor flow
 - **Ask** mode is best for explanation, exploration, code reading, and quick answers without changing files
 - **Plan** mode is best for design, sequencing, and risk-aware change proposals before implementation
 - **Agent** mode is best for scoped execution when you want GitHub Copilot to read files, propose edits, and carry out a multi-step task
@@ -91,50 +123,76 @@ Agent → multi-step execution with human review
   - `@vscode` helps with editor-specific behavior
   - `#file` focuses on a specific file
   - `#selection` focuses on the highlighted code
+- **Copilot Code Review** brings AI assistance into the pull request workflow:
+  - Request a Copilot review on any pull request — it analyzes the diff and leaves inline comments highlighting potential bugs, security issues, and logic errors
+  - Available as a reviewer in the PR review request dropdown on GitHub.com
+  - Copilot review complements (not replaces) human review — it catches mechanical issues so human reviewers can focus on design, architecture, and business logic
+  - Can also be triggered in VS Code via the review flow for local branch changes before pushing
 - Continue a session when the same task benefits from prior context; start fresh when the objective changes, the thread becomes noisy, or assumptions are drifting
 - The session sidebar helps manage prior conversations, revisit earlier plans, and branch from useful context instead of repeating setup prompts
 - GitHub Copilot CLI extends these workflows into the terminal for project overviews, command help, and non-interactive automation
 
 ### 🛡️ Safety Moment
 
+- Do not over-trust inline completions just because they appeared quickly or matched surrounding syntax — always read before accepting
 - Review agent-generated file changes before accepting them
-- Do not over-trust inline completions just because they appeared quickly or matched surrounding syntax
+- Copilot Code Review catches patterns but does not guarantee correctness — human review remains the final gate
 - Prefer Ask or Plan mode first when the cost of a wrong edit is high
 
-### 🖥️ Demo: Switching Modes, Adding Context, and Using the CLI
+### 🖥️ Demo: Completions, Inline Chat, Modes, and CLI
 
-1. Open GitHub Copilot Chat and point out the **Ask**, **Plan**, and **Agent** mode picker
-2. In **Ask** mode, demonstrate a repo-aware question:
+1. Open a code file and demonstrate **code completions**:
+   - Type a descriptive function signature and pause to show the ghost text suggestion
+   - Accept with `Tab`, then show `Ctrl+Z` to undo and demonstrate partial accept with `Ctrl+→`
+   - Add a comment describing intent and show how the next completion adapts
+
+2. Demonstrate **Inline Chat** (`Ctrl+I`):
+   - Select a block of code and press `Ctrl+I`
+   - Type a short instruction:
+
+   ```text
+   Add input validation and return early if the argument is invalid.
+   ```
+
+   - Show the inline diff, accept it, then demonstrate rejecting an alternative suggestion
+
+3. Open GitHub Copilot Chat and point out the **Ask**, **Plan**, and **Agent** mode picker
+4. In **Ask** mode, demonstrate a repo-aware question:
 
    ```text
    @workspace Summarize this project's structure and tell me which folders matter most for a new contributor.
    ```
 
-3. In **Plan** mode, demonstrate planning without edits:
+5. In **Plan** mode, demonstrate planning without edits:
 
    ```text
    Plan a safe refactor for #file. Call out risks, test updates, and rollback steps before making changes.
    ```
 
-4. In **Agent** mode, demonstrate a small, reversible task:
+6. In **Agent** mode, demonstrate a small, reversible task:
 
    ```text
    Update #selection for clarity, explain the proposed change first, and keep the edit limited to this file.
    ```
 
-5. Show a slash-command workflow:
+7. Show a slash-command workflow:
 
    ```text
    /explain #selection
    ```
 
-6. Show GitHub Copilot CLI in both interactive and direct-prompt flows:
+8. Show GitHub Copilot CLI in both interactive and direct-prompt flows:
 
    ```powershell
    copilot
    /help
    copilot -p "Give me an overview of this project."
    ```
+
+9. Briefly show **Copilot Code Review** on a pull request:
+   - Open a PR on GitHub.com and show the "Request review from Copilot" option
+   - Point out an example of a Copilot review comment with an inline suggestion
+   - Emphasize that Copilot review is additive — it does not replace human approvals
 
 ### 💡 Optimization Tip: Session Hygiene
 
@@ -144,9 +202,11 @@ Agent → multi-step execution with human review
 
 ### Discussion Points
 
+- How often do you accept completions without reading them? What habits could reduce blind acceptance?
+- When would **Inline Chat** be faster than opening the Chat panel?
 - When would **Plan** mode save time versus jumping straight to **Agent** mode?
 - Which context helpers would most improve your current prompting habits?
-- Where would GitHub Copilot CLI fit naturally into your existing terminal workflow?
+- Would Copilot Code Review change how your team approaches PR reviews?
 
 ### 🔬 LAB: Exercise 1 — Copilot Chat Tour
 
@@ -162,6 +222,15 @@ Agent → multi-step execution with human review
 - Context is prioritized and truncated, so clearer prompts and better scoping usually outperform longer prompts with unnecessary detail
 - Token usage matters because large context payloads can slow responses, increase premium usage, and crowd out the most useful information
 - Developers should regularly inspect what context is being sent and trim irrelevant files, stale conversation state, or overly broad workspace requests
+- **Copilot Memory** is a persistent knowledge layer that remembers preferences and facts across sessions without requiring instruction files:
+  - **User memory** stores personal preferences (coding style, workflow habits) that follow you across all repositories
+  - **Repository memory** stores project-specific conventions visible to all collaborators working in that repo
+  - Memory is populated conversationally — when you say "always use…", "remember that…", or "from now on…", Copilot detects preference-like statements and stores them automatically
+  - You can also manage memory explicitly via GitHub Settings > Copilot > Memory (for user-scoped) or repository Settings > Copilot > Memory (for repo-scoped)
+- Memory complements but does not replace instruction files:
+  - Use **memory** for implicit, conversational preferences and facts that emerge during work (e.g., "I prefer early returns", "this repo uses pnpm")
+  - Use **instruction files** for explicit, version-controlled team standards that should be reviewed and shared via pull requests
+  - Memory is best for individual workflow style; instructions are best for durable, team-wide conventions that need audit trails
 - Repository-wide instructions belong in `.github/copilot-instructions.md` and should capture durable project guidance
 - File-scoped instructions belong in `.github/instructions/*.instructions.md` and should use `applyTo` patterns to target specific paths or file types
 - Reusable prompt files belong in `.github/prompts/*.prompt.md` and are best for repeatable tasks that benefit from a structured objective, scope, and definition of done
@@ -177,10 +246,27 @@ Agent → multi-step execution with human review
 - Be deliberate about what files, terminal output, and conversation history you include
 - Avoid attaching broad workspace context when a smaller `#file` or `#selection` scope is enough
 
-### 🖥️ Demo: Building Instruction Layers That Shape Output
+### 🖥️ Demo: Memory, Instruction Layers, and Context Shaping
 
-1. Start with a baseline prompt in a code file and note the response style before adding instructions
-2. Create a repository-level instruction file at `.github/copilot-instructions.md`:
+1. Demonstrate **Copilot Memory** by stating a preference conversationally:
+
+   ```text
+   Remember: I prefer early returns over nested if-else in this project.
+   ```
+
+2. Show that Copilot acknowledges and stores the preference, then ask a follow-up in a new prompt to confirm recall:
+
+   ```text
+   Generate a validation function in #file.
+   ```
+
+3. Open **GitHub Settings > Copilot > Memory** (or repository Settings > Copilot > Memory) and show:
+   - The stored memory entry
+   - How to view, edit, or delete stored preferences
+   - The distinction between user-scoped and repository-scoped memories
+
+4. Start with a baseline prompt in a code file and note the response style before adding instruction files
+5. Create a repository-level instruction file at `.github/copilot-instructions.md`:
 
    ```markdown
    # Repository Instructions
@@ -252,6 +338,17 @@ Agent → multi-step execution with human review
 - Skills extend what agents can do by supplying specialized tools or domain-specific instructions that the agent can invoke when relevant
 - Reusable prompt files are ideal when you want consistency without creating a persistent persona
 - Context-window size, premium usage, and autonomy are connected: the more freedom and context you grant, the more important good framing and review become
+- **Checking usage and context in VS Code** — developers can inspect what Copilot is consuming directly in the IDE:
+  - **Used references list** — after every Chat response, expand the "Used X references" disclosure at the top of the reply to see exactly which files, symbols, and instruction files Copilot included as context. If irrelevant files appear, narrow your prompt scope
+  - **Token/context indicator** — the Chat panel shows context utilization. Watch for warnings when context is nearly full — this is the signal to start a fresh session or reduce attached files
+  - **Model label** — the current model name is displayed in the Chat panel header. Verify you are using the intended tier before expensive prompts
+  - **Premium requests remaining** — visible in the Copilot status menu (click the Copilot icon in the status bar). Shows how many premium requests remain in your current billing cycle
+  - **Output panel (GitHub Copilot logs)** — select "GitHub Copilot" or "GitHub Copilot Chat" in the Output panel dropdown to see request timing, model routing decisions, and errors. Useful for debugging slow or unexpected responses
+- **How to interpret what you see**:
+  - If "Used references" includes files you did not intend → your prompt scope is too broad; use `#file` or `#selection` instead of `@workspace`
+  - If context is nearly full → start a new session (`/clear`) or remove attached files before continuing
+  - If responses are slow or shallow → check whether a reasoning model is being used for a simple task; switch to a faster model
+  - If premium requests are low → prefer smaller models for routine work and reserve premium-tier for high-value reasoning tasks
 
 ### 🛡️ Safety Moment
 
@@ -267,7 +364,11 @@ Agent → multi-step execution with human review
    Compare two safe ways to refactor this module and recommend one based on maintainability and test impact.
    ```
 
-2. Open the usage or billing view and explain how model choice, tokens, and premium requests affect team adoption
+2. Show how to **inspect usage and context** in the IDE:
+   - Click the Copilot icon in the VS Code status bar and point out premium requests remaining
+   - After a Chat response, expand "Used X references" and walk through what was included
+   - Open the Output panel → "GitHub Copilot Chat" and show a request log entry with model and timing
+   - Demonstrate how switching from `@workspace` to `#file` reduces the reference list
 3. Create a simple custom agent at `.github/agents/refactor-coach.agent.md`:
 
    ```yaml

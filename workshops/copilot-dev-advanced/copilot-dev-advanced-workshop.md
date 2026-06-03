@@ -87,7 +87,7 @@ Module 3 moves from effective day-to-day use of GitHub Copilot into advanced ope
 
 ### 🔬 LAB: Exercise 1 — Configure and Use an MCP Server
 
-> **Instructor**: Pause here for hands-on practice. Students complete Exercise 1 (5 min) configuring an MCP server, observing tool discovery, and reviewing the approval flow.
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 1 (5 min) configuring a sample MCP server, observing tool discovery, and reviewing the approval flow before continuing to the next section.
 
 ---
 
@@ -202,9 +202,9 @@ Module 3 moves from effective day-to-day use of GitHub Copilot into advanced ope
 - What debugging scenarios have you encountered with GitHub Copilot so far?
 - How would debug logs change the way your team investigates unexpected agent behavior?
 
-### 🔬 LAB: Exercise 2 — Inspect Chat and Agent Logs
+### 🔬 LAB: Exercise 2 — Inspect Chat and Agent Debug Logs
 
-> **Instructor**: Pause here for hands-on practice. Students complete Exercise 2 (5 min) opening debug logs, comparing context with and without `@workspace`, and identifying what data was sent.
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 2 (5 min) opening debug logs, comparing context with and without `@workspace`, and identifying what data was sent before continuing to the next section.
 
 ---
 
@@ -263,7 +263,7 @@ Module 3 moves from effective day-to-day use of GitHub Copilot into advanced ope
 
 ### 🔬 LAB: Exercise 3 — Observe an Agentic Loop and Off-Ramp
 
-> **Instructor**: Pause here for hands-on practice. Students complete Exercise 3 (5 min) observing plan → execute → observe → reflect, identifying off-ramp behavior, and evaluating when an agent should stop.
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 3 (5 min) observing plan → execute → observe → reflect, identifying off-ramp behavior, and evaluating when an agent should stop before continuing to the next section.
 
 ---
 
