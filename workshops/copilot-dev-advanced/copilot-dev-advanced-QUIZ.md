@@ -62,4 +62,28 @@
 
 ---
 
+### 6. Your team has 8 MCP servers configured but only uses 2-3 on any given day. GitHub Copilot agents are frequently making unexpected tool calls to rarely-used servers. What is the best corrective action?
+
+- A) Leave all servers active since GitHub Copilot should learn which ones to ignore over time
+- B) Disable unused MCP servers and pair frequently-used ones with custom agents that restrict the active tool set
+- C) Add instructions saying "never use MCP servers" to prevent all external tool calls
+- D) Remove all MCP servers and rely solely on `@workspace` for external information
+
+<!--answer: B-->
+<!--explanation: Each active MCP server adds tool descriptions to every request, consuming tokens and creating opportunities for the agent to take unnecessary detours. Disabling unused servers and restricting tool sets per workflow keeps the agent focused and reduces token waste.-->
+
+---
+
+### 7. A developer wants GitHub Copilot to run `git log --oneline` to find recent commits. The team has both a Git MCP server and terminal access available. Which approach is generally more efficient?
+
+- A) Always use the MCP server because it provides structured output
+- B) Use the CLI directly — git commands are well-represented in training data and do not require MCP overhead
+- C) Avoid both approaches and ask GitHub Copilot to guess the commit history from file contents
+- D) Configure a new custom MCP server specifically for git operations
+
+<!--answer: B-->
+<!--explanation: Tools like git, npm, and docker are already dominant in model training data. For simple, well-known commands the CLI path is simpler and avoids the overhead of MCP tool descriptions and approval flows. MCP adds value when structured input/output, authentication, or state management is needed.-->
+
+---
+
 *Quiz for Module 3: Advanced Topics — GitHub Copilot Developer Training*
