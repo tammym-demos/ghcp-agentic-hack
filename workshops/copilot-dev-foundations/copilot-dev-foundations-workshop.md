@@ -189,10 +189,11 @@ Agent → multi-step execution with human review
    copilot -p "Give me an overview of this project."
    ```
 
-9. Briefly show **Copilot Code Review** on a pull request:
-   - Open a PR on GitHub.com and show the "Request review from Copilot" option
-   - Point out an example of a Copilot review comment with an inline suggestion
-   - Emphasize that Copilot review is additive — it does not replace human approvals
+### 💡 Optimization Tip: Session Hygiene
+
+- Start a new session for every new task; do not stack unrelated objectives in one conversation
+- A cluttered thread causes the model to reference stale assumptions and produce lower-quality output
+- Continue a session only when the same task benefits from prior context; switch the moment the objective drifts
 
 ### Discussion Points
 
@@ -201,6 +202,10 @@ Agent → multi-step execution with human review
 - When would **Plan** mode save time versus jumping straight to **Agent** mode?
 - Which context helpers would most improve your current prompting habits?
 - Would Copilot Code Review change how your team approaches PR reviews?
+
+### 🔬 LAB: Exercise 1 — Copilot Chat Tour
+
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 1 (5 min) exploring modes, slash commands, context helpers, and the CLI before continuing to the next section.
 
 ---
 
@@ -228,7 +233,7 @@ Agent → multi-step execution with human review
   - **Task** — what outcome you want
   - **Scope** — which files, folders, or code regions matter
   - **Constraints** — coding standards, safety limits, or tools to avoid
-  - **Definition of done** — how success should be evaluated
+  - **Definition of done** — how success should be evaluated, including explicit stop conditions that prevent the agent from over-executing beyond the intended scope
 
 ### 🛡️ Safety Moment
 
@@ -289,11 +294,22 @@ Agent → multi-step execution with human review
 5. Open a matching test file and show how the response changes for test-specific work
 6. Highlight how narrower instruction files help preserve context window space while still guiding output
 
+### 💡 Optimization Tip: Context Rot and Stop Signals
+
+- **Lost in the middle**: When a context window fills to roughly 50%, the model biases toward information at the beginning and end of the window while losing track of material in the middle — making it critical to keep the most relevant context concise and recent
+- **Recency bias**: At 60–70% fill, the model can lose sight of the system prompt, custom instructions, and original objective — leading to drift and hallucinations
+- **Stop signals in prompts**: Always include explicit stop conditions in your prompts (for example, "stop when the tests pass" or "do not modify files outside `src/auth/`") to prevent agents from over-executing beyond your intent
+- These phenomena explain why shorter, well-scoped prompts consistently outperform long prompts with unnecessary detail
+
 ### Discussion Points
 
 - What rules would you encode first for your team's codebase?
 - Which instructions belong at the repository level versus the file-scoped level?
 - Where have you seen poor results caused by vague prompts or too much irrelevant context?
+
+### 🔬 LAB: Exercise 2 — Memory, Context & Instructions
+
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 2 (5 min) creating repository and file-scoped instruction files and observing how they shape GitHub Copilot output.
 
 ---
 
@@ -389,11 +405,22 @@ Agent → multi-step execution with human review
 
 6. Run the prompt and compare the experience to using the custom agent
 
+### 💡 Optimization Tip: Token Cost Awareness
+
+- **Output tokens cost more than input tokens**: generating code and explanations requires more compute than reading context, so concise instructions that produce focused output save both time and budget
+- **Model tier price spread**: the difference between the highest-tier reasoning model and the lowest-tier completion model can be up to 24× — meaning careless model selection on routine tasks compounds quickly across a team
+- **"Be concise" in instructions works**: adding a simple instruction like "be concise" in `copilot-instructions.md` measurably reduces output token volume without sacrificing quality for most tasks
+- The auto model router handles most mixed workloads well, but developers should override it when they know a task is trivially simple (use a smaller model) or architecturally complex (use a reasoning model)
+
 ### Discussion Points
 
 - How would you decide between a fast small model and a larger reasoning model for a given task?
 - Which workflows in your team would benefit more from a reusable prompt than from a persistent custom agent?
 - Where would you put review guardrails before letting agentic workflows touch production-critical code?
+
+### 🔬 LAB: Exercise 3 — Models, Agents & Custom Prompt
+
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 3 (5 min) switching models, creating a custom agent, and running a reusable prompt file.
 
 ---
 
