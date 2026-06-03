@@ -88,6 +88,10 @@ Plan → Act → Observe → Adjust
 - What would you always want to review before accepting?
 - Where does your current comfort level change from "assist me" to "act for me"?
 
+### 🔬 LAB: Exercise 1 — Agent vs. Skill
+
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 1 (5 min) comparing an agent multi-step workflow with a direct skill invocation.
+
 ---
 
 ## 2. Agent vs. Skill — When to Use Each (12 min)
@@ -131,6 +135,12 @@ If no → use a direct skill or tool call
    ```
 
 3. Compare the difference in planning, tool use, and review burden.
+
+### 💡 Optimization Tip: Tool Set Discipline
+
+- Give agents only the tools they need for the current task — a smaller tool set produces more predictable behavior
+- Too many available tools (especially MCP servers like Playwright) can cause agents to take unnecessary detours (e.g., taking screenshots when none were requested)
+- Pair custom agents with restricted tool lists to keep them focused
 
 ### Discussion Points
 
@@ -190,6 +200,12 @@ If no → use a direct skill or tool call
 - Which tasks fit a background agent well versus a cloud agent workflow?
 - What review signals would help you calibrate trust in autonomous changes?
 
+### 💡 Optimization Tip: Sub-Agents for Context Isolation
+
+- Background agents and sub-agents run in their own context window — only the final summary returns to the main session
+- This prevents discovery tokens (file listings, search results, intermediate reasoning) from polluting your primary working context
+- Trade-off: duplicating system/tool tokens in the sub-context, but the main session stays clean and focused
+
 ---
 
 ## 4. GitHub Copilot `/init` and Project Bootstrapping (8 min)
@@ -224,6 +240,10 @@ If no → use a direct skill or tool call
 - How would you integrate `/init` into your team's project creation workflow?
 - What defaults would you always verify before committing scaffolded output?
 - Where would custom starter templates still outperform generated scaffolding?
+
+### 🔬 LAB: Exercise 2 — Instruction Layering
+
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 2 (5 min) creating layered instructions and observing how they compose across repo-wide and file-scoped levels.
 
 ---
 
@@ -278,6 +298,13 @@ If no → use a direct skill or tool call
 
 3. Compare a generation request in a source file versus a test file and call out which layers are active.
 
+### 💡 Optimization Tip: Skills as Conditional Context
+
+- **Skills** are only loaded when the LLM determines they are relevant — unlike `copilot-instructions.md` which is always sent
+- Move conditional guidance (e.g., "when working with Docker files, always use multi-stage builds") OUT of always-on instructions and INTO skills
+- This saves input tokens on every request where the skill is not relevant
+- Do not create skills for well-known frameworks (React, Express) — they are already dominant in training data and skills would add no value
+
 ### Discussion Points
 
 - What organizational guardrails should your team implement?
@@ -321,6 +348,10 @@ If no → use a direct skill or tool call
 - What specialized agent roles would benefit your team's workflow?
 - Where would multi-agent orchestration improve quality or speed?
 - What signs tell you that multi-agent design is overkill for the task at hand?
+
+### 🔬 LAB: Exercise 3 — Build a Custom Agent
+
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 3 (5 min) creating a custom review agent and observing structured background execution.
 
 ---
 
@@ -390,6 +421,17 @@ If no → use a direct skill or tool call
    - Use as an "agent miss log" — recurring failures become instructions
    - Do not use AI to generate them — they should capture what AI cannot figure out independently
    - Treat as a living document; review and refresh every ~3 months
+   - Adding "be concise" measurably reduces output token volume without sacrificing quality
+
+6. **Output tokens cost more than input tokens**:
+   - Generating code and explanations requires more compute than reading context
+   - Concise instructions that produce focused output save both time and budget
+   - This is why "be concise" and stop signals have outsized impact on cost
+
+7. **MCP server discipline**:
+   - Only activate MCP servers you regularly use — each adds tool descriptions to every request
+   - Too many available tools causes agents to take unnecessary detours
+   - Pair MCP servers with custom agents that restrict the active tool set
 
 ### 🛡️ Safety Moment
 
@@ -417,9 +459,13 @@ If no → use a direct skill or tool call
 
 ### Discussion Points
 
-- Which of the five controls would have the biggest impact on your current workflow?
+- Which of the seven controls would have the biggest impact on your current workflow?
 - Have you noticed quality degradation in long sessions? What was the symptom?
 - How would you structure an "agent miss log" for your team?
+
+### 🔬 LAB: Exercise 4 — Token Optimization
+
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 4 (5 min) comparing model tiers, practicing session hygiene with `/clear`, and writing precise prompts with stop signals.
 
 ---
 
