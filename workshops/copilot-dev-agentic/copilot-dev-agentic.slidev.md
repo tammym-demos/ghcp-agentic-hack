@@ -10,126 +10,147 @@ drawings:
 transition: slide-left
 mdc: true
 layout: image-full
-background: /images/copilot-dev-agentic/slide-01-eb229e26.png
+background: /images/copilot-dev-agentic/slide-01-e45e1fd4.png
 ---
 
-<!-- Welcome and frame the module. Module 2 helps developers move from "GitHub Copilot as a smart assistant" to "GitHub Copilot as a scoped autonomous teammate." Participants learn how agents coordinate skills, when to choose direct tool use instead of delegation, how background and cloud agents change the workflow, and how instruction layering and multi-agent patterns shape safe adoption. The emphasis throughout is practical trust calibration: delegate intentionally, keep review gates in place, and design workflows that still leave the developer in control. -->
-
----
-layout: image-full
-background: /images/copilot-dev-agentic/slide-02-1553f96f.png
----
-
-<!-- Section: What Is an Agent? What Is a Skill? (10 min). An agent is a goal-directed workflow that can plan, take actions with tools, observe the result, and adjust based on what it learns A useful mental model for agentic execution is: A skill is a specific capability the agent can invoke, such as file edits, terminal access, search, web browsing, or GitHub API calls -->
+<!-- Welcome and frame the module by shifting the audience from "assistant" thinking to "autonomy with guardrails" thinking. Module 2 shows how GitHub Copilot can help plan, act, observe, and adjust, while the human still owns the final decision and review gates. Emphasize that the real value is safe delegation, not maximum automation. -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-agentic/slide-03-c75084c4.png
+background: /images/copilot-dev-agentic/slide-02-b10ecda3.png
 ---
 
-<!-- Section: Agent vs. Skill — When to Use Each (12 min). Use an agent when the task is multi-step, goal-directed, and likely to require judgment during execution Use a skill or direct tool invocation when the task is single-step, deterministic, and does not need adaptation A simple decision framework: -->
-
----
-layout: image-full
-background: /images/copilot-dev-agentic/slide-04-898e5b4f.png
----
-
-<!-- Agents are strongest when they can sequence actions, inspect results, and revise the next step -->
+<!-- This section defines the core mental model: an agent is the orchestrator, while a skill is one concrete capability it can call. Use the Plan → Act → Observe → Adjust loop to show why agents are useful for multi-step goals, not just for one-shot answers. -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-agentic/slide-05-56c32769.png
+background: /images/copilot-dev-agentic/slide-03-2e70bfb2.png
 ---
 
-<!-- Section: Background Agents and Cloud Agents — Coding Agent (15 min). Background agents are long-running agents that keep working while the developer continues with other tasks Developers launch them, monitor progress, review intermediate output, and inspect the final result before accepting it Cloud agents, including Coding Agent, extend the workflow beyond the local IDE into an issue → branch → implement → pull request flow -->
-
----
-layout: image-full
-background: /images/copilot-dev-agentic/slide-06-5ac506ee.png
----
-
-<!-- Coding Agent can work from a GitHub issue, create a branch, implement the change in a cloud environment, and open a PR for review -->
+<!-- Reinforce the distinction with a simple reminder: the agent chooses the path, but the skill performs the actual action. That separation makes it easier to explain where trust, review, and failure handling belong in the workflow. -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-agentic/slide-07-e2f4c3b9.png
+background: /images/copilot-dev-agentic/slide-04-41cdb290.png
 ---
 
-<!-- Section: GitHub Copilot `/init` and Project Bootstrapping (8 min). GitHub Copilot /init helps scaffold a new project by generating structure, configuration, and starter boilerplate It is most useful when you want to accelerate a standard project setup rather than hand-author every starter file /init is not a replacement for design decisions; it is a starting point that still needs developer review -->
-
----
-layout: image-full
-background: /images/copilot-dev-agentic/slide-08-fe3a5e4c.png
----
-
-<!-- Teams can customize the scaffold by being explicit about stack, architecture, testing, and deployment expectations -->
+<!-- Use this section to help the audience choose the right level of autonomy for the task at hand. If the work needs judgment, iteration, or a sequence of actions, an agent is appropriate; if it is a single, predictable step, a direct tool or skill is usually better. -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-agentic/slide-09-d2efc5d2.png
+background: /images/copilot-dev-agentic/slide-05-994de3e9.png
 ---
 
-<!-- Section: Instruction Layering — Org, Repo, and File-Scoped (15 min). GitHub Copilot behavior is shaped by a layered instruction stack, from broad organizational guardrails down to the current chat request The full stack looks like this: In practice, the most specific applicable instruction wins when guidance conflicts -->
-
----
-layout: image-full
-background: /images/copilot-dev-agentic/slide-10-0361a9bb.png
----
-
-<!-- Organization-level guardrails cannot be overridden by repository instructions -->
+<!-- The real advantage of an agent appears when the task is not fully specified up front. It can inspect intermediate results, correct its course, and keep moving toward the goal instead of stopping after the first guess. -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-agentic/slide-11-377a6b88.png
+background: /images/copilot-dev-agentic/slide-06-d7ac4890.png
 ---
 
-<!-- Section: Multi-Agent Patterns — Squad as a Worked Example (15 min). Multi-agent workflows are useful when distinct roles benefit from different goals, tools, or evaluation criteria A concrete reference is Squad: <https://github.com/bradygaster/squad> In a multi-agent pattern, one agent might write code, another might review for defects, and another might expand or validate tests -->
-
----
-layout: image-full
-background: /images/copilot-dev-agentic/slide-12-3fea50ec.png
----
-
-<!-- Effective orchestration depends on clearly defined roles, crisp handoff points, and a shared definition of done -->
+<!-- This section introduces the idea that agentic work can happen outside the editor. Background agents keep working while you continue other tasks, and cloud agents carry that work into the issue, branch, implementation, and PR lifecycle. The key teaching point is that the developer stays in the review loop, not the background. -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-agentic/slide-13-ee9584ad.png
+background: /images/copilot-dev-agentic/slide-07-2d459f7f.png
 ---
 
-<!-- Section: Agent Quality & Token Optimization (25 min). Core principle: "Make every token count" — focus on agent output quality, not just cost reduction If the value of an agent's output is zero, even 80–90% cost reduction is just toil — quality determines ROI The compounding error problem: even 99% single-step accuracy drops to ~60% over 50 steps; 95% accuracy drops to ~8% -->
-
----
-layout: image-full
-background: /images/copilot-dev-agentic/slide-14-bbd0157c.png
----
-
-<!-- Every agent miss wastes tokens (discarded work, fix sessions, review cycles) — improving quality often *decreases* cost naturally -->
+<!-- Explain the cloud workflow as a practical path from problem to proposal. The agent can start from an issue, create a branch, make changes in a prepared environment, and open a pull request for human review instead of asking the developer to do every step manually. -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-agentic/slide-15-c3a78c68.png
+background: /images/copilot-dev-agentic/slide-08-bcbecbc9.png
 ---
 
-<!-- Section: Rubber Duck Debugging with GitHub Copilot (5 min). GitHub Copilot can act as a thought partner when you explain a bug, design tradeoff, or architectural concern out loud in writing The act of explaining your reasoning often reveals missing assumptions, hidden dependencies, or weak logic Cross-model review can help by giving you a second perspective on the same problem -->
-
----
-layout: image-full
-background: /images/copilot-dev-agentic/slide-16-fe3b70d9.png
----
-
-<!-- AI reasoning can be useful for surfacing possibilities, but design decisions still need independent validation -->
+<!-- /init is a good example of agentic acceleration with clear boundaries. It can create the skeleton of a project quickly, but the developer still needs to validate the stack, defaults, and assumptions before treating the scaffold as real work product. -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-agentic/slide-17-8696ec7b.png
+background: /images/copilot-dev-agentic/slide-09-276c9cc6.png
 ---
 
-<!-- Section: Wrap-up, Hand-off to Lab, and Q&A (5 min). Agents coordinate skills; skills perform specific actions Choose agentic workflows when the task is multi-step and adaptive, and direct tool use when the task is simple and deterministic Background agents, cloud agents, and Coding Agent expand where work happens, but review gates remain essential -->
+<!-- The best scaffold results come from explicit requirements, not vague prompts. If you tell Copilot what stack, testing, and deployment expectations matter, it can generate a much stronger starting point for the team. -->
 
 ---
 layout: image-full
-background: /images/copilot-dev-agentic/slide-18-3fc36595.png
+background: /images/copilot-dev-agentic/slide-10-3e781731.png
 ---
 
-<!-- GitHub Copilot /init, instruction layering, and custom orchestration patterns are force multipliers when paired with clear constraints -->
+<!-- This section explains why Copilot behavior feels different across repositories and files. The instruction stack is cumulative: broad policies set the floor, repo rules shape the defaults, and file-specific guidance fine-tunes behavior for the current task. -->
+
+---
+layout: image-full
+background: /images/copilot-dev-agentic/slide-11-143122af.png
+---
+
+<!-- Call out that governance rules are not negotiable. The most specific instruction helps when the task is clear, but it still cannot override the organization-level policies that keep the environment safe and compliant. -->
+
+---
+layout: image-full
+background: /images/copilot-dev-agentic/slide-12-b27b4fbd.png
+---
+
+<!-- This is a good place to tie the concept back to real engineering practice. Teams should treat instruction layering as a reliability tool, not as a workaround for governance or security rules. -->
+
+---
+layout: image-full
+background: /images/copilot-dev-agentic/slide-13-9a86110a.png
+---
+
+<!-- Multi-agent patterns are most valuable when the problem itself has distinct roles: one agent can implement, another can review, and another can expand tests. Use Squad as a concrete example of how specialization can improve quality when the task is complex enough to justify the coordination. -->
+
+---
+layout: image-full
+background: /images/copilot-dev-agentic/slide-14-c05aefed.png
+---
+
+<!-- The operational lesson here is that multi-agent design succeeds or fails at the handoff. If roles, inputs, and acceptance criteria are not explicit, the team pays for that ambiguity in slower iterations and weaker output. -->
+
+---
+layout: image-full
+background: /images/copilot-dev-agentic/slide-15-a16a485a.png
+---
+
+<!-- This section is about treating token usage as a quality and reliability problem, not just a billing problem. The best teams optimize for fewer wasted loops, clearer prompts, and stronger guardrails because those choices improve both cost and correctness over time. -->
+
+---
+layout: image-full
+background: /images/copilot-dev-agentic/slide-16-78315ea9.png
+---
+
+<!-- Reinforce the practical idea that a higher-quality first pass often saves money in the long run. Fewer retries, fewer review cycles, and fewer failed assumptions mean the session uses fewer tokens and produces better output. -->
+
+---
+layout: image-full
+background: /images/copilot-dev-agentic/slide-17-58085a5f.png
+---
+
+<!-- This is the human-centered use case for Copilot: use it to pressure-test your own reasoning. When you write out the bug or design tradeoff, the model often exposes assumptions you did not realize were there, which is a huge benefit even before you ask for code. -->
+
+---
+layout: image-full
+background: /images/copilot-dev-agentic/slide-18-3e588f94.png
+---
+
+<!-- Remind the audience that this is a reasoning aid, not a substitute for validation. The best use of Copilot here is to challenge your assumptions and then verify the conclusion with code, tests, and runtime evidence. -->
+
+---
+layout: image-full
+background: /images/copilot-dev-agentic/slide-19-4a1c08eb.png
+---
+
+<!-- Close by tying the whole session back to a simple operating rule: use agents when the work needs adaptation and orchestration, and use direct tools when the work is predictable. The lab will give attendees a chance to practice that choice in real scenarios. -->
+
+---
+layout: image-full
+background: /images/copilot-dev-agentic/slide-20-be6f79a1.png
+---
+
+<!-- End on the practical takeaway: the strongest agentic workflows are disciplined ones. Clear constraints, good instructions, and review gates turn Copilot from a novelty into a dependable teammate. -->
+
+---
+layout: image-full
+background: /images/copilot-dev-agentic/slide-21-c5cc6102.png
+---
+
+<!-- End by inviting attendees to choose one pattern they can try immediately in their own work. The goal is not to adopt every agentic feature, but to identify the first workflow that improves quality or speed without adding needless risk. -->
