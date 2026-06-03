@@ -78,6 +78,10 @@ Module 3 moves from effective day-to-day use of GitHub Copilot into advanced ope
 - What external data sources would your team connect via MCP first?
 - What approval workflow or allowlist would you require before enabling a new server?
 
+### 🔬 LAB: Exercise 1 — Configure and Use an MCP Server
+
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 1 (5 min) configuring a sample MCP server, observing tool discovery, and approving a tool call before continuing to the next section.
+
 ---
 
 ## 2. Using APIs and Plugins with Copilot (12 min)
@@ -172,6 +176,10 @@ Module 3 moves from effective day-to-day use of GitHub Copilot into advanced ope
 - What debugging scenarios have you encountered with GitHub Copilot so far?
 - How would debug logs change the way your team investigates unexpected agent behavior?
 
+### 🔬 LAB: Exercise 2 — Inspect Chat and Agent Debug Logs
+
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 2 (5 min) opening the Output panel, inspecting request context, and comparing logs with and without `@workspace` before continuing to the next section.
+
 ---
 
 ## 5. Agentic Loops (Ralph Loop), Subagents, and Task Review (18 min)
@@ -219,6 +227,10 @@ Module 3 moves from effective day-to-day use of GitHub Copilot into advanced ope
 
 - How would you set termination criteria for an agentic loop in your workflow?
 - What off-ramps would you require before allowing GitHub Copilot to automate a higher-risk task?
+
+### 🔬 LAB: Exercise 3 — Observe an Agentic Loop and Off-Ramp
+
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 3 (5 min) observing the plan → execute → observe → reflect cycle and identifying off-ramp behavior before continuing to the next section.
 
 ---
 

@@ -131,38 +131,47 @@ This lab turns the module concepts into quick reps: first you compare agentic or
 - ✅ Observed structured output guided by the agent instructions
 - ✅ Reflected on where a custom review agent fits in your workflow
 
-## Exercise 4: Token Optimization — Model Selection and Session Hygiene
+## Exercise 4: Token Economics — Understanding Cost and Session Hygiene
 
 **⏱️ Time**: 5 min
-**📋 Objective**: Apply token optimization strategies by choosing the right model and practicing session hygiene
+**📋 Objective**: Understand input/output/cached tokens, choose the right model, and practice session hygiene
 
 1. Open GitHub Copilot Chat and start a **new session** (use `/clear` or open a fresh chat).
-2. Switch to a **reasoning model** (Claude Opus or similar) and ask an architecture-level question:
+2. Before prompting, think about token anatomy:
+   - **Input tokens**: Everything you send (system prompt + instructions + conversation history + attached files)
+   - **Output tokens**: What the model generates (2–4× more expensive than input)
+   - **Cached tokens**: Stable prefixes (instruction files, system prompt) that get discounted on repeat turns
+
+3. Switch to a **reasoning model** (Claude Opus or similar) and ask an architecture-level question:
 
    ```text
    Analyze this repository's structure and suggest three improvements for testability. Explain the trade-offs of each suggestion.
    ```
 
-3. Note the quality and depth of the response.
-4. Now switch to a **low-tier model** (GPT-mini or Haiku) and ask the same question. Compare the output quality.
-5. Try a **task split** approach — start with research, then plan:
+4. Note the quality and depth of the response.
+5. Now switch to a **low-tier model** (GPT-mini or Haiku) and ask the same question. Compare the output quality.
+6. Try a **task split** approach — start with research, then plan:
 
    ```text
    Step 1: What files in this project handle user input validation?
    ```
 
-6. Use `/clear` to start a fresh session, then use the research results to write a precise implementation prompt:
+7. Use `/clear` to start a fresh session, then use the research results to write a precise implementation prompt:
 
    ```text
    In #file, add input validation for the email field using a regex pattern. Stop when the existing tests still pass.
    ```
 
-7. Reflect: Did the fresh session produce a more focused response? Did the precise prompt with a stop signal prevent over-engineering?
+8. Reflect on token economics:
+   - The fresh session eliminated accumulated input tokens from prior turns
+   - The precise prompt with `#file` and a stop signal reduces both input context and output verbosity
+   - Instruction files benefit from caching — they cost almost nothing after the first turn in a session
 
 **🛡️ Safety checkpoint**: Model selection is about matching capability to task — not about denying the model information it needs. If a cheaper model produces incorrect output, escalate to a higher tier rather than accepting low-quality results.
 
 ### ✅ Success Criteria
 
+- ✅ Can explain the difference between input, output, and cached tokens
 - ✅ Compared output quality between a reasoning model and a low-tier model on the same prompt
 - ✅ Used `/clear` to start a fresh session before a new task
 - ✅ Wrote a precise prompt with file references and a stop signal

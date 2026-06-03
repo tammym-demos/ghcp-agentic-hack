@@ -339,6 +339,24 @@ If no → use a direct skill or tool call
 - LLMs are word-probability machines — irrelevant context shifts probabilities away from desired output
 - Agents are stateless: the entire conversation is re-sent to the model every loop iteration — tokens accumulate
 - **Golden rule**: "As little context as possible, but as much as required"
+
+### Token Anatomy — Input, Output, and Cached
+
+- A **token** is the fundamental unit LLMs process — roughly 4 characters in English, but varies for code (operators, brackets, and keywords often map to single tokens while long identifiers split into multiple)
+- Every interaction has three token categories that determine cost and performance:
+
+| Token Type | What It Includes | Relative Cost | Key Insight |
+|------------|-----------------|---------------|-------------|
+| **Input tokens** | System prompt, instructions, conversation history, attached files, context from `@workspace`/`#file` | Base rate | Grows with every turn in a session — the full history is re-sent each time |
+| **Output tokens** | The model's generated response (code, explanations, tool calls) | 2–4× input cost | More expensive per token — verbose prompts that elicit concise answers are often cheaper than the reverse |
+| **Cached tokens** | Repeated input prefixes the provider has already processed (system prompt, instruction files, stable context) | 50–90% discount vs. input | Stable instruction files and consistent system prompts benefit from caching automatically — reordering or editing early context breaks the cache |
+
+- **Why this matters for developers**:
+  - In an agentic loop, input tokens compound: a 10-turn session re-sends the full context 10 times — the 10th turn's input cost alone may exceed the first 9 combined
+  - Cached tokens make durable context (instruction files, system prompt) nearly free after the first turn — this is why well-structured `.github/copilot-instructions.md` files pay for themselves
+  - Output tokens are the most expensive — prompts that say "be concise" or "respond in bullet points" directly reduce cost
+  - Attaching a large file via `#file` adds its full token count to every subsequent turn in the session, not just the turn where you attached it
+
 - **Context rot** appears as sessions grow:
   - **Lost in the middle** (~50% window fill): model biases toward beginning/end, forgets middle content
   - **Recency bias** (~60–70% fill): model forgets system prompt, original goal, and custom instructions
