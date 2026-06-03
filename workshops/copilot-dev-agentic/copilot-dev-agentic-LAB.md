@@ -41,7 +41,47 @@ This lab turns the module concepts into quick reps: first you compare agentic or
 - ✅ Observed the difference between planning plus execution and direct explanation
 - ✅ Identified one real task from your workflow for each interaction style
 
-## Exercise 2: Instruction Layering — Org, Repo, and File-Scoped
+## Exercise 2: Build a Custom Agent and Observe Background Execution
+
+**⏱️ Time**: 5 min
+**📋 Objective**: Create a custom agent and observe how it executes
+
+1. Create a file at `.github/agents/reviewer.md` with review guidance like this:
+
+   ```markdown
+   ---
+   description: Review code for error handling, test coverage, and maintainability
+   tools: ['codebase', 'search']
+   ---
+
+   You are a code review agent for this repository.
+
+   - Check for missing error handling
+   - Check whether changed behavior should add or update tests
+   - Suggest small, actionable improvements
+   - Keep the review structured and concise
+   ```
+
+2. In GitHub Copilot Chat, invoke the agent against a file or function:
+
+   ```text
+   @reviewer Review #file for error handling gaps, missing tests, and maintainability risks.
+   ```
+
+3. Observe the response pattern. Notice how the agent reads context, applies its instructions, and returns a structured review instead of a generic answer.
+4. If your environment exposes background execution or tool steps, let the agent continue while you watch the intermediate output and note the plan → act → observe pattern in the transcript.
+5. Decide whether you would use this custom agent for pre-PR review, self-review, or targeted feedback on risky files.
+
+**🛡️ Safety checkpoint**: Custom agents inherit the permissions of the user invoking them. Keep their instructions specific, and do not design destructive behavior without clear review and confirmation steps.
+
+### ✅ Success Criteria
+
+- ✅ Created a custom review agent file
+- ✅ Invoked the agent in chat
+- ✅ Observed structured output guided by the agent instructions
+- ✅ Reflected on where a custom review agent fits in your workflow
+
+## Exercise 3: Instruction Layering — Org, Repo, and File-Scoped
 
 **⏱️ Time**: 5 min
 **📋 Objective**: Create layered instructions and observe how they compose
@@ -90,46 +130,6 @@ This lab turns the module concepts into quick reps: first you compare agentic or
 - ✅ Created a file-scoped instruction file with `applyTo`
 - ✅ Observed GitHub Copilot follow the repository-wide rule in a regular file
 - ✅ Observed GitHub Copilot apply both repository-wide and test-specific guidance in a test file
-
-## Exercise 3: Build a Custom Agent and Observe Background Execution
-
-**⏱️ Time**: 5 min
-**📋 Objective**: Create a custom agent and observe how it executes
-
-1. Create a file at `.github/agents/reviewer.md` with review guidance like this:
-
-   ```markdown
-   ---
-   description: Review code for error handling, test coverage, and maintainability
-   tools: ['codebase', 'search']
-   ---
-
-   You are a code review agent for this repository.
-
-   - Check for missing error handling
-   - Check whether changed behavior should add or update tests
-   - Suggest small, actionable improvements
-   - Keep the review structured and concise
-   ```
-
-2. In GitHub Copilot Chat, invoke the agent against a file or function:
-
-   ```text
-   @reviewer Review #file for error handling gaps, missing tests, and maintainability risks.
-   ```
-
-3. Observe the response pattern. Notice how the agent reads context, applies its instructions, and returns a structured review instead of a generic answer.
-4. If your environment exposes background execution or tool steps, let the agent continue while you watch the intermediate output and note the plan → act → observe pattern in the transcript.
-5. Decide whether you would use this custom agent for pre-PR review, self-review, or targeted feedback on risky files.
-
-**🛡️ Safety checkpoint**: Custom agents inherit the permissions of the user invoking them. Keep their instructions specific, and do not design destructive behavior without clear review and confirmation steps.
-
-### ✅ Success Criteria
-
-- ✅ Created a custom review agent file
-- ✅ Invoked the agent in chat
-- ✅ Observed structured output guided by the agent instructions
-- ✅ Reflected on where a custom review agent fits in your workflow
 
 ## Exercise 4: Token Economics — Understanding Cost and Session Hygiene
 

@@ -138,6 +138,10 @@ If no → use a direct skill or tool call
 - Which tasks are better handled as direct answers or single tool calls?
 - Where do you see teams overusing autonomy instead of choosing the simpler path?
 
+### 🔬 LAB: Exercise 1 — Agent vs. Skill
+
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 1 (5 min) comparing an agent workflow with a direct answer to understand when each interaction style is appropriate.
+
 ---
 
 ## 3. Background Agents and Cloud Agents — Coding Agent (15 min)
@@ -189,6 +193,10 @@ If no → use a direct skill or tool call
 - What guardrails would your team need before adopting Coding Agent?
 - Which tasks fit a background agent well versus a cloud agent workflow?
 - What review signals would help you calibrate trust in autonomous changes?
+
+### 🔬 LAB: Exercise 2 — Build a Custom Agent and Observe Background Execution
+
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 2 (5 min) creating a custom agent file, invoking it, and observing the plan → act → observe pattern in the response.
 
 ---
 
@@ -283,6 +291,10 @@ If no → use a direct skill or tool call
 - What organizational guardrails should your team implement?
 - Which conventions belong in repo instructions versus scoped instructions?
 - Where have you seen prompt quality improve when durable instructions were already in place?
+
+### 🔬 LAB: Exercise 3 — Instruction Layering
+
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 3 (5 min) creating layered instruction files and observing how repository-wide and file-scoped rules compose.
 
 ---
 
@@ -420,6 +432,10 @@ If no → use a direct skill or tool call
 - Which of the five controls would have the biggest impact on your current workflow?
 - Have you noticed quality degradation in long sessions? What was the symptom?
 - How would you structure an "agent miss log" for your team?
+
+### 🔬 LAB: Exercise 4 — Token Economics
+
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 4 (5 min) comparing model tiers, practicing session hygiene with `/clear`, and writing precise prompts with stop signals.
 
 ---
 
