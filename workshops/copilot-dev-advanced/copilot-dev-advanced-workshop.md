@@ -73,10 +73,21 @@ Module 3 moves from effective day-to-day use of GitHub Copilot into advanced ope
 - Pause on the approval prompt and inspect what action GitHub Copilot wants to take
 - Approve the call, review the result, and discuss what context crossed the trust boundary
 
+### 💡 Optimization Tip: MCP Server Discipline
+
+- Only activate MCP servers you regularly use — each server's tool descriptions are sent on every request, consuming input tokens
+- Too many available tools causes agents to take unnecessary detours (for example, a Playwright MCP server triggering screenshots when none were requested)
+- Pair MCP servers with custom agents that restrict the active tool set to only what the specific workflow needs
+- Periodically audit your active servers — remove any you have not used in the past month
+
 ### Discussion Points
 
 - What external data sources would your team connect via MCP first?
 - What approval workflow or allowlist would you require before enabling a new server?
+
+### 🔬 LAB: Exercise 1 — Configure and Use an MCP Server
+
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 1 (5 min) configuring an MCP server, observing tool discovery, and reviewing the approval flow.
 
 ---
 
@@ -102,6 +113,12 @@ Module 3 moves from effective day-to-day use of GitHub Copilot into advanced ope
 - Show how the agent selects or requests access to the tool it needs
 - Compare the experience with a specialized plugin or extension that adds domain-specific capabilities
 - Discuss when a custom integration is worth building versus using a general-purpose tool
+
+### 💡 Optimization Tip: CLI vs. MCP Trade-offs
+
+- Many tools (git, npm, docker) are already well-represented in model training data — invoking them via CLI may produce better results than routing through an MCP server
+- MCP servers add value when the tool requires structured input/output, authentication, or state management that a simple shell command cannot provide
+- When in doubt, prefer the simpler integration path that is already in the agent's training distribution
 
 ### Discussion Points
 
@@ -135,6 +152,13 @@ Module 3 moves from effective day-to-day use of GitHub Copilot into advanced ope
 - Show where stored memories can be reviewed or managed in the current experience
 - Contrast that with session-only context that disappears when the task ends
 
+### 💡 Optimization Tip: Memory vs. Instructions vs. Context
+
+- **Memory** is for durable personal preferences that persist across sessions and repos (e.g., "I prefer PowerShell on Windows")
+- **Instructions** are for team-wide rules that apply to everyone working in the repo (e.g., "Use early returns")
+- **Session context** is for the current task only — let it expire
+- Putting task-specific or short-lived content into memory wastes tokens on every future request where it is irrelevant
+
 ### Discussion Points
 
 - What preferences or conventions would you want GitHub Copilot to remember across sessions?
@@ -167,10 +191,20 @@ Module 3 moves from effective day-to-day use of GitHub Copilot into advanced ope
 - Repeat with `@workspace` and compare the amount of context included
 - Show how the logs explain a surprising response or an overly broad context payload
 
+### 💡 Optimization Tip: Debug Logs for Token Diagnosis
+
+- Debug logs reveal exactly how many tokens are being sent per request — use them to catch context bloat before it causes quality degradation
+- If you see unexpected files or large workspace expansions in the request payload, narrow your context with `#file` or `#selection` instead of `@workspace`
+- Long conversations compound token usage because the entire history is re-sent every loop iteration — logs make this visible
+
 ### Discussion Points
 
 - What debugging scenarios have you encountered with GitHub Copilot so far?
 - How would debug logs change the way your team investigates unexpected agent behavior?
+
+### 🔬 LAB: Exercise 2 — Inspect Chat and Agent Logs
+
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 2 (5 min) opening debug logs, comparing context with and without `@workspace`, and identifying what data was sent.
 
 ---
 
@@ -215,10 +249,21 @@ Module 3 moves from effective day-to-day use of GitHub Copilot into advanced ope
 - Review the returned output rather than trusting it blindly
 - Trigger an off-ramp scenario and show the agent stopping with a clear explanation instead of guessing
 
+### 💡 Optimization Tip: Sub-Agents for Context Isolation
+
+- Subagents run in their own context window — only the final summary returns to the main session
+- This prevents discovery tokens (file listings, search results, intermediate reasoning) from polluting the primary working context
+- Use subagents for research-heavy phases: the main session stays focused on the implementation spec
+- Trade-off: you pay for duplicating system/tool tokens in the sub-context, but the quality of the main session improves
+
 ### Discussion Points
 
 - How would you set termination criteria for an agentic loop in your workflow?
 - What off-ramps would you require before allowing GitHub Copilot to automate a higher-risk task?
+
+### 🔬 LAB: Exercise 3 — Observe an Agentic Loop and Off-Ramp
+
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 3 (5 min) observing plan → execute → observe → reflect, identifying off-ramp behavior, and evaluating when an agent should stop.
 
 ---
 
