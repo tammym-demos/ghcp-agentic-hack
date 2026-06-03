@@ -54,6 +54,8 @@ This short lab mirrors the workshop flow: first you practice choosing the right 
    copilot -p "Give me an overview of this project."
    ```
 
+8. **Session hygiene practice**: Start a brand-new chat session (click the `+` icon or use the new session shortcut). Notice how the fresh session has no stale context — this is the habit to build for every new task.
+
 **🛡️ Safety checkpoint**: Review any agent-generated edits before accepting them, and do not assume an inline completion or CLI response is correct without checking it against the codebase.
 
 ### ✅ Success Criteria
@@ -62,6 +64,7 @@ This short lab mirrors the workshop flow: first you practice choosing the right 
 - ✅ Used at least one slash command
 - ✅ Used at least one chat variable or participant such as `#file`, `#selection`, or `@workspace`
 - ✅ Ran at least one GitHub Copilot CLI command
+- ✅ Started a fresh session to practice session hygiene
 
 ## Exercise 2: Memory, Context & Instructions
 
@@ -78,10 +81,10 @@ This short lab mirrors the workshop flow: first you practice choosing the right 
    - Add or update tests when behavior changes
    ```
 
-2. Open a file where GitHub Copilot can generate or revise code, then ask:
+2. Open a file where GitHub Copilot can generate or revise code, then ask (notice the explicit stop signal at the end):
 
    ```text
-   Generate a small helper in #file and explain which repository instructions you followed.
+   Generate a small helper in #file and explain which repository instructions you followed. Stop after creating the one helper — do not refactor or modify other functions in this file.
    ```
 
 3. Create a scoped instruction file at `.github/instructions/tests.instructions.md`:
@@ -164,6 +167,7 @@ This short lab mirrors the workshop flow: first you practice choosing the right 
    ```
 
 5. Run the reusable prompt and compare that experience with the custom agent workflow.
+6. **Token reflection**: Compare the response length and detail between the two models you tried. The longer response consumed more output tokens — consider whether the extra detail was worth the cost for your task.
 
 **🛡️ Safety checkpoint**: Consider the blast radius before granting broad autonomy. A custom agent or prompt with edit tools can make widespread changes quickly if the task scope is vague.
 
