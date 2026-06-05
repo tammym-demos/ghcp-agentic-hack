@@ -62,4 +62,28 @@
 
 ---
 
+### 6. A developer has been working in a single GitHub Copilot Chat session for 30 minutes. The context window is now around 60% full. They notice GitHub Copilot is ignoring their custom instructions and drifting from the original objective. What is the most likely cause?
+
+- A) The custom instructions file has a syntax error and was never loaded
+- B) Recency bias — as the context window fills, the model loses sight of the system prompt and earlier instructions in favor of recent conversation
+- C) The model has a hard limit of 20 minutes per session before instructions expire
+- D) Agent mode automatically disables custom instructions after 50% context usage
+
+<!--answer: B-->
+<!--explanation: Recency bias occurs at roughly 60–70% context fill. The model begins to favor recent conversation over earlier content like system prompts and custom instructions, causing drift. The solution is to start a fresh session and restate the objective clearly.-->
+
+---
+
+### 7. You want to reduce wasted tokens when prompting GitHub Copilot. Which combination of practices has the most impact?
+
+- A) Always use the largest reasoning model and provide the entire repository as context
+- B) Include explicit stop conditions in prompts, use smaller models for simple tasks, and add "be concise" to repository instructions
+- C) Remove all instruction files so the context window is smaller
+- D) Avoid using Agent mode entirely because it always generates excessive output
+
+<!--answer: B-->
+<!--explanation: Stop signals prevent over-execution, model selection avoids paying up to 24× more for routine tasks, and "be concise" in instructions measurably reduces output token volume. Together these address the three main sources of token waste without sacrificing quality.-->
+
+---
+
 *Quiz for Module 1: Foundations — GitHub Copilot Developer Training*
