@@ -403,40 +403,53 @@ If no → use a direct skill or tool call
 
 ### Practical Controls (Ordered by Impact)
 
-1. **Model selection** (biggest cost lever — up to 24× price difference):
-   - Reasoning models (Opus, o-series) → planning, architecture, complex debugging
-   - Mid-tier (Sonnet, GPT-4.5) → implementation with a clear spec
-   - Low-tier (Haiku, GPT-mini) → simple edits, typo fixes, formatting
-   - Use **Auto mode** as default — it performs intent detection and routes to the right model
+1. **Keep sessions short and focused**:
+   - Start a new chat for each task instead of carrying stale context into the next one
+   - Long sessions accumulate input tokens because the full history is re-sent on every turn
+   - When the goal changes, use `/clear` or a fresh thread to reduce context rot and recency bias
 
-2. **Precise prompts with stop signals**:
-   - Be specific: "Fix Issue #45 — the cache invalidation race in `src/cache.ts`, stop when tests pass"
-   - Include file references you already know (save discovery tokens)
-   - Add explicit stop conditions to prevent over-execution
+2. **Keep instruction files lean and modular**:
+   - Trim instruction files to the rules that materially improve output quality
+   - Prefer repository-level guidance for durable conventions and file-scoped instructions for narrow cases
+   - Small, well-targeted instructions reduce prompt bloat and save tokens without sacrificing quality
 
-3. **Split tasks: Research → Plan → Implement**:
+3. **Reference only the context you need**:
+   - Use `#file` or `#selection` instead of broad `@workspace` context when a smaller slice is enough
+   - Paste only the relevant code block or summary rather than entire files or large attachments
+   - This reduces input tokens and helps the model stay focused on the real task
+
+4. **Choose the right model for the job**:
+   - Use smaller or routed models for simple edits, explanations, and formatting
+   - Reserve reasoning-heavy models for architecture, difficult debugging, and high-stakes planning
+   - Auto mode is a good default when you want cost-aware routing without manually picking every time
+
+5. **Use Plan mode before long agentic sessions**:
+   - Ask for a structured breakdown first, then review and tighten the plan before execution begins
+   - A clear plan reduces tool calls, retries, and wasted exploration in multi-step work
+   - This directly lowers token usage while often improving output quality because the agent follows a tighter objective
+
+6. **Split tasks: Research → Plan → Implement**:
    - Research: use cheaper models, broad context, discover files and patterns
    - Plan: use reasoning models, create an airtight spec
    - Implement: use mid-tier models, follow the spec, parallelize by concern
 
-4. **Deterministic guardrails (tests, linters, scanners)**:
+7. **Use deterministic guardrails (tests, linters, scanners)**:
    - A single failing test can reset agent accuracy from a 40% drift back to 99%
    - Tests as guardrails cost less than shipping bugs + incident response + debug sessions
    - Linters and security scanners catch drift before it compounds
 
-5. **Persistent instructions (copilot-instructions.md)**:
-   - Keep small and precise — non-negotiables only
-   - Use as an "agent miss log" — recurring failures become instructions
+8. **Keep persistent instructions small and precise**:
+   - Use `.github/copilot-instructions.md` as an "agent miss log" — recurring failures become instructions
    - Do not use AI to generate them — they should capture what AI cannot figure out independently
-   - Treat as a living document; review and refresh every ~3 months
+   - Treat them as a living document; review and refresh every ~3 months
    - Adding "be concise" measurably reduces output token volume without sacrificing quality
 
-6. **Output tokens cost more than input tokens**:
+9. **Output tokens cost more than input tokens**:
    - Generating code and explanations requires more compute than reading context
    - Concise instructions that produce focused output save both time and budget
    - This is why "be concise" and stop signals have outsized impact on cost
 
-7. **MCP server discipline**:
+10. **MCP server discipline**:
    - Only activate MCP servers you regularly use — each adds tool descriptions to every request
    - Too many available tools causes agents to take unnecessary detours
    - Pair MCP servers with custom agents that restrict the active tool set
