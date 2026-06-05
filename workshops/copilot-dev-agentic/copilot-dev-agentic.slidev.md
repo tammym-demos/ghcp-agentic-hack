@@ -150,7 +150,7 @@ background: /images/copilot-dev-agentic/slide-20-31f06550.png
 
 ---
 layout: image-full
-background: /images/copilot-dev-agentic/slide-21-427797bc.png
+background: /images/copilot-dev-agentic/slide-21-2885ff47.png
 ---
 
 <!-- Ask the audience: Which pattern from today feels immediately usable in your workflow? -->
