@@ -8,7 +8,7 @@ const base = import.meta.env.BASE_URL
 export function getStaticPaths() {
   const workshopsDir: string = __WORKSHOPS_DIR__
   const showDrafts: boolean = __SHOW_DRAFTS__
-  const workshopMeta: Record<string, { label: string; desc: string; icon: string; modules?: { folder: string; label: string; desc: string; icon: string }[]; prerequisites?: string[]; agenda?: { day: string; subtitle: string; items: { time: string; duration: string; activity: string }[] }[] }> = {
+  const workshopMeta: Record<string, { label: string; desc: string; icon: string; modules?: { folder: string; label: string; desc: string; icon: string }[]; prerequisites?: string[]; agenda?: { day: string; subtitle: string; items: { time: string; duration: string; activity: string; topics?: string[] }[] }[] }> = {
     'copilot-dev-training': {
       label: 'GitHub Copilot Dev Hack',
       desc: 'GitHub Copilot Developer Training — foundations, agentic patterns, and advanced operations.',
@@ -34,11 +34,11 @@ export function getStaticPaths() {
             subtitle: '9:00 AM – 5:00 PM',
             items: [
               { time: '9:00 – 9:15', duration: '15 min', activity: 'Welcome & Kickoff' },
-              { time: '9:15 – 10:45', duration: '90 min', activity: 'Module 1: Foundations (presentation + lab) — Speakers 1 & 2' },
+              { time: '9:15 – 10:45', duration: '90 min', activity: 'Module 1: Foundations (presentation + lab) — Speakers 1 & 2', topics: ['Copilot chat modes and interaction patterns', 'Context, instructions, and prompt discipline', 'Models, agents, skills, and customization'] },
               { time: '10:45 – 11:00', duration: '15 min', activity: '☕ Break' },
-              { time: '11:00 – 12:55', duration: '115 min', activity: 'Module 2: Agentic Patterns (presentation + lab) — Speakers 2, 3 & 4' },
+              { time: '11:00 – 12:55', duration: '115 min', activity: 'Module 2: Agentic Patterns (presentation + lab) — Speakers 2, 3 & 4', topics: ['Agents vs. skills and when to use each', 'Background and cloud agents', 'Instruction layering and multi-agent patterns', 'Agent quality, token optimization, and iteration loops'] },
               { time: '12:55 – 1:40', duration: '45 min', activity: '🍽️ Lunch' },
-              { time: '1:40 – 3:10', duration: '90 min', activity: 'Module 3: Advanced Topics (presentation + lab) — Speakers 4 & 5' },
+              { time: '1:40 – 3:10', duration: '90 min', activity: 'Module 3: Advanced Topics (presentation + lab) — Speakers 4 & 5', topics: ['MCP, APIs, and extensions', 'Memory, debugging, and diagnostics', 'Agent architecture patterns and off-ramp design', 'Full-stack agent workflows and best practices'] },
               { time: '3:10 – 3:25', duration: '15 min', activity: '☕ Break' },
               { time: '3:25 – 4:45', duration: '80 min', activity: 'Open Lab / Hack Prep' },
               { time: '4:45 – 5:00', duration: '15 min', activity: 'Day 1 Wrap-up & Day 2 Preview' }
@@ -204,7 +204,14 @@ const workshopsDir: string = __WORKSHOPS_DIR__
                   <tr>
                     <td class="agenda-time">{item.time}</td>
                     <td class="agenda-duration">{item.duration}</td>
-                    <td>{item.activity}</td>
+                    <td>
+                      <div class="agenda-activity">{item.activity}</div>
+                      {item.topics && item.topics.length > 0 && (
+                        <ul class="agenda-topics">
+                          {item.topics.map(topic => <li>{topic}</li>)}
+                        </ul>
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -510,6 +517,21 @@ const workshopsDir: string = __WORKSHOPS_DIR__
     padding: 10px 14px;
     color: var(--text-2);
     border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .agenda-activity {
+    font-weight: 600;
+    color: var(--text-1);
+  }
+  .agenda-topics {
+    margin: 8px 0 0 18px;
+    padding: 0;
+    color: var(--text-2);
+    font-size: 13px;
+    line-height: 1.45;
+  }
+  .agenda-topics li + li {
+    margin-top: 4px;
   }
   .agenda-table tr:last-child td {
     border-bottom: none;

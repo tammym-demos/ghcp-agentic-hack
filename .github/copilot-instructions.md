@@ -7,30 +7,11 @@ A **content-only** repository of GitHub Copilot developer training materials. Th
 ## Repository Structure
 
 ```
-workshops/
-  copilot-dev-training/      # Parent curriculum — planning docs, module index
-  copilot-dev-foundations/   # Module 1: Foundations (Slidev deck + LAB + Quiz)
-  copilot-dev-agentic/       # Module 2: Agentic Patterns (Slidev deck + LAB + Quiz)
-  copilot-dev-advanced/      # Module 3: Advanced Topics (Slidev deck + LAB + Quiz)
-  copilot-workshop-c++/      # Standalone: Zero to Agents C++ / ODrive variant
-public/
-  images/                    # Centralized image assets for Slidev decks
-    copilot-dev-foundations/  # PPTX-extracted slide images for Module 1
-    copilot-dev-agentic/     # PPTX-extracted slide images for Module 2
-    copilot-dev-advanced/    # PPTX-extracted slide images for Module 3
-source/
-  pptx/                      # Input PPTX files for conversion (gitignored)
-site/                        # Astro site (landing page, lab pages)
-  astro.config.mjs           # Astro config — base path set to /ghcp-agentic-hack/
-  pages/index.astro          # Main landing page with workshop cards
-  pages/[workshop]/index.astro  # Workshop detail page (modules, resources)
-  pages/[workshop]/lab.astro    # Dynamic lab page route (syntax highlighting, TOC sidebar)
-  pages/[workshop]/quiz.astro   # Interactive quiz page route
-  pages/[workshop]/workshop.astro # Workshop guide page
-  layouts/Base.astro         # Shared layout (header, light theme)
-scripts/
-  build-site.mjs             # Full build: creates public/ symlinks → Slidev decks → Astro site
-  convert-pptx.py            # PPTX → Slidev conversion (full-bleed background images)
+workshops/                   # Module folders (one per workshop/module)
+public/images/               # Centralized image assets for Slidev decks
+source/pptx/                 # Input PPTX files for conversion (gitignored)
+site/                        # Astro site — see astro.instructions.md
+scripts/                     # build-site.mjs, convert-pptx.py
 themes/                      # Slidev theme (github/)
 ```
 
@@ -42,29 +23,16 @@ Each module folder contains:
 
 ## Build & Deployment
 
-The full build is orchestrated by `scripts/build-site.mjs`:
-
 ```bash
-node scripts/build-site.mjs
+npm run build:all          # Full build (symlinks → Slidev decks → Astro site)
+npm run build:site         # Astro site only
+npm run convert:pptx -- <workshop-folder-name>  # PPTX → slide images + .slidev.md
 ```
-
-Build steps (in order):
-
-1. **Create public/ symlinks** — each workshop folder gets a symlink to the repo-root `public/` so Slidev can resolve `/images/...` paths
-2. **Build Slidev decks** — each deck is built with `--base` matching the deployment subpath
-3. **Build Astro site** — landing page, workshop detail pages, lab pages
-4. **Copy slides into Astro dist** — merges Slidev outputs into `dist/site/`
-
-### CI / GitHub Pages
 
 - Workflow: `.github/workflows/pages.yml` (deploys on push to `main`)
 - Base path: `BASE_PATH=/ghcp-agentic-hack/` (set in workflow env)
 - URL: `https://tammym-demos.github.io/ghcp-agentic-hack/`
-- Trigger paths: `workshops/`, `public/`, `site/`, `themes/`, `scripts/`, `package.json`
-
-### Local Preview
-
-The base path means `dist/site/` can't be served directly. Create a wrapper directory:
+- Do **not** modify `BASE_PATH` to `/` for local testing — it will break GitHub Pages
 
 ```powershell
 New-Item -ItemType Junction -Path dist\local-preview\ghcp-agentic-hack -Target (Resolve-Path dist\site).Path -Force
@@ -88,20 +56,17 @@ These must match across all files:
 - Section names, ordering, and scope
 - Feature comparison matrices and data tables
 - Architecture & decision flowchart diagrams (verbatim)
+- Learning objectives and key concepts tested in quizzes
 
 ## Document Structure Conventions
 
 ### Slidev Files (`*.slidev.md`)
-- **Frontmatter**: YAML frontmatter with `theme`, `title`, `info`, layout, and transition settings
-- **Theme reference**: `theme: ../../themes/github` (relative path from `workshops/<name>/` up to repo root)
-- **Slide separator**: `---` between every slide
-- **Speaker notes**: `<!-- notes -->` HTML comments below slide content — every slide must have substantive 3-5 sentence talk-track guidance (see `.github/instructions/slidev.instructions.md` for full spec)
-- **Section dividers**: Use `layout: section` in slide frontmatter
-- **Demo transitions**: `layout: demo` for live demo slides
-- **Breaks**: Slide with `# ☕ Break — 10 Minutes`
-- **Mermaid diagrams**: Native `mermaid` fenced code blocks (rendered by Slidev)
-- **Images**: Use centralized `public/images/<workshop>/` assets; PPTX-generated slides use `background:` frontmatter, manually-authored slides use `<img>` tags in slots (see Images section below)
-- **Markdownlint**: Disabled in Slidev files via `.markdownlintignore` or `<!-- markdownlint-disable -->` at the top
+
+Full conventions are in `.github/instructions/slidev.instructions.md` (auto-applied to `*.slidev.md` files). Key rules for this repo:
+
+- Every slide **must** have substantive 3-5 sentence presenter notes in `<!-- -->` comments
+- PPTX-generated slides use `layout: image-full` with `background:` frontmatter (no text on slide)
+- Markdownlint is disabled in Slidev files via `.markdownlintignore`
 
 ### LAB Files (`*-LAB.md`)
 - Hands-on exercises with step-by-step instructions
@@ -230,102 +195,25 @@ All diagrams use **Unicode box-drawing characters** inside fenced code blocks (n
 
 ## Images
 
-All slide images live in `public/images/<workshop-folder-name>/`. This centralized structure is shared by all Slidev decks.
-
-### Core principle
-
-For PPTX-generated decks (the default workflow), each slide IS a full-bleed background image. The `.slidev.md` file uses `layout: image-full` with `background:` in slide frontmatter — no `<img>` tags, no text content on the slide.
-
-### Image storage
-
-```
-public/images/copilot-dev-foundations/slide-01-a1b2c3d4.png
-public/images/copilot-dev-foundations/slide-02-e5f6g7h8.png
-...
-```
-
-### How Slidev resolves images (public/ symlinks)
-
-Slidev uses the `.slidev.md` file's directory as its Vite project root, so `/images/...` resolves from a `public/` directory **next to the slidev file**, not the repo root. To share the centralized `public/` directory:
-
-- Each workshop folder has a `public` symlink (junction on Windows) pointing to the repo-root `public/` directory
-- These symlinks are **gitignored** (`workshops/*/public/` in `.gitignore`) — they are NOT committed
-- The build script (`scripts/build-site.mjs`) creates them automatically before building decks
-- For local dev, create them manually if needed:
-
-  ```powershell
-  # Windows (junction)
-  New-Item -ItemType Junction -Path workshops\copilot-dev-foundations\public -Target (Resolve-Path public).Path
-
-  # Linux/macOS (symlink)
-  ln -s ../../public workshops/copilot-dev-foundations/public
-  ```
-
-### Image rules
+All slide images live in `public/images/<workshop-folder-name>/`.
 
 - Keep images under 500 KB; prefer PNG for diagrams, SVG where possible
 - Name files with kebab-case matching the concept shown (e.g., `memory-landscape.png`)
 - PPTX-extracted images use the naming pattern: `slide-NN-HASH.ext`
 - Create the workshop subfolder under `public/images/` if it does not exist yet
 
-## PPTX Conversion Pipeline (Content Workflow)
+> For image layout rules (`background:` vs `<img>`) and symlink/resolution details, see `.github/instructions/slidev.instructions.md`.
 
-The primary content workflow for this repo:
+## Content Workflow (PPTX Pipeline)
 
 ```
--workshop.md  →  NotebookLM  →  .pptx (local, gitignored)
-                                    ↓
-                              convert-pptx.py
-                                    ↓
-                    public/images/<workshop>/slide-NN.png  (committed)
-                    <workshop>.slidev.md                   (committed)
+*-workshop.md → NotebookLM → .pptx (gitignored) → convert-pptx.py → slide images + .slidev.md
 ```
 
-### Roles of each file
-
-| File | Role | Committed? |
-|------|------|-----------|
-| `*-workshop.md` | Source of truth — rich content fed into NotebookLM | ✅ Yes |
-| `source/pptx/*.pptx` | Generated by NotebookLM — binary, too large for git | ❌ Gitignored |
-| `public/images/<workshop>/slide-*.png` | Extracted slide images | ✅ Yes |
-| `*.slidev.md` | Generated presentation — full-bleed image backgrounds + presenter notes | ✅ Yes |
-
-### Running the conversion
-
-```bash
-npm run convert:pptx -- <workshop-folder-name>
-```
-
-Example:
-
-```bash
-npm run convert:pptx -- copilot-dev-foundations
-```
-
-### What the script produces
-
-Each slide becomes a full-bleed background image using the `image-full` layout:
-
-```markdown
----
-layout: image-full
-background: /images/copilot-dev-foundations/slide-02-a1b2c3d4.png
----
-
-<!-- Presenter notes describing what to say about this slide -->
-```
-
-- No text content on slides (the image IS the slide)
-- Presenter notes in `<!-- -->` comments must be replaced with substantive talk-track after generation
-- Re-running overwrites previous output (idempotent)
-
-### Python dependency
-
-Install once per machine:
-
-```bash
-pip install python-pptx Pillow
-```
+- The `*-workshop.md` is the **source of truth**; PPTX files are gitignored
+- Run `npm run convert:pptx -- <folder>` to extract images and generate the Slidev file
+- After conversion, replace placeholder `<!-- Presenter notes -->` with real talk-track from the workshop file
+- Python deps: `pip install python-pptx Pillow`
 
 ## Content Guidelines
 
@@ -344,36 +232,22 @@ pip install python-pptx Pillow
 
 ## Markdown Formatting Rules
 
-This repo uses **markdownlint** (configured in `.markdownlint.json` at the repo root). All Markdown files must pass with **zero warnings**. Follow these rules when writing or editing content:
+This repo uses **markdownlint** (`.markdownlint.json`). All Markdown files must pass with zero warnings.
 
-### Enforced Rules (must follow)
+### Enforced Rules
 
 | Rule | Requirement |
 |------|-------------|
-| **MD031** (blanks-around-fences) | Always add a blank line before and after fenced code blocks |
-| **MD032** (blanks-around-lists) | Always add a blank line before the first item when a list follows a non-list line (e.g., after a paragraph, bold label, or heading) |
-| **MD034** (no-bare-urls) | Never use bare URLs in tables — wrap in angle brackets: `<https://example.com>`. Markdown link syntax `[text]\(url)` is also acceptable |
-| **MD007** (ul-indent) | Unordered sub-list items must use standard indentation (no extra spaces) |
+| **MD031** (blanks-around-fences) | Blank line before and after fenced code blocks |
+| **MD032** (blanks-around-lists) | Blank line before a list that follows a non-list line |
+| **MD034** (no-bare-urls) | Wrap URLs in angle brackets `<https://...>` or use `[text](url)` — no bare URLs |
+| **MD007** (ul-indent) | Standard indentation for sub-list items |
 
-### Disabled Rules (intentional — do not re-enable)
+### Common Mistakes
 
-These rules are disabled in `.markdownlint.json` because they conflict with the workshop document conventions:
+- Missing blank line before a list or around fenced code blocks
+- Bare URLs in tables (use `<https://...>`)
+- Wrapping clickable URLs in backticks instead of angle brackets
+- Using HTML elements other than `<details>`, `<summary>`, `<h2>`, `<h3>`, `<img>`, `<br>`
 
-| Rule | Why Disabled |
-|------|-------------|
-| **MD013** (line-length) | Tables, talking points, and callouts regularly exceed 80 characters |
-| **MD024** (no-duplicate-heading) | Workshop sections intentionally reuse subsection names (`### Key Points`, `### Steps`, `### Success Criteria`) |
-| **MD029** (ol-prefix) | Numbered lists interrupted by fenced code blocks lose their sequence — markdown renderers handle this correctly |
-| **MD033** (no-inline-html) | Partially disabled — `<details>`, `<summary>`, `<h2>`, `<h3>`, `<img>`, and `<br>` are allowed for collapsible sections and sized images. All other HTML elements are still flagged |
-| **MD036** (no-emphasis-as-heading) | Bold step labels (`**Step 1: Title**`) inside collapsible sections are intentional |
-| **MD040** (fenced-code-language) | Some fenced blocks contain plain-text decision frameworks or Unicode diagrams that have no language tag |
-| **MD060** (table-column-style) | Compact table separator rows (`\|---\|---\|`) are the convention in this repo |
-
-### Common Formatting Mistakes to Avoid
-
-- **Wrapping navigable URLs in backticks**: If a URL is meant to be clicked (e.g., "Navigate to ..."), use angle brackets `<https://example.com>` so it renders as a clickable link. Only use backticks for URLs that are config values inside YAML, `.npmrc`, `git remote` commands, or similar code contexts
-- **Missing blank line before a list**: If a list immediately follows a paragraph, bold label, or other non-list content, insert a blank line before the first `- ` item
-- **Missing blank line around fenced code blocks**: Always have a blank line before the opening ` ``` ` and after the closing ` ``` `
-- **Bare URLs in tables**: Use `<https://...>` or `[text]\(url)` — never a raw URL in a table cell
-- **Nested code blocks in list items without spacing**: When a fenced code block appears inside a list item, add a blank line before and after it
-- **Only use allowed HTML elements**: Only `<details>`, `<summary>`, `<h2>`, `<h3>`, `<img>`, and `<br>` are permitted — no other raw HTML
+> See `.markdownlint.json` for intentionally disabled rules and their rationale.
