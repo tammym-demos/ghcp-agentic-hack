@@ -164,9 +164,9 @@ This short lab mirrors the workshop flow: first you practice choosing the right 
 
    ```yaml
    ---
-   tools: ['codebase', 'search', 'editFiles']
+   tools: ['search/codebase', 'search', 'edit/editFiles']
    description: Help implement small, low-risk refactors with explanations
-   model: Claude Sonnet 4
+   model: Claude Sonnet 4.6
    ---
 
    You are a careful refactoring partner for this repository.
@@ -181,9 +181,10 @@ This short lab mirrors the workshop flow: first you practice choosing the right 
 
    ```yaml
    ---
-   mode: 'agent'
+   agent: 'agent'
    description: 'Review the active file, propose a safe refactor, and suggest validation steps'
-   tools: ['codebase', 'search', 'editFiles']
+   tools: ['search/codebase', 'search', 'edit/editFiles']
+   model: Claude Sonnet 4.6
    ---
 
    # Safe Refactor Checklist
