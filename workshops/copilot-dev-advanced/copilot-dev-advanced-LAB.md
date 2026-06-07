@@ -27,8 +27,8 @@ This lab gives participants a fast, practical tour of three advanced GitHub Copi
       "servers": {
         "fetch": {
           "type": "stdio",
-          "command": "npx",
-          "args": ["-y", "@modelcontextprotocol/server-fetch"]
+          "command": "uvx",
+          "args": ["mcp-server-fetch"]
         }
       }
     }
