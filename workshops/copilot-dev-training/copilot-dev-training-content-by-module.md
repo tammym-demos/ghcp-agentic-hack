@@ -2,17 +2,21 @@
 
 Full content breakdown extracted from the workshop `.slidev.md`, `-workshop.md`, and `-LAB.md` files.
 
+> **Accuracy note**: The current slidev-backed workshop modules in this repo are Modules 1–3. The later Module 4/5 entries in this file are legacy/planned material and are not backed by current slidev files under `workshops/`.
+
 ---
 
-## Module 1: Foundations (3h 15m) 🎓
+## Module 1: Foundations (1h 25m) 🎓
 
-**3 sessions · 15 exercises · 3 labs**
+**5 sections · 15 exercises · 3 labs**
 
-| Session | Topic | Time | Key Content |
+| Section | Topic | Time | Key Content |
 |---------|-------|------|-------------|
-| S1 | Copilot Chat Tour | 60m | Inline completions, chat modes (panel/inline/quick), slash commands (`/explain`, `/fix`, `/tests`, `/refactor`), `@` participants (`@workspace`, `@selection`, `@vscode`), multi-session management |
-| S2 | Memory & Context | 60m | Context window fundamentals (token budget, priority, truncation), `.github/copilot-instructions.md`, file-scoped instructions with `applyTo`, instruction layering (global → file → session), prompt crafting |
-| S3 | Models, Agents & Tokens | 75m | Model landscape (GPT-4, Claude, etc.), token mechanics (input vs output), built-in vs custom agents (`.github/agents/*.md`), token budgeting & cost tracking, `copilot-setup-steps.yml` |
+| 1 | Foundations framing, safety, privacy, and workflow map | 5m | GitHub Copilot as an acceleration layer; human accountability, privacy, and the completion → chat → plan → agent spectrum. |
+| 2 | Copilot interaction modes | 20m | Completions, inline chat, Ask/Plan/Agent, slash commands, and Copilot Code Review. |
+| 3 | Memory, context & instructions | 25m | Context windows, token discipline, repository instructions, file-scoped guidance, and prompt quality. |
+| 4 | Models, agents, skills & customization | 30m | Model choice, agents vs. skills, prompt reuse, tokens, and lightweight customization. |
+| 5 | Wrap-up, hand-off to lab, and Q&A | 5m | Reinforces safe usage habits and prepares learners for the hands-on lab. |
 
 ### Labs
 
@@ -45,14 +49,21 @@ Full content breakdown extracted from the workshop `.slidev.md`, `-workshop.md`,
 
 ---
 
-## Module 2: Agentic Patterns (2h 15m) 🤖
+## Module 2: Agentic Patterns (1h 50m) 🤖
 
-**2 sessions · 10 exercises · 2 labs + Feedback Agent LAB**
+**9 sections · 10 exercises · 2 labs + Feedback Agent LAB**
 
-| Session | Topic | Time | Key Content |
+| Section | Topic | Time | Key Content |
 |---------|-------|------|-------------|
-| S4 | Agentic Loops & Rubber Duck | 75m | Autonomy spectrum (completions → chat → agent → coding agent), agentic loop definition, Plan-Act-Observe-Reflect (PAOR) cycle, Ralph loop deep dive (Coding Agent validation), rubber duck cross-model review |
-| S5 | Agent Patterns & Antipatterns | 60m | Single-agent multi-skill vs multi-agent specialist teams, orchestration topologies (sequential, parallel, hierarchical), 8 antipatterns (unbounded loops, context bloat, poor error handling, inadequate validation, missing safeguards, unclear success criteria, agent thrashing, inefficient tool use) |
+| 1 | Agent vs. Skill — What an Agent Is | 10m | Agents plan, act, observe, and adjust; skills are the discrete capabilities they orchestrate. |
+| 2 | Agent vs. Skill — When to Use Each | 12m | Use agents for multi-step, judgment-heavy tasks; use direct skills for deterministic single-step work. |
+| 3 | Background Agents & Cloud Agents | 15m | Background agents keep working while you continue; Coding Agent extends this to issue → branch → PR workflows. |
+| 4 | `/init` & Project Bootstrapping | 8m | Use `/init` to accelerate setup, but always review generated scaffolding before adopting it. |
+| 5 | Instruction Layering | 15m | Org, repo, file-scoped, user, and session instructions compose into a layered guidance model. |
+| 6 | Multi-Agent Patterns | 15m | Specialist agents can improve quality, but only when roles, handoffs, and success criteria are explicit. |
+| 7 | Agent Quality & Token Optimization | 25m | Make every token count: model choice, task splitting, concise prompts, deterministic guardrails, and session hygiene reduce waste and improve output quality. |
+| 8 | Rubber Duck Debugging | 5m | Use Copilot as a reasoning partner to surface hidden assumptions, weak logic, or alternative fixes. |
+| 9 | Wrap-up & Q&A | 5m | Reinforces safe autonomy, review gates, and when to choose agentic vs. direct workflows. |
 
 ### Labs
 
@@ -79,15 +90,19 @@ Full content breakdown extracted from the workshop `.slidev.md`, `-workshop.md`,
 
 ---
 
-## Module 3: Advanced Topics (3h 20m) 🔬
+## Module 3: Advanced Topics (1h 22m) 🔬
 
-**3 sessions · 16 exercises · 3 labs + Feedback Agent LAB**
+**7 sections · 16 exercises · 3 labs + Feedback Agent LAB**
 
-| Session | Topic | Time | Key Content |
+| Section | Topic | Time | Key Content |
 |---------|-------|------|-------------|
-| S6 | Extensions & MCP | 60m | VS Code chat participants (`@workspace`, `@vscode`, `@terminal`), GitHub Copilot extensions marketplace, MCP architecture (Model Context Protocol), MCP server configuration & debugging |
-| S7 | Evaluating Agentic Output | 70m | SMART success criteria, output quality rubrics (correctness, readability, performance, security, test coverage), evaluation methods (automated checks, human review, A/B testing), metrics & feedback loops, usage/billing/cost strategies |
-| S8 | Troubleshooting & Diagnostics | 60m | Output log channels (Copilot output panel), chat debug mode (prompt construction, context, token counts), agent debug logs (plan visibility, action tracing, file changes), diagnostics collection & export |
+| 1 | MCP — what, why, how | 15m | MCP standardizes how Copilot reaches external tools, services, and data sources with controlled permissions. |
+| 2 | Using APIs and plugins with Copilot | 12m | External APIs, extensions, and specialized tools expand what Copilot can do in real workflows. |
+| 3 | Memory — current state and evolution | 12m | Persistent memory vs. session-only context, and why durable conventions matter. |
+| 4 | Debugging — chat debug and agent debug logs | 12m | Inspect prompt construction, context, and agent traces when behavior goes wrong. |
+| 5 | Agentic loops, subagents, and task review | 18m | Use plan → execute → observe → reflect loops, with off-ramps and review gates. |
+| 6 | Resources, tools, and ecosystem | 8m | Reference the broader Copilot ecosystem, tools, and trusted sources for continued learning. |
+| 7 | Wrap-up and Q&A | 5m | Reinforces safe adoption, trust calibration, and when to use advanced capabilities. |
 
 ### Labs
 
