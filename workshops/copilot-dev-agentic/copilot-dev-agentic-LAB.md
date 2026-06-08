@@ -2,51 +2,54 @@
 
 ## Overview
 
-This lab turns the module concepts into quick reps: first you compare agentic orchestration with a direct answer, then you create layered instructions, and finally you define a lightweight custom review agent. The goal is to build intuition for where GitHub Copilot should act autonomously, where it should simply answer, and how durable instructions shape both experiences.
+This lab builds directly on the project and artifacts you created in Module 1. You will use your existing instruction files, custom agent, and reusable prompt as the foundation for exploring agentic workflows, multi-agent handoffs, instruction layering conflicts, and token optimization. Every exercise includes a step to review context window and token usage so you develop the habit of monitoring cost alongside quality.
 
-- **Total time**: ~15 minutes
+- **Total time**: ~20 minutes
 - **Prerequisites**:
-  - Completion of Module 1 lab
-  - VS Code with GitHub Copilot
-  - Any local project open
+  - Completion of Module 1 lab (you should already have `.github/copilot-instructions.md`, `.github/instructions/tests.instructions.md`, `.github/agents/refactor-coach.agent.md`, and `.github/prompts/refactor-checklist.prompt.md` in your project)
+  - VS Code with GitHub Copilot and GitHub Copilot Chat enabled
+  - The same local project you used in Module 1
 
-## Exercise 1: Agent vs. Skill — Explore the Difference
+## Exercise 1: Agent vs. Skill — Using Your Existing Agent
 
 **⏱️ Time**: 5 min
-**📋 Objective**: Understand the difference between an agent workflow and a direct skill invocation
+**📋 Objective**: Compare an agentic workflow with a direct answer using the custom agent you built in Module 1, then review context window usage
 
-1. Open any local project in VS Code and open **GitHub Copilot Chat**.
-2. Switch to **Agent** mode and ask GitHub Copilot to complete a multi-step task:
+1. Open the same project you used in Module 1 and open **GitHub Copilot Chat**.
+2. Switch to your **refactor-coach** agent (select it from the mode picker or type `@refactor-coach`) and give it a multi-step task on a file you know well:
 
    ```text
-   Refactor #file for readability, add or update tests if behavior is affected, and explain the plan before making changes.
+   Review #file for readability issues, propose improvements, and explain the plan before making changes.
    ```
 
-3. Watch how GitHub Copilot plans the work, reads files, makes edits, and reports back on what it changed.
-4. Switch to **Ask** mode and ask a single-step question about a specific function:
+3. Watch the agent plan, read files, and produce structured output guided by the instructions you wrote in Module 1.
+4. Now switch to **Ask** mode and ask a single-step question about the same file:
 
    ```text
    Explain what #selection does, what inputs it expects, and what could break if I change it.
    ```
 
-5. Compare the two experiences. Note that the agent used a multi-step workflow, while Ask mode answered directly without editing files or running commands.
-6. Write down one task from your own workflow that is better for agent orchestration and one task that is better as a direct answer.
+5. Compare the two experiences:
+   - The agent used a multi-step workflow with tool calls; Ask mode answered directly
+   - The agent consumed more context (instruction file + tool descriptions + intermediate results)
 
-**🛡️ Safety checkpoint**: Review the agent's multi-step changes before accepting them, and inspect every file it modified instead of trusting the summary alone.
+6. **Review context usage**: Open the **Output** panel (View > Output) and select **GitHub Copilot Chat** from the dropdown. Look for the request size or token indicators. Note how the agent session used more input tokens than the direct answer.
+
+**🛡️ Safety checkpoint**: Review the agent's proposed changes before accepting them. The refactor-coach has edit permissions — inspect every modified file instead of trusting the summary alone.
 
 ### ✅ Success Criteria
 
-- ✅ Used **Agent** mode for a multi-step task
-- ✅ Used **Ask** mode for a single-step question
-- ✅ Observed the difference between planning plus execution and direct explanation
-- ✅ Identified one real task from your workflow for each interaction style
+- ✅ Invoked the `refactor-coach` agent you created in Module 1
+- ✅ Used **Ask** mode for a single-step question on the same file
+- ✅ Observed the difference in planning, tool use, and context consumption
+- ✅ Checked the Output panel to compare token usage between the two interactions
 
-## Exercise 2: Build a Custom Agent and Observe Background Execution
+## Exercise 2: Extend Your Agent Set — Add a Reviewer
 
 **⏱️ Time**: 5 min
-**📋 Objective**: Create a custom agent and observe how it executes
+**📋 Objective**: Create a second agent that complements the refactor-coach, invoke it as a multi-agent handoff, and compare token usage
 
-1. Create a file at `.github/agents/reviewer.md` with review guidance like this:
+1. You already have `.github/agents/refactor-coach.agent.md` from Module 1. Now create a complementary agent at `.github/agents/reviewer.md`:
 
    ```markdown
    ---
@@ -60,121 +63,133 @@ This lab turns the module concepts into quick reps: first you compare agentic or
    - Check whether changed behavior should add or update tests
    - Suggest small, actionable improvements
    - Keep the review structured and concise
+   - Do not make edits — only report findings
    ```
 
-2. In GitHub Copilot Chat, invoke the agent against a file or function:
+2. Notice the difference in design: the reviewer has **no edit tools** and instructions to only report findings. This is intentional — it creates a natural handoff boundary.
+
+3. Invoke the reviewer against the same file or function that the refactor-coach just analyzed:
 
    ```text
    @reviewer Review #file for error handling gaps, missing tests, and maintainability risks.
    ```
 
-3. Observe the response pattern. Notice how the agent reads context, applies its instructions, and returns a structured review instead of a generic answer.
-4. If your environment exposes background execution or tool steps, let the agent continue while you watch the intermediate output and note the plan → act → observe pattern in the transcript.
-5. Decide whether you would use this custom agent for pre-PR review, self-review, or targeted feedback on risky files.
+4. Compare the two agent responses:
+   - `refactor-coach` planned and offered edits (broader tool set, more output tokens)
+   - `reviewer` analyzed and reported without editing (narrower tools, more concise)
 
-**🛡️ Safety checkpoint**: Custom agents inherit the permissions of the user invoking them. Keep their instructions specific, and do not design destructive behavior without clear review and confirmation steps.
+5. **Review token usage**: Check the Output panel again. Note how the reviewer's narrower tool set and "do not make edits" instruction produced a shorter, cheaper response. Fewer tools in the agent definition means fewer tool descriptions sent as input tokens.
+
+6. Reflect on the multi-agent pattern: one agent writes, another reviews. This separation makes each agent's output easier to trust and cheaper to run.
+
+**🛡️ Safety checkpoint**: Custom agents inherit the permissions of the user invoking them. The reviewer is deliberately read-only — keep destructive capabilities out of agents that should only observe.
 
 ### ✅ Success Criteria
 
-- ✅ Created a custom review agent file
-- ✅ Invoked the agent in chat
-- ✅ Observed structured output guided by the agent instructions
-- ✅ Reflected on where a custom review agent fits in your workflow
+- ✅ Created a `reviewer.md` agent alongside the existing `refactor-coach`
+- ✅ Invoked both agents on the same code
+- ✅ Observed the difference in output style, length, and token cost
+- ✅ Understood how tool set size affects input token consumption
+- ✅ Identified the multi-agent handoff pattern (write → review)
 
-## Exercise 3: Instruction Layering — Org, Repo, and File-Scoped
+## Exercise 3: Instruction Conflict — Observing Layer Precedence
 
 **⏱️ Time**: 5 min
-**📋 Objective**: Create layered instructions and observe how they compose
+**📋 Objective**: Use your existing instruction files to demonstrate how layers compose and which layer wins on conflict
 
-1. If your project does not already contain `.github/copilot-instructions.md`, create it with a simple repository-wide rule:
+1. You already have these files from Module 1:
+   - `.github/copilot-instructions.md` — repo-wide rule: "Prefer early returns over deeply nested conditionals"
+   - `.github/instructions/tests.instructions.md` — file-scoped rule for test files
 
-   ```markdown
-   # Repository Instructions
-
-   - All new functions must include JSDoc comments
-   - Prefer clear names over abbreviations
-   ```
-
-2. Create `.github/instructions/test.instructions.md` with a file-scoped rule:
+2. Now add a **conflicting** file-scoped instruction. Create `.github/instructions/legacy.instructions.md`:
 
    ```markdown
    ---
-   applyTo: "**/*.test.*"
+   applyTo: "**/legacy/**"
    ---
 
-   # Test File Instructions
+   # Legacy Code Instructions
 
-   - Use describe/it blocks
-   - Always test edge cases
+   - Do NOT refactor for early returns — preserve existing control flow
+   - Match the surrounding code style even if it contradicts repo-wide guidance
+   - Add inline comments explaining complex logic instead of restructuring
    ```
 
-3. Open a regular source file and ask GitHub Copilot to generate a small helper:
+3. Open a file that matches the `legacy/` path (create a simple `legacy/example.ts` if needed) and ask:
 
    ```text
-   Create a small helper in #file and explain which repository instructions you followed.
+   Improve error handling in #file and explain which instructions guided your approach.
    ```
 
-4. Open a matching test file and ask GitHub Copilot to generate a test:
+4. Open a regular (non-legacy) file and ask the same question. Compare:
+   - In the legacy file, the file-scoped instruction should override the repo-wide "early returns" rule
+   - In the regular file, the repo-wide rule applies normally
 
-   ```text
-   Create a focused test in #file and tell me which instructions apply here.
-   ```
+5. **Inspect the context**: Open the **Output** panel > **GitHub Copilot Chat** and look for references to instruction files in the request payload. Note which instructions were included for each file — this shows you exactly what context Copilot received.
 
-5. Compare the two outputs and note how the more specific test instruction layers on top of the repository-wide rule.
+6. Clean up: delete the `legacy.instructions.md` file if you do not want it persisting. The point was to observe precedence, not to keep conflicting rules.
 
-**🛡️ Safety checkpoint**: Review instruction files before committing them. They affect collaborator experience and should contain durable guidance, not secrets or temporary preferences.
+**🛡️ Safety checkpoint**: Conflicting instructions can produce unpredictable output. In production, resolve conflicts explicitly rather than relying on implicit precedence. Review instruction files before committing — they affect every collaborator's experience.
 
 ### ✅ Success Criteria
 
-- ✅ Created a repository-level instruction file
-- ✅ Created a file-scoped instruction file with `applyTo`
-- ✅ Observed GitHub Copilot follow the repository-wide rule in a regular file
-- ✅ Observed GitHub Copilot apply both repository-wide and test-specific guidance in a test file
+- ✅ Used existing instruction files from Module 1 (did not recreate them)
+- ✅ Created a conflicting file-scoped instruction to test precedence
+- ✅ Observed that the more specific instruction won for the matching file pattern
+- ✅ Inspected the Output panel to see which instructions were sent as context
+- ✅ Understood that layer precedence is deterministic, not random
 
-## Exercise 4: Token Economics — Understanding Cost and Session Hygiene
+## Exercise 4: Token Economics — Context Review and Session Hygiene
 
 **⏱️ Time**: 5 min
-**📋 Objective**: Understand input/output/cached tokens, choose the right model, and practice session hygiene
+**📋 Objective**: Measure context window usage, compare narrow vs. broad context, and practice session hygiene
 
-1. Open GitHub Copilot Chat and start a **new session** (use `/clear` or open a fresh chat).
-2. Before prompting, think about token anatomy:
-   - **Input tokens**: Everything you send (system prompt + instructions + conversation history + attached files)
-   - **Output tokens**: What the model generates (2–4× more expensive than input)
-   - **Cached tokens**: Stable prefixes (instruction files, system prompt) that get discounted on repeat turns
+1. Open GitHub Copilot Chat and start a **new session** (click `+` or use `/clear`).
 
-3. Switch to a **reasoning model** (Claude Opus or similar) and ask an architecture-level question:
+2. Ask an architecture question using **broad context**:
 
    ```text
-   Analyze this repository's structure and suggest three improvements for testability. Explain the trade-offs of each suggestion.
+   @workspace Analyze this project's structure and suggest three improvements for testability.
    ```
 
-4. Note the quality and depth of the response.
-5. Now switch to a **low-tier model** (GPT-mini or Haiku) and ask the same question. Compare the output quality.
-6. Try a **task split** approach — start with research, then plan:
+3. **Check token usage**: Open the Output panel > GitHub Copilot Chat. Note the request size — `@workspace` attached many files as context.
+
+4. Now start a **fresh session** and ask the same question with **narrow context**:
 
    ```text
-   Step 1: What files in this project handle user input validation?
+   Based on #file and the test files in this folder, suggest one improvement for testability.
    ```
 
-7. Use `/clear` to start a fresh session, then use the research results to write a precise implementation prompt:
+5. Compare the two:
+   - The `@workspace` version sent significantly more input tokens
+   - The `#file` version was cheaper and often produces a more focused answer
+
+6. **Model comparison**: Switch to a reasoning model (Claude Opus or similar) and ask:
 
    ```text
-   In #file, add input validation for the email field using a regex pattern. Stop when the existing tests still pass.
+   What is the most important architectural risk in #file and how would you mitigate it?
    ```
 
-8. Reflect on token economics:
-   - The fresh session eliminated accumulated input tokens from prior turns
-   - The precise prompt with `#file` and a stop signal reduces both input context and output verbosity
-   - Instruction files benefit from caching — they cost almost nothing after the first turn in a session
+7. Switch to a smaller model (GPT-mini or Haiku) and ask the same question. Compare quality, depth, and response length (output tokens).
 
-**🛡️ Safety checkpoint**: Model selection is about matching capability to task — not about denying the model information it needs. If a cheaper model produces incorrect output, escalate to a higher tier rather than accepting low-quality results.
+8. **Session hygiene demonstration**: Without clearing, ask an unrelated question in the same session:
+
+   ```text
+   What testing framework does this project use?
+   ```
+
+9. Note how the accumulated context from prior turns may affect the response. Now use `/clear` and ask again — compare the freshness and accuracy of the answer.
+
+10. **Caching observation**: In your fresh session, ask two questions back-to-back. Note that instruction files (`.github/copilot-instructions.md`) are included in both requests but benefit from caching — the stable prefix is discounted after the first turn.
+
+**🛡️ Safety checkpoint**: Token optimization is about curating the right context, not starving the model. If a cheaper model produces incorrect output, escalate to a higher tier rather than accepting low-quality results. Never sacrifice correctness for cost savings.
 
 ### ✅ Success Criteria
 
-- ✅ Can explain the difference between input, output, and cached tokens
-- ✅ Compared output quality between a reasoning model and a low-tier model on the same prompt
-- ✅ Used `/clear` to start a fresh session before a new task
-- ✅ Wrote a precise prompt with file references and a stop signal
-- ✅ Observed the quality difference between a long-context session and a fresh one
+- ✅ Compared `@workspace` (broad) vs. `#file` (narrow) context and noted the token difference
+- ✅ Compared output quality between a reasoning model and a smaller model
+- ✅ Used `/clear` to start a fresh session and observed improved focus
+- ✅ Checked the Output panel for token usage indicators at least twice
+- ✅ Understood that instruction files benefit from caching across turns
 
 *Hands-on lab for Module 2: Agentic Patterns — GitHub Copilot Developer Training*
