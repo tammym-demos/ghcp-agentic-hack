@@ -212,6 +212,14 @@ If no → use a direct skill or tool call
 
 ---
 
+## Deck Modifications
+
+- Extend the speaker notes for the slide that introduces Coding Agent so the presenter can walk through the full issue → branch → implement → PR path, not just the headline concept.
+- Add a short explanation that `copilot-setup-steps.yml` is included to prepare the cloud runner with the same dependencies, compilers, build tools, and test commands the project needs.
+- Keep this update scoped to note/content changes for the existing deck. Do not regenerate the PPTX or slide images; the goal is to improve the existing slide talk-track while preserving the current visual deck.
+
+---
+
 ## 4. GitHub Copilot `/init` and Project Bootstrapping (8 min)
 
 ### Key Points
