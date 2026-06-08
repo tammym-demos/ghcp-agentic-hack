@@ -90,7 +90,7 @@ Plan → Act → Observe → Adjust
 
 ### 🔬 LAB: Exercise 1 — Agent vs. Skill
 
-> **Instructor**: Pause here for hands-on practice. Students complete Exercise 1 (5 min) comparing an agent multi-step workflow with a direct skill invocation.
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 1 (5 min) invoking the refactor-coach agent they built in Module 1 and comparing the agentic workflow with a direct Ask-mode answer on the same file. They also review context window usage in the Output panel.
 
 ---
 
@@ -150,7 +150,7 @@ If no → use a direct skill or tool call
 
 ### 🔬 LAB: Exercise 1 — Agent vs. Skill
 
-> **Instructor**: Pause here for hands-on practice. Students complete Exercise 1 (5 min) comparing an agent workflow with a direct answer to understand when each interaction style is appropriate.
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 1 (5 min) using their Module 1 refactor-coach agent for a multi-step task and comparing it with a direct answer to understand when each interaction style is appropriate. They review token usage in the Output panel.
 
 ---
 
@@ -212,6 +212,14 @@ If no → use a direct skill or tool call
 
 ---
 
+## Deck Modifications
+
+- Extend the speaker notes for the slide that introduces Coding Agent so the presenter can walk through the full issue → branch → implement → PR path, not just the headline concept.
+- Add a short explanation that `copilot-setup-steps.yml` is included to prepare the cloud runner with the same dependencies, compilers, build tools, and test commands the project needs.
+- Keep this update scoped to note/content changes for the existing deck. Do not regenerate the PPTX or slide images; the goal is to improve the existing slide talk-track while preserving the current visual deck.
+
+---
+
 ## 4. GitHub Copilot `/init` and Project Bootstrapping (8 min)
 
 ### Key Points
@@ -245,9 +253,9 @@ If no → use a direct skill or tool call
 - What defaults would you always verify before committing scaffolded output?
 - Where would custom starter templates still outperform generated scaffolding?
 
-### 🔬 LAB: Exercise 2 — Instruction Layering
+### 🔬 LAB: Exercise 2 — Instruction Conflict & Layering
 
-> **Instructor**: Pause here for hands-on practice. Students complete Exercise 2 (5 min) creating layered instructions and observing how they compose across repo-wide and file-scoped levels.
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 3 (5 min) adding a conflicting file-scoped instruction to their existing instruction files from Module 1 and observing which layer wins. They inspect the Output panel to see which instructions were sent as context.
 
 ---
 
@@ -317,7 +325,7 @@ If no → use a direct skill or tool call
 
 ### 🔬 LAB: Exercise 3 — Instruction Layering
 
-> **Instructor**: Pause here for hands-on practice. Students complete Exercise 3 (5 min) creating layered instruction files and observing how repository-wide and file-scoped rules compose.
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 3 (5 min) adding a conflicting file-scoped instruction and observing layer precedence using their existing instruction files from Module 1.
 
 ---
 
@@ -357,9 +365,9 @@ If no → use a direct skill or tool call
 - Where would multi-agent orchestration improve quality or speed?
 - What signs tell you that multi-agent design is overkill for the task at hand?
 
-### 🔬 LAB: Exercise 3 — Build a Custom Agent
+### 🔬 LAB: Exercise 2 — Multi-Agent Handoff
 
-> **Instructor**: Pause here for hands-on practice. Students complete Exercise 3 (5 min) creating a custom review agent and observing structured background execution.
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 2 (5 min) creating a reviewer agent alongside their existing refactor-coach, invoking both on the same code, and comparing token usage between the two agents.
 
 ---
 
@@ -484,9 +492,9 @@ If no → use a direct skill or tool call
 - Have you noticed quality degradation in long sessions? What was the symptom?
 - How would you structure an "agent miss log" for your team?
 
-### 🔬 LAB: Exercise 4 — Token Optimization
+### 🔬 LAB: Exercise 4 — Token Economics
 
-> **Instructor**: Pause here for hands-on practice. Students complete Exercise 4 (5 min) comparing model tiers, practicing session hygiene with `/clear`, and writing precise prompts with stop signals.
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 4 (5 min) comparing broad vs. narrow context, switching model tiers, and using `/clear` for session hygiene — all while checking token usage indicators in the Output panel.
 
 ---
 
@@ -540,10 +548,10 @@ If no → use a direct skill or tool call
 1. Preview the lab sequence:
 
    ```text
-   Exercise 1 → Compare agent vs. direct interaction
-   Exercise 2 → Create layered instructions
-   Exercise 3 → Build a custom review agent
-   Exercise 4 → Optimize a session with model selection and task splitting
+   Exercise 1 → Use your refactor-coach agent vs. Ask mode (review context usage)
+   Exercise 2 → Add a reviewer agent for multi-agent handoff (compare token cost)
+   Exercise 3 → Test instruction layer precedence with a conflict
+   Exercise 4 → Token economics with model comparison and session hygiene
    ```
 
 2. Re-emphasize that the goal is safe experimentation, not maximum autonomy.
