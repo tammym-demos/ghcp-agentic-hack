@@ -153,4 +153,4 @@ layout: image-full
 background: /images/copilot-dev-foundations/slide-21-c5cc6102.png
 ---
 
-<!-- Presenter notes -->
+<!-- Close by asking attendees to name one Copilot habit they will change immediately, such as attaching narrower context, starting fresh sessions sooner, or using Plan before Agent for risky changes. Reinforce that the workshop is about deliberate control: choose the right surface, give Copilot the right context, and keep human review as the final gate. Point learners to the lab as the place to practice mode selection, instruction layering, memory, and lightweight customization while the concepts are still fresh. Invite questions that should carry into Module 2, especially around agentic delegation, approvals, and safer orchestration. -->

@@ -8,7 +8,7 @@ This short lab mirrors the workshop flow: first you practice choosing the right 
 - **Prerequisites**:
   - VS Code installed
   - GitHub Copilot extension installed and signed in
-  - GitHub Copilot CLI installed
+   - GitHub Copilot CLI installed, or Copilot CLI sessions available in VS Code
   - Any local project open in VS Code
 
 ## Exercise 1: Copilot Interaction Modes — Completions, Inline Chat, Modes, and CLI
@@ -30,16 +30,16 @@ This short lab mirrors the workshop flow: first you practice choosing the right 
 
    - Review the inline diff, then accept or reject it
 
-4. Open **GitHub Copilot Chat** and switch to **Ask** mode:
+4. Open **GitHub Copilot Chat** and switch to **Ask** mode. Attach codebase context with Add Context or `#search/codebase`, then ask:
 
    ```text
-   @workspace Summarize how this project is organized and explain what #file is responsible for.
+   Use #search/codebase to summarize how this project is organized and explain what the attached file is responsible for.
    ```
 
 5. Switch to **Plan** mode and ask GitHub Copilot to propose a safe change without editing files:
 
    ```text
-   Plan a small improvement to #file. Include risks, affected files, and how you would verify the change.
+   Plan a small improvement to the attached file. Include risks, affected files, and how you would verify the change.
    ```
 
 6. Switch to **Agent** mode and give GitHub Copilot a small, reversible task such as renaming a variable, clarifying a comment, or improving a README section:
@@ -77,14 +77,14 @@ This short lab mirrors the workshop flow: first you practice choosing the right 
 - ✅ Used **Inline Chat** (`Ctrl+I`) to make a targeted edit and reviewed the diff
 - ✅ Used **Ask**, **Plan**, and **Agent** mode at least once
 - ✅ Used at least one slash command
-- ✅ Used at least one chat variable or participant such as `#file`, `#selection`, or `@workspace`
+- ✅ Used at least one focused context control such as Add Context, `#selection`, `#search/codebase`, or a specific file/folder/symbol mention
 - ✅ Ran at least one GitHub Copilot CLI command
 - ✅ Started a fresh session to practice session hygiene
 
 ## Exercise 2: Memory, Context & Instructions
 
 **⏱️ Time**: 5 min
-**📋 Objective**: Use Copilot Memory, create instruction files, and see how they affect GitHub Copilot behavior
+**📋 Objective**: Use VS Code agent memory, create instruction files, and see how they affect GitHub Copilot behavior
 
 1. Open GitHub Copilot Chat and tell it a preference conversationally:
 
@@ -92,13 +92,13 @@ This short lab mirrors the workshop flow: first you practice choosing the right 
    Remember: I prefer early returns over nested if-else in this project.
    ```
 
-2. Confirm Copilot acknowledges the memory, then start a new chat session and ask it to generate code:
+2. Confirm Copilot acknowledges the memory, then start a new chat session, attach a file, and ask it to generate code:
 
    ```text
-   Generate a validation function in #file.
+   Generate a validation function in the attached file.
    ```
 
-3. Check whether the output reflects your stored preference (early returns). Then visit **GitHub Settings > Copilot > Memory** to see the stored entry.
+3. Check whether the output reflects your stored preference (early returns). Then run **Chat: Show Memory Files** in VS Code to inspect local memory entries.
 
 4. In your project, create `.github/copilot-instructions.md` with a simple repository-wide rule set:
 
@@ -113,7 +113,7 @@ This short lab mirrors the workshop flow: first you practice choosing the right 
 5. Open a file where GitHub Copilot can generate or revise code, then ask (notice the explicit stop signal at the end):
 
    ```text
-   Generate a small helper in #file and explain which repository instructions you followed. Stop after creating the one helper — do not refactor or modify other functions in this file.
+   Generate a small helper in the attached file and explain which repository instructions you followed. Stop after creating the one helper — do not refactor or modify other functions in this file.
    ```
 
 6. Create a scoped instruction file at `.github/instructions/tests.instructions.md`:
@@ -133,17 +133,17 @@ This short lab mirrors the workshop flow: first you practice choosing the right 
 7. Open a matching test file and ask GitHub Copilot to create or revise a test:
 
    ```text
-   Create a focused unit test in #file and tell me which scoped instructions apply here.
+   Create a focused unit test in the attached file and tell me which scoped instructions apply here.
    ```
 
 8. Compare the response you got in a regular source file with the one you got in a test file, and note how the scoped instruction changes the output.
 
-**🛡️ Safety checkpoint**: Review what context you are sharing. Memory stores preferences that persist across sessions — delete anything you did not intend to keep via Settings > Copilot > Memory. Instruction files become visible to collaborators and should contain durable project guidance, not secrets or sensitive data.
+**🛡️ Safety checkpoint**: Review what context you are sharing. Local VS Code memory can persist across sessions — clear or update anything you did not intend to keep. Instruction files become visible to collaborators and should contain durable project guidance, not secrets or sensitive data.
 
 ### ✅ Success Criteria
 
-- ✅ Stored a preference using Copilot Memory and confirmed recall in a new session
-- ✅ Viewed stored memories in GitHub Settings
+- ✅ Stored a preference using VS Code agent memory and confirmed recall in a new session
+- ✅ Viewed stored memories with **Chat: Show Memory Files**
 - ✅ Created a repository-level instruction file
 - ✅ Created a file-scoped instruction file using `applyTo`
 - ✅ Observed GitHub Copilot referencing or following those instructions
@@ -157,7 +157,7 @@ This short lab mirrors the workshop flow: first you practice choosing the right 
 1. In GitHub Copilot Chat, switch to a different available model and ask the same question twice so you can compare depth, style, and speed:
 
    ```text
-   Compare two safe ways to improve #file and recommend one based on maintainability and test impact.
+   Compare two safe ways to improve the attached file and recommend one based on maintainability and test impact.
    ```
 
 2. Create a simple custom agent file at `.github/agents/refactor-coach.agent.md`:
@@ -166,7 +166,6 @@ This short lab mirrors the workshop flow: first you practice choosing the right 
    ---
    tools: ['search/codebase', 'search', 'edit/editFiles']
    description: Help implement small, low-risk refactors with explanations
-   model: Claude Sonnet 4.6
    ---
 
    You are a careful refactoring partner for this repository.
@@ -181,10 +180,9 @@ This short lab mirrors the workshop flow: first you practice choosing the right 
 
    ```yaml
    ---
-   agent: 'agent'
+   agent: agent
    description: 'Review the active file, propose a safe refactor, and suggest validation steps'
    tools: ['search/codebase', 'search', 'edit/editFiles']
-   model: Claude Sonnet 4.6
    ---
 
    # Safe Refactor Checklist

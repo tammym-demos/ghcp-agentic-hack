@@ -14,15 +14,15 @@
 
 ---
 
-### 2. You want GitHub Copilot to explain only a highlighted loop inside `parser.ts`, while still allowing it to reference the broader repository if needed. Which prompt setup is most effective?
+### 2. You want GitHub Copilot to explain only a highlighted loop inside `parser.ts`, while still allowing it to search the broader codebase if needed. Which prompt setup is most effective?
 
-- A) `@workspace Explain this project`
-- B) `#file Explain everything in this file from top to bottom`
-- C) `@workspace Explain #selection in the context of the surrounding project`
+- A) `Use #search/codebase to explain this whole project`
+- B) `Explain everything in the attached file from top to bottom`
+- C) `Explain #selection in the context of the surrounding project, and use #search/codebase only if needed`
 - D) Start a fresh session and paste the entire repository tree into chat
 
 <!--answer: C-->
-<!--explanation: `#selection` narrows the primary focus to the highlighted code, while `@workspace` supplies broader repo context when needed. This combination is more precise than asking about the whole file or entire project without scope.-->
+<!--explanation: `#selection` narrows the primary focus to the highlighted code, while `#search/codebase` can add broader repository context only when needed. This is more precise than asking about the whole file or entire project without scope.-->
 
 ---
 
@@ -62,15 +62,15 @@
 
 ---
 
-### 6. A developer has been working in a single GitHub Copilot Chat session for 30 minutes. The context window is now around 60% full. They notice GitHub Copilot is ignoring their custom instructions and drifting from the original objective. What is the most likely cause?
+### 6. A developer has been working in a single GitHub Copilot Chat session for 30 minutes. The thread now contains old debugging notes, architecture discussion, and terminal output. GitHub Copilot keeps referencing outdated assumptions. What is the most likely cause?
 
 - A) The custom instructions file has a syntax error and was never loaded
-- B) Recency bias — as the context window fills, the model loses sight of the system prompt and earlier instructions in favor of recent conversation
+- B) Context drift — the session accumulated stale or irrelevant context that now competes with the current objective
 - C) The model has a hard limit of 20 minutes per session before instructions expire
 - D) Agent mode automatically disables custom instructions after 50% context usage
 
 <!--answer: B-->
-<!--explanation: Recency bias occurs at roughly 60–70% context fill. The model begins to favor recent conversation over earlier content like system prompts and custom instructions, causing drift. The solution is to start a fresh session and restate the objective clearly.-->
+<!--explanation: Long sessions can accumulate stale assumptions, old terminal output, and superseded requirements. Starting a fresh session or compacting the conversation helps reset focus around the current objective.-->
 
 ---
 
@@ -82,7 +82,7 @@
 - D) Avoid using Agent mode entirely because it always generates excessive output
 
 <!--answer: B-->
-<!--explanation: Stop signals prevent over-execution, model selection avoids paying up to 24× more for routine tasks, and "be concise" in instructions measurably reduces output token volume. Together these address the three main sources of token waste without sacrificing quality.-->
+<!--explanation: Stop signals prevent over-execution, model selection avoids spending stronger reasoning models on routine tasks, and "be concise" in instructions can reduce output token volume. Together these address common sources of token waste without sacrificing quality.-->
 
 ---
 
