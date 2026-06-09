@@ -25,9 +25,9 @@ Module 3 moves from effective day-to-day use of GitHub Copilot into advanced ope
 
 | Requirement | Details |
 |-------------|---------|
-| Module readiness | Completion of Modules 1 and 2, or equivalent familiarity with chat modes, context, and agent workflows |
+| Module readiness | Completion of Modules 1 and 2, including all lab exercises (you should have `copilot-instructions.md`, `tests.instructions.md`, `refactor-coach.agent.md`, `refactor-checklist.prompt.md`, and `reviewer.md` in your `.github/` folder) |
 | GitHub Copilot access | GitHub Copilot and GitHub Copilot Chat enabled in VS Code |
-| Local environment | A local multi-file project open in VS Code for demos and lab work |
+| Local environment | Your Module 1-2 project open in VS Code (the same project used in prior labs) |
 | Tooling | Node.js and `npx` available for trying sample MCP servers |
 | Network access | Internet access for GitHub Copilot and any approved external services |
 | Security awareness | Ability to review permissions, auth scopes, and trust boundaries before enabling tools |
@@ -87,7 +87,7 @@ Module 3 moves from effective day-to-day use of GitHub Copilot into advanced ope
 
 ### 🔬 LAB: Exercise 1 — Configure and Use an MCP Server
 
-> **Instructor**: Pause here for hands-on practice. Students complete Exercise 1 (5 min) configuring a sample MCP server, observing tool discovery, and reviewing the approval flow before continuing to the next section.
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 1 (5 min) configuring a sample MCP server in their existing Module 1-2 project, observing tool discovery alongside their custom agents, reviewing the approval flow, and checking the Output panel for MCP tool token impact before continuing to the next section.
 
 ---
 
@@ -202,9 +202,9 @@ Module 3 moves from effective day-to-day use of GitHub Copilot into advanced ope
 - What debugging scenarios have you encountered with GitHub Copilot so far?
 - How would debug logs change the way your team investigates unexpected agent behavior?
 
-### 🔬 LAB: Exercise 2 — Inspect Chat and Agent Debug Logs
+### 🔬 LAB: Exercise 2 — Inspect Your Agent's Context and Token Usage
 
-> **Instructor**: Pause here for hands-on practice. Students complete Exercise 2 (5 min) opening debug logs, comparing context with and without `@workspace`, and identifying what data was sent before continuing to the next section.
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 2 (5 min) using their `reviewer.md` agent from Module 2 to compare debug log output across agent mode, ask mode, and @workspace — identifying token count differences and understanding how instruction files affect context size.
 
 ---
 
@@ -263,7 +263,7 @@ Module 3 moves from effective day-to-day use of GitHub Copilot into advanced ope
 
 ### 🔬 LAB: Exercise 3 — Observe an Agentic Loop and Off-Ramp
 
-> **Instructor**: Pause here for hands-on practice. Students complete Exercise 3 (5 min) observing plan → execute → observe → reflect, identifying off-ramp behavior, and evaluating when an agent should stop before continuing to the next section.
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 3 (5 min) using their `refactor-coach` agent from Module 1 for a multi-step task, observing plan → execute → observe → reflect, monitoring token growth across loop iterations, and evaluating off-ramp behavior before continuing to the next section.
 
 ---
 
