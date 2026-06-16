@@ -1,23 +1,4 @@
 {
-	"servers": {
-		"Excalidraw-MCP": {
-			"url": "https://excalidraw-mcp-app.vercel.app/mcp",
-			"type": "http"
-		},
-		"microsoft/azure-devops-mcp": {
-			"type": "stdio",
-			"command": "npx",
-			"args": [
-				"-y",
-				"@azure-devops/mcp@latest",
-				"${input:ado_org}",
-				"-d",
-				"${input:ado_domain}"
-			],
-			"gallery": "https://api.mcp.github.com",
-			"version": "1.0.0"
-		}
-	},
 	"inputs": [
 		{
 			"id": "ado_org",
@@ -31,5 +12,20 @@
 			"description": "Repeat to enable specific domains: core, work, work-items, search, test-plans, repositories, wiki, pipelines, advanced-security.",
 			"password": false
 		}
-	]
+	],
+	"servers": {
+		"microsoft/azure-devops-mcp": {
+			"type": "stdio",
+			"command": "npx",
+			"args": [
+				"-y",
+				"@azure-devops/mcp@latest",
+				"${input:ado_org}",
+				"-d",
+				"${input:ado_domain}"
+			],
+			"gallery": "https://api.mcp.github.com",
+			"version": "1.0.0"
+		}
+	}
 }
