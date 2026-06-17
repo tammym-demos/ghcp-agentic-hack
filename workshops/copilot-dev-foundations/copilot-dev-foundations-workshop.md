@@ -1,13 +1,19 @@
 # Module 1: Foundations — Workshop Guide
 
+> **NotebookLM generation instructions**:
+> - Brand the deck with GitHub and Microsoft visual identity.
+> - Use corporate minimal styling: clean layouts, restrained color use, and high readability.
+> - Keep slides professional and uncluttered, with clear hierarchy and consistent typography.
+> - Render **AI Safety Moment** and **Usage Optimization** callouts in distinct content boxes with a consistent badge icon per type so the tip category is instantly recognizable.
+
 **Duration**: 2 hours (120 min: 90 min content + 30 min lab)  
-**Format**: Presentation + Live Demo + Hands-On  
+**Format**: Presentation + Hands-On  
 **Audience**: Developers with basic GitHub Copilot exposure  
 **Prerequisites**: VS Code, GitHub Copilot extension, GitHub Copilot CLI
 
 ## Workshop Overview
 
-This Foundations workshop introduces the core Copilot mental model before agentic scaling. The module starts with surfaces and trust boundaries, then moves into interaction modes, token economics, model routing, and context quality. It closes with autonomy controls and custom agent basics so learners leave with a safe default operating model for daily use.
+This Foundations workshop introduces the core Copilot mental model before agentic scaling. The module starts with surfaces and trust boundaries, then moves into interaction modes, tokenomics, model routing, and context quality. It closes with autonomy controls and custom agent basics so learners leave with a safe default operating model for daily use.
 
 ### Learning Objectives
 
@@ -32,16 +38,11 @@ This Foundations workshop introduces the core Copilot mental model before agenti
 
 ### Key Points
 
-- **Where GitHub Copilot lives**: IDE, CLI, GitHub.com, and GitHub Copilot App workflows.
-- **Enterprise privacy and IP**: policy boundaries, content exclusion, and review accountability.
-- **Inline chat and code completions**: when to stay in flow versus when to issue explicit instructions.
-- **AI safety framing**: generated output is draft material that requires human acceptance.
-
-### 🛡️ Safety Moment
-
-- Confirm repository and org policy scope before sharing sensitive code context.
-- Treat every generated suggestion as untrusted until reviewed against team standards.
-- Keep ownership explicit: humans are accountable for correctness, security, and compliance.
+- **Slide topic (1 slide): Where GitHub Copilot lives** — Copilot spans IDEs, CLI workflows, and GitHub.com experiences through the Copilot App, letting developers move between coding, automation, and repository-level understanding without changing assistant context. **AI Safety Moment**: confirm org policy and access boundaries before using cloud or cross-repo context.
+- **Slide topic (1 slide): Enterprise privacy and IP** — Business and Enterprise controls include policy-driven content boundaries, auditability, and configurable feature access, so teams can align usage with compliance and IP expectations. **AI Safety Moment**: frame all generated output as draft material requiring human review.
+- **Slide topic (1 slide): Inline chat and code completions** — Completions accelerate flow authoring while inline chat supports scoped transformations such as refactors and type changes, giving two complementary interaction patterns for day-to-day work. **Usage Optimization**: choose completions for low-token flow edits and inline chat for bounded transformations.
+- **Slide topic (1 slide): Baseline operating posture** — safe, effective Copilot usage starts with least-autonomy defaults, scoped prompts, and explicit acceptance criteria that keep accountability with human reviewers.
+- **Slide topic (1 slide): Lab transition — Exercise 1** — switch from concept framing to hands-on baseline validation for surfaces, mode selection, and safety boundaries.
 
 ### 🔬 LAB: Exercise 1 — Stage 1 Baseline and Safety Signals
 
@@ -51,60 +52,26 @@ This Foundations workshop introduces the core Copilot mental model before agenti
 
 ### Key Points
 
-- **VS Code chat extension**: slash commands, participants, and scoped references with `#file` and `#selection`.
-- **Copilot CLI orientation**: install path and terminal-first interactions for fast operational workflows.
-- **Modes: Ask, Plan, Agent**: selecting autonomy based on reversibility, risk, and task ambiguity.
-- **Usage optimization**: tighter context and clearer prompts reduce retries and token waste.
-
-### 🛡️ Safety Moment
-
-- Require command review before executing generated terminal instructions.
-- Limit scope before enabling broader workspace analysis.
-- Use explicit approval checkpoints for multi-file or tool-driven edits.
-
-### 🖥️ Demo: IDE-to-CLI Workflow Handoff
-
-1. Run a scoped Ask prompt using `#selection`.
-2. Reframe the same task in Plan mode with constraints and definition of done.
-3. Execute a CLI prompt and compare result quality and speed with IDE chat.
-
-### 💡 Optimization Tip: Scope Before Autonomy
-
-- Start with `#selection` or `#file` before `@workspace`.
-- Prefer Ask for understanding and Plan for reviewed edits.
-- Use Agent mode only when execution steps are truly required.
+- **Slide topic (1 slide): VS Code chat extension mechanics** — slash commands, participants, and `#` references give precise control over context and intent, with `#selection`/`#file` as preferred starting scopes for most tasks. **Usage Optimization**: scope tightly before expanding to workspace-wide reasoning.
+- **Slide topic (1 slide): Copilot CLI orientation** — terminal-first workflows support command generation, explanation, and iterative execution for scripting and operational tasks where concise, actionable output matters. **AI Safety Moment**: generated commands must be reviewed before execution.
+- **Slide topic (1 slide): Ask, Plan, Agent mode selection** — Ask supports understanding, Plan supports reviewed change proposals, and Agent supports iterative execution loops; mode should match task risk and reversibility. **AI Safety Moment**: higher-autonomy modes require stronger approval gates.
+- **Slide topic (1 slide): Context discipline as performance lever** — prompt clarity and bounded inputs reduce drift, retries, and ambiguity across all interaction modes. **Usage Optimization**: better prompt contracts lower both latency and AIC spend.
+- **Slide topic (1 slide): Lab transition — Exercise 2** — move from workflow patterns into guided Ask/Plan/Agent execution with scoped context.
 
 ### 🔬 LAB: Exercise 2 — Stage 2 Guided Workflow Repetition
 
 > **Instructor**: Pause here for hands-on practice. Students complete Exercise 2 (8 min) running the same task across Ask, Plan, and Agent with scoped context.
 
-## 3. Token Economics and Model-Routing Decisions (20 min)
+## 3. Tokenomics and Model-Routing Decisions (20 min)
 
 ### Key Points
 
-- **Token fundamentals**: input, output, and cache token behavior.
-- **AIC usage model**: practical cost implications of context size, model choice, and loop length.
-- **Usage visibility**: session-level and monthly consumption tracking.
-- **Model routing**: matching fast versus reasoning models to task complexity.
-- **Rubber duck pattern**: structured clarification before edits to prevent expensive rework.
-
-### 🛡️ Safety Moment
-
-- Cost optimization must never replace required testing or security checks.
-- Large prompts can bury critical constraints and increase acceptance risk.
-- Usage pressure should not justify skipping review gates.
-
-### 🖥️ Demo: Cost-to-Quality Tradeoff
-
-1. Compare a broad prompt to a scoped prompt for the same task.
-2. Run the task with a faster model and a reasoning model.
-3. Review resulting token usage and discuss decision criteria.
-
-### 💡 AIC Optimization Tip: Spend Intentionally
-
-- Use the smallest sufficient model for the task.
-- Keep context narrow and explicit.
-- Track repeated retries as a cost signal that prompt structure needs improvement.
+- **Slide topic (1 slide): Token fundamentals** — tokens represent prompt/input/output context across active and cached paths, so context size directly affects cost and quality stability. **Usage Optimization**: trim noise before sending context.
+- **Slide topic (1 slide): AIC usage model** — AIC maps spend to real compute usage, making model choice, prompt size, and loop depth first-class engineering tradeoffs. **Usage Optimization**: treat AIC telemetry as workflow tuning feedback.
+- **Slide topic (1 slide): Usage visibility and measurement** — session and monthly usage views expose hidden inefficiencies such as broad prompts and repetitive retries. **Usage Optimization**: use regular usage reviews to prevent avoidable overages.
+- **Slide topic (1 slide): Model routing strategy** — fast models fit straightforward tasks, while reasoning models fit ambiguity-heavy architecture and debugging decisions. **Usage Optimization**: match model capability to task complexity.
+- **Slide topic (1 slide): Rubber duck clarification pattern** — articulating the problem before execution often reveals assumptions and reduces expensive rework loops.
+- **Slide topic (1 slide): Lab transition — Exercise 3** — apply token, AIC, and model-routing decisions in a side-by-side comparison workflow.
 
 ### 🔬 LAB: Exercise 3 — Stage 3 Optimization — Tokens, AIC, Models, and Context
 
@@ -114,28 +81,11 @@ This Foundations workshop introduces the core Copilot mental model before agenti
 
 ### Key Points
 
-- **Context window anatomy**: compaction, signal loss, and context rot.
-- **Autonomy spectrum and delegation permissions**: calibrating control by blast radius.
-- **Custom agents**: purpose-built instructions, scoped tools, and bounded responsibilities.
-- **Safety and optimization integration**: reliable outcomes come from both guardrails and efficient prompting.
-
-### 🛡️ Safety Moment
-
-- Start new threads when context rot appears instead of forcing degraded continuity.
-- Keep tool permissions minimal and auditable for delegated workflows.
-- Require escalation paths for ambiguity or policy conflicts.
-
-### 🖥️ Demo: Guardrailed Delegation
-
-1. Show a constrained agent definition with explicit boundaries.
-2. Run one low-risk delegated task.
-3. Review outputs with a go/no-go acceptance checklist.
-
-### 💡 Optimization Tip: Encode Once, Reuse Often
-
-- Put recurring constraints into instructions and agent definitions.
-- Keep agents specialized rather than all-purpose.
-- Reuse prompt templates that already pass team review standards.
+- **Slide topic (1 slide): Context window anatomy** — context windows combine instructions, history, references, and outputs, and degrade when sessions accumulate noise and compaction artifacts. **Usage Optimization**: reset or re-scope when context rot appears.
+- **Slide topic (1 slide): Autonomy spectrum and delegation permissions** — autonomy should scale with reversibility and blast radius, from suggestion-only support to iterative execution loops. **AI Safety Moment**: high-impact tasks require explicit approvals and narrow permissions.
+- **Slide topic (1 slide): Custom agent design** — custom agents package persona, instructions, permissions, and tools for domain workflows such as migrations or docs. **AI Safety Moment**: enforce least privilege and bounded responsibilities.
+- **Slide topic (1 slide): Safety and optimization integration** — reusable constraints and standard guardrails improve both reliability and efficiency when encoded once and reused consistently.
+- **Slide topic (1 slide): Lab transition — Exercise 4** — shift from delegation principles into a constrained custom-agent implementation drill.
 
 ### 🔬 LAB: Exercise 4 — Stage 4 Delegation — Custom Agent Guardrails
 
@@ -145,8 +95,8 @@ This Foundations workshop introduces the core Copilot mental model before agenti
 
 ### Key Points
 
-- Foundations establishes the safety, cost, and quality baseline for all later modules.
-- Strong outcomes depend on combining mode selection, context discipline, and explicit review.
-- Module 2 (Agentic) extends this baseline into instructions, memory, tools, and orchestration loops.
+- **Slide topic (1 slide): Foundations outcome baseline** — this module sets default operating behaviors for trust, quality, and cost-aware execution across IDE, CLI, and cloud surfaces.
+- **Slide topic (1 slide): Consistency over ad hoc prompting** — strong outcomes come from mode discipline, context hygiene, and explicit acceptance criteria instead of improvisation.
+- **Slide topic (1 slide): Transition to Module 2** — Agentic builds on this baseline with instruction layering, memory strategy, tool orchestration, and repeatable autonomous control loops.
 
 *Workshop guide for Module 1: Foundations — GitHub Copilot Developer Training*

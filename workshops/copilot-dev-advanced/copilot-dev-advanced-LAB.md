@@ -33,19 +33,21 @@ This lab extends the **Copilot Quest** Stage 5-6 Workflow Kit into the **Orchest
 ## Exercise 2: Stage 7 Governance Controls and Stage 8 Debug Readiness
 
 **⏱️ Time**: 10 min  
-**📋 Objective**: Compare Stage 7 integration choices and define a Stage 8 debug-first response
+**📋 Objective**: Compare Stage 7 integration choices, draft one practical GitHub agentic workflow example, and define a Stage 8 debug-first response
 
 1. Pick one bounded task and solve it once with CLI/API style, once with MCP/plugin style (for example: fetch the word list or update the scoreboard).
 2. Document tradeoffs in setup cost, observability, governance, and control.
-3. Simulate one failure case and capture a Stage 8 debug-first response plan.
-4. Add one hook/checkpoint your team would enforce before deployment approval.
-5. Fold the resulting checklist into the orchestration package so it travels with the Copilot Quest workflow.
+3. Draft one GitHub agentic workflow example your team could run (for example: issue triage -> assign coding agent -> open PR -> human review gate -> merge).
+4. Simulate one failure case and capture a Stage 8 debug-first response plan.
+5. Add one hook/checkpoint your team would enforce before deployment approval.
+6. Fold the resulting checklist and workflow example into the orchestration package so it travels with the Copilot Quest workflow.
 
 **🛡️ Safety checkpoint**: Use only approved tools/endpoints, avoid sensitive data in prompts/logs, and document trust boundaries.
 
 ### ✅ Success Criteria
 
 - ✅ Compared two integration paths on the same objective
+- ✅ Drafted one concrete GitHub agentic workflow example with a human review gate
 - ✅ Documented one debug protocol for repeat failures
 - ✅ Defined one enforceable policy hook/checkpoint tied to release approval
 - ✅ Stored the checklist in the package for reuse

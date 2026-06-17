@@ -1,7 +1,13 @@
 # Module 2: Intermediate (Agentic) — Workshop Guide
 
+> **NotebookLM generation instructions**:
+> - Brand the deck with GitHub and Microsoft visual identity.
+> - Use corporate minimal styling: clean layouts, restrained color use, and high readability.
+> - Keep slides professional and uncluttered, with clear hierarchy and consistent typography.
+> - Render **AI Safety Moment** and **Usage Optimization** callouts in distinct content boxes with a consistent badge icon per type so the tip category is instantly recognizable.
+
 **Duration**: 2 hours (120 min: 90 min content + 30 min lab)  
-**Format**: Presentation + Live Demo + Hands-On  
+**Format**: Presentation + Hands-On  
 **Audience**: Developers who completed Foundations  
 **Prerequisites**: Module 1 completion and familiarity with Ask/Plan/Agent mode
 
@@ -32,44 +38,21 @@ This Intermediate module maps directly to the Agentic operating layer: durable i
 
 ### Key Points
 
-- **Instruction-first operation**: durable standards belong in versioned instruction files.
-- **Memory purpose**: persist useful preferences and facts without storing sensitive data.
-- **Context hierarchy**: prompt, file-level instructions, repo instructions, memory, then model defaults.
-- **Agentic transition**: move from one-off prompting to repeatable control systems.
-
-### 🛡️ Safety Moment
-
-- Put non-negotiable policy into instructions, not ad hoc chat reminders.
-- Treat memory as convenience context, not a secure vault.
-- Resolve instruction-versus-memory conflicts in favor of explicit policy.
+- **Slide topic (1 slide): Instruction-first operation** — durable standards should live in versioned instruction files so teams do not restate architecture and review expectations each session. **AI Safety Moment**: encode non-negotiable policy in instructions, not chat.
+- **Slide topic (1 slide): Memory purpose and limits** — memory improves continuity by retaining stable workflow facts and preferences across sessions. **AI Safety Moment**: do not persist sensitive or regulated data.
+- **Slide topic (1 slide): Context hierarchy and precedence** — prompts, scoped instructions, repo guidance, and memory resolve through an ordered stack that determines runtime behavior.
+- **Slide topic (1 slide): Agentic transition marker** — intermediate maturity shifts from one-off prompting to designed control loops with explicit constraints and escalation paths.
 
 ## 2. Instructions, Memory, and Prompt Contract Design (25 min)
 
 ### Key Points
 
-- **Instructions**: repository and scoped guidance that survives sessions.
-- **Memory**: reusable preferences that reduce repetitive setup prompts.
-- **Strong prompt anatomy**: task, scope, constraints, definition of done, and off-ramp.
-- **Instruction layering stack**: org, repo, scoped files, user settings, and runtime prompt.
-- **Usage optimization**: well-structured prompts reduce retries and rework.
-
-### 🛡️ Safety Moment
-
-- Include explicit escalation behavior when the model hits ambiguity.
-- Keep prompts bounded to avoid accidental overreach into unrelated code.
-- Require visible acceptance criteria before execution begins.
-
-### 🖥️ Demo: Prompt Contract and Layering Walkthrough
-
-1. Draft a weak prompt and identify missing contract elements.
-2. Rewrite with task, scope, constraints, definition of done, and off-ramp.
-3. Show how instruction layers change response behavior without rewriting the task.
-
-### 💡 Optimization Tip: Structure Beats Volume
-
-- Short, explicit prompts usually outperform long narrative prompts.
-- Reuse prompt templates for recurring workflows.
-- Capture stable constraints in instructions instead of repeating them per request.
+- **Slide topic (1 slide): Instructions as durable control surface** — repository and scoped instruction files define expected behavior per context and file pattern, turning Copilot into a team-aligned collaborator.
+- **Slide topic (1 slide): Memory as continuity layer** — memory carries forward reusable context that does not belong in policy files. **AI Safety Moment**: keep memory curation intentional and non-sensitive.
+- **Slide topic (1 slide): Strong prompt anatomy** — task, scope, constraints, definition of done, and off-ramp reduce ambiguity and improve autonomous execution quality. **Usage Optimization**: strong prompt contracts reduce retries.
+- **Slide topic (1 slide): Instruction layering stack** — org, repo, scoped files, user settings, and runtime prompts compose into one behavior model. **AI Safety Moment**: avoid contradictions that weaken policy intent.
+- **Slide topic (1 slide): Structured prompts as efficiency multiplier** — stable instructions plus clear prompts improve first-pass outcomes and shorten correction loops. **Usage Optimization**: lower AIC with fewer rework turns.
+- **Slide topic (1 slide): Lab transition — Exercise 1** — move from prompt/instruction design into a structured prompt-contract execution drill.
 
 ### 🔬 LAB: Exercise 1 — Stage 5 CLI Power-User Prompt Contract
 
@@ -79,29 +62,12 @@ This Intermediate module maps directly to the Agentic operating layer: durable i
 
 ### Key Points
 
-- **What is an agent**: a system that plans, acts, observes, and adapts.
-- **What is a skill**: a scoped capability that an agent invokes to do work.
-- **When to use one or the other**: deterministic actions via direct skills, adaptive tasks via agents.
-- **Anatomy of the agentic loop**: prompt -> think -> act -> observe -> repeat.
-- **What are tools**: concrete action interfaces that convert intent into execution.
-
-### 🛡️ Safety Moment
-
-- Treat each tool invocation as a policy checkpoint.
-- Separate implementation and verification to reduce blind acceptance.
-- Define stop conditions so loops do not run indefinitely.
-
-### 🖥️ Demo: Agentic Loop in a Bounded Task
-
-1. Solve a small task with direct tool calls only.
-2. Solve the same task with an agent loop and compare behavior.
-3. Apply explicit stop conditions and verify final acceptance criteria.
-
-### 💡 Optimization Tip: Delegate Only When Adaptation Adds Value
-
-- Prefer direct tools for predictable, low-branching tasks.
-- Use agents when decision-making across steps is required.
-- Limit loop depth with clear completion criteria.
+- **Slide topic (1 slide): What is an agent** — an agent plans, acts, observes, and adapts across multiple steps to complete bounded objectives. **AI Safety Moment**: action-capable systems need explicit oversight and stop conditions.
+- **Slide topic (1 slide): What is a skill** — skills are reusable scoped capabilities for concrete actions like search, edits, and command execution. **AI Safety Moment**: treat high-impact skills as privileged capabilities.
+- **Slide topic (1 slide): When to use direct skills versus agents** — deterministic low-branching tasks fit direct tools, while adaptive workflows fit agent orchestration. **Usage Optimization**: avoid over-delegating simple tasks.
+- **Slide topic (1 slide): Anatomy of the agentic loop** — prompt, decide, act, observe, and correct as a repeatable control cycle. **Usage Optimization**: bounded loops with termination criteria reduce token burn.
+- **Slide topic (1 slide): Tooling as execution interface** — tools bridge reasoning to action across files, terminals, and external systems. **AI Safety Moment**: require auditability and constrained parameters for risky tools.
+- **Slide topic (1 slide): Lab transition — Exercise 2** — switch from agent/skill theory to a role-based handoff loop with explicit checkpoints.
 
 ### 🔬 LAB: Exercise 2 — Stage 6 Multi-Agent Handoff Drill
 
@@ -111,28 +77,11 @@ This Intermediate module maps directly to the Agentic operating layer: durable i
 
 ### Key Points
 
-- **Background and cloud agents**: choose execution location based on duration, dependencies, and audit needs.
-- **Boilerplate with `/init`**: fast scaffolding with consistent standards.
-- **Optimization controls**: model routing, token discipline, and constrained execution paths.
-- **Readiness for scale**: stable checklists before expanding autonomy.
-
-### 🛡️ Safety Moment
-
-- Do not move tasks to cloud or background execution without clear boundaries.
-- Keep permission scopes minimal and aligned with task intent.
-- Require rollback and exception paths before scaling.
-
-### 🖥️ Demo: Execution Strategy Decision Matrix
-
-1. Compare direct local execution, background execution, and cloud delegation.
-2. Scaffold a starter using `/init` and inspect generated defaults.
-3. Apply a readiness checklist to decide go/no-go for delegated execution.
-
-### 💡 AIC Optimization Tip: Match Execution Mode to Workload
-
-- Keep short tasks interactive and local.
-- Use background or cloud only for long-running, parallelizable work.
-- Reuse checklists to reduce costly retries and inconsistent approvals.
+- **Slide topic (1 slide): Background versus cloud agents** — choose execution venue based on dependencies, duration, and observability requirements. **Usage Optimization**: use async/cloud paths for genuinely long-running parallelizable tasks.
+- **Slide topic (1 slide): Boilerplate with `/init`** — scaffold commands standardize project setup and reduce repetitive prompt overhead. **Usage Optimization**: start from reusable templates to reduce setup churn.
+- **Slide topic (1 slide): Optimization controls as operating system** — model routing, context budgeting, permission boundaries, and validation cadence must be treated as default controls, not optional extras.
+- **Slide topic (1 slide): Readiness for scale** — scale autonomy only after proving repeatability with checklists, quality thresholds, and rollback-ready governance. **AI Safety Moment**: no scale-up without control evidence.
+- **Slide topic (1 slide): Lab transition — Exercise 3** — apply execution-strategy controls to a Stage 6-to-Stage 7 guardrail mapping exercise.
 
 ### 🔬 LAB: Exercise 3 — Stage 6 to Stage 7 Guardrail Mapping
 
@@ -142,8 +91,8 @@ This Intermediate module maps directly to the Agentic operating layer: durable i
 
 ### Key Points
 
-- Intermediate (Agentic) focuses on reproducible control, not ad hoc prompting.
-- High-quality outcomes depend on prompt contracts, scoped tools, and explicit review loops.
-- Module 3 (Advanced) extends these practices into multiagent architecture and deployment operations.
+- **Slide topic (1 slide): Intermediate module outcome** — the goal is reproducible control systems across people, sessions, and repositories, not one-off prompt improvement.
+- **Slide topic (1 slide): Quality equation for agentic workflows** — high-quality outcomes require clear prompt contracts, scoped tool access, and explicit verification loops.
+- **Slide topic (1 slide): Transition to Advanced** — Module 3 extends these controls into multiagent orchestration, integration governance, and deployment-ready operations.
 
 *Workshop guide for Module 2: Intermediate (Agentic) — GitHub Copilot Developer Training*
