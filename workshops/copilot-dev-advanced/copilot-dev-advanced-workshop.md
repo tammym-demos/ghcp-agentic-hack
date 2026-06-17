@@ -1,309 +1,187 @@
-# Module 3: Advanced Topics — Workshop Guide
+# Module 3: Advanced Content Refresh (Stage 7-8) — Workshop Guide
 
-**Duration**: ~90 min
-**Format**: Presentation + Live Demo + Hands-On
-**Audience**: Developers with Copilot experience (Modules 1-2 completed)
-**Prerequisites**: Completion of Modules 1 and 2
+**Duration**: 2 hours (120 min: 90 min content + 30 min lab)  
+**Format**: Presentation + Live Demo + Hands-On  
+**Audience**: Developers who completed Modules 1 and 2  
+**Prerequisites**: Intermediate understanding of Copilot agents, tools, and instruction layering
 
 ---
+
+## Session Agenda (Slide 2)
+
+| Section | Topic Group | Time |
+|---------|-------------|------|
+| 1 | Stage 7 architecture: multi-agent orchestration patterns | 25 min |
+| 2 | Stage 7 controls: extensibility surfaces and governance | 25 min |
+| 3 | Stage 8 operations: debugging and deployment readiness | 20 min |
+| 4 | Stage 8 close-out: Day 2 hack prep and execution plan | 10 min |
+| 5 | Wrap-up and lab hand-off | 10 min |
+| — | Lab time across 3 exercises | 30 min |
 
 ## Workshop Overview
 
-Module 3 moves from effective day-to-day use of GitHub Copilot into advanced operational patterns: connecting external systems through MCP, extending workflows with APIs and plugins, understanding memory behavior, debugging chat and agents, and designing safe agentic loops. By the end of this session, participants should be able to evaluate where advanced GitHub Copilot capabilities fit in their team workflow, how to enable them responsibly, and how to debug or constrain them when autonomy increases.
+This refreshed Advanced module aligns explicitly to the approved 8-stage model, focusing on **Stage 7 (Orchestration)** and **Stage 8 (Deployment Readiness)**. Each listed topic is written with one-slide-per-topic intent for NotebookLM generation and supports a Day 2 build/hack workflow focused on real multi-agent delivery.
+
+> **NotebookLM guidance**: Keep discussion prompts out of slide bullets. Use them only as presenter notes / talk track.
 
 ### Learning Objectives
 
-- Explain what MCP is and when GitHub Copilot should use it
-- Connect GitHub Copilot workflows to APIs, plugins, and external tools safely
-- Distinguish persistent memory from session-only context across GitHub Copilot surfaces
-- Use chat and agent debug logs to diagnose context, model, and tool issues
-- Describe the plan → execute → observe → reflect cycle in agentic loops
-- Design off-ramps so agents stop and hand back ambiguous or risky work
-- Identify trusted resources for staying current with the GitHub Copilot ecosystem
-
-### Prerequisites
-
-| Requirement | Details |
-|-------------|---------|
-| Module readiness | Completion of Modules 1 and 2, including all lab exercises (you should have `copilot-instructions.md`, `tests.instructions.md`, `refactor-coach.agent.md`, `refactor-checklist.prompt.md`, and `reviewer.md` in your `.github/` folder) |
-| GitHub Copilot access | GitHub Copilot and GitHub Copilot Chat enabled in VS Code |
-| Local environment | Your Module 1-2 project open in VS Code (the same project used in prior labs) |
-| Tooling | Node.js and `npx` available for trying sample MCP servers |
-| Network access | Internet access for GitHub Copilot and any approved external services |
-| Security awareness | Ability to review permissions, auth scopes, and trust boundaries before enabling tools |
+- Apply Stage 7 orchestration patterns using multiagents, subagents, and fleet workflows
+- Choose Stage 7 integration surfaces (hooks, extensions, plugins, MCP, API/CLI) with governance controls
+- Execute Stage 8 debug and deployment-readiness workflows with operational discipline
+- Produce a Day 2 hack plan with explicit architecture, guardrails, and release gates
 
 ---
 
-## Session Agenda
-
-| Section | Topic | Time |
-|---------|-------|------|
-| 1 | MCP (Model Context Protocol) — What, Why, How | 15 min |
-| 2 | Using APIs and Plugins with Copilot | 12 min |
-| 3 | Memory — Current State and Evolution | 12 min |
-| 4 | Debugging — Chat Debug and Agent Debug Logs | 12 min |
-| 5 | Agentic Loops (Ralph Loop), Subagents, and Task Review | 18 min |
-| 6 | Resources, Tools, and Ecosystem (Squad, copilot-awesome) | 8 min |
-| 7 | Wrap-up and Q&A | 5 min |
-
----
-
-## 1. MCP (Model Context Protocol) — What, Why, How (15 min)
+## 1. Stage 7 — Multi-Agent Orchestration Architecture (25 min)
 
 ### Key Points
 
-- **What MCP is**: a protocol that standardizes how AI tools connect to external data sources and services
-- **Why it matters**: GitHub Copilot can reach beyond repository files into databases, APIs, documentation, and enterprise systems
-- **How it works**: MCP servers expose tools and resources that GitHub Copilot can discover and invoke during chat or agent workflows
-- **Configuration paths**: teams commonly configure MCP servers in VS Code with `mcp.json` or approved settings-based configuration
-- **Server types**: built-in experiences may cover common workflows, while third-party or internal MCP servers extend GitHub Copilot into custom systems
-- **Typical use cases**: database lookups, API documentation retrieval, internal developer portals, and controlled file system operations
+- **Slide topic (1 slide): Stage 7 orchestration goal** — why orchestration is introduced at this maturity stage.
+- **Slide topic (1 slide): Multiagents** — when collaborative agent topology is justified.
+- **Slide topic (1 slide): Brady Gaster's Squad pattern** — practical multi-role handoff model.
+- **Slide topic (1 slide): Subagents** — delegated specialist contexts and summary-based return flow.
+- **Slide topic (1 slide): Fleet** — parallelized execution across independent workstreams.
 
 ### 🛡️ Safety Moment
 
-- MCP servers run code or perform actions on your behalf
-- Verify authentication, permissions, approved endpoints, and sandboxing before enabling a server
-- Treat every MCP server as part of your software supply chain review
+- Stage 7 increases delivery speed and coordination risk at the same time.
+- Require ownership boundaries per agent role to avoid silent overlap/conflict.
+- Add explicit stop/escalation logic for deadlocks and contradictory outputs.
 
-### 🖥️ Demo: Configure an MCP server and approve a tool call
-
-- Open `.vscode/mcp.json` or the relevant GitHub Copilot MCP settings entry
-- Configure a simple server such as a fetch or filesystem server
-- Ask GitHub Copilot to complete a task that requires the new MCP tool
-- Pause on the approval prompt and inspect what action GitHub Copilot wants to take
-- Approve the call, review the result, and discuss what context crossed the trust boundary
-
-### 💡 Optimization Tip: MCP Server Discipline
-
-- Only activate MCP servers you regularly use — each server's tool descriptions are sent on every request, consuming input tokens
-- Too many available tools causes agents to take unnecessary detours (for example, a Playwright MCP server triggering screenshots when none were requested)
-- Pair MCP servers with custom agents that restrict the active tool set to only what the specific workflow needs
-- Periodically audit your active servers — remove any you have not used in the past month
-
-### Discussion Points
-
-- What external data sources would your team connect via MCP first?
-- What approval workflow or allowlist would you require before enabling a new server?
-
-### 🔬 LAB: Exercise 1 — Configure and Use an MCP Server
-
-> **Instructor**: Pause here for hands-on practice. Students complete Exercise 1 (5 min) configuring a sample MCP server in their existing Module 1-2 project, observing tool discovery alongside their custom agents, reviewing the approval flow, and checking the Output panel for MCP tool token impact before continuing to the next section.
+<!-- Presenter notes:
+Which workflows in your org are now mature enough for Stage 7 orchestration?
+When does added orchestration overhead outweigh benefits?
+What acceptance policy should apply to agent-to-agent handoffs?
+-->
 
 ---
 
-## 2. Using APIs and Plugins with Copilot (12 min)
+## 2. Stage 7 — Extensibility Surfaces and Governance Controls (25 min)
 
 ### Key Points
 
-- GitHub Copilot workflows become more useful when they can reach external APIs and specialized tools
-- Agent workflows can call APIs during planning and execution when the environment exposes those capabilities
-- Plugin and extension patterns, such as `@docker` and `@azure`, add specialized commands, context, and workflows
-- Teams can build custom integrations for internal APIs, documentation systems, and deployment tooling
-- Common REST patterns include retrieve context, perform an action, inspect the response, and summarize the result back to the developer
+- **Slide topic (1 slide): Hooks** — lifecycle triggers for policy checks, automation, and quality gates.
+- **Slide topic (1 slide): Extension Marketplace** — curated ecosystem integration and governance.
+- **Slide topic (1 slide): MCP** — standardized tool/data connectivity beyond repository files.
+- **Slide topic (1 slide): API/CLI** — direct automation and scriptable integration pathways.
+- **Slide topic (1 slide): Plugins** — specialized capabilities layered onto base assistant behavior.
 
 ### 🛡️ Safety Moment
 
-- Data sent to external APIs leaves your trust boundary
-- Review what repository context, prompts, file contents, and identifiers are included before approving calls
-- Prefer least-privilege auth scopes and observable audit trails
+- Every external integration is a trust-boundary decision.
+- Apply least privilege and explicit approval where side effects exist.
+- Track provenance for data returned from external systems.
 
-### 🖥️ Demo: Use an API-aware workflow and a specialized plugin
+### 🖥️ Demo: Integration Path Selection
 
-- Trigger a workflow where GitHub Copilot needs information from an external API
-- Show how the agent selects or requests access to the tool it needs
-- Compare the experience with a specialized plugin or extension that adds domain-specific capabilities
-- Discuss when a custom integration is worth building versus using a general-purpose tool
+1. Compare one task solved through CLI/API automation and one via MCP/plugin path.
+2. Show where hooks can enforce pre-merge or pre-deploy policy checks.
+3. Capture tradeoffs: setup overhead, control, and auditability.
 
-### 💡 Optimization Tip: CLI vs. MCP Trade-offs
+### 💡 AIC Optimization Tip: Smallest Sufficient Integration
 
-- Many tools (git, npm, docker) are already well-represented in model training data — invoking them via CLI may produce better results than routing through an MCP server
-- MCP servers add value when the tool requires structured input/output, authentication, or state management that a simple shell command cannot provide
-- When in doubt, prefer the simpler integration path that is already in the agent's training distribution
+- Prefer native CLI/API paths for deterministic operations.
+- Use MCP/plugins when structured stateful interactions add clear value.
+- Keep extension surface area minimal to reduce operational risk and token/tool overhead.
 
-### Discussion Points
+<!-- Presenter notes:
+Which Stage 7 integration paths are mission-critical versus nice-to-have?
+Where should your team standardize hook policy?
+How do you evaluate new marketplace extensions safely?
+-->
 
-- What APIs does your team interact with daily that could benefit from GitHub Copilot integration?
-- Which workflows should stay human-operated even if an API integration is technically possible?
+### 🔬 LAB: Exercise 1 — Integration Path Comparison
+
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 1 (10 min) mapping a Stage 7 orchestration design and selecting the right integration path for one bounded task.
 
 ---
 
-## 3. Memory — Current State and Evolution (12 min)
+## 3. Stage 8 — Debugging and Deployment Readiness (20 min)
 
 ### Key Points
 
-- Memory helps GitHub Copilot retain useful preferences, conventions, and durable context beyond a single exchange
-- Some context is ephemeral and tied to the current session, prompt, workspace, or task
-- Memory behavior differs across surfaces such as IDE chat, CLI experiences, and GitHub.com workflows
-- Good memory strategy focuses on stable preferences, coding conventions, and recurring working style rather than one-off task details
-- Start fresh when context becomes stale, overly specific, or likely to bias the next task incorrectly
-- Instruction files and policy documents define explicit rules, while memory captures durable learned preferences and conventions
-- The feature continues to evolve toward clearer controls, better visibility, and more deliberate persistence
+- **Slide topic (1 slide): Stage 8 readiness model** — the shift from prototyping to operational deployment.
+- **Slide topic (1 slide): Debugging chat and agents** — inspect context, actions, and failure modes systematically.
+- **Slide topic (1 slide): Deploying your agents** — GitHub repo packaging, marketplace path, and APM flow.
+- **Slide topic (1 slide): Agent package manager** — distribution reference: `<https://microsoft.github.io/apm/>`.
 
 ### 🛡️ Safety Moment
 
-- Understand what is persisted, where it is visible, and how to remove it
-- Avoid storing secrets, sensitive identifiers, or short-lived task context as memory
-- Teach teams how to review and clear memories when needed
+- Debug logs can expose sensitive context; sanitize and govern retention.
+- Treat deployment artifacts as software supply chain assets with review controls.
+- Never deploy an agent package without clear capability and permission documentation.
 
-### 🖥️ Demo: Save, verify, and manage a memory
+### 🖥️ Demo: Debug to Deploy Pipeline
 
-- Ask GitHub Copilot to remember a durable preference such as a coding convention
-- Start a fresh interaction and verify that the preference persists
-- Show where stored memories can be reviewed or managed in the current experience
-- Contrast that with session-only context that disappears when the task ends
+1. Reproduce a controlled agent failure and inspect diagnostic output.
+2. Apply one corrective instruction/tool-scope change.
+3. Walk through packaging/deployment decision points for team adoption.
 
-### 💡 Optimization Tip: Memory vs. Instructions vs. Context
+### 💡 AIC Optimization Tip: Operational Readiness Checklist
 
-- **Memory** is for durable personal preferences that persist across sessions and repos (e.g., "I prefer PowerShell on Windows")
-- **Instructions** are for team-wide rules that apply to everyone working in the repo (e.g., "Use early returns")
-- **Session context** is for the current task only — let it expire
-- Putting task-specific or short-lived content into memory wastes tokens on every future request where it is irrelevant
+- Define baseline debugging steps before scaling rollout.
+- Package agents with explicit versioning and release notes.
+- Include policy-compatible defaults in deployable agent artifacts to reduce rework and incident cost.
 
-### Discussion Points
+<!-- Presenter notes:
+What is your minimum Stage 8 "deploy-ready" checklist for an agent?
+Which failures should trigger immediate rollback versus iterative tuning?
+-->
 
-- What preferences or conventions would you want GitHub Copilot to remember across sessions?
-- Where should your team draw the line between instruction files, repository docs, and memory?
+### 🔬 LAB: Exercise 2 — Debug and Package Readiness
+
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 2 (10 min) diagnosing a Stage 8 failure scenario and drafting a deployment-readiness checklist.
 
 ---
 
-## 4. Debugging — Chat Debug and Agent Debug Logs (12 min)
+## 4. Stage 8 — Day 2 Hack Preparation and Ecosystem Resources (10 min)
 
 ### Key Points
 
-- Debugging starts by inspecting what GitHub Copilot actually sent and received
-- In VS Code, the Output panel and the **GitHub Copilot Chat** log stream help you inspect requests and responses
-- Agent debug logs help explain tool selection, action ordering, and why a workflow chose a particular path
-- Context inspection is critical for diagnosing prompt drift, wrong files, missing files, or excessive `@workspace` expansion
-- Common scenarios include wrong context included, hallucinated assumptions, looping behavior, and unexpected tool calls
-- Debug logs are often the fastest way to move from “it acted strangely” to a concrete explanation
+- **Slide topic (1 slide): Awesome Copilot list** — curation source for examples, tools, and references.
+- **Slide topic (1 slide): Preparing for Day 2 Hack** — team roles, constraints, judging criteria, and execution plan.
+- **Slide topic (1 slide): Day 2 release gates** — architecture decision, governance checks, and fallback criteria.
 
 ### 🛡️ Safety Moment
 
-- Use debug logs to verify that GitHub Copilot is not leaking sensitive context or calling unauthorized services
-- Review whether the prompt included file paths, snippets, or identifiers that should not have been shared
-- Make log review part of high-trust agent rollout and troubleshooting
+- Hack speed should not bypass policy, secrets handling, or review discipline.
+- Require scoped objectives and explicit non-goals before coding starts.
+- Keep rollback and fallback plans visible during demos.
 
-### 🖥️ Demo: Trace a request and diagnose a context issue
+### 🖥️ Demo: Day 2 Planning Canvas
 
-- Open **View → Output** and switch to **GitHub Copilot Chat**
-- Send a prompt and watch the request and response cycle appear
-- Identify what context was attached to the model request
-- Repeat with `@workspace` and compare the amount of context included
-- Show how the logs explain a surprising response or an overly broad context payload
+1. Build a simple team plan with one primary objective and one fallback.
+2. Assign roles for architecture, build, review, and demo narrative.
 
-### 💡 Optimization Tip: Debug Logs for Token Diagnosis
+### 💡 AIC Optimization Tip: Constrain to Finish
 
-- Debug logs reveal exactly how many tokens are being sent per request — use them to catch context bloat before it causes quality degradation
-- If you see unexpected files or large workspace expansions in the request payload, narrow your context with `#file` or `#selection` instead of `@workspace`
-- Long conversations compound token usage because the entire history is re-sent every loop iteration — logs make this visible
+- Select a narrow, demoable outcome over broad aspirational scope.
+- Choose one integration path and execute it well.
+- Time-box experimentation, reserve review time at the end, and avoid late-stage context bloat.
 
-### Discussion Points
+<!-- Presenter notes:
+What Stage 8 Day 2 objective is ambitious but achievable for your team?
+Which advanced topic from today is highest ROI for immediate practice?
+-->
 
-- What debugging scenarios have you encountered with GitHub Copilot so far?
-- How would debug logs change the way your team investigates unexpected agent behavior?
+### 🔬 LAB: Exercise 3 — Day 2 Hack Plan Draft
 
-### 🔬 LAB: Exercise 2 — Inspect Your Agent's Context and Token Usage
-
-> **Instructor**: Pause here for hands-on practice. Students complete Exercise 2 (5 min) using their `reviewer.md` agent from Module 2 to compare debug log output across agent mode, ask mode, and @workspace — identifying token count differences and understanding how instruction files affect context size.
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 3 (10 min) producing a Stage 8 Day 2 hack plan with release gates, governance checks, and fallback criteria.
 
 ---
 
-## 5. Agentic Loops (Ralph Loop), Subagents, and Task Review (18 min)
+## 5. Wrap-up and Lab Hand-off (10 min)
 
 ### Key Points
 
-- Agentic loops follow a repeatable cycle: **plan → execute → observe → reflect → adjust**
-- The “Ralph Loop” is a convenient name for that iterative pattern in complex agent workflows
-- Loops are useful for multi-step tasks such as code changes, validation, test execution, and revision
-- Loops are overkill when a direct answer, single edit, or quick explanation would be faster and safer
-- Termination criteria matter: the agent needs a clear definition of done, failure, or escalation
-- Subagents let a primary agent delegate specialized work to narrower helpers and then review their output
-- Human review remains essential for trust calibration, especially when the task touches production systems, security boundaries, or ambiguous requirements
+- Stage 7 and Stage 8 topics now map directly to one-slide-per-topic targets.
+- Teams should treat orchestration, governance, and deployment as engineering systems, not prompt tricks.
+- Day 2 success depends on scoped goals, policy-aware execution, release gates, and clear demo storytelling.
 
-### Off-Ramp Design
+<!-- Presenter notes:
+Which advanced capability will you pilot first in production-adjacent work?
+What governance gap must be resolved before broader rollout?
+-->
 
-- When the optimal path is unavailable, agents and skills should stop, explain why, and hand the decision back to a human
-- Graceful degradation beats guessing or forcing a suboptimal path
-- Off-ramps belong in agent instructions, review checklists, and tool approval policy
-- Good off-ramps surface missing access, conflicting tests, unresolved ambiguity, or unsafe assumptions early
-- Example off-ramp pattern:
-
-  ```markdown
-  ## Off-Ramp Behavior
-  - If the requested change would break existing tests, STOP and report the conflict
-  - If you lack access to a required file or service, explain what is missing
-  - If multiple valid approaches exist and none is clearly better, present options instead of choosing
-  ```
-
-### 🛡️ Safety Moment
-
-- Define loop termination criteria before granting more autonomy
-- Watch for runaway loops, repeated failed actions, or silent assumption stacking
-- Design explicit off-ramps for ambiguity, missing access, broken tests, or policy conflicts
-
-### 🖥️ Demo: Observe a loop, a subagent, and an off-ramp
-
-- Give GitHub Copilot a multi-step task that requires planning and validation
-- Point out each phase in the loop: plan, execute, observe, reflect, and adjust
-- Show a subagent or delegated task handling a narrower slice of work
-- Review the returned output rather than trusting it blindly
-- Trigger an off-ramp scenario and show the agent stopping with a clear explanation instead of guessing
-
-### 💡 Optimization Tip: Sub-Agents for Context Isolation
-
-- Subagents run in their own context window — only the final summary returns to the main session
-- This prevents discovery tokens (file listings, search results, intermediate reasoning) from polluting the primary working context
-- Use subagents for research-heavy phases: the main session stays focused on the implementation spec
-- Trade-off: you pay for duplicating system/tool tokens in the sub-context, but the quality of the main session improves
-
-### Discussion Points
-
-- How would you set termination criteria for an agentic loop in your workflow?
-- What off-ramps would you require before allowing GitHub Copilot to automate a higher-risk task?
-
-### 🔬 LAB: Exercise 3 — Observe an Agentic Loop and Off-Ramp
-
-> **Instructor**: Pause here for hands-on practice. Students complete Exercise 3 (5 min) using their `refactor-coach` agent from Module 1 for a multi-step task, observing plan → execute → observe → reflect, monitoring token growth across loop iterations, and evaluating off-ramp behavior before continuing to the next section.
-
----
-
-## 6. Resources, Tools, and Ecosystem (8 min)
-
-### Key Points
-
-- **Squad**: a multi-agent collaboration framework from Brady Gaster — <https://github.com/bradygaster/squad>
-- **Awesome Copilot collections**: community-curated examples, extensions, prompts, and patterns for GitHub Copilot exploration
-- **Official documentation and changelog**: the most reliable source for current capabilities, settings, and rollout status
-- **Extension marketplace**: a fast way to discover GitHub Copilot-related tools, integrations, and experiments
-- **Community patterns**: blog posts, conference talks, and workshop repos help teams learn what works in practice
-- Staying current matters because agent features, memory behavior, MCP support, and integrations are evolving quickly
-
-### 🛡️ Safety Moment
-
-- Community tools are not automatically vetted
-- Evaluate third-party MCP servers, plugins, and extensions before trusting them with your codebase or credentials
-- Prefer transparent permissions, active maintenance, and clear provenance
-
-### Discussion Points
-
-- What resources do you use to stay current with AI-assisted development tools?
-- Which signals help you decide whether a community tool is trustworthy enough to try?
-
----
-
-## 7. Wrap-up and Q&A (5 min)
-
-### Key Points
-
-- **Module 1** established the foundations: context, chat modes, instructions, and effective prompting
-- **Module 2** focused on agentic patterns: delegation, background work, and layered instructions
-- **Module 3** added advanced operations: MCP, APIs, memory, debugging, loops, and off-ramp design
-- The next step is applying these patterns in a Day 2 hack setting with real workflows and real constraints
-- Success means not just using GitHub Copilot more, but using it more deliberately, observably, and safely
-
-### Discussion Points
-
-- Which advanced capability do you want to pilot first with your team?
-- What questions should we answer before moving into the Day 2 hack workflow?
-
-*Workshop guide for Module 3: Advanced Topics — GitHub Copilot Developer Training*
+*Workshop guide for Module 3: Advanced Content Refresh (Stage 7-8) — GitHub Copilot Developer Training*

@@ -1,89 +1,125 @@
-# Module 3: Advanced Topics — Quiz
+# Module 3: Advanced Content Refresh (Stage 7-8) — Quiz
 
 ---
 
-### 1. Your team wants GitHub Copilot to answer questions using an internal API catalog that is not stored in the repository. What is the best next step?
+### 1. In the approved 8-stage model, what is the primary focus of Stage 7?
 
-- A) Turn on `@workspace` so GitHub Copilot automatically searches every external system
-- B) Configure an approved MCP server or integration that exposes the API catalog as a tool or resource
-- C) Paste the entire API catalog into every chat prompt
-- D) Rely on inline code completion because it has broader network access than chat
+- A) Replacing all human review with autonomy
+- B) Designing orchestration architecture across roles, tools, and control flow
+- C) Packaging agents for public distribution
+- D) Running billing and cost reports only
 
 <!--answer: B-->
-<!--explanation: MCP is the right fit when GitHub Copilot needs structured, repeatable access to an external system such as internal API documentation or service metadata.-->
+<!--explanation: Stage 7 is about orchestration architecture decisions, including role decomposition, handoffs, and control patterns.-->
 
 ---
 
-### 2. Which item is the best candidate for GitHub Copilot memory instead of session-only context?
+### 2. Which Stage 7 decision best supports one-slide-per-topic architecture communication?
 
-- A) A one-time reminder to use branch name `fix-login-today`
-- B) A temporary note that this sprint excludes database changes
-- C) A durable preference that your team writes integration tests before merging API changes
-- D) The exact prompt you used earlier to debug a flaky build
-
-<!--answer: C-->
-<!--explanation: Memory works best for durable preferences and conventions that should help in future sessions, while one-off task details should stay ephemeral.-->
-
----
-
-### 3. GitHub Copilot returned an answer that cited files you did not expect. What is the best way to diagnose what context it actually used?
-
-- A) Open the VS Code Output panel, switch to GitHub Copilot Chat logs, and inspect the request payload
-- B) Rephrase the prompt repeatedly until the answer changes
-- C) Disable syntax highlighting so the model sees less code
-- D) Close and reopen VS Code, because context cannot be inspected directly
-
-<!--answer: A-->
-<!--explanation: Chat and agent debug logs help you inspect the actual request, attached context, and resulting response so you can diagnose why the model answered the way it did.-->
-
----
-
-### 4. In an agentic loop, what should happen immediately after the agent executes a step such as editing code or running a tool?
-
-- A) End the task automatically because execution means the plan succeeded
-- B) Observe the result, reflect on whether it moved the task forward, and adjust the next step if needed
-- C) Ask the user to restate the original task before continuing
-- D) Start a new loop with a different goal to avoid local optimization
+- A) Combining orchestration, governance, and deployment into one dense diagram
+- B) Creating separate topic units for multiagents, subagents, fleet, and handoff policy
+- C) Removing all diagrams and using only narrative text
+- D) Hiding role boundaries so teams can stay flexible
 
 <!--answer: B-->
-<!--explanation: Agentic loops are iterative. After execution, the agent should inspect what happened, reflect on the outcome, and then continue or adjust instead of assuming success.-->
+<!--explanation: One-slide-per-topic intent is strongest when each Stage 7 concept is explicit and independently teachable.-->
 
 ---
 
-### 5. You ask GitHub Copilot to migrate a project to OAuth, but the repository has no authentication system and no deployment details. What is the best off-ramp behavior?
+### 3. Fleet execution in Stage 7 is most appropriate when:
 
-- A) Pick a popular OAuth library, rewrite the project, and hope the assumptions are acceptable
-- B) Stop, explain what required context or prerequisites are missing, and hand the decision back to the human with options
-- C) Continue with placeholder code and mark everything as complete
-- D) Skip directly to updating documentation so the task appears partially finished
+- A) Work items are tightly coupled and must be strictly sequential
+- B) Multiple tasks can proceed independently in parallel
+- C) The task has unknown requirements and no boundaries
+- D) You want to avoid status tracking
 
 <!--answer: B-->
-<!--explanation: Off-ramp design means the agent should not guess when critical context is missing. It should stop, explain the gap, and let the human choose the next path.-->
+<!--explanation: Fleet-style parallelism works best for independent task branches.-->
 
 ---
 
-### 6. Your team has 8 MCP servers configured but only uses 2-3 on any given day. GitHub Copilot agents are frequently making unexpected tool calls to rarely-used servers. What is the best corrective action?
+### 4. Which statement best reflects Stage 7 governance for hooks and extensions?
 
-- A) Leave all servers active since GitHub Copilot should learn which ones to ignore over time
-- B) Disable unused MCP servers and pair frequently-used ones with custom agents that restrict the active tool set
-- C) Add instructions saying "never use MCP servers" to prevent all external tool calls
-- D) Remove all MCP servers and rely solely on `@workspace` for external information
+- A) Hooks should bypass policy checks for speed
+- B) Hooks can enforce lifecycle quality/security checks when defined clearly
+- C) Hooks replace code review approvals entirely
+- D) Hooks are only for UI customization
 
 <!--answer: B-->
-<!--explanation: Each active MCP server adds tool descriptions to every request, consuming tokens and creating opportunities for the agent to take unnecessary detours. Disabling unused servers and restricting tool sets per workflow keeps the agent focused and reduces token waste.-->
+<!--explanation: Stage 7 governance emphasizes enforceable lifecycle checks, approval boundaries, and auditable controls.-->
 
 ---
 
-### 7. A developer wants GitHub Copilot to run `git log --oneline` to find recent commits. The team has both a Git MCP server and terminal access available. Which approach is generally more efficient?
+### 5. What is the best Stage 7 reason to prefer CLI/API over MCP/plugin for a task?
 
-- A) Always use the MCP server because it provides structured output
-- B) Use the CLI directly — git commands are well-represented in training data and do not require MCP overhead
-- C) Avoid both approaches and ask GitHub Copilot to guess the commit history from file contents
-- D) Configure a new custom MCP server specifically for git operations
+- A) CLI/API paths are impossible to automate
+- B) The task is deterministic and already well served by native commands/APIs
+- C) MCP is always safer by default
+- D) Plugins cannot be audited
 
 <!--answer: B-->
-<!--explanation: Tools like git, npm, and docker are already dominant in model training data. For simple, well-known commands the CLI path is simpler and avoids the overhead of MCP tool descriptions and approval flows. MCP adds value when structured input/output, authentication, or state management is needed.-->
+<!--explanation: Native deterministic paths can be simpler and easier to control when advanced integration features are unnecessary.-->
 
 ---
 
-*Quiz for Module 3: Advanced Topics — GitHub Copilot Developer Training*
+### 6. In Stage 8, what should happen first when debugging surprising agent behavior?
+
+- A) Increase autonomy and rerun immediately
+- B) Inspect context, actions, and tool calls before changing architecture
+- C) Disable all instructions and tools permanently
+- D) Publish to marketplace for wider testing
+
+<!--answer: B-->
+<!--explanation: Stage 8 readiness starts with evidence from context/action traces before architecture or deployment changes.-->
+
+---
+
+### 7. Which is a required Stage 8 deploy-readiness element for custom agents?
+
+- A) Hidden permissions to reduce user friction
+- B) Documented capabilities, permissions, and rollback strategy
+- C) Removal of versioning to avoid churn
+- D) Skipping release notes
+
+<!--answer: B-->
+<!--explanation: Advanced deployment requires transparent capability boundaries and operational rollback planning.-->
+
+---
+
+### 8. Why is the Extension Marketplace treated as a Stage 7 governance decision?
+
+- A) Extensions cannot affect trust boundaries
+- B) New extensions can expand capabilities and risk surface
+- C) Marketplace items are always organization-approved automatically
+- D) Extensions are unrelated to Copilot workflows
+
+<!--answer: B-->
+<!--explanation: Extension adoption is both a capability decision and a risk/governance decision.-->
+
+---
+
+### 9. For Stage 8 Day 2 prep, which plan is strongest?
+
+- A) Broad scope with no fallback so the demo looks ambitious
+- B) Narrow, demoable objective with Stage 7 architecture choices, Stage 8 release gates, and fallback path
+- C) Skip role assignment and improvise during demo
+- D) Focus only on visuals; defer technical validation
+
+<!--answer: B-->
+<!--explanation: The workshop closes Stage 8 with explicit release gates and fallback planning for Day 2 execution.-->
+
+---
+
+### 10. In this module, the Awesome Copilot list is most useful as:
+
+- A) A replacement for official documentation and policy
+- B) A curated discovery source for examples and ecosystem references
+- C) A required runtime dependency
+- D) A billing optimization engine
+
+<!--answer: B-->
+<!--explanation: It is positioned as a curation resource for learning and exploration, not as policy or runtime infrastructure.-->
+
+---
+
+*Quiz for Module 3: Advanced Content Refresh (Stage 7-8) — GitHub Copilot Developer Training*

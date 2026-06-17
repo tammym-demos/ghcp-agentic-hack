@@ -1,565 +1,205 @@
-# Module 2: Agentic Patterns — Workshop Guide
+# Module 2: Agentic Content Refresh — Workshop Guide
 
-**Duration**: ~115 min
-**Format**: Presentation + Live Demo + Hands-On
-**Audience**: Developers with basic GitHub Copilot exposure
-**Prerequisites**: Completion of Module 1: Foundations
+**Duration**: 2 hours (120 min: 90 min content + 30 min lab)  
+**Format**: Presentation + Live Demo + Hands-On  
+**Audience**: Developers with Foundations module experience  
+**Prerequisites**: Completion of Module 1
 
 ---
+
+## Session Agenda (Slide 2)
+
+| Section | Topic Group | Time |
+|---------|-------------|------|
+| 1 | Transition framing: Stage 4 → Stage 7, with Stage 5-6 focus | 10 min |
+| 2 | Stage 5: CLI power-user patterns and safe autonomy controls | 25 min |
+| 3 | Stage 6: Multi-agent orchestration and role-based handoffs | 25 min |
+| 4 | Transitional bridge: Stage 6 → Stage 7 operational readiness | 20 min |
+| 5 | Wrap-up and lab hand-off | 10 min |
+| — | Lab time across 3 exercises | 30 min |
 
 ## Workshop Overview
 
-Module 2 helps developers move from "GitHub Copilot as a smart assistant" to "GitHub Copilot as a scoped autonomous teammate." Participants learn how agents coordinate skills, when to choose direct tool use instead of delegation, how background and cloud agents change the workflow, and how instruction layering and multi-agent patterns shape safe adoption. The emphasis throughout is practical trust calibration: delegate intentionally, keep review gates in place, and design workflows that still leave the developer in control.
+This Module 2 refresh now maps explicitly to the approved 8-stage model, with a focused deep dive on **Stage 5** and **Stage 6**. It also frames the transition from **Stage 4** (structured prompting and scoped autonomy) toward **Stage 7** (integration and operational scale). Each bullet labeled "Slide topic" is written as a one-slide target for NotebookLM ingestion, so visual generation and presenter narration stay aligned.
+
+> **NotebookLM guidance**: Keep discussion prompts out of slide bullets. Use them only as presenter notes / talk track.
 
 ### Learning Objectives
 
-- Explain the difference between a GitHub Copilot agent and a skill, including the plan → act → observe → adjust loop
-- Choose between direct tool use and agentic orchestration based on scope, judgment, and adaptation needs
-- Describe how background agents and cloud agents support different parts of the development workflow
-- Use GitHub Copilot `/init` as a bootstrapping accelerator without skipping review of generated output
-- Explain how organization, repository, file-scoped, user, and session instructions compose
-- Identify when multi-agent collaboration adds value and when a single well-scoped agent is enough
-- Use GitHub Copilot as a rubber duck for reasoning, debugging, and design review
-- Apply practical token optimization strategies including model selection, task splitting, and deterministic guardrails
-
-### Prerequisites
-
-| Requirement | Details |
-|-------------|---------|
-| **Module 1 completion** | Participants should already understand core chat modes, instructions, and basic customization |
-| **VS Code** | Latest stable version with GitHub Copilot and GitHub Copilot Chat enabled |
-| **GitHub account** | Signed in with GitHub Copilot access |
-| **Local project** | Any multi-file repository open for demos and lab exercises |
-| **Terminal access** | Needed for GitHub Copilot CLI and repo scaffolding workflows |
-| **Internet access** | Required for GitHub Copilot model calls, background workflows, and cloud features |
+- Explain how Stage 5 and Stage 6 differ in control model, risk profile, and review strategy
+- Apply Stage 5 CLI power-user workflows with explicit boundaries and stop conditions
+- Design Stage 6 multi-agent handoffs with scoped roles, tools, and verification checkpoints
+- Use safety and optimization guardrails that preserve quality while reducing unnecessary token/tool usage
+- Prepare teams for the Stage 7 transition without skipping Stage 5-6 maturity practices
 
 ---
 
-## Session Agenda
-
-| Section | Topic | Time |
-|---------|-------|------|
-| 1 | What is an Agent? What is a Skill? (framing + safety) | 10 min |
-| 2 | Agent vs. Skill — When to Use Each | 12 min |
-| 3 | Background Agents and Cloud Agents (Coding Agent) | 15 min |
-| 4 | Copilot `/init` and Project Bootstrapping | 8 min |
-| 5 | Instruction Layering — Org, Repo, and File-Scoped | 15 min |
-| 6 | Multi-Agent Patterns — Squad as a Worked Example | 15 min |
-| 7 | Agent Quality & Token Optimization | 25 min |
-| 8 | Rubber Duck Debugging with Copilot | 5 min |
-| 9 | Wrap-up, hand-off to lab, and Q&A | 5 min |
-
----
-
-## 1. What Is an Agent? What Is a Skill? (10 min)
+## 1. Transition Framing: Stage 4 to Stage 7, Why Module 2 Centers Stage 5-6 (10 min)
 
 ### Key Points
 
-- An **agent** is a goal-directed workflow that can plan, take actions with tools, observe the result, and adjust based on what it learns
-- A useful mental model for agentic execution is:
-
-```text
-Plan → Act → Observe → Adjust
-```
-
-- A **skill** is a specific capability the agent can invoke, such as file edits, terminal access, search, web browsing, or GitHub API calls
-- Agents do not replace skills; they orchestrate skills to complete a larger outcome
-- Distinguish carefully between **the agent** as the autonomous orchestrator and **a skill** as a single tool call within the workflow
+- **Slide topic: 8-stage model snapshot** — where Stage 4, Stage 5, Stage 6, and Stage 7 fit in the maturity path.
+- **Slide topic: Stage 4 exit criteria** — reliable prompts, scoped tasks, and explicit review gates.
+- **Slide topic: Instructions at Stage 4/5 boundary** — durable repository guidance vs one-off conversational prompts.
+- **Slide topic: Memory at Stage 4/5 boundary** — persistent preference capture and when not to persist.
+- **Slide topic: Context hierarchy (Memory vs Instructions)** — precedence and conflict handling in real workflows.
+- **Slide topic: Why Stage 5-6 are the inflection point** — moving from single-agent usage to orchestrated workflows without losing control.
+- **Slide topic: One-slide-per-topic operating rule** — each concept maps to one clear visual and one focused presenter narrative.
 
 ### 🛡️ Safety Moment
 
-- Autonomy starts with understanding what you are delegating before you delegate it
-- Developers should know the expected goal, available tools, and approval boundary before letting an agent run
-- If you cannot clearly describe the task scope, the agent is not ready to own it
+- Do not promote teams to Stage 6 behavior if Stage 4 review habits are inconsistent.
+- Keep accountability explicit: people approve outcomes, not agents.
+- Treat stage progression as governance maturity, not just tooling proficiency.
 
-### 🖥️ Demo: Framing the Agent Loop
-
-1. Ask GitHub Copilot to explain a task as both an agent workflow and a direct tool action:
-
-   ```text
-   Explain the difference between an agent workflow and a single skill call for this repository. Give me one example of each.
-   ```
-
-2. Call out where planning happens, where a skill is used, and where the developer still reviews the result.
-
-### Discussion Points
-
-- What tasks would you trust an agent to handle autonomously?
-- What would you always want to review before accepting?
-- Where does your current comfort level change from "assist me" to "act for me"?
-
-### 🔬 LAB: Exercise 1 — Agent vs. Skill
-
-> **Instructor**: Pause here for hands-on practice. Students complete Exercise 1 (5 min) invoking the refactor-coach agent they built in Module 1 and comparing the agentic workflow with a direct Ask-mode answer on the same file. They also review context window usage in the Output panel.
+<!-- Presenter notes:
+Which Stage 4 habits are strongest in your current team?
+Where does your team currently experience drift between autonomy and review?
+What is the earliest sign your team is ready for Stage 6 orchestration?
+-->
 
 ---
 
-## 2. Agent vs. Skill — When to Use Each (12 min)
+## 2. Stage 5: CLI Power-User Workflows and Controlled Autonomy (25 min)
 
 ### Key Points
 
-- Use an **agent** when the task is multi-step, goal-directed, and likely to require judgment during execution
-- Use a **skill** or direct tool invocation when the task is single-step, deterministic, and does not need adaptation
-- A simple decision framework:
-
-```text
-Is the task multi-step?
-Does it require judgment?
-Does it need to adapt based on intermediate results?
-
-If yes → use an agent
-If no → use a direct skill or tool call
-```
-
-- Agents are strongest when they can sequence actions, inspect results, and revise the next step
-- Direct skills are strongest when you already know exactly what action is needed
+- **Slide topic: Stage 5 definition** — advanced CLI operation with deliberate prompt structure, tool precision, and bounded execution.
+- **Slide topic: Prompt contract at Stage 5** — task, scope, constraints, definition of done, and explicit off-ramp.
+- **Slide topic: What is an agent** — a goal-directed orchestrator that plans and adapts across steps.
+- **Slide topic: What is a skill** — a reusable capability invoked by an agent for specific work.
+- **Slide topic: When to use one or the other** — direct skills for deterministic actions, agents for adaptive multi-step tasks.
+- **Slide topic: What are tools and when to use a tool** — narrow deterministic actions before broad delegation.
+- **Slide topic: Direct tools vs delegated execution** — choose deterministic actions first, escalate to agents only when adaptation is needed.
+- **Slide topic: Background and cloud agents** — when local async work is enough and when cloud execution is the better fit.
+- **Slide topic: Stage 5 review loop** — inspect output, verify constraints, then accept or reroute.
 
 ### 🛡️ Safety Moment
 
-- Scope control matters more than capability breadth
-- Give agents only the tools they need for the task instead of every tool available
-- The smaller the tool set, the easier it is to predict and review behavior
+- Keep tool permissions narrow and tied to the task boundary.
+- Never treat speed optimizations as permission to skip review gates.
+- Require escalation when uncertainty, policy conflict, or ambiguous output appears.
 
-### 🖥️ Demo: One Goal, Two Interaction Styles
+### 🖥️ Demo: Stage 5 CLI Precision in Practice
 
-1. Show a multi-step agent request:
+1. Run one direct deterministic task with tight scope and concise output constraints.
+2. Re-run as an adaptive request and compare token/tool overhead.
+3. Launch one background task while completing independent local analysis.
+4. Review returned output with an explicit accept/reject checklist.
 
-   ```text
-   Refactor #file for readability, update any impacted tests, and summarize the risks before I accept the changes.
-   ```
+### 💡 AIC Optimization Tip: Minimize Overhead, Preserve Control
 
-2. Show a direct explanation request:
+- Start with the smallest viable action path before agent delegation.
+- Keep prompts compact but complete; remove narrative noise.
+- Limit rework by defining validation checks before execution.
 
-   ```text
-   Explain what #selection does and why it exists.
-   ```
+<!-- Presenter notes:
+Which current tasks should stay direct instead of delegated?
+What checks should be mandatory before accepting Stage 5 outputs?
+Where can your team reduce token/tool waste without reducing safety?
+-->
 
-3. Compare the difference in planning, tool use, and review burden.
+### 🔬 LAB: Exercise 1 — Stage 5 CLI Power-User Baseline
 
-### 💡 Optimization Tip: Tool Set Discipline
-
-- Give agents only the tools they need for the current task — a smaller tool set produces more predictable behavior
-- Too many available tools (especially MCP servers like Playwright) can cause agents to take unnecessary detours (e.g., taking screenshots when none were requested)
-- Pair custom agents with restricted tool lists to keep them focused
-
-### Discussion Points
-
-- Which tasks in your daily workflow are agent-worthy?
-- Which tasks are better handled as direct answers or single tool calls?
-- Where do you see teams overusing autonomy instead of choosing the simpler path?
-
-### 🔬 LAB: Exercise 1 — Agent vs. Skill
-
-> **Instructor**: Pause here for hands-on practice. Students complete Exercise 1 (5 min) using their Module 1 refactor-coach agent for a multi-step task and comparing it with a direct answer to understand when each interaction style is appropriate. They review token usage in the Output panel.
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 1 (10 min) by running a structured Stage 5 CLI task, comparing direct vs delegated control, and documenting acceptance gates.
 
 ---
 
-## 3. Background Agents and Cloud Agents — Coding Agent (15 min)
+## 3. Stage 6: Multi-Agent Orchestration and Role-Based Handoffs (25 min)
 
 ### Key Points
 
-- **Background agents** are long-running agents that keep working while the developer continues with other tasks
-- Developers launch them, monitor progress, review intermediate output, and inspect the final result before accepting it
-- **Cloud agents**, including **Coding Agent**, extend the workflow beyond the local IDE into an issue → branch → implement → pull request flow
-- Coding Agent can work from a GitHub issue, create a branch, implement the change in a cloud environment, and open a PR for review
-- `copilot-setup-steps.yml` helps prepare the cloud environment with required dependencies, tools, and setup steps
-- Trust calibration matters: the more autonomy you grant, the more important review gates become
+- **Slide topic: Stage 6 definition** — coordinated multi-agent execution across specialized roles.
+- **Slide topic: Anatomy of an agentic loop** — plan, act, observe, and adjust as a repeatable control cycle.
+- **Slide topic: Agent role design** — planner, implementer, verifier, and synthesizer patterns.
+- **Slide topic: Handoff contracts** — clear inputs, expected outputs, and validation criteria between agents.
+- **Slide topic: Parallelism with boundaries** — independent subproblems only; avoid duplicated investigation.
+- **Slide topic: Failure and recovery paths** — stop, summarize, and re-scope when an agent run stalls or drifts.
 
 ### 🛡️ Safety Moment
 
-- Always review pull requests created by coding agents
-- Treat autonomous code generation as draft output until a human validates correctness, security, and fit with team standards
-- Review gates are not friction; they are how you scale autonomy safely
+- Separate creation and verification roles to reduce blind acceptance risk.
+- Keep auditability: preserve who asked, what ran, and why decisions were accepted.
+- Enforce explicit stop conditions to prevent runaway orchestration loops.
 
-### 🖥️ Demo: Launch, Monitor, Review
+### 🖥️ Demo: Stage 6 Multi-Agent Flow
 
-1. Show a background agent working on a multi-step task while you continue narrating:
+1. Define a parent objective and split into two independent sub-agent scopes.
+2. Assign one agent to implementation and another to verification.
+3. Review handoff artifacts and resolve one conflicting recommendation.
+4. Produce a final synthesis with unresolved risks called out.
 
-   ```text
-   Investigate this failing test, propose a fix, and keep me updated as you work.
-   ```
+### 💡 AIC Optimization Tip: Parallelize Only Independent Work
 
-2. Walk through the cloud workflow conceptually:
+- Decompose by dependency boundaries, not by arbitrary task count.
+- Reuse shared constraints so each agent does not relearn policy.
+- Merge outputs through a single reviewer checkpoint to control noise.
 
-   ```text
-   Issue assigned → branch created → implementation runs in cloud → PR opened for review
-   ```
+<!-- Presenter notes:
+Which role split (planner/verifier/etc.) fits your team workflow best?
+What handoff fields are required before another agent may continue?
+How do you detect and stop duplicate or conflicting multi-agent work?
+-->
 
-3. Show a sample `copilot-setup-steps.yml` snippet and explain why environment preparation matters:
+### 🔬 LAB: Exercise 2 — Stage 6 Multi-Agent Handoff Drill
 
-   ```yaml
-   - name: Install dependencies
-     run: npm ci
-
-   - name: Build project
-     run: npm run build
-
-   - name: Run tests
-     run: npm test
-   ```
-
-### Discussion Points
-
-- What guardrails would your team need before adopting Coding Agent?
-- Which tasks fit a background agent well versus a cloud agent workflow?
-- What review signals would help you calibrate trust in autonomous changes?
-
-### 💡 Optimization Tip: Sub-Agents for Context Isolation
-
-- Background agents and sub-agents run in their own context window — only the final summary returns to the main session
-- This prevents discovery tokens (file listings, search results, intermediate reasoning) from polluting your primary working context
-- Trade-off: duplicating system/tool tokens in the sub-context, but the main session stays clean and focused
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 2 (10 min) by executing a role-based multi-agent workflow and validating handoff contracts before synthesis.
 
 ---
 
-## Deck Modifications
-
-- Extend the speaker notes for the slide that introduces Coding Agent so the presenter can walk through the full issue → branch → implement → PR path, not just the headline concept.
-- Add a short explanation that `copilot-setup-steps.yml` is included to prepare the cloud runner with the same dependencies, compilers, build tools, and test commands the project needs.
-- Keep this update scoped to note/content changes for the existing deck. Do not regenerate the PPTX or slide images; the goal is to improve the existing slide talk-track while preserving the current visual deck.
-
----
-
-## 4. GitHub Copilot `/init` and Project Bootstrapping (8 min)
+## 4. Transitional Bridge: Stage 6 to Stage 7 Operational Readiness (20 min)
 
 ### Key Points
 
-- GitHub Copilot `/init` helps scaffold a new project by generating structure, configuration, and starter boilerplate
-- It is most useful when you want to accelerate a standard project setup rather than hand-author every starter file
-- `/init` is not a replacement for design decisions; it is a starting point that still needs developer review
-- Teams can customize the scaffold by being explicit about stack, architecture, testing, and deployment expectations
-- Generated output should always be reviewed before committing
+- **Slide topic: Stage 7 preview** — integration, policy instrumentation, and repeatable operating controls.
+- **Slide topic: Bridge criteria from Stage 6** — stable handoffs, measurable quality, and reliable governance evidence.
+- **Slide topic: Boilerplate with `/init`** — safe project bootstrapping without skipping review gates.
+- **Slide topic: Instruction layering stack** — org, repo, scoped files, prompts, and runtime context as a single system.
+- **Slide topic: Optimization controls** — scoping, model fit, tool discipline, and stop conditions for safe efficiency.
+- **Slide topic: Guardrail portability** — carry Stage 5-6 review discipline into Stage 7 pipelines.
+- **Slide topic: Readiness checklist** — what must be true before scaling autonomy in production workflows.
 
 ### 🛡️ Safety Moment
 
-- Never blindly accept scaffolded project output
-- Validate generated files, package choices, defaults, and security posture before treating the scaffold as your baseline
-- Boilerplate can save time, but it can also import the wrong assumptions
+- Scaling orchestration without governance evidence increases systemic risk.
+- Keep human approval points visible even when workflows become more automated.
+- Treat exceptions and rollback paths as first-class controls.
 
-### 🖥️ Demo: Bootstrapping a Small Project
+### 🖥️ Demo: Stage 7 Readiness Gate Review
 
-1. Run an initialization request:
+1. Score one Stage 6 workflow against a Stage 7 readiness checklist.
+2. Identify one missing control in observability, policy, or auditability.
+3. Add a corrective gate and re-evaluate go/no-go readiness.
 
-   ```text
-   /init Create a small TypeScript API with linting, tests, and a README. Keep the structure minimal and beginner-friendly.
-   ```
+### 💡 AIC Optimization Tip: Standardize Checklists Before Scaling
 
-2. Review what GitHub Copilot generated and identify which files you would inspect first.
-3. Call out when manual setup is still the better choice.
+- Use reusable readiness templates instead of ad hoc approval decisions.
+- Keep metrics focused on quality, safety, and rework rate.
+- Prefer incremental scaling to avoid compounding failure modes.
 
-### Discussion Points
+<!-- Presenter notes:
+Which Stage 7 controls are already partially present in your repos?
+What is your minimum evidence threshold for production-scale autonomy?
+Where should your organization enforce non-negotiable manual approvals?
+-->
 
-- How would you integrate `/init` into your team's project creation workflow?
-- What defaults would you always verify before committing scaffolded output?
-- Where would custom starter templates still outperform generated scaffolding?
+### 🔬 LAB: Exercise 3 — Stage 6 to Stage 7 Guardrail Mapping
 
-### 🔬 LAB: Exercise 2 — Instruction Conflict & Layering
-
-> **Instructor**: Pause here for hands-on practice. Students complete Exercise 3 (5 min) adding a conflicting file-scoped instruction to their existing instruction files from Module 1 and observing which layer wins. They inspect the Output panel to see which instructions were sent as context.
-
----
-
-## 5. Instruction Layering — Org, Repo, and File-Scoped (15 min)
-
-### Key Points
-
-- GitHub Copilot behavior is shaped by a layered instruction stack, from broad organizational guardrails down to the current chat request
-- The full stack looks like this:
-
-| Layer | File / Location | Purpose | Example |
-|-------|-----------------|---------|---------|
-| Organization | GitHub org-level Copilot policy settings | Enterprise-wide guardrails | Content exclusions, allowed models |
-| Repository | `.github/copilot-instructions.md` | Shared rules for this codebase | "Prefer TypeScript strict mode" |
-| File-scoped | `.github/instructions/*.instructions.md` with `applyTo` | Language or file-type specialization | `applyTo: "**/*.test.*"` |
-| User-level | Personal settings | Personal defaults across repos | "Use PowerShell on Windows" |
-| Session/prompt | Current chat prompt | Task-specific intent | "Add validation for email fields" |
-
-- In practice, the most specific applicable instruction wins when guidance conflicts
-- Organization-level guardrails cannot be overridden by repository instructions
-- Well-designed instruction layering helps teams scale consistency without forcing every prompt to restate the same rules
-
-### 🛡️ Safety Moment
-
-- Organization-level guardrails exist for a reason
-- Do not try to bypass safety, model, or content policies with repository-level instructions
-- Shared instructions should encode durable standards, not attempts to override governance
-
-### 🖥️ Demo: Watching the Layers Compose
-
-1. Show a repository-wide rule in `.github/copilot-instructions.md`:
-
-   ```markdown
-   # Repository Instructions
-
-   - Prefer TypeScript strict mode
-   - Add or update tests when behavior changes
-   ```
-
-2. Add a file-scoped rule for tests:
-
-   ```markdown
-   ---
-   applyTo: "**/*.test.*"
-   ---
-
-   # Test Instructions
-
-   - Use describe/it blocks
-   - Cover edge cases before happy paths
-   ```
-
-3. Compare a generation request in a source file versus a test file and call out which layers are active.
-
-### 💡 Optimization Tip: Skills as Conditional Context
-
-- **Skills** are only loaded when the LLM determines they are relevant — unlike `copilot-instructions.md` which is always sent
-- Move conditional guidance (e.g., "when working with Docker files, always use multi-stage builds") OUT of always-on instructions and INTO skills
-- This saves input tokens on every request where the skill is not relevant
-- Do not create skills for well-known frameworks (React, Express) — they are already dominant in training data and skills would add no value
-
-### Discussion Points
-
-- What organizational guardrails should your team implement?
-- Which conventions belong in repo instructions versus scoped instructions?
-- Where have you seen prompt quality improve when durable instructions were already in place?
-
-### 🔬 LAB: Exercise 3 — Instruction Layering
-
-> **Instructor**: Pause here for hands-on practice. Students complete Exercise 3 (5 min) adding a conflicting file-scoped instruction and observing layer precedence using their existing instruction files from Module 1.
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 3 (10 min) by mapping a Stage 6 flow to Stage 7 readiness criteria and proposing one control improvement.
 
 ---
 
-## 6. Multi-Agent Patterns — Squad as a Worked Example (15 min)
+## 5. Wrap-up and Lab Hand-off (10 min)
 
 ### Key Points
 
-- Multi-agent workflows are useful when distinct roles benefit from different goals, tools, or evaluation criteria
-- A concrete reference is **Squad**: <https://github.com/bradygaster/squad>
-- In a multi-agent pattern, one agent might write code, another might review for defects, and another might expand or validate tests
-- Effective orchestration depends on clearly defined roles, crisp handoff points, and a shared definition of done
-- Multi-agent setups are powerful when specialization improves quality, but they become overkill when one well-scoped agent can finish the task safely
-- Before adding more agents, ask whether complexity is solving a real problem or just creating more coordination overhead
-
-### 🛡️ Safety Moment
-
-- Design an off-ramp before you design more autonomy
-- If the optimal path is blocked, agents should know when to stop, escalate, or return a partial result instead of improvising beyond the safe boundary
-- A graceful handoff is often better than a risky autonomous guess
-
-### 🖥️ Demo: Mapping Roles and Handoffs
-
-1. Walk through a simple role split:
-
-   ```text
-   Agent 1: Implement change
-   Agent 2: Review change for bugs and maintainability
-   Agent 3: Add or improve tests
-   ```
-
-2. Show where handoffs happen and what each agent must receive as context.
-3. Discuss when the same task would be simpler with one agent and a tighter prompt.
-
-### Discussion Points
-
-- What specialized agent roles would benefit your team's workflow?
-- Where would multi-agent orchestration improve quality or speed?
-- What signs tell you that multi-agent design is overkill for the task at hand?
-
-### 🔬 LAB: Exercise 2 — Multi-Agent Handoff
-
-> **Instructor**: Pause here for hands-on practice. Students complete Exercise 2 (5 min) creating a reviewer agent alongside their existing refactor-coach, invoking both on the same code, and comparing token usage between the two agents.
-
----
-
-## 7. Agent Quality & Token Optimization (25 min)
-
-### Key Points
-
-- **Core principle**: "Make every token count" — focus on agent output quality, not just cost reduction
-- If the value of an agent's output is zero, even 80–90% cost reduction is just toil — quality determines ROI
-- The **compounding error problem**: even 99% single-step accuracy drops to ~60% over 50 steps; 95% accuracy drops to ~8%
-- Every agent miss wastes tokens (discarded work, fix sessions, review cycles) — improving quality often *decreases* cost naturally
-- Context engineering is the critical new developer skill for the AI era
-
-### Context Windows & Token Mechanics
-
-- LLMs are word-probability machines — irrelevant context shifts probabilities away from desired output
-- Agents are stateless: the entire conversation is re-sent to the model every loop iteration — tokens accumulate
-- **Golden rule**: "As little context as possible, but as much as required"
-
-### Token Anatomy — Input, Output, and Cached
-
-- A **token** is the fundamental unit LLMs process — roughly 4 characters in English, but varies for code (operators, brackets, and keywords often map to single tokens while long identifiers split into multiple)
-- Every interaction has three token categories that determine cost and performance:
-
-| Token Type | What It Includes | Relative Cost | Key Insight |
-|------------|-----------------|---------------|-------------|
-| **Input tokens** | System prompt, instructions, conversation history, attached files, context from `@workspace`/`#file` | Base rate | Grows with every turn in a session — the full history is re-sent each time |
-| **Output tokens** | The model's generated response (code, explanations, tool calls) | 2–4× input cost | More expensive per token — verbose prompts that elicit concise answers are often cheaper than the reverse |
-| **Cached tokens** | Repeated input prefixes the provider has already processed (system prompt, instruction files, stable context) | 50–90% discount vs. input | Stable instruction files and consistent system prompts benefit from caching automatically — reordering or editing early context breaks the cache |
-
-- **Why this matters for developers**:
-  - In an agentic loop, input tokens compound: a 10-turn session re-sends the full context 10 times — the 10th turn's input cost alone may exceed the first 9 combined
-  - Cached tokens make durable context (instruction files, system prompt) nearly free after the first turn — this is why well-structured `.github/copilot-instructions.md` files pay for themselves
-  - Output tokens are the most expensive — prompts that say "be concise" or "respond in bullet points" directly reduce cost
-  - Attaching a large file via `#file` adds its full token count to every subsequent turn in the session, not just the turn where you attached it
-
-- **Context rot** appears as sessions grow:
-  - **Lost in the middle** (~50% window fill): model biases toward beginning/end, forgets middle content
-  - **Recency bias** (~60–70% fill): model forgets system prompt, original goal, and custom instructions
-- Practical implication: start new sessions for new tasks; use `/clear` when shifting focus
-
-### Practical Controls (Ordered by Impact)
-
-1. **Keep sessions short and focused**:
-   - Start a new chat for each task instead of carrying stale context into the next one
-   - Long sessions accumulate input tokens because the full history is re-sent on every turn
-   - When the goal changes, use `/clear` or a fresh thread to reduce context rot and recency bias
-
-2. **Keep instruction files lean and modular**:
-   - Trim instruction files to the rules that materially improve output quality
-   - Prefer repository-level guidance for durable conventions and file-scoped instructions for narrow cases
-   - Small, well-targeted instructions reduce prompt bloat and save tokens without sacrificing quality
-
-3. **Reference only the context you need**:
-   - Use `#file` or `#selection` instead of broad `@workspace` context when a smaller slice is enough
-   - Paste only the relevant code block or summary rather than entire files or large attachments
-   - This reduces input tokens and helps the model stay focused on the real task
-
-4. **Choose the right model for the job**:
-   - Use smaller or routed models for simple edits, explanations, and formatting
-   - Reserve reasoning-heavy models for architecture, difficult debugging, and high-stakes planning
-   - Auto mode is a good default when you want cost-aware routing without manually picking every time
-
-5. **Use Plan mode before long agentic sessions**:
-   - Ask for a structured breakdown first, then review and tighten the plan before execution begins
-   - A clear plan reduces tool calls, retries, and wasted exploration in multi-step work
-   - This directly lowers token usage while often improving output quality because the agent follows a tighter objective
-
-6. **Split tasks: Research → Plan → Implement**:
-   - Research: use cheaper models, broad context, discover files and patterns
-   - Plan: use reasoning models, create an airtight spec
-   - Implement: use mid-tier models, follow the spec, parallelize by concern
-
-7. **Use deterministic guardrails (tests, linters, scanners)**:
-   - A single failing test can reset agent accuracy from a 40% drift back to 99%
-   - Tests as guardrails cost less than shipping bugs + incident response + debug sessions
-   - Linters and security scanners catch drift before it compounds
-
-8. **Keep persistent instructions small and precise**:
-   - Use `.github/copilot-instructions.md` as an "agent miss log" — recurring failures become instructions
-   - Do not use AI to generate them — they should capture what AI cannot figure out independently
-   - Treat them as a living document; review and refresh every ~3 months
-   - Adding "be concise" measurably reduces output token volume without sacrificing quality
-
-9. **Output tokens cost more than input tokens**:
-   - Generating code and explanations requires more compute than reading context
-   - Concise instructions that produce focused output save both time and budget
-   - This is why "be concise" and stop signals have outsized impact on cost
-
-10. **MCP server discipline**:
-   - Only activate MCP servers you regularly use — each adds tool descriptions to every request
-   - Too many available tools causes agents to take unnecessary detours
-   - Pair MCP servers with custom agents that restrict the active tool set
-
-### 🛡️ Safety Moment
-
-- Token optimization is not about denying the model information — it is about curating the right information
-- Starving context to save cost leads to hallucinations and off-track behavior
-- Always validate that cost-saving choices do not degrade output quality below your acceptance bar
-
-### 🖥️ Demo: Model Selection and Session Hygiene
-
-1. Show the same prompt answered by different model tiers and compare quality vs. cost:
-
-   ```text
-   Analyze the architecture of this repository and suggest three improvements for testability.
-   ```
-
-2. Demonstrate the impact of `/clear` before a new task — show how a long-running session produces worse results than a fresh one for an unrelated question.
-
-3. Show a task split in action:
-
-   ```text
-   Step 1 (research): What files handle authentication in this repo?
-   Step 2 (plan): Create a migration plan from session-based to JWT auth.
-   Step 3 (implement): Implement the plan from step 2.
-   ```
-
-### Discussion Points
-
-- Which of the seven controls would have the biggest impact on your current workflow?
-- Have you noticed quality degradation in long sessions? What was the symptom?
-- How would you structure an "agent miss log" for your team?
-
-### 🔬 LAB: Exercise 4 — Token Economics
-
-> **Instructor**: Pause here for hands-on practice. Students complete Exercise 4 (5 min) comparing broad vs. narrow context, switching model tiers, and using `/clear` for session hygiene — all while checking token usage indicators in the Output panel.
-
----
-
-## 8. Rubber Duck Debugging with GitHub Copilot (5 min)
-
-### Key Points
-
-- GitHub Copilot can act as a thought partner when you explain a bug, design tradeoff, or architectural concern out loud in writing
-- The act of explaining your reasoning often reveals missing assumptions, hidden dependencies, or weak logic
-- Cross-model review can help by giving you a second perspective on the same problem
-- AI reasoning can be useful for surfacing possibilities, but design decisions still need independent validation
-
-### 🛡️ Safety Moment
-
-- Confident-sounding reasoning is not the same as correct reasoning
-- Validate root-cause analysis, architectural advice, and debugging conclusions against the code and runtime evidence
-- Use GitHub Copilot to sharpen your thinking, not to replace verification
-
-### 🖥️ Demo: Talking Through a Bug
-
-1. Frame the bug as a reasoning problem:
-
-   ```text
-   I think this bug happens because the cache invalidation path runs before the async write completes. Challenge my reasoning and point out what I may be missing.
-   ```
-
-2. Ask a second model or a fresh thread to critique the first answer.
-
-### Discussion Points
-
-- When have you caught a bug by explaining it to someone else?
-- How could GitHub Copilot serve that rubber-duck role in your daily work?
-- What design decisions would you still insist on validating independently?
-
----
-
-## 9. Wrap-up, Hand-off to Lab, and Q&A (5 min)
-
-### Key Points
-
-- Agents coordinate skills; skills perform specific actions
-- Choose agentic workflows when the task is multi-step and adaptive, and direct tool use when the task is simple and deterministic
-- Background agents, cloud agents, and Coding Agent expand where work happens, but review gates remain essential
-- GitHub Copilot `/init`, instruction layering, and custom orchestration patterns are force multipliers when paired with clear constraints
-- Token optimization is quality-first: right model, precise prompts, split tasks, deterministic guardrails, concise instructions
-- The lab focuses on four practical takeaways: choosing agent versus direct interaction, observing instruction layering, creating a lightweight custom agent, and optimizing a session for token efficiency
-- Module 3 will extend this foundation into advanced integrations, memory, APIs, and deeper debugging patterns
-
-### 🖥️ Demo: Lab Preview and Transition
-
-1. Preview the lab sequence:
-
-   ```text
-   Exercise 1 → Use your refactor-coach agent vs. Ask mode (review context usage)
-   Exercise 2 → Add a reviewer agent for multi-agent handoff (compare token cost)
-   Exercise 3 → Test instruction layer precedence with a conflict
-   Exercise 4 → Token economics with model comparison and session hygiene
-   ```
-
-2. Re-emphasize that the goal is safe experimentation, not maximum autonomy.
-
-### Discussion Points
-
-- Which pattern from today feels immediately usable in your workflow?
-- What still feels risky or unclear about agentic development?
-- What do you want to explore more deeply in Module 3?
-
-*Workshop guide for Module 2: Agentic Patterns — GitHub Copilot Developer Training*
+- Module 2 now explicitly teaches the Stage 5-6 operating core in the 8-stage model.
+- Stage 5 establishes controlled CLI power-user behavior; Stage 6 scales via multi-agent orchestration with guardrails.
+- Stage 7 readiness depends on carrying forward these safety and optimization disciplines, not replacing them.
+
+<!-- Presenter notes:
+Which Stage 5 practice should become mandatory this month?
+Which Stage 6 handoff rule would most reduce rework in your team?
+-->
+
+*Workshop guide for Module 2: Agentic Content Refresh — GitHub Copilot Developer Training*

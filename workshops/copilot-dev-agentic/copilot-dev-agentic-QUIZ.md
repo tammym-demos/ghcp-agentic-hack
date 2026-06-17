@@ -1,125 +1,125 @@
-# Module 2: Agentic Patterns — Quiz
+# Module 2: Agentic Content Refresh — Quiz
 
 ---
 
-### 1. Your teammate asks GitHub Copilot to rename a variable in one file, but you need GitHub Copilot to inspect several files, refactor a helper, update tests, and adapt the plan if it finds unexpected dependencies. Which approach is the best fit?
+### 1. In the approved 8-stage model, what is the primary focus of Stage 5 in this module?
 
-- A) Use a direct skill or one-shot command because every change is still deterministic
-- B) Use an agent because the task is multi-step, requires judgment, and may need to adapt based on intermediate results
-- C) Use `/init` because scaffolding is the fastest way to handle multi-file work
-- D) Use a quiz-style prompt because that reduces the need for context
+- A) Fully autonomous production deployment without review
+- B) CLI power-user workflows with bounded autonomy and explicit review gates
+- C) Replacing prompts with fixed templates only
+- D) Eliminating direct tool usage
 
 <!--answer: B-->
-<!--explanation: Agents are the right fit for multi-step, adaptive work that requires judgment during execution. A direct skill or one-shot command is better for deterministic single-step tasks.-->
+<!--explanation: Stage 5 emphasizes advanced CLI execution with deliberate constraints, stop conditions, and human review.-->
 
 ---
 
-### 2. A team wants one workflow that can investigate a bug while a developer keeps coding locally, and another workflow that can take a GitHub issue, implement it in a cloud environment, and open a pull request. Which pairing is correct?
+### 2. Which behavior best indicates a team is still at Stage 4 rather than Stage 5?
 
-- A) Background agent for the local long-running investigation, and Coding Agent for the issue-to-PR cloud workflow
-- B) `/init` for the local investigation, and Ask mode for the cloud pull request workflow
-- C) Ask mode for the local investigation, and a file-scoped instruction for the cloud pull request workflow
-- D) Coding Agent for both cases, because background agents and cloud agents are the same thing
+- A) They use structured prompts and scoped tasks, but avoid advanced delegated patterns
+- B) They run multi-agent orchestration with role contracts
+- C) They maintain readiness evidence for Stage 7 operations
+- D) They parallelize independent workflows with explicit handoffs
 
 <!--answer: A-->
-<!--explanation: Background agents are suited to long-running work that continues while the developer does something else locally. Coding Agent is the cloud-oriented issue → branch → implement → pull request workflow.-->
+<!--explanation: Stage 4 is characterized by reliable prompt discipline and scoped autonomy, before Stage 5 power-user execution patterns.-->
 
 ---
 
-### 3. Your organization blocks certain models at the org level. In your repository, you add `.github/copilot-instructions.md` asking GitHub Copilot to prefer a blocked model, and in a test instruction file you add test-specific formatting rules. What outcome should you expect?
+### 3. Which prompt element most directly prevents Stage 5 over-execution?
 
-- A) The repository instruction overrides the org policy because repo files are more specific than org settings
-- B) The test instruction overrides both the repository instruction and the org policy
-- C) The org policy still applies, while the repository and file-scoped instructions compose only within the allowed guardrails
-- D) Only the session prompt applies because instruction files cancel each other out
+- A) A long context history
+- B) Definition of done plus explicit off-ramp
+- C) Listing every possible tool
+- D) Avoiding task constraints
 
-<!--answer: C-->
-<!--explanation: Organization-level guardrails cannot be overridden by repository or file-scoped instructions. More specific instructions can shape behavior only inside the boundaries allowed by the higher-level policy.-->
+<!--answer: B-->
+<!--explanation: Definition-of-done and off-ramp criteria create explicit stop boundaries and escalation paths.-->
 
 ---
 
-### 4. You are starting a new internal service and want GitHub Copilot to generate a sensible starter structure with tests and configuration, but you also want to avoid blindly committing generated boilerplate. What is the best practice?
+### 4. At Stage 5, when should direct tool execution usually be preferred?
 
-- A) Run GitHub Copilot `/init`, then review the generated structure, dependencies, and defaults before committing
-- B) Avoid `/init` completely because generated scaffolding should never be used in production
-- C) Use `/init` and commit everything immediately so the project can evolve later
-- D) Use a multi-agent workflow first, because `/init` is only for debugging existing projects
+- A) For deterministic, single-step tasks with clear expected outputs
+- B) For every ambiguous, cross-repo architecture decision
+- C) Never; delegated mode is always superior
+- D) Only after multi-agent planning
 
 <!--answer: A-->
-<!--explanation: `/init` is useful for accelerating project bootstrapping, but the generated output still needs human review. The correct practice is to inspect the scaffolded files, defaults, and dependencies before treating them as your project baseline.-->
+<!--explanation: Stage 5 expects intentional control choice; deterministic tasks should generally use direct actions first.-->
 
 ---
 
-### 5. Your team is considering a three-agent workflow: one agent writes code, one reviews for defects, and one adds tests. The actual task is a tiny one-file comment cleanup with no behavior change. Which answer best reflects a good multi-agent decision?
+### 5. What is the best reason to run a background task at Stage 5?
 
-- A) Use the multi-agent workflow anyway because more agents always improve quality
-- B) Skip automation entirely because agents should never handle low-risk tasks
-- C) Use a single well-scoped agent or direct edit instead, because multi-agent coordination is overkill for such a small task
-- D) Replace the three-agent workflow with `/init`
-
-<!--answer: C-->
-<!--explanation: Multi-agent orchestration is most valuable when specialized roles materially improve the outcome. For a tiny low-risk task, the coordination overhead outweighs the benefit, so a single scoped agent or direct edit is the better choice.-->
-
----
-
-### 6. A developer's agent session has been running for 30 minutes and the context window is at ~70% capacity. The agent starts ignoring instructions from `copilot-instructions.md` and repeating earlier mistakes. What is the most likely cause?
-
-- A) The model has a bug and needs to be restarted
-- B) Recency bias — the model is deprioritizing the system prompt and instructions as the context fills with recent conversation
-- C) The instructions file is too short and needs more detail
-- D) The agent has permanently lost access to the instructions file
+- A) To skip review and merge faster
+- B) To do independent parallel work while the task runs
+- C) To remove the need for scoped prompts
+- D) To avoid defining constraints
 
 <!--answer: B-->
-<!--explanation: At 60–70% context window fill, recency bias causes the model to deprioritize earlier tokens (including the system prompt and custom instructions) in favor of recent conversation. The fix is to start a fresh session with /clear rather than continuing to stack context.-->
+<!--explanation: Background execution is most effective when parallel, independent work exists and outputs are still reviewed.-->
 
 ---
 
-### 7. Your team wants to reduce token costs by 50%. Which approach is most likely to succeed without degrading output quality?
+### 6. What distinguishes Stage 6 from Stage 5 most clearly?
 
-- A) Remove all custom instructions to minimize input tokens
-- B) Use the cheapest model for every task regardless of complexity
-- C) Match model tier to task complexity (reasoning for planning, mid-tier for implementation, low-tier for simple edits) and split work into focused sessions
-- D) Disable all tools so the agent cannot make tool calls
+- A) Stage 6 adds role-based multi-agent orchestration and handoff contracts
+- B) Stage 6 avoids verification to preserve speed
+- C) Stage 6 removes human ownership
+- D) Stage 6 disables audit trails
 
-<!--answer: C-->
-<!--explanation: Model selection is the biggest cost lever (up to 24× price difference between tiers). Matching model capability to task complexity — combined with task splitting to keep sessions focused — achieves cost reduction while maintaining quality. Removing instructions or using only cheap models degrades quality, which creates more retries and wastes more tokens overall.-->
-
----
-
-### 8. A developer adds this instruction to `copilot-instructions.md`: "Here is a complete guide to React hooks including useState, useEffect, useCallback, useMemo..." (500 words of framework documentation). What is wrong with this approach?
-
-- A) The instruction is too short to be useful
-- B) Instructions should only contain test-related guidance
-- C) Framework knowledge that already exists in training data wastes always-on context tokens without improving output quality
-- D) Instructions must be written in YAML format, not prose
-
-<!--answer: C-->
-<!--explanation: Persistent instructions are sent on every single API call, so every token must earn its place. Framework documentation that already exists in the model's training data (React is ~80% of web training data) adds no value but consumes context budget on every request. Instructions should capture what the model cannot figure out independently — project-specific conventions, non-obvious patterns, and recurring agent failures.-->
+<!--answer: A-->
+<!--explanation: Stage 6 extends Stage 5 by coordinating specialized agents with explicit handoffs and validation boundaries.-->
 
 ---
 
-### 9. A 50-step agent workflow has 99% accuracy on each individual step. What is the approximate probability that the entire workflow completes correctly end-to-end?
+### 7. Which Stage 6 guardrail is most important for reducing blind acceptance risk?
 
-- A) 99%
-- B) 95%
-- C) 60%
-- D) 8%
-
-<!--answer: C-->
-<!--explanation: The compounding error formula is 0.99^50 ≈ 0.605, or approximately 60%. This demonstrates why per-step quality is critical in multi-step agent workflows — even high single-step accuracy compounds into surprisingly low end-to-end success rates. At 95% per step, it drops to 0.95^50 ≈ 8%.-->
-
----
-
-### 10. Which combination represents the optimal task-splitting strategy for a complex feature implementation?
-
-- A) Use one long session with a reasoning model for research, planning, and implementation together
-- B) Research with a cheap model (broad context), plan with a reasoning model (tight spec), implement with a mid-tier model (follow the spec)
-- C) Skip research and planning entirely — go straight to implementation with the most expensive model
-- D) Use a low-tier model for all phases to minimize cost
+- A) Allowing every agent the same unrestricted tools
+- B) Separating implementation and verification roles
+- C) Skipping handoff documentation
+- D) Auto-accepting first successful output
 
 <!--answer: B-->
-<!--explanation: The research → plan → implement split matches model tier to task requirements: cheap models for low-stakes discovery, reasoning models for the critical planning step that defines quality, and mid-tier models for execution where the spec eliminates ambiguity. This optimizes both cost and quality while keeping each context window clean and focused.-->
+<!--explanation: Independent verification roles reduce confirmation bias and improve confidence in multi-agent outcomes.-->
 
 ---
 
-*Quiz for Module 2: Agentic Patterns — GitHub Copilot Developer Training*
+### 8. In a Stage 6 handoff contract, which item is essential?
+
+- A) Personal preference notes unrelated to task outputs
+- B) Expected output format and validation criteria
+- C) Every historical chat message
+- D) Removing constraints to maximize creativity
+
+<!--answer: B-->
+<!--explanation: Clear expected outputs and validation checks make handoffs testable and reduce ambiguity.-->
+
+---
+
+### 9. Which statement best describes the Stage 6 to Stage 7 transition?
+
+- A) Move to operational scale only after auditability, policy compliance, and rollback paths are proven
+- B) Skip governance checks if output quality appears high
+- C) Promote any successful Stage 5 task directly to production workflows
+- D) Replace review checkpoints with larger models
+
+<!--answer: A-->
+<!--explanation: Stage 7 readiness requires explicit operational controls and evidence, not just isolated success.-->
+
+---
+
+### 10. What is the best Stage 5-6 optimization posture?
+
+- A) Remove constraints and expand tool scope to maximize throughput
+- B) Keep prompts tight, scope tools minimally, and enforce reviewer checkpoints
+- C) Always use the largest model regardless of task
+- D) Disable stop conditions to avoid interruption
+
+<!--answer: B-->
+<!--explanation: Safe efficiency in Stage 5-6 combines concise prompts, minimal necessary tool access, and explicit quality gates.-->
+
+---
+
+*Quiz for Module 2: Agentic Content Refresh — GitHub Copilot Developer Training*

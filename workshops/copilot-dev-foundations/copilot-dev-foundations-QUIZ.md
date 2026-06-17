@@ -1,89 +1,125 @@
-# Module 1: Foundations — Quiz
+# Module 1: Foundations Content Refresh — Quiz
 
 ---
 
-### 1. You are exploring an unfamiliar repository and want GitHub Copilot to outline the safest implementation approach for a medium-sized change before any files are edited. Which option is the best fit?
+### 1. Which Stage 1 statement is correct?
 
-- A) Use **Ask** mode and request a final code patch immediately
-- B) Use **Plan** mode so GitHub Copilot can propose steps, risks, and validation without editing files
-- C) Use **Agent** mode because it always provides the most accurate architectural explanation
-- D) Start a brand-new session in **Agent** mode and skip any prompt details
+- A) Stage 1 focuses on unrestricted autonomous execution
+- B) Stage 1 focuses on baseline awareness, surfaces, privacy, and safe interaction choices
+- C) Stage 1 focuses on model benchmarking and AIC optimization
+- D) Stage 1 focuses on custom-agent rollout at scale
 
 <!--answer: B-->
-<!--explanation: Plan mode is designed for analysis and implementation planning without making file changes. It is the safest choice when you want a structured proposal, risk awareness, and validation steps before execution.-->
+<!--explanation: Stage 1 in this module establishes baseline awareness and safety before optimization or delegation.-->
 
 ---
 
-### 2. You want GitHub Copilot to explain only a highlighted loop inside `parser.ts`, while still allowing it to reference the broader repository if needed. Which prompt setup is most effective?
+### 2. Which prompt location mapping best reflects Stage 1 surface recognition?
 
-- A) `@workspace Explain this project`
-- B) `#file Explain everything in this file from top to bottom`
-- C) `@workspace Explain #selection in the context of the surrounding project`
-- D) Start a fresh session and paste the entire repository tree into chat
+- A) IDE only
+- B) Browser only
+- C) Terminal only
+- D) IDE, browser, and terminal
+
+<!--answer: D-->
+<!--explanation: Stage 1 explicitly teaches Copilot usage across IDE, browser, and terminal workflows.-->
+
+---
+
+### 3. A developer needs reasoning and change sequencing before editing. Which Stage 2 mode choice is best?
+
+- A) Ask mode
+- B) Plan mode
+- C) Agent mode
+- D) Any mode, no difference
+
+<!--answer: B-->
+<!--explanation: Stage 2 decision criteria position Plan mode for design, sequencing, and risk analysis before edits.-->
+
+---
+
+### 4. Which Stage 2 behavior is safest when testing agent output?
+
+- A) Accept all edits to preserve momentum
+- B) Skip scope controls so the model has more context
+- C) Require explicit review before accepting multi-file changes
+- D) Use Agent mode by default for all requests
 
 <!--answer: C-->
-<!--explanation: `#selection` narrows the primary focus to the highlighted code, while `@workspace` supplies broader repo context when needed. This combination is more precise than asking about the whole file or entire project without scope.-->
+<!--explanation: Stage 2 emphasizes scoped prompts and mandatory human review for higher-blast-radius changes.-->
 
 ---
 
-### 3. Your team wants GitHub Copilot to always prefer early returns across the repo, but also wants test files to follow Arrange-Act-Assert without forcing that rule onto production code. Which setup is correct?
+### 5. Which Stage 3 description is most accurate?
 
-- A) Put every rule in `.github/copilot-instructions.md` and avoid scoped files
-- B) Put the early-return rule in `.github/copilot-instructions.md` and the test-specific rule in `.github/instructions/tests.instructions.md`
-- C) Put the test rule in `.github/prompts/tests.prompt.md` because prompts always load automatically
-- D) Put both rules in a single `README.md` because GitHub Copilot reads all markdown equally
+- A) Stage 3 is about maximizing autonomy with minimal oversight
+- B) Stage 3 is about quality/cost optimization using tokens, AIC, models, and context hygiene
+- C) Stage 3 is only about writing custom-agent instructions
+- D) Stage 3 is only about browser usage
 
 <!--answer: B-->
-<!--explanation: Repository-wide rules belong in `.github/copilot-instructions.md`, while file-specific guidance belongs in `.github/instructions/*.instructions.md` with an appropriate `applyTo` scope. That keeps durable global guidance separate from targeted rules.-->
+<!--explanation: Stage 3 focuses on token economics, AIC awareness, model routing, and context-window management.-->
 
 ---
 
-### 4. You need a fast answer for a routine question in a familiar codebase, but later you must reason through a multi-file refactor with several tradeoffs. Which model strategy is usually best?
+### 6. In Stage 3, when is a larger reasoning model usually justified?
 
-- A) Always use the largest reasoning model for every request to maximize consistency
-- B) Use a faster or routed default model for the routine question, then switch to a stronger reasoning model for the complex refactor
-- C) Use inline completions for both tasks because they are optimized for deep architectural reasoning
-- D) Avoid changing models because speed, reasoning depth, and premium usage are unrelated
+- A) For every trivial formatting request
+- B) Only when architecture ambiguity or deeper reasoning justifies added cost
+- C) Never, because small models are always enough
+- D) Whenever a teammate asks for speed
 
 <!--answer: B-->
-<!--explanation: Smaller or routed default models are often a better fit for quick, low-risk tasks, while larger reasoning models are better reserved for complex planning and tradeoff-heavy work. This balances speed, quality, and cost.-->
+<!--explanation: Stage 3 teaches matching model capability to task complexity and cost impact.-->
 
 ---
 
-### 5. A long chat thread began with debugging a failing test, then drifted into architecture discussions and terminal troubleshooting. GitHub Copilot now keeps referencing outdated assumptions from earlier in the conversation. What should you do next?
+### 7. What is the recommended Stage 3 response to context rot?
 
-- A) Keep replying in the same session so GitHub Copilot has as much history as possible
-- B) Start a new session focused on the current objective and restate the relevant context cleanly
-- C) Switch to **Agent** mode because mode changes automatically clear stale context
-- D) Remove all repository instruction files so the thread becomes shorter
+- A) Add all previous chat history into the next prompt
+- B) Continue the same thread indefinitely
+- C) Start a fresh session with focused scope and objective
+- D) Disable model switching
+
+<!--answer: C-->
+<!--explanation: Stage 3 guidance is to reset noisy conversations and re-scope context when drift appears.-->
+
+---
+
+### 8. Which Stage 4 delegation policy is aligned with the workshop?
+
+- A) Grant broad tool permissions first, then narrow later
+- B) Use least privilege, explicit approval gates, and escalation off-ramps
+- C) Remove human review to increase speed
+- D) Delegate ambiguous tasks to agents by default
 
 <!--answer: B-->
-<!--explanation: When a conversation has drifted or accumulated stale assumptions, starting a fresh session is the best way to reset context and reduce noise. Continue a session when the task is still coherent; start fresh when the objective or assumptions have changed.-->
+<!--explanation: Stage 4 introduces controlled autonomy with minimum required permissions and clear stop conditions.-->
 
 ---
 
-### 6. A developer has been working in a single GitHub Copilot Chat session for 30 minutes. The context window is now around 60% full. They notice GitHub Copilot is ignoring their custom instructions and drifting from the original objective. What is the most likely cause?
+### 9. Which decision criterion indicates a task should stay below Stage 4?
 
-- A) The custom instructions file has a syntax error and was never loaded
-- B) Recency bias — as the context window fills, the model loses sight of the system prompt and earlier instructions in favor of recent conversation
-- C) The model has a hard limit of 20 minutes per session before instructions expire
-- D) Agent mode automatically disables custom instructions after 50% context usage
+- A) The task is ambiguous and high impact without clear acceptance criteria
+- B) The task is repetitive, low risk, and has clear guardrails
+- C) The task is a one-file, reversible change
+- D) The task has well-defined permission boundaries
+
+<!--answer: A-->
+<!--explanation: Ambiguous high-impact work should remain human-led or in lower-autonomy stages until constraints are clear.-->
+
+---
+
+### 10. Which sequence correctly represents this module's Stage 1-4 progression?
+
+- A) Autonomy → Optimization → Baseline → Guided workflows
+- B) Baseline awareness → Guided workflows → Optimization → Controlled autonomy
+- C) Guided workflows → Controlled autonomy → Baseline → Optimization
+- D) Optimization → Baseline → Controlled autonomy → Guided workflows
 
 <!--answer: B-->
-<!--explanation: Recency bias occurs at roughly 60–70% context fill. The model begins to favor recent conversation over earlier content like system prompts and custom instructions, causing drift. The solution is to start a fresh session and restate the objective clearly.-->
+<!--explanation: The workshop explicitly organizes Module 1 as Stage 1 baseline, Stage 2 guided usage, Stage 3 optimization, and Stage 4 controlled autonomy.-->
 
 ---
 
-### 7. You want to reduce wasted tokens when prompting GitHub Copilot. Which combination of practices has the most impact?
-
-- A) Always use the largest reasoning model and provide the entire repository as context
-- B) Include explicit stop conditions in prompts, use smaller models for simple tasks, and add "be concise" to repository instructions
-- C) Remove all instruction files so the context window is smaller
-- D) Avoid using Agent mode entirely because it always generates excessive output
-
-<!--answer: B-->
-<!--explanation: Stop signals prevent over-execution, model selection avoids paying up to 24× more for routine tasks, and "be concise" in instructions measurably reduces output token volume. Together these address the three main sources of token waste without sacrificing quality.-->
-
----
-
-*Quiz for Module 1: Foundations — GitHub Copilot Developer Training*
+*Quiz for Module 1: Foundations Content Refresh — GitHub Copilot Developer Training*
