@@ -137,11 +137,6 @@ code .
 
 </details>
 
-### Discussion Points
-
-- Who has used Copilot Chat before? What modes have you tried?
-- What's your biggest frustration with Copilot for C++ or embedded work? (Common answer: "It doesn't understand our hardware constraints" — tease Section 3)
-
 ---
 
 ## 2. Copilot Chat Modes: Ask, Agent, Plan (25 min)
@@ -1342,12 +1337,6 @@ Shell escape
 - ✅ You've used at least one slash command (`/review`, `/context`, `/agent`, or `/usage`)
 - ✅ You understand how `/delegate` bridges local CLI work to the cloud Coding Agent
 
-### Discussion Points
-
-- How does the `copilot` CLI compare to Agent mode in VS Code for embedded work?
-- The CLI reads the same custom instructions, agents, and skills. How does one config across IDE + terminal benefit your team?
-- What security policies would your org need around `--allow-all-tools` vs. per-tool approval?
-
 ---
 
 ## 9. Cloud Agents: Coding Agent + PR Review Agent (20 min)
@@ -1429,12 +1418,6 @@ Coding Agent reads ALL of your customization files — everything you've built t
 | **Duration** | Minutes (you're watching) | 5-30 min (you're doing other work) |
 | **Output** | File changes in your workspace | A Pull Request |
 | **Best for** | Iterative work, exploration | Well-defined tasks, delegation |
-
-### Discussion Points
-
-- When would you use Coding Agent vs Agent Mode for firmware tasks?
-- How does this change your team's issue workflow?
-- What guardrails would you put in place? (Branch protection, required human review, hardware testing before merge)
 
 ---
 

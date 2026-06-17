@@ -121,7 +121,7 @@ The workshop file is the **authoritative content** for each module. It serves tw
 - Each section should contain enough detail for an AI to generate both a visual slide AND substantive presenter notes
 - Tables, bullet lists, and structured comparisons translate better to slides than prose paragraphs
 - Fenced code blocks with prompts or commands become "try this" examples on slides
-- Discussion Points become audience engagement prompts in presenter notes
+- Discussion prompts should live in `presenter-notes.md` so they can be used directly as Slidev talk track
 - Diagrams described in text or Unicode box-drawing translate to visual diagrams on slides
 
 #### File Structure
@@ -140,7 +140,6 @@ Each numbered section follows this pattern (in order):
 | `### 🛡️ Safety Moment` | ✅ Yes | 2-3 bullets on accountability, review gates, or governance |
 | `### 🖥️ Demo: Title` | ✅ Yes (sections 2+) | Numbered steps the instructor performs live |
 | `### 💡 Optimization Tip: Title` | ✅ Yes (sections 2+) | Token/usage/quality optimization advice from the usage plan |
-| `### Discussion Points` | ✅ Yes | 2-3 audience questions that prompt reflection |
 | `### 🔬 LAB: Exercise N — Title` | ✅ Yes (sections 2+) | Instructor pause indicator — references the matching LAB exercise |
 
 #### LAB Indicator Format
@@ -157,6 +156,7 @@ Every `*-workshop.md` must have a corresponding:
 
 - `*-LAB.md` — hands-on exercises that mirror the workshop sections; each `🔬 LAB` indicator in the workshop maps to a specific exercise in the LAB file
 - `*-QUIZ.md` — knowledge-check questions covering key concepts from all sections
+- `presenter-notes.md` — section-aligned presenter prompts and talk track guidance extracted from workshop discussion content
 
 When editing any of the three files, **always check the other two for consistency**:
 
@@ -212,7 +212,7 @@ All slide images live in `public/images/<workshop-folder-name>/`.
 
 - The `*-workshop.md` is the **source of truth**; PPTX files are gitignored
 - Run `npm run convert:pptx -- <folder>` to extract images and generate the Slidev file
-- After conversion, replace placeholder `<!-- Presenter notes -->` with real talk-track from the workshop file
+- After conversion, replace placeholder `<!-- Presenter notes -->` with talk-track from `presenter-notes.md` (and supporting workshop content where needed)
 - Python deps: `pip install python-pptx Pillow`
 
 ## Content Guidelines
@@ -222,7 +222,7 @@ All slide images live in `public/images/<workshop-folder-name>/`.
 - Prefer tables and bullets over prose paragraphs
 - Use `**bold**` for key terms on first use; backtick formatting for commands, paths, config values
 - Do not invent GitHub features — only document what actually exists
-- Every workshop section should end with **Discussion Points**
+- Store section discussion prompts in `presenter-notes.md` instead of `*-workshop.md`
 - Slide presenter notes provide talk-track guidance, not repeat slide content
 
 ## Git Workflow
