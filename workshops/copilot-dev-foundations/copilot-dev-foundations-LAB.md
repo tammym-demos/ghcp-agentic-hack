@@ -55,7 +55,14 @@ Explain the difference between Ask, Plan, and Agent mode for this repository.
 ```
 
 4. Switch the same request through Ask, Plan, and Agent mode and compare output.
-5. In terminal, run:
+5. Capture a session checkpoint with:
+
+```text
+/chronicle
+```
+
+6. From the `/chronicle` output, write two short lists in your notes: **Tips** and **Cost-savings tips**.
+7. In terminal, run:
 
 ```powershell
 copilot
@@ -63,7 +70,7 @@ copilot
 copilot -p "List the top 3 folders a new contributor should read first."
 ```
 
-6. Capture one rule for when you should stay in Stage 2 instead of escalating autonomy.
+8. Capture one rule for when you should stay in Stage 2 instead of escalating autonomy.
 
 **🛡️ Safety checkpoint**: Validate command suggestions before execution and reject unclear multi-file proposals.
 
@@ -71,6 +78,8 @@ copilot -p "List the top 3 folders a new contributor should read first."
 
 - ✅ Used scoped context in both IDE and terminal workflows
 - ✅ Used at least one slash command and compared mode behavior
+- ✅ Captured one `/chronicle` checkpoint after mode comparison
+- ✅ Extracted both **Tips** and **Cost-savings tips** from `/chronicle`
 - ✅ Ran both interactive and direct CLI prompts
 - ✅ Captured one Stage 2 decision rule
 - ✅ Added one reusable instruction to the starter kit
@@ -86,6 +95,13 @@ copilot -p "List the top 3 folders a new contributor should read first."
 4. Note when higher capability is worth additional AIC usage.
 5. Record one context-rot warning sign and one reset strategy.
 6. Draft a short prompt template or checklist that Module 2 can reuse for adding guesses, scoring, and hints to the game.
+7. Capture an optimization handoff snapshot with:
+
+```text
+/chronicle
+```
+
+8. From the `/chronicle` output, add at least one new **Cost-savings tip** tied to token scope, retries, or model selection.
 
 **🛡️ Safety checkpoint**: Do not optimize cost by skipping tests, validation, or security checks.
 
@@ -96,6 +112,8 @@ copilot -p "List the top 3 folders a new contributor should read first."
 - ✅ Captured one AIC-aware routing decision
 - ✅ Documented one context reset trigger
 - ✅ Produced one reusable prompt/checklist asset for the next module
+- ✅ Captured one `/chronicle` optimization checkpoint
+- ✅ Added at least one `/chronicle`-derived **Cost-savings tip**
 
 ## Exercise 4: Stage 4 Delegation — Custom Agent Guardrails
 
@@ -107,7 +125,13 @@ copilot -p "List the top 3 folders a new contributor should read first."
 3. Ask the agent to perform one low-risk change in a single file.
 4. Review proposed edits before acceptance.
 5. Document which permission boundary kept the task safe.
-6. Save a short starter summary that explains what Module 2 should extend next in Copilot Quest.
+6. Run:
+
+```text
+/chronicle
+```
+
+7. Save a short starter summary (using the `/chronicle` output) that explains what Module 2 should extend next in Copilot Quest, including one **Tip** and one **Cost-savings tip** for handoff.
 
 **🛡️ Safety checkpoint**: Keep tool permissions minimal and reject unclear or high-blast-radius tasks.
 
@@ -118,5 +142,6 @@ copilot -p "List the top 3 folders a new contributor should read first."
 - ✅ Executed one constrained delegation and reviewed edits
 - ✅ Documented one Stage 4 delegation policy
 - ✅ Captured a handoff note for the next module
+- ✅ Captured one final `/chronicle` handoff summary
 
 *Hands-on lab for Module 1: Foundations Content Refresh — GitHub Copilot Developer Training*

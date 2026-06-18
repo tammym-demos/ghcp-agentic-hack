@@ -49,6 +49,7 @@ This Intermediate module maps directly to the Agentic operating layer: durable i
 
 - **Slide topic (1 slide): Instructions as durable control surface** — repository and scoped instruction files define expected behavior per context and file pattern, turning Copilot into a team-aligned collaborator.
 - **Slide topic (1 slide): Memory as continuity layer** — memory carries forward reusable context that does not belong in policy files. **AI Safety Moment**: keep memory curation intentional and non-sensitive.
+- **Slide topic (1 slide): `/chronicle` as session checkpoint** — use `/chronicle` at section boundaries to capture decisions, changed files, and unresolved questions before starting the next workflow step. **Usage Optimization**: checkpointing reduces expensive context reconstruction after interruptions.
 - **Slide topic (1 slide): Strong prompt anatomy** — task, scope, constraints, definition of done, and off-ramp reduce ambiguity and improve autonomous execution quality. **Usage Optimization**: strong prompt contracts reduce retries.
 - **Slide topic (1 slide): Instruction layering stack** — org, repo, scoped files, user settings, and runtime prompts compose into one behavior model. **AI Safety Moment**: avoid contradictions that weaken policy intent.
 - **Slide topic (1 slide): Structured prompts as efficiency multiplier** — stable instructions plus clear prompts improve first-pass outcomes and shorten correction loops. **Usage Optimization**: lower AIC with fewer rework turns.
@@ -66,6 +67,7 @@ This Intermediate module maps directly to the Agentic operating layer: durable i
 - **Slide topic (1 slide): What is a skill** — skills are reusable scoped capabilities for concrete actions like search, edits, and command execution. **AI Safety Moment**: treat high-impact skills as privileged capabilities.
 - **Slide topic (1 slide): When to use direct skills versus agents** — deterministic low-branching tasks fit direct tools, while adaptive workflows fit agent orchestration. **Usage Optimization**: avoid over-delegating simple tasks.
 - **Slide topic (1 slide): Anatomy of the agentic loop** — prompt, decide, act, observe, and correct as a repeatable control cycle. **Usage Optimization**: bounded loops with termination criteria reduce token burn.
+- **Slide topic (1 slide): `/chronicle` in agent handoffs** — capture loop state with `/chronicle` before switching roles or escalating to another agent so handoffs include intent, evidence, and pending checks. **AI Safety Moment**: documented handoffs preserve accountability.
 - **Slide topic (1 slide): Tooling as execution interface** — tools bridge reasoning to action across files, terminals, and external systems. **AI Safety Moment**: require auditability and constrained parameters for risky tools.
 - **Slide topic (1 slide): Lab transition — Exercise 2** — switch from agent/skill theory to a role-based handoff loop with explicit checkpoints.
 
@@ -82,6 +84,7 @@ This Intermediate module maps directly to the Agentic operating layer: durable i
 - **Slide topic (1 slide): Custom agent design and governance** — custom agents package persona, instructions, permissions, and tool access for repeatable domain workflows. **AI Safety Moment**: enforce least-privilege scopes, explicit off-ramps, and human approval gates for side-effecting actions.
 - **Slide topic (1 slide): Optimization controls as operating system** — model routing, context budgeting, permission boundaries, and validation cadence must be treated as default controls, not optional extras.
 - **Slide topic (1 slide): Readiness for scale** — scale autonomy only after proving repeatability with checklists, quality thresholds, and rollback-ready governance. **AI Safety Moment**: no scale-up without control evidence.
+- **Slide topic (1 slide): `/chronicle` for advanced-module handoff** — end major work blocks with `/chronicle` output to seed PR summaries, team updates, and the next module's starting context.
 - **Slide topic (1 slide): Lab transition — Exercise 3** — apply execution-strategy controls to a Stage 6-to-Stage 7 guardrail mapping exercise.
 
 ### 🔬 LAB: Exercise 3 — Stage 6 to Stage 7 Guardrail Mapping
