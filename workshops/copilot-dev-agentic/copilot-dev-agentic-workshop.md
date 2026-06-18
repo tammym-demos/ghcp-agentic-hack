@@ -79,6 +79,7 @@ This Intermediate module maps directly to the Agentic operating layer: durable i
 
 - **Slide topic (1 slide): Background versus cloud agents** — choose execution venue based on dependencies, duration, and observability requirements. **Usage Optimization**: use async/cloud paths for genuinely long-running parallelizable tasks.
 - **Slide topic (1 slide): Boilerplate with `/init`** — scaffold commands standardize project setup and reduce repetitive prompt overhead. **Usage Optimization**: start from reusable templates to reduce setup churn.
+- **Slide topic (1 slide): Custom agent design and governance** — custom agents package persona, instructions, permissions, and tool access for repeatable domain workflows. **AI Safety Moment**: enforce least-privilege scopes, explicit off-ramps, and human approval gates for side-effecting actions.
 - **Slide topic (1 slide): Optimization controls as operating system** — model routing, context budgeting, permission boundaries, and validation cadence must be treated as default controls, not optional extras.
 - **Slide topic (1 slide): Readiness for scale** — scale autonomy only after proving repeatability with checklists, quality thresholds, and rollback-ready governance. **AI Safety Moment**: no scale-up without control evidence.
 - **Slide topic (1 slide): Lab transition — Exercise 3** — apply execution-strategy controls to a Stage 6-to-Stage 7 guardrail mapping exercise.

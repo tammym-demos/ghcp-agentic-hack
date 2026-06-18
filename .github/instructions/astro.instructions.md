@@ -18,7 +18,6 @@ Both files maintain a `workshopMeta` object that defines the workshop structure,
 The repo currently has two workshop entries in `workshopMeta`:
 
 - **`copilot-dev-training`** — Multi-module curriculum with 3 modules (foundations, agentic, advanced)
-- **`copilot-workshop-c++`** — Standalone C++ variant workshop
 
 ---
 

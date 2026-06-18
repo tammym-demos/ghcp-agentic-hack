@@ -13,7 +13,7 @@
 
 ## Workshop Overview
 
-This Foundations workshop introduces the core Copilot mental model before agentic scaling. The module starts with surfaces and trust boundaries, then moves into interaction modes, tokenomics, model routing, and context quality. It closes with autonomy controls and custom agent basics so learners leave with a safe default operating model for daily use.
+This Foundations workshop introduces the core Copilot mental model before agentic scaling. The module starts with surfaces and trust boundaries, then moves into interaction modes, tokenomics, model routing, and context quality. It closes with autonomy controls and AI-assisted development harness practices so learners leave with a safe, repeatable operating model for daily use.
 
 ### Learning Objectives
 
@@ -21,7 +21,7 @@ This Foundations workshop introduces the core Copilot mental model before agenti
 - Use inline completions, inline chat, and Ask/Plan/Agent modes appropriately
 - Interpret tokens, AIC usage, and model-routing tradeoffs for cost-aware execution
 - Detect context rot and apply context window hygiene practices
-- Apply least-privilege delegation and custom-agent guardrails
+- Apply least-privilege delegation and harness-based validation guardrails
 
 ## Session Agenda
 
@@ -29,8 +29,8 @@ This Foundations workshop introduces the core Copilot mental model before agenti
 |---------|-------|------|
 | 1 | Foundations baseline: surfaces, trust, and interaction fundamentals | 15 min |
 | 2 | Guided workflows: VS Code chat, CLI, and mode selection | 20 min |
-| 3 | Token economics and model-routing decisions | 20 min |
-| 4 | Context windows, autonomy spectrum, and custom agents | 20 min |
+| 3 | Tokenomics and model-routing decisions | 20 min |
+| 4 | Context windows, autonomy spectrum, and AI development harness | 20 min |
 | 5 | Wrap-up and Module 2 handoff | 15 min |
 | — | Hands-on labs across four exercises | 30 min |
 
@@ -53,8 +53,9 @@ This Foundations workshop introduces the core Copilot mental model before agenti
 ### Key Points
 
 - **Slide topic (1 slide): VS Code chat extension mechanics** — slash commands, participants, and `#` references give precise control over context and intent, with `#selection`/`#file` as preferred starting scopes for most tasks. **Usage Optimization**: scope tightly before expanding to workspace-wide reasoning.
+- **Slide topic (1 slide): /chronicle — session memory and handoff** — `/chronicle` generates a structured, chronological summary of everything accomplished in the current Copilot session: decisions made, files changed, commands run, and open threads. Use it at natural breakpoints to capture context before switching tasks, handing off to a colleague, or closing a session. It doubles as an automatic progress log that can seed PR descriptions, standup notes, or the next session's instructions file. **Usage Optimization**: run `/chronicle` at task boundaries to avoid expensive context reconstruction on restart.
 - **Slide topic (1 slide): Copilot CLI orientation** — terminal-first workflows support command generation, explanation, and iterative execution for scripting and operational tasks where concise, actionable output matters. **AI Safety Moment**: generated commands must be reviewed before execution.
-- **Slide topic (1 slide): Ask, Plan, Agent mode selection** — Ask supports understanding, Plan supports reviewed change proposals, and Agent supports iterative execution loops; mode should match task risk and reversibility. **AI Safety Moment**: higher-autonomy modes require stronger approval gates.
+- **Slide topic (1 slide): Agents** — built-in agents in GitHub Copilot include Plan and Agent experiences that move from structured change planning to iterative execution loops. This slide should focus on when to use Plan for reviewed change proposals versus Agent for multi-step delegated work. **AI Safety Moment**: higher-autonomy agent use requires stronger approval gates.
 - **Slide topic (1 slide): Context discipline as performance lever** — prompt clarity and bounded inputs reduce drift, retries, and ambiguity across all interaction modes. **Usage Optimization**: better prompt contracts lower both latency and AIC spend.
 - **Slide topic (1 slide): Lab transition — Exercise 2** — move from workflow patterns into guided Ask/Plan/Agent execution with scoped context.
 
@@ -77,19 +78,19 @@ This Foundations workshop introduces the core Copilot mental model before agenti
 
 > **Instructor**: Pause here for hands-on practice. Students complete Exercise 3 (7 min) comparing scoped versus broad prompts, model choices, and usage implications.
 
-## 4. Context Windows, Autonomy Spectrum, and Custom Agents (20 min)
+## 4. Context Windows, Autonomy Spectrum, and AI Development Harness (20 min)
 
 ### Key Points
 
 - **Slide topic (1 slide): Context window anatomy** — context windows combine instructions, history, references, and outputs, and degrade when sessions accumulate noise and compaction artifacts. **Usage Optimization**: reset or re-scope when context rot appears.
 - **Slide topic (1 slide): Autonomy spectrum and delegation permissions** — autonomy should scale with reversibility and blast radius, from suggestion-only support to iterative execution loops. **AI Safety Moment**: high-impact tasks require explicit approvals and narrow permissions.
-- **Slide topic (1 slide): Custom agent design** — custom agents package persona, instructions, permissions, and tools for domain workflows such as migrations or docs. **AI Safety Moment**: enforce least privilege and bounded responsibilities.
+- **Slide topic (1 slide): Harness** — a harness is a repeatable evaluation-and-validation setup for AI-assisted development: fixed task prompts, controlled context, representative fixtures, automated checks/tests, and explicit pass/fail criteria. This aligns with both GitHub Copilot and Claude workflows by letting teams benchmark outputs, compare model/prompt variants, catch regressions early, and gate merges on measurable quality.
 - **Slide topic (1 slide): Safety and optimization integration** — reusable constraints and standard guardrails improve both reliability and efficiency when encoded once and reused consistently.
-- **Slide topic (1 slide): Lab transition — Exercise 4** — shift from delegation principles into a constrained custom-agent implementation drill.
+- **Slide topic (1 slide): Lab transition — Exercise 4** — shift from delegation principles into a constrained harness-and-guardrail implementation drill.
 
-### 🔬 LAB: Exercise 4 — Stage 4 Delegation — Custom Agent Guardrails
+### 🔬 LAB: Exercise 4 — Stage 4 Delegation — Validation Harness and Guardrails
 
-> **Instructor**: Pause here for hands-on practice. Students complete Exercise 4 (7 min) creating a constrained custom-agent starter and testing one low-risk delegated task.
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 4 (7 min) creating a lightweight validation harness and applying guardrails to one low-risk delegated task.
 
 ## 5. Wrap-up and Module 2 Handoff (15 min)
 
