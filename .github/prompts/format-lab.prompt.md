@@ -45,4 +45,4 @@ One-sentence goal.
 
 ## Reference
 
-See `workshops/copilot-workshop-c++/copilot-zero-to-agents-odrive-LAB.md` for the gold-standard format using `<details>/<summary>` structure.
+See `workshops/copilot-dev-foundations/copilot-dev-foundations-LAB.md` for a reference example of the standard format.

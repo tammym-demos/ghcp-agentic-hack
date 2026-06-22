@@ -1,195 +1,84 @@
-# Module 2: Agentic Patterns — Hands-On Lab
+# Module 2: Agentic Content Refresh — Hands-On Lab
 
 ## Overview
 
-This lab builds directly on the project and artifacts you created in Module 1. You will use your existing instruction files, custom agent, and reusable prompt as the foundation for exploring agentic workflows, multi-agent handoffs, instruction layering conflicts, and token optimization. Every exercise includes a step to review context window and token usage so you develop the habit of monitoring cost alongside quality.
+This lab extends the **Copilot Quest starter** into a practical **Stage 5-6 Workflow Kit** that learners can reuse after class. Use the Module 1 instructions, the reusable checklist or prompt asset, and the `foundations-helper.agent.md` custom agent as the starting point, then turn those foundations into stronger CLI skill contracts, clearer role-based handoffs, and lightweight readiness checks that preview operational scale. The goal is to help learners practice the same behaviors discussed in the workshop: deciding what belongs in instructions, what belongs in memory, what should become a reusable skill, when to use direct tools instead of delegation, and what evidence is required before autonomy expands.
 
-- **Total time**: ~20 minutes
+- **Stage 5**: CLI power-user precision with controlled autonomy, explicit stop conditions, and better direct-vs-delegated choices
+- **Stage 6**: Multi-agent orchestration with role-based handoffs, validation evidence, and conflict resolution
+- **Stage 6 → 7 bridge**: readiness guardrails that test whether the workflow is auditable, policy-aware, and safe to scale
+
+- **Total time**: ~30 minutes
 - **Prerequisites**:
-  - Completion of Module 1 lab (you should already have `.github/copilot-instructions.md`, `.github/instructions/tests.instructions.md`, `.github/agents/refactor-coach.agent.md`, and `.github/prompts/refactor-checklist.prompt.md` in your project)
-  - VS Code with GitHub Copilot and GitHub Copilot Chat enabled
-  - The same local project you used in Module 1
+  - Module 1 completion
+  - VS Code with GitHub Copilot
+  - Local repository with `.github/` folder access
 
-## Exercise 1: Agent vs. Skill — Using Your Existing Agent
+## Exercise 1: Stage 5 CLI Power-User Skill Contract
 
-**⏱️ Time**: 5 min
-**📋 Objective**: Compare an agentic workflow with a direct answer using the custom agent you built in Module 1, then review context window usage
+**⏱️ Time**: 10 min  
+**📋 Objective**: Classify one Stage 5 task into instructions, memory, and skill design, then execute it with an explicit skill contract and a deliberate direct-vs-delegated execution choice
 
-1. Open the same project you used in Module 1 and open **GitHub Copilot Chat**.
-2. Switch to your **refactor-coach** agent (select it from the mode picker or type `@refactor-coach`) and give it a multi-step task on a file you know well:
+1. Pick one deterministic coding task in your repo (small, single-file preferred) that improves the game loop, scoring, guess validation, or another bounded behavior learners can verify quickly.
+2. Pull forward two Module 1 assets before you begin: the reusable checklist or prompt template from Stage 3 and the guardrails learned from the `foundations-helper.agent.md` custom-agent exercise in Stage 4.
+3. Before writing the skill, identify three things: the instruction that should govern the task, any stable fact or preference that belongs in memory, and the repeatable execution pattern that should live in the skill itself.
+4. Convert the Module 1 checklist and guardrails into a Stage 5 skill by adding target scope, task, constraints, definition of done, and off-ramp so the skill knows exactly what to change, what to avoid, and when to stop without duplicating instruction or memory content.
+5. Run the task once using direct tool-style execution, as if the work were concrete enough to stay mostly human-guided.
+6. Run the same task with delegated or agent-style execution, as if you were testing whether the task benefits from a multi-step loop.
+7. Compare output quality, review burden, token or tool overhead, and whether the delegated path actually improved the outcome.
+8. Save the skill as a reusable Stage 5 asset for Copilot Quest, including at least one explicit acceptance gate such as "stop if tests fail" or "ask before changing dependencies," plus a short note showing what stayed in instructions and memory.
 
-   ```text
-   Review #file for readability issues, propose improvements, and explain the plan before making changes.
-   ```
-
-3. Watch the agent plan, read files, and produce structured output guided by the instructions you wrote in Module 1.
-4. Now switch to **Ask** mode and ask a single-step question about the same file:
-
-   ```text
-   Explain what #selection does, what inputs it expects, and what could break if I change it.
-   ```
-
-5. Compare the two experiences:
-   - The agent used a multi-step workflow with tool calls; Ask mode answered directly
-   - The agent consumed more context (instruction file + tool descriptions + intermediate results)
-
-6. **Review context usage**: Open the **Output** panel (View > Output) and select **GitHub Copilot Chat** from the dropdown. Look for the request size or token indicators. Note how the agent session used more input tokens than the direct answer.
-
-**🛡️ Safety checkpoint**: Review the agent's proposed changes before accepting them. The refactor-coach has edit permissions — inspect every modified file instead of trusting the summary alone.
+**🛡️ Safety checkpoint**: Do not place secrets, sensitive data, or non-negotiable policy in memory or inside the skill when it should live in instructions.
 
 ### ✅ Success Criteria
 
-- ✅ Invoked the `refactor-coach` agent you created in Module 1
-- ✅ Used **Ask** mode for a single-step question on the same file
-- ✅ Observed the difference in planning, tool use, and context consumption
-- ✅ Checked the Output panel to compare token usage between the two interactions
+- ✅ Pulled forward the Module 1 checklist and delegation guardrails
+- ✅ Classified the task guidance into instructions, memory, and skill design
+- ✅ Used the full Stage 5 skill contract fields
+- ✅ Completed a direct-vs-delegated comparison on the same task
+- ✅ Documented one explicit acceptance gate before merge
+- ✅ Added a reusable Stage 5 skill asset to the kit
 
-## Exercise 2: Extend Your Agent Set — Add a Reviewer
+## Exercise 2: Stage 6 Multi-Agent Handoff Drill
 
-**⏱️ Time**: 5 min
-**📋 Objective**: Create a second agent that complements the refactor-coach, invoke it as a multi-agent handoff, and compare token usage
+**⏱️ Time**: 10 min  
+**📋 Objective**: Orchestrate a two-role multi-agent workflow with verifiable handoff contracts and clear human checkpoints
 
-1. You already have `.github/agents/refactor-coach.agent.md` from Module 1. Now create a complementary agent at `.github/agents/reviewer.md`:
+1. Choose a task that can be split into two independent subtasks, such as implementing guess feedback while separately validating test coverage or edge-case handling.
+2. Reuse `foundations-helper.agent.md` as one role in the workflow, then define a second role, such as verifier, and be explicit about which role is allowed to change code versus only inspect evidence.
+3. For each role, write expected inputs, outputs, and validation checks so the handoff is concrete rather than conversational.
+4. Run the workflow and capture one handoff artifact from each role, such as a diff summary, failed-test note, or verification checklist.
+5. Resolve one conflict or gap before final synthesis, and record how the team decided which role had authority to proceed.
+6. Record the handoff contract in the workflow kit so Module 3 can reuse it for orchestration of Copilot Quest.
 
-   ```markdown
-   ---
-   description: Review code for error handling, test coverage, and maintainability
-   tools: ['codebase', 'search']
-   ---
-
-   You are a code review agent for this repository.
-
-   - Check for missing error handling
-   - Check whether changed behavior should add or update tests
-   - Suggest small, actionable improvements
-   - Keep the review structured and concise
-   - Do not make edits — only report findings
-   ```
-
-2. Notice the difference in design: the reviewer has **no edit tools** and instructions to only report findings. This is intentional — it creates a natural handoff boundary.
-
-3. Invoke the reviewer against the same file or function that the refactor-coach just analyzed:
-
-   ```text
-   @reviewer Review #file for error handling gaps, missing tests, and maintainability risks.
-   ```
-
-4. Compare the two agent responses:
-   - `refactor-coach` planned and offered edits (broader tool set, more output tokens)
-   - `reviewer` analyzed and reported without editing (narrower tools, more concise)
-
-5. **Review token usage**: Check the Output panel again. Note how the reviewer's narrower tool set and "do not make edits" instruction produced a shorter, cheaper response. Fewer tools in the agent definition means fewer tool descriptions sent as input tokens.
-
-6. Reflect on the multi-agent pattern: one agent writes, another reviews. This separation makes each agent's output easier to trust and cheaper to run.
-
-**🛡️ Safety checkpoint**: Custom agents inherit the permissions of the user invoking them. The reviewer is deliberately read-only — keep destructive capabilities out of agents that should only observe.
+**🛡️ Safety checkpoint**: Do not accept implementation output without a separate verification pass.
 
 ### ✅ Success Criteria
 
-- ✅ Created a `reviewer.md` agent alongside the existing `refactor-coach`
-- ✅ Invoked both agents on the same code
-- ✅ Observed the difference in output style, length, and token cost
-- ✅ Understood how tool set size affects input token consumption
-- ✅ Identified the multi-agent handoff pattern (write → review)
+- ✅ Reused the Module 1 custom agent as one workflow role
+- ✅ Created role definitions with explicit handoff contracts
+- ✅ Produced at least one validated artifact per role
+- ✅ Logged one conflict-resolution decision with rationale
+- ✅ Saved a reusable handoff template for later modules
 
-## Exercise 3: Instruction Conflict — Observing Layer Precedence
+## Exercise 3: Stage 6 to Stage 7 Guardrail Mapping
 
-**⏱️ Time**: 5 min
-**📋 Objective**: Use your existing instruction files to demonstrate how layers compose and which layer wins on conflict
+**⏱️ Time**: 10 min  
+**📋 Objective**: Evaluate whether your Stage 6 flow is ready for Stage 7 operational scaling and identify the control gaps that still matter
 
-1. You already have these files from Module 1:
-   - `.github/copilot-instructions.md` — repo-wide rule: "Prefer early returns over deeply nested conditionals"
-   - `.github/instructions/tests.instructions.md` — file-scoped rule for test files
+1. Use your Exercise 2 workflow as the baseline so the readiness discussion stays grounded in a real handoff pattern rather than a hypothetical one.
+2. Score it against three readiness checks: auditability, policy compliance, and rollback path, using visible evidence from the workflow wherever possible.
+3. Identify one missing control that would block Stage 7 scaling, such as missing approval gates, weak logging, unclear ownership, or no safe rollback plan.
+4. Propose one lightweight guardrail improvement and specify where it should be enforced, for example in instructions, tool permissions, hooks, or review steps.
+5. Add a short note describing how Module 3 should interpret this workflow when it becomes an orchestration package for Copilot Quest, including what must remain human-approved before broader rollout.
 
-2. Now add a **conflicting** file-scoped instruction. Create `.github/instructions/legacy.instructions.md`:
-
-   ```markdown
-   ---
-   applyTo: "**/legacy/**"
-   ---
-
-   # Legacy Code Instructions
-
-   - Do NOT refactor for early returns — preserve existing control flow
-   - Match the surrounding code style even if it contradicts repo-wide guidance
-   - Add inline comments explaining complex logic instead of restructuring
-   ```
-
-3. Open a file that matches the `legacy/` path (create a simple `legacy/example.ts` if needed) and ask:
-
-   ```text
-   Improve error handling in #file and explain which instructions guided your approach.
-   ```
-
-4. Open a regular (non-legacy) file and ask the same question. Compare:
-   - In the legacy file, the file-scoped instruction should override the repo-wide "early returns" rule
-   - In the regular file, the repo-wide rule applies normally
-
-5. **Inspect the context**: Open the **Output** panel > **GitHub Copilot Chat** and look for references to instruction files in the request payload. Note which instructions were included for each file — this shows you exactly what context Copilot received.
-
-6. Clean up: delete the `legacy.instructions.md` file if you do not want it persisting. The point was to observe precedence, not to keep conflicting rules.
-
-**🛡️ Safety checkpoint**: Conflicting instructions can produce unpredictable output. In production, resolve conflicts explicitly rather than relying on implicit precedence. Review instruction files before committing — they affect every collaborator's experience.
+**🛡️ Safety checkpoint**: If readiness evidence is incomplete, mark the workflow as "not Stage 7 ready."
 
 ### ✅ Success Criteria
 
-- ✅ Used existing instruction files from Module 1 (did not recreate them)
-- ✅ Created a conflicting file-scoped instruction to test precedence
-- ✅ Observed that the more specific instruction won for the matching file pattern
-- ✅ Inspected the Output panel to see which instructions were sent as context
-- ✅ Understood that layer precedence is deterministic, not random
+- ✅ Completed a readiness score across all three checks
+- ✅ Identified at least one blocking control gap
+- ✅ Proposed one concrete guardrail to close the gap
+- ✅ Captured a handoff note for the orchestration/deployment module
 
-## Exercise 4: Token Economics — Context Review and Session Hygiene
-
-**⏱️ Time**: 5 min
-**📋 Objective**: Measure context window usage, compare narrow vs. broad context, and practice session hygiene
-
-1. Open GitHub Copilot Chat and start a **new session** (click `+` or use `/clear`).
-
-2. Ask an architecture question using **broad context**:
-
-   ```text
-   @workspace Analyze this project's structure and suggest three improvements for testability.
-   ```
-
-3. **Check token usage**: Open the Output panel > GitHub Copilot Chat. Note the request size — `@workspace` attached many files as context.
-
-4. Now start a **fresh session** and ask the same question with **narrow context**:
-
-   ```text
-   Based on #file and the test files in this folder, suggest one improvement for testability.
-   ```
-
-5. Compare the two:
-   - The `@workspace` version sent significantly more input tokens
-   - The `#file` version was cheaper and often produces a more focused answer
-
-6. **Model comparison**: Switch to a reasoning model (Claude Opus or similar) and ask:
-
-   ```text
-   What is the most important architectural risk in #file and how would you mitigate it?
-   ```
-
-7. Switch to a smaller model (GPT-mini or Haiku) and ask the same question. Compare quality, depth, and response length (output tokens).
-
-8. **Session hygiene demonstration**: Without clearing, ask an unrelated question in the same session:
-
-   ```text
-   What testing framework does this project use?
-   ```
-
-9. Note how the accumulated context from prior turns may affect the response. Now use `/clear` and ask again — compare the freshness and accuracy of the answer.
-
-10. **Caching observation**: In your fresh session, ask two questions back-to-back. Note that instruction files (`.github/copilot-instructions.md`) are included in both requests but benefit from caching — the stable prefix is discounted after the first turn.
-
-**🛡️ Safety checkpoint**: Token optimization is about curating the right context, not starving the model. If a cheaper model produces incorrect output, escalate to a higher tier rather than accepting low-quality results. Never sacrifice correctness for cost savings.
-
-### ✅ Success Criteria
-
-- ✅ Compared `@workspace` (broad) vs. `#file` (narrow) context and noted the token difference
-- ✅ Compared output quality between a reasoning model and a smaller model
-- ✅ Used `/clear` to start a fresh session and observed improved focus
-- ✅ Checked the Output panel for token usage indicators at least twice
-- ✅ Understood that instruction files benefit from caching across turns
-
-*Hands-on lab for Module 2: Agentic Patterns — GitHub Copilot Developer Training*
+*Hands-on lab for Module 2: Agentic Content Refresh — GitHub Copilot Developer Training*

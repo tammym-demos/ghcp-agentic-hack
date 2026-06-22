@@ -1,213 +1,166 @@
-# Module 1: Foundations — Hands-On Lab
+# Module 1: Foundations Content Refresh — Hands-On Lab
 
 ## Overview
 
-This short lab mirrors the workshop flow: first you practice choosing the right GitHub Copilot interaction mode, then you shape output with instructions and scoped context, and finally you compare models while trying a lightweight customization workflow. The goal is to build confidence with safe, repeatable habits rather than to complete a large coding task.
+This lab creates the **Copilot Quest starter** — a Wordle-style CLI word game that Module 2 will extend. Exercises move from baseline recognition to guided workflow use, then optimization decisions, then guardrailed delegation so the result is a reusable game starter for the rest of the sequence.
 
-- **Total time**: ~15 minutes
+- **Total time**: ~30 minutes
 - **Prerequisites**:
-  - VS Code installed
-  - GitHub Copilot extension installed and signed in
+  - VS Code with GitHub Copilot enabled
   - GitHub Copilot CLI installed
-  - Any local project open in VS Code
+  - Any local multi-file repository
 
-## Exercise 1: Copilot Interaction Modes — Completions, Inline Chat, Modes, and CLI
+## Exercise 1: Stage 1 Baseline — Surfaces, Safety, and Governance Signals
 
-**⏱️ Time**: 5 min
-**📋 Objective**: Experience code completions, inline chat, chat modes, slash commands, and the CLI
+**⏱️ Time**: 8 min  
+**📋 Objective**: Identify Copilot surfaces, select a safe baseline mode, and confirm governance-aware review ownership
 
-1. Open any multi-file project in VS Code and open a source file.
-2. Try **code completions** — type a descriptive function signature or comment and pause to see ghost text appear:
-   - Accept a suggestion with `Tab`
-   - Dismiss with `Esc`
-   - Try **partial accept** with `Ctrl+→` (Cmd+→ on macOS) to take one word at a time
+1. List where you can access Copilot in your workflow (IDE, browser, terminal) and name one task for each surface.
+2. Write a one-sentence description of **Copilot Quest** — the word game you want to build for this repo or project.
+3. In VS Code chat, run:
 
-3. Try **Inline Chat** — select a block of code and press `Ctrl+I` (Cmd+I on macOS):
+```text
+Explain the difference between Ask, Plan, and Agent mode for this repository.
+```
 
-   ```text
-   Add input validation and return early if the argument is invalid.
-   ```
+4. Select a code block and run:
 
-   - Review the inline diff, then accept or reject it
+```text
+/explain #selection
+```
 
-4. Open **GitHub Copilot Chat** and switch to **Ask** mode:
+5. Record which mode is safest for a low-risk understanding task and why.
+6. Note one governance control your team should enforce by default (for example: approval prompts, content exclusions, or restricted tool scope).
 
-   ```text
-   @workspace Summarize how this project is organized and explain what #file is responsible for.
-   ```
-
-5. Switch to **Plan** mode and ask GitHub Copilot to propose a safe change without editing files:
-
-   ```text
-   Plan a small improvement to #file. Include risks, affected files, and how you would verify the change.
-   ```
-
-6. Switch to **Agent** mode and give GitHub Copilot a small, reversible task such as renaming a variable, clarifying a comment, or improving a README section:
-
-   ```text
-   Improve #selection for readability, explain the proposed change first, and keep the edit limited to this file.
-   ```
-
-7. While still in chat, try a slash command:
-
-   ```text
-   /explain #selection
-   ```
-
-8. In the terminal, start GitHub Copilot CLI and inspect available commands:
-
-   ```powershell
-   copilot
-   /help
-   ```
-
-9. Exit the interactive session, then try a direct prompt:
-
-   ```powershell
-   copilot -p "Give me an overview of this project."
-   ```
-
-10. **Session hygiene practice**: Start a brand-new chat session (click the `+` icon or use the new session shortcut). Notice how the fresh session has no stale context — this is the habit to build for every new task.
-
-**🛡️ Safety checkpoint**: Review any agent-generated edits before accepting them. Do not assume an inline completion, inline chat diff, or CLI response is correct without checking it against the codebase.
+**🛡️ Safety checkpoint**: Treat all output as draft and define the human review gate before accepting any suggestion.
 
 ### ✅ Success Criteria
 
-- ✅ Accepted (or partially accepted) at least one code completion
-- ✅ Used **Inline Chat** (`Ctrl+I`) to make a targeted edit and reviewed the diff
-- ✅ Used **Ask**, **Plan**, and **Agent** mode at least once
-- ✅ Used at least one slash command
-- ✅ Used at least one chat variable or participant such as `#file`, `#selection`, or `@workspace`
-- ✅ Ran at least one GitHub Copilot CLI command
-- ✅ Started a fresh session to practice session hygiene
+- ✅ Identified IDE, browser, and terminal surfaces
+- ✅ Ran one scoped explanation with `#selection`
+- ✅ Chose a stage-appropriate mode with rationale
+- ✅ Stated explicit human review ownership
+- ✅ Captured one governance control to reduce unsafe default behavior
+- ✅ Defined the starter-kit theme you will extend in later modules
 
-## Exercise 2: Memory, Context & Instructions
+## Exercise 2: Stage 2 Guided Workflows — IDE + CLI Repetition
 
-**⏱️ Time**: 5 min
-**📋 Objective**: Use Copilot Memory, create instruction files, and see how they affect GitHub Copilot behavior
+**⏱️ Time**: 8 min  
+**📋 Objective**: Practice scoped prompts, key CLI controls, and IDE/CLI parity for the same task
 
-1. Open GitHub Copilot Chat and tell it a preference conversationally:
+1. In VS Code chat, run one scoped request with `#file` and one with `#selection`.
+2. Create or refine `.github/copilot-instructions.md` for **Copilot Quest** (for example: scoring rules, tone, and guess-feedback behavior).
+3. Run one slash command against selected code:
 
-   ```text
-   Remember: I prefer early returns over nested if-else in this project.
-   ```
+```text
+/fix #selection
+```
 
-2. Confirm Copilot acknowledges the memory, then start a new chat session and ask it to generate code:
+4. Switch the same request through Ask, Plan, and Agent mode and compare output.
+5. Capture a session checkpoint with:
 
-   ```text
-   Generate a validation function in #file.
-   ```
+```text
+/chronicle
+```
 
-3. Check whether the output reflects your stored preference (early returns). Then visit **GitHub Settings > Copilot > Memory** to see the stored entry.
+6. From the `/chronicle` output, write two short lists in your notes: **Tips** and **Cost-savings tips**.
+7. In terminal, run:
 
-4. In your project, create `.github/copilot-instructions.md` with a simple repository-wide rule set:
+```powershell
+copilot
+/settings
+/help
+copilot -p "List the top 3 folders a new contributor should read first."
+```
 
-   ```markdown
-   # Repository Instructions
+8. Capture one rule for when you should stay in Stage 2 instead of escalating autonomy.
+9. Record one cross-surface handoff use case where `/chronicle` would save restart time (IDE to CLI, CLI to app, or app to PR).
 
-   - Always use TypeScript strict mode for new TypeScript code
-   - Prefer early returns over deeply nested conditionals
-   - Add or update tests when behavior changes
-   ```
-
-5. Open a file where GitHub Copilot can generate or revise code, then ask (notice the explicit stop signal at the end):
-
-   ```text
-   Generate a small helper in #file and explain which repository instructions you followed. Stop after creating the one helper — do not refactor or modify other functions in this file.
-   ```
-
-6. Create a scoped instruction file at `.github/instructions/tests.instructions.md`:
-
-   ```markdown
-   ---
-   applyTo: "**/*.{test,spec}.{ts,tsx,js,jsx}"
-   ---
-
-   # Test File Instructions
-
-   - Use Arrange-Act-Assert structure
-   - Prefer descriptive test names
-   - Avoid live network calls in unit tests
-   ```
-
-7. Open a matching test file and ask GitHub Copilot to create or revise a test:
-
-   ```text
-   Create a focused unit test in #file and tell me which scoped instructions apply here.
-   ```
-
-8. Compare the response you got in a regular source file with the one you got in a test file, and note how the scoped instruction changes the output.
-
-**🛡️ Safety checkpoint**: Review what context you are sharing. Memory stores preferences that persist across sessions — delete anything you did not intend to keep via Settings > Copilot > Memory. Instruction files become visible to collaborators and should contain durable project guidance, not secrets or sensitive data.
+**🛡️ Safety checkpoint**: Validate command suggestions before execution and reject unclear multi-file proposals.
 
 ### ✅ Success Criteria
 
-- ✅ Stored a preference using Copilot Memory and confirmed recall in a new session
-- ✅ Viewed stored memories in GitHub Settings
-- ✅ Created a repository-level instruction file
-- ✅ Created a file-scoped instruction file using `applyTo`
-- ✅ Observed GitHub Copilot referencing or following those instructions
-- ✅ Compared behavior between a general source file and a matching scoped file
+- ✅ Used scoped context in both IDE and terminal workflows
+- ✅ Used at least one slash command and compared mode behavior
+- ✅ Captured one `/chronicle` checkpoint after mode comparison
+- ✅ Extracted both **Tips** and **Cost-savings tips** from `/chronicle`
+- ✅ Ran both interactive and direct CLI prompts
+- ✅ Used `/settings` to inspect or adjust CLI behavior
+- ✅ Captured one Stage 2 decision rule
+- ✅ Documented one cross-surface `/chronicle` handoff scenario
+- ✅ Added one reusable instruction to the starter kit
 
-## Exercise 3: Models, Agents & Custom Prompt
+## Exercise 3: Stage 3 Optimization — Tokens, AIC, Billing, Models, and Context
 
-**⏱️ Time**: 5 min
-**📋 Objective**: Switch models, create a custom agent, and use a reusable prompt
+**⏱️ Time**: 7 min  
+**📋 Objective**: Make cost and quality decisions using token scope, billing awareness, AIC telemetry, and model routing
 
-1. In GitHub Copilot Chat, switch to a different available model and ask the same question twice so you can compare depth, style, and speed:
+1. Ask one broad `@workspace` prompt, then ask a scoped `#file` prompt for the same objective.
+2. Compare quality and token impact signals.
+3. Re-run the scoped prompt with two available models, including Auto mode if available.
+4. Note when higher capability is worth additional AIC usage and when default settings are sufficient.
+5. Record one context-rot warning sign, one reset strategy, and one case where larger context/reasoning is justified.
+6. Add one budget guardrail for your workflow (for example: spend limit trigger, escalation threshold, or review gate before high-cost mode changes).
+7. Draft a short prompt template or checklist that Module 2 can reuse for adding guesses, scoring, and hints to the game.
+8. Capture an optimization handoff snapshot with:
 
-   ```text
-   Compare two safe ways to improve #file and recommend one based on maintainability and test impact.
-   ```
+```text
+/chronicle
+```
 
-2. Create a simple custom agent file at `.github/agents/refactor-coach.agent.md`:
+9. From the `/chronicle` output, add at least one new **Cost-savings tip** tied to token scope, retries, model selection, or reasoning level.
 
-   ```yaml
-   ---
-   tools: ['search/codebase', 'search', 'edit/editFiles']
-   description: Help implement small, low-risk refactors with explanations
-   model: Claude Sonnet 4.6
-   ---
-
-   You are a careful refactoring partner for this repository.
-
-   - Explain the plan before editing files
-   - Keep changes limited to the active task
-   - Prefer small, reversible edits
-   ```
-
-3. If your VS Code setup shows custom agents in the mode picker, select the new agent and give it a small task in the current file.
-4. Create a reusable prompt at `.github/prompts/refactor-checklist.prompt.md`:
-
-   ```yaml
-   ---
-   agent: 'agent'
-   description: 'Review the active file, propose a safe refactor, and suggest validation steps'
-   tools: ['search/codebase', 'search', 'edit/editFiles']
-   model: Claude Sonnet 4.6
-   ---
-
-   # Safe Refactor Checklist
-
-   ## Objective
-   Improve the active file without changing intended behavior.
-
-   ## Requirements
-   - Explain the current structure first
-   - Suggest the smallest useful improvement
-   - Call out risks and recommended tests
-   ```
-
-5. Run the reusable prompt and compare that experience with the custom agent workflow.
-6. **Token reflection**: Compare the response length and detail between the two models you tried. The longer response consumed more output tokens — consider whether the extra detail was worth the cost for your task.
-
-**🛡️ Safety checkpoint**: Consider the blast radius before granting broad autonomy. A custom agent or prompt with edit tools can make widespread changes quickly if the task scope is vague.
+**🛡️ Safety checkpoint**: Do not optimize cost by skipping tests, validation, or security checks.
 
 ### ✅ Success Criteria
 
-- ✅ Switched models and compared the outputs
-- ✅ Created a custom agent file
-- ✅ Created a reusable prompt file
-- ✅ Invoked at least one customization workflow and reflected on when to use it
+- ✅ Compared broad vs scoped context behavior
+- ✅ Compared at least two model responses
+- ✅ Captured one AIC-aware routing decision
+- ✅ Documented one billing/budget guardrail for model usage
+- ✅ Documented one context reset trigger
+- ✅ Documented one justified use of larger context or higher reasoning
+- ✅ Produced one reusable prompt/checklist asset for the next module
+- ✅ Captured one `/chronicle` optimization checkpoint
+- ✅ Added at least one `/chronicle`-derived **Cost-savings tip**
 
-*Hands-on lab for Module 1: Foundations — GitHub Copilot Developer Training*
+## Exercise 4: Stage 4 Delegation — Custom Agent Guardrails
+
+**⏱️ Time**: 7 min  
+**📋 Objective**: Create a constrained custom-agent starter and test low-risk delegation with security controls
+
+1. Create `.github/agents/foundations-helper.agent.md` with a narrow, single-purpose scope.
+2. Add one rule requiring explanation before edits and one off-ramp for ambiguity.
+3. Ask the agent to perform one low-risk change in a single file.
+4. Review proposed edits before acceptance.
+5. Turn on one additional safety boundary for delegated execution (for example: sandboxing, explicit approval mode, or security-review step).
+6. Document which permission boundary kept the task safe.
+7. If experimental mode is enabled in your environment, run a targeted security pass:
+
+```text
+/security-review
+```
+
+If not enabled, write the exact command and when your team should run it.
+8. Run:
+
+```text
+/chronicle
+```
+
+9. Save a short starter summary (using the `/chronicle` output) that explains what Module 2 should extend next in Copilot Quest, including one **Tip** and one **Cost-savings tip** for handoff.
+
+**🛡️ Safety checkpoint**: Keep tool permissions minimal and reject unclear or high-blast-radius tasks.
+
+### ✅ Success Criteria
+
+- ✅ Created a custom-agent starter file
+- ✅ Added explicit guardrails and escalation behavior
+- ✅ Executed one constrained delegation and reviewed edits
+- ✅ Documented one Stage 4 delegation policy
+- ✅ Added one explicit security boundary for delegated execution
+- ✅ Captured `/security-review` usage or readiness guidance
+- ✅ Captured a handoff note for the next module
+- ✅ Captured one final `/chronicle` handoff summary
+
+*Hands-on lab for Module 1: Foundations Content Refresh — GitHub Copilot Developer Training*

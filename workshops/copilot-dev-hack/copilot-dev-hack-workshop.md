@@ -1,23 +1,25 @@
-# GitHub Copilot Developer Training — Module 5: Hack
+# GitHub Copilot Developer Training — Capstone Hack
 
 **Duration**: 60 minutes
 **Format**: Hands-on hackathon with 5 scenario options
-**Audience**: Developers, engineers (completed Modules 1-4)
+**Audience**: Developers, engineers (completed Modules 1-3)
 **Max Attendees**: 20-30 per session (facilitators help troubleshoot)
 
 ---
 
 ## Workshop Overview
 
-Module 5 is the capstone: attendees **build a working custom Copilot agent in real time**. This is not a lecture or passive learning—it is hands-on problem-solving. Attendees choose from 5 business problem scenarios (Code Review, Test Generation, Documentation, Bug Triage, or Bring Your Own) and have 40 minutes to create an agent that solves that problem. They test it, refine it, and demo it to the group.
+This capstone module is hands-on: attendees build and validate a custom Copilot agent in real time. This is not a lecture or passive learning—it is practical problem-solving. Attendees choose from 5 business problem scenarios (Code Review, Test Generation, Documentation, Bug Triage, or Bring Your Own) and have 40 minutes to create an agent prototype that addresses that problem. They test it, refine it, and demo outcomes to the group.
 
-By the end, every attendee walks out with:
-1. A working custom Copilot agent
+By the end, attendees walk out with:
+1. A working custom Copilot agent prototype or validated first iteration
 2. Agent instructions saved in their repository
-3. Proof it works (tested on real code)
-4. Confidence they can build more agents
+3. Evidence from at least one realistic test case
+4. Confidence they can iterate and improve more agents
 
-This module assumes Module 1-4 are complete (attendees understand Copilot basics, advanced prompting, and agent architecture). Module 5 is where theory becomes practice.
+This module assumes Modules 1-3 are complete (attendees understand Copilot basics, advanced prompting, and agent architecture). This capstone is where theory becomes practice.
+
+> **Bridge from Modules 1-3**: Attendees can continue the Copilot Quest artifact built in earlier modules or select one of the five scenario tracks. Facilitators should encourage reuse of prior instruction files, prompt contracts, and guardrail patterns rather than starting from scratch.
 
 ---
 
@@ -41,7 +43,7 @@ By the end of this module, attendees will be able to:
 
 ## Prerequisites
 
-- **Modules 1–4 completed**: Understand Copilot Chat, advanced prompting, and agent basics
+- **Modules 1–3 completed**: Understand Copilot Chat, advanced prompting, and agent basics
 - **VS Code installed** with Copilot Chat extension
 - **A GitHub account** with Copilot enabled
 - **A project folder** (real project or empty repo for demo)
@@ -306,21 +308,23 @@ Now attendees show what they built. Celebrate their work, get feedback, and clos
 ### Section: Show Your Work (5 min)
 
 **What to do**:
-- Each attendee demos their agent (1-2 minutes max)
-- Demo sequence:
-  1. "My team faces [problem]"
-  2. Run agent with real input
-  3. "My agent does [X], which saves us [Y]"
+- Run a lightning showcase:
+  1. 4-6 volunteer demos (45-60 seconds each)
+  2. Each volunteer shows:
+    - "My team faces [problem]"
+    - One real agent run
+    - "My agent does [X], which saves us [Y]"
+  3. Remaining attendees post one-sentence outcomes in chat/board for facilitator callout
 
 **Facilitator Role**:
-- Keep timing tight. 1-2 min per person (20-30 people = 5 min max)
+- Keep timing strict: 45-60 seconds per volunteer demo
 - Ask each person: "What problem does your agent solve?"
 - If someone's agent is rough or incomplete, celebrate the effort: "You built this in 40 minutes. That's impressive. What would you do next?"
 - Highlight wins: "Your agent caught a SQL injection risk. That's exactly what you wanted."
 
 **Success Criteria**:
-- Every attendee demos their agent (even if rough)
-- Demos are concrete (show running agent, not just slides)
+- At least 4 concrete live demos are shown (running agent, not just slides)
+- Non-presenting attendees still share outcome/progress notes
 
 ---
 
@@ -685,7 +689,7 @@ Attendees code agents and test them.
 Attendees demo their agents, get feedback.
 
 **Your Role**:
-- Keep timing tight (1-2 min per person)
+- Keep timing tight (45-60 seconds per volunteer demo)
 - Ask each person: "What problem does your agent solve?"
 - Listen to output. Ask follow-up questions:
   - "How does your team plan to use this?"
@@ -708,7 +712,7 @@ Attendees demo their agents, get feedback.
 Stand up. Make eye contact. Say something like this:
 
 > You walked in with a problem your team actually faces.
-> In 60 minutes, you walked out with a working agent that solves it.
+> In 60 minutes, you walked out with a validated first version of an agent that addresses it.
 > Your agents aren't perfect yet—that's okay. Real agents get better with iteration.
 >
 > This week:
@@ -734,4 +738,4 @@ Stand up. Make eye contact. Say something like this:
 
 ---
 
-*Workshop guide for GitHub Copilot Developer Training — Module 5: Hack (Business Problem Solving)*
+*Workshop guide for GitHub Copilot Developer Training — Capstone Hack (Business Problem Solving)*

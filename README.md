@@ -33,7 +33,6 @@ workshops/
   copilot-dev-foundations/   # Module 1 content
   copilot-dev-agentic/       # Module 2 content
   copilot-dev-advanced/      # Module 3 content
-  copilot-workshop-c++/      # Standalone C++ workshop
 public/images/               # Shared slide image assets
 site/                        # Astro pages and layouts
 scripts/build-site.mjs       # Full build orchestrator

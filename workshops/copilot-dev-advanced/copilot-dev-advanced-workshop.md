@@ -1,309 +1,122 @@
-# Module 3: Advanced Topics — Workshop Guide
+# Module 3: Advanced — Workshop Guide
 
-**Duration**: ~90 min
-**Format**: Presentation + Live Demo + Hands-On
-**Audience**: Developers with Copilot experience (Modules 1-2 completed)
-**Prerequisites**: Completion of Modules 1 and 2
+> **NotebookLM generation instructions**:
+> - Brand the deck with GitHub and Microsoft visual identity.
+> - Use corporate minimal styling: clean layouts, restrained color use, and high readability.
+> - Keep slides professional and uncluttered, with clear hierarchy and consistent typography with light background.
+> - Use light backgrounds for all slide styling (cover, section, content, comparison, and summary slides).
+> - Render **AI Safety Moment** and **Usage Optimization** callouts in distinct content boxes with a consistent badge icon per type so the tip category is instantly recognizable.
+> - Generate dedicated slides for the workshop title (`# Module ...`), `## Workshop Overview`, and `### Learning Objectives`; do not skip or merge these sections.
+> - Do not summarize away source meaning: treat workshop wording as authoritative and keep the exact messaging wherever possible. Minor connector-word edits are allowed only to improve flow and readability.
+> - Control slide layout deliberately so content remains readable and properly structured on-slide.
+> - Generate visual imagery that directly represents the slide wording and reinforces the intended meaning.
 
----
+**Duration**: 2 hours (120 min: 85 min content + 30 min lab + 5 min quiz)  
+**Format**: Presentation + Hands-On  
+**Audience**: Developers who completed Foundations and Intermediate (Agentic)  
+**Prerequisites**: Working knowledge of instructions, tools, and agentic workflows
 
 ## Workshop Overview
 
-Module 3 moves from effective day-to-day use of GitHub Copilot into advanced operational patterns: connecting external systems through MCP, extending workflows with APIs and plugins, understanding memory behavior, debugging chat and agents, and designing safe agentic loops. By the end of this session, participants should be able to evaluate where advanced GitHub Copilot capabilities fit in their team workflow, how to enable them responsibly, and how to debug or constrain them when autonomy increases.
+This Advanced workshop focuses on practical orchestration and production-readiness patterns for scaled AI-assisted development. The module emphasizes right-sized orchestration decisions, governance-first integrations, debugging methodology, and deployment pathways without deep implementation internals. It closes by converting those concepts into a practical Day 2 hack plan with clear scope and execution gates.
 
 ### Learning Objectives
 
-- Explain what MCP is and when GitHub Copilot should use it
-- Connect GitHub Copilot workflows to APIs, plugins, and external tools safely
-- Distinguish persistent memory from session-only context across GitHub Copilot surfaces
-- Use chat and agent debug logs to diagnose context, model, and tool issues
-- Describe the plan → execute → observe → reflect cycle in agentic loops
-- Design off-ramps so agents stop and hand back ambiguous or risky work
-- Identify trusted resources for staying current with the GitHub Copilot ecosystem
+- Select an orchestration pattern for bounded multi-agent workflows
+- Evaluate hooks, MCP, and API/CLI integration choices with governance discipline
+- Debug agent behavior systematically using context and execution evidence
+- Prepare deployment-ready agent packages with permission and rollback controls
+- Build a constrained Day 2 hack plan that balances impact, safety, and delivery speed
 
-### Prerequisites
+## Recap: Optimizing AI Usage
 
-| Requirement | Details |
-|-------------|---------|
-| Module readiness | Completion of Modules 1 and 2, including all lab exercises (you should have `copilot-instructions.md`, `tests.instructions.md`, `refactor-coach.agent.md`, `refactor-checklist.prompt.md`, and `reviewer.md` in your `.github/` folder) |
-| GitHub Copilot access | GitHub Copilot and GitHub Copilot Chat enabled in VS Code |
-| Local environment | Your Module 1-2 project open in VS Code (the same project used in prior labs) |
-| Tooling | Node.js and `npx` available for trying sample MCP servers |
-| Network access | Internet access for GitHub Copilot and any approved external services |
-| Security awareness | Ability to review permissions, auth scopes, and trust boundaries before enabling tools |
+Before diving into advanced orchestration, recap the efficiency and optimization learnings that frame every decision in this module. These six strategies — drawn from GitHub's [Optimizing your AI usage](https://docs.github.com/en/copilot/tutorials/optimize-ai-usage) guidance — maximize quality while reducing token consumption and AI credit cost.
 
----
+| # | Strategy | What it covers |
+|---|----------|----------------|
+| 1 | Choose the right model for the right task | Match capability to work, configure reasoning level, use auto model selection, run subagents on cheaper models |
+| 2 | Provide clear guidance in your prompts | Clear task definition, relevant context upfront, an explicit stopping condition |
+| 3 | Keep your context lean | Start new conversations per problem, `/compact` long sessions, custom instruction files, only the tools you need |
+| 4 | Preserve the cache | Avoid switching models or reasoning mid-session; cached tokens bill at ~10% of input price |
+| 5 | Research, plan, then implement | Separate phases — plan with a reasoning model, implement with a cheaper one |
+| 6 | Utilize learnings to be more efficient | Use `/chronicle tips` and `/chronicle cost-tips` to surface efficiency and cost insights |
+
+> 💡 **Usage Optimization**: Model choice is the fastest cost lever; auto model selection earns a 10% discount on paid plans and protects the cache by only switching at natural boundaries.
 
 ## Session Agenda
 
 | Section | Topic | Time |
 |---------|-------|------|
-| 1 | MCP (Model Context Protocol) — What, Why, How | 15 min |
-| 2 | Using APIs and Plugins with Copilot | 12 min |
-| 3 | Memory — Current State and Evolution | 12 min |
-| 4 | Debugging — Chat Debug and Agent Debug Logs | 12 min |
-| 5 | Agentic Loops (Ralph Loop), Subagents, and Task Review | 18 min |
-| 6 | Resources, Tools, and Ecosystem (Squad, copilot-awesome) | 8 min |
-| 7 | Wrap-up and Q&A | 5 min |
+| — | Recap: optimizing AI usage (carried from Modules 1–2) | 5 min |
+| 1 | Orchestration decision patterns for advanced delivery | 18 min |
+| 2 | Governance-first integration surfaces | 22 min |
+| 3 | Debugging and deployment readiness operations | 20 min |
+| 4 | Day 2 hack preparation and execution strategy | 10 min |
+| 5 | Wrap-up and lab handoff | 10 min |
+| — | Hands-on labs across three exercises (Stages 7–8 Orchestration Package) | 30 min |
+| — | Knowledge check (10-question quiz) | 5 min |
 
----
+> **Timing note**: Content totals 85 min (5 min recap + 80 min sections), labs add 30 min at the three pause points, and the closing quiz adds 5 min — 120 min total. The three lab exercises (10 min each) continue the **Copilot Quest** build from Module 1 (Stages 1–4 starter) and Module 2 (Stages 5–6 Workflow Kit) into the Stage 7–8 Orchestration Package.
 
-## 1. MCP (Model Context Protocol) — What, Why, How (15 min)
-
-### Key Points
-
-- **What MCP is**: a protocol that standardizes how AI tools connect to external data sources and services
-- **Why it matters**: GitHub Copilot can reach beyond repository files into databases, APIs, documentation, and enterprise systems
-- **How it works**: MCP servers expose tools and resources that GitHub Copilot can discover and invoke during chat or agent workflows
-- **Configuration paths**: teams commonly configure MCP servers in VS Code with `mcp.json` or approved settings-based configuration
-- **Server types**: built-in experiences may cover common workflows, while third-party or internal MCP servers extend GitHub Copilot into custom systems
-- **Typical use cases**: database lookups, API documentation retrieval, internal developer portals, and controlled file system operations
-
-### 🛡️ Safety Moment
-
-- MCP servers run code or perform actions on your behalf
-- Verify authentication, permissions, approved endpoints, and sandboxing before enabling a server
-- Treat every MCP server as part of your software supply chain review
-
-### 🖥️ Demo: Configure an MCP server and approve a tool call
-
-- Open `.vscode/mcp.json` or the relevant GitHub Copilot MCP settings entry
-- Configure a simple server such as a fetch or filesystem server
-- Ask GitHub Copilot to complete a task that requires the new MCP tool
-- Pause on the approval prompt and inspect what action GitHub Copilot wants to take
-- Approve the call, review the result, and discuss what context crossed the trust boundary
-
-### 💡 Optimization Tip: MCP Server Discipline
-
-- Only activate MCP servers you regularly use — each server's tool descriptions are sent on every request, consuming input tokens
-- Too many available tools causes agents to take unnecessary detours (for example, a Playwright MCP server triggering screenshots when none were requested)
-- Pair MCP servers with custom agents that restrict the active tool set to only what the specific workflow needs
-- Periodically audit your active servers — remove any you have not used in the past month
-
-### Discussion Points
-
-- What external data sources would your team connect via MCP first?
-- What approval workflow or allowlist would you require before enabling a new server?
-
-### 🔬 LAB: Exercise 1 — Configure and Use an MCP Server
-
-> **Instructor**: Pause here for hands-on practice. Students complete Exercise 1 (5 min) configuring a sample MCP server in their existing Module 1-2 project, observing tool discovery alongside their custom agents, reviewing the approval flow, and checking the Output panel for MCP tool token impact before continuing to the next section.
-
----
-
-## 2. Using APIs and Plugins with Copilot (12 min)
+## 1. Orchestration Decision Patterns for Advanced Delivery (18 min)
 
 ### Key Points
 
-- GitHub Copilot workflows become more useful when they can reach external APIs and specialized tools
-- Agent workflows can call APIs during planning and execution when the environment exposes those capabilities
-- Plugin and extension patterns, such as `@docker` and `@azure`, add specialized commands, context, and workflows
-- Teams can build custom integrations for internal APIs, documentation systems, and deployment tooling
-- Common REST patterns include retrieve context, perform an action, inspect the response, and summarize the result back to the developer
+- **Slide topic (1 slide): Multiagent fit criteria** — orchestration is justified when tasks are truly separable by role, evidence, and ownership, not just because multiple tools exist. Picture three lanes — research, implementation, validation — each with its own inputs and acceptance check; if the work cannot be split that cleanly, one focused agent is the better call. **Usage Optimization**: avoid orchestration when a single bounded workflow is sufficient. **Learn more**: <https://docs.github.com/en/copilot/tutorials/cloud-agent/get-the-best-results>
+- **Slide topic (1 slide): Coordinator and specialist role boundaries** — use one coordinator plus focused specialists to clarify decomposition, delegation, and synthesis responsibilities. The coordinator owns the plan and the final merge decision; specialists own narrow, verifiable slices and report evidence back. **AI Safety Moment**: explicit ownership reduces silent overlap and unsafe edits. **Learn more**: <https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent>
+- **Slide topic (1 slide): Bounded delegation units** — keep delegated work narrow with clear inputs/outputs and acceptance checks so context remains controllable and auditable. Run specialists on cheaper models where possible, since a scoped subtask rarely needs the most expensive reasoning model. **Usage Optimization**: scoped subagents on lighter models cut token cost without hurting quality. **Learn more**: <https://docs.github.com/en/copilot/tutorials/optimize-ai-usage>
+- **Slide topic (1 slide): Practical anti-patterns** — highlight when to avoid advanced orchestration (small tasks, shared-file contention, unclear verification ownership). Show a quick "stop and simplify" checklist so teams recognize over-engineering before it costs tokens and review time. **Usage Optimization**: simplify architecture before scaling it. **Learn more**: <https://docs.github.com/en/copilot/tutorials/optimize-ai-usage>
 
-### 🛡️ Safety Moment
-
-- Data sent to external APIs leaves your trust boundary
-- Review what repository context, prompts, file contents, and identifiers are included before approving calls
-- Prefer least-privilege auth scopes and observable audit trails
-
-### 🖥️ Demo: Use an API-aware workflow and a specialized plugin
-
-- Trigger a workflow where GitHub Copilot needs information from an external API
-- Show how the agent selects or requests access to the tool it needs
-- Compare the experience with a specialized plugin or extension that adds domain-specific capabilities
-- Discuss when a custom integration is worth building versus using a general-purpose tool
-
-### 💡 Optimization Tip: CLI vs. MCP Trade-offs
-
-- Many tools (git, npm, docker) are already well-represented in model training data — invoking them via CLI may produce better results than routing through an MCP server
-- MCP servers add value when the tool requires structured input/output, authentication, or state management that a simple shell command cannot provide
-- When in doubt, prefer the simpler integration path that is already in the agent's training distribution
-
-### Discussion Points
-
-- What APIs does your team interact with daily that could benefit from GitHub Copilot integration?
-- Which workflows should stay human-operated even if an API integration is technically possible?
-
----
-
-## 3. Memory — Current State and Evolution (12 min)
+## 2. Governance-First Integration Surfaces (22 min)
 
 ### Key Points
 
-- Memory helps GitHub Copilot retain useful preferences, conventions, and durable context beyond a single exchange
-- Some context is ephemeral and tied to the current session, prompt, workspace, or task
-- Memory behavior differs across surfaces such as IDE chat, CLI experiences, and GitHub.com workflows
-- Good memory strategy focuses on stable preferences, coding conventions, and recurring working style rather than one-off task details
-- Start fresh when context becomes stale, overly specific, or likely to bias the next task incorrectly
-- Instruction files and policy documents define explicit rules, while memory captures durable learned preferences and conventions
-- The feature continues to evolve toward clearer controls, better visibility, and more deliberate persistence
+- **Slide topic (1 slide): Hooks as deterministic guardrails** — hooks enforce required checks at lifecycle boundaries such as pre-edit and pre-merge, regardless of prompt quality. They run custom shell commands at fixed points (for example `preToolUse` to block risky commands), giving policy that does not depend on the model behaving well. **AI Safety Moment**: use hooks for non-negotiable policy enforcement. **Learn more**: <https://docs.github.com/en/copilot/concepts/agents/hooks>
+- **Slide topic (1 slide): Integration surface selection** — compare API/CLI, MCP, and extension-based approaches based on control, observability, and setup overhead. A simple decision rule: native CLI/API for deterministic, well-known commands; MCP/extensions when you need structured discovery, auth handling, or shared state. **Usage Optimization**: prefer the simplest interface that meets requirements. **Learn more**: <https://docs.github.com/en/copilot/how-tos/provide-context/use-mcp-in-your-ide>
+- **Slide topic (1 slide): MCP as governed integration fabric** — use MCP when structured tool/resource discovery is needed across systems, with explicit authentication and authorization boundaries. Remember every enabled server's tool descriptions consume input tokens on each request, so onboard deliberately and enable only what the task needs. **AI Safety Moment**: onboarding requires security review before production use. **Learn more**: <https://docs.github.com/en/copilot/how-tos/provide-context/use-mcp-in-your-ide>
+- **Slide topic (1 slide): Agentic workflows versus deterministic workflows** — use goal-driven agentic workflows for adaptive engineering tasks and deterministic pipelines (for example GitHub Actions) for strict repeatable release steps. Contrast the two on a slide: agents adapt to context; Actions guarantee the same steps every run for release-critical gates. **AI Safety Moment**: keep release-critical gates deterministic. **Learn more**: <https://docs.github.com/en/actions/get-started/understand-github-actions>
+- **Slide topic (1 slide): Lab transition — Exercise 1** — move from architecture and integration governance into a bounded orchestration planning exercise that extends the Copilot Quest Stage 5–6 Workflow Kit.
 
-### 🛡️ Safety Moment
+### 🔬 LAB: Exercise 1 — Stage 7 Orchestration Architecture Plan
 
-- Understand what is persisted, where it is visible, and how to remove it
-- Avoid storing secrets, sensitive identifiers, or short-lived task context as memory
-- Teach teams how to review and clear memories when needed
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 1 (10 min) selecting an orchestration model and integration surface for one bounded scenario.
 
-### 🖥️ Demo: Save, verify, and manage a memory
-
-- Ask GitHub Copilot to remember a durable preference such as a coding convention
-- Start a fresh interaction and verify that the preference persists
-- Show where stored memories can be reviewed or managed in the current experience
-- Contrast that with session-only context that disappears when the task ends
-
-### 💡 Optimization Tip: Memory vs. Instructions vs. Context
-
-- **Memory** is for durable personal preferences that persist across sessions and repos (e.g., "I prefer PowerShell on Windows")
-- **Instructions** are for team-wide rules that apply to everyone working in the repo (e.g., "Use early returns")
-- **Session context** is for the current task only — let it expire
-- Putting task-specific or short-lived content into memory wastes tokens on every future request where it is irrelevant
-
-### Discussion Points
-
-- What preferences or conventions would you want GitHub Copilot to remember across sessions?
-- Where should your team draw the line between instruction files, repository docs, and memory?
-
----
-
-## 4. Debugging — Chat Debug and Agent Debug Logs (12 min)
+## 3. Debugging and Deployment Readiness Operations (20 min)
 
 ### Key Points
 
-- Debugging starts by inspecting what GitHub Copilot actually sent and received
-- In VS Code, the Output panel and the **GitHub Copilot Chat** log stream help you inspect requests and responses
-- Agent debug logs help explain tool selection, action ordering, and why a workflow chose a particular path
-- Context inspection is critical for diagnosing prompt drift, wrong files, missing files, or excessive `@workspace` expansion
-- Common scenarios include wrong context included, hallucinated assumptions, looping behavior, and unexpected tool calls
-- Debug logs are often the fastest way to move from “it acted strangely” to a concrete explanation
+- **Slide topic (1 slide): Debugging chat and agents** — advanced debugging inspects context composition, tool-call order, instruction conflicts, and loop dynamics rather than only runtime errors. Start from evidence: read what Copilot actually sent and which tools it called before changing architecture, then reproduce with a minimal prompt. **Usage Optimization**: minimal repro prompts reduce expensive trial-and-error loops. **Learn more**: <https://docs.github.com/en/copilot/how-tos/troubleshoot-copilot/troubleshoot-common-issues>
+- **Slide topic (1 slide): Deploying your agents** — choose distribution paths (repo, marketplace, or internal registry) based on audience, governance, and operational ownership. Map each path to who maintains it and who approves changes, so distribution is a governance decision, not just a packaging step. **AI Safety Moment**: deployment requires documented permissions and rollback posture. **Learn more**: <https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent>
+- **Slide topic (1 slide): Release-readiness gates** — require a practical checklist for policy compliance, test evidence, and rollback before broader enablement. Show the gate as a one-screen checklist (capabilities, permissions, tests, rollback, owner sign-off) the team runs every time. **AI Safety Moment**: no broader enablement without a passing readiness checklist. **Learn more**: <https://docs.github.com/en/copilot/responsible-use/chat>
+- **Slide topic (1 slide): Lab transition — Exercise 2** — shift from operational concepts into a controlled debug-and-readiness validation scenario on the Copilot Quest Orchestration Package.
 
-### 🛡️ Safety Moment
+### 🔬 LAB: Exercise 2 — Stage 7 Governance Controls and Stage 8 Debug Readiness
 
-- Use debug logs to verify that GitHub Copilot is not leaking sensitive context or calling unauthorized services
-- Review whether the prompt included file paths, snippets, or identifiers that should not have been shared
-- Make log review part of high-trust agent rollout and troubleshooting
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 2 (10 min) diagnosing a controlled issue and applying governance-aligned deployment checks.
 
-### 🖥️ Demo: Trace a request and diagnose a context issue
-
-- Open **View → Output** and switch to **GitHub Copilot Chat**
-- Send a prompt and watch the request and response cycle appear
-- Identify what context was attached to the model request
-- Repeat with `@workspace` and compare the amount of context included
-- Show how the logs explain a surprising response or an overly broad context payload
-
-### 💡 Optimization Tip: Debug Logs for Token Diagnosis
-
-- Debug logs reveal exactly how many tokens are being sent per request — use them to catch context bloat before it causes quality degradation
-- If you see unexpected files or large workspace expansions in the request payload, narrow your context with `#file` or `#selection` instead of `@workspace`
-- Long conversations compound token usage because the entire history is re-sent every loop iteration — logs make this visible
-
-### Discussion Points
-
-- What debugging scenarios have you encountered with GitHub Copilot so far?
-- How would debug logs change the way your team investigates unexpected agent behavior?
-
-### 🔬 LAB: Exercise 2 — Inspect Your Agent's Context and Token Usage
-
-> **Instructor**: Pause here for hands-on practice. Students complete Exercise 2 (5 min) using their `reviewer.md` agent from Module 2 to compare debug log output across agent mode, ask mode, and @workspace — identifying token count differences and understanding how instruction files affect context size.
-
----
-
-## 5. Agentic Loops (Ralph Loop), Subagents, and Task Review (18 min)
+## 4. Day 2 Hack Preparation and Execution Strategy (10 min)
 
 ### Key Points
 
-- Agentic loops follow a repeatable cycle: **plan → execute → observe → reflect → adjust**
-- The “Ralph Loop” is a convenient name for that iterative pattern in complex agent workflows
-- Loops are useful for multi-step tasks such as code changes, validation, test execution, and revision
-- Loops are overkill when a direct answer, single edit, or quick explanation would be faster and safer
-- Termination criteria matter: the agent needs a clear definition of done, failure, or escalation
-- Subagents let a primary agent delegate specialized work to narrower helpers and then review their output
-- Human review remains essential for trust calibration, especially when the task touches production systems, security boundaries, or ambiguous requirements
+- **Slide topic (1 slide): Preparing for Day 2 hack** — define constrained objectives, explicit non-goals, architecture choices, and role ownership before coding begins. A one-page brief (goal, non-goals, roles, off-ramp) prevents the most common Day 2 failure: an ambitious scope with no clear definition of done. **Learn more**: <https://docs.github.com/en/copilot/tutorials/cloud-agent/get-the-best-results>
+- **Slide topic (1 slide): Execution pacing for reliable delivery** — time-box experimentation and prioritize narrow, demonstrable outcomes to avoid late-stage scope drift. Lock the scope early and keep one always-demoable slice working rather than many half-finished features. **Usage Optimization**: lock scope early to avoid token-heavy churn. **Learn more**: <https://docs.github.com/en/copilot/tutorials/optimize-ai-usage>
+- **Slide topic (1 slide): Release gates under time pressure** — even hack demos require acceptance criteria, policy checks, and fallback plans. Keep a lightweight go/no-go gate so a rushed demo still passes the same permission and rollback checks as real work. **AI Safety Moment**: no final demo without a go/no-go gate. **Learn more**: <https://docs.github.com/en/copilot/responsible-use/chat>
+- **Slide topic (1 slide): Lab transition — Exercise 3** — convert Day 2 planning guidance into a deployment decision and hack execution plan that closes the Copilot Quest build.
 
-### Off-Ramp Design
+### 🔬 LAB: Exercise 3 — Stage 8 Deployment Decision and Day 2 Hack Plan
 
-- When the optimal path is unavailable, agents and skills should stop, explain why, and hand the decision back to a human
-- Graceful degradation beats guessing or forcing a suboptimal path
-- Off-ramps belong in agent instructions, review checklists, and tool approval policy
-- Good off-ramps surface missing access, conflicting tests, unresolved ambiguity, or unsafe assumptions early
-- Example off-ramp pattern:
+> **Instructor**: Pause here for hands-on practice. Students complete Exercise 3 (10 min) creating a Day 2 plan with deployment decision gates and fallback criteria.
 
-  ```markdown
-  ## Off-Ramp Behavior
-  - If the requested change would break existing tests, STOP and report the conflict
-  - If you lack access to a required file or service, explain what is missing
-  - If multiple valid approaches exist and none is clearly better, present options instead of choosing
-  ```
-
-### 🛡️ Safety Moment
-
-- Define loop termination criteria before granting more autonomy
-- Watch for runaway loops, repeated failed actions, or silent assumption stacking
-- Design explicit off-ramps for ambiguity, missing access, broken tests, or policy conflicts
-
-### 🖥️ Demo: Observe a loop, a subagent, and an off-ramp
-
-- Give GitHub Copilot a multi-step task that requires planning and validation
-- Point out each phase in the loop: plan, execute, observe, reflect, and adjust
-- Show a subagent or delegated task handling a narrower slice of work
-- Review the returned output rather than trusting it blindly
-- Trigger an off-ramp scenario and show the agent stopping with a clear explanation instead of guessing
-
-### 💡 Optimization Tip: Sub-Agents for Context Isolation
-
-- Subagents run in their own context window — only the final summary returns to the main session
-- This prevents discovery tokens (file listings, search results, intermediate reasoning) from polluting the primary working context
-- Use subagents for research-heavy phases: the main session stays focused on the implementation spec
-- Trade-off: you pay for duplicating system/tool tokens in the sub-context, but the quality of the main session improves
-
-### Discussion Points
-
-- How would you set termination criteria for an agentic loop in your workflow?
-- What off-ramps would you require before allowing GitHub Copilot to automate a higher-risk task?
-
-### 🔬 LAB: Exercise 3 — Observe an Agentic Loop and Off-Ramp
-
-> **Instructor**: Pause here for hands-on practice. Students complete Exercise 3 (5 min) using their `refactor-coach` agent from Module 1 for a multi-step task, observing plan → execute → observe → reflect, monitoring token growth across loop iterations, and evaluating off-ramp behavior before continuing to the next section.
-
----
-
-## 6. Resources, Tools, and Ecosystem (8 min)
+## 5. Wrap-up and Lab Handoff (10 min)
 
 ### Key Points
 
-- **Squad**: a multi-agent collaboration framework from Brady Gaster — <https://github.com/bradygaster/squad>
-- **Awesome Copilot collections**: community-curated examples, extensions, prompts, and patterns for GitHub Copilot exploration
-- **Official documentation and changelog**: the most reliable source for current capabilities, settings, and rollout status
-- **Extension marketplace**: a fast way to discover GitHub Copilot-related tools, integrations, and experiments
-- **Community patterns**: blog posts, conference talks, and workshop repos help teams learn what works in practice
-- Staying current matters because agent features, memory behavior, MCP support, and integrations are evolving quickly
+- **Slide topic (1 slide): Advanced operating posture** — orchestration and integration must run as disciplined engineering systems with explicit control boundaries. Reinforce that every advanced capability still answers to human review gates, documented permissions, and auditable evidence. **Learn more**: <https://docs.github.com/en/copilot/responsible-use/chat>
+- **Slide topic (1 slide): Conditions for scaled autonomy** — governance, observability, and release controls must be designed in up front. Autonomy expands only when you can explain what the agent did, prove it stayed in policy, and roll it back safely. **Learn more**: <https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent>
+- **Slide topic (1 slide): Day 2 success formula** — constrained scope, clear ownership, and policy-aware execution from first prompt to final demo. Close by pointing learners to continued GitHub and Microsoft Learn training so they can keep building after the workshop. **Learn more**: <https://learn.microsoft.com/en-us/training/paths/copilot/>
 
-### 🛡️ Safety Moment
+### 🧠 Knowledge Check (5 min)
 
-- Community tools are not automatically vetted
-- Evaluate third-party MCP servers, plugins, and extensions before trusting them with your codebase or credentials
-- Prefer transparent permissions, active maintenance, and clear provenance
+> **Instructor**: Close the module with the 10-question quiz (`copilot-dev-advanced-QUIZ.md`). It checks Stage 7–8 concepts — orchestration architecture, integration/governance choices, debug-first readiness, deployment gates, and Day 2 planning — so confirm learners can articulate each before they start the Day 2 hack.
 
-### Discussion Points
-
-- What resources do you use to stay current with AI-assisted development tools?
-- Which signals help you decide whether a community tool is trustworthy enough to try?
-
----
-
-## 7. Wrap-up and Q&A (5 min)
-
-### Key Points
-
-- **Module 1** established the foundations: context, chat modes, instructions, and effective prompting
-- **Module 2** focused on agentic patterns: delegation, background work, and layered instructions
-- **Module 3** added advanced operations: MCP, APIs, memory, debugging, loops, and off-ramp design
-- The next step is applying these patterns in a Day 2 hack setting with real workflows and real constraints
-- Success means not just using GitHub Copilot more, but using it more deliberately, observably, and safely
-
-### Discussion Points
-
-- Which advanced capability do you want to pilot first with your team?
-- What questions should we answer before moving into the Day 2 hack workflow?
-
-*Workshop guide for Module 3: Advanced Topics — GitHub Copilot Developer Training*
+*Workshop guide for Module 3: Advanced — GitHub Copilot Developer Training*
