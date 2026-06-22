@@ -57,6 +57,57 @@ export function getStaticPaths() {
             ]
           }
         ]
+      },
+    'copilot-dev-training-cpp': {
+      label: 'GitHub Copilot Dev Hack — C++ / Hardware Edition',
+      desc: 'GitHub Copilot Developer Training for hardware and embedded developers — the shared foundations, agentic, and advanced modules plus a C++ for hardware developers module.',
+      icon: '🛠️',
+      modules: [
+        { folder: 'copilot-dev-foundations', label: 'Module 1: Foundations', desc: 'Chat modes, context & instructions, models, agents, skills & customization', icon: '🎓' },
+        { folder: 'copilot-dev-agentic', label: 'Module 2: Agentic Patterns', desc: 'Agents vs. skills, background & cloud agents, instruction layering, multi-agent patterns', icon: '🤖' },
+        { folder: 'copilot-dev-advanced', label: 'Module 3: Advanced Topics', desc: 'MCP, APIs & plugins, memory, debugging, agentic loops & off-ramp design', icon: '🔬' },
+        { folder: 'copilot-dev-cpp-hardware', label: 'Module 4: C++ for Hardware Developers', desc: 'C++ Language Server & semantic understanding, embedded instruction files, agentic modernization', icon: '🔧' }
+        ],
+        prerequisites: [
+          'VS Code — latest stable version installed',
+          'GitHub Copilot extension — installed and signed in',
+          'GitHub Copilot Chat extension — installed',
+          'GitHub account with Copilot access (Individual, Business, or Enterprise)',
+          'GitHub CLI (gh) — installed and authenticated (run gh --version to verify)',
+          'A C++ toolchain — MSVC or Clang installed',
+          'CMake — installed (for generating compile_commands.json)',
+          'A sample C++ project — a small CMake project or library (e.g., {fmt}) open in VS Code',
+          'Local admin rights — ability to install extensions, CLI tools, and plugins',
+          'Internet access — required for Copilot API calls'
+        ],
+        agenda: [
+          {
+            day: 'Day 1 — Modules & Labs',
+            subtitle: '9:00 AM – 5:00 PM',
+            items: [
+              { time: '9:00 – 9:15', duration: '15 min', activity: 'Welcome & Kickoff' },
+              { time: '9:15 – 10:45', duration: '90 min', activity: 'Module 1: Foundations (presentation + lab)', topics: ['Copilot chat modes and interaction patterns', 'Context, instructions, and prompt discipline', 'Models, agents, skills, and customization'] },
+              { time: '10:45 – 11:00', duration: '15 min', activity: '☕ Break' },
+              { time: '11:00 – 12:55', duration: '115 min', activity: 'Module 2: Agentic Patterns (presentation + lab)', topics: ['Agents vs. skills and when to use each', 'Background and cloud agents', 'Instruction layering and multi-agent patterns'] },
+              { time: '12:55 – 1:40', duration: '45 min', activity: '🍽️ Lunch' },
+              { time: '1:40 – 3:10', duration: '90 min', activity: 'Module 3: Advanced Topics (presentation + lab)', topics: ['MCP, APIs, and extensions', 'Memory, debugging, and diagnostics', 'Agent architecture patterns and off-ramp design'] },
+              { time: '3:10 – 3:25', duration: '15 min', activity: '☕ Break' },
+              { time: '3:25 – 5:00', duration: '95 min', activity: 'Module 4: C++ for Hardware Developers (presentation + lab)', topics: ['C++ Language Server & semantic understanding vs. grep', 'Embedded instruction files and compile_commands.json', 'Agentic modernization with the @Modernize workflow'] }
+            ]
+          },
+          {
+            day: 'Day 2 — Hack Day',
+            subtitle: '9:00 AM – 5:00 PM',
+            items: [
+              { time: '9:00 – 9:15', duration: '15 min', activity: 'Day 2 Kickoff & Team Formation' },
+              { time: '9:15 – 12:00', duration: '165 min', activity: '🚀 Hack — Build with Copilot on a C++ / firmware codebase' },
+              { time: '12:00 – 12:45', duration: '45 min', activity: '🍽️ Lunch' },
+              { time: '12:45 – 3:00', duration: '135 min', activity: '🚀 Hack — Continue Building' },
+              { time: '3:00 – 4:30', duration: '90 min', activity: '🎤 Project Readouts' },
+              { time: '4:30 – 5:00', duration: '30 min', activity: 'Wrap-up & Next Steps' }
+            ]
+          }
+        ]
       }
   }
 
