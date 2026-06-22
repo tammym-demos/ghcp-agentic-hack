@@ -127,7 +127,7 @@ The workshop file is the **authoritative content** for each module. It serves tw
 - Each section should contain enough detail for an AI to generate both a visual slide AND substantive presenter notes
 - Tables, bullet lists, and structured comparisons translate better to slides than prose paragraphs
 - Fenced code blocks with prompts or commands become "try this" examples on slides
-- Discussion prompts should live in `presenter-notes.md` so they can be used directly as Slidev talk track
+- Discussion prompts should live in `presenter.md` so they can be used directly as Slidev talk track
 - Diagrams described in text or Unicode box-drawing translate to visual diagrams on slides
 
 #### File Structure
@@ -162,7 +162,7 @@ Every `*-workshop.md` must have a corresponding:
 
 - `*-LAB.md` — hands-on exercises that mirror the workshop sections; each `🔬 LAB` indicator in the workshop maps to a specific exercise in the LAB file
 - `*-QUIZ.md` — knowledge-check questions covering key concepts from all sections
-- `presenter-notes.md` — section-aligned presenter prompts and talk track guidance extracted from workshop discussion content
+- `presenter.md` — section-aligned presenter prompts and talk track guidance extracted from workshop discussion content
 
 When editing any of the three files, **always check the other two for consistency**:
 
@@ -218,7 +218,7 @@ All slide images live in `public/images/<workshop-folder-name>/`.
 
 - The `*-workshop.md` is the **source of truth**; PPTX files are gitignored
 - Run `npm run convert:pptx -- <folder>` to extract images and generate the Slidev file
-- After conversion, replace placeholder `<!-- Presenter notes -->` with talk-track from `presenter-notes.md` (and supporting workshop content where needed)
+- After conversion, replace placeholder `<!-- Presenter notes -->` with talk-track from `presenter.md` (and supporting workshop content where needed)
 - Python deps: `pip install python-pptx Pillow`
 
 ## Content Guidelines
@@ -228,7 +228,7 @@ All slide images live in `public/images/<workshop-folder-name>/`.
 - Prefer tables and bullets over prose paragraphs
 - Use `**bold**` for key terms on first use; backtick formatting for commands, paths, config values
 - Do not invent GitHub features — only document what actually exists
-- Store section discussion prompts in `presenter-notes.md` instead of `*-workshop.md`
+- Store section discussion prompts in `presenter.md` instead of `*-workshop.md`
 - Slide presenter notes provide talk-track guidance, not repeat slide content
 
 ## Git Workflow
