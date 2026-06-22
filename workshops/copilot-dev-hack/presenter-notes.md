@@ -1,4 +1,4 @@
-# Presenter Notes — GitHub Copilot Developer Training — Module 5: Hack
+# Presenter Notes — GitHub Copilot Developer Training — Capstone Hack
 
 No discussion points were found in this workshop file at the time of extraction.
 

@@ -13,11 +13,11 @@ This lab extends the **Copilot Quest** Stage 5-6 Workflow Kit into the **Orchest
 ## Exercise 1: Stage 7 Orchestration Architecture Plan
 
 **⏱️ Time**: 10 min  
-**📋 Objective**: Design a Stage 7 multi-agent architecture and identify where fleet execution is justified
+**📋 Objective**: Design a Stage 7 multi-agent architecture and identify where parallel delegation is justified
 
 1. Choose one medium-scope scenario that could realistically be handed to a multi-agent team from Module 2 (for example: add hints, daily puzzle mode, or a scoreboard to Copilot Quest).
 2. Define at least three agent roles (orchestrator, implementer, validator/reviewer).
-3. Mark which tasks can run in fleet-parallel and which must remain sequential.
+3. Mark which tasks can run in parallel and which must remain sequential.
 4. Add one explicit off-ramp for conflicting agent output and one escalation owner.
 5. Save the result as the first page of your Copilot Quest orchestration package.
 
@@ -26,7 +26,7 @@ This lab extends the **Copilot Quest** Stage 5-6 Workflow Kit into the **Orchest
 ### ✅ Success Criteria
 
 - ✅ Produced a role-based multi-agent decomposition
-- ✅ Identified valid fleet-parallel tasks
+- ✅ Identified valid parallel delegation tasks
 - ✅ Added at least one conflict/off-ramp rule and escalation owner
 - ✅ Captured the scenario as an orchestration-package artifact
 
@@ -35,7 +35,7 @@ This lab extends the **Copilot Quest** Stage 5-6 Workflow Kit into the **Orchest
 **⏱️ Time**: 10 min  
 **📋 Objective**: Compare Stage 7 integration choices, draft one practical GitHub agentic workflow example, and define a Stage 8 debug-first response
 
-1. Pick one bounded task and solve it once with CLI/API style, once with MCP/plugin style (for example: fetch the word list or update the scoreboard).
+1. Pick one bounded task and solve it once with CLI/API style, once with MCP or extension style (for example: fetch the word list or update the scoreboard).
 2. Document tradeoffs in setup cost, observability, governance, and control.
 3. Draft one GitHub agentic workflow example your team could run (for example: issue triage -> assign coding agent -> open PR -> human review gate -> merge).
 4. Simulate one failure case and capture a Stage 8 debug-first response plan.

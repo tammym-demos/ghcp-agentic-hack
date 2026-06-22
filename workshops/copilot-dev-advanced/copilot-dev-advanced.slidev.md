@@ -16,6 +16,32 @@ background: /images/copilot-dev-advanced/slide-01-fb062fa8.png
 <!-- Welcome to Module 3: Advanced Topics. This session builds on the foundations from Module 1 and the agentic patterns from Module 2 to explore operational capabilities — connecting external systems, understanding memory, debugging what Copilot actually sends and receives, and designing safe agentic loops. By the end, participants will know how to evaluate, enable, and constrain advanced Copilot features responsibly. Remind attendees they should have their Module 1-2 project open since we will reference those artifacts throughout. -->
 
 ---
+layout: default
+class: text-xs
+---
+
+# Optimizing AI Usage
+
+### Efficiency & optimization learnings — six strategies to maximize quality and reduce cost
+
+| # | Strategy | What it covers |
+|---|----------|----------------|
+| **1** | Choose the right model for the right task | Match capability to work, configure reasoning level, use auto model selection, run subagents on cheaper models |
+| **2** | Provide clear guidance in your prompts | Clear task definition, relevant context upfront, an explicit stopping condition |
+| **3** | Keep your context lean | Start new conversations per problem, `/compact` long sessions, custom instruction files, only the tools you need |
+| **4** | Preserve the cache | Avoid switching models or reasoning mid-session; cached tokens bill at ~10% of input price |
+| **5** | Research, plan, then implement | Separate phases — plan with a reasoning model, implement with a cheaper one |
+| **6** | Utilize learnings to be more efficient | Use `/chronicle tips` and `/chronicle cost-tips` to surface efficiency and cost insights |
+
+<div class="gh-callout gh-callout-blue">
+
+**Reference**: <https://docs.github.com/en/copilot/tutorials/optimize-ai-usage>
+
+</div>
+
+<!-- Open Advanced by grounding the room in efficiency. Everything we do today — orchestration, integrations, agentic loops — costs tokens and credits, so frame these six strategies as the lens for every later decision. Walk the list top to bottom: model choice is the single fastest cost lever, prompt clarity prevents wasted agent runs, lean context and cache preservation control per-request billing, and the research-plan-implement split keeps each phase scoped. Call out that auto model selection earns a 10% discount on paid plans and that switching models mid-session silently invalidates the cache. Close by pointing to the linked GitHub tutorial and the new /chronicle commands so attendees can audit their own usage after the session. -->
+
+---
 layout: image-full
 background: /images/copilot-dev-advanced/slide-02-d6661fb3.png
 ---

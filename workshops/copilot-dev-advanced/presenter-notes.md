@@ -2,23 +2,23 @@
 
 ## Discussion Prompts by Section
 
-### 1. Orchestration Patterns: Multiagents, Subagents, and Fleet (25 min)
+### 1. Orchestration Decision Patterns for Advanced Delivery (18 min)
 
 - Which team workflows actually justify orchestration overhead?
 - Where should orchestration stop and human synthesis take over?
-- What evidence should be required to accept parallel agent outputs?
+- What evidence should be required to accept delegated outputs?
 
-### 2. Extensibility Surfaces and Integration Governance (25 min)
+### 2. Governance-First Integration Surfaces (22 min)
 
 - Which integration surface is your highest enterprise risk today?
-- What approval model should govern new extensions and MCP servers?
-- How can teams reduce tool sprawl while preserving capability?
+- What approval model should govern API, MCP, and extension onboarding?
+- How can teams reduce integration complexity while preserving capability?
 
-### 3. Debugging and Deployment Operations (20 min)
+### 3. Debugging and Deployment Readiness Operations (20 min)
 
 - What is your minimum deploy-readiness checklist for an internal agent?
 - Which failures require immediate rollback versus iterative tuning?
-- How should curated external resources be vetted before adoption?
+- Which deploy-readiness gate catches the highest-risk failures early?
 
 ### 4. Day 2 Hack Preparation and Execution Strategy (10 min)
 

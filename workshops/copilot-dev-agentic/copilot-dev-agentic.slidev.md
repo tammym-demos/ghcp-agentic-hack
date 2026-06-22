@@ -69,14 +69,14 @@ layout: image-full
 background: /images/copilot-dev-agentic/slide-09-8b54d283.png
 ---
 
-<!-- This is a good moment to remind the audience that scaffolding quality depends on how specific the prompt is. If you tell Copilot the stack, testing approach, and deployment expectations, the result will be more usable and safer to review. If you stay vague, you'll spend more time undoing assumptions than saving time. -->
+<!-- This is a good moment to remind the audience that scaffolding quality depends on how specific the skill definition is. If you tell Copilot the stack, testing approach, and deployment expectations, the result will be more usable and safer to review. If the skill stays vague, you'll spend more time undoing assumptions than saving time. -->
 
 ---
 layout: image-full
 background: /images/copilot-dev-agentic/slide-10-381591b7.png
 ---
 
-<!-- Explain that Copilot behavior is not controlled by one file or one prompt. It is shaped by layers: organization policy, repository guidance, file-specific instructions, user defaults, and the current task. The audience should understand that more specific instructions usually win, but the higher-level guardrails still matter. -->
+<!-- Explain that Copilot behavior is not controlled by one file or one skill alone. It is shaped by layers: organization policy, repository guidance, file-specific instructions, user defaults, and the current task. The audience should understand that more specific instructions usually win, but the higher-level guardrails still matter. -->
 
 ---
 layout: image-full
@@ -118,7 +118,7 @@ layout: image-full
 background: /images/copilot-dev-agentic/slide-16-9c5ebfd5.png
 ---
 
-<!-- Use this slide to connect the idea of quality to the real economics of agent work. A single bad agent output can trigger extra prompts, more edits, and additional validation loops. When you improve the first pass, the total token spend often falls because you avoid downstream cleanup. -->
+<!-- Use this slide to connect the idea of quality to the real economics of agent work. A single bad agent output can trigger extra skill revisions, more edits, and additional validation loops. When you improve the first pass, the total token spend often falls because you avoid downstream cleanup. -->
 
 ---
 layout: image-full

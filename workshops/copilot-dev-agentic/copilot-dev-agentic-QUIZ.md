@@ -1,125 +1,125 @@
-# Module 2: Agentic Content Refresh — Quiz
+# Module 2: Intermediate (Agentic) — Quiz
 
 ---
 
-### 1. In the approved 8-stage model, what is the primary focus of Stage 5 in this module?
+### 1. What is the best description of how this module treats instructions?
 
-- A) Fully autonomous production deployment without review
-- B) CLI power-user workflows with bounded autonomy and explicit review gates
-- C) Replacing prompts with fixed templates only
-- D) Eliminating direct tool usage
+- A) Instructions are temporary notes that should be rewritten in every session
+- B) Instructions are the durable rulebook for standards, boundaries, and expected behavior
+- C) Instructions should be replaced by memory whenever possible
+- D) Instructions are only useful for cloud agents
 
 <!--answer: B-->
-<!--explanation: Stage 5 emphasizes advanced CLI execution with deliberate constraints, stop conditions, and human review.-->
+<!--explanation: The workshop frames instructions as the durable rulebook for coding standards, review expectations, architecture boundaries, and safety rules.-->
 
 ---
 
-### 2. Which behavior best indicates a team is still at Stage 4 rather than Stage 5?
+### 2. A team rule says behavior changes must include tests, the repo already has a preferred test command, and your repeatable workflow defines how to run, review, and stop safely. Which mapping is correct?
 
-- A) They use structured prompts and scoped tasks, but avoid advanced delegated patterns
-- B) They run multi-agent orchestration with role contracts
-- C) They maintain readiness evidence for Stage 7 operations
-- D) They parallelize independent workflows with explicit handoffs
-
-<!--answer: A-->
-<!--explanation: Stage 4 is characterized by reliable prompt discipline and scoped autonomy, before Stage 5 power-user execution patterns.-->
-
----
-
-### 3. Which prompt element most directly prevents Stage 5 over-execution?
-
-- A) A long context history
-- B) Definition of done plus explicit off-ramp
-- C) Listing every possible tool
-- D) Avoiding task constraints
+- A) Instruction = preferred test command, Memory = stop condition, Skill = team rule
+- B) Instruction = team rule, Memory = preferred test command, Skill = repeatable execution workflow
+- C) Instruction = repeatable workflow, Memory = team rule, Skill = preferred test command
+- D) Instruction = private one-off note, Memory = every prior chat, Skill = unrestricted autonomy
 
 <!--answer: B-->
-<!--explanation: Definition-of-done and off-ramp criteria create explicit stop boundaries and escalation paths.-->
+<!--explanation: Section 2 teaches that broad team rules belong in instructions, stable reusable facts can live in memory, and repeatable execution patterns belong in skills.-->
 
 ---
 
-### 4. At Stage 5, when should direct tool execution usually be preferred?
+### 3. Which skill elements most directly reduce over-execution risk?
 
-- A) For deterministic, single-step tasks with clear expected outputs
+- A) A longer chat history and broader context
+- B) Definition of done and an explicit off-ramp
+- C) Listing every available tool first
+- D) Avoiding constraints so the model can explore
+
+<!--answer: B-->
+<!--explanation: The workshop emphasizes that strong skill contracts need stop boundaries, success criteria, and escalation paths.-->
+
+---
+
+### 4. When should direct tools or skills usually be preferred over agents?
+
+- A) For deterministic, low-branching tasks with clear expected outputs
 - B) For every ambiguous, cross-repo architecture decision
-- C) Never; delegated mode is always superior
-- D) Only after multi-agent planning
+- C) Never; delegation is always superior
+- D) Only after a multi-agent planning pass
 
 <!--answer: A-->
-<!--explanation: Stage 5 expects intentional control choice; deterministic tasks should generally use direct actions first.-->
+<!--explanation: The workshop explicitly distinguishes simple, concrete tasks from adaptive workflows that justify agents.-->
 
 ---
 
-### 5. What is the best reason to run a background task at Stage 5?
+### 5. Which Module 1 artifact is most directly meant to be extended into Module 2's Stage 5 skill work?
 
-- A) To skip review and merge faster
-- B) To do independent parallel work while the task runs
-- C) To remove the need for scoped prompts
-- D) To avoid defining constraints
-
-<!--answer: B-->
-<!--explanation: Background execution is most effective when parallel, independent work exists and outputs are still reviewed.-->
-
----
-
-### 6. What distinguishes Stage 6 from Stage 5 most clearly?
-
-- A) Stage 6 adds role-based multi-agent orchestration and handoff contracts
-- B) Stage 6 avoids verification to preserve speed
-- C) Stage 6 removes human ownership
-- D) Stage 6 disables audit trails
+- A) The Stage 3 reusable checklist or prompt asset, strengthened with Stage 4 guardrails
+- B) The full raw chat transcript from every earlier exercise
+- C) A new unrestricted agent with no inherited boundaries
+- D) Only a browser bookmark with no workflow notes
 
 <!--answer: A-->
-<!--explanation: Stage 6 extends Stage 5 by coordinating specialized agents with explicit handoffs and validation boundaries.-->
+<!--explanation: Module 1 produces a reusable checklist or prompt asset in Stage 3 and a guarded custom-agent starter in Stage 4; Module 2 builds on those artifacts when turning a starter workflow into a structured skill.-->
 
 ---
 
-### 7. Which Stage 6 guardrail is most important for reducing blind acceptance risk?
+### 6. What most clearly distinguishes a multi-agent workflow from a simple delegated task?
 
-- A) Allowing every agent the same unrestricted tools
-- B) Separating implementation and verification roles
-- C) Skipping handoff documentation
-- D) Auto-accepting first successful output
+- A) It adds role-based handoffs with explicit inputs, outputs, and validation checks
+- B) It removes the need for human ownership
+- C) It works best when all agents share unrestricted permissions
+- D) It replaces evidence with confidence
+
+<!--answer: A-->
+<!--explanation: Module 2 treats multi-agent work as role-based orchestration with concrete handoff contracts and validation boundaries.-->
+
+---
+
+### 7. Which guardrail best reduces blind acceptance risk in a handoff workflow?
+
+- A) Giving every role the same unrestricted tools
+- B) Separating implementation and verification responsibilities
+- C) Skipping handoff documentation to save time
+- D) Auto-accepting the first plausible output
 
 <!--answer: B-->
-<!--explanation: Independent verification roles reduce confirmation bias and improve confidence in multi-agent outcomes.-->
+<!--explanation: Independent verification reduces confirmation bias and forces evidence to travel with the handoff.-->
 
 ---
 
-### 8. In a Stage 6 handoff contract, which item is essential?
+### 8. In a handoff contract, which item is essential?
 
-- A) Personal preference notes unrelated to task outputs
+- A) Personal preference notes unrelated to the task
 - B) Expected output format and validation criteria
-- C) Every historical chat message
-- D) Removing constraints to maximize creativity
+- C) Every historical chat message in full
+- D) Fewer constraints so creativity stays high
 
 <!--answer: B-->
-<!--explanation: Clear expected outputs and validation checks make handoffs testable and reduce ambiguity.-->
+<!--explanation: Clear expected outputs and validation checks make handoffs testable, reviewable, and less ambiguous.-->
 
 ---
 
-### 9. Which statement best describes the Stage 6 to Stage 7 transition?
+### 9. Which statement best describes readiness for broader operational scale?
 
-- A) Move to operational scale only after auditability, policy compliance, and rollback paths are proven
-- B) Skip governance checks if output quality appears high
-- C) Promote any successful Stage 5 task directly to production workflows
+- A) Scale only after auditability, policy compliance, and rollback paths are proven
+- B) Skip governance checks if the output quality looks high
+- C) Promote any successful experiment directly to production
 - D) Replace review checkpoints with larger models
 
 <!--answer: A-->
-<!--explanation: Stage 7 readiness requires explicit operational controls and evidence, not just isolated success.-->
+<!--explanation: The lab and workshop both emphasize that scaling requires control evidence, not just isolated success.-->
 
 ---
 
-### 10. What is the best Stage 5-6 optimization posture?
+### 10. What is the best reason to run a background task or cloud agent?
 
-- A) Remove constraints and expand tool scope to maximize throughput
-- B) Keep prompts tight, scope tools minimally, and enforce reviewer checkpoints
-- C) Always use the largest model regardless of task
-- D) Disable stop conditions to avoid interruption
+- A) To skip review and finish faster
+- B) To handle long-running work while other independent work continues
+- C) To avoid defining scope and constraints
+- D) To remove the need for verification
 
 <!--answer: B-->
-<!--explanation: Safe efficiency in Stage 5-6 combines concise prompts, minimal necessary tool access, and explicit quality gates.-->
+<!--explanation: The workshop recommends background or cloud execution for genuinely long-running, parallelizable work that still remains observable and reviewable.-->
 
 ---
 
-*Quiz for Module 2: Agentic Content Refresh — GitHub Copilot Developer Training*
+*Quiz for Module 2: Intermediate (Agentic) — GitHub Copilot Developer Training*
