@@ -14,7 +14,28 @@
 **Duration**: 60 minutes (single session, presentation-only)  
 **Format**: Presentation  
 **Audience**: Developers with basic GitHub Copilot exposure  
-**Prerequisites**: VS Code, GitHub Copilot + Copilot Chat extensions, GitHub Copilot CLI, access to Copilot usage/billing views
+**Prerequisites**: See the Prerequisites section below — required tooling plus the developer skills needed to apply these optimizations effectively.
+
+## Prerequisites
+
+### Environment & Access
+
+- VS Code with the GitHub Copilot and Copilot Chat extensions installed and signed in
+- GitHub account with Copilot access (Individual, Business, or Enterprise)
+- GitHub Copilot CLI and GitHub CLI (`gh`) installed and authenticated
+- Access to Copilot usage and billing views (to inspect AIC and token usage)
+- A local multi-file project open in VS Code for scoping demos
+
+### Developer Skills to Apply These Optimizations
+
+- **Copilot interaction fluency** — comfortable with Ask/Edit/Agent modes and chat context references (`#file`, `#selection`); equivalent to completing the Foundations module
+- **Prompt-writing discipline** — able to write a scoped prompt with explicit constraints, stop conditions, and a clear definition of done
+- **Code review judgment** — able to read and critically review AI-generated diffs, since the developer stays accountable for what merges
+- **Token and context mental model** — understands that prompt, output, and cached tokens drive both cost and quality, and what a context window contains
+- **Model-selection awareness** — knows the difference between fast and reasoning models and can judge which a task needs
+- **Basic agentic experience** — has delegated at least one multi-step task to an agent and understands why loops need boundaries and stop conditions
+- **Instruction-file familiarity** — can author and maintain repository instruction files to encode conventions instead of re-prompting them
+- **Telemetry literacy** — can read session and monthly usage views to spot inefficiencies such as broad prompts and repeated retries
 
 ## Workshop Overview
 
