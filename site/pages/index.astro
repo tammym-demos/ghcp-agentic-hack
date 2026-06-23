@@ -109,10 +109,38 @@ const workshopMeta: Record<string, { label: string; desc: string; icon: string; 
         ]
       }
     ]
+  },
+  'copilot-optimization': {
+    label: 'Copilot Usage Optimization',
+    desc: 'A focused 60-minute session on getting the most quality per credit — tokenomics, model routing, prompt and scope discipline, agentic efficiency, and sustained measurement.',
+    icon: '⚡',
+    prerequisites: [
+      'VS Code — latest stable version installed',
+      'GitHub Copilot extension — installed and signed in',
+      'GitHub Copilot Chat extension — installed',
+      'GitHub account with Copilot access (Individual, Business, or Enterprise)',
+      'GitHub CLI (gh) — installed and authenticated (run gh --version to verify)',
+      'Access to Copilot usage and billing views — to inspect AIC and token usage',
+      'A local multi-file project — open in VS Code for scoping demos',
+      'Internet access — required for Copilot API calls',
+      'Recommended: completion of the Foundations module, or equivalent basic Copilot experience'
+    ],
+    agenda: [
+      {
+        day: 'Single Session — 60 minutes',
+        subtitle: 'Presentation',
+        items: [
+          { time: '0:00 – 0:08', duration: '8 min', activity: '1. Why optimization matters: the cost and quality model', topics: ['Usage-based billing makes workflow choices cost decisions', 'Tokens as the unit of cost and quality', 'The AIC consumption model'] },
+          { time: '0:08 – 0:20', duration: '12 min', activity: '2. Tokenomics and context economics', topics: ['Context window anatomy and context rot', 'Front-load context once', 'Encode conventions in instructions'] },
+          { time: '0:20 – 0:32', duration: '12 min', activity: '3. Model routing and the biggest cost levers', topics: ['Match model capability to task complexity', 'Auto mode: 10% discount + cache protection', 'Configurable reasoning and lighter models'] },
+          { time: '0:32 – 0:44', duration: '12 min', activity: '4. Prompt and scope discipline', topics: ['Scoped vs. broad prompts', 'Well-scoped skills and acceptance gates', 'Minimal repro prompts and lock scope early'] },
+          { time: '0:44 – 0:54', duration: '10 min', activity: '5. Agentic efficiency', topics: ['Avoid over-delegation and unnecessary orchestration', 'Bounded loops and scoped subagents', 'Async/cloud only when justified'] },
+          { time: '0:54 – 1:00', duration: '6 min', activity: '6. Measure and sustain', topics: ['Usage visibility and reviews', '/chronicle cost-savings loop', 'Instructions vs. memory for durable reuse'] }
+        ]
+      }
+    ]
   }
 }
-
-// Collect the set of folders that are children of a multi-module curriculum
 const moduleFolders = new Set<string>()
 for (const meta of Object.values(workshopMeta)) {
   if (meta.modules) {
