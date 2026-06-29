@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hackathon Readiness Checklist</title>
+<style>
+  :root {
+    --ink: #1f2328;
+    --muted: #59636e;
+    --line: #d1d9e0;
+    --bg: #f6f8fa;
+    --gh-dark: #1f2328;
+    --gh-canvas: #0d1117;
+    --accent: #1f883d;        /* GitHub green */
+    --accent-soft: #dafbe1;
+    --accent-line: #2da44e;
+    --ms-blue: #0078d4;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    line-height: 1.55;
+    margin: 0;
+    background: var(--bg);
+    padding: 32px 16px;
+  }
+  .page {
+    max-width: 840px;
+    margin: 0 auto;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(31,35,40,.08);
+  }
+
+  /* ---- Co-branded header ---- */
+  header {
+    background: var(--gh-canvas);
+    color: #fff;
+    padding: 28px 40px 26px;
+  }
+  .brand-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #30363d;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .brand svg { display: block; }
+  .brand-divider {
+    width: 1px;
+    height: 26px;
+    background: #30363d;
+    margin: 0 4px;
+  }
+  .brand-tag {
+    margin-left: auto;
+    font-size: 12px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: #8b949e;
+  }
+  header h1 { margin: 0 0 6px; font-size: 27px; letter-spacing: -.4px; font-weight: 600; }
+  header .sub { margin: 0; color: #8b949e; font-size: 14px; }
+  .accent-strip { height: 4px; background: linear-gradient(90deg, #1f883d 0%, #2da44e 50%, #0078d4 100%); }
+
+  main { padding: 14px 40px 36px; }
+  h2 {
+    font-size: 18px;
+    margin: 32px 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--accent-soft);
+    color: var(--accent);
+  }
+  h3 { font-size: 15px; margin: 22px 0 8px; color: var(--ink); }
+
+  ul.checklist { list-style: none; padding: 0; margin: 0; }
+  ul.checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 11px 14px;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent-line);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    background: #fff;
+  }
+  ul.checklist li .box {
+    flex: 0 0 auto;
+    width: 18px; height: 18px;
+    margin-top: 2px;
+    border: 2px solid var(--accent);
+    border-radius: 4px;
+    background: #fff;
+  }
+  ul.checklist li .txt strong { display: block; font-size: 14.5px; }
+  ul.checklist li .txt span { color: var(--muted); font-size: 13px; }
+
+  .note {
+    background: var(--accent-soft);
+    border-left: 4px solid var(--accent-line);
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 13.5px;
+    color: #1a4d2e;
+    margin: 0 0 18px;
+  }
+  ul.plain { margin: 6px 0 0; padding-left: 20px; }
+  ul.plain li { margin-bottom: 6px; font-size: 14px; }
+
+  table { width: 100%; border-collapse: collapse; margin: 6px 0 18px; font-size: 13.5px; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+  th { background: var(--gh-dark); color: #fff; font-weight: 600; }
+  th:first-child { border-top-left-radius: 6px; }
+  th:last-child { border-top-right-radius: 6px; }
+  tr:nth-child(even) td { background: var(--bg); }
+  td:first-child { white-space: nowrap; color: var(--muted); font-variant-numeric: tabular-nums; }
+  td:nth-child(2) { white-space: nowrap; color: var(--muted); }
+  .agenda-title { font-size: 14px; font-weight: 600; margin: 18px 0 6px; color: var(--ink); }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 18px 40px;
+    color: var(--muted);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  footer .logos { display: flex; align-items: center; gap: 10px; opacity: .7; }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { border: none; box-shadow: none; border-radius: 0; }
+    header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    th, .accent-strip, ul.checklist li { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="brand-bar">
+      <!-- Microsoft -->
+      <span class="brand">
+        <svg width="22" height="22" viewBox="0 0 23 23" aria-label="Microsoft">
+          <rect x="1" y="1" width="10" height="10" fill="#F25022"/>
+          <rect x="12" y="1" width="10" height="10" fill="#7FBA00"/>
+          <rect x="1" y="12" width="10" height="10" fill="#00A4EF"/>
+          <rect x="12" y="12" width="10" height="10" fill="#FFB900"/>
+        </svg>
+        Microsoft
+      </span>
+      <span class="brand-divider"></span>
+      <!-- GitHub -->
+      <span class="brand">
+        <svg width="24" height="24" viewBox="0 0 16 16" fill="#fff" aria-label="GitHub">
+          <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        GitHub
+      </span>
+      <span class="brand-tag">Developer Hackathon</span>
+    </div>
+    <h1>Hackathon Readiness Checklist</h1>
+    <p class="sub">Planning items to confirm together ahead of the event</p>
+  </header>
+  <div class="accent-strip"></div>
+  <main>
+    <h2>Planning Checklist</h2>
+    <ul class="checklist">
+      <li><span class="box"></span><span class="txt"><strong>Confirm dates</strong><span>Event days and times.</span></span></li>
+      <li><span class="box"></span><span class="txt"><strong>Confirm room / venue</strong><span>Space and capacity at the customer location.</span></span></li>
+      <li><span class="box"></span><span class="txt"><strong>Confirm audio / video</strong><span>AV setup, screen sharing, recording.</span></span></li>
+      <li><span class="box"></span><span class="txt"><strong>Confirm power / electricity</strong><span>Enough outlets and power strips for every laptop.</span></span></li>
+      <li><span class="box"></span><span class="txt"><strong>Confirm food</strong><span>Meals and breaks.</span></span></li>
+      <li><span class="box"></span><span class="txt"><strong>Confirm Wi-Fi / network access</strong><span>Guest network capacity for all laptops; access to GitHub/Copilot endpoints (firewall/proxy).</span></span></li>
+      <li><span class="box"></span><span class="txt"><strong>Confirm prerequisites / environment setup</strong><span>GitHub access, Copilot licenses active, required tools installed before arrival.</span></span></li>
+      <li><span class="box"></span><span class="txt"><strong>Confirm on-site point of contact</strong><span>Facilities/host contact, building hours, and after-hours access.</span></span></li>
+      <li><span class="box"></span><span class="txt"><strong>Confirm leadership involvement</strong><span>Kick off the event and be available during Day 2 readouts.</span></span></li>
+      <li><span class="box"></span><span class="txt"><strong>Define how virtual teams work</strong><span>How remote participants join and collaborate (see suggestions).</span></span></li>
+      <li><span class="box"></span><span class="txt"><strong>Distribute problem-statement deck</strong><span>Share with teams to prepare and submit.</span></span></li>
+      <li><span class="box"></span><span class="txt"><strong>Confirm visitor check-in</strong><span>Guest/badge process at the customer location.</span></span></li>
+      <li><span class="box"></span><span class="txt"><strong>Decide awards &amp; judging criteria (optional)</strong><span>Prizes for top teams and how winners are selected.</span></span></li>
+      <li><span class="box"></span><span class="txt"><strong>Finalize participant count</strong><span>Final number of attendees.</span></span></li>
+      <li><span class="box"></span><span class="txt"><strong>Send Teams invitation to participants</strong><span>Calendar invite with event details and join link.</span></span></li>
+      <li><span class="box"></span><span class="txt"><strong>Define how teams are formed</strong><span>Pre-formed vs day-of.</span></span></li>
+      <li><span class="box"></span><span class="txt"><strong>Confirm Day 2 hacking projects</strong><span>Should be developer-work related (see suggestions).</span></span></li>
+    </ul>
+
+    <h2>Suggestions</h2>
+    <p class="note">These are options for you to decide &mdash; not requirements.</p>
+
+    <h3>Virtual teams</h3>
+    <ul class="plain">
+      <li>One persistent virtual room per team; in-person members also join from their laptops so everyone collaborates digitally.</li>
+      <li>A dedicated facilitator for virtual teams.</li>
+      <li>Readouts presented via screen-share so remote teams aren't disadvantaged.</li>
+    </ul>
+
+    <h3>Readout formats for groups over 100</h3>
+    <p style="font-size:14px;margin:6px 0 0;">A single readout per team works well up to ~100 people. For larger groups, use one of these:</p>
+    <ul class="plain">
+      <li><strong>Heats &rarr; Finals</strong> &mdash; split teams into parallel pods/rooms, each with its own judges; each pod sends 1&ndash;2 finalists to present to the full room.</li>
+      <li><strong>Track-based readouts</strong> &mdash; group teams by theme (e.g., tech-debt, developer productivity); each track runs its own readout and only track winners present on the main stage.</li>
+    </ul>
+
+    <h3>How to choose Day 2 hacking projects</h3>
+    <p style="font-size:14px;margin:6px 0 0;">You decide these. Suggested sources for developer-work-related projects:</p>
+    <ul class="plain">
+      <li>Engineering managers nominate candidate projects.</li>
+      <li>Tech-debt items.</li>
+      <li>Backlog / sprint items.</li>
+      <li>Developer-productivity improvements.</li>
+    </ul>
+
+    <h2>Agenda</h2>
+
+    <div class="agenda-title">Day 1 &mdash; Modules &amp; Labs (9:00 AM &ndash; 5:00 PM)</div>
+    <table>
+      <thead><tr><th>Time</th><th>Duration</th><th>Activity</th></tr></thead>
+      <tbody>
+        <tr><td>9:00 &ndash; 9:15</td><td>15 min</td><td>Welcome &amp; Kickoff</td></tr>
+        <tr><td>9:15 &ndash; 10:45</td><td>90 min</td><td>Module 1: Foundations (presentation + lab)</td></tr>
+        <tr><td>10:45 &ndash; 11:00</td><td>15 min</td><td>☕ Break</td></tr>
+        <tr><td>11:00 &ndash; 12:55</td><td>115 min</td><td>Module 2: Agentic Patterns (presentation + lab)</td></tr>
+        <tr><td>12:55 &ndash; 1:40</td><td>45 min</td><td>🍽️ Lunch</td></tr>
+        <tr><td>1:40 &ndash; 3:10</td><td>90 min</td><td>Module 3: Advanced Topics (presentation + lab)</td></tr>
+        <tr><td>3:10 &ndash; 3:25</td><td>15 min</td><td>☕ Break</td></tr>
+        <tr><td>3:25 &ndash; 4:45</td><td>80 min</td><td>Open Lab / Hack Prep</td></tr>
+        <tr><td>4:45 &ndash; 5:00</td><td>15 min</td><td>Day 1 Wrap-up &amp; Day 2 Preview</td></tr>
+      </tbody>
+    </table>
+
+    <div class="agenda-title">Day 2 &mdash; Hack Day (9:00 AM &ndash; 5:00 PM)</div>
+    <table>
+      <thead><tr><th>Time</th><th>Duration</th><th>Activity</th></tr></thead>
+      <tbody>
+        <tr><td>9:00 &ndash; 9:15</td><td>15 min</td><td>Day 2 Kickoff &amp; Team Formation</td></tr>
+        <tr><td>9:15 &ndash; 12:00</td><td>165 min</td><td>🚀 Hack &mdash; Build with Copilot</td></tr>
+        <tr><td>12:00 &ndash; 12:45</td><td>45 min</td><td>🍽️ Lunch</td></tr>
+        <tr><td>12:45 &ndash; 3:00</td><td>135 min</td><td>🚀 Hack &mdash; Continue Building</td></tr>
+        <tr><td>3:00 &ndash; 4:30</td><td>90 min</td><td>🎤 Project Readouts</td></tr>
+        <tr><td>4:30 &ndash; 5:00</td><td>30 min</td><td>Wrap-up &amp; Next Steps</td></tr>
+      </tbody>
+    </table>
+  </main>
+  <footer>
+    <span>Hackathon readiness &amp; planning checklist</span>
+    <span class="logos">
+      <svg width="16" height="16" viewBox="0 0 23 23" aria-label="Microsoft">
+        <rect x="1" y="1" width="10" height="10" fill="#F25022"/>
+        <rect x="12" y="1" width="10" height="10" fill="#7FBA00"/>
+        <rect x="1" y="12" width="10" height="10" fill="#00A4EF"/>
+        <rect x="12" y="12" width="10" height="10" fill="#FFB900"/>
+      </svg>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="#1f2328" aria-label="GitHub">
+        <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+      </svg>
+    </span>
+  </footer>
+</div>
+</body>
+</html>
