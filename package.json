@@ -9,15 +9,15 @@
     "convert:pptx": "python scripts/convert-pptx.py"
   },
   "dependencies": {
-    "@slidev/cli": "^52.0.0"
+    "@slidev/cli": "^52.16.0"
   },
   "devDependencies": {
-    "@astrojs/markdown-remark": "^6.3.10",
-    "astro": "^5.17.3",
-    "dotenv": "^17.3.1",
+    "@astrojs/markdown-remark": "^6.3.11",
+    "astro": "^5.18.2",
+    "dotenv": "^17.4.2",
     "github-markdown-css": "^5.9.0",
     "highlight.js": "^11.11.1",
-    "marked": "^17.0.3",
+    "marked": "^17.0.6",
     "marked-highlight": "^2.2.4"
   }
 }
