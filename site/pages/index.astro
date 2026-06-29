@@ -2,185 +2,56 @@
 import Base from '../layouts/Base.astro'
 import { readdirSync, existsSync } from 'node:fs'
 import { resolve } from 'node:path'
+import { discoverWorkshopSkills, moduleFoldersFromMeta, workshopMeta, type ModuleMeta } from '../data/workshops'
 
 const base = import.meta.env.BASE_URL
 const workshopsDir: string = __WORKSHOPS_DIR__
 const showDrafts: boolean = __SHOW_DRAFTS__
+const moduleFolders = moduleFoldersFromMeta()
 
-// Workshop metadata — order and descriptions
-// Workshops with `modules` are multi-module curricula: one parent card links to child module folders.
-const workshopMeta: Record<string, { label: string; desc: string; icon: string; modules?: { folder: string; label: string; desc: string; icon: string }[]; prerequisites?: string[]; agenda?: { day: string; subtitle: string; items: { time: string; duration: string; activity: string; topics?: string[] }[] }[] }> = {
-  'copilot-dev-training': {
-    label: 'GitHub Copilot Dev Hack',
-    desc: 'GitHub Copilot Developer Training — foundations, agentic patterns, and advanced operations.',
-    icon: '🎓',
-    modules: [
-      { folder: 'copilot-dev-foundations', label: 'Module 1: Foundations', desc: 'Chat modes, context & instructions, models, agents, skills & customization', icon: '🎓' },
-      { folder: 'copilot-dev-agentic', label: 'Module 2: Agentic Patterns', desc: 'Agents vs. skills, background & cloud agents, instruction layering, multi-agent patterns', icon: '🤖' },
-      { folder: 'copilot-dev-advanced', label: 'Module 3: Advanced Topics', desc: 'MCP, APIs & plugins, memory, debugging, agentic loops & off-ramp design', icon: '🔬' }
-    ],
-    prerequisites: [
-      'VS Code — latest stable version installed',
-      'GitHub Copilot extension — installed and signed in',
-      'GitHub Copilot Chat extension — installed',
-      'GitHub account with Copilot access (Individual, Business, or Enterprise)',
-      'GitHub CLI (gh) — installed and authenticated (run gh --version to verify)',
-      'Local admin rights — ability to install extensions, CLI tools, and plugins',
-      'A local project — any codebase open in VS Code (multi-file project preferred)',
-      'Internet access — required for Copilot API calls'
-    ],
-    agenda: [
-      {
-        day: 'Day 1 — Modules & Labs',
-        subtitle: '9:00 AM – 5:00 PM',
-        items: [
-          { time: '9:00 – 9:15', duration: '15 min', activity: 'Welcome & Kickoff' },
-          { time: '9:15 – 10:45', duration: '90 min', activity: 'Module 1: Foundations (presentation + lab) — Speakers 1 & 2', topics: ['Copilot chat modes and interaction patterns', 'Context, instructions, and prompt discipline', 'Models, agents, skills, and customization'] },
-          { time: '10:45 – 11:00', duration: '15 min', activity: '☕ Break' },
-          { time: '11:00 – 12:55', duration: '115 min', activity: 'Module 2: Agentic Patterns (presentation + lab) — Speakers 2, 3 & 4', topics: ['Agents vs. skills and when to use each', 'Background and cloud agents', 'Instruction layering and multi-agent patterns', 'Agent quality, token optimization, and iteration loops'] },
-          { time: '12:55 – 1:40', duration: '45 min', activity: '🍽️ Lunch' },
-          { time: '1:40 – 3:10', duration: '90 min', activity: 'Module 3: Advanced Topics (presentation + lab) — Speakers 4 & 5', topics: ['MCP, APIs, and extensions', 'Memory, debugging, and diagnostics', 'Agent architecture patterns and off-ramp design', 'Full-stack agent workflows and best practices'] },
-          { time: '3:10 – 3:25', duration: '15 min', activity: '☕ Break' },
-          { time: '3:25 – 4:45', duration: '80 min', activity: 'Open Lab / Hack Prep' },
-          { time: '4:45 – 5:00', duration: '15 min', activity: 'Day 1 Wrap-up & Day 2 Preview' }
-        ]
-      },
-      {
-        day: 'Day 2 — Hack Day',
-        subtitle: '9:00 AM – 5:00 PM',
-        items: [
-          { time: '9:00 – 9:15', duration: '15 min', activity: 'Day 2 Kickoff & Team Formation' },
-          { time: '9:15 – 12:00', duration: '165 min', activity: '🚀 Hack — Build with Copilot' },
-          { time: '12:00 – 12:45', duration: '45 min', activity: '🍽️ Lunch' },
-          { time: '12:45 – 3:00', duration: '135 min', activity: '🚀 Hack — Continue Building' },
-          { time: '3:00 – 4:30', duration: '90 min', activity: '🎤 Project Readouts' },
-          { time: '4:30 – 5:00', duration: '30 min', activity: 'Wrap-up & Next Steps' }
-        ]
-      }
-    ]
-  },
-  'copilot-dev-training-cpp': {
-    label: 'GitHub Copilot Dev Hack — C++ / Hardware Edition',
-    desc: 'GitHub Copilot Developer Training for hardware and embedded developers — the shared foundations, agentic, and advanced modules plus a C++ for hardware developers module.',
-    icon: '🛠️',
-    modules: [
-      { folder: 'copilot-dev-foundations', label: 'Module 1: Foundations', desc: 'Chat modes, context & instructions, models, agents, skills & customization', icon: '🎓' },
-      { folder: 'copilot-dev-agentic', label: 'Module 2: Agentic Patterns', desc: 'Agents vs. skills, background & cloud agents, instruction layering, multi-agent patterns', icon: '🤖' },
-      { folder: 'copilot-dev-advanced', label: 'Module 3: Advanced Topics', desc: 'MCP, APIs & plugins, memory, debugging, agentic loops & off-ramp design', icon: '🔬' },
-      { folder: 'copilot-dev-cpp-hardware', label: 'Module 4: C++ for Hardware Developers', desc: 'C++ Language Server & semantic understanding, embedded instruction files, agentic modernization', icon: '🔧' }
-    ],
-    prerequisites: [
-      'VS Code — latest stable version installed',
-      'GitHub Copilot extension — installed and signed in',
-      'GitHub Copilot Chat extension — installed',
-      'GitHub account with Copilot access (Individual, Business, or Enterprise)',
-      'GitHub CLI (gh) — installed and authenticated (run gh --version to verify)',
-      'A C++ toolchain — MSVC or Clang installed',
-      'CMake — installed (for generating compile_commands.json)',
-      'A sample C++ project — a small CMake project or library (e.g., {fmt}) open in VS Code',
-      'Local admin rights — ability to install extensions, CLI tools, and plugins',
-      'Internet access — required for Copilot API calls'
-    ],
-    agenda: [
-      {
-        day: 'Day 1 — Modules & Labs',
-        subtitle: '9:00 AM – 5:00 PM',
-        items: [
-          { time: '9:00 – 9:15', duration: '15 min', activity: 'Welcome & Kickoff' },
-          { time: '9:15 – 10:45', duration: '90 min', activity: 'Module 1: Foundations (presentation + lab)', topics: ['Copilot chat modes and interaction patterns', 'Context, instructions, and prompt discipline', 'Models, agents, skills, and customization'] },
-          { time: '10:45 – 11:00', duration: '15 min', activity: '☕ Break' },
-          { time: '11:00 – 12:55', duration: '115 min', activity: 'Module 2: Agentic Patterns (presentation + lab)', topics: ['Agents vs. skills and when to use each', 'Background and cloud agents', 'Instruction layering and multi-agent patterns'] },
-          { time: '12:55 – 1:40', duration: '45 min', activity: '🍽️ Lunch' },
-          { time: '1:40 – 3:10', duration: '90 min', activity: 'Module 3: Advanced Topics (presentation + lab)', topics: ['MCP, APIs, and extensions', 'Memory, debugging, and diagnostics', 'Agent architecture patterns and off-ramp design'] },
-          { time: '3:10 – 3:25', duration: '15 min', activity: '☕ Break' },
-          { time: '3:25 – 5:00', duration: '95 min', activity: 'Module 4: C++ for Hardware Developers (presentation + lab)', topics: ['C++ Language Server & semantic understanding vs. grep', 'Embedded instruction files and compile_commands.json', 'Agentic modernization with the @Modernize workflow'] }
-        ]
-      },
-      {
-        day: 'Day 2 — Hack Day',
-        subtitle: '9:00 AM – 5:00 PM',
-        items: [
-          { time: '9:00 – 9:15', duration: '15 min', activity: 'Day 2 Kickoff & Team Formation' },
-          { time: '9:15 – 12:00', duration: '165 min', activity: '🚀 Hack — Build with Copilot on a C++ / firmware codebase' },
-          { time: '12:00 – 12:45', duration: '45 min', activity: '🍽️ Lunch' },
-          { time: '12:45 – 3:00', duration: '135 min', activity: '🚀 Hack — Continue Building' },
-          { time: '3:00 – 4:30', duration: '90 min', activity: '🎤 Project Readouts' },
-          { time: '4:30 – 5:00', duration: '30 min', activity: 'Wrap-up & Next Steps' }
-        ]
-      }
-    ]
-  },
-  'copilot-optimization': {
-    label: 'Copilot Usage Optimization',
-    desc: 'A focused 60-minute session on getting the most quality per credit — tokenomics, model routing, prompt and scope discipline, agentic efficiency, and sustained measurement.',
-    icon: '⚡',
-    prerequisites: [
-      'VS Code — latest stable version installed',
-      'GitHub Copilot extension — installed and signed in',
-      'GitHub Copilot Chat extension — installed',
-      'GitHub account with Copilot access (Individual, Business, or Enterprise)',
-      'GitHub CLI (gh) — installed and authenticated (run gh --version to verify)',
-      'Access to Copilot usage and billing views — to inspect AIC and token usage',
-      'A local multi-file project — open in VS Code for scoping demos',
-      'Internet access — required for Copilot API calls',
-      'Skill: Copilot interaction fluency — Ask/Edit/Agent modes and context references (#file, #selection); Foundations module or equivalent',
-      'Skill: Prompt-writing discipline — scoped prompts with explicit constraints, stop conditions, and a clear definition of done',
-      'Skill: Code review judgment — able to read and critically review AI-generated diffs and stay accountable for what merges',
-      'Skill: Token & context mental model — understands how prompt, output, and cached tokens drive cost and quality',
-      'Skill: Model-selection awareness — can judge whether a task needs a fast model or a reasoning model',
-      'Skill: Basic agentic experience — has delegated a multi-step task and understands why loops need boundaries and stop conditions',
-      'Skill: Instruction-file familiarity — can author repository instruction files to encode conventions instead of re-prompting',
-      'Skill: Telemetry literacy — can read session and monthly usage views to spot broad prompts and repeated retries'
-    ],
-    agenda: [
-      {
-        day: 'Single Session — 60 minutes',
-        subtitle: 'Presentation',
-        items: [
-          { time: '0:00 – 0:08', duration: '8 min', activity: '1. Why optimization matters: the cost and quality model', topics: ['Usage-based billing makes workflow choices cost decisions', 'Tokens as the unit of cost and quality', 'The AIC consumption model'] },
-          { time: '0:08 – 0:20', duration: '12 min', activity: '2. Tokenomics and context economics', topics: ['Context window anatomy and context rot', 'Front-load context once', 'Encode conventions in instructions'] },
-          { time: '0:20 – 0:32', duration: '12 min', activity: '3. Model routing and the biggest cost levers', topics: ['Match model capability to task complexity', 'Auto mode: 10% discount + cache protection', 'Configurable reasoning and lighter models'] },
-          { time: '0:32 – 0:44', duration: '12 min', activity: '4. Prompt and scope discipline', topics: ['Scoped vs. broad prompts', 'Well-scoped skills and acceptance gates', 'Minimal repro prompts and lock scope early'] },
-          { time: '0:44 – 0:54', duration: '10 min', activity: '5. Agentic efficiency', topics: ['Avoid over-delegation and unnecessary orchestration', 'Bounded loops and scoped subagents', 'Async/cloud only when justified'] },
-          { time: '0:54 – 1:00', duration: '6 min', activity: '6. Measure and sustain', topics: ['Usage visibility and reviews', '/chronicle cost-savings loop', 'Instructions vs. memory for durable reuse'] }
-        ]
-      }
-    ]
-  }
-}
-const moduleFolders = new Set<string>()
-for (const meta of Object.values(workshopMeta)) {
-  if (meta.modules) {
-    for (const m of meta.modules) moduleFolders.add(m.folder)
-  }
+interface WorkshopCard {
+  name: string
+  label: string
+  desc: string
+  icon: string
+  hasLab: boolean
+  hasSlides: boolean
+  modules?: ModuleMeta[]
+  skillCount: number
 }
 
-// Auto-discover workshops
-const workshops: { name: string; label: string; desc: string; icon: string; hasWorkshop: boolean; hasLab: boolean; hasSlides: boolean; modules?: typeof workshopMeta[string]['modules'] }[] = []
+const workshops: WorkshopCard[] = []
 
 for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d => d.isDirectory())) {
   const dirPath = resolve(workshopsDir, dir.name)
   const isDraft = existsSync(resolve(dirPath, '.draft'))
   if (isDraft && !showDrafts) continue
 
-  // Skip folders that are children of a multi-module curriculum
   if (moduleFolders.has(dir.name)) continue
 
   const files = readdirSync(dirPath)
   const hasWorkshop = files.some(f => f.endsWith('-workshop.md'))
   const hasLab = files.some(f => f.endsWith('-LAB.md'))
   const hasSlides = files.some(f => f.endsWith('.slidev.md'))
-
+  const skills = discoverWorkshopSkills(workshopsDir, dir.name)
   const meta = workshopMeta[dir.name]
 
-  // Multi-module parent folders don't need standard files — they use the modules list
-  if (!meta?.modules && !hasWorkshop && !hasLab && !hasSlides) continue
+  if (!meta?.modules && !hasWorkshop && !hasLab && !hasSlides && skills.length === 0) continue
 
   const label = meta?.label ?? dir.name.replace(/-/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase())
   const desc = meta?.desc ?? ''
   const icon = meta?.icon ?? '📘'
 
-  workshops.push({ name: dir.name, label, desc, icon, hasWorkshop, hasLab, hasSlides, modules: meta?.modules })
+  workshops.push({
+    name: dir.name,
+    label,
+    desc,
+    icon,
+    hasLab,
+    hasSlides,
+    modules: meta?.modules,
+    skillCount: skills.length
+  })
 }
 ---
 
@@ -189,7 +60,7 @@ for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d =>
     <div class="hero-text">
       <span class="hero-label">Developer Training</span>
       <h1 class="hero-heading">Available Workshops</h1>
-      <p class="hero-description">Curated slide decks, hands-on labs, and interactive quizzes for teams mastering GitHub Copilot — from foundations to agentic patterns.</p>
+      <p class="hero-description">Curated slide decks, hands-on labs, interactive quizzes, and downloadable technology skills for teams mastering GitHub Copilot.</p>
     </div>
     <div class="hero-graphic" aria-hidden="true">
       <div class="hero-grid"></div>
@@ -212,10 +83,11 @@ for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d =>
           {w.desc && <p class="card-description">{w.desc}</p>}
           <div class="card-footer">
             {w.modules ? (
-              <span class="badge badge-modules">{w.modules.length} Modules</span>
+              <span class="badge badge-modules">
+                {w.modules.length} Modules{w.skillCount > 0 ? ` + ${w.skillCount} ${w.skillCount === 1 ? 'Skill' : 'Skills'}` : ''}
+              </span>
             ) : (
               <>
-                {/* w.hasWorkshop && <span class="badge badge-workshop">Workshop</span> */}
                 {w.hasLab && <span class="badge badge-lab">Lab</span>}
                 {w.hasSlides && <span class="badge badge-slides">Slides</span>}
               </>
@@ -227,7 +99,6 @@ for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d =>
   </section>
 
   <style>
-    /* ── Hero (PPTX-inspired: light, geometric, bold) ── */
     .hero {
       padding: 48px 0 40px;
       display: flex;
@@ -288,8 +159,6 @@ for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d =>
       line-height: 1.6;
       color: var(--text-2);
     }
-
-    /* ── Section intro ── */
     .workshops-section {
       padding-bottom: 64px;
     }
@@ -307,17 +176,17 @@ for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d =>
       font-size: 14px;
       color: var(--text-2);
     }
-
-    /* ── Grid ── */
     .workshop-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 16px;
     }
-    @media (max-width: 960px) { .workshop-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 640px) { .workshop-grid { grid-template-columns: 1fr; } }
-
-    /* ── Card ── */
+    @media (max-width: 960px) {
+      .workshop-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .workshop-grid { grid-template-columns: 1fr; }
+    }
     .workshop-card {
       background: var(--bg);
       border: 1px solid var(--border);
@@ -334,7 +203,6 @@ for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d =>
       box-shadow: 0 8px 24px rgba(140, 149, 159, 0.15);
       color: inherit;
     }
-
     .card-title {
       display: flex;
       align-items: flex-start;
@@ -371,7 +239,6 @@ for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d =>
       color: var(--text-2);
       margin-bottom: 0;
     }
-
     .card-footer {
       display: flex;
       align-items: center;
@@ -379,7 +246,6 @@ for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d =>
       margin-top: auto;
       padding-top: 20px;
     }
-
     .badge {
       display: inline-block;
       padding: 4px 12px;
@@ -388,10 +254,6 @@ for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d =>
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.04em;
-    }
-    .badge-workshop {
-      background: rgba(9, 105, 218, 0.1);
-      color: #0969da;
     }
     .badge-lab {
       background: rgba(26, 127, 55, 0.1);

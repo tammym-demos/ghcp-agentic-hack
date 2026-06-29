@@ -1,0 +1,258 @@
+---
+import Base from '../../../../layouts/Base.astro'
+import { existsSync, readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
+import { Marked } from 'marked'
+import { markedHighlight } from 'marked-highlight'
+import hljs from 'highlight.js'
+import { discoverWorkshopSkills, stripFrontmatter, workshopMeta, type TechnologySkill } from '../../../../data/workshops'
+
+const base = import.meta.env.BASE_URL
+
+interface SkillPageProps {
+  html: string
+  skill: TechnologySkill
+  workshopLabel: string
+}
+
+export function getStaticPaths() {
+  const markedInstance = new Marked(
+    markedHighlight({
+      emptyLangClass: 'hljs',
+      langPrefix: 'hljs language-',
+      highlight(code: string, lang: string) {
+        const language = hljs.getLanguage(lang) ? lang : 'plaintext'
+        return hljs.highlight(code, { language }).value
+      }
+    })
+  )
+
+  const workshopsDir: string = __WORKSHOPS_DIR__
+  const showDrafts: boolean = __SHOW_DRAFTS__
+  const paths: { params: { workshop: string; skill: string }; props: SkillPageProps }[] = []
+
+  for (const workshopName of Object.keys(workshopMeta)) {
+    const workshopDir = resolve(workshopsDir, workshopName)
+    if (!existsSync(workshopDir)) continue
+    if (!showDrafts && existsSync(resolve(workshopDir, '.draft'))) continue
+
+    for (const skill of discoverWorkshopSkills(workshopsDir, workshopName)) {
+      const content = stripFrontmatter(readFileSync(skill.sourcePath, 'utf-8'))
+      const rawHtml = markedInstance.parse(content) as string
+      const html = rawHtml.replace(/<h([1-6])>(.*?)<\/h[1-6]>/g, (_match: string, level: string, inner: string) => {
+        const plain = inner.replace(/<[^>]*>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+        const slug = plain.toLowerCase().replace(/[^\w -]/g, '').replace(/ /g, '-')
+        return `<h${level} id="${slug}">${inner}</h${level}>`
+      })
+
+      paths.push({
+        params: { workshop: workshopName, skill: skill.slug },
+        props: {
+          html,
+          skill,
+          workshopLabel: workshopMeta[workshopName].label
+        }
+      })
+    }
+  }
+
+  return paths
+}
+
+const { html, skill, workshopLabel } = Astro.props
+const { workshop } = Astro.params
+---
+
+<Base title={skill.name}>
+  <div class="skill-page">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href={`${base}${workshop}`}>{workshopLabel}</a>
+      <span aria-hidden="true">/</span>
+      <span>Technology Skills</span>
+    </nav>
+
+    <header class="skill-hero">
+      <div class="skill-title-row">
+        <span class="skill-icon">{skill.icon}</span>
+        <div>
+          <p class="eyebrow">Technology Skill</p>
+          <h1>{skill.name}</h1>
+        </div>
+      </div>
+      {skill.description && <p class="skill-description">{skill.description}</p>}
+      {skill.audience && <p class="skill-audience"><strong>Audience:</strong> {skill.audience}</p>}
+      <div class="skill-actions">
+        <a href={`${base}${workshop}/skills/${skill.slug}/download`} download={skill.downloadFileName} class="skill-button skill-button-primary">Download skill</a>
+        <a href={`${base}${workshop}`} class="skill-button">Back to workshop</a>
+      </div>
+    </header>
+
+    <article class="skill-content prose" set:html={html} />
+  </div>
+</Base>
+
+<style is:global>
+  .skill-page {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px 0 64px;
+  }
+  .breadcrumb {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    color: var(--text-2);
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+  .skill-hero {
+    background: linear-gradient(180deg, rgba(191, 135, 0, 0.08), rgba(191, 135, 0, 0.03));
+    border: 1px solid rgba(191, 135, 0, 0.25);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 32px;
+  }
+  .skill-title-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+  .skill-icon {
+    font-size: 42px;
+    line-height: 1;
+  }
+  .eyebrow {
+    color: #9a6700;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin: 0 0 4px;
+    text-transform: uppercase;
+  }
+  .skill-hero h1 {
+    color: var(--text-1);
+    font-size: clamp(30px, 5vw, 44px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    margin: 0;
+  }
+  .skill-description {
+    color: var(--text-2);
+    font-size: 16px;
+    line-height: 1.55;
+    margin: 0 0 12px;
+  }
+  .skill-audience {
+    color: var(--text-2);
+    font-size: 14px;
+    margin: 0 0 20px;
+  }
+  .skill-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .skill-button {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 6px;
+    background: rgba(9, 105, 218, 0.08);
+    color: #0969da;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .skill-button-primary {
+    background: #0969da;
+    color: #fff;
+  }
+  .skill-content pre {
+    background: #0d1117 !important;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 16px;
+    overflow-x: auto;
+    margin: 0 0 16px;
+    position: relative;
+  }
+  .skill-content pre code {
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    font-size: 0.875em;
+    color: #e6edf3;
+  }
+  .skill-content code {
+    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  }
+  .skill-content :not(pre) > code {
+    background: var(--bg-soft, #f0f2f5);
+    border: 1px solid var(--border, #d0d7de);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 0.9em;
+  }
+  .hljs { color: #e6edf3; }
+  .hljs-comment, .hljs-quote { color: #8b949e; font-style: italic; }
+  .hljs-keyword, .hljs-selector-tag { color: #ff7b72; }
+  .hljs-string, .hljs-addition { color: #a5d6ff; }
+  .hljs-number, .hljs-literal { color: #79c0ff; }
+  .hljs-built_in { color: #ffa657; }
+  .hljs-type, .hljs-class .hljs-title { color: #ffa657; }
+  .hljs-attr, .hljs-variable, .hljs-template-variable { color: #79c0ff; }
+  .hljs-symbol, .hljs-bullet { color: #f2cc60; }
+  .hljs-section, .hljs-title { color: #d2a8ff; }
+  .hljs-meta { color: #79c0ff; }
+  .hljs-deletion { color: #ffa198; background: rgba(248,81,73,0.1); }
+  .hljs-addition { background: rgba(63,185,80,0.1); }
+  .hljs-emphasis { font-style: italic; }
+  .hljs-strong { font-weight: 700; }
+  .copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 4px 8px;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    background: #21262d;
+    color: #8b949e;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 1;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  pre:hover .copy-btn {
+    opacity: 1;
+  }
+  .copy-btn:hover {
+    color: #e6edf3;
+    border-color: #8b949e;
+  }
+  .copy-btn.copied {
+    color: #3fb950;
+    border-color: #3fb950;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('pre').forEach(pre => {
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'Copy';
+    btn.addEventListener('click', async () => {
+      const code = pre.querySelector('code');
+      const text = (code || pre).textContent || '';
+      await navigator.clipboard.writeText(text);
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Copy';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+    pre.appendChild(btn);
+  });
+</script>
