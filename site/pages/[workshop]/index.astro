@@ -2,153 +2,28 @@
 import Base from '../../layouts/Base.astro'
 import { readdirSync, existsSync } from 'node:fs'
 import { resolve } from 'node:path'
+import { discoverWorkshopSkills, workshopMeta, type AgendaDay, type ModuleMeta, type TechnologySkill } from '../../data/workshops'
 
 const base = import.meta.env.BASE_URL
+
+interface WorkshopPageProps {
+  label: string
+  desc: string
+  icon: string
+  hasWorkshop: boolean
+  hasLab: boolean
+  hasSlides: boolean
+  hasQuiz: boolean
+  modules?: ModuleMeta[]
+  skills: TechnologySkill[]
+  prerequisites?: string[]
+  agenda?: AgendaDay[]
+}
 
 export function getStaticPaths() {
   const workshopsDir: string = __WORKSHOPS_DIR__
   const showDrafts: boolean = __SHOW_DRAFTS__
-  const workshopMeta: Record<string, { label: string; desc: string; icon: string; modules?: { folder: string; label: string; desc: string; icon: string }[]; prerequisites?: string[]; agenda?: { day: string; subtitle: string; items: { time: string; duration: string; activity: string; topics?: string[] }[] }[] }> = {
-    'copilot-dev-training': {
-      label: 'GitHub Copilot Dev Hack',
-      desc: 'GitHub Copilot Developer Training — foundations, agentic patterns, and advanced operations.',
-      icon: '🎓',
-      modules: [
-        { folder: 'copilot-dev-foundations', label: 'Module 1: Foundations', desc: 'Chat modes, context & instructions, models, agents, skills & customization', icon: '🎓' },
-        { folder: 'copilot-dev-agentic', label: 'Module 2: Agentic Patterns', desc: 'Agents vs. skills, background & cloud agents, instruction layering, multi-agent patterns', icon: '🤖' },
-        { folder: 'copilot-dev-advanced', label: 'Module 3: Advanced Topics', desc: 'MCP, APIs & plugins, memory, debugging, agentic loops & off-ramp design', icon: '🔬' }
-        ],
-        prerequisites: [
-          'VS Code — latest stable version installed',
-          'GitHub Copilot extension — installed and signed in',
-          'GitHub Copilot Chat extension — installed',
-          'GitHub account with Copilot access (Individual, Business, or Enterprise)',
-          'GitHub CLI (gh) — installed and authenticated (run gh --version to verify)',
-          'Local admin rights — ability to install extensions, CLI tools, and plugins',
-          'A local project — any codebase open in VS Code (multi-file project preferred)',
-          'Internet access — required for Copilot API calls'
-        ],
-        agenda: [
-          {
-            day: 'Day 1 — Modules & Labs',
-            subtitle: '9:00 AM – 5:00 PM',
-            items: [
-              { time: '9:00 – 9:15', duration: '15 min', activity: 'Welcome & Kickoff' },
-              { time: '9:15 – 10:45', duration: '90 min', activity: 'Module 1: Foundations (presentation + lab) — Speakers 1 & 2', topics: ['Copilot chat modes and interaction patterns', 'Context, instructions, and prompt discipline', 'Models, agents, skills, and customization'] },
-              { time: '10:45 – 11:00', duration: '15 min', activity: '☕ Break' },
-              { time: '11:00 – 12:55', duration: '115 min', activity: 'Module 2: Agentic Patterns (presentation + lab) — Speakers 2, 3 & 4', topics: ['Agents vs. skills and when to use each', 'Background and cloud agents', 'Instruction layering and multi-agent patterns', 'Agent quality, token optimization, and iteration loops'] },
-              { time: '12:55 – 1:40', duration: '45 min', activity: '🍽️ Lunch' },
-              { time: '1:40 – 3:10', duration: '90 min', activity: 'Module 3: Advanced Topics (presentation + lab) — Speakers 4 & 5', topics: ['MCP, APIs, and extensions', 'Memory, debugging, and diagnostics', 'Agent architecture patterns and off-ramp design', 'Full-stack agent workflows and best practices'] },
-              { time: '3:10 – 3:25', duration: '15 min', activity: '☕ Break' },
-              { time: '3:25 – 4:45', duration: '80 min', activity: 'Open Lab / Hack Prep' },
-              { time: '4:45 – 5:00', duration: '15 min', activity: 'Day 1 Wrap-up & Day 2 Preview' }
-            ]
-          },
-          {
-            day: 'Day 2 — Hack Day',
-            subtitle: '9:00 AM – 5:00 PM',
-            items: [
-              { time: '9:00 – 9:15', duration: '15 min', activity: 'Day 2 Kickoff & Team Formation' },
-              { time: '9:15 – 12:00', duration: '165 min', activity: '🚀 Hack — Build with Copilot' },
-              { time: '12:00 – 12:45', duration: '45 min', activity: '🍽️ Lunch' },
-              { time: '12:45 – 3:00', duration: '135 min', activity: '🚀 Hack — Continue Building' },
-              { time: '3:00 – 4:30', duration: '90 min', activity: '🎤 Project Readouts' },
-              { time: '4:30 – 5:00', duration: '30 min', activity: 'Wrap-up & Next Steps' }
-            ]
-          }
-        ]
-      },
-    'copilot-dev-training-cpp': {
-      label: 'GitHub Copilot Dev Hack — C++ / Hardware Edition',
-      desc: 'GitHub Copilot Developer Training for hardware and embedded developers — the shared foundations, agentic, and advanced modules plus a C++ for hardware developers module.',
-      icon: '🛠️',
-      modules: [
-        { folder: 'copilot-dev-foundations', label: 'Module 1: Foundations', desc: 'Chat modes, context & instructions, models, agents, skills & customization', icon: '🎓' },
-        { folder: 'copilot-dev-agentic', label: 'Module 2: Agentic Patterns', desc: 'Agents vs. skills, background & cloud agents, instruction layering, multi-agent patterns', icon: '🤖' },
-        { folder: 'copilot-dev-advanced', label: 'Module 3: Advanced Topics', desc: 'MCP, APIs & plugins, memory, debugging, agentic loops & off-ramp design', icon: '🔬' },
-        { folder: 'copilot-dev-cpp-hardware', label: 'Module 4: C++ for Hardware Developers', desc: 'C++ Language Server & semantic understanding, embedded instruction files, agentic modernization', icon: '🔧' }
-        ],
-        prerequisites: [
-          'VS Code — latest stable version installed',
-          'GitHub Copilot extension — installed and signed in',
-          'GitHub Copilot Chat extension — installed',
-          'GitHub account with Copilot access (Individual, Business, or Enterprise)',
-          'GitHub CLI (gh) — installed and authenticated (run gh --version to verify)',
-          'A C++ toolchain — MSVC or Clang installed',
-          'CMake — installed (for generating compile_commands.json)',
-          'A sample C++ project — a small CMake project or library (e.g., {fmt}) open in VS Code',
-          'Local admin rights — ability to install extensions, CLI tools, and plugins',
-          'Internet access — required for Copilot API calls'
-        ],
-        agenda: [
-          {
-            day: 'Day 1 — Modules & Labs',
-            subtitle: '9:00 AM – 5:00 PM',
-            items: [
-              { time: '9:00 – 9:15', duration: '15 min', activity: 'Welcome & Kickoff' },
-              { time: '9:15 – 10:45', duration: '90 min', activity: 'Module 1: Foundations (presentation + lab)', topics: ['Copilot chat modes and interaction patterns', 'Context, instructions, and prompt discipline', 'Models, agents, skills, and customization'] },
-              { time: '10:45 – 11:00', duration: '15 min', activity: '☕ Break' },
-              { time: '11:00 – 12:55', duration: '115 min', activity: 'Module 2: Agentic Patterns (presentation + lab)', topics: ['Agents vs. skills and when to use each', 'Background and cloud agents', 'Instruction layering and multi-agent patterns'] },
-              { time: '12:55 – 1:40', duration: '45 min', activity: '🍽️ Lunch' },
-              { time: '1:40 – 3:10', duration: '90 min', activity: 'Module 3: Advanced Topics (presentation + lab)', topics: ['MCP, APIs, and extensions', 'Memory, debugging, and diagnostics', 'Agent architecture patterns and off-ramp design'] },
-              { time: '3:10 – 3:25', duration: '15 min', activity: '☕ Break' },
-              { time: '3:25 – 5:00', duration: '95 min', activity: 'Module 4: C++ for Hardware Developers (presentation + lab)', topics: ['C++ Language Server & semantic understanding vs. grep', 'Embedded instruction files and compile_commands.json', 'Agentic modernization with the @Modernize workflow'] }
-            ]
-          },
-          {
-            day: 'Day 2 — Hack Day',
-            subtitle: '9:00 AM – 5:00 PM',
-            items: [
-              { time: '9:00 – 9:15', duration: '15 min', activity: 'Day 2 Kickoff & Team Formation' },
-              { time: '9:15 – 12:00', duration: '165 min', activity: '🚀 Hack — Build with Copilot on a C++ / firmware codebase' },
-              { time: '12:00 – 12:45', duration: '45 min', activity: '🍽️ Lunch' },
-              { time: '12:45 – 3:00', duration: '135 min', activity: '🚀 Hack — Continue Building' },
-              { time: '3:00 – 4:30', duration: '90 min', activity: '🎤 Project Readouts' },
-              { time: '4:30 – 5:00', duration: '30 min', activity: 'Wrap-up & Next Steps' }
-            ]
-          }
-        ]
-      },
-    'copilot-optimization': {
-      label: 'Copilot Usage Optimization',
-      desc: 'A focused 60-minute session on getting the most quality per credit — tokenomics, model routing, prompt and scope discipline, agentic efficiency, and sustained measurement.',
-      icon: '⚡',
-      prerequisites: [
-        'VS Code — latest stable version installed',
-        'GitHub Copilot extension — installed and signed in',
-        'GitHub Copilot Chat extension — installed',
-        'GitHub account with Copilot access (Individual, Business, or Enterprise)',
-        'GitHub CLI (gh) — installed and authenticated (run gh --version to verify)',
-        'Access to Copilot usage and billing views — to inspect AIC and token usage',
-        'A local multi-file project — open in VS Code for scoping demos',
-        'Internet access — required for Copilot API calls',
-        'Skill: Copilot interaction fluency — Ask/Edit/Agent modes and context references (#file, #selection); Foundations module or equivalent',
-        'Skill: Prompt-writing discipline — scoped prompts with explicit constraints, stop conditions, and a clear definition of done',
-        'Skill: Code review judgment — able to read and critically review AI-generated diffs and stay accountable for what merges',
-        'Skill: Token & context mental model — understands how prompt, output, and cached tokens drive cost and quality',
-        'Skill: Model-selection awareness — can judge whether a task needs a fast model or a reasoning model',
-        'Skill: Basic agentic experience — has delegated a multi-step task and understands why loops need boundaries and stop conditions',
-        'Skill: Instruction-file familiarity — can author repository instruction files to encode conventions instead of re-prompting',
-        'Skill: Telemetry literacy — can read session and monthly usage views to spot broad prompts and repeated retries'
-      ],
-      agenda: [
-        {
-          day: 'Single Session — 60 minutes',
-          subtitle: 'Presentation',
-          items: [
-            { time: '0:00 – 0:08', duration: '8 min', activity: '1. Why optimization matters: the cost and quality model', topics: ['Usage-based billing makes workflow choices cost decisions', 'Tokens as the unit of cost and quality', 'The AIC consumption model'] },
-            { time: '0:08 – 0:20', duration: '12 min', activity: '2. Tokenomics and context economics', topics: ['Context window anatomy and context rot', 'Front-load context once', 'Encode conventions in instructions'] },
-            { time: '0:20 – 0:32', duration: '12 min', activity: '3. Model routing and the biggest cost levers', topics: ['Match model capability to task complexity', 'Auto mode: 10% discount + cache protection', 'Configurable reasoning and lighter models'] },
-            { time: '0:32 – 0:44', duration: '12 min', activity: '4. Prompt and scope discipline', topics: ['Scoped vs. broad prompts', 'Well-scoped skills and acceptance gates', 'Minimal repro prompts and lock scope early'] },
-            { time: '0:44 – 0:54', duration: '10 min', activity: '5. Agentic efficiency', topics: ['Avoid over-delegation and unnecessary orchestration', 'Bounded loops and scoped subagents', 'Async/cloud only when justified'] },
-            { time: '0:54 – 1:00', duration: '6 min', activity: '6. Measure and sustain', topics: ['Usage visibility and reviews', '/chronicle cost-savings loop', 'Instructions vs. memory for durable reuse'] }
-          ]
-        }
-      ]
-      }
-  }
-
-  const paths: { params: { workshop: string }; props: { label: string; desc: string; icon: string; hasWorkshop: boolean; hasLab: boolean; hasSlides: boolean; hasQuiz: boolean; modules?: typeof workshopMeta[string]['modules']; prerequisites?: string[]; agenda?: typeof workshopMeta[string]['agenda'] } }[] = []
+  const paths: { params: { workshop: string }; props: WorkshopPageProps }[] = []
 
   for (const dir of readdirSync(workshopsDir, { withFileTypes: true }).filter(d => d.isDirectory())) {
     const dirPath = resolve(workshopsDir, dir.name)
@@ -160,9 +35,10 @@ export function getStaticPaths() {
     const hasLab = files.some(f => f.endsWith('-LAB.md'))
     const hasSlides = files.some(f => f.endsWith('.slidev.md'))
     const hasQuiz = files.some(f => f.endsWith('-QUIZ.md'))
-
+    const skills = discoverWorkshopSkills(workshopsDir, dir.name)
     const meta = workshopMeta[dir.name]
-    if (!meta?.modules && !hasWorkshop && !hasLab && !hasSlides) continue
+
+    if (!meta?.modules && !hasWorkshop && !hasLab && !hasSlides && skills.length === 0) continue
 
     const label = meta?.label ?? dir.name.replace(/-/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase())
     const desc = meta?.desc ?? ''
@@ -170,13 +46,25 @@ export function getStaticPaths() {
 
     paths.push({
       params: { workshop: dir.name },
-      props: { label, desc, icon, hasWorkshop, hasLab, hasSlides, hasQuiz, modules: meta?.modules, prerequisites: meta?.prerequisites, agenda: meta?.agenda }
+      props: {
+        label,
+        desc,
+        icon,
+        hasWorkshop,
+        hasLab,
+        hasSlides,
+        hasQuiz,
+        modules: meta?.modules,
+        skills,
+        prerequisites: meta?.prerequisites,
+        agenda: meta?.agenda
+      }
     })
   }
   return paths
 }
 
-const { label, desc, icon, hasWorkshop, hasLab, hasSlides, hasQuiz, modules, prerequisites, agenda } = Astro.props
+const { label, desc, icon, hasWorkshop, hasLab, hasSlides, hasQuiz, modules, skills, prerequisites, agenda } = Astro.props
 const { workshop } = Astro.params
 const workshopsDir: string = __WORKSHOPS_DIR__
 ---
@@ -200,57 +88,100 @@ const workshopsDir: string = __WORKSHOPS_DIR__
           const mHasSlides = mFiles.some((f: string) => f.endsWith('.slidev.md'))
           const mHasQuiz = mFiles.some((f: string) => f.endsWith('-QUIZ.md'))
           return (
-          <div class="module-card">
-            <div class="module-header">
-              <span class="module-icon">{m.icon}</span>
-              <div>
-                <h2 class="module-title">{m.label}</h2>
-                <p class="module-desc">{m.desc}</p>
+            <div class="module-card">
+              <div class="module-header">
+                <span class="module-icon">{m.icon}</span>
+                <div>
+                  <h2 class="module-title">{m.label}</h2>
+                  <p class="module-desc">{m.desc}</p>
+                </div>
+              </div>
+              <div class="module-links">
+                {mHasLab && <a href={`${base}${m.folder}/lab`} class="module-link module-link-lab">Lab</a>}
+                {mHasSlides && <a href={`${base}${m.folder}/slides/1`} target="_blank" rel="noopener noreferrer" onclick={`window.open(this.href,'_blank','width=1280,height=720,menubar=no,toolbar=no,location=no,status=no');return false;`} class="module-link module-link-slides">Slides</a>}
+                {mHasQuiz && <a href={`${base}${m.folder}/quiz`} class="module-link module-link-quiz">Quiz</a>}
               </div>
             </div>
-            <div class="module-links">
-              {mHasLab && <a href={`${base}${m.folder}/lab`} class="module-link module-link-lab">Lab</a>}
-              {mHasSlides && <a href={`${base}${m.folder}/slides/1`} target="_blank" rel="noopener noreferrer" onclick={`window.open(this.href,'_blank','width=1280,height=720,menubar=no,toolbar=no,location=no,status=no');return false;`} class="module-link module-link-slides">Slides</a>}
-              {mHasQuiz && <a href={`${base}${m.folder}/quiz`} class="module-link module-link-quiz">Quiz</a>}
-            </div>
-          </div>
           )
         })
       ) : (
-      <>
-      {false && hasWorkshop && (
-        <a href={`${base}${workshop}/workshop`} class="resource-card">
-          <div class="resource-icon workshop-guide-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16" fill="currentColor"><path d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.744 3.744 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75Zm7.251 10.324.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574ZM8.755 4.75l-.004 7.322a3.752 3.752 0 011.992-.572H14.5v-9h-3.495a2.25 2.25 0 00-2.25 2.25Z"/></svg>
-          </div>
-          <h2 class="resource-title">Workshop Guide</h2>
-          <p class="resource-desc">Full workshop content with discussion points and demos.</p>
-          <span class="resource-action">Open Workshop →</span>
-        </a>
-      )}
-      {hasLab && (
-        <a href={`${base}${workshop}/lab`} class="resource-card">
-          <div class="resource-icon lab-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16" fill="currentColor"><path d="M11.28 3.22a.75.75 0 010 1.06L4.56 11H7.75a.75.75 0 010 1.5h-5a.75.75 0 01-.75-.75v-5a.75.75 0 011.5 0v3.19l6.72-6.72a.75.75 0 011.06 0zM12.78 3.22a.75.75 0 010 1.06l-1.97 1.97a.75.75 0 11-1.06-1.06l1.97-1.97a.75.75 0 011.06 0z"/><path d="M5.72 4.47a.75.75 0 011.06 0l4.75 4.75a.75.75 0 01-1.06 1.06L5.72 5.53a.75.75 0 010-1.06z"/></svg>
-          </div>
-          <h2 class="resource-title">Hands-on Lab</h2>
-          <p class="resource-desc">Step-by-step exercises with guided instructions.</p>
-          <span class="resource-action">Open Lab →</span>
-        </a>
-      )}
-      {hasSlides && (
-        <a href={`${base}${workshop}/slides/1`} target="_blank" rel="noopener noreferrer" onclick="window.open(this.href,'_blank','width=1280,height=720,menubar=no,toolbar=no,location=no,status=no');return false;" class="resource-card">
-          <div class="resource-icon slides-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16" fill="currentColor"><path d="M0 3.75C0 2.784.784 2 1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0114.25 14H1.75A1.75 1.75 0 010 12.25Zm1.75-.25a.25.25 0 00-.25.25v8.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25v-8.5a.25.25 0 00-.25-.25ZM6 6.5a.75.75 0 01.75-.75h4.5a.75.75 0 010 1.5h-4.5A.75.75 0 016 6.5Zm.75 2.75a.75.75 0 000 1.5h4.5a.75.75 0 000-1.5h-4.5ZM4 7a1 1 0 11-2 0 1 1 0 012 0Zm-1 3a1 1 0 100-2 1 1 0 000 2Z"/></svg>
-          </div>
-          <h2 class="resource-title">Slide Deck</h2>
-          <p class="resource-desc">Launch the presentation in a new window.</p>
-          <span class="resource-action">Open Slides →</span>
-        </a>
-      )}
-      </>
+        <>
+          {false && hasWorkshop && (
+            <a href={`${base}${workshop}/workshop`} class="resource-card">
+              <div class="resource-icon workshop-guide-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16" fill="currentColor"><path d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.744 3.744 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75Zm7.251 10.324.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574ZM8.755 4.75l-.004 7.322a3.752 3.752 0 011.992-.572H14.5v-9h-3.495a2.25 2.25 0 00-2.25 2.25Z"/></svg>
+              </div>
+              <h2 class="resource-title">Workshop Guide</h2>
+              <p class="resource-desc">Full workshop content with discussion points and demos.</p>
+              <span class="resource-action">Open Workshop →</span>
+            </a>
+          )}
+          {hasLab && (
+            <a href={`${base}${workshop}/lab`} class="resource-card">
+              <div class="resource-icon lab-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16" fill="currentColor"><path d="M11.28 3.22a.75.75 0 010 1.06L4.56 11H7.75a.75.75 0 010 1.5h-5a.75.75 0 01-.75-.75v-5a.75.75 0 011.5 0v3.19l6.72-6.72a.75.75 0 011.06 0zM12.78 3.22a.75.75 0 010 1.06l-1.97 1.97a.75.75 0 11-1.06-1.06l1.97-1.97a.75.75 0 011.06 0z"/><path d="M5.72 4.47a.75.75 0 011.06 0l4.75 4.75a.75.75 0 01-1.06 1.06L5.72 5.53a.75.75 0 010-1.06z"/></svg>
+              </div>
+              <h2 class="resource-title">Hands-on Lab</h2>
+              <p class="resource-desc">Step-by-step exercises with guided instructions.</p>
+              <span class="resource-action">Open Lab →</span>
+            </a>
+          )}
+          {hasSlides && (
+            <a href={`${base}${workshop}/slides/1`} target="_blank" rel="noopener noreferrer" onclick="window.open(this.href,'_blank','width=1280,height=720,menubar=no,toolbar=no,location=no,status=no');return false;" class="resource-card">
+              <div class="resource-icon slides-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 16 16" fill="currentColor"><path d="M0 3.75C0 2.784.784 2 1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0114.25 14H1.75A1.75 1.75 0 010 12.25Zm1.75-.25a.25.25 0 00-.25.25v8.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25v-8.5a.25.25 0 00-.25-.25ZM6 6.5a.75.75 0 01.75-.75h4.5a.75.75 0 010 1.5h-4.5A.75.75 0 016 6.5Zm.75 2.75a.75.75 0 000 1.5h4.5a.75.75 0 000-1.5h-4.5ZM4 7a1 1 0 11-2 0 1 1 0 012 0Zm-1 3a1 1 0 100-2 1 1 0 000 2Z"/></svg>
+              </div>
+              <h2 class="resource-title">Slide Deck</h2>
+              <p class="resource-desc">Launch the presentation in a new window.</p>
+              <span class="resource-action">Open Slides →</span>
+            </a>
+          )}
+          {hasQuiz && (
+            <a href={`${base}${workshop}/quiz`} class="resource-card">
+              <div class="resource-icon quiz-icon">
+                <span aria-hidden="true">?</span>
+              </div>
+              <h2 class="resource-title">Quiz</h2>
+              <p class="resource-desc">Check understanding with interactive questions.</p>
+              <span class="resource-action">Open Quiz →</span>
+            </a>
+          )}
+        </>
       )}
     </div>
+
+    {skills.length > 0 && (
+      <section class="skills-section">
+        <div class="section-heading-row">
+          <div>
+            <h2 class="skills-heading">Technology Skills</h2>
+            <p class="skills-sub">Downloadable, technology-specific Copilot guidance that complements the core modules.</p>
+          </div>
+          <div class="skills-meta">
+            <span class="skills-count">{skills.length} {skills.length === 1 ? 'Skill' : 'Skills'}</span>
+            <a href="https://awesome-copilot.github.com/skills/" target="_blank" rel="noopener noreferrer" class="skills-catalog-link">Browse more skills</a>
+          </div>
+        </div>
+        <div class="skills-grid">
+          {skills.map(skill => (
+            <article class="skill-card">
+              <div class="skill-header">
+                <span class="skill-icon">{skill.icon}</span>
+                <div>
+                  <h3 class="skill-title">{skill.name}</h3>
+                  {skill.audience && <p class="skill-audience">{skill.audience}</p>}
+                </div>
+              </div>
+              {skill.description && <p class="skill-desc">{skill.description}</p>}
+              <div class="skill-actions">
+                <a href={`${base}${workshop}/skills/${skill.slug}/`} class="skill-link skill-link-primary">Review Skill</a>
+                <a href={`${base}${workshop}/skills/${skill.slug}/download`} download={skill.downloadFileName} class="skill-link">Download</a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
 
     {prerequisites && prerequisites.length > 0 && (
       <section class="prerequisites-section">
@@ -312,23 +243,19 @@ const workshopsDir: string = __WORKSHOPS_DIR__
     margin: 0 auto;
     padding: 24px 0 64px;
   }
-
   .workshop-header {
     display: flex;
     align-items: flex-start;
     gap: 20px;
     margin-bottom: 32px;
   }
-
   .workshop-icon {
     flex-shrink: 0;
-    color: var(--text-1);
     display: flex;
     align-items: center;
     justify-content: center;
     width: 48px;
     height: 48px;
-    margin-top: 0;
     font-size: 42px;
     line-height: 1;
   }
@@ -337,7 +264,6 @@ const workshopsDir: string = __WORKSHOPS_DIR__
     height: 48px;
     display: block;
   }
-
   .workshop-title {
     font-size: clamp(28px, 4vw, 40px);
     font-weight: 800;
@@ -347,13 +273,11 @@ const workshopsDir: string = __WORKSHOPS_DIR__
     margin-top: 0;
     margin-bottom: 8px;
   }
-
   .workshop-desc {
     font-size: 16px;
     line-height: 1.5;
     color: var(--text-2);
   }
-
   .resource-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -365,7 +289,6 @@ const workshopsDir: string = __WORKSHOPS_DIR__
   @media (max-width: 600px) {
     .resource-grid { grid-template-columns: 1fr; }
   }
-
   .resource-card {
     display: flex;
     flex-direction: column;
@@ -376,12 +299,15 @@ const workshopsDir: string = __WORKSHOPS_DIR__
     text-decoration: none;
     transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
   }
-  .resource-card:hover {
+  .resource-card:hover,
+  .module-card:hover,
+  .skill-card:hover {
     border-color: #afb8c1;
     box-shadow: 0 8px 24px rgba(140, 149, 159, 0.15);
+  }
+  .resource-card:hover {
     transform: translateY(-2px);
   }
-
   .resource-icon {
     width: 48px;
     height: 48px;
@@ -403,14 +329,18 @@ const workshopsDir: string = __WORKSHOPS_DIR__
     background: rgba(26, 127, 55, 0.1);
     color: #1a7f37;
   }
-
+  .quiz-icon {
+    background: rgba(191, 135, 0, 0.1);
+    color: #9a6700;
+    font-size: 28px;
+    font-weight: 800;
+  }
   .resource-title {
     font-size: 18px;
     font-weight: 600;
     color: var(--text-1);
     margin-bottom: 4px;
   }
-
   .resource-desc {
     font-size: 14px;
     line-height: 1.5;
@@ -418,7 +348,6 @@ const workshopsDir: string = __WORKSHOPS_DIR__
     margin-bottom: 0;
     flex-grow: 1;
   }
-
   .resource-action {
     display: inline-block;
     margin-top: 16px;
@@ -426,11 +355,6 @@ const workshopsDir: string = __WORKSHOPS_DIR__
     font-weight: 600;
     color: var(--brand);
   }
-  .resource-card:hover .resource-action {
-    color: var(--brand-hover);
-  }
-
-  /* Module cards for multi-module curricula */
   .module-card {
     background: var(--bg-soft);
     border: 1px solid var(--border);
@@ -442,10 +366,6 @@ const workshopsDir: string = __WORKSHOPS_DIR__
     justify-content: space-between;
     gap: 20px;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  }
-  .module-card:hover {
-    border-color: #afb8c1;
-    box-shadow: 0 4px 16px rgba(140, 149, 159, 0.12);
   }
   .module-header {
     display: flex;
@@ -470,12 +390,14 @@ const workshopsDir: string = __WORKSHOPS_DIR__
     margin: 0;
     line-height: 1.4;
   }
-  .module-links {
+  .module-links,
+  .skill-actions {
     display: flex;
     gap: 8px;
     flex-shrink: 0;
   }
-  .module-link {
+  .module-link,
+  .skill-link {
     display: inline-block;
     padding: 6px 14px;
     border-radius: 6px;
@@ -484,10 +406,9 @@ const workshopsDir: string = __WORKSHOPS_DIR__
     text-decoration: none;
     transition: opacity 0.15s ease;
   }
-  .module-link:hover { opacity: 0.85; }
-  .module-link-workshop {
-    background: rgba(9, 105, 218, 0.1);
-    color: #0969da;
+  .module-link:hover,
+  .skill-link:hover {
+    opacity: 0.85;
   }
   .module-link-lab {
     background: rgba(26, 127, 55, 0.1);
@@ -501,34 +422,113 @@ const workshopsDir: string = __WORKSHOPS_DIR__
     background: rgba(191, 135, 0, 0.1);
     color: #9a6700;
   }
-  @media (max-width: 600px) {
-    .module-card { flex-direction: column; align-items: flex-start; }
-    .module-links { width: 100%; }
-    .module-link { flex: 1; text-align: center; }
-  }
-
-  /* Prerequisites section */
-  .prerequisites-section {
+  .skills-section,
+  .prerequisites-section,
+  .agenda-section {
     margin-top: 48px;
     padding-top: 32px;
     border-top: 1px solid var(--border);
   }
-  .prerequisites-heading {
+  .section-heading-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  .skills-heading,
+  .prerequisites-heading,
+  .agenda-heading {
     font-size: 20px;
     font-weight: 600;
     color: var(--text-1);
     margin-bottom: 4px;
     letter-spacing: -0.01em;
   }
+  .skills-sub,
   .prerequisites-sub {
     font-size: 14px;
     color: var(--text-2);
-    margin-bottom: 20px;
+  }
+  .skills-count {
+    padding: 4px 12px;
+    border-radius: 100px;
+    background: rgba(191, 135, 0, 0.1);
+    color: #9a6700;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .skills-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .skills-catalog-link {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 100px;
+    background: rgba(9, 105, 218, 0.08);
+    color: #0969da;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .skill-card {
+    background: linear-gradient(180deg, rgba(191, 135, 0, 0.08), rgba(191, 135, 0, 0.03));
+    border: 1px solid rgba(191, 135, 0, 0.25);
+    border-radius: 12px;
+    padding: 24px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .skill-header {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+  .skill-icon {
+    font-size: 30px;
+    line-height: 1;
+  }
+  .skill-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-1);
+    margin: 0 0 2px;
+  }
+  .skill-audience {
+    font-size: 13px;
+    color: #9a6700;
+    font-weight: 600;
+    margin: 0;
+  }
+  .skill-desc {
+    color: var(--text-2);
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0 0 18px;
+  }
+  .skill-link {
+    background: rgba(9, 105, 218, 0.08);
+    color: #0969da;
+  }
+  .skill-link-primary {
+    background: #0969da;
+    color: #fff;
   }
   .prerequisites-list {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 20px 0 0;
     display: grid;
     gap: 12px;
   }
@@ -550,19 +550,8 @@ const workshopsDir: string = __WORKSHOPS_DIR__
     flex-shrink: 0;
     margin-top: 1px;
   }
-
-  /* ── Agenda ── */
-  .agenda-section {
-    margin-top: 48px;
-    padding-top: 32px;
-    border-top: 1px solid var(--border);
-  }
   .agenda-heading {
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--text-1);
     margin-bottom: 24px;
-    letter-spacing: -0.01em;
   }
   .agenda-day {
     margin-bottom: 32px;
@@ -619,12 +608,27 @@ const workshopsDir: string = __WORKSHOPS_DIR__
   .agenda-table tr:last-child td {
     border-bottom: none;
   }
-  .agenda-time {
+  .agenda-time,
+  .agenda-duration {
     white-space: nowrap;
     font-variant-numeric: tabular-nums;
   }
-  .agenda-duration {
-    white-space: nowrap;
-    color: var(--text-3, var(--text-2));
+  @media (max-width: 600px) {
+    .module-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .module-links,
+    .skill-actions {
+      width: 100%;
+    }
+    .module-link,
+    .skill-link {
+      flex: 1;
+      text-align: center;
+    }
+    .section-heading-row {
+      flex-direction: column;
+    }
   }
 </style>
