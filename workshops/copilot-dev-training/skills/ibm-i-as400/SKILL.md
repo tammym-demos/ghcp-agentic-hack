@@ -1,6 +1,6 @@
 ---
 name: IBM i / AS400 Developer Skill
-description: Use this skill when working with IBM i, AS/400, RPGLE, CLLE, COBOL, DDS, Db2 for i, 5250 screens, spool files, or legacy modernization discovery where source-backed evidence and SME review are required.
+description: Use this skill when working with IBM i, AS400, RPGLE, CLLE, COBOL, DDS, Db2 for i, 5250 screens, spool files, or legacy modernization discovery where source-backed evidence and SME review are required.
 icon: 🖥️
 audience: IBM i, RPGLE, CLLE, COBOL, and legacy modernization developers
 order: 2
