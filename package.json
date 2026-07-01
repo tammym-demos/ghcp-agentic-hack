@@ -12,7 +12,7 @@
     "@slidev/cli": "^52.16.0"
   },
   "devDependencies": {
-    "@astrojs/markdown-remark": "^6.3.11",
+    "@astrojs/markdown-remark": "^7.2.0",
     "astro": "^7.0.3",
     "dotenv": "^17.4.2",
     "github-markdown-css": "^5.9.0",
