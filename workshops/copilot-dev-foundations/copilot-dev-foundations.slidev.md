@@ -14,8 +14,8 @@ background: /images/copilot-dev-foundations/slide-01-946a6311.png
 ---
 
 <!--
-- Use this slide to explain this foundations workshop introduces the core copilot mental model before agentic scaling.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Frame this as a safe baseline for everyday Copilot use, not a feature tour.
+- Point out that the module is about habits people can reuse across surfaces.
 -->
 
 ---
@@ -24,8 +24,8 @@ background: /images/copilot-dev-foundations/slide-02-479ca7bf.png
 ---
 
 <!--
-- Use this slide to explain foundations baseline: surfaces, trust, and interaction fundamentals (24 min).
-- Tie the talk-track back to the next idea without overloading the slide.
+- Walk through the main surfaces: editor, terminal, and GitHub.com.
+- Connect that to trust boundaries, privacy, and review before moving into demos.
 -->
 
 ---
@@ -34,8 +34,8 @@ background: /images/copilot-dev-foundations/slide-03-4a37cbcc.png
 ---
 
 <!--
-- Use this slide to explain baseline operating posture — safe, effective gh copilot usage starts with least-autonomy defaults, scoped prompts, and explicit accept.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Introduce least autonomy as the default starting point.
+- Stress that human review stays in the loop for even the smallest change.
 -->
 
 ---
@@ -44,8 +44,8 @@ background: /images/copilot-dev-foundations/slide-04-6bfff0c1.png
 ---
 
 <!--
-- Use this slide to explain to anchor copilot adoption in enterprise trust, not just individual productivity.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Connect policy controls to real team concerns like IP, auditability, and access.
+- Remind them that controls reduce risk but do not remove accountability.
 -->
 
 ---
@@ -54,8 +54,8 @@ background: /images/copilot-dev-foundations/slide-05-1d79cb3c.png
 ---
 
 <!--
-- Use this slide to explain completions and inline chat as two different tools for staying in flow.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Contrast completions for flow edits with inline chat for bounded transformations.
+- Ask which tasks they would keep short and local.
 -->
 
 ---
@@ -64,8 +64,8 @@ background: /images/copilot-dev-foundations/slide-06-3180e4d6.png
 ---
 
 <!--
-- Use this slide to explain guided workflows: vs code chat, cli controls, and mode selection (30 min).
-- Tie the talk-track back to the next idea without overloading the slide.
+- Introduce Ask, Plan, and Agent as a progression of autonomy.
+- Make mode choice feel like a safety decision, not a feature menu.
 -->
 
 ---
@@ -74,8 +74,8 @@ background: /images/copilot-dev-foundations/slide-07-9296a761.png
 ---
 
 <!--
-- Use this slide to explain governance controls for safer execution — introduce enterprise and organization controls that reduce accidental risk, including manage.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Treat these controls as guardrails for safer execution.
+- Tie them back to org policy, content boundaries, and approval posture.
 -->
 
 ---
@@ -84,8 +84,8 @@ background: /images/copilot-dev-foundations/slide-08-2a48ce39.png
 ---
 
 <!--
-- Use this slide to explain to compare the guided workflow modes learners will use most often: ask for understanding, plan for reviewed change proposals, and agen.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Use the comparison to show when to stay human-led, when to plan, and when to delegate.
+- Ask what their team would keep in review.
 -->
 
 ---
@@ -94,8 +94,8 @@ background: /images/copilot-dev-foundations/slide-09-cc59952b.png
 ---
 
 <!--
-- Use this slide to explain ties prompt discipline to both quality and cost.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Emphasize that clear goals and constraints produce better results.
+- Mention /chronicle as a way to preserve decisions and reduce repeat work.
 -->
 
 ---
@@ -104,8 +104,8 @@ background: /images/copilot-dev-foundations/slide-10-3e8e62a6.png
 ---
 
 <!--
-- Use this slide to explain tokenomics, billing controls, and model-routing decisions (30 min).
-- Tie the talk-track back to the next idea without overloading the slide.
+- Explain that cost and quality both depend on context size and model choice.
+- Keep the message practical: smaller context for simple work, stronger models for harder reasoning.
 -->
 
 ---
@@ -114,8 +114,8 @@ background: /images/copilot-dev-foundations/slide-11-e87466a7.png
 ---
 
 <!--
-- Use this slide to explain usage visibility and measurement — session and monthly usage views expose hidden inefficiencies such as broad prompts and repetitive r.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Show that usage views reveal patterns, not just totals.
+- Invite them to look for retries, broad prompts, and unnecessary context.
 -->
 
 ---
@@ -124,8 +124,8 @@ background: /images/copilot-dev-foundations/slide-12-8f6a9acf.png
 ---
 
 <!--
-- Use this slide to explain bring the discussion from raw usage numbers into model-routing decisions.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Move from usage numbers to routing decisions without overcomplicating it.
+- Position Auto as a sensible default for many everyday tasks.
 -->
 
 ---
@@ -134,8 +134,8 @@ background: /images/copilot-dev-foundations/slide-13-86c8815f.png
 ---
 
 <!--
-- Use this slide to explain is about knowing when bigger context and deeper reasoning help, and when they simply make the session more expensive.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Warn that more context is not always better.
+- Suggest resetting or re-scoping when the session gets noisy.
 -->
 
 ---
@@ -144,8 +144,8 @@ background: /images/copilot-dev-foundations/slide-14-358c0a11.png
 ---
 
 <!--
-- Use this slide to explain context windows, autonomy spectrum, and ai development harness (20 min).
-- Tie the talk-track back to the next idea without overloading the slide.
+- Frame context and autonomy as connected choices.
+- Use the harness idea to show that structure makes scaling possible.
 -->
 
 ---
@@ -154,8 +154,8 @@ background: /images/copilot-dev-foundations/slide-15-0027fa13.png
 ---
 
 <!--
-- Use this slide to explain memory and policy boundaries — distinguish user-level preferences from repository-level facts and reinforce admin-controlled governanc.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Separate stable preferences from policy and sensitive information.
+- Make memory feel useful but bounded.
 -->
 
 ---
@@ -164,8 +164,8 @@ background: /images/copilot-dev-foundations/slide-16-f6075c95.png
 ---
 
 <!--
-- Use this slide to explain to introduce autonomy as a spectrum rather than a switch.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Make autonomy a spectrum and ask what level fits the task.
+- Use reversibility and blast radius to explain the choices.
 -->
 
 ---
@@ -174,8 +174,8 @@ background: /images/copilot-dev-foundations/slide-17-de4de600.png
 ---
 
 <!--
-- Use this slide to explain secure execution environments as the bridge between productivity and control.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Show that safe execution environments are what make scaling possible.
+- Note that local and cloud contexts both need policy boundaries.
 -->
 
 ---
@@ -184,8 +184,8 @@ background: /images/copilot-dev-foundations/slide-18-bc11a0c3.png
 ---
 
 <!--
-- Use this slide to explain wrap-up and module 2 handoff (16 min).
-- Tie the talk-track back to the next idea without overloading the slide.
+- Use this slide to recap the operating posture they should carry forward.
+- Set up the shift from foundations to agentic behavior.
 -->
 
 ---
@@ -194,8 +194,8 @@ background: /images/copilot-dev-foundations/slide-19-f6e6fbe8.png
 ---
 
 <!--
-- Use this slide to explain baseline learners should now be able to carry into daily work.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Reinforce that consistency beats clever one-off prompting.
+- Invite them to pick one workflow they want to make more repeatable.
 -->
 
 ---
@@ -204,8 +204,8 @@ background: /images/copilot-dev-foundations/slide-20-1a122c0d.png
 ---
 
 <!--
-- Use this slide to explain is the reminder that reliable copilot outcomes come from repeatable habits, not clever one-off prompts.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Keep the closing practical: scope the task, set criteria, and review the output.
+- Frame this as the habit that makes future agentic work safer.
 -->
 
 ---
@@ -214,6 +214,6 @@ background: /images/copilot-dev-foundations/slide-21-6f2f249d.png
 ---
 
 <!--
-- Use this slide to explain positioning module 2 as an expansion, not a reset.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Position Module 2 as an extension of these guardrails.
+- Ask what workflow they want to make more repeatable next.
 -->

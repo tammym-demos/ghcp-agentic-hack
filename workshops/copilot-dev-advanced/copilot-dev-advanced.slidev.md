@@ -14,8 +14,8 @@ background: /images/copilot-dev-advanced/slide-01-29284dc2.png
 ---
 
 <!--
-- Use this slide to explain this advanced workshop focuses on practical orchestration and production-readiness patterns for scaled ai-assisted development.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Frame this as a module about disciplined orchestration, not just more automation.
+- Use the earlier guardrails as the foundation for the discussion.
 -->
 
 ---
@@ -24,8 +24,8 @@ background: /images/copilot-dev-advanced/slide-02-809d5ec5.png
 ---
 
 <!--
-- Use this slide to explain orchestration decision patterns for advanced delivery (18 min).
-- Tie the talk-track back to the next idea without overloading the slide.
+- Ask whether the work is truly separable by role, evidence, and ownership.
+- If not, one focused agent is often the better call.
 -->
 
 ---
@@ -34,8 +34,8 @@ background: /images/copilot-dev-advanced/slide-03-8a2ffb2d.png
 ---
 
 <!--
-- Use this slide to explain practical anti-patterns — highlight when to avoid advanced orchestration (small tasks, shared-file contention, unclear verification ow.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Use this slide to challenge over-engineered solutions.
+- The right move is often simpler: one agent, clear acceptance checks.
 -->
 
 ---
@@ -44,8 +44,8 @@ background: /images/copilot-dev-advanced/slide-04-e1276357.png
 ---
 
 <!--
-- Use this slide to explain before we add more advanced orchestration patterns, anchor the room in the usage habits from the earlier modules.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Tie the discussion back to earlier habits around prompt discipline and usage efficiency.
+- Make the point that efficiency needs to be designed in early.
 -->
 
 ---
@@ -54,8 +54,8 @@ background: /images/copilot-dev-advanced/slide-05-be90263a.png
 ---
 
 <!--
-- Use this slide to explain to challenge the instinct that more agents automatically means better delivery.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Push back on the idea that more agents automatically means better delivery.
+- Ask what the task actually needs before adding coordination.
 -->
 
 ---
@@ -64,8 +64,8 @@ background: /images/copilot-dev-advanced/slide-06-63f96015.png
 ---
 
 <!--
-- Use this slide to explain governance-first integration surfaces (22 min).
-- Tie the talk-track back to the next idea without overloading the slide.
+- Introduce integrations as governance choices, not novelty features.
+- Keep the focus on control, observability, and approval.
 -->
 
 ---
@@ -74,8 +74,8 @@ background: /images/copilot-dev-advanced/slide-07-489a15ac.png
 ---
 
 <!--
-- Use this slide to explain agentic workflows versus deterministic workflows — use goal-driven agentic workflows for adaptive engineering tasks and deterministic.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Distinguish adaptive agentic work from deterministic release steps.
+- Release-critical checks should stay deterministic and auditable.
 -->
 
 ---
@@ -84,8 +84,8 @@ background: /images/copilot-dev-advanced/slide-08-86678bbd.png
 ---
 
 <!--
-- Use this slide to explain this is the permission slide for simplifying.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Use this slide to make the simplification case.
+- Sometimes the best pattern is no orchestration at all.
 -->
 
 ---
@@ -94,8 +94,8 @@ background: /images/copilot-dev-advanced/slide-09-2eb6cfe5.png
 ---
 
 <!--
-- Use this slide to explain hooks as policy that executes even when a prompt is vague or a model response is unexpected.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Show hooks as policy that runs at lifecycle boundaries.
+- Good examples are blocking risky commands or requiring checks before the next step.
 -->
 
 ---
@@ -104,8 +104,8 @@ background: /images/copilot-dev-advanced/slide-10-4e13e57a.png
 ---
 
 <!--
-- Use this slide to explain debugging and deployment readiness operations (20 min).
-- Tie the talk-track back to the next idea without overloading the slide.
+- Treat debugging as evidence gathering, not guesswork.
+- Start from what the agent saw, what it tried, and where it failed.
 -->
 
 ---
@@ -114,8 +114,8 @@ background: /images/copilot-dev-advanced/slide-11-b4ac0d46.png
 ---
 
 <!--
-- Use this slide to explain lab transition — exercise 2 — shift from operational concepts into a controlled debug-and-readiness validation scenario on the copilot.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Signal that the next exercise is about readiness and evidence, not just feature building.
+- Tell them to inspect the workflow and decide what gate matters.
 -->
 
 ---
@@ -124,8 +124,8 @@ background: /images/copilot-dev-advanced/slide-12-2ed14e18.png
 ---
 
 <!--
-- Use this slide to explain help learners separate where adaptability is valuable from where repeatability is mandatory.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Make the distinction clear: some work needs flexibility, some needs control.
+- Ask where the team should preserve determinism.
 -->
 
 ---
@@ -134,8 +134,8 @@ background: /images/copilot-dev-advanced/slide-13-93e4ea02.png
 ---
 
 <!--
-- Use this slide to explain transition learners from discussion into a concrete architecture decision for the copilot quest scenario.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Move the conversation into architecture choices and measurable acceptance criteria.
+- The exercise is about tradeoffs, not a perfect answer.
 -->
 
 ---
@@ -144,8 +144,8 @@ background: /images/copilot-dev-advanced/slide-14-a799be96.png
 ---
 
 <!--
-- Use this slide to explain day 2 hack preparation and execution strategy (10 min).
-- Tie the talk-track back to the next idea without overloading the slide.
+- Keep the hack prep practical: constrained scope, clear roles, and explicit non-goals.
+- A one-page brief is enough to keep the work grounded.
 -->
 
 ---
@@ -154,8 +154,8 @@ background: /images/copilot-dev-advanced/slide-15-9af11ed4.png
 ---
 
 <!--
-- Use this slide to explain lab transition — exercise 3 — convert day 2 planning guidance into a deployment decision and hack execution plan that closes the copil.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Shift from planning to execution-ready decisions.
+- The key question is whether the plan is safe to demo and easy to review.
 -->
 
 ---
@@ -164,8 +164,8 @@ background: /images/copilot-dev-advanced/slide-16-67bd9762.png
 ---
 
 <!--
-- Use this slide to explain treat deployment readiness as an engineering artifact, not a meeting sentiment.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Position readiness as a documented engineering artifact.
+- Owner, evidence, rollback, and approval should all be visible.
 -->
 
 ---
@@ -174,8 +174,8 @@ background: /images/copilot-dev-advanced/slide-17-a8cd6f5b.png
 ---
 
 <!--
-- Use this slide to explain this lab asks learners to operate like release engineers, not just prompt engineers.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Make the lab feel like a release-readiness exercise.
+- The output should be a decision with rationale, not just a workaround.
 -->
 
 ---
@@ -184,8 +184,8 @@ background: /images/copilot-dev-advanced/slide-18-94b09ab6.png
 ---
 
 <!--
-- Use this slide to explain wrap-up and lab handoff (10 min).
-- Tie the talk-track back to the next idea without overloading the slide.
+- Use the wrap-up to connect the module back to control boundaries.
+- Remind them that advanced work still needs review and evidence.
 -->
 
 ---
@@ -194,8 +194,8 @@ background: /images/copilot-dev-advanced/slide-19-92374aa7.png
 ---
 
 <!--
-- Use this slide to explain shift the room into day 2 delivery mode: the goal is a reliable demo slice, not maximum feature count.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Keep the delivery message simple: a reliable demo slice beats a crowded feature list.
+- A good demo should be testable, explainable, and safe.
 -->
 
 ---
@@ -204,8 +204,8 @@ background: /images/copilot-dev-advanced/slide-20-b547866d.png
 ---
 
 <!--
-- Use this slide to explain make clear that a hack demo can be fast without being uncontrolled.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Reinforce that speed is not the same as being uncontrolled.
+- A fast demo still needs a go/no-go gate.
 -->
 
 ---
@@ -214,6 +214,6 @@ background: /images/copilot-dev-advanced/slide-21-e24d4271.png
 ---
 
 <!--
-- Use this slide to explain connecting the module back to the operating posture learners will need for day 2.
-- Tie the talk-track back to the next idea without overloading the slide.
+- Close with the operating posture they will need on Day 2.
+- Clear boundaries, visible evidence, and accountable ownership.
 -->
