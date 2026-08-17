@@ -23,7 +23,29 @@ class: agentic-slide agentic-priority-slide
 </div>
 
 <!--
-Agentic Development moves from Foundations' bounded delegation into multi-step repository work where the human still owns the brief, boundaries, acceptance, and merge. Riley Relay represents the software-agent collaborator: she performs only delegated digital work, returns evidence, asks when blocked, and stops at stated boundaries. Purrmission appears only at the consequential permission or scope threshold; she does not replace Mergewell's decision or Riley's bounded-work role. Use this zero-minute opener to establish module identity and role hierarchy, not to teach literal product architecture. [Sources: module.md; visual-intent.md; agentic-content-verification.md AGT-12 and AGT-28; Agent Mergewell and Riley Relay character briefs.]
+Timebox: 1 minute
+
+Talk track: Welcome to Agentic Development.
+We're carrying the Foundations case forward into longer repository work. Bigger
+tasks, more steps, more autonomy.
+What does not change is who's in charge.
+Mergewell owns the brief and owns the decision. Riley does the bounded work he was
+given and comes back with evidence. Purrmission marks the moment scope or
+permission turns consequential.
+That split holds no matter how much work we hand over.
+So before we go anywhere — name one artifact the collaborator has to inherit from
+Foundations. Task, boundary, check, or evidence.
+
+Transition: Let's map the route from that brief to a human decision backed by
+evidence.
+
+Audience question: Which one Foundations artifact must the software collaborator inherit before work starts?
+
+Response guidance: Take one concise artifact and tie it to the carried-forward case
+without opening an implementation discussion. If nobody answers, use the bounded
+task as your example and keep moving.
+Payoff: The module opens with continuity from Foundations and one concrete input to human-directed work.
+Sources: content/modules/02-agentic/module.md; content/modules/02-agentic/visual-intent.md slides 1 and 3; content/research/agentic-content-verification.md AGT-12 and AGT-28
 -->
 
 ---
@@ -53,7 +75,25 @@ class: agentic-agenda-slide
 </div>
 
 <!--
-The route keeps the current instruction budget at 75 minutes: 15 minutes for role clarity, then three 20-minute sections for briefing, helper and control choices, and evidence-based decisions. The separate 45-minute mission follows instruction and carries the Foundations case file forward without moving detailed mission actions into the deck. This agenda adapts the Foundations timed-route pattern while using Agentic's approved section architecture and current topic sequence. Protect the mission timebox by shortening discussion rather than dropping required content. [Sources: module.md timing; copilot-dev-agentic-workshop.md “Instruction architecture”; slide-manifest.md; Foundations slide 2.]
+Timebox: 1 minute
+
+Talk track: Seventy-five minutes of teaching, and here's how it splits.
+Fifteen minutes on who does what — that's the foundation everything else sits on.
+Then three twenty-minute blocks. Preparing the brief. Choosing and controlling your
+helper. And staying in charge of what comes back.
+The mission is separate. Forty-five minutes of its own, extending the Foundations
+case. Its detailed steps stay off these slides on purpose.
+Four checkpoints. As I name them, pick the one where your team most often loses
+control. Just hold it. No report-out yet — but test it against what you see today.
+
+Transition: We start by making the split between human and software work explicit.
+
+Audience question: Which route checkpoint deserves your closest attention today?
+
+Response guidance: Pause briefly for a private choice. Don't poll the room. Invite
+learners to check their pick against the evidence they see later in the module.
+Payoff: Learners enter the route with a personal diagnostic focus while the protected mission timing remains clear.
+Sources: content/modules/02-agentic/module.md timing; content/modules/02-agentic/copilot-dev-agentic-workshop.md “Instruction architecture”; content/modules/02-agentic/slide-manifest.md row 2
 -->
 
 ---
@@ -83,7 +123,28 @@ collaborator plans, edits, uses allowed tools, and returns evidence.
 </div>
 
 <!--
-The human defines the brief, boundaries, and acceptance before delegated work begins. A visibly separate software collaborator may plan, edit, use allowed tools, and return evidence within that brief. Agent Mergewell remains the accountable human field agent with final acceptance and merge authority. [Sources: module.md; visual-intent.md; AGT-12; AGT-28.]
+Timebox: 1 minute
+
+Talk track: One sentence for this whole module.
+Agentic work delegates execution. It does not delegate accountability.
+Here's the division. The human sets the brief, the boundaries, and what acceptance
+looks like. Inside that brief, the software collaborator can plan, edit, use the
+tools it's allowed, and bring evidence back. Then the human decides — accept, or
+don't.
+And one clarification that saves confusion all day. Mergewell is a human field
+agent. An investigator. He is not the software agent. He directs them.
+Quick one-word check. The evidence comes back. Who decides?
+
+Transition: The first real control is putting durable and task-specific
+instructions in the right places.
+
+Audience question: When delegated work returns with evidence, who owns the acceptance decision?
+
+Response guidance: Reinforce "the human" immediately. If a different answer comes
+back, draw the line between producing evidence and holding decision authority, then
+move on — this isn't the slide to debate it.
+Payoff: The audience states the accountability boundary before any configuration detail appears.
+Sources: content/modules/02-agentic/module.md; content/modules/02-agentic/visual-intent.md slide 3; content/research/agentic-content-verification.md AGT-12 and AGT-28
 -->
 
 ---
@@ -110,7 +171,32 @@ layout: two-panel
 </div>
 
 <!--
-GitHub documents repository-wide, path-specific, and agent instruction files, but support and combination rules vary by Copilot surface. Durable reviewed guidance belongs in the matching scope, while one-time task details remain in the current request. Developers should inspect reusable guidance before trusting it. [Sources: AGT-01; AGT-02; visual-intent.md.]
+Timebox: 2 minutes
+
+Talk track: There's a sorting problem at the heart of this, and getting it wrong
+makes everything downstream inconsistent.
+Some guidance is durable. It's true on Monday and it's still true next quarter.
+That belongs in files. Repository-wide conventions go in
+`.github/copilot-instructions.md`. Path-specific guidance goes in matching
+`.github/instructions/**/*.instructions.md` files. Recurring role behavior goes in
+agent-specific instructions.
+Some guidance is about today's job only. The outcome, the limits, the checks, the
+stop points. That travels with the task.
+One caveat worth stating out loud: support and combination rules vary by Copilot
+surface. Inspect what actually applies. Don't assume one universal stack.
+Let's sort one. "This one bug fix must preserve a named behavior." Standing
+guidance, or current task?
+
+Transition: Durable instructions give you continuity. Copilot Memory can help
+too — but it's selective.
+
+Audience question: Where should a one-time bug-fix acceptance criterion live?
+
+Response guidance: Steer toward the current task. If the room splits, use the
+deciding test out loud: should this criterion still apply after this job is done?
+That question resolves it without a long discussion.
+Payoff: Learners sort temporary acceptance detail away from durable repository and role guidance.
+Sources: content/research/agentic-content-verification.md AGT-01 and AGT-02; content/modules/02-agentic/visual-intent.md slide 4
 -->
 
 ---
@@ -136,7 +222,29 @@ layout: two-panel
 </div>
 
 <!--
-GitHub Copilot Memory is a public-preview feature that stores repository facts and user preferences for limited supported consumers. It is selective, user-controlled, scoped, and retention-limited rather than permanent or complete. Reviewed instructions and explicit current task context remain authoritative inputs. [Sources: AGT-04; AGT-05.]
+Timebox: 2 minutes
+
+Talk track: Copilot Memory is in public preview. It selectively retains repository
+facts and user preferences in supported experiences.
+Repository facts stay with the repository. User preferences can follow you. And
+retrieval is relevance-based, under your control, and retention-limited.
+Now read that description again for what it doesn't say. Not permanent. Not
+complete. Not a transcript.
+So here's the working rule. Memory is a bonus. Reviewed instructions and an
+explicit current task are what you actually depend on.
+I'll name three things. A repository fact. A user preference. And today's stop
+condition. Which one do we have to supply again, deliberately, for this job?
+
+Transition: Because memory is selective, long-running work still needs a deliberate
+handoff.
+
+Audience question: Which current-task fact would you never leave to selective memory retrieval?
+
+Response guidance: Favor the outcome, limits, repository state, critical
+references, checks, or stop conditions. If anyone suggests Memory guarantees
+complete recall, correct it directly — that misunderstanding is expensive later.
+Payoff: Learners separate optional retained clues from the task-critical facts they must provide deliberately.
+Sources: content/research/agentic-content-verification.md AGT-04 and AGT-05; content/modules/02-agentic/visual-intent.md slide 5
 -->
 
 ---
@@ -161,7 +269,29 @@ layout: two-panel
 </div>
 
 <!--
-Long-running work benefits from preserving the goal, current repository state, reviewed decisions, open questions, and checks. Copilot CLI has named context and compaction controls, but those controls and thresholds must not be generalized to other surfaces. A fresh or compacted session still needs the important facts supplied again. [Sources: AGT-06; AGT-07.]
+Timebox: 2 minutes
+
+Talk track: A good handoff carries six things. The goal. Current repository state.
+Decisions you've already reviewed. Open questions. The files that matter. And the
+checks that shape what happens next.
+It leaves behind stale logs, unrelated files, and plans you've already superseded.
+On the CLI, you've got named context and compaction controls. Useful — but they're
+CLI-specific, and neither a fresh session nor a compacted one absolves you of
+supplying the important facts again.
+Let's prune one together. I'm going to name four things: the current goal, a
+reviewed decision, a failing check that's still relevant, and a plan we've already
+replaced. Say "drop" when you hear the one that no longer guides the next decision.
+
+Transition: Missing guidance is one problem. When several sources arrive together
+and disagree — that's a different one.
+
+Audience question: Which stale item would you remove first from a handoff, and what current evidence replaces it?
+
+Response guidance: Accept a stale log, unrelated file, superseded plan, or old
+mistake — but only when the learner also names what current fact replaces it.
+Dropping without replacing is half an answer.
+Payoff: The audience practices preserving continuity without preserving noise.
+Sources: content/research/agentic-content-verification.md AGT-06 and AGT-07; content/modules/02-agentic/visual-intent.md slide 6
 -->
 
 ---
@@ -184,7 +314,33 @@ layout: single-panel
 </div>
 
 <!--
-Repository-wide and matching path-specific instructions can both apply, while precedence behavior differs by product surface. A conflict should be detected and exposed so the human can resolve it instead of letting the collaborator guess. This teaching sequence deliberately avoids claiming one universal hierarchy. [Sources: AGT-01; AGT-02; AGT-03.]
+Timebox: 4 minutes
+
+Talk track: Several instruction sources can apply to the same task at the same
+time. So the obvious question is: which one wins?
+And I have to be straight with you. GitHub does not document one universal
+precedence order across GitHub.com, the IDEs, the CLI, code review, and the cloud
+agent. There isn't a clean answer to give you.
+That's uncomfortable. It's also the truth, and the workaround is better than a
+guess.
+You can't control precedence, but you can control the sequence. Four steps. Detect
+the disagreement. Put the exact conflicting guidance on screen where people can
+read it. Name the surface whose behavior actually matters here. Then let a human
+reconcile it before any work continues.
+Because a plausible guess is still the wrong control when two instructions
+disagree.
+So — guidance conflicts with the task. What happens before anything gets edited?
+
+Transition: Once the conflict is resolved, the task itself needs a strong
+operational brief.
+
+Audience question: If repository guidance and the current task appear to conflict, what should happen before the agent edits anything?
+
+Response guidance: Listen for "stop and expose the conflict." Then push further:
+who resolves it, and which product surface has to be named? Do not let the room
+invent a universal winner, and don't supply one yourself.
+Payoff: Learners gain a conflict-handling method that works without false cross-surface hierarchy claims.
+Sources: content/research/agentic-content-verification.md AGT-01, AGT-02, and AGT-03; content/modules/02-agentic/visual-intent.md slide 7
 -->
 
 ---
@@ -211,7 +367,31 @@ layout: two-panel
 </div>
 
 <!--
-Official prompt guidance supports a clear outcome, relevant context, constraints, acceptance criteria, and decomposition for complex work. Evidence requirements, non-goals, and stop conditions are workshop refinements that make multi-step delegation observable and bounded. A strong request says both what success looks like and when not to continue. [Sources: AGT-08; module.md.]
+Timebox: 3 minutes
+
+Talk track: A strong agentic request is not a well-worded prompt. It's an
+operational brief, and the difference matters once work runs for twenty steps
+instead of one.
+Five parts.
+The observable outcome — what does done actually look like. The relevant context.
+What may change and what may not. The evidence that has to come back. And the
+conditions that require a stop or a question.
+Those last three — non-goals, evidence requirements, stop points — are our workshop
+refinements. We added them because multi-step work is otherwise unreviewable.
+A brief has to say what success looks like and when to stop trying. Most people
+write the first half and skip the second.
+Think about a task you know well. Which field would prevent the worst drift?
+
+Transition: When part of that work repeats, the question becomes whether it belongs
+in a reusable skill.
+
+Audience question: Which brief field would prevent the most damaging kind of drift in a task you know?
+
+Response guidance: Accept different answers — there's no universal best field. But
+ask every speaker to name the specific failure their chosen field prevents. That
+requirement is what turns this from opinion into diagnosis.
+Payoff: Learners connect each part of the brief to a concrete failure mode instead of treating prompting as wordsmithing.
+Sources: content/research/agentic-content-verification.md AGT-08; content/modules/02-agentic/copilot-dev-agentic-workshop.md section 2
 -->
 
 ---
@@ -239,7 +419,30 @@ layout: two-panel
 </div>
 
 <!--
-Agent skills are folders of instructions, scripts, and resources loaded when relevant for specialized repeatable tasks. A skill is not an independent worker, and shared content requires provenance and security review before use. Clue Wrangler is only the workshop metaphor for a reusable supplied-evidence procedure. [Sources: AGT-09; visual-intent.md.]
+Timebox: 3 minutes
+
+Talk track: An agent skill is a reusable package — instructions, scripts,
+resources — for a specialized procedure you do more than once.
+Now the distinction people trip on, so let me be precise.
+The skill is not the worker. The skill is not the tool. The software collaborator
+is the worker. It follows the procedure, and it uses a tool to take the actual
+action. Three different things.
+And a shared skill is code you're about to trust. It carries scripts and resources.
+So provenance, script review, resource review, and security review all come before
+trust — not after something goes wrong.
+Clue Wrangler is our metaphor for that kind of reviewed procedure. Ours, not a
+product feature.
+What repeats on your team often enough to justify a skill?
+
+Transition: A skill captures a procedure. A custom agent captures a recurring role.
+
+Audience question: What repeated procedure on your team might justify a skill instead of another one-off request?
+
+Response guidance: Look for stable, reviewable procedures with genuine repeat
+value. Challenge examples that are really a single task, or that are actually an
+unbounded role rather than a procedure.
+Payoff: The audience distinguishes reusable procedure from worker and begins applying a test for justified reuse.
+Sources: content/research/agentic-content-verification.md AGT-09; content/modules/02-agentic/visual-intent.md slide 9
 -->
 
 ---
@@ -268,7 +471,31 @@ layout: two-panel
 </div>
 
 <!--
-A custom agent is a reusable role profile with a required description, behavior instructions, and optional model or tool configuration. Supported properties differ by environment, and an omitted tool list can enable all available tools while an empty list disables them. The workshop therefore favors an explicit minimal tool list where the selected surface supports it. [Sources: AGT-10.]
+Timebox: 3 minutes
+
+Talk track: A custom agent is a reusable profile for a role you need repeatedly.
+Five things to define. Its purpose. How it behaves. What it's expected to produce.
+The minimum tools it needs. And what makes it stop.
+Supported properties differ by environment, so check yours before you promise a
+team anything.
+Now the trap, and this one is genuinely counterintuitive.
+On surfaces that support tool configuration, leaving the tool list out can enable
+everything available. And an empty list can disable everything. So the two things
+that look like "I didn't specify" produce opposite results — and one of them hands
+your specialist every tool in the box.
+Say what you mean. Make the minimum explicit.
+What goes wrong when that list stays implicit?
+
+Transition: The profile says what the specialist may do. Tools are the actions it
+can actually take.
+
+Audience question: What risk appears when a custom agent’s tool list is left implicit?
+
+Response guidance: Steer toward unnecessary or all-available tools. Then flip it
+and ask which minimal actions the named specialist genuinely needs — most rooms
+discover the list is shorter than they assumed.
+Payoff: Learners see tool selection as part of role design rather than an implementation detail discovered after delegation.
+Sources: content/research/agentic-content-verification.md AGT-10; content/modules/02-agentic/visual-intent.md slide 10
 -->
 
 ---
@@ -297,7 +524,30 @@ how and when to use tools.
 </div>
 
 <!--
-A tool performs a concrete action such as searching, reading, editing, or running a command. A reusable skill instead guides how and when the software collaborator uses those actions. Tool defaults and approval behavior vary by host, and even read operations can expose sensitive data. [Sources: AGT-09; AGT-11.]
+Timebox: 3 minutes
+
+Talk track: Let's finish the set. Three words, three different things.
+A tool performs a concrete action. Search. Read. Edit. Run.
+A skill is the reviewed workflow that says how and when to use those actions.
+And the collaborator is the worker carrying the task.
+Tool, procedure, worker. Keep them apart and delegation stays legible.
+Two cautions before we move.
+Tool defaults and approval behavior vary by host — so check yours, don't assume.
+And read is not automatically safe. A read operation can expose sensitive data just
+by looking at it. Having permission to do something is not proof it's safe to do.
+Test it. "Run the focused tests using our test-triage procedure." Which part is the
+tool, and which is the skill?
+
+Transition: Roles, procedures, actions — separated. Now let's watch the loop that
+puts them in motion.
+
+Audience question: In “run the focused tests using our test-triage procedure,” which part is the tool and which part is the skill?
+
+Response guidance: Running the tests is the tool action; test triage is the
+reusable procedure. Correct any answer that turns either one into the worker —
+that's the confusion this slide is here to prevent.
+Payoff: The question locks in the worker-skill-tool distinction before the loop puts all three into motion.
+Sources: content/research/agentic-content-verification.md AGT-09 and AGT-11; content/modules/02-agentic/visual-intent.md slide 11
 -->
 
 ---
@@ -312,7 +562,32 @@ class: agentic-priority-slide
 <AgenticLoopNativeAnimation />
 
 <!--
-Follow the moving emphasis: from 0–4 seconds Mergewell frames the brief in Understand, from 4–8 he reviews Riley's bounded Plan, from 8–12 Riley Acts, and from 12–16 Riley Observes the consequential result and stops. From 16–20, Purrmission signals the Ask boundary but does not decide; accountable Mergewell chooses how to Adjust. From 20–24 Riley performs the narrowed Corrective Act, from 24–28 Mergewell Verifies the returned evidence, and the final two-second hold reinforces that verification does not itself imply acceptance. Retry, Ask, Stop, and Recover remain visible as deliberate evidence-based outcomes rather than mandatory steps in one linear path. Present this as an observable learner workflow synthesized from visible capabilities, not a universal internal state machine or a claim about hidden reasoning. [Sources: AGT-12; AGT-13; AGT-14.]
+Timebox: 4 minutes
+
+Talk track: Watch what you can see. Not what you imagine is happening inside the
+model.
+Mergewell frames the brief. He reviews Riley's bounded plan. Riley acts — and
+observes a result that changes the situation.
+That's the interesting moment. The situation changed. Purrmission marks the ask
+boundary, and Mergewell decides how to adjust. Riley performs the narrowed
+corrective action. Mergewell verifies what came back.
+Then notice the final beat. It holds. Because verified is not the same as accepted.
+You can confirm something is true and still decide not to take it.
+And be careful how you describe this loop. Retry, ask, stop, recover — those are
+deliberate outcomes driven by evidence. They are not mandatory stops in some
+universal internal state machine. There is no such machine.
+Say the observation reveals an unexpected dependency change. What now?
+
+Transition: The first big control in that loop is reviewing the route before any
+edits start.
+
+Audience question: If the observation reveals an unexpected dependency change, what should happen next?
+
+Response guidance: Favor stopping or asking at the boundary, inspecting the new
+consequence, and re-briefing if it warrants one. Don't let the answer imply an
+automatic recovery control exists.
+Payoff: Learners use an observable change in evidence to choose a control action inside the loop.
+Sources: content/research/agentic-content-verification.md AGT-12, AGT-13, and AGT-14; content/modules/02-agentic/visual-intent.md slide 12
 -->
 
 ---
@@ -348,7 +623,30 @@ layout: two-panel
 </div>
 
 <!--
-Planning begins by inspecting relevant repository state and proposing a bounded approach before implementation. A useful plan names the target, likely files, checks, risks, and stop points without exposing or claiming hidden reasoning. The human reviews that route before authorizing edits. [Sources: AGT-08; AGT-13; visual-intent.md.]
+Timebox: 3 minutes
+
+Talk track: Planning starts with inspection. Look at the relevant parts of the
+repository, then propose a route — before implementing anything.
+A useful plan names five things. The target behavior. The files it expects to
+touch. The checks. The risks. And the stop points.
+That gives you something concrete to inspect. Note what it doesn't give you: access
+to private reasoning. You're reviewing the proposal, not the mind.
+Which brings me to the thing I most want you to take from this slide.
+Approval is not "that plan sounded confident." Confidence is a writing style.
+Approval is a decision that this route stays inside the brief and can produce the
+evidence you asked for. Those are completely different tests.
+What would make you send a plan back before the first edit?
+
+Transition: Even an approved plan needs boundaries declared in advance for actions
+that turn consequential.
+
+Audience question: What would make you stop and revise a plan before the first edit?
+
+Response guidance: Draw out unexplained files, scope that's too broad, missing
+validation, dependency or public-contract changes, unclear access, and absent stop
+points. Several of these usually go unmentioned until you name them.
+Payoff: Learners identify plan-quality evidence before tool activity makes a weak route expensive to unwind.
+Sources: content/research/agentic-content-verification.md AGT-08 and AGT-13; content/modules/02-agentic/visual-intent.md slide 13
 -->
 
 ---
@@ -392,7 +690,33 @@ class: agentic-priority-slide
 </style>
 
 <!--
-Consequential tool requests should expose the action, parameters, reach, likely consequence, reversibility, and developer decision. Interactive controls and recovery options differ across hosts, so the slide promises no universal approval or rollback behavior. Purrmission marks this consequential permission boundary while Agent Mergewell retains the decision. [Sources: AGT-11; AGT-14; visual-intent.md.]
+Timebox: 4 minutes
+
+Talk track: Decide your action classes before the request shows up. Not during.
+Three classes.
+Allowed — routine, inside the brief, no ceremony required.
+Ask-first — this changes consequence or reach.
+Not allowed — outside the boundary, full stop.
+The reason you do this in advance is simple. In the moment, under time pressure,
+with something half-finished on screen, everything feels like it should be allowed.
+That's exactly when you don't want to be making the rule.
+When you're at the gate, inspect five things. The exact action. Its parameters. Its
+scope. The likely consequence. And whether it's reversible.
+Product controls vary by host, so Purrmission marks the risk — but Mergewell still
+chooses. Allow, narrow, reject, or stop.
+Try one. The collaborator wants to install a package the brief excluded. Which
+boundary, and what do you do?
+
+Transition: Once an action is allowed and work comes back, remember that a
+completion message is not evidence.
+
+Audience question: If the collaborator proposes installing a package that the brief excluded, which boundary applies and what do you do?
+
+Response guidance: It's ask-first or not-allowed depending on how the boundary was
+declared. Push for narrow, reject, or stop — and name approval-by-momentum out loud
+as the failure mode, because that's what actually happens under pressure.
+Payoff: The group rehearses a consequential decision before encountering it in mission work.
+Sources: content/research/agentic-content-verification.md AGT-11 and AGT-14; content/modules/02-agentic/visual-intent.md slide 14
 -->
 
 ---
@@ -422,7 +746,31 @@ layout: two-panel
 </div>
 
 <!--
-Verification separates a collaborator's completion language from artifacts the developer can inspect. A diff, tests, configured checks, review comments, and acceptance criteria answer different questions and prove only what they checked. Progress, drift, and unresolved uncertainty become visible by comparing this evidence with the original brief. [Sources: AGT-12; AGT-16; AGT-28.]
+Timebox: 3 minutes
+
+Talk track: "Task complete."
+That's a status claim. It is not a review decision, and the gap between those two
+things is where a lot of bad merges live.
+So do four things instead of believing it.
+Read the diff — for scope and for intent, because those fail differently. Read the
+tests for what they actually exercised, not the fact that they're green. Name the
+open risk and the checks nobody ran. And compare all of it against the acceptance
+criteria in your original brief.
+Each of those answers a different question. And drift only becomes visible when you
+line the answers up next to each other.
+So let's press on the green one. One focused test passes. What has it proven — and
+what has it left completely untouched?
+
+Transition: Repository state gives us named places to pause, review, and recover
+while we're gathering that evidence.
+
+Audience question: What does one passing focused test prove, and what does it leave unproven?
+
+Response guidance: Hold the answer to the specific behavior that test exercised.
+Then get one unproven area named out loud — adjacent behavior, security,
+integration, or scope. The pairing is the point.
+Payoff: Learners stop treating a green signal as universal proof and begin assembling an evidence stack.
+Sources: content/research/agentic-content-verification.md AGT-12, AGT-16, and AGT-28; content/modules/02-agentic/visual-intent.md slide 15
 -->
 
 ---
@@ -446,7 +794,32 @@ layout: single-panel
 <div class="agentic-callout agentic-safety">A Git checkpoint does not reverse every external side effect.</div>
 
 <!--
-Git branches provide lines of development, commits record snapshots, and pushes update the remote branch. Branch, working diff, validation, and a reviewable commit create visible scope and recovery checkpoints for the delegated task. Version control does not reverse every network, data, or external-system effect, so recovery remains consequence-specific. [Sources: AGT-14; AGT-15.]
+Timebox: 3 minutes
+
+Talk track: You already own the best checkpoint system for this. It's Git. You
+don't need anything new.
+A branch separates this line of work from everything else. The working diff shows
+you every current change. Your validation record says what was actually checked.
+And a named, reviewable commit preserves a repository state you can return to.
+That's your recovery point, and it's free.
+But I want to be honest about its limits, because "we can always roll back" gets
+said far too casually.
+A commit reverses files. It does not reverse an installed package on someone's
+machine, a network call that already went out, data you already wrote, or anything
+an external system did in response.
+Your recovery route has to match the consequence. Not just the code.
+What would you record so another reviewer could pick this up cold?
+
+Transition: Around the push boundary, security evidence adds several more distinct
+checkpoints.
+
+Audience question: What would you record at a checkpoint so another reviewer could recover or continue confidently?
+
+Response guidance: Look for branch or commit identity, the reviewed diff, exact
+validation results, open risks — and any external side effect listed with its own
+separate recovery step. That last one is usually missing.
+Payoff: Learners turn “we can roll back” into a named, evidence-backed recovery point with explicit limits.
+Sources: content/research/agentic-content-verification.md AGT-14 and AGT-15; content/modules/02-agentic/visual-intent.md slide 16
 -->
 
 ---
@@ -485,7 +858,33 @@ class: agentic-priority-slide
 </style>
 
 <!--
-In an interactive Copilot CLI session, `/security-review` is a focused on-demand review of active local changes and not a full repository audit. Applicable push protection may block supported secrets, while configured code scanning and applicable pull-request dependency review provide separate evidence with their own setup, coverage, trigger, and availability boundaries. A finding, clean result, suggested fix, successful push, or passing check still requires human validation and is never automatic acceptance or merge permission. [Sources: AGT-32; AGT-33; AGT-34; AGT-35; AGT-36; AGT-37; AGT-38.]
+Timebox: 4 minutes
+
+Talk track: Security here is not one control. It's four separate ones, each with
+its own conditions, and treating them as a single safety net is how people get
+caught out.
+In an interactive CLI session, `/security-review` reviews your active local
+changes. Local. Active. Not a repository audit.
+At the push boundary, applicable push protection may block detected supported
+secrets.
+Configured code scanning produces alerts — from the events it was configured for.
+And an applicable pull request can surface dependency-review evidence.
+Notice how many qualifiers I just used. Applicable. Configured. Supported. Every
+lane has its own setup, coverage, trigger, plan, and availability boundary.
+And whether it finds something or finds nothing, a human still validates the
+result. Clean is a finding too, and it also has a scope.
+So — `/security-review` comes back clean. What have you not learned?
+
+Transition: That's one evidence family. Ordinary GitHub Actions gives us a broader
+configured loop.
+
+Audience question: If `/security-review` reports no finding, what does that result still not prove?
+
+Response guidance: Reinforce that it doesn't clear the whole repository, the
+dependency set, the history, secrets, or every vulnerability class — and it grants
+no merge permission whatsoever. Say that last part explicitly.
+Payoff: Learners keep a focused Copilot command distinct from repository security controls and final acceptance.
+Sources: content/research/agentic-content-verification.md AGT-32 through AGT-38
 -->
 
 ---
@@ -509,7 +908,32 @@ layout: single-panel
 <div class="agentic-callout">Keep ordinary repository workflows separate from cloud-agent environments and product-specific review runs.</div>
 
 <!--
-An ordinary GitHub Actions workflow runs because a configured repository event such as `push` or `pull_request` triggered it, not because Copilot inherently ran continuous integration. Cloud-agent environments and product-specific Code Quality or code-review runs have separate security and runner boundaries. Commit-associated pass, fail, skipped, or missing evidence guides the next developer decision. [Sources: AGT-16; AGT-17.]
+Timebox: 3 minutes
+
+Talk track: Let me clear up a misconception I hear a lot.
+A GitHub Actions workflow runs because a configured repository event fired. A push.
+A pull request. That's it. Copilot did not run continuous integration for you, and
+it doesn't inherently do CI at all.
+What you get back — pass, fail, skipped, or a check that never ran — is evidence
+attached to that commit. Watch for that last one especially. A check that's missing
+is not a check that passed.
+And cloud-agent environments and product-specific review runs have their own
+security and runner boundaries. Different rules, same-looking output.
+Then use the result to decide: continue, revise, or stop.
+What you must not do is turn a failure into a blind retry. Same input, same code,
+hoping. That's not a strategy.
+So when a check fails — what new evidence should shape the next attempt?
+
+Transition: A pull request packages that commit evidence with the change and its
+open questions, and hands it to another human.
+
+Audience question: When a configured check fails, what new evidence should guide the next attempt?
+
+Response guidance: Ask for the failing step, exact output, affected behavior, the
+assumption that changed, and a targeted next check. If someone says "just run it
+again," name that as the anti-pattern this slide exists for.
+Payoff: Learners use Actions as feedback for the loop instead of treating CI as an automatic agent capability.
+Sources: content/research/agentic-content-verification.md AGT-16 and AGT-17; content/modules/02-agentic/visual-intent.md slide 18
 -->
 
 ---
@@ -539,7 +963,33 @@ layout: two-panel
 </div>
 
 <!--
-A pull request packages branch changes, checks, uncertainty, and requested review into a visible handoff. Cloud-agent commits, logs, diffs, test output, and discussion can contribute evidence, but every signal remains subject to human evaluation. Opening a pull request or receiving a Copilot Comment review is not acceptance. [Sources: AGT-15; AGT-20; AGT-28.]
+Timebox: 3 minutes
+
+Talk track: This might be the biggest mental shift in the whole module.
+A pull request is a handoff. Not a completion. You are not finishing — you are
+transferring something to another human, and it needs to arrive in a state they can
+actually act on.
+So the package explains six things. What you intended. What changed. Which checks
+ran. What passed and what failed. What's still uncertain. And what review you're
+asking for.
+Commits, logs, diffs, test output, discussion — all of that strengthens the
+package.
+But be clear about what opening it does. Opening a pull request begins evaluation.
+Receiving a Copilot Comment review begins evaluation. Neither one accepts the
+change. Nothing here is self-serve.
+So picture it. A software agent just opened a PR on your repository. What would you
+need to see before you were comfortable approving it?
+
+Transition: If the pull request is the handoff, the next question is when a cloud
+agent is the right one to produce it.
+
+Audience question: If a software agent submitted a pull request now, what evidence would you need before you felt comfortable approving it?
+
+Response guidance: Expect tests, security results, a clear change summary, a scoped
+diff, and open risks. Group them as separate evidence streams — resist any framing
+where one of them is sufficient on its own.
+Payoff: The audience defines a practical review package and sees evidence, questions, and code as equal parts of the handoff.
+Sources: content/research/agentic-content-verification.md AGT-15, AGT-20, and AGT-28; content/modules/02-agentic/visual-intent.md slide 19
 -->
 
 ---
@@ -569,7 +1019,31 @@ layout: two-panel
 </div>
 
 <!--
-The current product name is GitHub Copilot cloud agent, and eligibility depends on a paid plan, policy, repository compatibility, and write access. Sessions can start from several documented entry points and may create or update a pull request at different points in the workflow. One session works in one repository on one branch and cannot approve or merge its own pull request. [Sources: AGT-18; AGT-19; AGT-20.]
+Timebox: 3 minutes
+
+Talk track: The cloud agent suits work that can go away, run on its own, and come
+back for review. Asynchronous by design.
+Eligibility depends on your plan, your policy, repository compatibility, and write
+access. Start paths vary. Pull-request timing varies. And one session works in one
+repository, on one working branch — so this isn't a swarm.
+Then the line that matters most.
+The cloud agent can do bounded work and return evidence. It cannot approve its own
+pull request. It cannot merge it. Whatever it produces still lands in front of your
+team.
+Same accountability we started the module with. Just further from your desk.
+So think about your actual backlog. What would you hand off — and what would you
+deliberately keep close?
+
+Transition: Background work only succeeds when the handoff carries enough context,
+limits, checks, and stops.
+
+Audience question: What is one backlog task you would delegate to a cloud agent, and one task you would keep behind closer human oversight?
+
+Response guidance: Make participants justify both halves using scope,
+reversibility, repository fit, permissions, and review evidence. Don't let it become
+a popularity contest about which tasks are boring.
+Payoff: The paired answer creates a natural autonomy boundary grounded in the audience’s own work.
+Sources: content/research/agentic-content-verification.md AGT-18, AGT-19, and AGT-20; content/modules/02-agentic/visual-intent.md slide 20
 -->
 
 ---
@@ -601,7 +1075,33 @@ layout: two-panel
 </div>
 
 <!--
-A cloud handoff repeats the outcome, current repository state, references, scope, non-goals, checks, permissions, stops, and expected evidence. Cloud-agent secrets and variables require explicit environment configuration, and ordinary Actions secrets are not an automatic grant. Fresh Lead is a reusable packaging skill, while Purrmission marks the consequential high-autonomy boundary owned by Mergewell. [Sources: AGT-08; AGT-19; AGT-21; visual-intent.md.]
+Timebox: 3 minutes
+
+Talk track: A cloud handoff is a complete assignment. Not a short instruction sent
+farther away.
+And there's a reason it has to be complete. You won't be there. Nobody's going to
+tap you on the shoulder mid-task and ask what you meant.
+So repeat all of it. The outcome. Current repository state. Verified references.
+Scope. Non-goals. Checks. Permissions. Stop conditions. And the evidence that has
+to come back.
+Two specifics worth calling out. Secrets and variables need explicit
+agent-environment configuration — ordinary Actions secrets are not an automatic
+grant, and people assume they are. And Purrmission's marker goes exactly here:
+higher autonomy demands clearer limits, not looser ones.
+Let's write one line together. The task may change one named file. What's your stop
+sentence?
+
+Transition: Once work can run away from your desk, GitHub Mobile supports a bounded
+start, tracking, diff review, iteration, and review path.
+
+Audience question: For a cloud task allowed to change one named file, what exact stop sentence belongs in the handoff?
+
+Response guidance: Listen for something like "If the task requires another file or
+broader permission, stop and ask before continuing." Accept any equivalent that
+names the boundary and demands a stop or a question — reject anything that permits
+silent expansion.
+Payoff: Learners leave with an operational stop clause they can place directly into a bounded cloud-agent handoff.
+Sources: content/research/agentic-content-verification.md AGT-08, AGT-19, and AGT-21; content/modules/02-agentic/visual-intent.md slide 21
 -->
 
 ---
@@ -628,7 +1128,34 @@ layout: single-panel
 </div>
 
 <!--
-In GitHub Mobile, an eligible developer can start a GitHub Copilot cloud-agent session or assign an issue, track agent work, review the visible diff, iterate, and open the resulting pull request for human review. Current sources do not verify clarification responses, an exact follow-up control, complete GitHub.com session parity, or universal automatic pull-request creation, review, or acceptance. GitHub Copilot code review is a separate eligible action whose Comment review still requires human validation, and availability remains subject to plan, policy, repository, access, app, and notification-platform boundaries. [Sources: AGT-39; AGT-40; AGT-41; AGT-42; AGT-43; AGT-44; AGT-45; AGT-46.]
+Timebox: 4 minutes
+
+Talk track: Let me get ahead of the eye-roll. Nobody is suggesting you should write
+code on a phone.
+Mobile is an oversight surface. That's a different job entirely.
+An eligible developer can start a cloud-agent session or assign an issue. Find work
+and track it. Review the visible diff. Iterate. And open the resulting pull request
+for human review.
+Now the boundaries, and I'm going to be strict here because this is a place where
+people cheerfully invent features.
+Current sources do not verify clarification responses. They do not verify complete
+parity with GitHub.com sessions. They do not verify automatic pull-request
+creation, review, or acceptance. If you can't point at it, don't promise it.
+And Copilot code review stays a separate eligible action whose Comment findings
+still need validating.
+The real value is the idle time. You spot something on a Tuesday evening — how much
+sooner could bounded work have started?
+
+Transition: Better remote results still come down to teaching Copilot the durable
+facts about your repository.
+
+Audience question: What useful bug or improvement have you discovered away from your desk that could have benefited from starting bounded work sooner?
+
+Response guidance: Take one or two examples, then ask what repository, scope, and
+review boundary would have to be set before starting. Do not let enthusiasm imply
+Mobile controls that aren't verified.
+Payoff: Learners connect Mobile to reduced idle time while retaining exact product and human-review boundaries.
+Sources: content/research/agentic-content-verification.md AGT-39 through AGT-46; content/modules/02-agentic/visual-intent.md slide 22
 -->
 
 ---
@@ -655,7 +1182,31 @@ class: agentic-init-title-slide
 <div class="agentic-callout">Revisit reviewed instructions after major framework, architecture, or workflow changes.</div>
 
 <!--
-`/init` is an interactive Copilot CLI command, with `copilot init` as its command-line counterpart, that analyzes a repository and writes or updates `.github/copilot-instructions.md`. Run it after the project has meaningful structure, dependencies, conventions, and real build and test commands so the proposal has useful evidence. The developer must inspect, correct, and choose whether to commit the result because the command does not silently approve or commit team guidance. [Sources: AGT-01; AGT-22; visual-intent.md.]
+Timebox: 3 minutes
+
+Talk track: `/init` is an interactive Copilot CLI command — `copilot init` is its
+command-line counterpart. It analyzes your repository and proposes writing or
+updating `.github/copilot-instructions.md`.
+Timing matters more than people expect. Run it once the project has real structure,
+real dependencies, real conventions, and real build and test commands. Run it on
+day one of an empty repository and it has nothing to look at, so it gives you
+nothing worth keeping.
+And treat what comes out exactly like generated code. Review it. Correct it. Then
+decide whether to commit it.
+The command proposes. It does not silently approve or commit your team's guidance.
+Here's the uncomfortable question. How much of your team's coding and validation
+knowledge is written down — and how much of it lives in one person's head?
+
+Transition: With repository context explicit, optimization becomes a workflow
+question instead of a hunt for a magic model.
+
+Audience question: How much of your team’s coding and validation guidance is documented, and how much still lives in someone’s head?
+
+Response guidance: Take a quick proportion or a show of hands, then ask which
+single stable command or convention should be captured first. Keep it about
+practices — never name individuals.
+Payoff: The question exposes undocumented project knowledge that can otherwise make every agentic handoff inconsistent.
+Sources: content/research/agentic-content-verification.md AGT-01 and AGT-22; content/modules/02-agentic/visual-intent.md slide 23
 -->
 
 ---
@@ -680,7 +1231,34 @@ layout: single-panel
 <div class="agentic-callout">Measure irrelevant context, check scope, repeated attempts, and proof quality—do not promise fixed savings or success.</div>
 
 <!--
-Portable optimization practices include clear tasks, lean relevant context, focused sessions, minimal tools, phased work, deterministic checks, and explicit stopping conditions. These practices can reduce unnecessary exploration or retries, but no reviewed source establishes a guaranteed quality improvement or fixed AI-credit saving. Compare observable workflow evidence before and after the change rather than describing optimization as model magic. [Sources: AGT-23; AGT-24; AGT-31.]
+Timebox: 3 minutes
+
+Talk track: Agentic optimization is workflow optimization. It is not model
+shopping.
+Picture two paths side by side.
+The noisy one drags along unrelated context, runs broad checks after every single
+edit, and repeats attempts without any new information. That last one is the real
+killer — trying again is not evidence.
+The focused one carries relevant context, runs a targeted check before broad
+validation, and explains what changed before every retry.
+Now let me be careful about what I'm claiming. These practices can reduce
+unnecessary work. They do not guarantee quality, and they do not guarantee a fixed
+credit saving. Compare what you can observe. Don't attribute the win to model
+magic.
+So when a response misses — how do you tell whether the problem is the context, the
+brief, the tools, or the model?
+
+Transition: The same right-sizing applies to product controls and credit exposure
+before work even starts.
+
+Audience question: When a response misses the mark, what evidence would help you decide whether the problem is context, the brief, the tools, or the model?
+
+Response guidance: Accept a mix of factors, but insist on one diagnostic
+observation before anyone changes anything — irrelevant context, misunderstood
+acceptance criteria, unavailable tools, or repeated model failure. Changing four
+things at once teaches you nothing.
+Payoff: Learners replace blind retry and reflexive model switching with evidence-led workflow diagnosis.
+Sources: content/research/agentic-content-verification.md AGT-23, AGT-24, and AGT-31; content/modules/02-agentic/visual-intent.md slide 24
 -->
 
 ---
@@ -703,7 +1281,35 @@ layout: single-panel
 </div>
 
 <!--
-GitHub AI Credits depend on model and token usage, so pre-run controls must be taught only for their named plans, models, and product surfaces. Start with regular context and reasoning, use Auto where supported, carry only relevant history, and optionally set the public-preview soft Copilot CLI session ceiling before a bounded run. Auto's current paid-plan 10 percent model-cost discount is not a cheapest-successful-result promise, and none of these choices guarantees a fixed saving, so inspect both result quality and available usage evidence afterward. [Sources: CREDIT-01; CREDIT-03; CREDIT-04; CREDIT-05; CREDIT-06; CREDIT-07; CREDIT-08; SRC-01; SRC-02; SRC-03; SRC-04; SRC-05; SRC-06; SRC-07.]
+Timebox: 3 minutes
+
+Talk track: Cost-conscious does not mean cheap. It means deliberate.
+The failure mode I want you to avoid is spending less and getting a result you
+can't use. That's not a saving. You'll pay for it twice.
+So, practically. Start with regular context and reasoning. Use Auto where it's
+supported. Strip out unrelated history. And for a bounded CLI run, consider the
+public-preview soft session ceiling when it's available to you.
+Two honest caveats.
+Auto's current paid-plan model-cost discount is a discount. It is not a promise of
+the cheapest successful result — and successful is the word doing the work in that
+sentence.
+And the CLI limit is soft. A run can finish slightly over. Plan for that rather
+than being surprised.
+Then check two things before continuing: was the result good, and what does the
+usage evidence show?
+Bounded CLI typo fix. Which control first, and what tells you to continue?
+
+Transition: The final decision combines cost awareness with several independent
+quality and review streams.
+
+Audience question: For a bounded Copilot CLI typo fix, which pre-run control would you choose first, and what evidence would decide whether to continue?
+
+Response guidance: Favor regular context and reasoning, a fresh relevant session,
+Auto where supported, or a justified soft session ceiling. Then require both halves
+of the answer — result quality and available usage evidence. Don't let any single
+choice be framed as guaranteeing the cheapest successful run.
+Payoff: Learners connect one proportionate pre-run choice to the two post-run checks that support a continue-or-stop decision.
+Sources: content/research/agentic-ai-credit-optimization.md CREDIT-01 and CREDIT-03 through CREDIT-08; content/modules/02-agentic/visual-intent.md slide 25
 -->
 
 ---
@@ -735,7 +1341,35 @@ class: agentic-priority-slide
 </style>
 
 <!--
-GitHub Code Quality supplies deterministic CodeQL findings, while GitHub Copilot code review is a separate AI-powered review that produces comments requiring validation. Code Quality no longer automatically adds Copilot as a reviewer, and a manually requested Copilot review does not automatically repeat after every new push by default. Diff evidence, ordinary Actions, Code Quality, Copilot review, acceptance, and merge remain distinct, with Mergewell and Purrmission marking the final human decision. [Sources: AGT-25; AGT-26; AGT-27; AGT-28; AGT-29; AGT-30.]
+Timebox: 4 minutes
+
+Talk track: This is the evidence desk. Everything in this module lands here.
+Four instruments, four different questions.
+The diff tells you what changed. GitHub Actions reports the checks you configured.
+GitHub Code Quality gives you deterministic CodeQL findings. And Copilot code review
+gives you comments — which still need validating.
+Two details that have changed and that people still get wrong. Code Quality no
+longer automatically adds Copilot as a reviewer. And a requested Copilot review does
+not automatically repeat after every new push by default. Check, don't assume.
+Think of these like cockpit instruments. Your altimeter reduces uncertainty about
+altitude. It does not fly the plane. Neither does your airspeed indicator, and
+neither do all of them together.
+Mergewell still owns accept, revise, reject, recover, and merge.
+So let me put two bad options in front of you. A pull request that passed every
+automated check but no human looked at it. Or one an expert reviewed carefully while
+a security scan was still failing. Which is riskier?
+
+Transition: We're ready to put the whole handoff-and-decision pattern into the
+scored mission.
+
+Audience question: Which is riskier: a pull request that passed every automated check but received no human review, or one an expert reviewed while a security scan still failed—and why?
+
+Response guidance: Let the debate run briefly — it's a genuinely good argument. Then
+land it: both are risky, because human review and automated findings answer
+different questions and neither one cancels the other. That's the takeaway, not a
+winner.
+Payoff: The question makes separate evidence streams and retained human authority memorable at the module’s culmination.
+Sources: content/research/agentic-content-verification.md AGT-25 through AGT-30; content/modules/02-agentic/visual-intent.md slide 26
 -->
 
 ---
@@ -759,5 +1393,31 @@ class: agentic-slide
 <div class="agentic-decision">MISSION ROUTE · workshops/ghcp-dev-hack/agentic/missions/agent-task/</div>
 
 <!--
-This briefing points participants to the separate 45-minute scored mission `Your Mission: Hand Off Work with Confidence`, which starts from the exported Foundations case file or the facilitator starter for legitimate catch-up entry. Participants choose an approved Copilot harness, stay inside the workshop-local starter fixture, and keep permissions limited enough to recover safely. The mission reuses the Foundations scoring envelope: 50 available core points, 40 core points required for completion, up to 10 bonus points, and no hint penalty or speed scoring. They return the updated case file, bounded brief, diff, validation output, and separate Foundations, Agentic, and cumulative totals before making the human accept, revise, reject, stop, or recover decision. [Sources: content/missions/agentic/agent-task.md; module.md.]
+Timebox: 45 minutes
+
+Talk track: Open your exported Foundations case file. If you're joining us at this
+module, take the clearly labeled facilitator starter — that's what it's there for.
+Pick one approved Copilot harness. Then run the full pattern.
+Write the bounded brief. Review the plan before anything gets edited. Watch for
+drift and for any reach toward consequential access. Inspect the changed work and
+the validation. And then make the call — accept, revise, reject, stop, or recover.
+All five are legitimate outcomes. Stopping is a result, not a failure.
+The numbers. Fifty core points. Forty completes it. Bonus caps at ten. And hints
+cost you nothing — no penalty, and there's no speed score, so don't rush past
+something you don't understand.
+Export the updated case with your totals kept separate: Foundations, Agentic, and
+cumulative. Advanced consumes this evidence. It does not restart the story.
+Before you start — which boundary from your Foundations case will you use first to
+judge the Agentic plan?
+
+Transition: Start the forty-five-minute clock now. Keep your final export open when
+the mission closes so Module 3 can pick it straight up.
+
+Audience question: Which boundary from your Foundations case will you use first to judge the Agentic plan?
+
+Response guidance: Ask for one concise boundary — named files, excluded access,
+success checks, rollback, or a stop condition. Then point participants to the
+matching mission route, and to the starter if they need it.
+Payoff: Every participant begins with a review criterion and produces the evidence envelope required for the Advanced handoff.
+Sources: content/missions/agentic/agent-task.md; content/modules/02-agentic/module.md
 -->

@@ -116,7 +116,9 @@ export async function buildSite(releaseManifestOption = process.env.GHCP_RELEASE
           "--out",
           output,
           "--base",
-          base
+          base,
+          "--router-mode",
+          "hash"
         ],
         repositoryRoot
       );

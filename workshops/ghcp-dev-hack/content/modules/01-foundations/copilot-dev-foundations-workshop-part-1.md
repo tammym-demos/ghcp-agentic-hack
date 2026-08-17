@@ -110,6 +110,67 @@
 
 Use Ask for understanding, Plan for reviews before edits, and Agent only when scope and rollback are explicit. Inline completions handle flow; inline chat handles bounded transformations. Never use a higher-autonomy mode because it feels faster.
 
+### Current slide 10 delivery handoff — `Built in Agents` (20 minutes)
+
+For the current approved 24-slide generated deck, slide 10 consolidates this
+section's explanation, demonstration, and comparison into one runnable
+20-minute instruction block. The current manifest's count, title, and timing
+remain authoritative over the older Part 1 packet decomposition. Do not change
+the participant-facing slide text.
+
+Use a disposable, non-confidential local practice repository with one
+pre-staged file, `field-notes.js`:
+
+```js
+export function formatFieldNote(note) {
+  return note.trim();
+}
+```
+
+The one bounded task is to preserve trimmed non-empty notes while returning
+`"(untitled)"` for whitespace-only input. Only `field-notes.js` may change.
+Use these requests exactly:
+
+**Ask**
+
+```text
+Using only #selection, explain what formatFieldNote does for "  Safety  " and "   ". Identify the gap against this requirement: whitespace-only input must return "(untitled)". Do not edit files or run commands.
+```
+
+**Plan**
+
+```text
+Using only #selection and field-notes.js, propose the smallest change so formatFieldNote trims non-empty input and returns "(untitled)" for whitespace-only input. Include checks for "  Safety  " and "   ". Do not edit files or run commands.
+```
+
+**Agent**
+
+```text
+Update only field-notes.js to implement the approved plan. Do not create, delete, rename, or edit any other file. Do not run commands, install packages, or use the network. Stop and ask if the change requires anything outside this boundary. Then show the diff and explain how the two checks are satisfied.
+```
+
+Use this authoritative delivery progression:
+
+| Boundary | Minutes | Human checkpoint |
+|---|---:|---|
+| Confirm the disposable repository, selected function, installed host controls, and rollback copy | 2 | Stop if the selected VS Code build does not expose the intended Ask, Plan, and Agent experiences. |
+| Run Ask and compare the two inputs without edits | 3 | Confirm that no file changed and that the requirement gap is stated. |
+| Run Plan and inspect the proposed file, behavior, checks, and exclusions | 4 | Do not authorize implementation until the plan stays inside the one-file boundary. |
+| Make the human plan decision | 2 | Approve, revise, or stop; never treat a proposed plan as permission to edit. |
+| Run the bounded Agent request | 4 | Stop on any request for another file, command, package, network access, or broader scope. |
+| Inspect the diff and manually evaluate both expected results | 3 | Confirm `"  Safety  "` becomes `"Safety"` and `"   "` becomes `"(untitled)"`; accept or restore the starter. |
+| Compare Ask, Plan, and Agent and restore the known starter state | 2 | Name the smallest sufficient interaction and the checkpoint that changed the human decision. |
+| **Total** | **20** | |
+
+Before delivery, verify the exact labels and behavior in the installed VS Code
+and GitHub Copilot versions. Ask, Plan, Agent, and context-reference support
+vary by host and configuration; do not rename another control, imply
+cross-surface parity, or conflate local Agent mode with GitHub Copilot cloud
+agent. If the approved host does not expose all three experiences, use a
+pre-reviewed captured result for the unavailable step and walk through the
+same boundary, diff, and human checkpoints rather than improvising a live
+workflow or broadening permissions.
+
 *Part 1 presentation content complete — missions are presented at the end of Part 2 as a consolidated 45-minute Agent Mergewell play block.*
 
 *Part 1 slide-generation packet for GitHub Copilot Developer Foundations Workshop*

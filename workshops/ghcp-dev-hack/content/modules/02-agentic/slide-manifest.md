@@ -7,12 +7,12 @@ Expected slide count: **27**
 
 | # | Exact source title | Source markers | Communication job and native treatment | Minutes |
 | ---: | --- | --- | --- | ---: |
-| 1 | Module 2: Agentic Development — Workshop Guide | `module.md`; `workshop.md`; `opening-slides-concept.md`; `visual-intent.md`; AGT-12, AGT-28; character briefs | Establish module identity and the human → bounded software collaborator → safety guardian role hierarchy. Temporarily reuse the approved `approval-boundary-human-decision.png` contained and unmodified; this fallback is not approval of the new-scene candidate. | 0 |
-| 2 | Session Agenda | `module.md`; `workshop.md`; `copilot-dev-agentic-workshop.md` “Instruction architecture”; Foundations slide 2 | Present the native `15 + 20 + 20 + 20 = 75` instructional route and separate 45-minute mission without adding dividers | 0 |
-| 3 | Agentic Development | `module.md`; `visual-intent.md`; AGT-12, AGT-28 | Establish the human brief → software work → returned evidence → human acceptance split | 0 |
-| 4 | Instructions for Agentic Work | AGT-01, AGT-02 | Separate repository-wide, path-specific, agent-specific, and current-task guidance | 3 |
-| 5 | Memory and Its Limits | AGT-04, AGT-05 | Separate repository facts, user preferences, and context that must be supplied again | 3 |
-| 6 | Context for Long-Running Work | AGT-06, AGT-07 | Contrast focused context with unrelated or stale history | 3 |
+| 1 | Module 2: Agentic Development — Workshop Guide | `module.md`; `workshop.md`; `opening-slides-concept.md`; `visual-intent.md`; AGT-12, AGT-28; character briefs | Establish module identity and the human → bounded software collaborator → safety guardian role hierarchy. Temporarily reuse the approved `approval-boundary-human-decision.png` contained and unmodified; this fallback is not approval of the new-scene candidate. | 1 |
+| 2 | Session Agenda | `module.md`; `workshop.md`; `copilot-dev-agentic-workshop.md` “Instruction architecture”; Foundations slide 2 | Present the native `15 + 20 + 20 + 20 = 75` instructional route and separate 45-minute mission without adding dividers | 1 |
+| 3 | Agentic Development | `module.md`; `visual-intent.md`; AGT-12, AGT-28 | Establish the human brief → software work → returned evidence → human acceptance split | 1 |
+| 4 | Instructions for Agentic Work | AGT-01, AGT-02 | Separate repository-wide, path-specific, agent-specific, and current-task guidance | 2 |
+| 5 | Memory and Its Limits | AGT-04, AGT-05 | Separate repository facts, user preferences, and context that must be supplied again | 2 |
+| 6 | Context for Long-Running Work | AGT-06, AGT-07 | Contrast focused context with unrelated or stale history | 2 |
 | 7 | Context Hierarchy and Instruction Layering | AGT-01–AGT-03 | Detect, expose, resolve, and continue without inventing universal precedence | 4 |
 | 8 | Strong Agentic Prompts | AGT-08 | Connect outcome, limits, evidence, and stops to later checkpoints | 3 |
 | 9 | Reusable Skills | AGT-09 | Distinguish a reusable procedure from the collaborator and its tools | 3 |
@@ -37,11 +37,21 @@ Expected slide count: **27**
 
 ## Timing arithmetic
 
-- Openers and preserved cover: slides 1–3 = `0` minutes.
-- Instruction: six four-minute slides (7, 12, 14, 17, 22, 26) plus 17
-  three-minute slides = `(6 × 4) + (17 × 3) = 75` minutes.
+- Openers and preserved operating split: slides 1–3 =
+  `1 + 1 + 1 = 3` instruction minutes.
+- Adjacent guidance and context: slides 4–6 =
+  `2 + 2 + 2 = 6` instruction minutes.
+- Remaining instruction: six four-minute slides
+  (7, 12, 14, 17, 22, 26) plus 14 three-minute slides =
+  `(6 × 4) + (14 × 3) = 66` minutes.
+- Instruction total:
+  `3 + 6 + 66 = 3 + (3 × 2) + (6 × 4) + (14 × 3) = 75` minutes.
+- The agenda's semantic section architecture remains
+  `15 + 20 + 20 + 20 = 75`; the three opening minutes are instruction within
+  that route, not additional module time, and no section learning coverage is
+  removed.
 - Mission: slide 27 = `45` minutes.
-- Module: `0 + 0 + 0 + 75 + 45 = 120` minutes.
+- Module: `75 + 45 = 120` minutes.
 
 ## Objective and priority coverage
 
@@ -63,8 +73,13 @@ Expected slide count: **27**
 ## Contract constraints
 
 - Titles and order are exact; older counts and titles are historical only.
-- Every slide has exactly one immediately following 3–5 sentence,
-  source-mapped speaker-notes HTML comment.
+- Every visible slide has exactly one immediately following source-mapped
+  speaker-notes HTML comment with these sections in order: `Timebox:`,
+  `Talk track:`, `Transition:`, `Audience question:`, `Response guidance:`,
+  `Payoff:`, and `Sources:`.
+- Each `Timebox:` must equal that row's authoritative `Minutes` value,
+  including zero-minute slides. Every slide requires a natural,
+  slide-specific audience question, response guidance, and payoff.
 - Thirteen approved static image assets are integrated on slides 3, 7, 10, 11,
  13–15, 19–22, 25, and 26 through contained module-public paths and native
  overlays. Slide 1 temporarily reuses the already declared

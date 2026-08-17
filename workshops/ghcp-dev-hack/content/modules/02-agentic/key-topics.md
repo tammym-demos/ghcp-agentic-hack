@@ -136,19 +136,17 @@ Source basis:
 
 ## Instruction Timing
 
-The cover and mission reference are untimed. The dedicated **Meet Northstar
-Checkout** scenario setup receives 2 minutes. Instruction remains **75
-minutes**:
+For the current 27-slide generated deck, `slide-manifest.md` is the per-slide
+timing authority. Slides 1–3 receive one instruction minute each; adjacent
+slides 4–6 receive two minutes each; slides 7, 12, 14, 17, 22, and 26 receive
+four minutes each; and the remaining 14 instructional slides receive three
+minutes each.
 
-- Topic 1 **Instructions for Agentic Work** receives 3 minutes.
-- Topic 21 **Monitoring and Iterative Pushes** and Topic 23 **Agentic
-  Optimization** receive 2 minutes each.
-- Topic 22 **`/init` and Repository Instructions** receives 3 minutes.
-- Topic 24 **Control AI Credits Before the Agent Runs** receives 3 minutes.
-- Each of the other 20 instructional topics receives 3 minutes.
-
-Arithmetic: `2 + (23 × 3) + (2 × 2) = 75` instruction minutes. The
-separate mission remains 45 minutes, for a 120-minute module.
+Arithmetic:
+`(3 × 1) + (3 × 2) + (6 × 4) + (14 × 3) = 75` instruction minutes. The
+semantic section architecture remains `15 + 20 + 20 + 20 = 75`, and the
+separate mission remains 45 minutes, for a 120-minute module. This timing
+correction changes no topic, title, order, or learning coverage.
 
 ## Prioritized Complex Topics
 

@@ -34,7 +34,7 @@ sourceDocuments:
   - content/modules/03-advanced/product-update-brief.md
 slides: content/modules/03-advanced/slides.md
 generation:
-  expectedSlides: 20
+  expectedSlides: 19
   manifest: content/modules/03-advanced/slide-manifest.md
   imageProvider: gpt-image-2
   visualStyle: >-
@@ -53,7 +53,6 @@ assets:
   - assets/images/advanced/accountable-trio-cover-anchor.png
   - assets/images/advanced/parallel-integration-yard-anchor.png
   - assets/images/advanced/role-return-merge-gate-anchor.png
-  - assets/images/foundations/copilot-app-synthesis.png
 status: review
 ---
 

@@ -32,14 +32,37 @@ Accountable orchestration, governed integration, evaluation, recovery, and final
 </div>
 
 <!--
-Advanced moves from choosing an accountable orchestration pattern to governed integration, evaluation, recovery, and final acceptance. Agent Mergewell is the accountable human, Riley Relay represents bounded software-agent collaboration, and Purrmission guards consequential safety boundaries. The approved cover plate keeps the plan, returned evidence, safety boundary, and final acceptance visibly attached to those distinct roles. Timebox this opening to 1 minute. [Sources: Advanced workshop guide; visual intent; approved art direction and candidate review.]
+Timebox: 1 minute
+
+Talk track: Advanced picks up exactly where your Agentic mission stopped.
+You can brief one bounded collaborator and verify what it gives you back. That's
+real. Now we scale that same discipline — across orchestration, integration
+surfaces, debugging, recovery, and final acceptance.
+And I want to name the trap in the word "advanced." It does not mean more autonomy.
+It means more moving parts, and every one of them is a place accountability can go
+missing.
+Mergewell is still the accountable human. Riley still does bounded work and returns
+evidence. Purrmission still guards the consequential and the irreversible.
+More parts. Same owner.
+So tell me where it hurts. As this scales up, which risk grows fastest for you —
+unclear ownership, unsafe integration, weak evidence, or hard recovery?
+
+Transition: Let's map the sixty-minute route and the separate Advanced mission.
+
+Audience question: As agentic work scales, which risk grows fastest for you: unclear ownership, unsafe integration, weak evidence, or difficult recovery?
+
+Response guidance: Take a quick choice and one short reason. Connect the strongest
+response to the agenda section that handles it — then leave it unresolved. You're
+setting a hook, not answering it here.
+Payoff: The question activates the audience’s scaling concern and frames Advanced as accountable orchestration rather than maximum autonomy.
+Sources: content/modules/03-advanced/module.md; content/modules/03-advanced/copilot-dev-advanced-workshop.md module summary; content/modules/03-advanced/art-direction.md character rules
 -->
 
 ---
 layout: advanced-content
 ---
 
-<div class="advanced-kicker">20 slides · 60-minute teaching route</div>
+<div class="advanced-kicker">19 slides · 60-minute teaching route</div>
 
 # Session Agenda
 
@@ -47,7 +70,7 @@ layout: advanced-content
   <div class="advanced-agenda__item">
     <div class="advanced-agenda__time">2</div>
     <strong>Open</strong>
-    <span>Orient · guest handoff at 0</span>
+    <span>Orient · set the route</span>
   </div>
   <div class="advanced-agenda__item advanced-agenda__item--focus">
     <div class="advanced-agenda__time">16</div>
@@ -72,39 +95,33 @@ layout: advanced-content
 </div>
 
 <div class="advanced-callout">
-The live Copilot App handoff is time-neutral; the teaching route totals 60 minutes before the mission.
+The teaching route totals 60 minutes before the separate mission.
 </div>
 
 <!--
-The route spends 2 minutes opening, 16 establishing accountable orchestration, 23 governing integration surfaces and workplace context, 17 evaluating and integrating evidence, and 2 launching the mission. The Copilot App guest handoff is time-neutral in repository metadata. The mission remains a separate 30-minute experience after teaching. Timebox this agenda to 1 minute. [Source: Advanced workshop guide, Session Agenda; slide manifest.]
--->
+Timebox: 1 minute
 
----
-layout: two-panel
----
+Talk track: Sixty minutes of teaching, and it's front-loaded on judgment.
+Two minutes opening. Sixteen on choosing accountable orchestration. Twenty-three
+governing integration surfaces and workplace context — that's the biggest block,
+and it's where most of the risk lives. Seventeen on evaluating and integrating
+evidence. Two to launch the mission.
+And the mission is separate. Thirty minutes, after the teaching path.
+One request for me and for you: keep the examples bounded. Every minute we
+overspend early comes straight out of evaluation and mission time at the end.
+Looking at those sections — which one do you think is hardest to actually apply
+when you're under delivery pressure?
 
-::title::
-# Copilot App: Guest Deep Dive
+Transition: Let's start where the judgment starts — how you split work across
+agents and who owns the merge.
 
-::text::
+Audience question: Which section do you expect will be hardest to apply under real delivery pressure?
 
-## Live product perspective
-
-- Welcome the guest without fixing identity, biography, deck, or demo claims
-- Connect to an **agent-native desktop** with inspectable work surfaces
-- Keep the live segment event-neutral
-- Resume at **Multi-Agent Orchestration: Roles, Boundaries, and Merge Ownership**
-
-<div class="ghcp-callout">
-This handoff is time-neutral in repository metadata.
-</div>
-
-::visual::
-
-<img src="/images/copilot-app-synthesis.png" alt="Agent Mergewell synthesizing evidence from configured work sources within the Copilot App" />
-
-<!--
-Introduce the guest without committing the repository to a name, biography, deck, portrait, or promised demonstration. Connect the handoff to the approved Foundations framing of the Copilot App as an agent-native desktop with inspectable work surfaces. Resume at the orchestration choice model when the live segment ends. Timebox this repository slide to 0 minutes. [Sources: Advanced workshop guide, Copilot App handoff; approved Foundations Copilot App raster.]
+Response guidance: Take one quick answer or a show of hands, note which section it
+was, and defer the real discussion to that slide. Resist the urge to start teaching
+it now.
+Payoff: The presenter gains an emphasis cue while making the timing and separate mission boundary explicit.
+Sources: content/modules/03-advanced/copilot-dev-advanced-workshop.md “Session Agenda”; content/modules/03-advanced/slide-manifest.md row 2
 -->
 
 ---
@@ -129,7 +146,31 @@ class: advanced-concept--role-return
 </div>
 
 <!--
-Multi-agent orchestration starts with a clear role, a defined return, and one human merge owner. Research returns sources, implementation returns a diff, and validation returns checks that the human can reconcile. Split work only when each role can be independently owned and its evidence can be reviewed without losing accountability. Timebox this role-and-return model to 3 minutes. [Source: Advanced workshop guide, slide 4 contract.]
+Timebox: 3 minutes
+
+Talk track: Multi-agent orchestration does not start with how many agents you have.
+It starts with three obligations.
+Give every lane a clear role. Define the evidence that lane has to return. And name
+one human who owns reconciliation and merge. One. Not a committee.
+So research comes back with sources. Implementation comes back with a diff.
+Validation comes back with checks. Three lanes, three concrete returns.
+But here's the test before you split anything.
+Only divide the work when each role can be owned independently and the outputs can
+actually be reconciled. If you can't reconcile them, you haven't parallelized the
+work — you've just distributed the confusion, and somebody has to untangle it later.
+So if you split into research, implementation, and validation: what does each lane
+have to hand back before your merge owner can decide anything?
+
+Transition: With roles clear, teams still need a governed way to discover reusable
+resources.
+
+Audience question: If you split one task into research, implementation, and validation, what must each lane return before the merge owner can decide?
+
+Response guidance: Require a concrete evidence object from each lane — not a status
+update. Then ask how attribution and open uncertainty stay visible at the merge
+gate, because that's what usually gets lost.
+Payoff: Learners practice designing returns before adding parallelism, which prevents orchestration from becoming unowned activity.
+Sources: content/modules/03-advanced/copilot-dev-advanced-workshop.md slide 3 contract
 -->
 
 ---
@@ -158,7 +199,30 @@ layout: advanced-content
 </div>
 
 <!--
-Curated Copilot resource lists are useful discovery inputs for skills, prompts, and examples. Inclusion or popularity does not establish provenance, license posture, permissions, data handling, maintenance, or enterprise compatibility. Use the native gate path to turn a candidate into a review record before reuse. Timebox this slide to 2 minutes. [Source: Advanced workshop guide, Awesome Copilot List.]
+Timebox: 2 minutes
+
+Talk track: Curated Copilot lists are genuinely useful. Great for discovery.
+And discovery is an input to review. That's all it is.
+Because here's what a curated list does not tell you. It doesn't establish source
+credibility. It doesn't tell you the license posture. Or the permissions it wants.
+Or how it handles data. Or whether anyone still maintains it. Or whether it fits
+your enterprise at all.
+Popularity is not a security control. A thousand stars means a thousand people
+liked it, not that anyone read it.
+So move the candidate through your gates, and write down who approved it before it
+goes anywhere near a governed environment.
+What's the first fact you'd check?
+
+Transition: That same "approve narrowly" instinct applies when you delegate a slice
+of work to a subagent.
+
+Audience question: What is the first fact you would verify before reusing a skill or example from a curated list?
+
+Response guidance: Accept provenance, license, permissions, data scope,
+maintenance, or enterprise policy. Make the point that which one comes first can
+vary by team — but none of the required gates disappear.
+Payoff: Learners separate useful discovery from authorization and begin building a repeatable review record.
+Sources: content/modules/03-advanced/copilot-dev-advanced-workshop.md slide 5 contract
 -->
 
 ---
@@ -193,7 +257,30 @@ Inspection evidence depends on the hosting surface; require what that surface ca
 </div>
 
 <!--
-A subagent receives a narrow prompt, minimal necessary context and permissions, an output shape, acceptance criteria, and a return path. Suitable slices include research, tests, documentation review, and independently checkable validation. Require attributable scope, artifacts, result, uncertainty, and conflicts, while recognizing that in-progress inspection evidence varies by hosting surface. Timebox this slide to 3 minutes. [Sources: Advanced workshop guide, Subagents; product update brief, VS Code agent workflows.]
+Timebox: 3 minutes
+
+Talk track: Here's the phrase to hold onto. Smallest auditable unit of work.
+A subagent gets a narrow prompt. Minimal context and permissions. An explicit output
+shape. Acceptance criteria. And a return path back to whoever delegated it.
+Good slices? Research. Tests. A documentation review. Validation you can check
+independently. What makes them good is that they don't duplicate the parent task.
+And whatever comes back has to be attributable. Scope, artifacts, result,
+uncertainty, and conflicts — name all five.
+One boundary on inspection. Use only the in-progress evidence the hosting surface
+actually gives you. Don't describe visibility you don't have.
+So look at something on your plate right now. What part of it could be delegated as
+a slice somebody could check on its own?
+
+Transition: When several slices are genuinely independent, the CLI gives us a named
+command for running them in parallel.
+
+Audience question: What part of a current task could be delegated as an independently checkable subagent slice?
+
+Response guidance: Favor a slice with its own acceptance test and its own return
+object. Challenge anything that overlaps the parent task or that couldn't be
+reviewed on its own — those are the ones that create work instead of removing it.
+Payoff: The audience applies the smallest-auditable-unit test before learning a parallel execution mechanism.
+Sources: content/modules/03-advanced/copilot-dev-advanced-workshop.md slide 6 contract; content/modules/03-advanced/product-update-brief.md “VS Code agent workflows”
 -->
 
 ---
@@ -226,7 +313,32 @@ Not VS Code Chat, inline completion, Copilot App, or an IDE-wide feature.
 </div>
 
 <!--
-`/fleet` is an interactive slash command documented for GitHub Copilot CLI, and `/tasks` is its CLI inspection path. Use it only for sufficiently independent work where elapsed-time or AIC savings exceed execution, review, and reconciliation cost. It is not a VS Code Chat command, inline-completion feature, Copilot App command, or IDE-wide capability, and a CLI `/ide` connection does not change that ownership. Timebox this slide to 4 minutes. [Sources: Advanced product update brief, Copilot CLI `/fleet`; Advanced workshop guide, slide 7 contract.]
+Timebox: 4 minutes
+
+Talk track: `/fleet` is an interactive slash command documented for GitHub Copilot
+CLI. `/tasks` is how you inspect what it's running.
+Let me be precise about where it lives, because this gets misremembered constantly.
+It is not a VS Code Chat command. Not an inline-completion feature. Not a Copilot
+App command. Not an IDE-wide capability. And connecting the CLI to your IDE does not
+move ownership of the command — it's still the CLI's.
+Now, when should you reach for it?
+Only when the work is independent enough that the time or credit you save actually
+exceeds what it costs you to execute, review, and reconcile. Parallel work is not
+free. You pay at the end, in reconciliation, and that bill can be larger than the
+one you avoided.
+Every return needs scope, changed artifacts, validation, uncertainty, and conflicts.
+Flip it around. When would `/fleet` make something slower or riskier?
+
+Transition: Parallel execution needs isolated working state — which brings us to
+worktrees.
+
+Audience question: When would `/fleet` make a task slower or riskier instead of faster?
+
+Response guidance: Draw out dependencies, overlapping files, shared schemas,
+unclear ownership, high reconciliation cost, and work that can't be validated
+independently. Keep the group evaluating total cost, not wall-clock speed.
+Payoff: Learners evaluate parallelism by total coordination and evidence cost rather than wall-clock speed alone.
+Sources: content/modules/03-advanced/product-update-brief.md “Copilot CLI /fleet”; content/modules/03-advanced/copilot-dev-advanced-workshop.md slide 7 contract
 -->
 
 ---
@@ -257,7 +369,33 @@ One human merge owner decides the order and accepts the combined result.
 </div>
 
 <!--
-Use one worktree and branch per independent session to isolate files, context, and diffs. Isolation prevents working-directory collision but does not prove independence, compatibility, correctness, or merge safety. Inspect dependencies and overlap, validate each branch independently, then prove compatibility through ordered combined validation. Timebox this slide to 4 minutes. [Sources: Advanced workshop guide, Worktrees for Parallel Agent Sessions; product update brief, VS Code agent workflows.]
+Timebox: 4 minutes
+
+Talk track: One worktree and one branch per independent session. Files, context, and
+diffs stay separate, so nothing collides in a shared working directory.
+That's real value, and it's cheap to set up.
+Now here's where I've seen teams get comfortable too early.
+Isolation proves the sessions didn't interfere with each other. That's all it
+proves. It does not prove the tasks were independent. It does not prove the changes
+are compatible. It does not prove any of the behavior is correct. And it certainly
+doesn't prove the branches are safe to merge.
+Separate directories, separate problems — until you combine them, and then they're
+one problem.
+So do the work. Inspect dependency direction and overlap. Validate each branch on
+its own. Integrate in a deliberate order. Run combined validation. One human owns
+the merge.
+Two branches, both green. What do you still have to prove?
+
+Transition: Isolation protects your working state. Deterministic hooks protect
+repeatable lifecycle boundaries.
+
+Audience question: What must you prove before two individually green worktree branches are combined?
+
+Response guidance: Require dependency and overlap analysis, independent validation,
+a chosen integration order, combined acceptance tests, and a rollback point. If the
+room stops at "they both passed," that's the misconception to name.
+Payoff: Learners stop equating isolated directories with an integrated, correct result.
+Sources: content/modules/03-advanced/copilot-dev-advanced-workshop.md slide 8 contract; content/modules/03-advanced/product-update-brief.md “VS Code agent workflows”
 -->
 
 ---
@@ -291,7 +429,32 @@ Require provenance, least privilege, observable failure behavior, validation, an
 </div>
 
 <!--
-Hooks provide deterministic lifecycle guardrails for policy checks, secret scanning, validation commands, and stop gates. Keep repository `.github/hooks/*.json` guidance scoped to supported cloud-agent and Copilot CLI use, with VS Code workspace hooks treated as a separate configuration. Trust a hook only after reviewing provenance, least privilege, observable failure behavior, validation, and rollback evidence. Timebox this slide to 3 minutes. [Source: Advanced workshop guide, Hooks.]
+Timebox: 3 minutes
+
+Talk track: Some guardrails should never depend on how well someone worded a
+prompt.
+That's what hooks are for. Deterministic lifecycle checks and stop gates. They run
+because they run.
+On configuration: repository `.github/hooks/*.json` guidance is scoped to supported
+cloud-agent and Copilot CLI use. VS Code workspace hooks are a separate thing.
+Don't blend them.
+And then review the hook itself, before you trust it — provenance, least privilege,
+observable output, what it does on failure, validation, and rollback.
+Why that matters: a deterministic action can be deterministically wrong. It'll do
+the wrong thing perfectly, every single time, without ever asking. And if it's
+overprivileged, it'll do it everywhere.
+So in your workflow — what should be deterministic instead of left to a prompt?
+
+Transition: Hooks change lifecycle behavior. Marketplace extensions can change a far
+broader permission and data boundary.
+
+Audience question: Which guardrail in your workflow should be deterministic rather than left to a prompt?
+
+Response guidance: Invite examples — a validation command, a policy check, a secret
+scan, a stop-on-failure gate. For each one, ask how failure stays observable and
+how it gets reversed.
+Payoff: Learners identify where deterministic controls add value while retaining a governance review for the control itself.
+Sources: content/modules/03-advanced/copilot-dev-advanced-workshop.md slide 9 contract
 -->
 
 ---
@@ -321,7 +484,30 @@ Enabling an extension can change permissions, telemetry, execution, and data acc
 </div>
 
 <!--
-Marketplace extensions can change permissions, telemetry, execution, and data-access boundaries. Review publisher, version, trust signals, permissions, telemetry, support posture, enterprise policy, and data handling before enablement. Record the disable or uninstall path so the team can reverse the decision. Timebox this slide to 3 minutes. [Source: Advanced workshop guide, Extension Marketplace.]
+Timebox: 3 minutes
+
+Talk track: Enabling a marketplace extension can change your permissions, your
+telemetry, what executes, and what data is reachable.
+So say this one with me: availability is not authorization. The fact that you can
+install it says nothing about whether you should.
+Before you enable — publisher, version, trust signals, requested permissions,
+telemetry and data handling, support posture, and enterprise policy fit.
+And one more, which almost nobody does in advance. Write down the disable and
+uninstall path before you turn it on. Not after.
+Because the moment you need to reverse this decision is the worst possible moment
+to start figuring out how.
+So during that review — what single piece of evidence would stop you cold?
+
+Transition: MCP makes the integration boundary explicit, through servers and
+distinct capability types.
+
+Audience question: Before enabling an extension, which piece of evidence would make you pause the review immediately?
+
+Response guidance: Accept an unknown publisher, unexplained permissions, unclear
+telemetry or data scope, absent support, or no disable path. Then ask the useful
+follow-up: what evidence would actually resolve the pause?
+Payoff: The audience rehearses a stop decision before a convenient installation widens the trust boundary.
+Sources: content/modules/03-advanced/copilot-dev-advanced-workshop.md slide 10 contract
 -->
 
 ---
@@ -361,7 +547,33 @@ Server onboarding is a security review event, not a convenience toggle.
 </div>
 
 <!--
-MCP exposes tools, resources, and prompts as distinct capabilities behind explicit server boundaries. A consuming product may support only a subset, so do not treat the capability types as interchangeable. Review read and write scope, authentication, authorization, provenance, secrets, logging, allowlisting, enablement ownership, and rollback for each server. Timebox this slide to 4 minutes. [Source: Advanced workshop guide, MCP.]
+Timebox: 4 minutes
+
+Talk track: MCP puts three distinct capabilities behind one explicit server
+boundary.
+Tools perform actions. Resources supply context. Prompts supply templates.
+Three different things — and a consuming product may support only some of them. So
+don't treat them as interchangeable, and don't assume that supporting one means
+supporting all three.
+Then, for every server you consider, work the list. What can it read, and what can
+it change? Authentication. Authorization. Provenance. Secrets. Logging.
+Allowlisting. Who owns enablement. Data scope. Rollback.
+That's a long list, and it's long on purpose.
+Onboarding a server is a security review event. It is not a convenience toggle,
+even though it looks exactly like one.
+So a server offers you a tool that can change data. Which boundary do you check
+first?
+
+Transition: Work IQ gives us one concrete, governed example of workplace context
+through a documented MCP path.
+
+Audience question: If an MCP server offers a tool that can change data, which boundary would you verify first?
+
+Response guidance: Accept authorization, write scope, identity, allowlisting,
+secrets, logging, or rollback. Then connect whichever they chose back to the full
+server review — first is not the same as only.
+Payoff: Learners distinguish capability types and make server trust an explicit, evidence-backed decision.
+Sources: content/modules/03-advanced/copilot-dev-advanced-workshop.md slide 11 contract
 -->
 
 ---
@@ -397,7 +609,37 @@ layout: advanced-content
 </div>
 
 <!--
-Work IQ is Microsoft's permission-aware workplace-intelligence layer, distinct from Microsoft 365 Copilot, Microsoft Graph, connectors, agents, and MCP itself. Its documented interfaces include A2A, REST, and MCP, while this slide teaches only Microsoft's documented GitHub Copilot CLI remote-MCP path and does not imply support in other GitHub Copilot surfaces. Requests use delegated Microsoft Entra identity and remain permission-trimmed by existing Microsoft 365 access, sensitivity, compliance, and tenant controls; application-only authentication is unsupported. Work IQ APIs became generally available on June 16, 2026, and access can require tenant enablement and usage-based Copilot Credits, while exact pricing, geographic availability, and some regional controls remain variable. During this 3-minute slide, use fictional or synthetic examples only and never expose tenant screenshots, names, messages, meetings, files, customer data, identifiers, consent screens, tokens, admin settings, or write operations in the public workshop. [Sources: Advanced product update brief, Work IQ overview, API overview, MCP overview, GitHub Copilot CLI quickstart, enablement, and billing guidance.]
+Timebox: 3 minutes
+
+Talk track: Work IQ is Microsoft's permission-aware workplace-intelligence layer.
+Let me clear the decks first, because this name gets attached to everything. It is
+not Microsoft 365 Copilot. Not Microsoft Graph. Not a connector. Not an agent. And
+not MCP itself.
+The path we teach here is specific: permitted Microsoft 365 context, through Work
+IQ and remote MCP, into GitHub Copilot CLI. We make no equivalent claim for any
+other Copilot surface.
+Now the part that should reassure your security team.
+Requests use the signed-in user's delegated Entra identity. Everything stays
+permission-trimmed by existing Microsoft 365 access, sensitivity, compliance,
+tenant policy, and tenant boundaries. Application-only authentication is not
+supported — so this can't quietly become a service account reading everything.
+The APIs became generally available on June 16th, 2026. Access can require tenant
+enablement and usage-based Copilot Credits.
+And for this workshop: fictional and synthetic examples only. No tenant data, no
+screenshots, no identifiers, no tokens, no admin settings, no writes.
+Which raises the real question. You're permitted to retrieve something. Does that
+mean you can show it to this room?
+
+Transition: After a governed context example, let's compare it with narrower
+deterministic interfaces.
+
+Audience question: Even when a user may retrieve workplace context, what must be checked before any of it is presented to another audience?
+
+Response guidance: Look for audience need, sensitivity labels, permissions, tenant
+policy, confidentiality, and minimum necessary disclosure. Land the sentence
+plainly: retrieval permission is not presentation permission.
+Payoff: The question makes the key safety boundary actionable without exposing live workplace data.
+Sources: content/modules/03-advanced/product-update-brief.md “Work IQ via MCP”; content/modules/03-advanced/copilot-dev-advanced-workshop.md slide 12 contract
 -->
 
 ---
@@ -427,7 +669,31 @@ Narrow interfaces reduce permission review, tool descriptions, debugging effort,
 </div>
 
 <!--
-Prefer an approved API or CLI when it offers the narrowest observable path for a deterministic task. Require least-privilege credentials, environment separation, stable output, audit evidence, explicit failure handling, and a rollback or safe retry path. A narrow interface wins only when it still satisfies the acceptance criteria. Timebox this slide to 3 minutes. [Source: Advanced workshop guide, API/CLI.]
+Timebox: 3 minutes
+
+Talk track: Sometimes the most advanced choice available is the boring one.
+If a task is deterministic, and an approved API or CLI gives you the narrowest
+observable path to it — take the narrow path.
+A known operation with stable output makes four things easier. Permission review.
+Audit evidence. Failure handling. And debugging, when it eventually goes wrong.
+It still needs least-privilege credentials, separated environments, and a rollback
+or safe-retry path. Narrow is not the same as unguarded.
+And one qualifier, because "smallest" can be taken too far. Narrower is better only
+while the interface still meets your acceptance criteria. A tiny interface that
+can't do the job isn't elegant. It's just wrong.
+So what would push you toward a narrow API instead of a broader plugin or an
+autonomous action?
+
+Transition: A plugin moves in exactly the opposite direction — bundling several
+surfaces together.
+
+Audience question: What would make you choose a narrow API or CLI instead of a broader plugin or autonomous action?
+
+Response guidance: Favor deterministic scope, stable output, clear credentials,
+auditability, and safe failure handling. Always close by asking whether the narrow
+path still delivers the outcome.
+Payoff: Learners apply “smallest interface that works” as a governance and debugging decision, not an aesthetic preference.
+Sources: content/modules/03-advanced/copilot-dev-advanced-workshop.md slide 13 contract
 -->
 
 ---
@@ -458,7 +724,31 @@ Separate discovery and installation from organization authorization.
 </div>
 
 <!--
-Plugins can bundle slash commands, skills, custom agents, hooks, and MCP server definitions. Govern provenance, package metadata, included customizations, executable hooks, automatically started servers, versioning, availability labels, telemetry, data scope, rollout ownership, and rollback. Discovery or installation does not establish organization authorization. Timebox this slide to 2 minutes. [Source: Advanced workshop guide, Plugins.]
+Timebox: 2 minutes
+
+Talk track: A plugin can bundle slash commands, skills, custom agents, hooks, and
+MCP server definitions.
+Read that list again and count the trust boundaries. One install, several of them
+moved at once — and possibly none of them individually reviewed.
+So the review is correspondingly long. Provenance. Package metadata. What
+customizations are included. Executable hooks. Servers that start automatically.
+Versioning. Availability labels. Telemetry. Data scope. Who owns the rollout. And
+rollback.
+And keep two things separate in your head: discovery and installation are one
+thing, organization authorization is another. Being able to install it is not being
+allowed to.
+Before you enable one for a whole team — what rollback evidence do you need?
+
+Transition: Next slide shows why one shared skill or MCP configuration must be
+governed differently for two different consumers.
+
+Audience question: What rollback evidence would you require before enabling a plugin for a team?
+
+Response guidance: Look for a tested disable or uninstall path, a version pin or
+restore point, configuration cleanup, a named owner, and evidence that dependent
+services stop safely. "We'd just uninstall it" is not tested evidence.
+Payoff: Learners treat rollback as part of plugin approval rather than an improvised response after rollout.
+Sources: content/modules/03-advanced/copilot-dev-advanced-workshop.md slide 14 contract
 -->
 
 ---
@@ -494,7 +784,37 @@ GitHub and Playwright MCP servers may be enabled by default unless policy change
 </div>
 
 <!--
-Copilot code review and Copilot cloud agent are distinct consumers of shared repository skills and MCP configuration: review leaves comments and uses read-only MCP calls, while cloud agent is a separate branch-working workflow whose configured tools can act autonomously without an approval prompt. Preserve contribution attribution, distinguish MCP tools from broader resources and prompts for these consumers, and remember that GitHub and Playwright servers may be enabled by default unless policy changes their use. Require separate enablement, allowlisting, least privilege, secrets controls, provenance, data-scope review, policy fit, observable evidence, and a human who keeps accept, reject, and merge authority. Timebox this consolidated governance slide to 5 minutes. [Sources: Advanced product update brief, code review skills and MCP; Advanced workshop guide, slide 15 contract.]
+Timebox: 5 minutes
+
+Talk track: Copilot code review and Copilot cloud agent might share your repository
+skills and your MCP configuration. They are still two different consumers, and this
+is where trust gets transferred by accident.
+Look at how differently they behave.
+Code review leaves comments. It does not approve the pull request. And it uses
+read-only MCP calls.
+Cloud agent is a separate branch-working workflow whose configured tools can act
+autonomously — without stopping to ask you.
+Same configuration. Very different consequences.
+A few specifics to hold. Preserve contribution attribution. Keep tools distinct from
+broader resources and prompts for these consumers. And know that GitHub and
+Playwright MCP servers may be enabled by default unless your policy says otherwise —
+so check rather than assume.
+Each consumer needs its own enablement, allowlist, least privilege, secrets
+controls, provenance, data-scope review, and policy fit. Its own. Every time.
+And one human keeps accept, reject, and merge.
+So: a tool is approved for read-only code review. Is that enough for cloud-agent
+use of the same configuration?
+
+Transition: Governance says what may run. Debugging evidence tells us where
+delegated work first went off course.
+
+Audience question: If one MCP tool is approved for read-only code review, is that approval enough for cloud-agent use of the same repository configuration?
+
+Response guidance: Guide the room to "no." Then make them articulate why —
+read-only review calls versus autonomous branch-working tools — and name the
+separate policy, permission, secrets, and data-scope review that's required.
+Payoff: Learners avoid transferring trust between consumers whose capabilities and consequences differ.
+Sources: content/modules/03-advanced/product-update-brief.md “code review skills and MCP”; content/modules/03-advanced/copilot-dev-advanced-workshop.md slide 15 contract
 -->
 
 ---
@@ -525,7 +845,28 @@ layout: advanced-content
 </div>
 
 <!--
-In VS Code, the Agents window can connect conversation and diff review with a running subagent's model, elapsed time, active tool call, and conversation. Use that evidence to locate the first divergence between delegated intent and repository change without implying equivalent windows elsewhere. The surface remains in public preview and subject to progressive rollout, so confirm availability before demonstrating it. Timebox this VS Code-specific slide to 3 minutes. [Sources: Advanced product update brief, VS Code agent workflows; Advanced workshop guide, slide 15 contract.]
+Timebox: 3 minutes
+
+Talk track: In VS Code, the Agents window ties together things you'd otherwise have
+to reconstruct — the conversation, the resulting diff, the subagent's model, elapsed
+time, the active tool call, and the subagent's own conversation.
+Use it for one specific job. Find the first point where delegated intent and the
+actual repository change parted company.
+Not the final summary. The summary tells you where things ended up, which is almost
+never where they went wrong. By then you're reading the consequence, not the cause.
+Practical caveat: this is VS Code-specific, it's in public preview, and it's on
+progressive rollout. Confirm it's actually there before you demo it live.
+So which artifact would you open first to find that earliest divergence?
+
+Transition: The evidence surface changes by product. The method can stay the same.
+
+Audience question: Which artifact would you inspect first to find the earliest divergence between the request and the diff?
+
+Response guidance: Accept the conversation, active tool call, subagent trace, or
+diff — as long as the speaker explains what hypothesis it tests. Don't let anyone
+claim an equivalent window exists on other surfaces.
+Payoff: Learners begin debugging at the first observable divergence instead of reacting only to the final failure.
+Sources: content/modules/03-advanced/product-update-brief.md “VS Code agent workflows”; content/modules/03-advanced/copilot-dev-advanced-workshop.md slide 16 contract
 -->
 
 ---
@@ -557,7 +898,34 @@ Preserve a known-good checkpoint, change one variable, and rerun only the failed
 </div>
 
 <!--
-Start with an explicit acceptance test, one failure hypothesis, the smallest safe reproduction, expected evidence, and a preserved checkpoint. Compare expected with actual surface-native evidence, change one variable, and stop rather than broadening context or tools when a criterion fails. Recover or roll back to the checkpoint, then rerun only the failed proof using VS Code, Copilot CLI, Copilot App, GitHub.com cloud-agent, or JetBrains evidence appropriate to that surface. Timebox this cross-surface loop to 5 minutes. [Sources: Advanced product update brief, cross-surface evidence boundary; Advanced workshop guide, Debugging Copilot Across Surfaces.]
+Timebox: 5 minutes
+
+Talk track: Debugging agentic work is the same discipline as debugging anything
+else. People abandon it because the system feels mysterious. Don't.
+Start with two things written down. An explicit acceptance test, and one failure
+hypothesis. One.
+Then define the smallest safe reproduction, and say what evidence you expect to see
+before you rerun anything. Predicting the result is what makes the run informative.
+Preserve a known-good checkpoint. Compare expected against actual, using evidence
+native to that surface. And change one variable at a time.
+Now the hard part, the part that takes discipline.
+If the criterion fails — stop. Do not reflexively add context. Do not add tools.
+That instinct feels like progress and it destroys your ability to know what
+happened. Recover or roll back, then rerun only the failed proof.
+VS Code, CLI, the App, the cloud agent, JetBrains — they all expose different
+evidence. Hypothesis, compare, stop, recover stays constant.
+Think of a failed run you've had. What one variable would you change first?
+
+Transition: That same discipline is what's required when several independent
+changes have to become one result.
+
+Audience question: In a failed agent run you know, what single variable would you change first to test one hypothesis?
+
+Response guidance: Make the speaker name the expected evidence and the stop
+criterion, not just the change. If they offer several variables at once, redirect
+them to a smaller reproduction — that's the whole lesson.
+Payoff: Learners leave with a falsifiable debugging move instead of another full rerun with more context.
+Sources: content/modules/03-advanced/product-update-brief.md “cross-surface evidence boundary”; content/modules/03-advanced/copilot-dev-advanced-workshop.md slide 17 contract
 -->
 
 ---
@@ -584,7 +952,32 @@ class: advanced-concept--integration-yard
 </div>
 
 <!--
-Integration begins by recording dependency order and validating each branch independently. Detect overlap across files, APIs, schemas, tests, and behavior, then choose an ordered sequence with targeted checks after every step. Preserve a rollback point before combination, run combined validation, and expose unresolved uncertainty. Timebox this integration proof to 5 minutes. [Source: Advanced workshop guide, Integrating Parallel Agent Work.]
+Timebox: 5 minutes
+
+Talk track: Parallel output is not an integrated result. Three finished branches is
+three finished branches — it is not a working system, and the gap between those two
+is where the day disappears.
+So do this in order.
+Record the dependency order. Validate each branch on its own. Then look for overlap
+before you combine anything — across files, APIs, schemas, tests, and behavior.
+Choose an integration sequence deliberately. Run targeted checks after each step,
+not once at the end, so you know which step broke it. Keep a rollback checkpoint.
+Then run combined validation for cross-branch behavior — and say out loud whatever
+uncertainty is left.
+One human reviews all of that before acceptance or merge.
+So think it through. Two branches pass independently. What could still blow up when
+you put them together?
+
+Transition: With integration provable, Day 2 readiness packages the owner, the
+success criteria, the stop signal, and the fallback.
+
+Audience question: If two branches pass independently, what combined failure could still appear after integration?
+
+Response guidance: Invite API or schema incompatibility, conflicting behavior,
+shared-file assumptions, order dependence, or cross-branch test failure. For each
+one, push further: which combined check would actually have caught it?
+Payoff: Learners understand why green branch-level evidence cannot substitute for ordered integration proof.
+Sources: content/modules/03-advanced/copilot-dev-advanced-workshop.md slide 18 contract
 -->
 
 ---
@@ -615,7 +1008,34 @@ Package the decision; reuse the debugging and integration methods instead of rep
 </div>
 
 <!--
-Day 2 readiness names a narrow objective, owner, orchestration pattern, model strategy, constraints, and evidence that counts as success. Record the earliest stop signal and a fallback that preserves a demonstrable result rather than expanding scope under pressure. This operating brief packages readiness while reusing, not duplicating, the debugging and integration methods. Timebox this slide to 4 minutes. [Source: Advanced workshop guide, Preparing for Day 2 Hack.]
+Timebox: 4 minutes
+
+Talk track: Day 2 readiness is an operating brief. It is not a longer wish list, and
+tomorrow will punish the difference.
+Name the narrow objective and who owns it. The orchestration pattern and model
+strategy. The constraints. And what evidence counts as success — decided now, while
+you're calm.
+Then two things most teams skip, and they're the two that matter under pressure.
+Your earliest stop signal. And a fallback that still leaves you with something you
+can demonstrate.
+Write both down today. Because under deadline pressure, scope widens quietly and
+the rollback path disappears, and nobody ever announces either one. It just
+happens while everyone's busy.
+And reuse the debugging and integration methods we've already built. Tomorrow is
+not the day to invent a new process.
+So for a project you know that's under pressure — what's the earliest stop signal,
+and what's the smallest useful fallback?
+
+Transition: The Advanced mission now asks you to apply all of this to the same
+carried-forward case.
+
+Audience question: What is the earliest stop signal and smallest useful fallback for a pressured project you know?
+
+Response guidance: Require a signal observable before total failure, and a fallback
+that still demonstrates value. Reject "work harder" and reject unbounded scope
+reduction — neither is a plan.
+Payoff: Learners make fallback and stopping evidence part of readiness before execution pressure begins.
+Sources: content/modules/03-advanced/copilot-dev-advanced-workshop.md slide 19 contract
 -->
 
 ---
@@ -652,5 +1072,35 @@ layout: advanced-content
 </div>
 
 <!--
-Launch the existing 30-minute cross-cutting-change mission using the exported Agentic case file or a facilitator-verified carry-forward case. Map its orchestration choice to accountable boundaries, its integration matrix and review controls to governed integration, and its debug protocol and rollback checkpoint to evaluation and recovery. The final case export supplies integration proof while preserving separate Foundations, Agentic, Advanced, and cumulative totals; the native trio scaffolding remains pending owner art review. Timebox this launch to 2 minutes. [Source: Advanced Workflow Evidence Mission, `cross-cutting-change`; Advanced workshop guide, mission mapping.]
+Timebox: 2 minutes
+
+Talk track: This is it. Last mission of the day — and it's a continuation, not a
+fresh start.
+Open the Agentic case file you exported. If you're joining us cold, take the
+clearly labeled facilitator fallback. What you must not do is invent evidence or
+points you never earned.
+Thirty minutes. Four things to prove.
+Choose an orchestration pattern you can actually stand behind. Vet the narrowest
+integration surface that still does the job. Govern any review helper you bring
+in. And then break something on purpose — debug one likely failure with a minimal
+protocol and a recovery checkpoint.
+Then the part that matters most. Pull all of that evidence into one human decision.
+Accept, revise, or reject. You make the call. Not Riley.
+Your export keeps provenance, permissions, data scope, read-only boundaries,
+rollback, and your module totals kept separate — Foundations, Agentic, Advanced,
+and cumulative.
+One thing before you go. Look at your case: which obligation is already strong, and
+which one is still thin?
+
+Transition: Open the mission route, confirm your carry-forward entry, and start
+your thirty-minute clock now.
+
+Audience question: Which Advanced obligation already has the strongest evidence in your case, and which one still needs proof?
+
+Response guidance: Take one fast pair of answers, then send participants to start
+with their weakest obligation, or to the approved fallback path. Remind them that
+starting somewhere new does not mean discarding evidence they already have.
+
+Payoff: Participants enter the final mission with a diagnostic priority and finish with an integrated, human-owned case decision.
+Sources: content/missions/advanced/cross-cutting-change.md; content/modules/03-advanced/copilot-dev-advanced-workshop.md slide 19 contract
 -->

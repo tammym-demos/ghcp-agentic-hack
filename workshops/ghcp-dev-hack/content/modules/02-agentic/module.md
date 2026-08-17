@@ -86,19 +86,22 @@ status: draft
 
 `content/modules/02-agentic/visual-intent.md` is the current slide authority.
 The generated deck contains exactly 27 slides in its numbered order: two new
-zero-minute opening slides, the preserved zero-minute operating-split cover,
-23 instructional slides, and one separate 45-minute mission briefing. The
-current 27-slide contract is the exact human-approved
-`agentic-opening-slides-2026-08-13` revision; unrelated earlier 27-, 28-, or
-29-slide versions remain historical production context only.
+one-minute opening slides, the preserved one-minute operating-split cover,
+23 additional instructional slides, and one separate 45-minute mission
+briefing. The exact 27-slide count, title, and order remain the human-approved
+`agentic-opening-slides-2026-08-13` revision; the opening allocations are the
+approved timing correction for
+`ghcp-dev-hack-speaker-notes-talk-track-2026-08-17`. Unrelated earlier 27-,
+28-, or 29-slide versions remain historical production context only.
 
-Slides 4–26 provide 75 minutes of instruction. Slides 7, 12, 14, 17, 22, and
-26 receive four minutes each because they carry a layered conflict, loop,
+Slides 1–26 provide 75 minutes of instruction. Slides 1–3 receive one minute
+each; adjacent slides 4–6 receive two minutes each. Slides 7, 12, 14, 17, 22,
+and 26 receive four minutes each because they carry a layered conflict, loop,
 consequential approval, security lifecycle, Mobile lifecycle, or final
-acceptance decision. The other 17 instructional slides receive three minutes
-each: `(6 × 4) + (17 × 3) = 75`. Slides 1–3 contribute zero minutes, and
-slide 27 is the separate 45-minute mission, so
-`0 + 0 + 0 + 75 + 45 = 120`.
+acceptance decision. The remaining 14 instructional slides receive three
+minutes each:
+`(3 × 1) + (3 × 2) + (6 × 4) + (14 × 3) = 75`. Slide 27 is the separate
+45-minute mission, so `75 + 45 = 120`.
 
 ## Teaching and role boundaries
 

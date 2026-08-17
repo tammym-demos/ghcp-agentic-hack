@@ -102,18 +102,51 @@ function agendaMinutes(start: string, end: string): number {
   return toMinutes(end) - toMinutes(start);
 }
 
-function manifestTitles(source: string): string[] {
+interface ManifestSlideContract {
+  number: number;
+  title: string;
+  minutes?: number;
+  rawMinutes?: string;
+}
+
+const speakerNoteSections = [
+  "Timebox",
+  "Talk track",
+  "Transition",
+  "Audience question",
+  "Response guidance",
+  "Payoff",
+  "Sources"
+] as const;
+
+type SpeakerNoteSection = (typeof speakerNoteSections)[number];
+
+function manifestSlideContracts(source: string): ManifestSlideContract[] {
   const rows = source
     .split(/\r?\n/)
     .filter((line) => line.trim().startsWith("|"))
     .map((line) => line.split("|").slice(1, -1).map((cell) => cell.trim()));
   const header = rows.find((cells) => cells.some((cell) => cell.toLowerCase() === "exact source title"));
+  const numberIndex = header?.findIndex((cell) => cell === "#") ?? -1;
   const titleIndex = header?.findIndex((cell) => cell.toLowerCase() === "exact source title") ?? -1;
-  if (titleIndex < 0) return [];
+  const minutesIndex = header?.findIndex((cell) => cell.toLowerCase() === "minutes") ?? -1;
+  if (numberIndex < 0 || titleIndex < 0) return [];
+
   return rows
-    .filter((cells) => /^\d+$/.test(cells[0] ?? ""))
-    .map((cells) => cells[titleIndex] ?? "")
-    .filter(Boolean);
+    .filter((cells) => /^\d+$/.test(cells[numberIndex] ?? ""))
+    .map((cells) => {
+      const rawMinutes = minutesIndex >= 0 ? cells[minutesIndex] : undefined;
+      const minutes =
+        rawMinutes !== undefined && /^(?:0|[1-9]\d*)(?:\.\d+)?$/.test(rawMinutes)
+          ? Number(rawMinutes)
+          : undefined;
+      return {
+        number: Number(cells[numberIndex]),
+        title: cells[titleIndex] ?? "",
+        minutes,
+        rawMinutes
+      };
+    });
 }
 
 function slideTitles(source: string): Array<{ title: string; start: number }> {
@@ -132,12 +165,52 @@ function visibleSlideSources(source: string, filePath: string): string[] {
     .map((slide) => slide.raw);
 }
 
-function sentenceCount(source: string): number {
-  return source
-    .replace(/\s+/g, " ")
-    .trim()
-    .split(/(?<=[.!?])\s+(?=[A-Z0-9])/)
-    .filter(Boolean).length;
+interface ParsedSpeakerNotes {
+  headings: Array<{ name: string; line: string; lineIndex: number }>;
+  values: Partial<Record<SpeakerNoteSection, string>>;
+}
+
+function parseSpeakerNotes(source: string): ParsedSpeakerNotes {
+  const lines = source.replace(/\r\n/g, "\n").split("\n");
+  const headings: ParsedSpeakerNotes["headings"] = [];
+
+  for (const [lineIndex, line] of lines.entries()) {
+    const trimmed = line.trim();
+    const match = /^([^:]+):(.*)$/.exec(trimmed);
+    if (!match) continue;
+
+    const name = (match[1] ?? "").trim();
+    const isRequiredHeading = speakerNoteSections.some(
+      (section) => section.toLowerCase() === name.toLowerCase()
+    );
+    if (!isRequiredHeading) continue;
+
+    headings.push({
+      name,
+      line: trimmed,
+      lineIndex
+    });
+  }
+
+  const values: ParsedSpeakerNotes["values"] = {};
+  for (const [headingIndex, heading] of headings.entries()) {
+    if (!speakerNoteSections.includes(heading.name as SpeakerNoteSection)) continue;
+    const separatorIndex = lines[heading.lineIndex]?.indexOf(":") ?? -1;
+    const firstLine = separatorIndex >= 0 ? lines[heading.lineIndex]?.slice(separatorIndex + 1) ?? "" : "";
+    const nextHeadingLine = headings[headingIndex + 1]?.lineIndex ?? lines.length;
+    values[heading.name as SpeakerNoteSection] = [
+      firstLine,
+      ...lines.slice(heading.lineIndex + 1, nextHeadingLine)
+    ]
+      .join("\n")
+      .trim();
+  }
+
+  return { headings, values };
+}
+
+function canonicalMinutes(minutes: number): string {
+  return `${minutes} ${minutes === 1 ? "minute" : "minutes"}`;
 }
 
 async function validateGeneratedModule(
@@ -156,9 +229,13 @@ async function validateGeneratedModule(
   ]);
   const visibleSlides = visibleSlideSources(slidesSource, slidesPath);
   const slides = visibleSlides.flatMap((slide) => slideTitles(slide));
-  const expectedTitles = manifestTitles(manifestSource);
+  const manifestSlides = manifestSlideContracts(manifestSource);
+  const expectedTitles = manifestSlides.map(({ title }) => title).filter(Boolean);
   const expectedSlides = module.data.generation.expectedSlides;
 
+  if (visibleSlides.length !== expectedSlides) {
+    issues.push(`${module.filePath}: expected ${expectedSlides} visible slides but found ${visibleSlides.length}`);
+  }
   if (slides.length !== expectedSlides) {
     issues.push(`${module.filePath}: expected ${expectedSlides} slides but found ${slides.length} H1 slide titles`);
   }
@@ -176,15 +253,83 @@ async function validateGeneratedModule(
     }
   }
 
+  for (const manifestSlide of manifestSlides) {
+    if (manifestSlide.minutes === undefined) {
+      issues.push(
+        `${module.data.generation.manifest}: manifest slide ${manifestSlide.number} has invalid Minutes value "${manifestSlide.rawMinutes ?? ""}"`
+      );
+    }
+  }
+
   for (let index = 0; index < visibleSlides.length; index += 1) {
     const comments = Array.from((visibleSlides[index] ?? "").matchAll(/<!--([\s\S]*?)-->/g));
     if (comments.length !== 1) {
       issues.push(`${module.filePath}: slide ${index + 1} must have exactly one speaker-notes comment`);
       continue;
     }
-    const sentences = sentenceCount(comments[0]?.[1] ?? "");
-    if (sentences < 3 || sentences > 5) {
-      issues.push(`${module.filePath}: slide ${index + 1} speaker notes must contain 3-5 sentences; found ${sentences}`);
+
+    const trailingSource = (visibleSlides[index] ?? "")
+      .slice((comments[0]?.index ?? 0) + (comments[0]?.[0].length ?? 0))
+      .replace(/<style(?:\s[^>]*)?>[\s\S]*?<\/style>/gi, "")
+      .trim();
+    if (trailingSource.length > 0) {
+      issues.push(
+        `${module.filePath}: slide ${index + 1} speaker-notes comment must appear directly after the slide content`
+      );
+    }
+
+    const parsedNotes = parseSpeakerNotes(comments[0]?.[1] ?? "");
+    const exactHeadings = parsedNotes.headings.filter((heading) =>
+      speakerNoteSections.includes(heading.name as SpeakerNoteSection)
+    );
+
+    for (const heading of parsedNotes.headings) {
+      if (!speakerNoteSections.includes(heading.name as SpeakerNoteSection)) {
+        issues.push(
+          `${module.filePath}: slide ${index + 1} speaker notes contain unexpected or malformed section heading "${heading.name}:"`
+        );
+      }
+    }
+
+    let hasExactSectionSet = true;
+    for (const section of speakerNoteSections) {
+      const count = exactHeadings.filter((heading) => heading.name === section).length;
+      if (count === 0) {
+        hasExactSectionSet = false;
+        issues.push(`${module.filePath}: slide ${index + 1} speaker notes are missing "${section}:"`);
+      } else if (count > 1) {
+        hasExactSectionSet = false;
+        issues.push(`${module.filePath}: slide ${index + 1} speaker notes contain duplicate "${section}:" sections`);
+      }
+    }
+
+    if (
+      hasExactSectionSet &&
+      exactHeadings.map(({ name }) => name).join("|") !== speakerNoteSections.join("|")
+    ) {
+      issues.push(
+        `${module.filePath}: slide ${index + 1} speaker-note sections must appear in order: ${speakerNoteSections.map((section) => `${section}:`).join(", ")}`
+      );
+    }
+
+    for (const section of speakerNoteSections) {
+      if ((parsedNotes.values[section] ?? "").trim().length === 0) {
+        issues.push(`${module.filePath}: slide ${index + 1} speaker-note section "${section}:" must not be blank`);
+      }
+    }
+
+    const manifestMinutes = manifestSlides[index]?.minutes;
+    if (manifestMinutes !== undefined) {
+      const expectedTimebox = `Timebox: ${canonicalMinutes(manifestMinutes)}`;
+      const timeboxHeading = exactHeadings.find(({ name }) => name === "Timebox");
+      if (
+        timeboxHeading?.line !== expectedTimebox ||
+        parsedNotes.values.Timebox !== canonicalMinutes(manifestMinutes)
+      ) {
+        issues.push(
+          `${module.filePath}: slide ${index + 1} Timebox must be "${expectedTimebox}" to match manifest Minutes`
+        );
+      }
     }
   }
 }

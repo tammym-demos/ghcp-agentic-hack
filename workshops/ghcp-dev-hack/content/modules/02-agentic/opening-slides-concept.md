@@ -25,24 +25,30 @@ route through 75 minutes of instruction plus the separate 45-minute mission.
 - Insert new slide 1, `Module 2: Agentic Development — Workshop Guide`.
 - Insert new slide 2, `Session Agenda`.
 - Renumber every current slide by `+2`; preserve all 25 existing titles,
-  content, order, source requirements, notes, and minutes.
-- Keep the two inserted slides untimed. The current untimed
-  `Agentic Development` slide becomes slide 3, current instructional slides
-  2–24 become slides 4–26, and the current mission becomes slide 27.
+  participant-facing content, order, and source requirements. Preserve all
+  minute allocations except the explicit slides 1–6 timing correction below;
+  downstream note timeboxes must follow the corrected manifest.
+- Give each inserted slide one instruction minute. The preserved
+  `Agentic Development` operating-split slide becomes slide 3 and also receives
+  one instruction minute; current instructional slides 2–4 become slides 4–6
+  and receive two minutes each, current slides 5–24 become slides 7–26, and
+  the current mission becomes slide 27.
 - Preserve the module budget exactly:
-  `new openings 0 + existing cover 0 + instruction 75 + mission 45 = 120`.
+  `three opening/operating-split minutes + remaining instruction 72 +
+  mission 45 = 120`.
   The six four-minute instructional slides move from 5, 10, 12, 15, 20, and
-  24 to 7, 12, 14, 17, 22, and 26; the other 17 instructional slides remain
-  three minutes each.
+  24 to 7, 12, 14, 17, 22, and 26; 14 other instructional slides remain
+  three minutes each. Exact instruction arithmetic is
+  `3 + (3 × 2) + (6 × 4) + (14 × 3) = 75`.
 
 | Proposed # | Current # | Exact title | Minutes |
 | ---: | ---: | --- | ---: |
-| 1 | new | Module 2: Agentic Development — Workshop Guide | 0 |
-| 2 | new | Session Agenda | 0 |
-| 3 | 1 | Agentic Development | 0 |
-| 4 | 2 | Instructions for Agentic Work | 3 |
-| 5 | 3 | Memory and Its Limits | 3 |
-| 6 | 4 | Context for Long-Running Work | 3 |
+| 1 | new | Module 2: Agentic Development — Workshop Guide | 1 |
+| 2 | new | Session Agenda | 1 |
+| 3 | 1 | Agentic Development | 1 |
+| 4 | 2 | Instructions for Agentic Work | 2 |
+| 5 | 3 | Memory and Its Limits | 2 |
+| 6 | 4 | Context for Long-Running Work | 2 |
 | 7 | 5 | Context Hierarchy and Instruction Layering | 4 |
 | 8 | 6 | Strong Agentic Prompts | 3 |
 | 9 | 7 | Reusable Skills | 3 |
@@ -150,7 +156,7 @@ product mechanism.
 
 ```text
 <!--
-Agentic Development moves from Foundations' bounded delegation into multi-step repository work where the human still owns the brief, boundaries, acceptance, and merge. Riley Relay represents the software-agent collaborator: she performs only delegated digital work, returns evidence, asks when blocked, and stops at stated boundaries. Purrmission appears only at the consequential permission or scope threshold; she does not replace Mergewell's decision or Riley's bounded-work role. Use this zero-minute opener to establish module identity and role hierarchy, not to teach literal product architecture. [Sources: module.md; visual-intent.md; agentic-content-verification.md AGT-12 and AGT-28; Agent Mergewell and Riley Relay character briefs.]
+Agentic Development moves from Foundations' bounded delegation into multi-step repository work where the human still owns the brief, boundaries, acceptance, and merge. Riley Relay represents the software-agent collaborator: she performs only delegated digital work, returns evidence, asks when blocked, and stops at stated boundaries. Purrmission appears only at the consequential permission or scope threshold; she does not replace Mergewell's decision or Riley's bounded-work role. Use this one-minute opener to establish module identity and role hierarchy, not to teach literal product architecture. [Sources: module.md; visual-intent.md; agentic-content-verification.md AGT-12 and AGT-28; Agent Mergewell and Riley Relay character briefs.]
 -->
 ```
 
@@ -264,8 +270,9 @@ Mandatory downstream gates remain separate:
    conditions, and fallback.
 4. Candidate review at slide scale, then explicit candidate approval.
 5. Separate promotion approval and provenance/declaration review.
-6. Deck integration review: exact 27 titles, notes count/sentence count, timing,
-   direct build or smallest supported render, 1920×1080 visual review,
+6. Deck integration review: exact 27 titles, one ordered seven-section
+   word-for-word talk track per slide, manifest-matching timeboxes, direct build
+   or smallest supported render, 1920×1080 visual review,
    accessibility/contain review, and `pnpm validate`.
 7. Separately recorded integrated-readiness, local-acceptance, release,
    deployment, and publication decisions as applicable.
