@@ -325,6 +325,12 @@ program
     console.log(`Leaderboard kit: ${result.kitDirectory} (${result.files.length} file(s))`);
     console.log(`${result.environment} repository: ${result.repository}`);
     console.log(`Standings: ${result.standingsUrl}`);
+    if (result.labelsCreated.length > 0) {
+      console.log(`Created missing label(s): ${result.labelsCreated.join(", ")}.`);
+    }
+    if (result.labelWarning) {
+      console.warn(`Warning: ${result.labelWarning}`);
+    }
     if (result.published) {
       console.log(`Published commit ${result.commit}.`);
     } else {

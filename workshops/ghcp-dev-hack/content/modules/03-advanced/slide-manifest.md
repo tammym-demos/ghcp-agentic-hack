@@ -2,7 +2,7 @@
 
 Sources: `copilot-dev-advanced-workshop.md`, `product-update-brief.md`, and `content/missions/advanced/cross-cutting-change.md`
 
-Expected slide count: **19**
+Expected slide count: **20**
 
 | # | Minutes | Source marker | Slide type | Exact source title | Required contract |
 |---:|---:|---|---|---|---|
@@ -24,7 +24,8 @@ Expected slide count: **19**
 | 16 | 5 | `Slide topic` | Method | Debugging Copilot Across Surfaces | Apply a portable evidence loop with explicit acceptance tests, checkpoints, stop criteria, and recovery or rollback. |
 | 17 | 5 | Approved gap | Integration | Integrating Parallel Agent Work | Teach dependency ordering, independent validation, overlap/conflict detection, integration sequence, combined validation, rollback point, and final human acceptance. |
 | 18 | 4 | `Slide topic` | Content | Preparing for Day 2 Hack | Require explicit success criteria and stop/fallback evidence without repeating the debugging method. |
-| 19 | 2 | `### 🎯 MISSION` | Mission launch | Your Advanced Mission Starts Now | Launch the separate 30-minute mission and connect its evidence to orchestration, governed integration, evaluation/recovery, and final integration proof. |
+| 19 | 0 | `module.md`; mission handoff | Demo | Demo! | Brief zero-minute reset before the mission. |
+| 20 | 2 | `### 🎯 MISSION` | Mission launch | Your Advanced Mission Starts Now | Launch the separate 30-minute mission and connect its evidence to orchestration, governed integration, evaluation/recovery, and final integration proof. |
 
 ## Timing arithmetic
 
@@ -32,14 +33,15 @@ Expected slide count: **19**
 - Orchestration and isolation, slides 3-7: `3 + 2 + 3 + 4 + 4 = 16`
 - Governed integration surfaces, slides 8-14: `3 + 3 + 4 + 3 + 3 + 2 + 5 = 23`
 - Evidence, recovery, integration, and Day 2, slides 15-18: `3 + 5 + 5 + 4 = 17`
+- Demo: `0`
 - Mission launch: `2`
-- Teaching deck: `2 + 16 + 23 + 17 + 2 = 60 minutes`
+- Teaching deck: `2 + 16 + 23 + 17 + 0 + 2 = 60 minutes`
 - Separate declared mission: `30 minutes`
 
 ## Generation constraints
 
-- The 19-row order, numbering, titles, and minute allocations above are authoritative.
-- Slide 19 launches, but does not consume time from, the separate 30-minute
+- The 20-row order, numbering, titles, and minute allocations above are authoritative.
+- Slide 20 launches, but does not consume time from, the separate 30-minute
   `cross-cutting-change` mission.
 - Do not add inline exercises, extra slides, optional August weekly-release candidates, `/side`, `/btw`, `/rewind`, stacked pull requests, or hands-on code security.
 - Preserve source prompts, commands, named features, availability and rollout caveats, safety meaning, and usage-optimization meaning.

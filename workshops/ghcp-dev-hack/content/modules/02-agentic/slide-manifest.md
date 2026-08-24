@@ -3,7 +3,7 @@
 Current source authority:
 `content/modules/02-agentic/visual-intent.md`.
 
-Expected slide count: **27**
+Expected slide count: **28**
 
 | # | Exact source title | Source markers | Communication job and native treatment | Minutes |
 | ---: | --- | --- | --- | ---: |
@@ -33,7 +33,8 @@ Expected slide count: **27**
 | 24 | Agentic Optimization | AGT-23, AGT-24, AGT-31 | Compare noisy and focused work without promising quality or cost savings | 3 |
 | 25 | Make Cost-Conscious Choices Before You Start | CREDIT-01, CREDIT-03–CREDIT-08; SRC-01–SRC-07; AGT-23, AGT-24 | Choose supported pre-run controls, then inspect result quality and available usage | 3 |
 | 26 | Code Quality, Copilot Review, and Human Acceptance | AGT-25–AGT-30 | Keep diff, Actions, Code Quality, and Copilot review distinct before the human decision | 4 |
-| 27 | Your Mission: Hand Off Work with Confidence | `content/missions/agentic/agent-task.md`; `### 🎯 MISSION` | Point to the separate 45-minute scored mission, its Foundations-case or facilitator-starter entry path, safety checkpoint, score envelope, and cumulative evidence export | 45 |
+| 27 | Demo! | `module.md`; mission handoff | Brief zero-minute reset before the mission | 0 |
+| 28 | Your Mission: Hand Off Work with Confidence | `content/missions/agentic/agent-task.md`; `### 🎯 MISSION` | Point to the separate 45-minute scored mission, its Foundations-case or facilitator-starter entry path, safety checkpoint, score envelope, and cumulative evidence export | 45 |
 
 ## Timing arithmetic
 
@@ -50,7 +51,8 @@ Expected slide count: **27**
   `15 + 20 + 20 + 20 = 75`; the three opening minutes are instruction within
   that route, not additional module time, and no section learning coverage is
   removed.
-- Mission: slide 27 = `45` minutes.
+- Demo: slide 27 = `0` minutes.
+- Mission: slide 28 = `45` minutes.
 - Module: `75 + 45 = 120` minutes.
 
 ## Objective and priority coverage
@@ -64,7 +66,8 @@ Expected slide count: **27**
 - Repository, Actions, pull-request, and cloud-agent evidence: slides 16–23.
 - Optimization and AI-credit controls: slides 24–25.
 - Code Quality, Copilot review, and retained human authority: slide 26.
-- Mission practice and evidence: slide 27.
+- Zero-minute demo handoff: slide 27.
+- Mission practice and evidence: slide 28.
 - Existing storyboard priorities shift to slides 3, 12, 14, 17, and 26:
   `Agentic Development`, `The Agentic Loop`, `Approval Boundaries`,
   `Security Before and After Push`, and

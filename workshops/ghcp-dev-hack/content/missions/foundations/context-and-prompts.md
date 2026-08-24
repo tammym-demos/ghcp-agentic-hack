@@ -12,248 +12,343 @@ objectiveRefs:
   - Detect context rot and apply context window hygiene practices
   - Apply the autonomy spectrum and least-privilege delegation before escalating to agentic patterns
 prerequisites: []
-startingState: Participants have VS Code with GitHub Copilot, GitHub Copilot CLI, or the standalone GitHub Copilot app.
-goal: Get hands on prompt scoping, autonomy modes, cost gauges, context hygiene, and verification by running five short scored experiments directly in your Copilot chat or terminal.
-task: Complete the 5 experiments for up to 50 core points (40 completes the mission), attempt the bonus challenges for up to 10 more, then total your score and record your debrief.
+startingState: Participants have VS Code with GitHub Copilot, GitHub Copilot CLI, or the standalone GitHub Copilot app, and can create a folder on their own machine.
+goal: Six short experiments. Pick a tool, build a small case folder, and practise the four things Foundations teaches — prompting, context, cost, and autonomy.
+task: Complete the 6 experiments for up to 50 core points (40 completes the mission), attempt the bonus challenges for up to 10 more, then total your score and record your debrief.
 constraints:
   - Do not use confidential, customer, or unrelated repository content.
   - Do not guess organization policy, product availability, or unsupported commands.
   - Do not grant repository-wide, network, destructive, or unrelated-file access to any Agent run.
   - Do not spend credits, install software, or broaden permissions merely to earn points.
 evidence:
-  - Answers to the 5 guided experiment questions (prompt scoping, mode choice and withheld permission, model and routing rule, context rot test, verification verdict)
-  - One bounded follow-up task and your Foundations point total, carried into Agentic Development
+  - Answers to the 6 guided experiment questions (tool choice, vague versus specific prompts, what is and is not in context, the file you added, usage reading and model rule, autopilot versus interactive)
+  - The `copilot-case-file` folder and your Foundations point total, carried into Agentic Development
 safetyCheckpoints:
-  - Purrmission checks context scoping, least-privilege permissions, credit/usage awareness, and the final verification verdict.
+  - Purrmission checks the case folder location, context scoping, least-privilege permissions, credit awareness, and the undo path before any unattended run.
 corePath:
-  - 'Experiment 1 (5 pts): Scope context with one precise prompt instead of attaching whole workspaces.'
-  - 'Experiment 2 (10 pts): Climb the autonomy ladder (Ask → Plan → Agent) and withhold one permission.'
-  - 'Experiment 3 (10 pts): Read the model, token, and AI Credit gauges, then write one routing rule.'
-  - 'Experiment 4 (10 pts): Provoke context rot, then reset and re-anchor the session.'
-  - 'Experiment 5 (15 pts): Break the code with a harder input list, run a Revise cycle, and record your verdict and follow-up task.'
+  - 'Experiment 1 (5 pts): Pick one tool, then make the `copilot-case-file` folder and `case-notes.md`.'
+  - 'Experiment 2 (10 pts): Send a vague prompt and a specific prompt, then compare the replies.'
+  - 'Experiment 3 (10 pts): Find what is in the context right now, and what is not.'
+  - 'Experiment 4 (5 pts): Add one file to the context on purpose and prove Copilot can see it.'
+  - 'Experiment 5 (10 pts): Read your AI Credits, try a second model, and write one switching rule.'
+  - 'Experiment 6 (10 pts): Run the same job step-by-step and unattended, then choose between them.'
 stretchPath:
   - 'Bonus 1 (+10 pts) Model Showdown: compare a third model against the two you already ran.'
-  - 'Bonus 2 (+10 pts) Cross-Harness Test: run the same prompt in a second harness such as Copilot CLI or the Copilot app.'
+  - 'Bonus 2 (+10 pts) Try a Second Tool: run the same prompt in another tool, such as Copilot CLI or the Copilot app.'
   - 'Bonus points are capped at 10 even if you finish both bonus challenges.'
 debrief:
-  - Which mode (Ask, Plan, or Agent) was the smallest tool that still did the job?
-  - Which permission did you decide not to grant, and what would have gone wrong if you had?
-  - What did the gauges tell you, and what did they not prove?
-  - What was the first symptom of context rot before you reset the session?
-  - What is your bounded follow-up task for Agentic Development, and what is your point total?
+  - Which tool did you pick, and what made the specific prompt work better than the vague one?
+  - What was in the context that you did not expect, and what did you add on purpose?
+  - What did the usage reading tell you, and what did it not prove?
+  - When would you switch models, in your own words?
+  - Which did you keep — step-by-step or unattended — and what would you never leave unattended?
+  - What is your point total, and where is your case folder for Agentic Development?
 validation:
-  - The participant earns at least 40 core points, or records the exact blocker that required facilitator help.
-  - The participant can explain their mode choice, withheld permission, model routing rule, and verification verdict.
-  - Every experiment respects least-privilege context and permission boundaries.
-  - The participant leaves with one bounded follow-up task and a recorded point total for Agentic Development.
+  - You earn at least 40 core points, or write down the exact thing that blocked you.
+  - You can explain your tool choice, your context decisions, your model rule, and your autonomy choice.
+  - Every experiment stays inside the personal case folder, with least-privilege context and permissions.
+  - You leave with a `copilot-case-file` folder and a point total to carry into Agentic Development.
 casePacket:
-  - Open your preferred Copilot tool (VS Code, Copilot CLI, or the Copilot app).
-  - No starter repository or file creation required — you can run every prompt directly in chat or an open scratch buffer.
-  - Work through the 5 experiments in order. They are worth 5, 10, 10, 10, and 15 points, for 50 core points in total, and each prompt is copy-paste ready.
+  - '**What you need:** one Copilot tool — VS Code, Copilot CLI, or the Copilot app — and somewhere on your own machine to make a folder.'
+  - 'No repository, no account setup, and nothing to install. You build a small case folder and keep it for the next two modules.'
+  - '**Six experiments, in order.** They are worth 5, 10, 10, 5, 10, and 10 points — 50 in total. Every prompt is ready to copy and paste.'
 harnesses:
   - id: ide-extension
     title: VS Code
-    description: Work with GitHub Copilot in VS Code chat, inline chat, and editor canvases.
+    description: Run Copilot inside VS Code. Good if you already work in an editor.
     instructions:
-      - Open VS Code and open the GitHub Copilot Chat pane (`Ctrl+Alt+I` / `Cmd+Alt+I`).
-      - Try prompts directly in chat or use inline chat (`Ctrl+I` / `Cmd+I`).
+      - '**Start a session:** open VS Code, then open Chat with `Ctrl+Alt+I` (`Cmd+Alt+I` on Mac). The `+` button starts a fresh chat.'
+      - '**Make a file:** press `Ctrl+N` (`Cmd+N` on Mac) for a blank file, then `Ctrl+S` (`Cmd+S`) and type the name you want. File > New File does the same thing.'
+      - '**Run code:** open the terminal at the bottom with `` Ctrl+` `` and run it there. The output appears in that panel.'
+      - '**Tell Copilot what to look at:** select some lines and press `Ctrl+I` (`Cmd+I`) to ask about just those, or type `#file` or `#selection` in the chat box.'
+      - '**Change mode or model:** the Ask / Plan / Agent buttons are at the top of the Chat panel. The model dropdown is at the bottom of the chat box.'
   - id: copilot-cli
     title: GitHub Copilot CLI
-    description: Work with GitHub Copilot directly from your terminal.
+    description: Run Copilot in the terminal. Good if you are comfortable with a command line.
     instructions:
-      - Open your terminal and run `copilot` or your installed Copilot CLI command.
-      - State clear context and expected constraints in your prompt.
+      - '**Start a session:** run `copilot` in your terminal. Exit and run it again whenever you want a clean slate with no history.'
+      - '**Make a file:** `cd` into a new empty folder first.'
+      - 'Then run `New-Item name.md` in PowerShell, or `touch name.md` on Mac or Linux. Or ask Copilot to create it.'
+      - '**Run code:** run it in the same terminal. The output appears just above your next prompt.'
+      - '**Tell Copilot what to look at:** name the file in your prompt. It works from whatever folder you are in, so start in an empty folder with nothing private in it.'
+      - '**Where things show up:** the model name appears as it answers. Run `/usage` for your token totals.'
   - id: copilot-app
     title: GitHub Copilot app
-    description: Work with Copilot in its standalone desktop workspace.
+    description: Run Copilot in its own app, with separate areas for chat, plans, files, and the terminal.
     instructions:
-      - Open the GitHub Copilot desktop app and start a new session.
-      - Use the plan, terminal, and diff canvases to inspect responses.
+      - '**Start a session:** open the Copilot app and start a new session. Starting another new session is how you get a clean slate.'
+      - '**Make a file:** open or create an empty folder first — the app works inside one.'
+      - 'Then ask Copilot to create the file in it. Check the files area before you move on.'
+      - '**Run code:** use the terminal area. The output appears there, not in the chat.'
+      - '**Tell Copilot what to look at:** keep the folder small. Whatever is in it is what the app can see.'
+      - '**Where things show up:** plans, file changes, and terminal output each have their own area. Read them before you accept anything.'
 coreClues:
-  - id: context-scoping
-    title: 'Experiment 1: Context Scoping & Crafting the Prompt'
+  - id: set-up-the-case
+    title: 'Experiment 1: Pick Your Tool and Open the Case'
     points: 5
+    objectiveRef: Explain where GitHub Copilot lives across IDE, terminal, GitHub.com, cloud, and app surfaces and identify enterprise safety responsibilities
+    scene: Agent Mergewell opens a fresh case folder. Purrmission checks it sits somewhere harmless before a single note goes in.
+    outcome: A folder called `copilot-case-file` with one file called `case-notes.md` inside it, open in the Copilot tool you picked.
+    actions:
+      - Pick one tool — VS Code, Copilot CLI, or the Copilot app. Stay with it for the whole mission.
+      - Make a folder called `copilot-case-file` somewhere personal, such as your Documents or home folder.
+      - Make a file inside it called `case-notes.md`.
+      - 'Write two lines at the top: a name for your case, and today''s date. Save the file.'
+    routes:
+      - harness: ide-extension
+        instructions:
+          - 'Use File > Open Folder to open your new `copilot-case-file` folder.'
+          - 'Press `Ctrl+N` (`Cmd+N` on Mac) for a blank file, then `Ctrl+S` (`Cmd+S`) and save it as `case-notes.md`.'
+          - 'Open Chat with `Ctrl+Alt+I` (`Cmd+Alt+I`) so the folder is in view.'
+      - harness: copilot-cli
+        instructions:
+          - '`cd` into your new `copilot-case-file` folder, then run `copilot`.'
+          - 'Run `New-Item case-notes.md` in PowerShell, or `touch case-notes.md` on Mac or Linux.'
+          - Or ask Copilot to create the file for you now that you are inside the folder.
+      - harness: copilot-app
+        instructions:
+          - Open the app and open your new `copilot-case-file` folder as the working folder.
+          - Start a new session, then ask Copilot to create `case-notes.md`.
+          - Check the file appears in the files area before you move on.
+    verify: You can see `case-notes.md` open in your tool, and it has two lines in it.
+    evidence: 'Tool I chose: ___. My case folder is at: ___.'
+    hints:
+      - Any empty folder on your own machine works. It does not need to be a repository.
+      - Two lines is enough. Something like `# Case notes` and today's date.
+      - 'Not sure where your tool is looking? Ask Copilot: "I am using <your tool>. Which folder are you working in right now?"'
+    safetyCheckpoint: 'Purrmission: build this folder somewhere personal. Not inside a work repository, and nowhere near customer data.'
+  - id: first-prompts
+    title: 'Experiment 2: Send Your First Two Prompts'
+    points: 10
     objectiveRef: Apply VS Code chat references, inline completions, inline chat, and Ask/Plan/Agent modes to real engineering tasks
-    scene: Agent Mergewell crafts his opening prompt. Purrmission makes sure he feeds in only the context the task actually needs.
+    scene: Mergewell asks a woolly question, gets a woolly answer, and then asks again properly. Purrmission keeps both prompts on practice material only.
+    outcome: Two replies from Copilot saved into `case-notes.md` — one from a vague prompt, one from a specific prompt — plus a line saying which was more useful.
     actions:
-      - 'Copy this prompt into Copilot Chat and send it:'
-      - '> "Write a function in [JavaScript/Python/language of choice] that takes this list: [\"Context\", \"  Safety  \", \"context\", \"\", \"Models\"]. Success rules: (1) Trim whitespace, (2) Remove empty strings, (3) Remove case-insensitive duplicates while preserving first-seen order and casing. Expected output: [\"Context\", \"Safety\", \"Models\"]."'
-      - 'Inspect the answer: did Copilot honor all 3 rules without you attaching any files or folders?'
-      - 'Optional 30-second add-on: open any file, select a few lines, and use inline chat (Ctrl+I / Cmd+I) or a #file / #selection reference to see how a scoped reference differs from pasting the whole file.'
+      - 'Send a vague prompt, exactly as written: "help me with my notes."'
+      - Copy the reply into `case-notes.md`.
+      - Now send a specific prompt. Name the file, the goal, and the format you want back.
+      - 'Copy this one: "In case-notes.md, add a three-item checklist for reviewing a pull request. Use a Markdown list."'
+      - Copy that reply into `case-notes.md` too.
+      - Write one line about which reply was more useful, and why.
     routes:
       - harness: ide-extension
         instructions:
-          - Paste the prompt directly into VS Code Copilot Chat.
+          - Type the vague prompt into the Chat box and send it.
+          - 'For the specific prompt, type `#` and pick `case-notes.md` so Copilot is looking at the right file.'
       - harness: copilot-cli
         instructions:
-          - Run the prompt in your Copilot CLI session.
+          - Type the vague prompt at the session prompt and send it.
+          - For the specific prompt, name `case-notes.md` in the sentence so Copilot knows which file you mean.
       - harness: copilot-app
         instructions:
-          - Send the prompt in a new Copilot app chat session.
-    evidence: Record the prompt you used and whether Copilot produced working code without needing background project files.
+          - Send the vague prompt in the chat area.
+          - For the specific prompt, name `case-notes.md` and check the files area afterwards to see what changed.
+    verify: '`case-notes.md` holds both replies and your one-line comparison.'
+    evidence: 'The specific prompt was better because: ___.'
     hints:
-      - Putting the input data and the success rules directly in the prompt gives you precision without dragging in noisy workspace context.
-      - 'Use #file or #selection when you genuinely need a specific file, but never attach whole unrelated folders.'
-    safetyCheckpoint: Never paste production secrets, API keys, or private customer records into prompts.
-  - id: mode-ladder
-    title: 'Experiment 2: The Autonomy Ladder (Ask → Plan → Agent)'
-    points: 10
-    objectiveRef: Apply the autonomy spectrum and least-privilege delegation before escalating to agentic patterns
-    scene: Mergewell wants Copilot to take over his whole machine. Purrmission shows him the three rungs of the ladder and holds back one key.
-    actions:
-      - 'Rung 1 — Ask (explain, read-only). Prompt: "Explain the edge cases when deduplicating strings case-insensitively while preserving first-seen casing."'
-      - 'Rung 2 — Plan (design before code). Prompt: "Give me a step-by-step implementation plan and unit test cases for this sanitizer."'
-      - 'Before you climb to Agent, write down one permission you will deliberately NOT grant this run — for example repository-wide edits, terminal install commands, or network access.'
-      - 'Rung 3 — Agent (acts on your files). Switch to Agent mode and prompt: "Create a new file sanitize.js that implements the sanitizer, plus assertions covering all four success rules. Only create sanitize.js. Do not modify other files, install packages, or run network commands."'
-      - 'Review the diff before you accept it: did it stay inside the scope you set, and do the assertions actually test all four rules?'
-      - 'Compare the three rungs: which one was the smallest tool that still did the job? When would Agent write access be overkill?'
-    routes:
-      - harness: ide-extension
-        instructions:
-          - Toggle between Ask, Plan, and Agent mode in the chat interface, and review the proposed diff before you keep it.
-      - harness: copilot-cli
-        instructions:
-          - Compare an explanation query with an execution command, and approve each suggested action deliberately.
-      - harness: copilot-app
-        instructions:
-          - Review the plan canvas in the Copilot app before allowing any file edits.
-    evidence: Record which mode was the smallest useful choice for this task, and the one permission you chose to withhold.
-    hints:
-      - 'Ask is read-only explanation: great for learning and debugging with no risk to your files.'
-      - 'Plan structures multi-step work before any code is touched.'
-      - 'Agent executes: it writes files and runs commands under your supervision, so scope it explicitly in the prompt.'
-      - Least privilege means granting the narrowest access that still completes the task — the scope limiter sentence in the Agent prompt is doing exactly that.
-    safetyCheckpoint: Always review the diff before accepting Agent edits, and never approve a terminal command you cannot explain.
-  - id: read-the-gauges
-    title: 'Experiment 3: Read the Gauges and Make a Routing Call'
-    points: 10
-    objectiveRef: Interpret tokens, GitHub AI Credits, and model-routing tradeoffs for cost-aware daily execution
-    scene: Mergewell checks his dashboard gauges. Purrmission reminds him that gauges track cost and routing, never code truth.
-    actions:
-      - 'Read the model selector: which model is active right now? Write the exact name your picker shows.'
-      - 'Read the usage gauges: look for token or reference counts on the turn, and check whether your account settings show AI Credit (AIC) consumption. If your harness exposes no counters, write "no counters exposed" — you still earn full points.'
-      - 'Now run the same Experiment 1 prompt twice: once on a fast, lightweight model and once on a deeper reasoning model. Compare speed, code quality, and any cost signal you can see.'
-      - 'Write one conditional routing rule in this shape: "For ___ I will use a ___ model, because ___."'
-      - 'Complete this sentence: "The gauge tells me ___, but it does not prove ___."'
-    routes:
-      - harness: ide-extension
-        instructions:
-          - Use the model picker at the bottom of the chat box, and inspect the references attached to the turn.
-      - harness: copilot-cli
-        instructions:
-          - Check the active model indicator and any token counts in the CLI turn output.
-      - harness: copilot-app
-        instructions:
-          - Inspect the model dropdown and session metadata in the desktop app.
-    evidence: Record the two models you compared, your one-sentence routing rule, and your completed "does not prove..." sentence.
-    hints:
-      - Fast, lightweight models cost fewer credits and suit boilerplate and repetitive edits; deeper reasoning models cost more and earn their keep on complex logic, debugging, and architecture.
-      - Auto routes for you based on task complexity and availability, which is a good default when you are unsure.
-      - Model names, availability, and credit rates change — trust your current picker and the module's model guide over any memorized list.
-    safetyCheckpoint: Do not run costly repetitive loops just to watch the quota move, and stay on models approved for your organization.
-  - id: context-hygiene
-    title: 'Experiment 4: Context Rot & The Session Reset'
+      - A vague prompt names no file and states no goal, so Copilot has to guess.
+      - A specific prompt names three things — the file, the goal, and the format you want back.
+      - 'Both replies look the same? Make the vague one even vaguer, and the specific one even more precise, then compare again.'
+    safetyCheckpoint: 'Purrmission: keep both prompts about this practice file. Nothing from real work goes in here.'
+  - id: see-the-context
+    title: 'Experiment 3: Look at What Copilot Can See'
     points: 10
     objectiveRef: Detect context rot and apply context window hygiene practices
-    scene: Mergewell has been chatting for 40 turns. Copilot is now confusing today with last week. Purrmission hits Reset.
+    scene: Mergewell assumes Copilot can see everything on his desk. Purrmission makes him check.
+    outcome: A note in `case-notes.md` recording one thing that is in the context right now, and one thing that is not.
     actions:
-      - 'Provoke context rot: in your current chat session, send 3 deliberately off-topic prompts — "What is the capital of France?", "Write a poem about cats", "Give me 5 regex recipes".'
-      - 'Notice what happened: your conversation history is now full of irrelevant tokens competing for space in the context window.'
-      - 'Ask one more on-topic question about your sanitizer and watch for drift — vague answers, forgotten rules, or invented variable names.'
-      - 'Reset the context: start a fresh session (the "+" new chat button in VS Code, or a new session in the CLI or app).'
-      - 'Re-anchor: send your original sanitization prompt into the clean session and compare the answer with the one you got from the cluttered session.'
+      - Find where your tool shows what it is currently using — the references list, the context area, or the equivalent.
+      - Write down what is in there right now.
+      - Ask Copilot about something you have never mentioned, such as a file that does not exist in your folder.
+      - Write down what it says when it does not have the information.
     routes:
       - harness: ide-extension
         instructions:
-          - Use the "+" new chat button, then re-send your prompt in the fresh session.
+          - 'Look at the Add Context area just above the Chat box. It lists what is attached.'
+          - Send a question about a file you never created and read how it responds.
       - harness: copilot-cli
         instructions:
-          - Start a fresh CLI session without history.
+          - Read the referenced files the CLI lists in its replies. That is what it used.
+          - Ask about a file you never created and read how it responds.
       - harness: copilot-app
         instructions:
-          - Click New Session in the desktop app.
-    evidence: Record the first symptom of drift you noticed and what changed after the reset.
+          - Check the files area. Whatever is in the working folder is what the app can see.
+          - Ask about a file you never created and read how it responds.
+    verify: Your note names at least one thing that is in context and one thing that is not.
+    evidence: 'In context: ___. Not in context: ___.'
     hints:
-      - 'Signs of context rot: Copilot repeats stale variable names, ignores instructions you just gave, drifts off the current task, or slows down.'
-      - 'Rule of thumb: reset whenever you switch tasks, and re-anchor the new session with the essentials rather than the whole history.'
-    safetyCheckpoint: Regular resets protect your token budget and stop stale assumptions from leaking into new code.
-  - id: run-and-verify
-    title: 'Experiment 5: Verify, Decide, and Hand Off'
-    points: 15
-    objectiveRef: Explain where GitHub Copilot lives across IDE, terminal, GitHub.com, cloud, and app surfaces and identify enterprise safety responsibilities
-    scene: Mergewell wants to ship immediately. Purrmission runs the four-point inspection first, then writes the handoff note.
+      - The context indicator is usually right above or below where you type.
+      - 'You can ask Copilot directly: "What files can you see right now?"'
+      - A tool that guesses at a file it cannot see is telling you something useful. Write that down.
+    safetyCheckpoint: 'Purrmission: if anything is in the context that you did not expect, take it out before you carry on.'
+  - id: add-to-context
+    title: 'Experiment 4: Add One Thing to the Context'
+    points: 5
+    objectiveRef: Detect context rot and apply context window hygiene practices
+    scene: Mergewell hands Purrmission exactly one new file. Not the whole filing cabinet.
+    outcome: A second file added to the context on purpose, and an answer that proves Copilot can now see it.
     actions:
-      - 'Run or read the generated code against all four success checks using the Experiment 1 list:'
-      - 'Check 1 — extra spaces trimmed: "  Safety  " becomes "Safety".'
-      - 'Check 2 — empty strings removed: "" is dropped.'
-      - 'Check 3 — case-insensitive duplicates removed: "context" is dropped because "Context" came first.'
-      - 'Check 4 — first-seen casing and order preserved: ["Context", "Safety", "Models"].'
-      - 'Now break it. Run the same function against this harder list and predict the answer before you look: ["Context", "CONTEXT", "\tsafety", "Safety ", "", "  ", "Models", "models "]. Most first attempts fail at least one rule here.'
-      - 'If it failed, run one Revise cycle: tell Copilot exactly which check broke and which input exposed it, then re-verify. Do not accept a fix you have not re-run.'
-      - 'Make your verdict: Accept, Revise, or Reject — and say what evidence backs it.'
-      - 'Write one bounded follow-up task you would hand to an agent next — small, specific, and verifiable. You will reopen this in Agentic Development.'
-      - 'Total your score and note your harness and active model.'
+      - Make a second small file in your folder called `team-rules.md`.
+      - 'Put one unusual rule in it, such as: "All case notes must end with the word PURRMISSION."'
+      - Add that file to the context yourself.
+      - Ask Copilot a question that can only be answered from that new file.
     routes:
       - harness: ide-extension
         instructions:
-          - Run the code in the integrated terminal, or step through the logic and check each rule by hand.
+          - 'Use the Add Context button, or type `#` and pick `team-rules.md`.'
+          - 'Ask: "What is the team rule for case notes?"'
       - harness: copilot-cli
         instructions:
-          - Run the script and check the console output against all four checks.
+          - Name `team-rules.md` directly in your message.
+          - 'Ask: "Read team-rules.md. What is the team rule for case notes?"'
       - harness: copilot-app
         instructions:
-          - Execute the test in the terminal canvas.
-    evidence: Record what the harder list exposed, whether you needed a Revise cycle, your verdict (Accept, Revise, or Reject), your bounded follow-up task, and your point total.
+          - Confirm `team-rules.md` shows in the files area.
+          - 'Ask: "What is the team rule for case notes?"'
+    verify: Copilot's answer contains the unusual rule, which only exists in the new file.
+    evidence: 'I added ___ to the context. Copilot then knew: ___.'
     hints:
-      - Case-insensitive deduplication that preserves the original casing is the single most common place this task goes wrong.
-      - 'The harder list adds a tab character, a trailing-space duplicate, an all-caps duplicate, and a whitespace-only string. Trim before you compare, and compare on the lowercased trimmed value.'
-      - 'If a check failed, reply: "Please preserve the original first-seen casing and order, treat whitespace-only entries as empty, and show the output for my test list."'
-      - 'A good bounded follow-up task names one file or function, one change, and one way to verify it.'
-      - 'This experiment is worth 15 points — the most in the mission — because it requires verified evidence, not just a generated answer. Claim it only if you ran the harder list and recorded a verdict and follow-up task.'
-    safetyCheckpoint: Never trust AI-generated code without testing the edge cases — you remain accountable for what you ship.
+      - Put a distinctive word in the file so a correct answer is unmistakable.
+      - Add the one file, not the whole folder. Smallest thing that does the job.
+      - 'Copilot still does not know it? Start a fresh chat and add the file again.'
+    safetyCheckpoint: 'Purrmission: add one file at a time. Attaching a whole folder hands over far more than the task needs.'
+  - id: credits-and-model
+    title: 'Experiment 5: Check Your Credits and Pick a Model'
+    points: 10
+    objectiveRef: Interpret tokens, GitHub AI Credits, and model-routing tradeoffs for cost-aware daily execution
+    scene: Mergewell wants the most powerful model for everything. Purrmission points at the meter.
+    outcome: Your current AI Credits (AIC) reading written down, two models tried on the same prompt, and one rule for when you would switch.
+    actions:
+      - Find where your usage shows — the gauge in your tool, or your GitHub account settings.
+      - Write the reading into `case-notes.md`.
+      - Switch models and resend the specific prompt from Experiment 2.
+      - 'Write one sentence: when would you use the cheaper model, and when the stronger one?'
+    routes:
+      - harness: ide-extension
+        instructions:
+          - The model dropdown is at the bottom of the Chat box. Usage signals appear near it.
+          - Change the model there and resend the prompt.
+      - harness: copilot-cli
+        instructions:
+          - 'Run `/usage` to see your token totals, then `/model` to switch.'
+          - The model name appears as it answers.
+      - harness: copilot-app
+        instructions:
+          - Change the model in the session header dropdown.
+          - Resend the prompt and compare the two answers side by side.
+    verify: Your note has a usage reading, two model names, and one sentence beginning "I would use the stronger model when".
+    evidence: 'Usage reading: ___. I would use the stronger model when: ___.'
+    hints:
+      - Usage is normally shown close to the model picker.
+      - 'Account-level usage lives in your GitHub settings, under Copilot.'
+      - Cheaper models suit quick edits and rewording. Stronger models suit tricky logic and long files.
+      - 'No usage number visible anywhere? Record that as your finding and claim the points — not every plan shows one.'
+    safetyCheckpoint: 'Purrmission: you are reading numbers here, not buying anything. Never upgrade a plan just to finish a step.'
+  - id: autopilot-or-not
+    title: 'Experiment 6: Choose Autopilot or Interactive'
+    points: 10
+    objectiveRef: Apply the autonomy spectrum and least-privilege delegation before escalating to agentic patterns
+    scene: Mergewell reaches for full autopilot. Purrmission holds back one key and asks what he would do if it went wrong.
+    outcome: The same small job run two ways — once approving each step, once letting Copilot act on its own — and your written choice between them.
+    actions:
+      - 'Pick one small job, such as: "Tidy the headings in case-notes.md so they are consistent."'
+      - Run it in the mode where you approve each change. Note what you saw.
+      - Undo the change.
+      - Run the same job again in the mode that acts on its own. Note what you saw.
+      - Write down which mode you would keep for this job, and one thing you would never leave unattended.
+    routes:
+      - harness: ide-extension
+        instructions:
+          - 'Use Ask or Plan for the step-by-step run, then Agent for the on-its-own run. The selector is at the top of the Chat pane.'
+          - Agent edits arrive as a diff. Read it before you accept.
+      - harness: copilot-cli
+        instructions:
+          - Press `Shift+Tab` to cycle modes. Use interactive for the step-by-step run and approve each action.
+          - Press `Shift+Tab` again to reach autopilot for the second run, then watch what it does.
+      - harness: copilot-app
+        instructions:
+          - Use the plan area to review steps before allowing edits on the first run.
+          - On the second run, let it work and then read the files area to see everything that changed.
+          - 'To undo between runs, reject the change in the files area, or ask Copilot to put the file back.'
+    verify: You have notes from both runs and a written choice with a reason.
+    evidence: 'I would use ___ mode for this because ___. I would never leave ___ unattended.'
+    hints:
+      - Use the same job both times, or there is nothing to compare.
+      - 'Undo between runs so the second run starts from the same place. `Ctrl+Z` works, or ask Copilot to put it back.'
+      - Anything that deletes files, force-pushes, or reaches outside your folder stays supervised.
+    safetyCheckpoint: 'Purrmission: before the unattended run, check that only your case folder is open. Never run unattended anywhere near real work, and know how to undo it first.'
 bonusClues:
   - id: model-showdown
     title: 'Bonus 1: Model Showdown and Tradeoffs'
     points: 10
     objectiveRef: Interpret tokens, GitHub AI Credits, and model-routing tradeoffs for cost-aware daily execution
     scene: Mergewell lines up a third contender against the two models he already ran.
+    outcome: A three-way model comparison and a verdict on whether your Experiment 5 routing rule survived.
     actions:
-      - Pick a third model from your picker — ideally a different provider or a different size class from the two you compared in Experiment 3.
-      - Send the exact same prompt from Experiment 1.
+      - Pick a third model from your picker — ideally a different provider or a different size class from the two you compared in Experiment 5.
+      - Resend the specific prompt from Experiment 2.
       - 'Compare all three on four axes: speed, code quality, explanation depth, and any visible cost signal.'
-      - Decide whether your Experiment 3 routing rule still holds, or revise it.
-    evidence: Record the third model you tested, one notable difference, and whether your routing rule survived.
+      - Decide whether your Experiment 5 routing rule still holds, or revise it.
+    routes:
+      - harness: ide-extension
+        instructions:
+          - Change the model in the picker at the bottom of the chat box, then resend the prompt.
+      - harness: copilot-cli
+        instructions:
+          - Switch models with `/model` or the command your session banner lists, then resend the prompt.
+      - harness: copilot-app
+        instructions:
+          - Change the model in the session header dropdown, then resend the prompt.
+    verify: Three named models answered the same prompt and you can point to a difference between them.
+    evidence: 'Third model: ___. Notable difference: ___. Routing rule survived? ___.'
     hints:
       - Different model families have real personality differences — some are terse and idiomatic, others explain more and plan better. Judge by task fit, not by a universal ranking.
       - Try Auto as one of your contenders to see what it selects for this task.
+      - 'Only one model in your picker? Ask Copilot: "I am using <your tool>. Which models can I select here?" and record what you find.'
     safetyCheckpoint: Stick to models approved for your organization tenant.
   - id: cross-harness
-    title: 'Bonus 2: Cross-Harness Test (CLI or app)'
+    title: 'Bonus 2: Try a Second Tool (CLI or app)'
     points: 10
     objectiveRef: Explain where GitHub Copilot lives across IDE, terminal, GitHub.com, cloud, and app surfaces and identify enterprise safety responsibilities
     scene: Mergewell steps out of the IDE and runs the same task from the terminal or the Copilot app.
+    outcome: The same Experiment 2 prompt answered in a second tool, with one concrete difference you noticed.
     actions:
-      - Open GitHub Copilot CLI in your terminal, or the standalone Copilot app.
-      - Run the prompt from Experiment 1 there.
-      - Observe how the terminal or multi-canvas experience differs from IDE chat — where context comes from, how actions are approved, and what the surface is best at.
-    evidence: Record the second harness you tested and one thing it did better than your first harness.
+      - Open a second tool — one you did not use for the main experiments.
+      - Run the specific prompt from Experiment 2 there.
+      - Notice where context comes from, how actions are approved, and what that surface is best at.
+    routes:
+      - harness: ide-extension
+        instructions:
+          - If VS Code was your main tool, switch to the CLI or the app for this bonus.
+          - Otherwise open VS Code, open the Chat pane with `Ctrl+Alt+I` / `Cmd+Alt+I`, and send the prompt.
+      - harness: copilot-cli
+        instructions:
+          - If the CLI was your main tool, switch to VS Code or the app for this bonus.
+          - 'Otherwise open a terminal, `cd` to a scratch folder, run `copilot`, and send the prompt.'
+      - harness: copilot-app
+        instructions:
+          - If the app was your main tool, switch to VS Code or the CLI for this bonus.
+          - Otherwise launch the app, start a new session, and send the prompt.
+    verify: You ran the same prompt in a different tool from the one you used for the main experiments.
+    evidence: 'Second tool: ___. One thing it did better: ___.'
     hints:
       - The CLI is fast for shell and scripting work; the app gives dedicated space for plans and diffs; the IDE has the richest file context.
+      - 'Second tool not installed, and you cannot install it? Record that as your finding and claim the points — availability is a real enterprise constraint.'
     safetyCheckpoint: Do not download unapproved tools on managed corporate devices.
 completionPoints: 40
 bonusPointCap: 10
 carryForward:
   artifact: Foundations Experiment Findings
   produces:
-    - Chosen Copilot harness
-    - Autonomy mode comparison and the one permission you withheld
-    - Active model, gauge reading, and one conditional routing rule
-    - Context rot symptom and recovery observation
-    - Four-point verification verdict
-    - One bounded follow-up task to delegate in Agentic Development
+    - The Copilot tool you chose
+    - The path to your `copilot-case-file` folder and `case-notes.md`
+    - Vague versus specific prompt comparison
+    - What was and was not in the context, and the one file you added on purpose
+    - Usage reading, two models tried, and one switching rule
+    - Your step-by-step versus unattended choice, and the one thing you would never leave unattended
     - Foundations point total (core and bonus) for cumulative scoring
   consumes: []
-  fallback: A facilitator starter summary supplies a harness, a verdict, and a bounded follow-up task so anyone can enter Agentic Development directly.
+  fallback: A facilitator starter summary supplies a tool choice, a ready-made case folder layout, and a point total so anyone can enter Agentic Development directly.
 leaderboard:
   optional: true
   aliasOnly: true
@@ -281,55 +376,72 @@ status: draft
 
 ## Mission goal
 
-Get hands on the ideas from Foundations. In five short experiments you will scope a prompt, climb the autonomy ladder, read the cost gauges, break and repair your own context window, and verify what the AI gave you — earning points as you go.
+Six short experiments. You pick a tool, build a small case folder, and practise
+the four things Foundations teaches: prompting, context, cost, and autonomy.
 
-No starter repository. No setup. Every prompt is copy-paste ready, and you can work in VS Code, GitHub Copilot CLI, or the Copilot app.
+No repository. No setup. Every prompt is copy-paste ready. Work in VS Code,
+GitHub Copilot CLI, or the Copilot app.
 
 ## Scoring
 
-Points are weighted by difficulty, so finishing is not the same as topping the board.
-
 | Experiment | Points |
 |---|---:|
-| 1 — Scope the context | 5 |
-| 2 — The autonomy ladder | 10 |
-| 3 — Read the gauges, make a routing call | 10 |
-| 4 — Context rot and reset | 10 |
-| 5 — Verify, decide, and hand off | 15 |
+| 1 — Pick your tool and open the case | 5 |
+| 2 — Send your first two prompts | 10 |
+| 3 — Look at what Copilot can see | 10 |
+| 4 — Add one thing to the context | 5 |
+| 5 — Check your credits and pick a model | 10 |
+| 6 — Choose autopilot or interactive | 10 |
 | **Core total** | **50** |
 | Bonus 1 or 2 (capped at 10) | 10 |
 
-- **40 core points completes the module.** You can finish without a perfect run.
-- Experiment 5 is worth the most because it demands verified evidence, not just a generated answer — it is the hardest 15 points on the board.
-- **Hints are always available and never reduce your score.** Ask for help freely.
-- Scoring is on your honor, and there is no speed bonus. Posting to the leaderboard is optional and uses an alias you choose.
+- **40 core points completes the module.** You do not need a perfect run.
+- **Hints are always free.** Ask for help as often as you like.
+- Scoring is on your honour. There is no speed bonus. The leaderboard is
+  optional and uses an alias you choose.
 
 ## Timing guide
 
-- **0-3 minutes:** pick your harness and open a fresh chat session.
-- **3-8 minutes:** Experiment 1 — scope the context.
-- **8-18 minutes:** Experiment 2 — the autonomy ladder.
-- **18-26 minutes:** Experiment 3 — read the gauges, make a routing call.
-- **26-33 minutes:** Experiment 4 — context rot and reset.
-- **33-43 minutes:** Experiment 5 — break it, revise it, verify it, hand it off.
-- **43-45 minutes:** total your score and post to the leaderboard if you want to.
+- **0-5 minutes:** Experiment 1 — pick your tool, make the folder and file.
+- **5-13 minutes:** Experiment 2 — send a vague prompt, then a specific one.
+- **13-21 minutes:** Experiment 3 — look at what is in the context.
+- **21-26 minutes:** Experiment 4 — add one file on purpose.
+- **26-35 minutes:** Experiment 5 — read your credits, try a second model.
+- **35-43 minutes:** Experiment 6 — run the same job two ways.
+- **43-45 minutes:** total your score and post it if you want to.
 
-**Finished early?** Do not stop at 50. Go straight to the bonus challenges — a third model in Bonus 1, or a second harness in Bonus 2 — for the last 10 points on the board.
+**Finished early?** Go straight to the bonus challenges — a third model in
+Bonus 1, or a second tool in Bonus 2.
 
-Running short on time? Experiments 1, 2, and 5 are the ones that carry forward into Agentic Development.
+**Running short?** Experiments 1, 2, and 6 are the ones Agentic builds on.
 
 ## Five terms you will use
 
-- **Harness** — the place you run Copilot: VS Code, the CLI, or the Copilot app. Each has different context and different controls.
-- **Context window** — the finite space holding everything the model can currently see: your prompt, the conversation, and any attached files.
-- **Context rot** — what happens when that window fills with stale or irrelevant material and answers start to drift.
-- **Autonomy ladder** — Ask (explains), Plan (designs), Agent (acts on your files). Climb only as high as the task needs.
-- **AI Credits (AICs)** — the usage currency behind premium model requests. Different models consume at different rates.
+- **Tool** (sometimes called a harness) — where you run Copilot: VS Code, the
+  CLI, or the Copilot app. Each shows context and controls differently.
+- **Context window** — everything the model can see right now: your prompt, the
+  conversation, and any attached files. It has a limit.
+- **Context rot** — what happens when that window fills with stale or
+  irrelevant material and answers start to drift.
+- **Autonomy** — how much you let Copilot do before you check. Ask explains,
+  Plan designs, Agent acts on your files. Go only as high as the task needs.
+- **AI Credits (AIC)** — the usage currency behind premium model requests.
+  Different models use them at different rates.
 
 ## Accessibility and fallback
 
-Pair with a facilitator or a partner at any point. If your harness shows no token or credit counters, record "no counters exposed" in Experiment 3 and reason from the module's model guide instead — you still earn the full 20 points. If you cannot run code, read the generated logic against the four checks by hand; inspection counts as verification.
+Pair with a facilitator or a partner at any point.
+
+If your tool shows no token or credit counters, record `no counters shown` in
+Experiment 5 and claim the full 10 points. Not every plan exposes a gauge.
+
+If you cannot create files, ask Copilot to create them for you and read the
+result. Reading counts.
 
 ## What you carry into Agentic Development
 
-Keep your notes. The next module reopens your work, so before you finish make sure you have written down your harness, your verification verdict, **one bounded follow-up task**, and your point total.
+Keep your `copilot-case-file` folder. The next module opens it again and builds
+on it.
+
+Before you finish, write down which tool you used, your AI Credits reading, your
+autopilot-or-interactive choice, and your point total.

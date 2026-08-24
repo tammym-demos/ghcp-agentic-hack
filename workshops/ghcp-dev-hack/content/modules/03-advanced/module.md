@@ -34,7 +34,7 @@ sourceDocuments:
   - content/modules/03-advanced/product-update-brief.md
 slides: content/modules/03-advanced/slides.md
 generation:
-  expectedSlides: 19
+  expectedSlides: 20
   manifest: content/modules/03-advanced/slide-manifest.md
   imageProvider: gpt-image-2
   visualStyle: >-

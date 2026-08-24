@@ -1,6 +1,6 @@
-# Foundations 24-slide generation manifest
+# Foundations 25-slide generation manifest
 
-**Status:** Human-approved contract implemented on 2026-08-05; integrated visual/content readiness approved on 2026-08-06. The workshop owner approved the post-release mission refresh on 2026-08-07 and the slide 22 chained-video replacement on 2026-08-09 while preserving the 24-slide count and title order.
+**Status:** Human-approved contract implemented on 2026-08-05; integrated visual/content readiness approved on 2026-08-06. The workshop owner approved the post-release mission refresh on 2026-08-07 and the slide 22 chained-video replacement on 2026-08-09 while preserving the then-current 24-slide count and title order. The workshop owner approved the zero-minute `Demo!` handoff slide on 2026-08-23, moving the contract to 25 slides with the mission at slide 25.
 
 | # | Minutes | Source | Topic | Type | Exact source title | Visual |
 |---:|---:|---|---|---|---|---|
@@ -27,7 +27,8 @@
 | 21 | 3 | Part 2 section 4; FND-12 | Host recovery | Content | Context Recovery: Reset and Re-anchor | Approved still |
 | 22 | 5 | Accepted Scene 10; FND-12; video provenance | Verified context lifecycle | Summary | Context Lifecycle: Pack, Detect Drift, Recover | Approved poster + `context-window-lifecycle` click-to-play video with audio |
 | 23 | 3 | Part 2 section 4; FND-13 | Delegation boundary | Safety | Least-Privilege Delegation | Approved still |
-| 24 | 45 | Part 2 mission marker; mission artifact | Mission launch | Mission | Your Mission Starts Now | Approved still |
+| 24 | 0 | `module.md`; mission handoff | Demo | Demo | Demo! | Simple transition before mission |
+| 25 | 45 | Part 2 mission marker; mission artifact | Mission launch | Mission | Your Mission Starts Now | Approved still |
 
 ## Timing arithmetic
 
@@ -44,7 +45,8 @@
   instruction minutes plus the module's one declared media-playback minute.
 - Teaching path: `2 + 13 + 20 + 20 + 20 = 75` minutes, reconciling to
   `74` instruction minutes plus `1` media-playback minute in `module.md`.
-- Mission: slide 24 = the separate `45`-minute mission.
+- Demo: slide 24 = `0` minutes.
+- Mission: slide 25 = the separate `45`-minute mission.
 - Module: `75 + 45 = 120` minutes.
 
 ## Contract notes

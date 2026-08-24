@@ -7,334 +7,425 @@ module: agentic
 durationMinutes: 45
 objectiveRefs:
   - Apply instructions, memory boundaries, context hierarchy, and strong prompts to long-running agentic work
+  - Explain the different jobs of the developer, a software agent, a reusable skill, a custom agent, and a tool
   - Operate an observable agentic loop with deliberate planning, tool control points, progress checks, stop decisions, and recovery
   - Choose a supported product control before an agentic task and verify afterward whether the result justified the AI credits used
 prerequisites: []
-startingState: The participant has an approved Copilot harness with either their Foundations case already available or the copyable Agentic starter case, plus the Agentic practice task.
-goal: Carry your Foundations case forward and confidently delegate, monitor, and verify one well-scoped agentic task.
-task: Use your chosen approved Copilot harness to prepare, delegate, inspect, and decide on one well-scoped change from your case or the Agentic starter task.
+startingState: You have picked a Copilot tool, and you have either your Foundations case folder open or the starter case copied from this page.
+goal: Build four things in your case folder — a repository instruction, a custom agent, a skill, and a rule scoped to one file type — then watch an agent loop run.
+task: Using the tool you chose, build the four customisation files in your case folder, then give your agent a multi-step job and decide when to step in.
 constraints:
-  - Work only within the files or content named in your case or starter task unless you explicitly stop, re-brief, and record the scope change.
-  - Use one approved Copilot harness or surface for the main run; any second-harness check is optional bonus evidence.
-  - Use the validation available in your environment or the supplied no-runtime verification checklist.
+  - Build only inside your own `copilot-case-file` folder. Nothing here needs a work repository.
+  - Use one Copilot tool for the main run. Looking at the result in a second tool is optional bonus work.
+  - Read every instruction, agent, and skill file before you save it. You are writing the rules Copilot will follow.
   - Hints never reduce points, and there is no speed scoring.
 evidence:
   - An updated Agent Mergewell case file with separate Foundations, Agentic, and cumulative totals
-  - The delegation brief or prompt that initiated the main implementation pass
-  - The reviewed changes plus validation output or completed no-runtime verification checklist
-  - A final accept, revise, reject, stop, or recover decision with rationale
+  - The four files you built — repository instruction, custom agent, skill, and file-type instruction
+  - The visible proof for each one, such as a changed answer, a name in the picker, or a rule that applied to only one file type
+  - Your loop notes, showing what the agent planned, what it did, and where you would step in
 safetyCheckpoints:
-  - Purrmission verifies that the carried-forward case, practice task, and named scope are the only context in use.
-  - Purrmission pauses any request for unrelated files, package installs, network access, destructive commands, or unrecoverable actions until the human narrows or stops the work.
-  - Purrmission requires a visible validation or recovery check before the final human decision.
+  - Purrmission verifies the case folder is personal, and that no work repository or customer data is in scope.
+  - Purrmission checks every agent and skill file for a narrow job and a written boundary before it is saved.
+  - Purrmission pauses any request for unrelated files, package installs, network access, or destructive commands until the human narrows or stops the work.
 corePath:
-  - Resume the Foundations case already in your harness or paste in the Agentic starter case, then establish the shared boundary you will use to judge the work.
-  - Turn that boundary into a clear delegation brief and choose an available pre-run control that fits the task.
-  - Review the plan and observe whether the implementation continues to match the agreed intent.
-  - Examine the result and its validation evidence, record any recovery, and make the human decision.
-  - Export the updated case file so Advanced can consume separate Foundations, Agentic, and cumulative totals.
+  - 'Operation Open the Case (10 pts): write `.github/copilot-instructions.md` and see an answer change.'
+  - 'Operation Write the Brief (10 pts): create a custom agent at `.github/agents/case-writer.agent.md` and run it.'
+  - 'Operation Verify the Evidence (10 pts): give that agent a skill at `.github/skills/case-summary/SKILL.md`.'
+  - 'Operation Close the Handoff (10 pts): write an `applyTo` instruction that reaches Markdown files only.'
+  - 'Operation Watch the Loop (10 pts): give the agent a multi-step job, read the plan, and decide when to step in.'
 stretchPath:
-  - Earn up to one capped bonus by tightening the brief after a drift signal, comparing evidence in a second approved harness, or capturing a better usage or control observation without widening scope.
+  - Earn up to one capped bonus by tightening a brief after a drift signal, looking at the same evidence in a second tool, or capturing a better usage or control observation without widening scope.
 debrief:
-  - Which instruction or scope boundary most improved the delegated result?
-  - What evidence made you accept, revise, reject, stop, or recover?
+  - Which of the four files changed Copilot's behaviour the most, and how could you tell?
+  - What is the difference between your agent and your skill, in your own words?
+  - What did your `applyTo` pattern deliberately leave out?
+  - What made you decide to step in, or to let the loop finish?
   - What should the Advanced mission inherit from this case besides the score total?
 validation:
-  - The participant earns at least 40 core points or records the exact blocker that required facilitator help.
+  - You earn at least 40 core points, or write down the exact thing that blocked you.
+  - The four customisation files exist in the case folder and each has visible proof that it worked.
   - Every completed clue includes evidence, a Purrmission checkpoint, and an explicit human decision or stop note.
   - The exported case file preserves separate Foundations, Agentic, and cumulative totals for Advanced.
 casePacket:
-  - 'Continuing from Foundations: resume the case already in your harness and use its recorded follow-up task.'
-  - 'Starting with Agentic: copy the browser app below into a file named `case-dashboard.html`, open it in a browser, and use it as your practice task. No installation, repository access, or Foundations catch-up is required.'
-  - 'Starter situation: a workshop team records verified case notes in this dashboard. The current note-submission experience is not safe or reliable enough to hand to the next teammate.'
-  - 'Starter outcome: improve note submission so blank notes are rejected with useful feedback, user-entered characters are shown as text rather than interpreted as page markup, a valid note appears once, and the form is ready for another note.'
-  - 'Starter boundary: keep the solution inside `case-dashboard.html`; preserve the existing purpose and visual design; do not add packages, network calls, or unrelated features.'
-  - 'Starter no-runtime verification: open the file in a browser; try a blank note, a normal note, and `<strong>field report</strong>`; inspect the behavior and the changed file before deciding whether the result meets the outcome.'
-  - If you continue from Foundations, use the outcome, boundaries, and validation appropriate to your carried-forward task instead of the starter checks.
+  - '**Coming from Foundations?** Open your `copilot-case-file` folder in your tool. You already have `case-notes.md` and `team-rules.md` in it. You can skip the rest of this section.'
+  - '**Starting here?** Make a folder called `copilot-case-file` somewhere personal. Save the file below inside it as `case-notes.md`. Nothing to install and no repository needed.'
+  - '**What you are building.** Five things, in order, that turn a plain folder into one Copilot runs the way your team wants.'
+  - 'A repository instruction, so you stop repeating yourself.'
+  - 'A custom agent, so one specialist does one job.'
+  - 'A skill, so that job is done the same way every time.'
+  - 'An instruction for one file type, so a rule stays where it belongs.'
+  - 'One agent run with several steps, so you can watch the loop and decide when to step in.'
+  - '**How to check:** every exercise ends with something you can see for yourself — a changed answer, a name in a picker, a heading in the output, or a rule that applies to one file and not another.'
 starterFile:
-  name: case-dashboard.html
+  name: case-notes.md
   content: |-
-    <!doctype html>
-    <html lang="en">
-    <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>Agent Mergewell Case Dashboard</title>
-      <style>
-        :root {
-          color-scheme: light;
-          font-family: Arial, sans-serif;
-          background: #f6f8fa;
-          color: #1f2328;
-        }
-        body {
-          margin: 0;
-          padding: 2rem;
-        }
-        main {
-          max-width: 42rem;
-          margin: 0 auto;
-          padding: 2rem;
-          background: white;
-          border: 1px solid #d0d7de;
-          border-radius: 0.75rem;
-        }
-        label, textarea, button {
-          display: block;
-          width: 100%;
-          box-sizing: border-box;
-        }
-        textarea {
-          min-height: 6rem;
-          margin: 0.5rem 0 1rem;
-          padding: 0.75rem;
-        }
-        button {
-          padding: 0.75rem;
-          border: 0;
-          border-radius: 0.4rem;
-          background: #1f883d;
-          color: white;
-          font-weight: 700;
-          cursor: pointer;
-        }
-        #status {
-          min-height: 1.5rem;
-          color: #57606a;
-        }
-        li {
-          margin-block: 0.5rem;
-        }
-      </style>
-    </head>
-    <body>
-      <main>
-        <h1>Case handoff notes</h1>
-        <p>Record the evidence the next teammate needs to continue the case.</p>
+    # Case notes — starter case
 
-        <label for="case-note">New verified note</label>
-        <textarea id="case-note"></textarea>
-        <button id="add-note" type="button">Add note</button>
-        <p id="status" role="status" aria-live="polite">No note added yet.</p>
+    Date: fill in today's date
 
-        <h2>Verified notes</h2>
-        <ul id="notes">
-          <li>Permission boundary reviewed by the case owner.</li>
-        </ul>
-      </main>
+    ## Tool I am using
 
-      <script>
-        const input = document.querySelector("#case-note");
-        const notes = document.querySelector("#notes");
-        const status = document.querySelector("#status");
-        const addButton = document.querySelector("#add-note");
+    Fill in one: VS Code, Copilot CLI, or the Copilot app.
 
-        addButton.addEventListener("click", () => {
-          const note = input.value;
-          notes.innerHTML += `<li>${note}</li>`;
-          status.textContent = "Note added.";
-        });
-      </script>
-    </body>
-    </html>
+    ## What I learned in Foundations
+
+    - A vague prompt makes Copilot guess. A specific prompt names the file, the
+      goal, and the shape of the answer I want back.
+    - Copilot can only use what is in its context. I can see what is in there,
+      and I can add to it on purpose.
+    - Models differ in cost and strength. I switch to a stronger model when the
+      job needs careful reasoning over a long file.
+    - Step-by-step approval is right when I am unsure. Unattended is right only
+      when I know how to undo it.
+
+    ## Scores
+
+    - Foundations: 0 (starter case — not earned)
+    - Agentic: 0
+    - Cumulative: 0
+
+    ## Notes for this module
+
+    Add your notes below as you work.
 harnesses:
   - id: copilot-cli
     title: GitHub Copilot CLI
-    description: Use Copilot from the terminal while keeping the case, practice scope, and validation method visible.
+    description: Run Copilot in the terminal. Good if you are comfortable with a command line.
     instructions:
-      - Start in the chosen practice location and keep the request scoped to the named content.
-      - Ask for a plan before permitting edits, then run your available validation or complete the no-runtime checklist.
+      - '**Start a session:** open PowerShell, `cd` into your `copilot-case-file` folder, and run `copilot`. To start over, press `Ctrl+C` (or type `/exit`) and run `copilot` again.'
+      - '**Make folders and files:** run `New-Item -ItemType Directory .github`, then `New-Item -ItemType File .github/copilot-instructions.md`.'
+      - 'Or just ask Copilot to create them for you in this folder.'
+      - '**Pick up new customisation:** after saving a skill, run `/skills reload`. After saving a new agent or instruction file, exit and run `copilot` again.'
+      - '**Choose an agent:** run `/agent` and pick the one you built.'
+      - '**Where things show up:** commands and file changes appear in the terminal as it goes. It asks before it does anything, and files are saved once you say yes.'
   - id: ide-extension
     title: VS Code
-    description: Use VS Code chat and agent features with only the selected practice content in scope.
+    description: Run Copilot inside VS Code. Good if you already work in an editor.
     instructions:
-      - Attach only the case and practice content needed for the current clue.
-      - Review the proposed changes, then use your available validation or complete the no-runtime checklist.
+      - '**Start a session:** open VS Code, choose File > Open Folder and pick your `copilot-case-file` folder, then open Chat with `Ctrl+Alt+I` (`Cmd+Alt+I` on Mac). Press `+` to start a fresh chat.'
+      - '**Make folders and files:** right-click in the Explorer panel and choose New Folder or New File. Save with `Ctrl+S` (`Cmd+S` on Mac).'
+      - '**Find hidden folders:** `.github` may be hidden. If you cannot see it, ask Copilot to create the file for you by full path.'
+      - '**Choose an agent:** use the agent picker at the top of the Chat pane. Reload the window if a new agent does not appear.'
+      - '**Where things show up:** changes appear as a diff you approve or reject. Command output appears in the terminal at the bottom.'
   - id: copilot-app
     title: GitHub Copilot app
-    description: Use the standalone app with the selected practice content in a local project or session.
+    description: Run Copilot in its own app, with separate areas for chat, plans, files, and the terminal.
     instructions:
-      - Keep the session scoped to the case and named practice content.
-      - Inspect the plan, changed content, and available verification evidence before deciding whether to continue.
+      - '**Start a session:** open the app, open your `copilot-case-file` folder, and start a new session. Start another new session whenever you want a clean slate.'
+      - '**Make folders and files:** open your folder first — the app works inside one.'
+      - 'Then ask Copilot to create each file by full path, such as `.github/agents/case-writer.agent.md`. Check the files area.'
+      - '**Choose an agent:** use the agent picker, or type `/agent`, and select the one you built.'
+      - '**Keep it tidy:** keep the folder small and name your files in your prompts, so the app does not guess.'
+      - '**Where things show up:** plans, file changes, and terminal output each have their own area. Look at them before you carry on. Terminal output does not appear in the chat.'
 coreClues:
   - id: open-the-case
     title: Operation Open the Case
     points: 10
     objectiveRef: Apply instructions, memory boundaries, context hierarchy, and strong prompts to long-running agentic work
-    scene: 'Your situation: You are responsible for unfinished work from Foundations or the starter case. Before another agent works on it, you need a shared understanding of the problem and its limits.'
+    scene: Agent Mergewell keeps repeating the same standing orders every morning. Purrmission suggests writing them down once.
+    outcome: Repository instructions that visibly change how Copilot answers you — generated with `/init`, then sharpened by you.
     actions:
-      - 'Your decision: What does Copilot need to know about the intended outcome, useful context, evidence of success, and limits before it can propose an approach? Capture that shared understanding in a short boundary note.'
-      - 'How to approach it: Read the case as the person who must approve the result. Describe the change in behavior you need, the context Copilot may use, the evidence you will inspect, and where the work must stop. Leave implementation choices open.'
-      - 'Why it matters: Without a clear starting agreement, plausible work can still solve the wrong problem. The note gives you something concrete to compare with the plan and final result.'
+      - Open your `copilot-case-file` folder from Foundations, or make it now from the starter case below.
+      - 'Run `/init`. Copilot reads your folder and writes the instructions file for you.'
+      - Read what it wrote. This is a draft, not a rule book.
+      - 'Add one rule of your own that you cannot miss, such as: "Always answer in a numbered list."'
+      - Save it, start a fresh chat, and ask Copilot any question about your notes.
     routes:
-      - harness: copilot-cli
-        instructions:
-          - Note the current practice location, named scope, and validation method before you ask Copilot to do anything.
       - harness: ide-extension
         instructions:
-          - Open only the selected practice content, then note which workspace or selection boundaries you will keep.
+          - 'Type `/init` in Chat. It creates `.github/copilot-instructions.md`.'
+          - 'Open that file, add your rule, save with `Ctrl+S` (`Cmd+S`), then press `+` in Chat for a fresh session.'
+      - harness: copilot-cli
+        instructions:
+          - 'Run `copilot` inside your case folder, then type `/init`. You can also run `copilot init` from the shell.'
+          - Open the file it wrote, add your rule, then exit and run `copilot` again.
       - harness: copilot-app
         instructions:
-          - Start a local session with the selected practice content and record the boundary you will allow Copilot to inspect.
-    evidence: Save your chosen harness, carried-forward score, and boundary note.
+          - 'The app reads instructions from its settings, not from a file in your folder. Use settings for this step.'
+          - 'Open Settings, find your folder under Projects, and write your rules there. Then start a new session.'
+          - '`/init` needs a Git repository. If your folder is one, run it first and paste what it wrote into settings.'
+    verify: Copilot's answer obeys the rule you added yourself.
+    evidence: 'The rule I added was: ___. Copilot''s answer changed by: ___.'
     hints:
-      - Keep an untouched copy of the practice content so you can recover from a bad run.
-      - Continue with the Foundations case already in your harness, or paste the copyable Agentic starter case to begin fresh.
-      - 'Unrelated example: For an onboarding-document update, a useful boundary note could explain that a new teammate must complete setup successfully, that only the onboarding document is relevant, and that build scripts are outside the task. It would not dictate the wording of the revised document.'
-    safetyCheckpoint: Stop if the harness opens unrelated folders, asks for network or package access, or blurs which files are in scope.
+      - Make your rule impossible to miss, so you can tell instantly whether it was applied.
+      - Start a fresh chat after saving. An old session may keep the old behaviour.
+      - 'No `/init` in your tool? Write `.github/copilot-instructions.md` by hand. Three rules is plenty.'
+    safetyCheckpoint: 'Purrmission: read every line `/init` wrote before you keep it. Generated rules are a draft. Never put a secret, key, or customer name in one.'
   - id: write-the-brief
     title: Operation Write the Brief
     points: 10
-    objectiveRef: Apply instructions, memory boundaries, context hierarchy, and strong prompts to long-running agentic work
-    scene: 'Your situation: You understand the case, but Copilot still needs a useful handoff. Too little context invites guessing; too many instructions can prevent it from proposing a good approach.'
+    objectiveRef: Explain the different jobs of the developer, a software agent, a reusable skill, a custom agent, and a tool
+    scene: Mergewell wants a specialist who only writes case notes, and nothing else. Purrmission approves of the narrow job description.
+    outcome: A custom agent at `.github/agents/case-writer.agent.md` that you can pick and run.
     actions:
-      - 'Your decision: How will you explain the problem and boundaries while leaving the solution open? Choose an available model, context, reasoning, or session control that fits the work, then ask Copilot to propose a plan.'
-      - 'How to approach it: Build the brief from your boundary note, then ask for a plan rather than an immediate change. Look for a plan that connects the requested outcome to relevant work and validation without introducing extra goals.'
-      - 'Why it matters: The proposed plan is your first opportunity to discover whether Copilot understood the handoff before changes are made.'
+      - Make a folder called `agents` inside `.github`.
+      - Make a file in there called `case-writer.agent.md`.
+      - 'Give it frontmatter at the top with a `name` and a `description`, between two lines of `---`.'
+      - Below that, write its job in a few plain sentences — it writes tidy case notes and nothing else.
+      - Save it, pick it in your tool, and give it one small job.
     routes:
-      - harness: copilot-cli
-        instructions:
-          - Put the brief in the prompt itself and ask for a plan before using any edit-capable mode or follow-up.
       - harness: ide-extension
         instructions:
-          - Use Ask or Plan first, then copy the approved brief into the implementation turn only after you accept the plan.
+          - Create the file, then open the agent picker at the top of the Chat pane and select `case-writer`.
+          - 'Faster route: type `/create-agent` in Chat and describe the job. Copilot writes the file for you.'
+          - If it does not appear, save the file and reload the window.
+      - harness: copilot-cli
+        instructions:
+          - Create the file, then run `/agent` and choose `case-writer`.
+          - 'Faster route: run `/agent`, pick **Create new agent**, and choose Project so it lands in `.github/agents/`.'
+          - Restart `copilot` if the new agent is not listed yet.
       - harness: copilot-app
         instructions:
-          - Capture the brief in the session, review the plan canvas, and do not move to implementation until the scope and stop conditions are explicit.
-    evidence: Save your delegation brief, the control you chose, Copilot's proposed plan, and why you did or did not authorize it.
+          - Create the file in the working folder, then choose the agent from the agent picker or with `/agent`.
+          - Check the picker shows the description you wrote.
+    verify: Your agent appears in the picker, and its reply sounds like the job you wrote for it.
+    evidence: 'My agent is called: ___. Its one job is: ___.'
     hints:
-      - The brief should explain the problem and boundaries, not prescribe the solution Copilot must discover.
-      - The plan is your first evidence that Copilot understood the handoff; disagreement here is a reason to clarify, not push ahead.
-    safetyCheckpoint: Do not let Copilot infer scope from the whole workspace; the brief must name the boundary, checks, and stop conditions.
+      - A custom agent is just a Markdown file with a small block of frontmatter at the top.
+      - 'It needs at least `name` and `description`. The body underneath is the instructions it follows.'
+      - Give it a narrow job. A broad agent is much harder to review later.
+    safetyCheckpoint: 'Purrmission: write down what this agent may not do, as plainly as what it may do.'
+  - id: verify-the-evidence
+    title: Operation Verify the Evidence
+    points: 10
+    objectiveRef: Explain the different jobs of the developer, a software agent, a reusable skill, a custom agent, and a tool
+    scene: Mergewell explains his summarising method for the fifth time. Purrmission tells him to write the recipe down and hand it over.
+    outcome: A skill at `.github/skills/case-summary/SKILL.md` that your agent uses to do one repeatable thing the same way every time.
+    actions:
+      - 'Make the folders: `.github/skills/case-summary`.'
+      - Make `SKILL.md` inside it.
+      - 'Give it frontmatter with a `name` and a `description` saying exactly when to use it.'
+      - 'Below that, write the numbered steps to follow. Include one distinctive heading, such as `## Case summary`, so you can spot it in the output.'
+      - Ask your `case-writer` agent for a case summary and watch for those steps.
+    routes:
+      - harness: ide-extension
+        instructions:
+          - Create the folders and file in the Explorer, then save.
+          - 'Select `case-writer` in the Chat pane and ask: "Summarise case-notes.md."'
+      - harness: copilot-cli
+        instructions:
+          - Create the folders and file, then run `/skills reload` so the skill is picked up without restarting.
+          - 'Run `/agent`, choose `case-writer`, and ask for a summary of `case-notes.md`.'
+      - harness: copilot-app
+        instructions:
+          - Create the folders and file in the working folder.
+          - Choose your agent and ask for a case summary, then read the reply for your distinctive heading.
+    verify: The reply follows the steps in your skill and shows your distinctive heading, rather than giving generic advice.
+    evidence: 'My skill does: ___. I knew it ran because: ___.'
+    hints:
+      - An agent is *who* does the work. A skill is *how* a particular job gets done.
+      - 'The `description` is what tells Copilot when to reach for the skill, so make it specific about the situation.'
+      - 'Skill not firing? Say the skill name directly in your request, then make the description more specific.'
+    safetyCheckpoint: 'Purrmission: a skill is a recipe you are handing over. Read every step before you save it.'
+  - id: close-the-handoff
+    title: Operation Close the Handoff
+    points: 10
+    objectiveRef: Apply instructions, memory boundaries, context hierarchy, and strong prompts to long-running agentic work
+    scene: Mergewell writes a rule for Markdown files and accidentally applies it to everything. Purrmission narrows the net.
+    outcome: A file-type instruction you built at `.github/instructions/markdown.instructions.md`, tested on two different file types so you can see the edge.
+    actions:
+      - Make a folder called `instructions` inside `.github`.
+      - Make a file in there called `markdown.instructions.md`.
+      - 'In its frontmatter set `applyTo` so it matches Markdown files only. `applyTo: "**/*.md"` does this.'
+      - 'Below that, write one clear rule for Markdown, such as: "Every heading must be sentence case."'
+      - Ask Copilot to edit a Markdown file and watch the rule apply. Then make a `notes.txt` and ask for a similar edit, and watch that it does not.
+    routes:
+      - harness: ide-extension
+        instructions:
+          - Create the file and save it.
+          - 'Or type `/create-instruction` in Chat and describe the rule. Copilot writes the file and picks the `applyTo` pattern.'
+          - 'Open `case-notes.md`, ask for an edit, then open `notes.txt` and ask for the same kind of edit. Compare.'
+      - harness: copilot-cli
+        instructions:
+          - Create the file, then exit and run `copilot` again so the instruction is picked up.
+          - Ask for an edit naming `case-notes.md`, then ask again naming `notes.txt`.
+      - harness: copilot-app
+        instructions:
+          - 'Create `.github/instructions/markdown.instructions.md` with the `applyTo` pattern, the same as everyone else. It is a real file your folder keeps.'
+          - 'The app does not read `applyTo` files, so also write the scope in words. In Settings, under Projects, add: "Sentence-case headings. This rule is for Markdown files only."'
+          - Ask for an edit on `case-notes.md`, then on `notes.txt`, and read both results in the files area.
+          - Note whether your written scope held. A rule in words is weaker than a pattern.
+    verify: You tried the same edit on both file types, and your notes say whether the rule held on each.
+    evidence: 'My scope was: ___. It applied to ___ and not to ___.'
+    hints:
+      - '`applyTo` is a glob — a pattern for matching filenames, much like a search.'
+      - '`**/*.md` means every Markdown file in every folder. `**/*` would match everything, which is not a scoped rule.'
+      - Make the rule very visible, so you can see at a glance whether it was applied.
+    safetyCheckpoint: 'Purrmission: check the scope really is narrow. A rule that reaches every file is not a scoped rule, it is a global one in disguise.'
   - id: watch-the-loop
     title: Operation Watch the Loop
     points: 10
     objectiveRef: Operate an observable agentic loop with deliberate planning, tool control points, progress checks, stop decisions, and recovery
-    scene: 'Your situation: Copilot has begun working from the plan you reviewed. You remain accountable while it makes choices, uses tools, and produces a result.'
+    scene: Mergewell hands over a multi-step job and looks away. Purrmission does not look away.
+    outcome: A written record of your agent running a job with several steps — what it planned, what it actually did, and where you could have stepped in.
     actions:
-      - 'Your decision: When should the work continue, pause for clarification, stop, or return to a revised brief? Base that decision on whether Copilot still appears to be solving the agreed problem within the agreed limits.'
-      - 'How to approach it: Keep the approved plan and the agent activity visible. Check meaningful changes against the brief, especially when Copilot makes a new assumption, requests a tool or permission, or touches something the plan did not mention.'
-      - 'Why it matters: Delegation does not transfer accountability. Watching for new assumptions, access requests, or expanding scope lets you intervene before drift becomes an accepted result.'
+      - 'Give `case-writer` a job with several steps. For example: "Read case-notes.md, summarise it using the case-summary skill, and add the summary at the bottom."'
+      - Read the plan before you approve anything.
+      - Watch each step as it happens. Note anything it reaches for that you did not name.
+      - Let it finish, or stop it. Both are valid results.
+      - Write down what it planned, what it actually did, and one place you could have stepped in.
     routes:
-      - harness: copilot-cli
-        instructions:
-          - Keep the terminal transcript visible so you can compare the plan, the commands, and the changed files in sequence.
       - harness: ide-extension
         instructions:
-          - Use the pending change list, diff, or chat plan to compare the proposed work with the actual edits before accepting the result.
-      - harness: copilot-app
-        instructions:
-          - Compare the plan, files, and diff canvases so the observable loop stays visible while the agent works.
-    evidence: Save a short comparison of the plan and what actually happened, including any point where you continued, paused, stopped, or recovered.
-    hints:
-      - Observation is not micromanagement. Focus on whether the work still matches the agreement and whether new risk has appeared.
-      - A useful recovery restores shared understanding; it does not need to hide or erase the first attempt.
-    safetyCheckpoint: Stop immediately if Copilot proposes package installs, network access, destructive commands, or changes outside the named scope.
-  - id: verify-the-evidence
-    title: Operation Verify the Evidence
-    points: 10
-    objectiveRef: Operate an observable agentic loop with deliberate planning, tool control points, progress checks, stop decisions, and recovery
-    scene: 'Your situation: Copilot says the task is complete. That statement describes its status, not whether the result is correct, useful, safe, or ready for you to own.'
-    actions:
-      - 'Your decision: What evidence do you need before you can judge this result? Examine the changes yourself and use available validation—or the no-runtime checklist—to test the claims that matter.'
-      - 'How to approach it: Review the changed content separately from Copilot''s summary. Test the expected behavior, at least one edge case, and the agreed boundary; then identify any important claim that your checks did not establish.'
-      - 'Why it matters: A passing check can answer one question while missing another. Human review connects the evidence back to the original intent and exposes uncertainty that still needs attention.'
-    routes:
+          - Run the job with your agent selected. Read the proposed plan, then approve steps one at a time.
+          - Each file edit arrives as a diff. Read it before you accept.
       - harness: copilot-cli
         instructions:
-          - Use native diff and available command output so you can compare the changes with the validation result in one place.
-      - harness: ide-extension
-        instructions:
-          - Inspect the editor diff or source control view, then run available validation or complete the no-runtime checklist.
+          - The CLI asks you to approve each action. Read every proposed command or file write before approving.
+          - 'Press `Ctrl+C` to stop the run if it heads somewhere you did not intend.'
       - harness: copilot-app
         instructions:
-          - Inspect the diff canvas and available verification evidence before deciding whether the result is acceptable.
-    evidence: Save the changes you reviewed, the validation result, and what that evidence supports or leaves uncertain.
+          - Read the plan area before allowing any file changes.
+          - Watch the files area as steps complete, and stop the session if it drifts.
+    verify: Your notes show a plan, at least two completed steps, and your decision at the end.
+    evidence: 'It planned: ___. It actually did: ___. I would step in at: ___.'
     hints:
-      - Revisit your original intent if the result looks plausible but the evidence does not answer the question you meant to test.
-      - 'Different evidence answers different questions: scope, correctness, usability, and safety are not interchangeable.'
-    safetyCheckpoint: Do not accept a green result if the diff widened scope, hid uncertainty, or skipped the recorded human review.
-  - id: close-the-handoff
-    title: Operation Close the Handoff
-    points: 10
-    objectiveRef: Choose a supported product control before an agentic task and verify afterward whether the result justified the AI credits used
-    scene: 'Your situation: The work and its evidence are now in front of you. You—not Copilot—must decide what happens next and preserve the useful context for Advanced.'
-    actions:
-      - 'Your decision: Does the complete case record justify accepting the result, revising it, rejecting it, stopping, or recovering? Also decide what unresolved question, risk, or opportunity Advanced should inherit.'
-      - 'How to approach it: Compare the final result and validation with the original brief. If an important gap remains, choose the response that fits the evidence rather than forcing an acceptance. Record the score only after making that decision.'
-      - 'Why it matters: Closing a handoff means owning the decision, not merely receiving output. Preserving the reasoning and remaining uncertainty lets the next mission build on real evidence.'
-    routes:
-      - harness: copilot-cli
-        instructions:
-          - Note any visible CLI context, model, or session-control evidence honestly, including `not available` when the installed version does not show it.
-      - harness: ide-extension
-        instructions:
-          - Record any visible model, usage, or changed-content evidence you can inspect in your installed version without guessing missing features.
-      - harness: copilot-app
-        instructions:
-          - Record the session, model, permission, or diff evidence visible in the app and keep the claim narrower than the observed UI.
-    evidence: Add the final decision, separate Foundations and Agentic totals, cumulative total, and the Advanced handoff question or scenario.
-    hints:
-      - Closing the handoff means taking responsibility for the decision and preserving enough context for the next mission.
-      - Bonus points are capped at 10 even if you finish more than one bonus clue.
-    safetyCheckpoint: Do not claim a fixed credit saving, speed advantage, or universal model behavior from one mission run.
+      - A job with several steps forces it to plan. A one-step job will not show you a loop.
+      - Watch for it opening files you never mentioned. That is the most common early drift signal.
+      - 'Stopping is a result, not a failure. If you stop it, write down exactly what made you stop.'
+    safetyCheckpoint: 'Purrmission: if it asks for access it does not need, stop it and write down what it asked for. Know how to undo the change before you approve it.'
 bonusClues:
   - id: tighten-and-retry
     title: Operation Tighten and Retry
     points: 10
     objectiveRef: Operate an observable agentic loop with deliberate planning, tool control points, progress checks, stop decisions, and recovery
-    scene: 'Your situation: The first attempt exposed a misunderstanding or drift. You have an opportunity to improve the handoff without hiding what happened.'
+    scene: 'Your situation: The first attempt went wrong somewhere. You can fix your instructions and try again — without pretending the first attempt never happened.'
+    outcome: A second attempt with one line changed, and a note saying whether it came out better.
     actions:
-      - 'Your decision: What part of the shared understanding needs clarification before a retry, and is another attempt justified? Revise the brief without prescribing the answer.'
-      - 'How to approach it: Use the first attempt to locate the misunderstanding, change only the direction needed to address it, and compare the retry with the original result.'
-      - 'Why it matters: Comparing both attempts shows whether clearer direction improved the work and turns a failed handoff into reusable learning.'
-    evidence: Add the before-and-after brief line plus the recovery result.
+      - Work out where it went wrong. Was your instruction unclear, or did Copilot drift off?
+      - Change only the one part that caused it. Leave the rest alone.
+      - Run it again.
+      - 'Compare the two results and write: `First try: ___. Second try: ___.`'
+    routes:
+      - harness: copilot-cli
+        instructions:
+          - Tell Copilot exactly what went wrong, give it your one corrected line, and ask it to try again in the same file only.
+          - Scroll up in the terminal to compare — the first attempt is still there.
+      - harness: ide-extension
+        instructions:
+          - In the Chat pane, point at the same file and send your corrected instruction as the next message.
+          - Use the editor diff or Source Control view to compare the second attempt with the first.
+      - harness: copilot-app
+        instructions:
+          - In the same session, point at what went wrong in the plan or diff canvas and give it the corrected line.
+          - Compare the new diff canvas with the first one before you decide if it improved.
+    verify: You can still see both attempts, and you can name one real difference the changed line made.
+    evidence: 'What went wrong: ___. The line I changed: ___. Did it improve? ___.'
     hints:
-      - Recovery earns bonus only when you compare the first pass with the narrowed retry.
-      - Preserve both attempts so the comparison remains evidence rather than hindsight.
-    safetyCheckpoint: Do not hide the failed or drifted first pass; recovery evidence must remain visible.
+      - You only get the points for comparing the two attempts. One attempt on its own is not enough.
+      - Keep the failed attempt. It is the evidence, not something to be embarrassed about.
+      - 'Stuck on the tool, not the task? Ask Copilot: "I am using <your tool>. How do I try again without losing my first attempt?"'
+    safetyCheckpoint: Do not delete or hide the first attempt. The comparison is the whole point.
   - id: cross-harness-check
-    title: Operation Cross-Harness Check
+    title: Operation Second Look
     points: 10
     objectiveRef: Operate an observable agentic loop with deliberate planning, tool control points, progress checks, stop decisions, and recovery
-    scene: 'Your situation: The main run is complete, but another approved Copilot surface may present the same evidence differently.'
+    scene: 'Your situation: You are finished. The same work might look different in another tool — clearer, or more confusing.'
+    outcome: A note comparing how the same finished work looks in a second tool.
     actions:
-      - 'Your decision: Would inspecting the completed evidence in a second harness make an important part of the work clearer? If so, compare the same case without beginning another implementation.'
-      - 'How to approach it: Bring the completed case and existing evidence into the second approved harness, inspect the same result, and note whether the different view changes your confidence or reveals a missed question.'
-      - 'Why it matters: A second view can strengthen or challenge your judgment, but one experience does not establish that a harness is universally better.'
-    evidence: Add the second harness, the evidence inspected, and the comparison.
+      - Open a different tool from the one you used — only if you already have it installed.
+      - Point it at your finished work.
+      - Look at the same result there. Do not start changing anything again.
+      - 'Write: `In ___ I could see ___ more easily.` Or say it made no difference.'
+    routes:
+      - harness: copilot-cli
+        instructions:
+          - Used something else for the mission? `cd` into your finished folder and run `copilot`.
+          - Ask it to look at the files and explain what changed. Say no to any offer to edit them.
+      - harness: ide-extension
+        instructions:
+          - Used something else for the mission? Open your finished folder in VS Code.
+          - Read the file and use Chat to ask about it. Stay out of Agent mode.
+      - harness: copilot-app
+        instructions:
+          - Used something else for the mission? Open your finished folder in the app.
+          - Look at the files and diff areas. Ask questions only — do not let it rewrite the files you built.
+    verify: You looked at the same finished work in a second tool, and nothing got changed a second time.
+    evidence: 'Second tool: ___. What I could see there: ___. Did it change my confidence? ___.'
     hints:
-      - Use the second harness for inspection, not for a second uncontrolled implementation.
-      - Compare clarity of evidence, not convenience alone.
-    safetyCheckpoint: Keep the recovery and evidence review local; do not broaden permissions or create a second implementation branch just to earn bonus points.
+      - This is a look, not a redo. You are comparing how clearly each tool shows you what happened.
+      - No second tool installed? Say so and take a different bonus instead — they are all worth 10.
+      - 'Stuck on the tool, not the task? Ask Copilot: "I am using <your tool>. How do I look at files here without it editing them?"'
+    safetyCheckpoint: Do not give the second tool more access than the first, and do not let it start the work over.
   - id: control-room-observation
     title: Operation Control-Room Observation
     points: 10
     objectiveRef: Choose a supported product control before an agentic task and verify afterward whether the result justified the AI credits used
-    scene: 'Your situation: Your harness may show a model, context, control, or usage signal. The signal is visible evidence, but its meaning is limited.'
+    scene: 'Your situation: Your tool shows you things — which model is running, what it attached, what it asked permission for. Those readings are useful, but they only tell you so much.'
+    outcome: One thing your tool showed you, what you did about it, and what it does not prove.
     actions:
-      - 'Your decision: Did any visible signal meaningfully inform how you directed or evaluated this handoff? Record only what was actually available in your harness.'
-      - 'How to approach it: Choose one visible signal, describe how it affected a real decision in this mission, and name a conclusion that the signal alone cannot justify. Record `not available` when your harness exposes no useful signal.'
-      - 'Why it matters: Separating observation from inference prevents a single run from becoming an unsupported claim about cost, quality, speed, or model behavior.'
-    evidence: Add the observation and the completed sentence.
+      - Find one thing your tool actually displayed — the model name, the files it attached, a permission request, or a usage number.
+      - Say how it changed what you did. If it changed nothing, say that.
+      - 'Finish this sentence: `This tells me ___, but it does not prove ___.`'
+      - Your tool shows none of these? Write `not available` and claim the points anyway.
+    routes:
+      - harness: copilot-cli
+        instructions:
+          - Look through the terminal for the model name, permission prompts, commands it asked to run, or files it mentioned.
+          - Write down only what you can actually see. Write `not available` for anything the CLI does not show.
+      - harness: ide-extension
+        instructions:
+          - Look at the model picker, the list of attached files above your message, the Source Control view, or the terminal.
+          - Write down only what the screen shows. Do not guess at numbers you cannot see.
+      - harness: copilot-app
+        instructions:
+          - Look at the session header, or the plan, diff, files, and terminal canvases.
+          - Write down only what the app shows, and keep your conclusion small.
+    verify: You can point at where on screen you saw it, and you have said what it does not prove.
+    evidence: 'What I saw: ___. What I did about it: ___. It does not prove: ___.'
     hints:
-      - Honest `not available` evidence is better than an invented claim.
-      - Keep the conclusion narrow enough that another participant could verify it from the same screen or transcript.
-    safetyCheckpoint: Do not spend credits, rerun the whole task, or change models solely to hunt for bonus points.
+      - '`not available` is a real answer and gets full points. Making up a number does not.'
+      - Keep your conclusion small enough that someone else could check it on their own screen.
+      - 'Stuck on the tool, not the task? Ask Copilot: "I am using <your tool>. Where do I see the model, attached files, and usage here?"'
+    safetyCheckpoint: Do not rerun the task or switch models just to find something to write down. That costs credits for nothing.
+  - id: platform-review-surfaces
+    title: 'Operation Platform Review (needs GitHub Enterprise access)'
+    points: 10
+    objectiveRef: Choose a supported product control before an agentic task and verify afterward whether the result justified the AI credits used
+    scene: 'Your situation: There is a second set of Copilot tools on GitHub.com — code review, Code Quality, and the cloud agent. Purrmission notes they only work if your repositories live in a GitHub Enterprise you can reach.'
+    outcome: One thing you learned from a Copilot tool on GitHub.com that your own machine could not show you.
+    actions:
+      - 'Check first: do you have a repository you can push to, in a GitHub Enterprise with Copilot turned on? If not, skip this and take a different bonus. They are all worth 10 and the cap is 10 either way.'
+      - 'Open one of these on a repository you own: Copilot code review on a pull request, Code Quality results, or hand a small issue to the cloud agent.'
+      - Compare what it told you with what you found on your own machine.
+      - 'Write: `It showed me ___, which I could not see locally. It still cannot decide ___.`'
+    routes:
+      - harness: copilot-cli
+        instructions:
+          - 'From the terminal, run `gh pr create` then `gh pr view --web` on a repository you own. That opens it in your browser.'
+          - These tools are web pages. Write down what you see in the browser — nothing appears in the terminal.
+      - harness: ide-extension
+        instructions:
+          - Push your branch from the Source Control view, then open the pull request in your browser.
+          - Compare the comments it leaves with the change you already read in VS Code.
+      - harness: copilot-app
+        instructions:
+          - Put your work in a repository you own, then open that repository on GitHub.com in a browser.
+          - Compare what it reports with what you saw in the plan and diff canvases.
+    verify: You can name which tool you opened and one thing it told you that you did not already know.
+    evidence: 'Tool I opened: ___. What it showed me: ___. What it still cannot decide: ___.'
+    hints:
+      - No Enterprise access is not a failure. The other three bonus exercises are worth the same, and the cap is 10 whichever you pick.
+      - 'They answer different questions: code review comments on one change, Code Quality looks at the whole repository, and the cloud agent does the work for you.'
+      - It gives you more evidence. It still does not decide whether to accept the change. That stays with you.
+      - 'Not sure what your account can use? Ask Copilot: "Which Copilot review and agent features can I use on GitHub.com, and what plan do they need?"'
+    safetyCheckpoint: Use a repository you own. Never push workshop practice files into a customer or production repository.
 completionPoints: 40
 bonusPointCap: 10
 carryForward:
   artifact: Agent Mergewell case file
   produces:
     - Separate Foundations, Agentic, and cumulative totals
-    - The chosen approved harness and delegation brief
-    - Allowed and excluded context for the delegated task
-    - Plan-versus-result notes and any recovery step
-    - Reviewed diff, validation output, and final decision
-    - One well-scoped Advanced follow-up scenario or question
+    - The tool you chose and the path to your `copilot-case-file` folder
+    - '`.github/copilot-instructions.md` and the answer it visibly changed'
+    - '`.github/agents/case-writer.agent.md`, your custom agent'
+    - '`.github/skills/case-summary/SKILL.md`, the skill that agent uses'
+    - '`.github/instructions/markdown.instructions.md` and the `applyTo` pattern you chose'
+    - Loop notes covering the plan, what actually happened, and where you would step in
   consumes:
-    - Foundations case already in the chosen harness or the copyable Agentic starter case
-  fallback: The copyable Agentic starter case supplies everything needed to begin this module, while the completed reference remains recovery-only.
+    - Foundations `copilot-case-file` folder already open in your chosen tool, or the copyable Agentic starter case
+  fallback: The copyable Agentic starter case supplies a ready-made `case-notes.md` so anyone can begin this module without Foundations.
 leaderboard:
   optional: true
   aliasOnly: true
@@ -362,51 +453,82 @@ status: draft
 
 ## Mission goal
 
-Carry your Foundations case forward and confidently delegate, monitor, and verify one well-scoped agentic task.
+Build four things in your case folder — a repository instruction, a custom
+agent, a skill, and a rule scoped to one file type — then watch an agent loop
+run.
 
 ## Choose your starting point
 
-- **Continuing from Foundations:** reopen the case already in your chosen harness and use the follow-up task you recorded.
-- **Starting with Agentic:** copy the Agentic starter case below into your chosen harness. You can begin immediately without completing Foundations first.
-- **Your score:** starting fresh does not reduce your Agentic score, but unearned Foundations points remain zero.
+- **Continuing from Foundations:** reopen your `copilot-case-file` folder in the
+  tool you chose.
+- **Starting with Agentic:** copy the starter case below. You can begin here
+  without doing Foundations first.
+- **Your score:** starting fresh does not reduce your Agentic score. Unearned
+  Foundations points stay at zero.
 
 ## Scoring
 
-Each module is scored and submitted on its own. Missing Foundations never blocks you here.
+Each module is scored and submitted on its own. Missing Foundations never blocks
+you here.
 
 | Item | Points |
 | --- | --- |
 | Operation Open the Case | 10 |
 | Operation Write the Brief | 10 |
-| Operation Watch the Loop | 10 |
 | Operation Verify the Evidence | 10 |
 | Operation Close the Handoff | 10 |
+| Operation Watch the Loop | 10 |
 | **Core total** | **50** |
 | Bonus work (capped) | 10 |
 | **Module maximum** | **60** |
 
-Forty core points completes the mission. Hints are always free and never reduce your score, and there is no speed or popularity scoring. Submit this module's total separately; the board adds your three module totals together. Overall leaders are the people who complete every module and pick up the bonus points, so finishing at 40 is a pass, not a podium.
+Forty core points completes the mission. Hints are always free. There is no
+speed or popularity scoring.
+
+Submit this module's total on its own. The board adds your three module totals
+together, so finishing at 40 is a pass, not a podium.
 
 ## Timing guide
 
-- **0-5 minutes:** open your case and practice task, then confirm the scope and validation method.
-- **5-15 minutes:** write and approve the delegation brief plus one supported pre-run control choice.
-- **15-30 minutes:** observe the plan and the main implementation pass, then stop or recover if scope drifts.
-- **30-38 minutes:** review the diff and run validation.
-- **38-45 minutes:** make the final decision and export separate Foundations, Agentic, and cumulative totals for Advanced.
+- **0-5 minutes:** open your case folder and get a session running.
+- **5-13 minutes:** Operation Open the Case — run `/init`, read it, add a rule.
+- **13-21 minutes:** Operation Write the Brief — build your custom agent.
+- **21-29 minutes:** Operation Verify the Evidence — give that agent a skill.
+- **29-37 minutes:** Operation Close the Handoff — scope a rule to one file type.
+- **37-43 minutes:** Operation Watch the Loop — run a multi-step job and watch it.
+- **43-45 minutes:** total your score and export it for Advanced.
 
 ## Accessibility and fallback
 
-Hints are always available and never reduce points. Pair with a facilitator or partner if you need help copying the starter case, reviewing changes, or working around a device or accessibility limit. If your environment has no runnable validation, use the supplied no-runtime verification checklist and record that path honestly.
+Hints are always available and never reduce points.
+
+Pair with a facilitator or partner if you need help copying the starter case,
+creating files, or working around a device or accessibility limit.
+
+If a surface is not available on your plan, record `not available`, use the
+facilitator-approved alternative, and claim the points.
 
 ## Words used in this mission
 
-- **Harness** — the place you run Copilot: the IDE extension, the CLI, or the Copilot app.
-- **Delegation brief** — the written instruction you hand the agent: the goal, the boundary, and how you will check the result.
-- **Pre-run control** — a limit you set *before* the agent starts, such as which files it may touch or whether it may run commands.
-- **Scope drift** — the agent quietly widening the job beyond what you asked for. Catching it early is the skill.
-- **No-runtime verification** — checking the work by reading the diff and the evidence when you cannot actually run the code.
+- **Tool** (sometimes called a harness) — where you run Copilot: VS Code, the
+  CLI, or the Copilot app.
+- **Repository instruction** — a file of standing rules Copilot reads every
+  time, so you stop repeating yourself.
+- **Custom agent** — a named helper with one narrow job, written in a Markdown
+  file ending `.agent.md`.
+- **Skill** — a written recipe an agent follows, so a job is done the same way
+  every time.
+- **`applyTo`** — a pattern in an instruction file that limits which files the
+  rule reaches.
+- **Agent loop** — the plan, act, check cycle an agent repeats. Watching it is
+  how you catch scope drift early.
+- **Scope drift** — the agent quietly widening the job beyond what you asked
+  for.
 
 ## Recovery-only completed reference
 
-`workshops/ghcp-dev-hack/content/missions/agentic/fixtures/completed-reference/` is recovery-only. Open it only after you have attempted the mission or when a facilitator explicitly moves you into recovery mode.
+`workshops/ghcp-dev-hack/content/missions/agentic/fixtures/completed-reference/`
+is recovery-only. It shows a finished case folder with all four files in it.
+
+Open it only after you have attempted the mission, or when a facilitator moves
+you into recovery mode.

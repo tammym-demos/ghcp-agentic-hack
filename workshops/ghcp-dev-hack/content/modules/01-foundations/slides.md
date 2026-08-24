@@ -1146,6 +1146,31 @@ Sources: content/modules/01-foundations/copilot-dev-foundations-workshop-part-2.
 -->
 
 ---
+layout: single-panel
+---
+
+::title::
+# Demo!
+::content::
+
+<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:clamp(3rem,8vw,8rem);font-weight:800;color:#1f2328;">Demo!</div>
+
+<!--
+Timebox: 0 minutes
+
+Talk track: Demo.
+
+Transition: We are ready to move from the recap into the mission work.
+
+Audience question: Are we ready to move from the recap into the mission?
+
+Response guidance: Keep it brief and move on. If the room hesitates, say, "We have the idea; now we test it in the mission."
+
+Payoff: Learners get a clear handoff cue before the final mission begins.
+Sources: content/modules/01-foundations/slide-manifest.md row 24; content/modules/01-foundations/module.md
+-->
+
+---
 layout: two-panel
 ---
 
@@ -1153,11 +1178,15 @@ layout: two-panel
 # Your Mission Starts Now
 ::text::
 
-- Choose VS Code, Copilot CLI, or the GitHub Copilot app
-- Hunt five clues and bank evidence with every point
-- Try another Copilot gadget for bonus evidence
-- Carry one bounded case file into Agentic Development
-- Optional: send me your alias and score from the mission page
+Every exercise tells you three things:
+
+- **What you'll make** — in one line
+- **Start here** — the first step in *your* tool
+- **You're done when** — how to check yourself
+
+Then: choose your tool, work six short experiments, export your case file.
+
+Stuck? Ask Copilot. It costs no points.
 
 ::visual::
 <img src="/images/mission-readiness.png" alt="Agent Mergewell and Purrmission preparing learners to start the Foundations scavenger hunt" />
@@ -1165,39 +1194,43 @@ layout: two-panel
 <!--
 Timebox: 45 minutes
 
-Talk track: Time to go to work. Open the Missions experience and pick your field
-gadget — VS Code, Copilot CLI, or the standalone Copilot App.
-One continuous mission. Five clues.
-Start by creating the safe local practice case. Then bank evidence with every
-single point you earn — a point without evidence doesn't count here, and that's
-deliberate.
-If you're not sure what the next safe action is, take a hint. I want to be
-completely clear about this: hints never reduce your score. Not once, not ever.
-Asking for help is not a penalty in this room.
+Talk track: Time to go to work. Before you start, look at how each exercise is
+built, because this is what people told us was confusing last time.
+Every exercise answers three questions for you.
+What you'll make — one line, at the top.
+Start here — the literal first step, in whichever tool you picked.
+And you're done when — so you can check yourself instead of asking me.
+That last one matters. You are never guessing whether you finished.
+So: open the Missions page. Pick your tool first — VS Code, Copilot CLI, or the
+Copilot app. Everything below reshapes itself around that choice.
+Then work the six experiments in order.
+If a step doesn't make sense, select it on the page and ask Copilot, or paste it
+into a fresh session and say which tool you're in. There's a copy-ready prompt at
+the top of the mission for exactly this.
+Hints never reduce your score. Not once, not ever. Neither does asking the model.
+The write-down box under each exercise is optional. It's there to make you think
+it through before you claim the point. Use it or don't.
 Purrmission is watching for two things — anyone widening their access, and anyone
 guessing at policy. She'll stop both.
 The numbers. Fifty core points on the table. Forty completes the mission. One
 optional route adds up to ten bonus.
-And export your case file at the end. Do not skip that. The bounded follow-up task
-inside it is your starting evidence for Agentic Development after the break.
-One more thing, and it's completely optional. When you finish, your mission page
-has a Submit your score button. Pick an alias, choose Foundations, send your core
-and bonus points. That's how the board on my screen fills up. Nothing else leaves
-your machine — no evidence, no prompts, no code.
-Before you start — which gadget, and what's the first piece of evidence you're
-going to record?
+And export your case file at the end. The bounded follow-up task inside it is your
+starting evidence for Agentic Development after the break.
+Optional at the end: Submit your score with an alias. Nothing else leaves your
+machine — no evidence, no prompts, no code.
 
 Transition: Start the forty-five-minute clock now. When I call time, have that
 exported case file ready for Module 2.
 
-Audience question: Which gadget are you choosing, and what is the first piece of evidence you will record?
+Audience question: Which tool are you choosing?
 
-Response guidance: Take a quick show of hands by gadget and point each group to its
-matching route in Missions. If someone is blocked on setup, move them to the
-approved fallback — do not invent commands or policy answers to unblock them.
-If someone asks whether the leaderboard is required, say plainly: it is optional,
-it is alias-only, and it changes nothing about completing the mission.
-Payoff: Every participant begins with a declared harness and evidence target, and the resulting case file creates the cross-module handoff.
+Response guidance: Take a quick show of hands by tool and point each group to the
+setup steps that appear once they select it. If someone is blocked on setup, send
+them to the copy-ready setup prompt on the mission page rather than inventing
+commands or policy answers. If someone asks whether the leaderboard is required,
+say plainly: it is optional, it is alias-only, and it changes nothing about
+completing the mission.
+Payoff: Every participant begins with a declared tool and evidence target, and the resulting case file creates the cross-module handoff.
 Sources: content/missions/foundations/context-and-prompts.md; content/production/foundations-mission-scavenger-hunt-contract.md
 -->
 

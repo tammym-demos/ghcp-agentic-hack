@@ -567,17 +567,77 @@ h1 {
 }
 
 .mission-route,
+.mission-outcome,
+.mission-verify,
 .mission-evidence,
 .mission-safety,
+.mission-harness-setup,
 .mission-hints {
   margin-top: 1rem;
   padding: 1rem;
   border-radius: 0.7rem;
 }
 
-.mission-route {
+.mission-route,
+.mission-harness-setup {
   border: 1px solid #a371f7;
   background: #f6f0ff;
+}
+
+.mission-outcome {
+  border: 1px solid #54aeff;
+  background: #ddf4ff;
+}
+
+.mission-verify {
+  border: 1px solid #1f883d;
+  background: #dafbe1;
+}
+
+.mission-routes__empty {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px dashed #8c959f;
+  border-radius: 0.7rem;
+  color: #57606a;
+}
+
+.mission-ask {
+  margin-top: 0.85rem;
+  font-size: 0.92rem;
+  color: #57606a;
+}
+
+.mission-start-here ol {
+  line-height: 1.7;
+}
+
+.mission-ask-copilot {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  border: 1px solid #d0d7de;
+  border-radius: 0.7rem;
+  background: #f6f8fa;
+}
+
+.mission-ask-copilot__prompts {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+}
+
+.mission-ask-copilot pre {
+  white-space: pre-wrap;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background: #ffffff;
+  border: 1px solid #d0d7de;
+}
+
+.mission-notes small {
+  display: block;
+  font-weight: 400;
+  color: #57606a;
 }
 
 .mission-evidence {

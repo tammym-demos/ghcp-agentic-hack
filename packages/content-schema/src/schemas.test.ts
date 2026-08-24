@@ -257,8 +257,10 @@ describe("productionStateSchema", () => {
             points: 10,
             objectiveRef: "Use bounded context",
             scene: "Mergewell reaches for a gadget.",
+            outcome: "A recorded harness choice.",
             actions: ["Choose the CLI."],
             routes: [{ harness: "copilot-cli", instructions: ["Record the allowed folder."] }],
+            verify: "The chosen harness is written down.",
             evidence: "The selected gadget.",
             hints: ["Start with the open tool."],
             safetyCheckpoint: "Do not guess policy."
@@ -301,8 +303,10 @@ describe("productionStateSchema", () => {
           points: 5,
           objectiveRef: "Use bounded context",
           scene: "A scene.",
+          outcome: "An outcome.",
           actions: ["Act."],
           routes: [{ harness: "missing", instructions: ["Act."] }],
+          verify: "A check.",
           evidence: "Evidence.",
           hints: ["Hint."],
           safetyCheckpoint: "Check."
@@ -312,6 +316,113 @@ describe("productionStateSchema", () => {
       });
 
       expect(result.success).toBe(false);
+    });
+
+    it("accepts an exercise contract with outcome and verify", () => {
+      const result = missionSchema.safeParse({
+        schemaVersion: 1,
+        kind: "mission",
+        id: "contract-hunt",
+        title: "Contract Hunt",
+        module: "foundations",
+        durationMinutes: 45,
+        objectiveRefs: ["Use bounded context"],
+        startingState: "An approved Copilot harness is available.",
+        goal: "Build a verified case file.",
+        task: "Find the clues.",
+        evidence: ["Completed case file"],
+        corePath: ["Complete the core clues"],
+        debrief: ["What changed your decision?"],
+        validation: ["The participant explains the evidence."],
+        harnesses: [{
+          id: "copilot-cli",
+          title: "Copilot CLI",
+          description: "Use Copilot in the terminal.",
+          instructions: ["Start a focused session."]
+        }],
+        coreClues: [{
+          id: "pick-gadget",
+          title: "Pick your gadget",
+          points: 10,
+          objectiveRef: "Use bounded context",
+          scene: "Mergewell reaches for a gadget.",
+          outcome: "One saved file naming your harness and allowed context.",
+          actions: ["Choose the CLI."],
+          routes: [{ harness: "copilot-cli", instructions: ["Record the allowed folder."] }],
+          verify: "The file exists and names both the harness and the allowed folder.",
+          evidence: "The selected gadget.",
+          hints: ["Start with the open tool."],
+          safetyCheckpoint: "Do not guess policy."
+        }],
+        completionPoints: 10,
+        carryForward: {
+          artifact: "Case file",
+          produces: ["Selected gadget"]
+        },
+        status: "draft"
+      });
+
+      expect(result.success).toBe(true);
+    });
+
+    it("rejects a clue missing a route for a declared harness", () => {
+      const result = missionSchema.safeParse({
+        schemaVersion: 1,
+        kind: "mission",
+        id: "unrouted-hunt",
+        title: "Unrouted Hunt",
+        module: "foundations",
+        durationMinutes: 45,
+        objectiveRefs: ["Use bounded context"],
+        startingState: "An approved Copilot harness is available.",
+        goal: "Build a verified case file.",
+        task: "Find the clues.",
+        evidence: ["Completed case file"],
+        corePath: ["Complete the core clues"],
+        debrief: ["What changed your decision?"],
+        validation: ["The participant explains the evidence."],
+        harnesses: [
+          {
+            id: "copilot-cli",
+            title: "Copilot CLI",
+            description: "Use Copilot in the terminal.",
+            instructions: ["Start a focused session."]
+          },
+          {
+            id: "copilot-app",
+            title: "Copilot app",
+            description: "Use the standalone app.",
+            instructions: ["Open a new session."]
+          }
+        ],
+        coreClues: [{
+          id: "pick-gadget",
+          title: "Pick your gadget",
+          points: 10,
+          objectiveRef: "Use bounded context",
+          scene: "Mergewell reaches for a gadget.",
+          outcome: "One saved file naming your harness and allowed context.",
+          actions: ["Choose the CLI."],
+          routes: [{ harness: "copilot-cli", instructions: ["Record the allowed folder."] }],
+          verify: "The file exists and names both the harness and the allowed folder.",
+          evidence: "The selected gadget.",
+          hints: ["Start with the open tool."],
+          safetyCheckpoint: "Do not guess policy."
+        }],
+        completionPoints: 10,
+        carryForward: {
+          artifact: "Case file",
+          produces: ["Selected gadget"]
+        },
+        status: "draft"
+      });
+
+      expect(result.success).toBe(false);
+      expect(
+        result.success ? [] : result.error.issues.map((issue) => issue.message)
+      ).toContainEqual(
+        'Mission clue must provide a route for every declared harness; missing "copilot-app"'
+      );
     });
   });
 

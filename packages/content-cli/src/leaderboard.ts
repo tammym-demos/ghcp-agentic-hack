@@ -7,7 +7,7 @@ import fsExtra from "fs-extra";
 import { loadCatalog, type ContentCatalog } from "@ghcp/content-schema";
 import { repositoryRoot } from "./paths.js";
 
-const { copy, pathExists, readdir, remove } = fsExtra;
+const { copy, pathExists, readdir, readJson, remove } = fsExtra;
 const execFileAsync = promisify(execFile);
 
 export type LeaderboardEnvironment = "test" | "production";
@@ -108,6 +108,150 @@ export interface LeaderboardPublishResult extends LeaderboardPublishPlan {
   published: boolean;
   commit?: string;
   reason?: string;
+  labelsCreated: string[];
+  labelWarning?: string;
+}
+
+interface LeaderboardLabel {
+  name: string;
+  description: string;
+  color: string;
+}
+
+/**
+ * Labels are repository configuration, not kit files, so publishing cannot carry them.
+ * A GitHub issue form silently drops a label that does not exist, which produces an
+ * unlabelled submission that the build's label query never returns, so the board stays
+ * empty while every workflow reports success.
+ */
+async function readKitLabels(plan: LeaderboardPublishPlan, root: string): Promise<LeaderboardLabel[]> {
+  const configPath = path.join(root, ...plan.kitDirectory.split("/"), "leaderboard.config.json");
+  const config = (await readJson(configPath)) as { labels?: Record<string, unknown> };
+  const submission = config.labels?.submission;
+  const verified = config.labels?.verified;
+  const labels: LeaderboardLabel[] = [];
+
+  if (typeof submission === "string" && submission !== "") {
+    labels.push({
+      name: submission,
+      description: "Opt-in participant score submission consumed by the leaderboard build",
+      color: "0969DA"
+    });
+  }
+  if (typeof verified === "string" && verified !== "") {
+    labels.push({
+      name: verified,
+      description: "Score reviewed and verified by a workshop facilitator",
+      color: "1A7F37"
+    });
+  }
+
+  return labels;
+}
+
+async function githubRequest(
+  repository: string,
+  route: string,
+  token: string,
+  init: { method: string; body?: unknown } = { method: "GET" }
+): Promise<{ ok: boolean; status: number; body: unknown }> {
+  const response = await fetch(`https://api.github.com/repos/${repository}${route}`, {
+    method: init.method,
+    headers: {
+      accept: "application/vnd.github+json",
+      authorization: `Bearer ${token}`,
+      "x-github-api-version": "2022-11-28",
+      ...(init.body === undefined ? {} : { "content-type": "application/json" })
+    },
+    ...(init.body === undefined ? {} : { body: JSON.stringify(init.body) })
+  });
+
+  const text = await response.text();
+  let body: unknown;
+  try {
+    body = text === "" ? undefined : JSON.parse(text);
+  } catch {
+    body = text;
+  }
+
+  return { ok: response.ok, status: response.status, body };
+}
+
+function isAlreadyExistingLabelError(status: number, body: unknown): boolean {
+  if (status !== 422 || typeof body !== "object" || body === null || !("errors" in body)) return false;
+
+  return (
+    Array.isArray(body.errors) &&
+    body.errors.some(
+      (error) =>
+        typeof error === "object" && error !== null && "code" in error && error.code === "already_exists"
+    )
+  );
+}
+
+/**
+ * Creates any submission or verification label the board needs but does not have.
+ * A failure here is reported rather than thrown: this runs before the site publish
+ * during production promotion, and a missing Issues permission must not strand the
+ * whole release. The caller surfaces the warning so the gap cannot pass unnoticed.
+ */
+export async function ensureLeaderboardLabels(
+  plan: LeaderboardPublishPlan,
+  token: string | undefined,
+  root = repositoryRoot
+): Promise<{ created: string[]; warning?: string }> {
+  const required = await readKitLabels(plan, root);
+  if (required.length === 0) return { created: [] };
+  if (!token) {
+    return {
+      created: [],
+      warning: `No token was available to reconcile leaderboard labels on ${plan.repository}. Confirm ${required
+        .map((label) => label.name)
+        .join(" and ")} exist, or submissions will be dropped by the build.`
+    };
+  }
+
+  try {
+    const existing = await githubRequest(plan.repository, "/labels?per_page=100", token);
+    if (!existing.ok) {
+      return {
+        created: [],
+        warning: `Could not read labels on ${plan.repository} (HTTP ${existing.status}). The token needs Issues read and write. Confirm ${required
+          .map((label) => label.name)
+          .join(" and ")} exist, or submissions will be dropped by the build.`
+      };
+    }
+
+    const present = new Set(
+      (Array.isArray(existing.body) ? existing.body : [])
+        .map((label) => (typeof label === "object" && label !== null ? (label as { name?: unknown }).name : undefined))
+        .filter((name): name is string => typeof name === "string")
+    );
+
+    const created: string[] = [];
+    for (const label of required) {
+      if (present.has(label.name)) continue;
+      const result = await githubRequest(plan.repository, "/labels", token, { method: "POST", body: label });
+      if (result.ok) {
+        created.push(label.name);
+        continue;
+      }
+      if (isAlreadyExistingLabelError(result.status, result.body)) continue;
+      return {
+        created,
+        warning: `Could not create the ${label.name} label on ${plan.repository} (HTTP ${result.status}). The token needs Issues read and write. Create it manually, or submissions will be dropped by the build.`
+      };
+    }
+
+    return { created };
+  } catch (error) {
+    return {
+      created: [],
+      warning: `Reconciling leaderboard labels on ${plan.repository} failed: ${
+        error instanceof Error ? redactToken(error.message, token) : String(error)
+      }`
+    };
+  }
 }
 
 export async function publishLeaderboard(
@@ -121,10 +265,11 @@ export async function publishLeaderboard(
   const plan = await planLeaderboardPublish(workshopId, environment, catalog, root);
 
   if (options.dryRun) {
-    return { ...plan, published: false, reason: "dry run" };
+    return { ...plan, published: false, reason: "dry run", labelsCreated: [] };
   }
 
   const token = options.token ?? process.env.LEADERBOARD_REPO_TOKEN ?? process.env.GH_TOKEN;
+  const labels = await ensureLeaderboardLabels(plan, token, root);
   const workingDirectory = await mkdtemp(path.join(os.tmpdir(), "ghcp-leaderboard-"));
 
   try {
@@ -142,7 +287,13 @@ export async function publishLeaderboard(
 
     const status = await runGit(checkout, ["status", "--porcelain"]);
     if (status === "") {
-      return { ...plan, published: false, reason: "the published leaderboard already matches the kit" };
+      return {
+        ...plan,
+        published: false,
+        reason: "the published leaderboard already matches the kit",
+        labelsCreated: labels.created,
+        labelWarning: labels.warning
+      };
     }
 
     const message = options.message ?? `Publish the ${plan.workshopId} leaderboard kit to ${environment}`;
@@ -159,7 +310,7 @@ export async function publishLeaderboard(
     await runGit(checkout, ["push", "origin", "HEAD"]);
     const commit = await runGit(checkout, ["rev-parse", "HEAD"]);
 
-    return { ...plan, published: true, commit };
+    return { ...plan, published: true, commit, labelsCreated: labels.created, labelWarning: labels.warning };
   } catch (error) {
     throw new Error(
       `Publishing the ${environment} leaderboard to ${plan.repository} failed: ${

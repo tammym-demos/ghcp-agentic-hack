@@ -5,6 +5,7 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import type { ContentCatalog } from "@ghcp/content-schema";
 import {
   DEFAULT_LEADERBOARD_KIT_PATH,
+  ensureLeaderboardLabels,
   planLeaderboardPublish,
   resolveLeaderboardEnvironment
 } from "./leaderboard.js";
@@ -101,5 +102,103 @@ describe("leaderboard publish plan", () => {
 
   it("rejects an unknown workshop", async () => {
     await expect(planLeaderboardPublish("absent", "test", catalogFor(), root)).rejects.toThrow(/Unknown workshop/);
+  });
+});
+
+describe("leaderboard label reconciliation", () => {
+  const originalFetch = globalThis.fetch;
+
+  afterEach(() => {
+    globalThis.fetch = originalFetch;
+  });
+
+  async function planWithLabels() {
+    const kit = path.join(workshopRoot, DEFAULT_LEADERBOARD_KIT_PATH);
+    await writeFile(
+      path.join(kit, "leaderboard.config.json"),
+      JSON.stringify({ labels: { submission: "leaderboard-submission", verified: "verified-score" } }),
+      "utf8"
+    );
+    return planLeaderboardPublish("ghcp-dev-hack", "production", catalogFor(), root);
+  }
+
+  function respond(handler: (url: string, init: { method?: string }) => { status: number; body: unknown }) {
+    const calls: { url: string; method: string }[] = [];
+    globalThis.fetch = (async (input: unknown, init: { method?: string } = {}) => {
+      const url = String(input);
+      calls.push({ url, method: init.method ?? "GET" });
+      const result = handler(url, init);
+      return new Response(JSON.stringify(result.body), {
+        status: result.status,
+        headers: { "content-type": "application/json" }
+      });
+    }) as unknown as typeof fetch;
+    return calls;
+  }
+
+  it("creates only the submission and verification labels the board is missing", async () => {
+    const plan = await planWithLabels();
+    const calls = respond((url, init) =>
+      init.method === "POST" ? { status: 201, body: {} } : { status: 200, body: [{ name: "verified-score" }] }
+    );
+
+    const result = await ensureLeaderboardLabels(plan, "token", root);
+
+    expect(result.created).toEqual(["leaderboard-submission"]);
+    expect(result.warning).toBeUndefined();
+    expect(calls.filter((call) => call.method === "POST")).toHaveLength(1);
+  });
+
+  it("continues when a missing label was already created", async () => {
+    const plan = await planWithLabels();
+    let postCount = 0;
+    const calls = respond((_url, init) => {
+      if (init.method !== "POST") return { status: 200, body: [] };
+      postCount += 1;
+      return postCount === 1
+        ? {
+            status: 422,
+            body: { errors: [{ resource: "Label", field: "name", code: "already_exists" }] }
+          }
+        : { status: 201, body: {} };
+    });
+
+    const result = await ensureLeaderboardLabels(plan, "token", root);
+
+    expect(result.created).toEqual(["verified-score"]);
+    expect(result.warning).toBeUndefined();
+    expect(calls.filter((call) => call.method === "POST")).toHaveLength(2);
+  });
+
+  it("still warns for unrelated validation failures", async () => {
+    const plan = await planWithLabels();
+    respond((_url, init) =>
+      init.method === "POST"
+        ? { status: 422, body: { errors: [{ resource: "Label", field: "color", code: "invalid" }] } }
+        : { status: 200, body: [] }
+    );
+
+    const result = await ensureLeaderboardLabels(plan, "token", root);
+
+    expect(result.created).toEqual([]);
+    expect(result.warning).toMatch(/HTTP 422/);
+  });
+
+  it("warns instead of throwing when the token cannot manage labels", async () => {
+    const plan = await planWithLabels();
+    respond(() => ({ status: 403, body: { message: "Resource not accessible" } }));
+
+    const result = await ensureLeaderboardLabels(plan, "token", root);
+
+    expect(result.created).toEqual([]);
+    expect(result.warning).toMatch(/Issues read and write/);
+  });
+
+  it("warns when no token is available rather than silently skipping", async () => {
+    const plan = await planWithLabels();
+
+    const result = await ensureLeaderboardLabels(plan, undefined, root);
+
+    expect(result.warning).toMatch(/leaderboard-submission and verified-score/);
   });
 });

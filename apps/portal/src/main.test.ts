@@ -13,6 +13,7 @@ import {
   renderLeaderboardPointer,
   renderMissionBackLink,
   renderMissionSubmission,
+  richText,
   summarizeWorkshopScores,
   type CatalogMission,
   type CatalogModule,
@@ -68,8 +69,10 @@ function createMission(id: string, title: string): CatalogMission {
         points: 10,
         objectiveRef: "Use bounded context",
         scene: "Scene 1",
+        outcome: "Outcome 1",
         actions: ["Act 1"],
         routes: [{ harness: "copilot-cli", instructions: ["Start in the repo root."] }],
+        verify: "Verify 1",
         evidence: "Evidence 1",
         hints: ["Hint 1"],
         safetyCheckpoint: "Check 1"
@@ -80,8 +83,10 @@ function createMission(id: string, title: string): CatalogMission {
         points: 10,
         objectiveRef: "Use bounded context",
         scene: "Scene 2",
+        outcome: "Outcome 2",
         actions: ["Act 2"],
         routes: [{ harness: "copilot-cli", instructions: ["Keep the context narrow."] }],
+        verify: "Verify 2",
         evidence: "Evidence 2",
         hints: ["Hint 2"],
         safetyCheckpoint: "Check 2"
@@ -92,8 +97,10 @@ function createMission(id: string, title: string): CatalogMission {
         points: 10,
         objectiveRef: "Use bounded context",
         scene: "Scene 3",
+        outcome: "Outcome 3",
         actions: ["Act 3"],
         routes: [{ harness: "copilot-cli", instructions: ["Verify before accepting."] }],
+        verify: "Verify 3",
         evidence: "Evidence 3",
         hints: ["Hint 3"],
         safetyCheckpoint: "Check 3"
@@ -104,8 +111,10 @@ function createMission(id: string, title: string): CatalogMission {
         points: 10,
         objectiveRef: "Use bounded context",
         scene: "Scene 4",
+        outcome: "Outcome 4",
         actions: ["Act 4"],
         routes: [{ harness: "copilot-cli", instructions: ["Record the evidence."] }],
+        verify: "Verify 4",
         evidence: "Evidence 4",
         hints: ["Hint 4"],
         safetyCheckpoint: "Check 4"
@@ -118,8 +127,10 @@ function createMission(id: string, title: string): CatalogMission {
         points: 10,
         objectiveRef: "Use bounded context",
         scene: "Bonus scene 1",
+        outcome: "Bonus outcome 1",
         actions: ["Bonus act 1"],
-        routes: [],
+        routes: [{ harness: "copilot-cli", instructions: ["Record the bonus evidence."] }],
+        verify: "Bonus verify 1",
         evidence: "Bonus evidence 1",
         hints: ["Bonus hint 1"],
         safetyCheckpoint: "Bonus check 1"
@@ -130,8 +141,10 @@ function createMission(id: string, title: string): CatalogMission {
         points: 10,
         objectiveRef: "Use bounded context",
         scene: "Bonus scene 2",
+        outcome: "Bonus outcome 2",
         actions: ["Bonus act 2"],
-        routes: [],
+        routes: [{ harness: "copilot-cli", instructions: ["Export the bonus total."] }],
+        verify: "Bonus verify 2",
         evidence: "Bonus evidence 2",
         hints: ["Bonus hint 2"],
         safetyCheckpoint: "Bonus check 2"
@@ -183,8 +196,27 @@ const workshop: CatalogWorkshop = {
   ]
 };
 
-describe("mission navigation", () => {
-  it("returns from a mission to its active module deck", () => {
+describe("mission rich text", () => {
+  it("renders a double-backtick span containing a literal backtick", () => {
+    expect(richText("Open the terminal with `` Ctrl+` `` and run it there.")).toBe(
+      "Open the terminal with <code>Ctrl+`</code> and run it there."
+    );
+  });
+
+  it("still renders single-backtick code and bold markers", () => {
+    expect(richText("Run `gh api ...` and **stop** there.")).toBe(
+      "Run <code>gh api ...</code> and <strong>stop</strong> there."
+    );
+  });
+
+  it("escapes HTML before promoting markers", () => {
+    expect(richText("Use `<script>` carefully.")).toBe(
+      "Use <code>&lt;script&gt;</code> carefully."
+    );
+  });
+});
+
+describe("mission navigation", () => {  it("returns from a mission to its active module deck", () => {
     const agenticModule = workshop.modules.find((module) => module.id === "agentic");
     expect(agenticModule).toBeDefined();
     if (!agenticModule) throw new Error("Agentic test module is missing");

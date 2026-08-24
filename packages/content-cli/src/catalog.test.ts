@@ -13,13 +13,16 @@ describe("reference content", () => {
     const generated = createPortalCatalog(catalog);
     const mission = generated.workshops[0]?.modules[0]?.missions[0];
     expect(mission).toMatchObject({
-      goal: expect.stringContaining("five short scored experiments"),
+      goal: expect.stringContaining("Six short experiments"),
       completionPoints: 40,
       bonusPointCap: 10
     });
     expect(mission?.starterFile).toBeUndefined();
-    expect(mission?.coreClues).toHaveLength(5);
-    expect(mission?.coreClues[0]?.hints).toHaveLength(2);
+    expect(mission?.coreClues).toHaveLength(6);
+    expect(mission?.coreClues.reduce((total, clue) => total + clue.points, 0)).toBe(50);
+    expect(mission?.coreClues[0]?.hints.length).toBeGreaterThanOrEqual(2);
+    expect(mission?.coreClues[0]?.outcome).toBeTruthy();
+    expect(mission?.coreClues[0]?.verify).toBeTruthy();
     expect(mission?.harnesses.map((harness) => harness.id)).toEqual(["ide-extension", "copilot-cli", "copilot-app"]);
   });
 
@@ -109,8 +112,10 @@ describe("reference content", () => {
                 points: 10,
                 objectiveRef: "Use bounded context",
                 scene: "A prompt appears.",
+                outcome: "A reviewed diff.",
                 actions: ["Inspect the diff."],
                 routes: [{ harness: "copilot-cli", instructions: ["Start in the repo root."] }],
+                verify: "The diff touches only the named file.",
                 evidence: "Recorded evidence",
                 hints: ["Start narrow."],
                 safetyCheckpoint: "Do not guess policy."
@@ -121,8 +126,10 @@ describe("reference content", () => {
                 points: 10,
                 objectiveRef: "Use bounded context",
                 scene: "An extra path appears.",
+                outcome: "An optional observation.",
                 actions: ["Try the optional path."],
-                routes: [],
+                routes: [{ harness: "copilot-cli", instructions: ["Start in the repo root."] }],
+                verify: "The observation names the surface you used.",
                 evidence: "Optional evidence",
                 hints: ["Keep the scope bounded."],
                 safetyCheckpoint: "Verify before accepting."

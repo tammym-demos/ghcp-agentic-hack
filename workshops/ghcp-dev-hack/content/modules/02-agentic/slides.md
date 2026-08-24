@@ -1374,6 +1374,31 @@ Sources: content/research/agentic-content-verification.md AGT-25 through AGT-30;
 
 ---
 layout: single-panel
+---
+
+::title::
+# Demo!
+::content::
+
+<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:clamp(3rem,8vw,8rem);font-weight:800;color:#1f2328;">Demo!</div>
+
+<!--
+Timebox: 0 minutes
+
+Talk track: Demo.
+
+Transition: We are ready to move from the review pattern into the mission.
+
+Audience question: Are we ready to move from the review pattern into the mission?
+
+Response guidance: Keep it succinct and move on. If the room hesitates, say, "We have the handoff pattern; now we prove it in the mission."
+
+Payoff: Learners get a clean reset before the final agentic mission starts.
+Sources: content/modules/02-agentic/slide-manifest.md row 27; content/modules/02-agentic/module.md
+-->
+
+---
+layout: single-panel
 class: agentic-slide
 ---
 
@@ -1384,11 +1409,11 @@ class: agentic-slide
 ### 🎯 MISSION
 
 <div class="agentic-grid" role="img" aria-label="Agent Mergewell and Purrmission mission briefing">
-  <div class="agentic-card agentic-purple"><b>AGENT MERGEWELL · MODULE 2 · 45 MIN</b><span>Bring your Foundations case file, or use the facilitator starter for catch-up.</span></div>
-  <div class="agentic-card"><b>Hand Off Work with Confidence</b><span>50 core points · complete at 40 · bonus cap 10</span></div>
-  <div class="agentic-card agentic-amber"><b>Purrmission safety checkpoint</b><span>Use one approved harness and keep the work inside the starter fixture.</span></div>
-  <div class="agentic-card agentic-green"><b>Bring back evidence</b><span>Brief · diff · validation · Agentic + cumulative totals</span></div>
-  <div class="agentic-card"><b>Optional leaderboard</b><span>Alias-only · submit Agentic core and bonus from the mission page</span></div>
+  <div class="agentic-card agentic-purple"><b>AGENT MERGEWELL · MODULE 2 · 45 MIN</b><span>Bring your Foundations case file, or copy the starter case from the mission page.</span></div>
+  <div class="agentic-card"><b>Every exercise tells you three things</b><span>What you'll make · Start here in your tool · You're done when</span></div>
+  <div class="agentic-card agentic-amber"><b>Purrmission safety checkpoint</b><span>Use one approved tool and keep the work inside the starter files.</span></div>
+  <div class="agentic-card agentic-green"><b>Bring back evidence</b><span>Your message to Copilot · what changed · what you checked · both scores</span></div>
+  <div class="agentic-card"><b>Stuck? Ask Copilot</b><span>Copy-ready prompts on the mission page · costs no points</span></div>
 </div>
 
 <div class="agentic-decision">MISSION ROUTE · workshops/ghcp-dev-hack/agentic/missions/agent-task/</div>
@@ -1397,33 +1422,40 @@ class: agentic-slide
 Timebox: 45 minutes
 
 Talk track: Open your exported Foundations case file. If you're joining us at this
-module, take the clearly labeled facilitator starter — that's what it's there for.
-Pick one approved Copilot harness. Then run the full pattern.
-Write the bounded brief. Review the plan before anything gets edited. Watch for
-drift and for any reach toward consequential access. Inspect the changed work and
-the validation. And then make the call — accept, revise, reject, stop, or recover.
-All five are legitimate outcomes. Stopping is a result, not a failure.
-The numbers. Fifty core points. Forty completes it. Bonus caps at ten. And hints
-cost you nothing — no penalty, and there's no speed score, so don't rush past
-something you don't understand.
+module, copy the starter case straight off the mission page — no repository access
+and no Foundations catch-up needed.
+Pick one approved Copilot tool first. Everything on the page reshapes around
+that choice, including the setup steps and the first step of every exercise.
+Same three-part shape as Foundations. What you'll make. Start here in your
+tool. You're done when.
+Then run the whole loop. Write a short message telling Copilot the job and the
+limits. Read the plan before anything gets changed. Watch for it drifting off, or
+reaching for access it doesn't need. Look at what actually changed and whether it
+was checked. And then make the call — accept it, ask for changes, say no, stop, or
+put it back how it was. All five are fine.
+Stopping is a result, not a failure.
+The numbers. Fifty core points. Forty completes it. Bonus caps at ten. Hints cost
+you nothing, and neither does asking Copilot when a step or a tool gets in your
+way.
+One note on the bonus round. One of them needs GitHub Enterprise access for code
+review and the cloud agent. If your repositories don't live there, skip it and
+take a different bonus — they're all worth the same, and the cap is ten either
+way.
 Export the updated case with your totals kept separate: Foundations, Agentic, and
 cumulative. Advanced consumes this evidence. It does not restart the story.
-If you sent Foundations to the leaderboard, send Agentic the same way when you
-finish — same alias, module set to Agentic, one issue per module. Still optional,
-still alias-only.
-Before you start — which boundary from your Foundations case will you use first to
-judge the Agentic plan?
+Leaderboard submission stays optional and alias-only.
 
 Transition: Start the forty-five-minute clock now. Keep your final export open when
 the mission closes so Module 3 can pick it straight up.
 
-Audience question: Which boundary from your Foundations case will you use first to judge the Agentic plan?
+Audience question: What is one limit from your Foundations case you'll use to judge the Agentic plan?
 
-Response guidance: Ask for one concise boundary — named files, excluded access,
-success checks, rollback, or a stop condition. Then point participants to the
-matching mission route, and to the starter if they need it. If anyone asks about
-the board, remind them it shows aliases and scores only, and that nothing from
-their repository is published.
-Payoff: Every participant begins with a review criterion and produces the evidence envelope required for the Advanced handoff.
+Response guidance: Ask for one short answer — named files, access you left out,
+checks that must pass, how to undo it, or when to stop. Then point people to the
+setup steps for their chosen tool, and to the copyable starter case if they need
+it. If nobody answers, offer one yourself: "Mine is — only the one file I named
+changes." If anyone asks about the board, remind them it shows aliases and scores
+only, and that nothing from their repository is published.
+Payoff: Everyone starts with one thing to judge the plan against, and ends with the evidence Advanced needs.
 Sources: content/missions/agentic/agent-task.md; content/modules/02-agentic/module.md
 -->

@@ -342,8 +342,10 @@ const missionClueSchema = z.object({
   points: z.number().int().positive(),
   objectiveRef: z.string().min(1),
   scene: z.string().min(1),
+  outcome: z.string().min(1),
   actions: z.array(z.string().min(1)).min(1),
   routes: z.array(missionRouteSchema).default([]),
+  verify: z.string().min(1),
   evidence: z.string().min(1),
   hints: z.array(z.string().min(1)).min(1),
   safetyCheckpoint: z.string().min(1)
@@ -435,6 +437,18 @@ export const missionSchema = baseContent
             message: `Mission clue references unknown harness "${route.harness}"`
           });
         }
+      }
+
+      const routedHarnessIds = new Set(clue.routes.map((route) => route.harness));
+      const missingHarnessIds = harnessIds.filter((harnessId) => !routedHarnessIds.has(harnessId));
+      if (missingHarnessIds.length > 0) {
+        context.addIssue({
+          code: "custom",
+          path: [clueSection, clueIndex, "routes"],
+          message: `Mission clue must provide a route for every declared harness; missing ${missingHarnessIds
+            .map((harnessId) => `"${harnessId}"`)
+            .join(", ")}`
+        });
       }
     }
 
