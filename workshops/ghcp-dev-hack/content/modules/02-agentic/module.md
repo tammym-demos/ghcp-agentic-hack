@@ -48,7 +48,7 @@ sourceDocuments:
   - content/missions/agentic/agent-task.md
 slides: content/modules/02-agentic/slides.md
 generation:
-  expectedSlides: 27
+  expectedSlides: 28
   manifest: content/modules/02-agentic/slide-manifest.md
   imageProvider: gpt-image-2
   visualStyle: >-
@@ -82,16 +82,19 @@ status: draft
 
 # Agentic Development
 
-## Current 27-slide generation contract
+## Current 28-slide generation contract
 
 `content/modules/02-agentic/visual-intent.md` is the current slide authority.
-The generated deck contains exactly 27 slides in its numbered order: two new
+The generated deck contains exactly 28 slides in its numbered order: two new
 one-minute opening slides, the preserved one-minute operating-split cover,
-23 additional instructional slides, and one separate 45-minute mission
-briefing. The exact 27-slide count, title, and order remain the human-approved
+23 additional instructional slides, one zero-minute `Demo!` handoff slide, and
+one separate 45-minute mission
+briefing. The 27-slide instruction-and-mission core, its titles, and its order
+remain the human-approved
 `agentic-opening-slides-2026-08-13` revision; the opening allocations are the
 approved timing correction for
-`ghcp-dev-hack-speaker-notes-talk-track-2026-08-17`. Unrelated earlier 27-,
+`ghcp-dev-hack-speaker-notes-talk-track-2026-08-17`, and the zero-minute
+`Demo!` slide is the approved 2026-08-23 addition. Unrelated earlier 27-,
 28-, or 29-slide versions remain historical production context only.
 
 Slides 1–26 provide 75 minutes of instruction. Slides 1–3 receive one minute
@@ -100,8 +103,9 @@ and 26 receive four minutes each because they carry a layered conflict, loop,
 consequential approval, security lifecycle, Mobile lifecycle, or final
 acceptance decision. The remaining 14 instructional slides receive three
 minutes each:
-`(3 × 1) + (3 × 2) + (6 × 4) + (14 × 3) = 75`. Slide 27 is the separate
-45-minute mission, so `75 + 45 = 120`.
+`(3 × 1) + (3 × 2) + (6 × 4) + (14 × 3) = 75`. Slide 27 is the zero-minute
+`Demo!` handoff and slide 28 is the separate
+45-minute mission, so `75 + 0 + 45 = 120`.
 
 ## Teaching and role boundaries
 
@@ -138,7 +142,7 @@ commands, labels, diagrams, and evidence remain native Slidev content.
 
 ## Mission boundary
 
-Slide 27 points to the separate `Your Mission: Hand Off Work with Confidence`
+Slide 28 points to the separate `Your Mission: Hand Off Work with Confidence`
 mission and
 does not duplicate its instructions. The mission now consumes the exported
 Foundations case file or the facilitator starter for legitimate catch-up,

@@ -47,7 +47,7 @@ sourceDocuments:
     content/storyboards/foundations-visual-narrative/scenes/10-context-lifecycle-summary.md
 slides: content/modules/01-foundations/slides.md
 generation:
-  expectedSlides: 24
+  expectedSlides: 25
   manifest: content/modules/01-foundations/slide-manifest.md
   imageProvider: mai-image-2.5
   visualStyle: >-

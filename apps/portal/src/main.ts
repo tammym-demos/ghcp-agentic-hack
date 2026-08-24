@@ -14,11 +14,13 @@ export interface MissionClue {
   points: number;
   objectiveRef: string;
   scene: string;
+  outcome: string;
   actions: string[];
   routes: Array<{
     harness: string;
     instructions: string[];
   }>;
+  verify: string;
   evidence: string;
   hints: string[];
   safetyCheckpoint: string;
@@ -427,6 +429,9 @@ export function renderLeaderboardPointer(workshop: Pick<CatalogWorkshop, "leader
 }
 function renderScoredMission(workshop: CatalogWorkshop, module: CatalogModule, mission: ScoredCatalogMission): string {
   const nextModuleTitle = getNextModuleTitle(workshop, module.id);
+  const harnessTitles = new Map(mission.harnesses.map((harness) => [harness.id, harness.title]));
+  const evidencePlaceholder = (evidence: string): string =>
+    evidence.includes("___") ? evidence : `${evidence.replace(/\.$/, "")}: ___`;
   const clueCard = (clue: MissionClue, bonus: boolean): string => `
     <article class="mission-clue" data-clue-card="${escapeHtml(clue.id)}">
       <header class="mission-clue__header">
@@ -438,24 +443,29 @@ function renderScoredMission(workshop: CatalogWorkshop, module: CatalogModule, m
           </span>
         </label>
       </header>
-      <blockquote>${escapeHtml(clue.scene)}</blockquote>
-      <h3>What to do</h3>
-      <ol>${clue.actions.map((action) => `<li>${escapeHtml(action)}</li>`).join("")}</ol>
-      ${clue.routes.map((route) => `
-        <section class="mission-route" data-harness-route="${escapeHtml(route.harness)}" hidden>
-          <h3>Gadget hint</h3>
-          <ul>${route.instructions.map((instruction) => `<li>${escapeHtml(instruction)}</li>`).join("")}</ul>
-        </section>`).join("")}
-      <p class="mission-evidence"><strong>Add to your case file:</strong> ${escapeHtml(clue.evidence)}</p>
+      <blockquote>${richText(clue.scene)}</blockquote>
+      <p class="mission-outcome"><strong>What you'll make:</strong> ${richText(clue.outcome)}</p>
+      <div class="mission-routes" data-clue-routes>
+        <p class="mission-routes__empty" data-route-placeholder>Choose where you'll run Copilot above to see the first step for your tool.</p>
+        ${clue.routes.map((route) => `
+          <section class="mission-route" data-harness-route="${escapeHtml(route.harness)}" hidden>
+            <h3>Start here — in ${escapeHtml(harnessTitles.get(route.harness) ?? route.harness)}</h3>
+            <ul>${route.instructions.map((instruction) => `<li>${richText(instruction)}</li>`).join("")}</ul>
+          </section>`).join("")}
+      </div>
+      <h3>Then work through these steps</h3>
+      <ol>${clue.actions.map((action) => `<li>${richText(action)}</li>`).join("")}</ol>
+      <p class="mission-verify"><strong>You're done when:</strong> ${richText(clue.verify)}</p>
       <details class="mission-hints">
         <summary>Need a hint?</summary>
-        <ol>${clue.hints.map((hint) => `<li>${escapeHtml(hint)}</li>`).join("")}</ol>
+        <ol>${clue.hints.map((hint) => `<li>${richText(hint)}</li>`).join("")}</ol>
         <p>Hints never reduce your score.</p>
       </details>
-      <p class="mission-safety"><span class="purrmission-icon" aria-hidden="true">🐈‍⬛</span><strong>Purrmission check:</strong> ${escapeHtml(clue.safetyCheckpoint)}</p>
+      <p class="mission-safety"><span class="purrmission-icon" aria-hidden="true">🐈‍⬛</span><strong>Purrmission check:</strong> ${richText(clue.safetyCheckpoint)}</p>
+      <p class="mission-ask">Stuck? Select any step above and ask Copilot, or paste it into a fresh session and say which tool you're using.</p>
       <label class="mission-notes">
-        <span>Your evidence (saved only on this device)</span>
-        <textarea rows="3" data-clue-evidence="${escapeHtml(clue.id)}"></textarea>
+        <span>What to write down <small>Optional — jot it down to think it through. Stays in this browser.</small></span>
+        <textarea rows="3" data-clue-evidence="${escapeHtml(clue.id)}" placeholder="${escapeHtml(evidencePlaceholder(clue.evidence))}"></textarea>
       </label>
     </article>`;
 
@@ -468,9 +478,36 @@ function renderScoredMission(workshop: CatalogWorkshop, module: CatalogModule, m
         <p>Hints are always available and never reduce your score. Asking for help is part of safe, effective engineering.</p>
       </section>
 
+      <section class="detail-section mission-start-here">
+        <h2>Start here</h2>
+        <ol>
+          <li>Choose where you'll run Copilot below. Every exercise then shows the first step for that tool.</li>
+          <li>Open a fresh session there, following the setup steps for your tool.</li>
+          <li>Work through the exercises in order. Each one tells you what to make, how to start, and how to check it.</li>
+          <li>If a step is unclear, ask Copilot. It costs you no points.</li>
+        </ol>
+        <div class="mission-ask-copilot">
+          <h3>Ask Copilot when you're stuck</h3>
+          <p>Two things people often miss. You can <strong>select any text on this page and ask Copilot about it</strong>. You can also <strong>paste a step into a fresh session</strong>. Either way, say which tool you're using, paste the step itself, and say what you are trying to make.</p>
+          <div class="mission-ask-copilot__prompts">
+            <div>
+              <p><strong>When you don't understand a step</strong></p>
+              <pre><code id="mission-ask-step">I'm using [your tool]. I'm doing the "[exercise title]" step of this workshop mission. Here's the step: [paste the step]. Explain in plain words what I'm being asked to make, and give me one thing to do first in [your tool].</code></pre>
+              <button id="mission-copy-ask-step" type="button" class="button-secondary">Copy prompt</button>
+            </div>
+            <div>
+              <p><strong>When you're stuck on the tool, not the task</strong></p>
+              <pre><code id="mission-ask-setup">I'm using [your tool]. How do I create and save a file called [file name] here, and how do I see what it does?</code></pre>
+              <button id="mission-copy-ask-setup" type="button" class="button-secondary">Copy prompt</button>
+            </div>
+          </div>
+          <p id="mission-ask-status" role="status"></p>
+        </div>
+      </section>
+
       <section class="detail-section">
         <fieldset class="mission-harness-picker">
-          <legend>Choose your field gadget</legend>
+          <legend>Step 1 — choose where you'll run Copilot</legend>
           <div class="mission-harnesses">
             ${mission.harnesses.map((harness) => `
               <label class="mission-harness">
@@ -479,7 +516,12 @@ function renderScoredMission(workshop: CatalogWorkshop, module: CatalogModule, m
               </label>`).join("")}
           </div>
         </fieldset>
-        <div id="mission-harness-help" class="mission-harness-help" role="status" aria-live="polite">Choose a gadget to reveal its route hints.</div>
+        <div id="mission-harness-help" class="mission-harness-help" role="status" aria-live="polite">Choose a tool to see its setup steps and the first step of every exercise.</div>
+        ${mission.harnesses.map((harness) => `
+          <section class="mission-harness-setup" data-harness-setup="${escapeHtml(harness.id)}" hidden>
+            <h3>Setting up in ${escapeHtml(harness.title)}</h3>
+            <ul>${harness.instructions.map((instruction) => `<li>${richText(instruction)}</li>`).join("")}</ul>
+          </section>`).join("")}
       </section>
 
       <section class="detail-section">
@@ -857,13 +899,20 @@ function initializeMissionTracker(workshop: CatalogWorkshop, module: CatalogModu
     document.querySelectorAll<HTMLElement>("[data-harness-route]").forEach((route) => {
       route.hidden = route.dataset.harnessRoute !== selectedHarness;
     });
+    document.querySelectorAll<HTMLElement>("[data-harness-setup]").forEach((setup) => {
+      setup.hidden = setup.dataset.harnessSetup !== selectedHarness;
+    });
 
     const harness = mission.harnesses.find((candidate) => candidate.id === selectedHarness);
+    document.querySelectorAll<HTMLElement>("[data-route-placeholder]").forEach((placeholder) => {
+      placeholder.hidden = Boolean(harness);
+    });
+
     const help = document.querySelector<HTMLElement>("#mission-harness-help");
     if (!help) return;
-    help.innerHTML = harness
-      ? `<strong>${escapeHtml(harness.title)}</strong><ul>${harness.instructions.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`
-      : "Choose a gadget to reveal its route hints.";
+    help.textContent = harness
+      ? `You're working in ${harness.title}. Every exercise below now shows its first step for that tool.`
+      : "Choose a tool to see its setup steps and the first step of every exercise.";
   };
 
   const updateRenderedState = (): void => {
@@ -999,6 +1048,23 @@ function initializeMissionTracker(workshop: CatalogWorkshop, module: CatalogModu
     });
   }
 
+  const askStatus = document.querySelector<HTMLElement>("#mission-ask-status");
+  const wireAskCopy = (buttonId: string, sourceId: string, label: string): void => {
+    document.querySelector<HTMLButtonElement>(buttonId)?.addEventListener("click", async () => {
+      const text = document.querySelector<HTMLElement>(sourceId)?.textContent ?? "";
+      try {
+        await navigator.clipboard.writeText(text);
+        if (askStatus) askStatus.textContent = `${label} copied. Replace the bracketed parts before you send it.`;
+      } catch (error) {
+        if (askStatus) {
+          askStatus.textContent = `${label} could not be copied: ${error instanceof Error ? error.message : "unknown error"}. Select the text above and copy it manually.`;
+        }
+      }
+    });
+  };
+  wireAskCopy("#mission-copy-ask-step", "#mission-ask-step", "Unclear-step prompt");
+  wireAskCopy("#mission-copy-ask-setup", "#mission-ask-setup", "Tool-setup prompt");
+
   updateRenderedState();
 }
 
@@ -1072,7 +1138,7 @@ function metadata(values: string[]): string {
 }
 
 function listItems(items: string[]): string {
-  return items.length > 0 ? `<ul>${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : "";
+  return items.length > 0 ? `<ul>${items.map((item) => `<li>${richText(item)}</li>`).join("")}</ul>` : "";
 }
 
 function formatMinutes(minutes: number): string {
@@ -1097,4 +1163,24 @@ function escapeHtml(value: string): string {
     '"': "&quot;",
     "'": "&#039;"
   })[character] ?? character);
+}
+
+// Authored mission text uses `code`, ``code containing a backtick``, and
+// **bold**. Escape first, then promote those markers so participants read
+// formatting instead of punctuation. Double-backtick spans are resolved first
+// so an inner backtick is not mistaken for a closing delimiter.
+export function richText(value: string): string {
+  return escapeHtml(value)
+    .replace(/``(.+?)``/g, (_match, code: string) => `<code>${stripCodeSpanPadding(code)}</code>`)
+    .replace(/`([^`]+)`/g, "<code>$1</code>")
+    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+}
+
+// CommonMark drops one leading and trailing space from a padded code span so
+// `` `x` `` renders as the delimiter-adjacent content rather than with gaps.
+function stripCodeSpanPadding(code: string): string {
+  if (code.length > 2 && code.startsWith(" ") && code.endsWith(" ") && code.trim() !== "") {
+    return code.slice(1, -1);
+  }
+  return code;
 }

@@ -1039,6 +1039,31 @@ Sources: content/modules/03-advanced/copilot-dev-advanced-workshop.md slide 19 c
 -->
 
 ---
+layout: single-panel
+---
+
+::title::
+# Demo!
+::content::
+
+<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:clamp(3rem,8vw,8rem);font-weight:800;color:#1f2328;">Demo!</div>
+
+<!--
+Timebox: 0 minutes
+
+Talk track: Demo.
+
+Transition: We are ready to move from the evidence and integration patterns into the mission.
+
+Audience question: Are we ready to move from the integration patterns into the mission?
+
+Response guidance: Keep it brief and move on. If the room needs a line, say, "We have the evidence model; now we run the final mission."
+
+Payoff: Learners get a visible handoff before the final Advanced mission begins.
+Sources: content/modules/03-advanced/slide-manifest.md row 19; content/modules/03-advanced/module.md
+-->
+
+---
 layout: advanced-content
 ---
 
@@ -1049,60 +1074,63 @@ layout: advanced-content
 
 # Your Advanced Mission Starts Now
 
-<p class="advanced-lede">Carry the Agentic case forward and prove four Advanced obligations.</p>
+<p class="advanced-lede">Pick up the Agentic case and take it through to a decision you can defend.</p>
 
 <div class="advanced-chips">
-  <span class="advanced-chip">Accountable orchestration</span>
-  <span class="advanced-chip">Governed integration</span>
-  <span class="advanced-chip">Evaluate + recover</span>
-  <span class="advanced-chip advanced-chip--green">Final integration proof</span>
-  <span class="advanced-chip">Optional alias-only leaderboard</span>
+  <span class="advanced-chip">Split the work</span>
+  <span class="advanced-chip">Check what you connect</span>
+  <span class="advanced-chip">Find and fix a failure</span>
+  <span class="advanced-chip advanced-chip--green">Show it holds together</span>
+  <span class="advanced-chip">Stuck? Ask Copilot — no penalty</span>
 </div>
 
 <div class="advanced-callout advanced-callout--safety">
-<strong>Purrmission safety check:</strong> preserve provenance, permissions, data scope, read-only boundaries, rollback, and separate module totals.
+<strong>Purrmission safety check:</strong> keep track of where things came from, who can do what, what data is in scope, what stays read-only, how you undo it, and keep each module's score separate.
 </div>
 
 </div>
 <div class="advanced-role-stage advanced-role-stage--mission" aria-label="Pending owner art review; native mission scaffolding shows human ownership, delegated evidence, and safety">
-  <div class="advanced-role-card advanced-role-card--mergewell"><span class="advanced-silhouette advanced-silhouette--human">M</span><strong>Mergewell</strong><small>owns orchestration and acceptance</small></div>
-  <div class="advanced-role-card advanced-role-card--riley"><span class="advanced-silhouette advanced-silhouette--agent">R</span><strong>Riley</strong><small>returns bounded evidence</small></div>
-  <div class="advanced-role-card advanced-role-card--purrmission"><span class="advanced-silhouette advanced-silhouette--guardian">P</span><strong>Purrmission</strong><small>gates safety and rollback</small></div>
-  <div class="advanced-case-envelope">Agentic case → governed decisions → integrated evidence → final export</div>
+  <div class="advanced-role-card advanced-role-card--mergewell"><span class="advanced-silhouette advanced-silhouette--human">M</span><strong>Mergewell</strong><small>splits the work and makes the call</small></div>
+  <div class="advanced-role-card advanced-role-card--riley"><span class="advanced-silhouette advanced-silhouette--agent">R</span><strong>Riley</strong><small>does one bounded job and shows the result</small></div>
+  <div class="advanced-role-card advanced-role-card--purrmission"><span class="advanced-silhouette advanced-silhouette--guardian">P</span><strong>Purrmission</strong><small>checks it is safe and can be undone</small></div>
+  <div class="advanced-case-envelope">Agentic case → your decisions → what you checked → final export</div>
 </div>
 </div>
 
 <!--
 Timebox: 2 minutes
 
-Talk track: This is it. Last mission of the day — and it's a continuation, not a
-fresh start.
-Open the Agentic case file you exported. If you're joining us cold, take the
-clearly labeled facilitator fallback. What you must not do is invent evidence or
-points you never earned.
-Thirty minutes. Four things to prove.
-Choose an orchestration pattern you can actually stand behind. Vet the narrowest
-integration surface that still does the job. Govern any review helper you bring
-in. And then break something on purpose — debug one likely failure with a minimal
-protocol and a recovery checkpoint.
-Then the part that matters most. Pull all of that evidence into one human decision.
-Accept, revise, or reject. You make the call. Not Riley.
-Your export keeps provenance, permissions, data scope, read-only boundaries,
-rollback, and your module totals kept separate — Foundations, Agentic, Advanced,
-and cumulative.
-If you've been posting to the board, send Advanced the same way when you finish.
-One thing before you go. Look at your case: which obligation is already strong, and
-which one is still thin?
+Talk track: This is it. Last mission of the day — and it picks up where the last
+one stopped.
+Open the Agentic case file you exported. Joining us cold? Take the labeled starter
+case. What you must not do is invent evidence you never earned.
+Pick your tool at the top of the page first. The setup steps and the first step of
+every exercise change to match it.
+Same shape you've used all day. What you'll make. Start here in your tool.
+You're done when.
+Thirty minutes. Four things to work through, then one decision to make.
+Decide how you'd split the work, and be ready to say why. Pick the smallest way to
+connect Copilot to something that still gets the job done. Set the rules for any
+review helper you bring in. Then break something on purpose and get it working
+again.
+None of this needs a live pull request or Enterprise access. It's all local.
+Then the part that matters most. Take everything you found and make one call.
+Accept, change it, or say no. You decide. Not Riley.
+If a step or a tool blocks you, ask Copilot. Free, all mission.
+Your export keeps a record of where things came from, who can do what, what data
+was in scope, what stayed read-only, how to undo it, and each module's score on
+its own.
 
-Transition: Open the mission route, confirm your carry-forward entry, and start
-your thirty-minute clock now.
+Transition: Open the mission route, check your carry-forward entry, and start your
+thirty-minute clock now.
 
-Audience question: Which Advanced obligation already has the strongest evidence in your case, and which one still needs proof?
+Audience question: Of those four, which one are you least sure about?
 
-Response guidance: Take one fast pair of answers, then send participants to start
-with their weakest obligation, or to the approved fallback path. Remind them that
-starting somewhere new does not mean discarding evidence they already have.
+Response guidance: Take one fast pair of answers, then send people off to start
+with the one they are least sure about, or to the labeled starter case. If nobody
+answers, say which one you'd find hardest yourself to open the door. Remind them
+that starting somewhere new does not mean throwing away what they already have.
 
-Payoff: Participants enter the final mission with a diagnostic priority and finish with an integrated, human-owned case decision.
+Payoff: Participants know which part to attack first, and finish with one clear decision they made themselves.
 Sources: content/missions/advanced/cross-cutting-change.md; content/modules/03-advanced/copilot-dev-advanced-workshop.md slide 19 contract
 -->
