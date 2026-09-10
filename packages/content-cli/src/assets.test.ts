@@ -4,12 +4,15 @@ import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import {
   candidateCycleDirectory,
+  candidateRequest,
+  acceptCandidate,
   imageReferenceContentType,
   promoteImage,
   validateApprovedImageSidecars,
   validateImageDimensions,
   videoReferenceContentType
 } from "./assets.js";
+import { authorizationFixture } from "./authorization-fixture.js";
 
 const temporaryRoots: string[] = [];
 const onePixelPng = Buffer.from(
@@ -131,6 +134,12 @@ describe("promoteImage", () => {
     await writeFile(imagePath, onePixelPng);
     await writeFile(manifestPath, JSON.stringify(candidateManifest));
 
+    const roots = { candidatesRoot, workshopsRoot, repositoryRoot: root };
+    const acceptance = await candidateRequest(manifestPath, undefined, "accept-image", undefined, roots);
+    const publication = await candidateRequest(manifestPath, undefined, "publish-image", "assets/images/foundations/test.png", roots);
+    await authorizationFixture(roots, [acceptance, publication]);
+    await expect(promoteImage(manifestPath, "assets/images/foundations/test.png", roots)).rejects.toThrow(/acceptance/);
+    await acceptCandidate(manifestPath, undefined, roots);
     await promoteImage(manifestPath, "assets\\images\\foundations\\test.png", {
       candidatesRoot,
       workshopsRoot
@@ -139,6 +148,8 @@ describe("promoteImage", () => {
     const target = path.join(workshopRoot, "assets", "images", "foundations", "test.png");
     const approved = JSON.parse(await readFile(`${target}.json`, "utf8"));
     expect(approved.reviewStatus).toBe("approved");
+    expect(approved.candidateAcceptance.decisionId).toBe("decision-0");
+    expect(approved.publicationAuthorization.decisionId).toBe("decision-1");
     expect(approved.location).toBe("assets/images/foundations/test.png");
     await expect(validateApprovedImageSidecars(root)).resolves.toBe(1);
 
@@ -188,6 +199,12 @@ describe("promoteImage", () => {
       })
     );
 
+    const roots = { candidatesRoot, workshopsRoot, repositoryRoot: root };
+    await authorizationFixture(roots, [
+      await candidateRequest(manifestPath, undefined, "accept-image", undefined, roots),
+      await candidateRequest(manifestPath, undefined, "publish-image", "assets/images/agentic/test.png", roots)
+    ]);
+    await acceptCandidate(manifestPath, undefined, roots);
     await promoteImage(
       path.relative(root, manifestPath),
       "assets/images/agentic/test.png",

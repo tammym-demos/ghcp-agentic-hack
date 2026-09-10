@@ -14,10 +14,12 @@ import {
   type ImageProvider,
   type ImageProviderName
 } from "@ghcp/foundry-providers";
-import { generatedAssetSchema } from "@ghcp/content-schema";
+import { generatedAssetSchema, mediaActionRequestSchema, type MediaActionRequest } from "@ghcp/content-schema";
 import { candidatesRoot, repositoryRoot, workshopsRoot } from "./paths.js";
+import { assertCandidateAccepted, authorizedAction, type ActionAuthorizationEvidence, type AuthorizationRoots } from "./authorization.js";
+import { canonical, localFile } from "./production-records.js";
 
-const { copy, ensureDir, pathExists, readJson, writeFile, writeJson } = fsExtra;
+const { ensureDir, pathExists, readJson, writeFile, writeJson } = fsExtra;
 
 type MediaRoots = {
   candidatesRoot: string;
@@ -177,13 +179,23 @@ export function imageReferenceContentType(filename: string): "image/jpeg" | "ima
 function imageProvider(name: ImageProviderName): ImageProvider {
   if (name === "gpt-image-2") return new GptImageProvider();
   if (name === "flux-2-pro") return new FluxImageProvider();
-  return new MaiImageProvider();
+  return new MaiImageProvider(name);
 }
 
 function imageDeployment(provider: ImageProviderName): string | undefined {
   if (provider === "gpt-image-2") return process.env.FOUNDRY_GPT_IMAGE_DEPLOYMENT;
   if (provider === "flux-2-pro") return process.env.FOUNDRY_FLUX_DEPLOYMENT;
   return process.env.FOUNDRY_MAI_IMAGE_DEPLOYMENT;
+}
+
+function imageEndpoint(provider: ImageProviderName): string | undefined {
+  if (provider === "gpt-image-2") return process.env.FOUNDRY_GPT_IMAGE_ENDPOINT;
+  if (provider === "flux-2-pro") return process.env.FOUNDRY_FLUX_ENDPOINT;
+  return process.env.FOUNDRY_MAI_IMAGE_ENDPOINT;
+}
+
+function actionRoots(roots: MediaRoots): AuthorizationRoots {
+  return { ...roots, repositoryRoot: roots.repositoryRoot ?? repositoryRoot };
 }
 
 async function normalizedSource(workshopId: string, source: string): Promise<string> {
@@ -210,7 +222,8 @@ async function writeImageCandidate(
     path: string;
     hash: string;
     contentType: "image/jpeg" | "image/png";
-  }
+  },
+  authorization?: ActionAuthorizationEvidence
 ): Promise<string> {
   const promptHash = digest(prompt);
   const candidateDirectory = candidateCycleDirectory(
@@ -225,7 +238,7 @@ async function writeImageCandidate(
   const manifestPath = `${candidatePath}.json`;
   const actualDimensions = rasterDimensions(Buffer.from(image.bytes), candidateName);
   await ensureDir(candidateDirectory);
-  await writeFile(candidatePath, image.bytes);
+  await writeFile(candidatePath, image.bytes, { flag: "wx" });
   await writeJson(
     manifestPath,
     {
@@ -243,7 +256,8 @@ async function writeImageCandidate(
       location: candidatePath,
       width: actualDimensions.width,
       height: actualDimensions.height,
-      inputReference
+      inputReference,
+      generationAuthorization: authorization
     },
     { spaces: 2 }
   );
@@ -262,6 +276,7 @@ export async function generateImageCandidate(options: {
   height: number;
   outputFormat: "png" | "jpeg";
   inputReference?: string;
+  inspect?: boolean;
 }): Promise<string> {
   validateImageDimensions(options.provider, options.width, options.height);
   const promptFile = path.resolve(repositoryRoot, options.promptFile);
@@ -283,7 +298,6 @@ export async function generateImageCandidate(options: {
   }
 
   const source = await normalizedSource(options.workshopId, options.source);
-  const provider = imageProvider(options.provider);
   let inputReference:
     | {
         bytes: Uint8Array;
@@ -294,8 +308,8 @@ export async function generateImageCandidate(options: {
       }
     | undefined;
   if (options.inputReference) {
-    if (options.provider !== "mai-image-2.5") {
-      throw new Error("Image editing is currently supported only by mai-image-2.5");
+    if (!options.provider.startsWith("mai-image-")) {
+      throw new Error("Image editing is currently supported only by the MAI image providers");
     }
     const referencePath = path.resolve(repositoryRoot, options.inputReference);
     const relativeReferencePath = path.relative(repositoryRoot, referencePath);
@@ -314,6 +328,22 @@ export async function generateImageCandidate(options: {
       hash: digest(bytes)
     };
   }
+  candidateCycleDirectory(candidatesRoot, options.workshopId, options.moduleId, options.cycleId, "images");
+  const request = mediaActionRequestSchema.parse({
+    kind: "generate-image", workshopId: options.workshopId, moduleId: options.moduleId,
+    cycleId: options.cycleId, assetId: options.assetId, provider: options.provider,
+    deployment: imageDeployment(options.provider), endpoint: imageEndpoint(options.provider),
+    source, sourceHash: digest(await readFile(sourcePath)), promptHash: digest(finalPrompt),
+    referencePath: inputReference?.path, referenceHash: inputReference?.hash,
+    width: options.width, height: options.height, outputFormat: options.outputFormat,
+    candidates: 1, variants: 1
+  });
+  if (options.inspect) return canonical(request);
+  return authorizedAction(request, async (authorization) => {
+  const candidateDirectory = candidateCycleDirectory(candidatesRoot, options.workshopId, options.moduleId, options.cycleId, "images");
+  const candidatePath = path.join(candidateDirectory, `${options.assetId}-${digest(finalPrompt).slice(0, 12)}.${options.outputFormat === "jpeg" ? "jpg" : "png"}`);
+  if (await pathExists(candidatePath) || await pathExists(`${candidatePath}.json`)) throw new Error("Candidate already exists; no provider call made");
+  const provider = imageProvider(options.provider);
   const image = await provider.generate({
     prompt: finalPrompt,
     width: options.width,
@@ -327,7 +357,7 @@ export async function generateImageCandidate(options: {
         }
       : undefined
   });
-  return writeImageCandidate(
+  return await writeImageCandidate(
     options.workshopId,
     options.moduleId,
     options.cycleId,
@@ -343,8 +373,56 @@ export async function generateImageCandidate(options: {
           hash: inputReference.hash,
           contentType: inputReference.contentType
         }
-      : undefined
+      : undefined,
+    authorization
   );
+  });
+}
+
+export async function candidateRequest(
+  manifestPathOption: string,
+  mediaPathOption: string | undefined,
+  kind: "accept-image" | "accept-video" | "publish-image" | "publish-video",
+  target?: string,
+  roots: MediaRoots = { candidatesRoot, workshopsRoot }
+): Promise<MediaActionRequest> {
+  const manifestPath = path.resolve(roots.repositoryRoot ?? repositoryRoot, manifestPathOption);
+  const relative = path.relative(roots.candidatesRoot, manifestPath).split(path.sep).join("/");
+  await localFile(roots.candidatesRoot, relative);
+  const [workshopId, moduleId, cycleId, mediaKind] = relative.split("/");
+  if (!workshopId || !moduleId || !cycleId || mediaKind !== (kind.endsWith("image") ? "images" : "video")) {
+    throw new Error("Candidate manifest must use workshop/module/cycle/images-or-video layout");
+  }
+  const manifestBytes = await readFile(manifestPath);
+  const manifest = generatedAssetSchema.parse(JSON.parse(manifestBytes.toString("utf8")));
+  if (manifest.kind !== (kind.endsWith("image") ? "image" : "video") || manifest.reviewStatus !== "candidate") {
+    throw new Error("Only matching candidate media can be accepted or published");
+  }
+  const mediaPath = path.resolve(roots.repositoryRoot ?? repositoryRoot, mediaPathOption ?? manifest.location);
+  const mediaRelative = path.relative(path.join(roots.candidatesRoot, workshopId, moduleId, cycleId), mediaPath).split(path.sep).join("/");
+  await localFile(path.join(roots.candidatesRoot, workshopId, moduleId, cycleId), mediaRelative);
+  const sourcePath = await localFile(path.join(roots.workshopsRoot, workshopId), manifest.source);
+  return mediaActionRequestSchema.parse({
+    kind, workshopId, moduleId, cycleId, assetId: manifest.id,
+    provider: manifest.provider, deployment: manifest.deployment,
+    source: manifest.source, sourceHash: digest(await readFile(sourcePath)),
+    promptHash: manifest.promptHash, candidateHash: digest(await readFile(mediaPath)),
+    manifestHash: digest(manifestBytes), candidates: 1, variants: 1, target
+  });
+}
+
+export async function acceptCandidate(
+  manifestPath: string,
+  mediaPath?: string,
+  roots: MediaRoots = { candidatesRoot, workshopsRoot },
+  inspect = false
+): Promise<string> {
+  const raw = await readJson(path.resolve(roots.repositoryRoot ?? repositoryRoot, manifestPath));
+  const kind = generatedAssetSchema.parse(raw).kind === "image" ? "accept-image" : "accept-video";
+  const request = await candidateRequest(manifestPath, mediaPath, kind, undefined, roots);
+  if (inspect) return canonical(request);
+  await authorizedAction(request, async () => undefined, actionRoots(roots));
+  return `Recorded exact candidate acceptance: ${request.candidateHash}`;
 }
 
 export async function promoteImage(
@@ -355,14 +433,13 @@ export async function promoteImage(
   const resolvedManifestPath = path.isAbsolute(manifestPath)
     ? manifestPath
     : path.resolve(roots.repositoryRoot ?? repositoryRoot, manifestPath);
-  const raw = await readJson(resolvedManifestPath);
+  const manifestBytes = await readFile(resolvedManifestPath);
+  const raw = JSON.parse(manifestBytes.toString("utf8"));
   const manifest = generatedAssetSchema.parse(raw);
   if (manifest.kind !== "image") throw new Error("Only image candidates can be promoted with this command");
   if (manifest.reviewStatus !== "candidate") {
     throw new Error(`Only candidate images can be promoted, received ${manifest.reviewStatus}`);
   }
-  if (!(await pathExists(manifest.location))) throw new Error(`Candidate image does not exist: ${manifest.location}`);
-
   const candidateRelativePath = path.relative(roots.candidatesRoot, resolvedManifestPath);
   if (candidateRelativePath.startsWith("..") || path.isAbsolute(candidateRelativePath)) {
     throw new Error("Candidate manifest must be inside generated/candidates");
@@ -379,7 +456,8 @@ export async function promoteImage(
   const sourcePath = path.resolve(workshopRoot, ...manifest.source.split("/"));
   if (!(await pathExists(sourcePath))) throw new Error(`Source does not exist: ${manifest.source}`);
 
-  const candidateImage = path.resolve(manifest.location);
+  const candidateImage = path.resolve(roots.repositoryRoot ?? repositoryRoot, manifest.location);
+  if (!(await pathExists(candidateImage))) throw new Error(`Candidate image does not exist: ${manifest.location}`);
   const candidateImageRelative = path.relative(roots.candidatesRoot, candidateImage);
   if (candidateImageRelative.startsWith("..") || path.isAbsolute(candidateImageRelative)) {
     throw new Error("Candidate image must be inside generated/candidates");
@@ -389,11 +467,24 @@ export async function promoteImage(
     throw new Error(`Approved asset already exists: ${normalizedTarget}`);
   }
 
+  const candidateBytes = await readFile(candidateImage);
+  const request = await candidateRequest(resolvedManifestPath, candidateImage, "publish-image", normalizedTarget, roots);
+  if (digest(candidateBytes) !== request.candidateHash || digest(manifestBytes) !== request.manifestHash) {
+    throw new Error("Candidate changed while preparing publication; inspect the exact evidence again");
+  }
+  const acceptance = await assertCandidateAccepted(request, actionRoots(roots));
+  await authorizedAction(request, async (authorization) => {
   await ensureDir(path.dirname(target));
-  await copy(manifest.location, target, { overwrite: false });
-  const approved = { ...raw, reviewStatus: "approved", location: normalizedTarget };
+  // Resolve an existing parent before copying to prevent symlink scope escapes.
+  const actualParent = await import("node:fs/promises").then(fs => fs.realpath(path.dirname(target)));
+  const actualWorkshop = await import("node:fs/promises").then(fs => fs.realpath(workshopRoot));
+  if (!actualParent.startsWith(`${actualWorkshop}${path.sep}`)) throw new Error("Target escapes workshop through a symlink");
+  await writeFile(target, candidateBytes, { flag: "wx" });
+  const approved = { ...raw, reviewStatus: "approved", location: normalizedTarget,
+    candidateAcceptance: acceptance, publicationAuthorization: authorization };
   await writeJson(`${target}.json`, approved, { spaces: 2 });
   await writeJson(resolvedManifestPath, approved, { spaces: 2 });
+  }, actionRoots(roots));
 }
 
 export async function validateApprovedImageSidecars(root = repositoryRoot): Promise<number> {
@@ -459,6 +550,7 @@ export async function submitVideo(options: {
   durationSeconds: number;
   aspectRatio: "16:9" | "9:16" | "1:1";
   inputReference?: string;
+  inspect?: boolean;
 }): Promise<string> {
   const promptPath = path.resolve(repositoryRoot, options.promptFile);
   const prompt = (await readFile(promptPath, "utf8")).trim();
@@ -489,6 +581,19 @@ export async function submitVideo(options: {
       hash: digest(bytes)
     };
   }
+  candidateCycleDirectory(candidatesRoot, options.workshopId, options.moduleId, options.cycleId, "video");
+  const request = mediaActionRequestSchema.parse({
+    kind: "submit-video", workshopId: options.workshopId, moduleId: options.moduleId,
+    cycleId: options.cycleId, assetId: options.assetId, provider: "sora-2",
+    deployment: process.env.FOUNDRY_SORA_DEPLOYMENT, endpoint: process.env.FOUNDRY_SORA_ENDPOINT,
+    source, sourceHash: digest(await readFile(path.resolve(workshopsRoot, options.workshopId, source))),
+    promptHash: digest(prompt), referencePath: inputReference?.path, referenceHash: inputReference?.hash,
+    durationSeconds: options.durationSeconds, aspectRatio: options.aspectRatio, candidates: 1, variants: 1
+  });
+  if (options.inspect) return canonical(request);
+  return authorizedAction(request, async (authorization) => {
+  const expectedManifest = path.join(candidateCycleDirectory(candidatesRoot, options.workshopId, options.moduleId, options.cycleId, "video"), `${options.assetId}.json`);
+  if (await pathExists(expectedManifest)) throw new Error("Candidate manifest already exists; no provider call made");
   const provider = new SoraVideoProvider();
   const job = await provider.create({
     prompt,
@@ -534,11 +639,13 @@ export async function submitVideo(options: {
             contentType: inputReference.contentType
           }
         : undefined,
-      job
+      job,
+      generationAuthorization: authorization
     },
     { spaces: 2 }
   );
   return manifestPath;
+  });
 }
 
 function approvedVideoManifestPath(manifestPath: string, assetId: string): string {
@@ -560,10 +667,11 @@ function approvedVideoManifestPath(manifestPath: string, assetId: string): strin
   );
 }
 
-export async function publishVideo(manifestPathOption: string, videoPathOption: string): Promise<void> {
+export async function publishVideo(manifestPathOption: string, videoPathOption: string, inspect = false): Promise<string | void> {
   const manifestPath = path.resolve(repositoryRoot, manifestPathOption);
   const videoPath = path.resolve(repositoryRoot, videoPathOption);
-  const raw = await readJson(manifestPath);
+  const manifestBytes = await readFile(manifestPath);
+  const raw = JSON.parse(manifestBytes.toString("utf8"));
   const manifest = generatedAssetSchema.parse(raw);
   if (manifest.kind !== "video") throw new Error("Only video manifests can be published with this command");
   if (manifest.reviewStatus !== "candidate") {
@@ -576,12 +684,23 @@ export async function publishVideo(manifestPathOption: string, videoPathOption: 
   const bytes = new Uint8Array(await readFile(videoPath));
   const extension = path.extname(videoPath).toLowerCase();
   const contentType = extension === ".webm" ? "video/webm" : "video/mp4";
+  const target = `${process.env.AZURE_STORAGE_ACCOUNT_URL}/${process.env.AZURE_STORAGE_VIDEO_CONTAINER}/${manifest.id}/${manifest.promptHash.slice(0, 12)}${extension}`;
+  if (!process.env.AZURE_STORAGE_ACCOUNT_URL || !process.env.AZURE_STORAGE_VIDEO_CONTAINER) throw new Error("Video publication storage destination is not configured");
+  const request = await candidateRequest(manifestPath, videoPath, "publish-video", target);
+  if (digest(bytes) !== request.candidateHash || digest(manifestBytes) !== request.manifestHash) {
+    throw new Error("Candidate changed while preparing publication; inspect the exact evidence again");
+  }
+  if (inspect) return canonical(request);
+  const acceptance = await assertCandidateAccepted(request);
+  await authorizedAction(request, async (authorization) => {
   const uploaded = await uploadVideo(`${manifest.id}/${manifest.promptHash.slice(0, 12)}${extension}`, bytes, contentType);
   const approved = {
     ...raw,
     reviewStatus: "approved",
     location: uploaded.url,
-    blobName: uploaded.blobName
+    blobName: uploaded.blobName,
+    candidateAcceptance: acceptance,
+    publicationAuthorization: authorization
   };
   await ensureDir(path.dirname(approvedManifestPath));
   await writeJson(approvedManifestPath, approved, { spaces: 2 });
@@ -590,6 +709,7 @@ export async function publishVideo(manifestPathOption: string, videoPathOption: 
     approved,
     { spaces: 2 }
   );
+  });
 }
 
 export async function refreshVideoStatus(manifestPathOption: string): Promise<void> {

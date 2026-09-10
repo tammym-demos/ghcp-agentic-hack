@@ -14,9 +14,9 @@ mdc: true
 
 ## Meet Agent Mergewell, Purrmission, and Riley Relay
 
-<div class="foundations-title-brand">
-  <span class="foundations-title-brand__wordmark">GitHub</span>
-  <img src="/images/microsoft-logo.png" alt="Microsoft" />
+<div class="workshop-cover-logos workshop-cover-logos--foundations" aria-label="GitHub and Microsoft">
+  <img class="workshop-cover-logos__github" src="/images/GitHub_Lockup_Black_Clearspace.svg" alt="GitHub" />
+  <img class="workshop-cover-logos__microsoft" src="/images/microsoft-logo.png" alt="Microsoft" />
 </div>
 
 ::visual::
@@ -67,8 +67,8 @@ layout: two-panel
 
 - **1 · Surfaces and trust — 15 min:** IDE, CLI, GitHub.com, cloud/app boundaries, policy, and accountability
 - **2 · Interaction modes — 20 min:** VS Code Chat, inline assistance, Ask, Plan, and Agent
-- **3 · Economics and routing — 20 min:** tokens, AI Credits, usage evidence, and model choice
-- **4 · Context and delegation — 20 min:** context windows, context recovery, and least privilege
+- **3 · Economics and routing — 33 min:** tokens, generation, reuse, AI Credits, receipts, and model choice
+- **4 · Context and delegation — 9 min:** context windows, context rot signals, and least privilege
 - **5 · Missions — 45 min:** use a harness, produce evidence, and debrief
 
 </div>
@@ -82,10 +82,11 @@ Timebox: 1 minute
 Talk track: Here's the route for today. Four teaching stops, then you play.
 Surfaces and trust — where Copilot actually lives, and where your company's
 policy draws the line. Interaction modes — Chat, Ask, Plan, and Agent, and when
-each one earns its keep. Economics and routing — what a token costs you and how
-to stop overpaying for easy work. Context and delegation — the part most teams
-get wrong. Then forty-five minutes of mission, where you'll use every one of
-those four.
+each one earns its keep. Economics and routing — thirty-three minutes on tokens,
+generation, reuse, receipts and model choice. Context and delegation — nine
+minutes on bounded context and least privilege. That's seventy-seven teaching
+minutes, then forty-five minutes of mission. The module totals one hundred
+and twenty-two minutes. Native replays fit inside teaching, not extra media time.
 Pick the stop you most want cleared up. Hold onto it. That's your listening
 target. Nobody's reporting out.
 
@@ -168,28 +169,32 @@ layout: two-panel
 
 <div class="foundations-compact">
 
-- **One control center:** find the right work, start and steer agents, review progress, and land changes across repos — no tab-switching
-- **Parallel agent sessions:** each local session runs in an isolated git worktree; cloud sessions let agents keep working from anywhere
-- **Canvases:** turn agent work into shared, inspectable surfaces — plans, terminals, diffs, and previews visible in context
-- **My Work + Automations:** bring together issues, PRs, sessions, and repo context; turn repeatable prompts into scheduled tasks
-- **Agent Merge:** carries PRs through review, checks, and merge conditions so you stay focused on judgment and delivery
+- **One control center:** find the right work, start and steer agents, review progress, and land changes across repositories
+- **Parallel agent sessions:** local sessions use isolated Git worktrees; cloud sessions can continue away from the local machine
+- **Canvases:** keep plans, terminals, diffs, and previews visible with the work
+- **My Work + Automations:** organize issues, pull requests, sessions, repository context, and repeatable scheduled tasks
+- **Agent Merge:** GitHub documents this as a normal Copilot App workflow for taking pull requests through review, checks, and merge conditions; it is not separately labeled experimental or preview
 
 </div>
 
 ::visual::
-<img src="/images/copilot-app-synthesis.png" alt="Agent Mergewell synthesizing evidence from several configured work sources" />
+<div class="foundations-copilot-logo-stage">
+  <img src="/images/GitHub_Copilot_Lockup_Black_Clearspace.svg" alt="Official GitHub Copilot logo" />
+</div>
 
 <!--
 Timebox: 1 minute
 
-Talk track: The Copilot App is an agent-native desktop. One place to coordinate
-software work all the way toward a pull request.
-Local sessions run in isolated Git worktrees, so parallel agents don't collide with
-each other. Cloud sessions keep going after you close the lid. And canvases keep
-the plans, terminals, diffs, and previews inspectable instead of hidden.
-My Work, Automations, Agent Merge — those add coordination.
-What they don't do is replace access, policy, evidence, or your final review.
-Coordination is not approval.
+Talk track: The Copilot App is generally available as an agent-native desktop.
+It gives you one place to find work, start and steer agents, inspect progress,
+and land changes across repositories. Local sessions use isolated Git worktrees.
+Cloud sessions can continue away from your machine. Canvases keep plans,
+terminals, diffs, and previews with the work. My Work and Automations organize
+issues, pull requests, sessions, repository context, and repeatable tasks.
+GitHub documents Agent Merge as a normal App workflow for taking pull requests
+through review, checks, and merge conditions. That documentation does not make
+"Agent Merge is GA" our claim. Access, policy, evidence, and final review stay
+with the human. Coordination is not approval.
 Finish this sentence in your head. "I'd use the App for blank — after verifying
 blank." Five seconds. No report-out.
 
@@ -203,7 +208,7 @@ volunteers, connect their answer briefly to access, data scope, worktree isolati
 or acceptance evidence, then move on. Don't let a one-minute overview turn into a
 feature discussion.
 Payoff: Learners pair a possible App use with a control boundary without turning a one-minute overview into a feature discussion.
-Sources: workshop.md researchSources “GitHub Copilot app” and “GitHub Copilot app v1.1.5 release notes”; content/modules/01-foundations/slide-manifest.md row 4
+Sources: content/research/foundations-content-verification.md FND-01 and FND-15; content/modules/01-foundations/slide-manifest.md row 4
 -->
 
 ---
@@ -358,10 +363,10 @@ layout: two-panel
 # Enterprise Data and Policy Boundaries
 ::text::
 
-- Product behavior is not the same as organization policy
-- Plan and repository configuration affect available controls
-- Data handling and retention claims need the correct source
-- Do not infer a universal boundary across harnesses
+- What Copilot can do is not the same as what your organization allows
+- Your plan, organization settings, and repository settings can change which controls are available
+- Check the source for the surface you are using before making claims about data handling or retention
+- If a boundary is unclear, stop and ask the appropriate administrator
 
 ::visual::
 <img src="/images/enterprise-boundaries.png" alt="Purrmission guarding a clearly bounded enterprise data and policy perimeter" />
@@ -369,21 +374,15 @@ layout: two-panel
 <!--
 Timebox: 3 minutes
 
-Talk track: Now the part that gets teams in trouble.
-What the product can do and what your organization permits are two different
-things. Copilot being capable of something does not mean you're allowed to do it
-with your company's code.
-Privacy. Retention. Content exclusion. Data handling. All of it varies — by
-product, by plan, by repository configuration, by what your organization has
-actually turned on.
-So here's the trap, and I've watched smart teams walk into it.
-You verify a boundary in one harness. You get comfortable. And then you carry that
-comfort somewhere else. Verified in VS Code is not verified in the CLI. Verified in
-the CLI is not verified in the cloud. The assumption is where the incident comes
-from.
-Purrmission's rule here is short, and I'd like you to actually use it. When you
-don't know, you don't guess. You mark it for administrator confirmation, and you
-stop.
+Talk track: What Copilot can do and what your organization permits are different
+questions. Your plan, organization settings, and repository settings can change
+which controls are available. Always use the source for the surface you are
+actually using before making a data-handling or retention claim.
+Here is one plain example. A boundary verified for VS Code does not automatically
+apply to Copilot CLI. The source, settings, and available controls may differ.
+Do not carry a verified statement from one surface into another without checking.
+Purrmission's rule is short. When a boundary is unclear, stop and ask the
+appropriate administrator.
 Not knowing is fine. Assuming is not.
 Think about a surface you're considering for real work content. Which boundary
 would you want verified first?
@@ -411,7 +410,6 @@ layout: two-panel
 # Human Accountability for AI-Assisted Code
 ::text::
 
-- Generated output is draft material
 - Review security, quality, provenance, and policy
 - Keep acceptance responsibility with the developer and reviewer
 - Never treat model confidence as approval
@@ -422,10 +420,9 @@ layout: two-panel
 <!--
 Timebox: 2 minutes
 
-Talk track: Generated code is a draft. Not a deliverable. Not signed off.
-Copilot can help you implement and help you understand. But correctness, security,
-provenance, policy fit, and the decision to accept — those stay with the developer
-and the reviewer. They don't transfer.
+Talk track: What evidence is required before you accept AI-assisted code?
+Review security, quality, provenance, and policy. The decision to accept stays
+with the developer and reviewer. It does not transfer.
 And here's the one I want to land.
 A model can sound completely certain and be completely wrong. Confidence in the
 wording of a response is not evidence. It never becomes approval.
@@ -455,7 +452,6 @@ layout: two-panel
 - **Ask:** understand or explain without changing files
 - **Plan:** review sequence, tradeoffs, and acceptance criteria
 - **Agent:** constrained execution with explicit checkpoints
-- Escalate only when scope and rollback are clear
 
 ::visual::
 <div class="foundations-evidence-handoff">
@@ -560,46 +556,68 @@ Sources: content/modules/01-foundations/copilot-dev-foundations-workshop-part-1.
 -->
 
 ---
-layout: two-panel
+layout: none
+clicks: 9
 ---
 
-::title::
-# Tokens: What Enters the Model
-::text::
+<ManufacturingContextFunnel>
 
-- Prompt text and instructions
-- Referenced files, selections, and sources
-- Conversation history and tool results
-- Cached context when supported
+# Context Window: What Competes for Space
 
-::visual::
-<TokenInputHandoffFlow />
+</ManufacturingContextFunnel>
 
 <!--
 Timebox: 3 minutes
 
-Talk track: Here's something that surprises people. What you type is the small
-part.
-Your instructions go in. Referenced files and selections go in. The whole
-conversation history goes in. Tool results go in. And when the product and model
-support it, eligible cached context is accounted for separately.
-All of that is input. Every turn.
-Now, these are conceptual categories — I'm not drawing exact tokenizer boundaries,
-and you shouldn't either.
-The practical question is much simpler than the accounting. For each thing sitting
-in your context: does it still change the next decision? If it doesn't, it's not
-context. It's clutter.
-Picture a session you've had running for an hour. What would you cut first?
+Talk track: Which context category is easiest to forget when you estimate how
+much room a task needs? Watch what competes for the same space.
+This is a fictional production-reporting software scenario, not machine controls
+or customer data. The four-hundred-thousand-token caption is illustrative only.
+Actual capacity varies by model and surface. The vessel stays the same size.
 
-Transition: Inputs are only half the story. What comes back costs you too.
+Start with Instructions: Always add tests before changing shared code.
+The headline enters the glass and dissolves. The rule stays in context.
 
-Audience question: Looking at a long-running session, which input would you remove first if it no longer changes the decision?
+Now build the User prompts stack. First: Why is the production count off by
+twelve units? Next: Show me where that count is calculated. Then: Now fix
+reporting without changing the API.
+Each prompt gets its own click. The earlier prompts stay readable, a little
+softer, so you can follow one growing task. We don't repeat the big headline.
 
-Response guidance: Favor stale history, unrelated files, duplicate references, or
-obsolete tool output. Then turn it around and ask what they'd deliberately
-preserve — that's the harder half of the question.
-Payoff: Learners begin treating context as a curated engineering input instead of free background material.
-Sources: content/research/foundations-content-verification.md FND-08 and FND-12; content/modules/01-foundations/copilot-dev-foundations-workshop-part-2.md section 3
+References and files brings in the production-reporting module and its unit
+tests. The whole prompt stack fades from the reading area, but its contents
+stay in the funnel. Tool definitions and results brings in a test run: three
+failures in production reporting tests. Prior model output is an earlier
+answer: a patch for reporting you did not apply. It's already input now,
+not protected space for a new answer.
+
+Reserved output headroom is different. The model still needs room to answer.
+Watch the dashed boundary. This beat highlights empty space; it adds no input.
+A big window is not an invitation to fill it.
+
+Compact is the final action. Earlier user prompts compress into a summary.
+Instructions and references stay. Some fine detail is dropped.
+Compaction changes what we carry, not the size of the vessel.
+In Copilot CLI, `/context` inspects context consumption and `/compact` requests
+compaction. Those commands and CLI compaction thresholds are not universal
+controls across surfaces. Check your harness's supported behavior, then verify
+that the summary kept the constraints you need.
+
+Transition: Capacity tells you the limit. Next, Context Rot: Recognize the
+Signals shows when the context you're carrying has stopped being trustworthy.
+
+Audience question: Which context category is easiest to forget when you estimate how much room a task needs?
+
+Response guidance: If output headroom is missed, say, "The model still needs
+room to answer. That dashed region is reserved, not another input."
+If someone asks whether compaction keeps everything, say, "No. Instructions
+and references are retained in this illustration, but some fine detail is
+dropped. Verify the summary. The commands here are Copilot CLI commands."
+
+Payoff: You can distinguish accumulated inputs from reserved output room and
+explain why compaction frees space without making the context window bigger.
+
+Sources: content/research/foundations-content-verification.md FND-12; content/modules/01-foundations/copilot-dev-foundations-workshop-part-2.md section 4
 -->
 
 ---
@@ -607,87 +625,234 @@ layout: two-panel
 ---
 
 ::title::
-# Tokens: What Comes Back
+# Context Rot: Recognize the Signals
 ::text::
 
-- Output tokens form the response or proposed change
-- Longer output can increase spend and latency
-- More context can improve quality or add noise
-- Trim stale history before scaling a workflow
+- Contradictory suggestions
+- Repeatedly restating solved questions
+- Ignored constraints or stale references
+- Excessive hedging or loss of task focus
 
 ::visual::
-<img src="/images/token-output-tradeoff.png" alt="Agent Mergewell balancing useful generated output against latency and volume" />
+<img src="/images/context-drift.png" alt="Purrmission detecting contradiction, repetition, and stale evidence in a drifting work session" />
 
 <!--
 Timebox: 3 minutes
 
-Talk track: Output tokens are what comes back — the response, the explanation, the
-proposed change.
-Longer output costs you more usage and more waiting. So the obvious move is to
-demand brevity, right?
-Careful. Shorter is not automatically better.
-If trimming the response strips out the reasoning summary, or the account of which
-files changed, or the validation evidence — you didn't save anything. You just moved
-the work onto your reviewer, who now has to reconstruct it.
-What you actually want is right-sized. Enough to support a reliable decision.
-Nothing beyond that.
-So when is a longer response worth paying for?
+Talk track: Context rot is our workshop term for an observable pattern, not a
+product feature and not a window into hidden model state. Suggestions may
+contradict each other. Solved questions may return. Constraints may be ignored,
+references may go stale, and the session may lose task focus. Those signals do
+not diagnose the model. They tell you the active context is no longer trustworthy.
+Stop. Reset or re-scope before taking another action. Which signal have you seen
+first in a long session?
 
-Transition: GitHub turns all of this — models, tokens, usage — into one billing
-unit. Let's look at it.
+Transition: Once you reset or re-scope, a focused message shapes the next-word
+scores. Let's see that relationship directly.
 
-Audience question: When is a longer response worth the additional usage?
+Audience question: Which drift signal have you seen first in a long AI-assisted session?
 
-Response guidance: Accept answers tied to necessary evidence, genuine ambiguity,
-risk, or a complex comparison. Push back on any answer that treats length as a
-proxy for quality — that's the misconception this slide exists to break.
-Payoff: Learners distinguish concise communication from evidence-starved output before discussing AI credits.
-Sources: content/research/foundations-content-verification.md FND-08; content/modules/01-foundations/copilot-dev-foundations-workshop-part-2.md section 3
+Response guidance: Invite one brief, non-confidential example and map it to
+contradiction, repetition, ignored constraints, stale references, or lost focus.
+If the room is quiet, say, "When a constraint disappears, stop and re-scope."
+
+Payoff: Learners gain observable stop signals and a concrete reset response before examining prediction.
+
+Sources: content/modules/01-foundations/copilot-dev-foundations-workshop-part-2.md section 4; content/research/foundations-content-verification.md FND-12
 -->
 
 ---
-layout: two-panel
+layout: none
+---
+
+# How your message shapes the reply
+
+<NextTokenRailway />
+
+<!--
+Timebox: 2 minutes
+
+Talk track:
+Why would changing one word change the reply? We’re zooming in on one moment while the assistant is writing an answer. Your question is at the left. Its unfinished reply is at the right.
+
+Watch the whole message go in, not just “coffee.” These carriages show whole words for readability. Real tokens can be smaller; we aren’t measuring tokenization here. The reply so far goes into the calculation too.
+
+The model uses its learned settings to work with numbers and score possible next words. These are example numbers, not measured predictions. “Other words” groups the remaining choices. For both examples, we’ll choose the highest score. Here, that’s “mug.” Watch it join the assistant’s reply.
+
+Now change only “coffee” to “concrete.” Start with exactly the same unfinished reply. Keep the model and the choice rule the same. The scores change. Now “mold” comes out highest and joins the reply.
+
+The model didn’t learn something new between these answers. We changed the input. That changed the calculation, which changed which word scored highest.
+
+Transition:
+Those predictions produce usage evidence. Next, read the receipt without
+counting any category twice.
+
+Audience question:
+Why did the answer change if the model stayed the same?
+
+Response guidance:
+If needed, say: “Different input changes the calculation, not the learned settings.”
+
+Payoff:
+Same model. Different message. Different prediction. A likely continuation still isn’t a fact check.
+
+Sources:
+../message-comparison-scope-decision.json — scope-railway-message-comparison-v1.
+../message-comparison-contract-decision.json — contract-railway-message-comparison-v1.
+../first-still-brief.md — contextual/numeric teaching relationships only; old scene superseded.
+../../context-caching-proposal/learning-contracts.md — O1/O2: numeric representations and contextual processing.
+../../context-caching-proposal/source-verification.md — C1: governing contextual-processing sources.
+../first-image-gpt-v1/candidate-review.md — unchanged accepted artwork.
+./README.md — standalone title/count and proposed, unallocated timing; not a live manifest change.
+-->
+
+---
+layout: default
+class: cache-slide foundations-cache-walkthrough
+transition: none
+---
+
+# Same conversation. Different reuse.
+
+<FoundationCacheWalkthrough />
+
+<!--
+Timebox: 2 minutes
+
+Talk track: Which tokens are counted twice? None: cached input is a subset, not an extra input category. Press Play and follow Mergewell’s evidence bench. The first request has no reusable prefix. The next request keeps the eligible beginning and adds a fresh tail, including the prior answer and new request context. Watch the completed-turn ledger, not the excerpt length. These are rounded illustrative counts, not a tokenizer measurement. Now the simulated selector changes from Model A to Model B. The conversation remains. In this simulation, B cannot reuse A’s processing state. That is not evidence that A’s entry was deleted. Both example models use the same assumed rates so you can isolate reuse. The cumulative input is thirteen thousand one hundred, including four thousand cached tokens. The total simulated cost is 0.02420 dollars. Mergewell still reviews the work; a cheaper response is not a verified response.
+
+Transition: Now read a separate synthetic usage receipt. Its numbers are a different example, not a continuation of this ledger. Keep the same rule: reused input is already part of total input.
+
+Audience question: Does the model switch delete the conversation or prove Model A’s cache was deleted?
+
+Response guidance: If needed, say, “Neither. Text is retained, while B does not reuse A’s state in this simulation.”
+
+Payoff: You can reconcile cached and uncached input without double-counting and separate a model switch from deletion.
+
+Sources: content/modules/01-foundations/token-cache-cli-live.md; content/modules/01-foundations/token-cache-cli-motion/source.md; content/modules/01-foundations/context-caching.md
+-->
+
+---
+layout: single-panel
+class: foundations-receipt-slide
+transition: none
 ---
 
 ::title::
-# GitHub AI Credits
-::text::
-
-- AI credits are a usage-based billing unit in applicable plans
-- GitHub documents 1 AI credit as $0.01 USD
-- Credit treatment varies by plan and organization scope
-- Do not generalize allowances across every harness
-
-::visual::
-<img src="/images/ai-credit-ledger.png" alt="Purrmission verifying usage evidence in an abstract AI credit ledger" />
+# Read the Usage Receipt
+::content::
+<FoundationNative scene="E2" />
 
 <!--
 Timebox: 3 minutes
 
-Talk track: AI Credits are the usage-based billing unit for the applicable Copilot
-plans. Our reviewed source records GitHub's documented conversion — one credit,
-one US cent.
-That number is easy. The part that isn't easy is everything around it.
-Which interactions consume credits, which allowances apply to you, and who actually
-pays — all of that varies by plan and by organization scope. So don't take a
-colleague's answer and assume it's yours.
-Two habits to take away.
-Treat usage telemetry as evidence you plan with, not a scoreboard you react to.
-And before you scale anything high-frequency or agentic, check the budget and the
-policy first. A workflow that's fine once a day can look very different running
-every commit.
-So for your team — which budget or policy fact would you need confirmed first?
+Talk track: For B, are the eight thousand cache-read tokens extra on top of
+the twelve thousand input tokens? Start with that one question. The table
+gives us everything we need for the arithmetic.
 
-Transition: That's the meter. Next decision is which model route the work actually
-needs.
+These are synthetic counts, not performed calls, promised hits or counts of
+our short event question. The question stands for a larger host-assembled
+request. Do not pad a real request to create these numbers.
 
-Audience question: Before your team scales a Copilot workflow, which budget or policy fact must be confirmed?
+Read down A first. Two thousand ordinary input, zero cache read and eight
+thousand cache write make ten thousand total input. A write is not a hit.
+The five hundred generated output includes the one hundred reported reasoning.
 
-Response guidance: Invite answers about plan scope, organization budget, eligible
-features, usage ownership, or spending controls. Never ask anyone to disclose their
-account details or internal numbers in the room.
-Payoff: The question turns billing awareness into a pre-run control rather than a surprise after adoption.
-Sources: content/research/foundations-content-verification.md FND-08 and FND-09; content/modules/01-foundations/copilot-dev-foundations-workshop-part-2.md section 3
+Now B. Four thousand ordinary input plus eight thousand cache read plus zero
+write makes twelve thousand input. The eight thousand is already inside the
+twelve thousand. Adding it again would double-count it. B's six hundred output
+is separate from input and already includes the one hundred and fifty reasoning.
+Six hundred minus one hundred and fifty does not prove four hundred and fifty
+visible-text tokens. Other non-visible structure may count.
+
+The session column contains only A and B. Ten thousand plus twelve thousand
+is twenty-two thousand accumulated input. It does not mean the current
+window holds twenty-two thousand tokens. Reused material can be counted in
+more than one request. One human turn may also initiate several model
+requests as tools and the model continue working.
+
+Details keeps the request descriptions separate from this arithmetic.
+A is the event brief and supplies question. B is an eligible retained beginning
+plus new material. A second reference page explains provider normalization.
+An OpenAI-style total includes separately reported read and write subsets
+where present. A Claude-style ordinary input count needs its separate
+read and creation categories added once.
+
+Read the field meaning before comparing providers. A missing field means
+unknown, not zero. And count parent totals or their child turns, not both.
+The rule stays simple: each category once, with a named request or session scope.
+
+Transition: The receipt says some input work was reused. What exactly was
+reused—and why is it not the previous answer?
+
+Audience question: For B, are the 8,000 cache-read tokens extra on top of the 12,000 input tokens?
+
+Response guidance: Say, “No. Four thousand ordinary input plus eight thousand
+cache-read input equals twelve thousand total input. Add each input category
+once. The six hundred output tokens are separate, and already include the
+reported reasoning.” Use the displayed equation, not another example.
+
+Payoff: You can reconcile input and output categories before interpreting
+cost or comparing cumulative usage with a current-window gauge.
+
+Sources: content/modules/01-foundations/context-caching.md E2; content/production/context-caching-proposal/source-verification.md C3/C4, P5/P6/P7/P12/P13/P13a/S4
+-->
+
+---
+layout: single-panel
+class: foundations-reuse-slide
+transition: none
+---
+
+::title::
+# Reuse the Work, Not the Answer
+::content::
+<FoundationNative scene="N2" />
+
+<!--
+Timebox: 2 minutes
+
+Talk track: If the earlier brief is reused, must the volunteer answer be the
+old supplies answer? Look at what is retained and what is new.
+
+The left block contains the earlier supplied material: community event,
+outdoor, rain, one hundred guests, the supplies question, and an earlier
+illustrative response retained in the conversation.
+The right keeps all six items and appends, “What should we tell the volunteers?”
+The bracket refers to the whole earlier block, not just its response.
+
+The identical beginning of the supplied request is called the prefix.
+A service may reuse eligible earlier processing state for that beginning.
+It does not retrieve the previous answer as the new answer. New material
+still needs processing, and a new response is generated using earlier context.
+
+Our illustrative new response is not verified. It tells volunteers about an
+outdoor event planned for one hundred guests with rain expected. That excerpt
+is not a complete event safety plan or an observed model result.
+
+Common transformer systems reuse key/value processing state. That mechanism
+is not a promise about hosted retention. Old context still participates in
+new computation and still occupies context. This is not persistent memory,
+unlimited capacity or skipped meaning.
+
+An identical beginning alone does not guarantee a hit. Compatible model and
+serving conditions, eligible length and boundaries, retention and routing
+still matter. We do not claim a newly included earlier response was already
+cached by the earlier request.
+
+Transition: Now reset to independent requests. Compare changing only the final
+question with changing one early fact in the brief.
+
+Audience question: If the earlier brief is reused, must the volunteer answer be the old supplies answer?
+
+Response guidance: Say, “No. The reusable item is earlier processing state,
+not an answer. The new question still needs processing and a new response,
+using the earlier context.”
+
+Payoff: You can explain processing-state reuse without claiming saved-answer
+retrieval, a guaranteed hit or verified output.
+
+Sources: content/modules/01-foundations/context-caching.md N2; content/production/context-caching-proposal/learning-contracts.md section 11.2; content/production/context-caching-proposal/source-verification.md C2, P4/P5/P6
 -->
 
 ---
@@ -703,29 +868,57 @@ layout: single-panel
 <!--
 Timebox: 3 minutes
 
-Talk track: Follow the harness through two turns.
-First turn. Instructions, selected context, tool results, and your actual request
-all go in together. The response comes back as output usage. And an eligible
-unchanged prefix may be cached — but only when the provider, the model, the
-product, and the harness all support it. Four conditions, not one.
-Second turn. Now watch what stays separate. Cached input. Fresh input. Output.
-Three distinct observations. Mergewell compares those against the quality of what
-he actually got back, and then picks the route for the next turn.
-One honest caveat. Auto is a reasonable default. But neither this diagram nor any
-single run proves some model is universally cheapest. Anyone who tells you
-otherwise is generalizing from one sample.
-So what would you actually compare before changing route?
+Talk track: Would the lower-cost list be the better route if it forgot the
+guest count? Keep that question in mind during this twelve-second replay.
 
-Transition: That's the decision. The next slide gives you a workload-first way to
-make it.
+First, compose the task and context. Then compare the result and the usage
+evidence. Finally, the human chooses the next route. Mergewell makes that
+choice; a meter does not make it for him.
 
-Audience question: Which evidence would you compare before changing the model route for the next turn?
+The three usage bands are qualitative observations: fresh input, cached
+input and output. They are not an exhaustive billing receipt. The receipt
+and credit slides separate read and write categories so we can count them
+correctly. Do not add a fourth lane or infer missing values from this picture.
 
-Response guidance: Draw out task fit, result quality, latency, observed usage, cost
-indicators, and availability. Treat any single-metric answer as incomplete and ask
-what it would miss.
-Payoff: Learners connect routing to observed task evidence while keeping cache and Auto claims properly conditional.
-Sources: content/storyboards/foundations-visual-narrative/scenes/09-token-usage-summary.md; content/research/foundations-content-verification.md FND-08 and FND-10
+Now apply the decision to the event. Candidate A is a short list, missing
+the one-hundred-guest constraint. Candidate B is a list tied to the guest
+count, assumptions and open confirmations. These are qualitative samples,
+not model measurements or a ranking.
+
+A lower-cost result that misses a requirement does not win. Check whether
+the result addresses the task, makes assumptions visible and leaves enough
+evidence to review. Then compare latency and scoped usage. A fast or cheap
+run can be useful evidence without establishing a universal rule.
+
+Remember the previous two slides. Reuse concerns eligible earlier processing,
+not a saved answer. The first changed content affects the possible matching
+beginning, but an identical beginning does not guarantee a hit. Provider,
+model, product and harness support still matter. Stable useful context helps
+you reason about the request. Keeping wrong facts just to seek reuse does not.
+
+Auto may be a supported starting choice. It does not guarantee the cheapest
+successful result. Task fit, availability, supported model and policy, needed
+tools, quality and evidence all matter. A single run cannot settle that choice
+for every future task.
+
+So answer the opening question with the requirement first. The guest count
+is not decoration. A supplies list that ignores it needs correction, even
+if its receipt looks smaller. Possible reuse helps explain the receipt;
+it does not decide whether the answer is good.
+
+Transition: The workload guide gives you a starting route, not a permanent
+model league table.
+
+Audience question: Would the lower-cost list be the better route if it forgot the guest count?
+
+Response guidance: Say, “No. It missed a requirement. Compare task fit and
+reviewable quality alongside the scoped usage and latency. One cheap run
+is not a universal routing rule.”
+
+Payoff: You can use reuse and usage evidence without making them quality
+guarantees or automatic routing decisions.
+
+Sources: content/modules/01-foundations/context-caching.md T4; content/storyboards/foundations-visual-narrative/scenes/09-token-usage-summary.md; content/production/context-caching-proposal/source-verification.md C2/C3/C6, P5/P6/P14
 -->
 
 ---
@@ -766,8 +959,8 @@ there.
 Think about your week. Which row describes something you're doing in the next few
 days?
 
-Transition: A routing choice only means something if you can inspect the evidence
-from where the work ran.
+Transition: A workload route still needs a permission boundary. Next, separate
+model choice from what the delegated task is allowed to reach.
 
 Audience question: Which workload row best describes a task you expect to do this week?
 
@@ -776,329 +969,6 @@ realistic, not a wrong answer. Then ask what picker or availability check would
 confirm the final choice.
 Payoff: Learners practice workload-first selection without turning a changing model list into a universal ranking.
 Sources: content/modules/01-foundations/model-guide-contract.md; content/research/foundations-content-verification.md FND-10
--->
-
----
-layout: two-panel
----
-
-::title::
-# Usage by Harness: IDE and CLI
-::text::
-
-- IDE: inspect the current product usage view and model indicators
-- CLI: use the documented usage/context workflow for the installed version
-- Record the session, context, model, and observed result
-- Separate observed facts from assumptions
-
-::visual::
-<div class="foundations-diagram" role="img" aria-label="Usage evidence from IDE and CLI harnesses">
-  <strong>Session evidence</strong>
-  <span>IDE</span><span>CLI</span><span>Context</span><span>Model</span>
-</div>
-
-<!--
-Timebox: 3 minutes
-
-Talk track: IDE and CLI show you different things. Different context signals,
-different model indicators, different usage evidence.
-So before you interpret anything on screen, write down which harness you're in and
-which version is installed. Otherwise you're comparing two things that were never
-the same measurement.
-A useful session record has four parts. The context scope. The model or routing
-choice. Whatever usage or context signal you could actually see. And the result you
-got.
-Now the discipline that matters most, and it carries straight into your mission.
-Keep observation separate from inference.
-A CLI command existing does not make it a universal host feature. One fast run does
-not prove a general cost rule. You saw a thing. That's all you saw.
-Try it. Name one fact you can observe — and one conclusion that fact would not
-prove on its own.
-
-Transition: That separation gets even more important once evidence moves out into
-GitHub, cloud, and app workflows.
-
-Audience question: What is one fact you can observe in a harness, and what conclusion would that fact not prove by itself?
-
-Response guidance: Help participants phrase a narrow pair out loud, like "I
-observed this model name, but that doesn't prove it caused the result or the cost."
-The pairing is the skill — don't accept the observation without the limit.
-Payoff: Learners build the evidence discipline they will use again in the mission’s “does not prove” statement.
-Sources: content/research/foundations-content-verification.md FND-04, FND-05, and FND-11; content/modules/01-foundations/copilot-dev-foundations-workshop-part-2.md section 3
--->
-
----
-layout: two-panel
----
-
-::title::
-# Usage by Harness: GitHub, Cloud, and App
-::text::
-
-- GitHub.com: account and organization usage evidence
-- Cloud agent: repository task, branch, and pull-request evidence
-- Copilot App: configured sources and policy boundary
-- Use billing/settings for monthly totals and thresholds
-
-::visual::
-<img src="/images/github-cloud-app-usage-evidence.png" alt="GitHub, cloud, and app work surfaces contributing distinct evidence to an accountable record" />
-
-<!--
-Timebox: 3 minutes
-
-Talk track: Three sources, three different kinds of question.
-GitHub.com — your account and organization settings — answers money questions.
-Billing totals, thresholds, who's spending what.
-Cloud-agent work answers repository questions. It leaves a trail you can audit:
-branches, commits, pull requests, reviews.
-And the App has its own boundaries around configured sources and sessions.
-Here's the mistake to avoid. Don't go looking for an audit answer in a billing view
-and conclude the evidence doesn't exist. It exists — you're standing in the wrong
-place.
-So work backwards. Start with the question you actually need answered. Then pick
-the source that can answer it.
-Try the two: a team budget question, and a repository audit question. Where does
-each one send you?
-
-Transition: You can find the evidence. Now let's go inside the bounded context that
-every single interaction has to manage.
-
-Audience question: Which evidence source would you use for a team budget question, and which would you use for a repository audit question?
-
-Response guidance: Steer budget questions toward billing or Copilot settings, and
-audit questions toward repository, branch, pull-request, or session artifacts. If
-someone conflates the two, name the difference plainly rather than letting it pass.
-Payoff: Learners stop treating activity, billing, and repository evidence as interchangeable.
-Sources: content/research/foundations-content-verification.md FND-01, FND-07, and FND-11; content/modules/01-foundations/copilot-dev-foundations-workshop-part-2.md section 3
--->
-
----
-layout: two-panel
----
-
-::title::
-# Context Window: What Competes for Space
-::text::
-
-- Fixed token capacity varies by model
-- Instructions, messages, references, tools, and results compete for space
-- Response output also needs room in the bounded window
-- Selected supported models offer optional 1M-token context in VS Code and CLI
-
-::visual::
-<img src="/images/context-window-capacity.png" alt="A bounded context container where instructions, references, tools, results, and output compete for capacity" />
-
-<!--
-Timebox: 3 minutes
-
-Talk track: A context window is a container with a fixed size. And everything is
-sharing it.
-Your instructions. The conversation history. Every reference you've pulled in. Tool
-definitions and their results. And — the one people forget — the output. The model
-still needs room to write the answer.
-Capacity varies by model and by surface. Selected models can expose much larger
-context in VS Code and Copilot CLI, though availability and credit implications
-still apply.
-But here's the lesson, and it's the opposite of what a big number suggests.
-A bigger window is not an invitation to fill it. Your job is to protect room for
-the information that matters right now and the response you're waiting on.
-Which category do you think people forget when they estimate how much room a task
-needs?
-
-Transition: Capacity tells you the limit. Packing decides whether the useful signal
-survives inside it.
-
-Audience question: Which context category is easiest to forget when you estimate how much room a task needs?
-
-Response guidance: Surface instructions, tool definitions and results, conversation
-history, and output headroom — output headroom is the one that usually goes unsaid.
-Remind the group that `/context` is CLI-specific, not a universal control.
-Payoff: Learners see context as competing categories rather than an unlimited pile of files.
-Sources: content/research/foundations-content-verification.md FND-12; content/modules/01-foundations/copilot-dev-foundations-workshop-part-2.md section 4
--->
-
----
-layout: two-panel
----
-
-::title::
-# Context Packing: Keep the Signal
-::text::
-
-- Start with the smallest useful scope
-- **Clue Wrangler (custom skill):** return an explicit include/exclude manifest
-- **Case Condenser (custom skill):** create a verified handoff, not host compaction
-- In Copilot CLI, inspect `/context` and use `/compact` when appropriate
-
-::visual::
-<img src="/images/clue-wrangler-context-packing.png" alt="Agent Mergewell using Clue Wrangler to retain relevant evidence and exclude noise" />
-
-<!--
-Timebox: 3 minutes
-
-Talk track: Good packing starts in one place. The smallest scope that can support
-the decision in front of you. Then you add, deliberately, only if you need to.
-Two of Mergewell's gadgets help here.
-Clue Wrangler produces an explicit record — this is what I included, this is what I
-left out, and why.
-Case Condenser builds a verified handoff you can check.
-Be clear with your room about what these are. They're workshop-defined procedures.
-Ours. They are not GitHub product features, and they cannot see hidden model state.
-Nothing can.
-What is real and named: in Copilot CLI, `/context` and `/compact` are host
-controls. Every other surface, you handle according to its own current documented
-behavior.
-So take a task you're working on. What goes in on purpose — and what stays out on
-purpose?
-
-Transition: Even a well-packed session drifts over time. Next we need signals you
-can actually see.
-
-Audience question: For a current task, what would you deliberately include and what would you explicitly leave out?
-
-Response guidance: Ask for one include and one exclude, each tied to a decision.
-Reinforce that the exclusions — stale logs, unrelated files — are part of the
-evidence record, not just leftovers.
-Payoff: Learners practice context curation as an explicit, reviewable choice rather than an invisible optimization.
-Sources: content/modules/01-foundations/copilot-dev-foundations-workshop-part-2.md section 4; content/research/foundations-content-verification.md FND-12
--->
-
----
-layout: two-panel
----
-
-::title::
-# Context Rot: Recognize the Signals
-::text::
-
-- Contradictory suggestions
-- Repeatedly restating solved questions
-- Ignored constraints or stale references
-- Excessive hedging or loss of task focus
-
-::visual::
-<img src="/images/context-drift.png" alt="Purrmission detecting contradiction, repetition, and stale evidence in a drifting work session" />
-
-<!--
-Timebox: 3 minutes
-
-Talk track: Context rot. That's our term for it — a workshop term, not a product
-feature, and not a window into hidden model state. We named it because the pattern
-is real and people need a handle for it.
-Here's what it looks like from the outside.
-The suggestions start contradicting each other. Questions you already settled come
-back around. Constraints you stated get quietly ignored. References point at things
-that aren't true anymore. And the whole session slowly loses the plot.
-None of that tells you what's happening inside the model. What it tells you is that
-your active context can't be trusted right now.
-And Purrmission's instruction at that moment is simple. Stop. Because the next
-action taken on drifting context is how a small problem becomes a wide one.
-Which of those signals have you hit first in a long session?
-
-Transition: Once trust is gone, piling on more instructions is weaker than
-resetting and re-anchoring.
-
-Audience question: Which drift signal have you seen first in a long AI-assisted session?
-
-Response guidance: Invite brief, non-confidential examples and map each one back to
-contradiction, repetition, ignored constraints, stale references, or lost focus.
-Keep examples generic — no customer or employer detail.
-Payoff: Learners gain observable stop signals instead of blaming the model vaguely or continuing on unreliable context.
-Sources: content/modules/01-foundations/copilot-dev-foundations-workshop-part-2.md section 4; content/research/foundations-content-verification.md FND-12
--->
-
----
-layout: two-panel
----
-
-::title::
-# Context Recovery: Reset and Re-anchor
-::text::
-
-- Stop when the active context is no longer trustworthy
-- In Copilot CLI, `/compact` summarizes; start fresh when needed
-- **Fresh Lead (custom skill):** package current objective, references, and constraints
-- Validate the new response against the original objective
-
-::visual::
-<img src="/images/fresh-lead-context-recovery.png" alt="Agent Mergewell using Fresh Lead to re-anchor a task with current objectives and verified references" />
-
-<!--
-Timebox: 3 minutes
-
-Talk track: When a session has drifted, the instinct is to write a better prompt. A
-longer one. A more careful one.
-That's the wrong move. You're building on a foundation you already stopped
-trusting.
-Recovery means getting back to a starting point you trust.
-Fresh Lead is our handoff procedure for that. It packages what you actually need to
-carry forward — the current objective, verified references, constraints,
-repository state, and how you'll validate. And to be clear about what it isn't: it
-can't reset a product session by itself. You do that part.
-You've got two options, and they're not equivalent. CLI `/compact` summarizes and
-keeps going — convenient, but you will lose fine detail. A fresh session with a
-deliberate handoff costs more effort and gives you a clean floor.
-When the old context is genuinely untrusted, take the clean floor.
-So what's the minimum you'd carry across?
-
-Transition: The next slide puts all three together — packing, drift, recovery — in
-one lifecycle.
-
-Audience question: What is the minimum evidence you would carry into a fresh session so the task can continue safely?
-
-Response guidance: Build the answer around current objective, repository state,
-essential references, constraints, open questions, and validation. If someone wants
-to bring the old conversation history along, ask what decision it would change.
-
-Payoff: Learners leave with a concrete recovery packet rather than the vague instruction to “start over.”
-Sources: content/modules/01-foundations/copilot-dev-foundations-workshop-part-2.md section 4; content/research/foundations-content-verification.md FND-12
--->
-
----
-layout: single-panel
----
-
-::title::
-# Context Lifecycle: Pack, Detect Drift, Recover
-::content::
-
-<WorkshopVideo
-  src="../assets/videos/foundations/context-window-lifecycle.mp4"
-  poster="/images/context-lifecycle-static-plate.png"
-  label="Context lifecycle video showing context packing, drift detection, and recovery"
-  :autoplay="false"
-  :loop="false"
-  :muted="false"
-  controls
-/>
-
-<!--
-Timebox: 5 minutes
-
-Talk track: I'm going to play this once, straight through, with its own audio.
-Before I start it — here's what to watch for.
-There's a moment where stale and duplicate evidence starts crowding out the actual
-request. And the board isn't full. That's the point. Drift arrives well before you
-run out of room.
-Watch who does the work, too. Mergewell prunes what's no longer relevant. Mergewell
-moves the old history into the archive rather than deleting it. Mergewell re-anchors
-the objective, the essential evidence, the constraints, and the validation.
-Not Purrmission. Not the software. Him.
-And treat the whole sequence as a metaphor for deliberate human maintenance. It is
-not automatic recovery, and it's not a view into hidden model state.
-Watch for the signal where he should have stopped adding and started recovering.
-
-Transition: Recovery restores your focus. Least privilege limits what that focused
-task can actually touch.
-
-Audience question: At what visible signal should Mergewell have stopped adding context and begun recovery?
-
-Response guidance: After playback, take one or two answers tied to the stale knot
-obscuring the request, the duplicate evidence, or a degrading focus signal. If
-someone answers "when it got full," gently correct it — fullness was never the
-trigger.
-Payoff: The audience names the causal stop point in a full pack-to-recovery sequence instead of remembering isolated tips.
-Sources: content/storyboards/foundations-visual-narrative/scenes/10-context-lifecycle-summary.md; content/modules/01-foundations/media/context-window-lifecycle-provenance.md; content/research/foundations-content-verification.md FND-12
 -->
 
 ---
@@ -1133,8 +1003,8 @@ diff you can actually read. And a recovery path that makes sense, because the
 damage was bounded by design.
 So — one-file change. What would you deliberately withhold?
 
-Transition: Surfaces, context, evidence, permissions. You've got what you need. The
-mission's next.
+Transition: Surfaces, context, evidence, and permissions are in place. One brief
+demo cue, then the mission starts.
 
 Audience question: For a one-file change, which permission or tool would you explicitly withhold?
 
@@ -1160,14 +1030,14 @@ Timebox: 0 minutes
 
 Talk track: Demo.
 
-Transition: We are ready to move from the recap into the mission work.
+Transition: We are ready to move into the mission work.
 
 Audience question: Are we ready to move from the recap into the mission?
 
 Response guidance: Keep it brief and move on. If the room hesitates, say, "We have the idea; now we test it in the mission."
 
 Payoff: Learners get a clear handoff cue before the final mission begins.
-Sources: content/modules/01-foundations/slide-manifest.md row 24; content/modules/01-foundations/module.md
+Sources: content/modules/01-foundations/slide-manifest.md row 19; content/modules/01-foundations/module.md
 -->
 
 ---
@@ -1233,298 +1103,3 @@ completing the mission.
 Payoff: Every participant begins with a declared tool and evidence target, and the resulting case file creates the cross-module handoff.
 Sources: content/missions/foundations/context-and-prompts.md; content/production/foundations-mission-scavenger-hunt-contract.md
 -->
-
-<style>
-:global(.foundations-vscode-visual) {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-:global(.foundations-title-brand) {
-  display: flex;
-  min-height: 0;
-  margin-top: auto;
-  align-items: center;
-  gap: 0.72rem;
-}
-
-:global(.foundations-title-brand__wordmark) {
-  display: inline-flex;
-  align-items: center;
-  color: #228B4B;
-  font-size: clamp(1.2rem, 1.8vw, 2rem);
-  font-weight: 800;
-  letter-spacing: 0.02em;
-}
-
-:global(.foundations-title-brand img) {
-  width: min(18rem, 72%) !important;
-  height: auto !important;
-  max-height: 7rem !important;
-  object-fit: contain;
-  object-position: left bottom;
-}
-
-:global(.foundations-vscode-mark) {
-  position: absolute;
-  top: 7%;
-  right: 9%;
-  width: 18% !important;
-  height: auto !important;
-  padding: 1.1rem;
-  border-radius: 1rem;
-  background: #fffaf0;
-  box-sizing: border-box;
-  object-fit: contain;
-}
-
-:global(.foundations-diagram) {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-  width: 82%;
-  padding: 2rem;
-  border: 2px solid #d0d7de;
-  border-radius: 1rem;
-  color: #1f2328;
-  background: #f6f8fa;
-  text-align: center;
-}
-
-:global(.foundations-diagram strong) {
-  grid-column: 1 / -1;
-  color: #8250df;
-  font-size: 1.35rem;
-}
-
-:global(.foundations-diagram span) {
-  padding: 0.8rem;
-  border-radius: 0.6rem;
-  background: #ffffff;
-}
-
-:global(.foundations-review-placeholder) {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.72rem;
-  width: 100%;
-  height: 100%;
-  border-radius: 1rem;
-  border: 2px dashed rgba(31, 136, 61, 0.48);
-  color: #1f2328;
-  background:
-    radial-gradient(circle at 82% 18%, rgba(130, 80, 223, 0.12), transparent 28%),
-    linear-gradient(145deg, #fffaf0, #f3f8f4);
-  text-align: center;
-}
-
-:global(.foundations-review-placeholder > span) {
-  padding: 0.42rem 0.72rem;
-  border-radius: 999px;
-  color: #1a7f37;
-  background: rgba(255,255,255,.86);
-  border: 1px solid rgba(31, 136, 61, 0.32);
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-:global(.foundations-review-placeholder strong) {
-  max-width: 82%;
-  font-size: 1.45rem;
-  line-height: 1.08;
-}
-
-:global(.foundations-review-placeholder p) {
-  max-width: 80%;
-  margin: 0;
-  color: #3b434d;
-  font-size: .86rem;
-  font-weight: 680;
-  line-height: 1.3;
-}
-
-:global(.foundations-review-placeholder small) {
-  max-width: 78%;
-  color: #6e40c9;
-  font-size: .64rem;
-  font-weight: 650;
-}
-
-:global(.foundations-agent-ladder__labels) {
-  display: flex;
-  justify-content: space-between;
-  gap: 0.5rem;
-  width: 80%;
-}
-
-:global(.foundations-agent-ladder__labels span) {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  padding: 0.42rem 0.7rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(31, 35, 40, 0.14);
-  color: #1f2328;
-  font-size: 0.66rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-:global(.foundations-evidence-handoff) {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-:global(.foundations-evidence-handoff img) {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-:global(.foundations-evidence-handoff__label) {
-  position: absolute;
-  top: 46.5%;
-  left: 53.5%;
-  transform: translate(-50%, -50%) rotate(11deg);
-  padding: 0.24rem 0.48rem;
-  border: 1px solid rgba(31, 35, 40, 0.2);
-  border-radius: 0.3rem;
-  color: #1f2328;
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 0.15rem 0.4rem rgba(31, 35, 40, 0.14);
-  font-size: 0.58rem;
-  font-weight: 760;
-  letter-spacing: 0.01em;
-  white-space: nowrap;
-}
-
-:global(.foundations-surface-choice) {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-:global(.foundations-surface-choice img) {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-:global(.foundations-surface-choice__labels) {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-:global(.foundations-surface-choice__labels span) {
-  position: absolute;
-  padding: 0.22rem 0.45rem;
-  border: 1px solid rgba(31, 136, 61, 0.3);
-  border-radius: 999px;
-  color: #1f2328;
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 0.12rem 0.35rem rgba(31, 35, 40, 0.12);
-  font-size: 0.52rem;
-  font-weight: 760;
-  white-space: nowrap;
-}
-
-:global(.foundations-surface-choice__labels span:nth-child(1)) {
-  top: 28%;
-  left: 6%;
-}
-
-:global(.foundations-surface-choice__labels span:nth-child(2)) {
-  top: 10%;
-  left: 47%;
-}
-
-:global(.foundations-surface-choice__labels span:nth-child(3)) {
-  top: 28%;
-  right: 3%;
-}
-
-:global(.foundations-surface-choice__labels span:nth-child(4)) {
-  bottom: 7%;
-  left: 42%;
-}
-
-:global(.ghcp-two-panel__text .foundations-compact li) {
-  margin: 0.22rem 0;
-  font-size: calc(0.92rem * var(--ghcp-panel-scale));
-  line-height: 1.2;
-}
-
-:global(.ghcp-two-panel__text .foundations-agenda) {
-  height: 100%;
-  min-height: 0;
-  padding: 0.25rem 0.35rem 0.25rem 0;
-}
-
-:global(.ghcp-two-panel__text .foundations-agenda ul) {
-  display: grid;
-  grid-template-rows: repeat(5, minmax(0, 1fr));
-  gap: 0;
-  height: 100%;
-  margin: 0;
-  padding-left: 1.2rem;
-}
-
-:global(.ghcp-two-panel__text .foundations-agenda li) {
-  display: flex;
-  align-items: center;
-  margin: 0;
-  padding: 0.42rem 0.1rem;
-  border-bottom: 1px solid rgba(84, 94, 108, 0.18);
-  font-size: calc(0.94rem * var(--ghcp-panel-scale));
-  line-height: 1.32;
-  text-align: left;
-}
-
-:global(.ghcp-two-panel__text .foundations-agenda li:last-child) {
-  border-bottom: 0;
-}
-
-:global(.foundations-model-guide) {
-  display: grid;
-  grid-template-rows: auto auto;
-  gap: 0.5rem;
-  height: auto;
-}
-
-:global(.foundations-model-guide table) {
-  margin: 0;
-  table-layout: fixed;
-  font-size: calc(0.82rem * var(--ghcp-content-scale));
-  line-height: 1.18;
-}
-
-:global(.foundations-model-guide th:first-child),
-:global(.foundations-model-guide td:first-child) {
-  width: 38%;
-}
-
-:global(.foundations-model-guide th),
-:global(.foundations-model-guide td) {
-  padding: calc(0.3rem * var(--ghcp-content-scale)) calc(0.6rem * var(--ghcp-content-scale));
-  vertical-align: middle;
-}
-
-:global(.foundations-model-guide .ghcp-callout) {
-  margin-top: 0;
-  padding: 0.34rem 0.68rem;
-  font-size: calc(0.66rem * var(--ghcp-content-scale));
-  line-height: 1.22;
-}
-
-</style>

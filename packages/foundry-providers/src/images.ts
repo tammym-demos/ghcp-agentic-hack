@@ -3,7 +3,8 @@ import type {
   GeneratedImage,
   ImageGenerationRequest,
   ImageProvider,
-  ImageProviderName
+  ImageProviderName,
+  MaiImageProviderName
 } from "./types.js";
 
 interface OpenAiImageResponse {
@@ -90,13 +91,17 @@ export class FluxImageProvider extends OpenAiCompatibleImageProvider {
 }
 
 export class MaiImageProvider implements ImageProvider {
-  readonly name = "mai-image-2.5" as const;
+  readonly name: MaiImageProviderName;
   private readonly endpoint = requiredEnvironment("FOUNDRY_MAI_IMAGE_ENDPOINT");
   private readonly deployment = requiredEnvironment("FOUNDRY_MAI_IMAGE_DEPLOYMENT");
 
+  constructor(name: MaiImageProviderName = "mai-image-2.5") {
+    this.name = name;
+  }
+
   async generate(request: ImageGenerationRequest): Promise<GeneratedImage> {
     if (request.outputFormat !== "png") {
-      throw new Error("mai-image-2.5 currently supports PNG output only");
+      throw new Error(`${this.name} currently supports PNG output only`);
     }
 
     const body = createMaiImageRequestBody(request, this.deployment);
@@ -111,7 +116,7 @@ export class MaiImageProvider implements ImageProvider {
     );
     const image = response.data[0];
     if (!image?.b64_json) {
-      throw new Error("mai-image-2.5 returned no image bytes");
+      throw new Error(`${this.name} returned no image bytes`);
     }
 
     return {

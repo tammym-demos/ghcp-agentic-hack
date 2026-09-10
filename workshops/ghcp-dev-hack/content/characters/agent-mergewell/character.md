@@ -6,7 +6,7 @@ title: Agent Mergewell
 description: A humorous but credible human field agent and engineering detective who orchestrates software agents and deploys skill gadgets.
 visualTraits:
   - Mid-length charcoal technical coat with subtle GitHub-green seam accents and a compact shoulder tool pod
-  - Thick rectangular glasses, wild Einstein-inspired inventor hair silhouette with dark-to-silver tones, expressive eyebrows, short neat evenly distributed dark-to-silver stubble, and an endearing goofy smile in a modern 2D editorial cartoon style
+  - Thick rectangular glasses, wild Einstein-inspired inventor hair silhouette with dark-to-silver tones, expressive eyebrows, short neat evenly distributed dark-to-silver stubble, and an endearing eccentric smile in a modern 2D editorial cartoon style
   - Light tan skin tone with stable short neat stubble appropriate to an adult field agent, rendered consistently across scenes
   - Concealed modular mechanisms in his coat, wrist, forearm, and shoulder rig that deploy a distinct mechanical gadget only when he invokes a skill
   - Software-agent conversation panels that remain visually separate from his deployed skill gadgets
@@ -67,7 +67,7 @@ Agent Mergewell speaks like a veteran field detective who is also slightly distr
 - Compact shoulder tool pod with modular attachments, plus a minimal utility belt
 - Mostly concealed mechanical deployment points at wrist, forearm, shoulder, and coat; one task-specific gadget appears when a skill is invoked
 - External software-agent presences remain visually separate and represent collaborators he can question, plan with, or delegate to
-- Thick rectangular glasses, wild Einstein-inspired inventor hair silhouette with dark-to-silver tones, light tan skin tone, expressive face, short neat evenly distributed dark-to-silver stubble appropriate to an adult field agent, and a warm goofy demeanor
+- Thick rectangular glasses, wild Einstein-inspired inventor hair silhouette with dark-to-silver tones, light tan skin tone, expressive face, short neat evenly distributed dark-to-silver stubble appropriate to an adult field agent, and a warm eccentric demeanor
 - Often accompanied by Purrmission, a sleek black cat teammate who appears during clue review and verification beats
 
 ## Canon image set (for continuity)
@@ -92,7 +92,7 @@ None of these skills can inspect hidden model state, tokenize content, resize a 
 ## Prompt block for image/video generation
 Use this style block in prompts:
 
-> Human-centered 2D editorial cartoon on clean soft off-white background, original human field-agent character Agent Mergewell, an investigative human rather than a software agent, mid-length charcoal technical coat with green seam accents, compact concealed mechanical tool rig, thick rectangular glasses, wild Einstein-inspired inventor hair silhouette with dark-to-silver tones, light tan skin tone, short neat evenly distributed dark-to-silver stubble appropriate to an adult field agent, one task-specific mechanical skill gadget deploying from his coat, wrist, forearm, or shoulder while other mechanisms remain concealed, endearing goofy professor-inventor demeanor, clean rounded outlines, flat color with minimal shadows, restrained palette (off-white, neutral gray, GitHub green accents, Copilot purple accents), clear negative space, no logos, no mascots.
+> Human-centered 2D editorial cartoon on clean soft off-white background, original human field-agent character Agent Mergewell, an investigative human rather than a software agent, mid-length charcoal technical coat with green seam accents, compact concealed mechanical tool rig, thick rectangular glasses, wild Einstein-inspired inventor hair silhouette with dark-to-silver tones, light tan skin tone, short neat evenly distributed dark-to-silver stubble appropriate to an adult field agent, one task-specific mechanical skill gadget deploying from his coat, wrist, forearm, or shoulder while other mechanisms remain concealed, endearing eccentric professor-inventor demeanor, clean rounded outlines, flat color with minimal shadows, restrained palette (off-white, neutral gray, GitHub green accents, Copilot purple accents), clear negative space, no logos, no mascots.
 
 When needed, append:
 

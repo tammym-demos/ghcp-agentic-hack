@@ -1,0 +1,68 @@
+name: Publish leaderboard artifact
+
+on:
+  issues:
+    types:
+      - opened
+      - edited
+      - labeled
+      - unlabeled
+      - reopened
+      - closed
+  workflow_dispatch:
+  schedule:
+    # Roll the board over to a new event shortly after midnight in America/New_York,
+    # so a new hack starts on an empty board before its first submission arrives.
+    - cron: '10 5 * * *'
+
+permissions:
+  contents: read
+  issues: read
+
+concurrency:
+  group: leaderboard-publish
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: read
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Set up Node.js 22
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 22
+      - name: Build sanitized leaderboard site
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_API_URL: ${{ github.api_url }}
+        run: node src/build-leaderboard.mjs --config leaderboard.config.json --out site
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e

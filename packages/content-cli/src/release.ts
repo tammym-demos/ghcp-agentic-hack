@@ -1,5 +1,7 @@
+import os from "node:os";
 import path from "node:path";
 import { execFile } from "node:child_process";
+import { mkdtemp, rm } from "node:fs/promises";
 import { promisify } from "node:util";
 import fsExtra from "fs-extra";
 import matter from "gray-matter";
@@ -12,6 +14,7 @@ import {
 import { gitSnapshot } from "./lifecycle.js";
 import { createPortalCatalog } from "./catalog.js";
 import { repositoryRoot } from "./paths.js";
+import { assertPinnedEntry, publicExportPlan, publicPackageScripts } from "./public-export.js";
 
 const { copy, ensureDir, pathExists, readFile, readdir, writeFile, writeJson } = fsExtra;
 const execFileAsync = promisify(execFile);
@@ -19,15 +22,58 @@ const execFileAsync = promisify(execFile);
 export async function loadReleaseManifest(
   manifestOption: string,
   root = repositoryRoot
-): Promise<{ filePath: string; manifest: ReleaseManifest }> {
+): Promise<{
+  filePath: string;
+  manifest: ReleaseManifest;
+  body: string;
+  raw: string;
+  data: Record<string, unknown>;
+}> {
   const filePath = path.resolve(root, manifestOption);
   const relative = path.relative(root, filePath);
   if (relative.startsWith("..") || path.isAbsolute(relative)) {
     throw new Error("Release manifest must remain inside the repository");
   }
   if (!(await pathExists(filePath))) throw new Error(`Release manifest does not exist: ${manifestOption}`);
-  const parsed = matter(await readFile(filePath, "utf8"));
-  return { filePath, manifest: releaseManifestSchema.parse(parsed.data) };
+  const raw = await readFile(filePath, "utf8");
+  const parsed = matter(raw);
+  return {
+    filePath,
+    manifest: releaseManifestSchema.parse(parsed.data),
+    body: parsed.content,
+    raw,
+    data: parsed.data as Record<string, unknown>
+  };
+}
+
+/**
+ * Confirms the manifest itself is committed. Content equivalence is guaranteed structurally by the
+ * pinned worktree, but the manifest is deliberately read from the checkout, so an uncommitted edit to
+ * it could otherwise redirect a release to a different commit or module set than the one reviewed.
+ * Unrelated working-tree changes remain allowed; only the manifest must be clean.
+ */
+async function assertManifestCommitted(root: string, filePath: string): Promise<void> {
+  const relative = path.relative(root, filePath).split(path.sep).join("/");
+  const { stdout } = await execFileAsync("git", ["status", "--porcelain", "--", relative], {
+    cwd: root
+  });
+  if (stdout.trim()) {
+    throw new Error(
+      `Release manifest ${relative} has uncommitted changes. Commit the manifest so the promoted release matches the reviewed one.`
+    );
+  }
+}
+
+async function writeReleaseManifest(
+  filePath: string,
+  manifest: ReleaseManifest,
+  body: string,
+  originalData: Record<string, unknown> = {}
+): Promise<void> {
+  // Merging over the original frontmatter keeps fields the schema does not model, which would
+  // otherwise be silently dropped on every approval or deployment write.
+  const merged = { ...originalData, ...releaseManifestSchema.parse(manifest) };
+  await writeFile(filePath, matter.stringify(body, merged), "utf8");
 }
 
 export function filterCatalogForRelease(
@@ -74,14 +120,12 @@ export async function validateApprovedRelease(
   manifestOption: string,
   root = repositoryRoot
 ): Promise<ReleaseManifest> {
-  const { filePath, manifest } = await loadReleaseManifest(manifestOption, root);
+  const { manifest, filePath } = await loadReleaseManifest(manifestOption, root);
   if (manifest.status !== "approved" && manifest.status !== "deploying" && manifest.status !== "verified") {
     throw new Error(`Release manifest must be approved before deployment, received ${manifest.status}`);
   }
+  await assertManifestCommitted(root, filePath);
   const snapshot = await gitSnapshot(root);
-  if (snapshot.dirtyFiles.length > 0) {
-    throw new Error("Release validation requires a clean worktree");
-  }
   try {
     await execFileAsync("git", ["merge-base", "--is-ancestor", manifest.commit, snapshot.commit], {
       cwd: root
@@ -89,23 +133,44 @@ export async function validateApprovedRelease(
   } catch {
     throw new Error(`Release content commit ${manifest.commit} is not an ancestor of ${snapshot.commit}`);
   }
-  const { stdout } = await execFileAsync(
-    "git",
-    ["diff", "--name-only", `${manifest.commit}..${snapshot.commit}`],
-    { cwd: root }
-  );
-  const manifestPath = path.relative(root, filePath).split(path.sep).join("/");
-  const changedPaths = stdout
-    .split(/\r?\n/)
-    .map((entry) => entry.trim())
-    .filter(Boolean);
-  const contentChanges = changedPaths.filter((entry) => entry !== manifestPath);
-  if (contentChanges.length > 0) {
-    throw new Error(
-      `Release content changed after reviewed commit ${manifest.commit}: ${contentChanges.join(", ")}`
-    );
-  }
   return manifest;
+}
+
+/**
+ * Checks the approved commit out into a throwaway detached worktree so an export reads exactly the
+ * reviewed content. This replaces an earlier working-tree export that had to reject every unrelated
+ * change between the manifest commit and HEAD to prove the same equivalence.
+ */
+async function withManifestWorktree<T>(
+  root: string,
+  commit: string,
+  run: (sourceRoot: string) => Promise<T>
+): Promise<T> {
+  const container = await mkdtemp(path.join(os.tmpdir(), "ghcp-release-source-"));
+  const sourceRoot = path.join(container, "source");
+  let registered = false;
+  try {
+    await execFileAsync("git", ["worktree", "add", "--detach", sourceRoot, commit], { cwd: root });
+    registered = true;
+    // Git LFS pointers are checked out as pointer files when the worktree skips the smudge filter.
+    try {
+      await execFileAsync("git", ["lfs", "checkout"], { cwd: sourceRoot });
+    } catch {
+      // A repository or runner without Git LFS still exports every ordinary file correctly.
+    }
+    return await run(sourceRoot);
+  } finally {
+    if (registered) {
+      // Leaving stale metadata behind would make later worktree adds at the same path fail, so a
+      // failed remove is repaired with a prune rather than ignored.
+      try {
+        await execFileAsync("git", ["worktree", "remove", "--force", sourceRoot], { cwd: root });
+      } catch {
+        await execFileAsync("git", ["worktree", "prune"], { cwd: root }).catch(() => undefined);
+      }
+    }
+    await rm(container, { recursive: true, force: true });
+  }
 }
 
 export async function prepareRelease(
@@ -171,7 +236,8 @@ async function copyPath(source: string, destination: string): Promise<void> {
   await copy(source, destination, {
     filter: (candidate) => {
       const name = path.basename(candidate);
-      return name !== "node_modules" && name !== "dist" && name !== ".vite" && name !== ".slidev";
+      return name !== "node_modules" && name !== "dist" && name !== ".vite" && name !== ".slidev" &&
+        name !== "private-tests";
     }
   });
 }
@@ -218,116 +284,153 @@ export async function exportPublicRelease(
   }
 
   const manifest = await validateApprovedRelease(manifestOption, root);
-  const completeCatalog = await loadCatalog(root);
-  const catalog = filterCatalogForRelease(completeCatalog, manifest);
+  // Captured once, alongside validation, so the bytes copied into the export are provably the same
+  // bytes that selected the commit and module set.
+  const { raw: manifestRaw } = await loadReleaseManifest(manifestOption, root);
 
-  for (const relativePath of PUBLIC_WORKSPACE_PATHS) {
-    await copyRequiredPath(path.join(root, relativePath), path.join(output, relativePath));
-  }
-  await copyRequiredPath(
-    path.join(root, ".github", "public-release", "pages.yml"),
-    path.join(output, ".github", "workflows", "pages.yml")
-  );
-  await copyRequiredPath(
-    path.join(root, ".github", "public-release", "README.md"),
-    path.join(output, "README.md")
-  );
-
-  for (const entry of catalog.workshops) {
-    const outputWorkshopRoot = path.join(output, "workshops", entry.workshop.data.id);
-    await ensureDir(outputWorkshopRoot);
-    const {
-      lifecycleVersion: _lifecycleVersion,
-      totalMinutes: _totalMinutes,
-      schedule: _schedule,
-      runOfShow: _runOfShow,
-      ...publicWorkshopData
-    } = entry.workshop.data;
-    const publicWorkshop = JSON.parse(JSON.stringify(publicWorkshopData));
-    await writeFile(
-      path.join(outputWorkshopRoot, "workshop.md"),
-      matter.stringify(entry.workshop.body, publicWorkshop),
-      "utf8"
-    );
-
-    const copied = new Set<string>();
-    const copyDependency = async (relativePath: string) => {
-      const normalized = relativePath.split(path.sep).join("/");
-      if (copied.has(normalized)) return;
-      copied.add(normalized);
-      await copyWorkshopPath(entry.root, outputWorkshopRoot, normalized);
-    };
-
-    for (const module of entry.modules) {
-      await copyDependency(path.relative(entry.root, module.filePath));
-      const references = [
-        module.data.slides,
-        ...module.data.sourceDocuments,
-        ...(module.data.generation ? [module.data.generation.manifest] : []),
-        ...module.data.labs,
-        ...module.data.missions,
-        ...module.data.assets
-      ];
-      for (const reference of references) await copyDependency(reference);
-      const slideStyle = path.posix.join(path.posix.dirname(module.data.slides), "style.css");
-      if (await pathExists(path.resolve(entry.root, slideStyle))) await copyDependency(slideStyle);
-      for (const asset of module.data.assets) {
-        const sidecarPath = path.resolve(entry.root, `${asset}.json`);
-        if (!(await pathExists(sidecarPath))) continue;
-        const sidecar = JSON.parse(await readFile(sidecarPath, "utf8")) as { source?: unknown };
-        if (typeof sidecar.source === "string") await copyDependency(sidecar.source);
-      }
-
-      const modulePublic = path.join(path.dirname(module.filePath), "public");
-      if (await pathExists(modulePublic)) {
-        const relativePublic = path.relative(entry.root, modulePublic);
-        await copyPath(modulePublic, path.join(outputWorkshopRoot, relativePublic));
-      }
+  return withManifestWorktree(root, manifest.commit, async (sourceRoot) => {
+    const completeCatalog = await loadCatalog(sourceRoot);
+    const catalog = filterCatalogForRelease(completeCatalog, manifest);
+    const publicPlan = await publicExportPlan(sourceRoot, catalog);
+    for (const file of [".github/public-release/pages.yml", ".github/public-release/README.md"]) {
+      await assertPinnedEntry(sourceRoot, file);
     }
 
-    const selectedSourcePaths = new Set(
-      entry.modules.flatMap((module) =>
-        module.data.sourceDocuments.map((item) => pathKey(path.resolve(entry.root, item)))
-      )
+    for (const relativePath of PUBLIC_WORKSPACE_PATHS) {
+      await copyRequiredPath(path.join(sourceRoot, relativePath), path.join(output, relativePath));
+    }
+    await copyRequiredPath(
+      path.join(sourceRoot, ".github", "public-release", "pages.yml"),
+      path.join(output, ".github", "workflows", "pages.yml")
     );
-    for (const storyboard of entry.storyboards.filter((item) => selectedSourcePaths.has(pathKey(item.filePath)))) {
-      for (const scenePath of storyboard.data.scenes) await copyDependency(scenePath);
-      for (const characterPath of storyboard.data.characters) {
-        await copyDependency(characterPath);
-        const characterPathKey = pathKey(path.resolve(entry.root, characterPath));
-        const character = entry.characters.find((item) => pathKey(item.filePath) === characterPathKey);
-        if (character) {
-          for (const referenceImage of character.data.referenceImages) await copyDependency(referenceImage);
+    await copyRequiredPath(
+      path.join(sourceRoot, ".github", "public-release", "README.md"),
+      path.join(output, "README.md")
+    );
+    if (publicPlan) {
+      await copyRequiredPath(
+        path.join(sourceRoot, ".github", "public-release", "export-files.json"),
+        path.join(output, ".github", "public-release", "export-files.json")
+      );
+      for (const file of publicPlan.files) {
+        await copyRequiredPath(path.join(sourceRoot, file), path.join(output, file));
+      }
+      const packagePath = path.join(output, "package.json");
+      const publicPackage = JSON.parse(await readFile(packagePath, "utf8"));
+      publicPackage.scripts = publicPackageScripts(publicPackage.scripts ?? {}, publicPlan.tests);
+      await writeJson(packagePath, publicPackage, { spaces: 2 });
+    }
+
+    for (const entry of catalog.workshops) {
+      const outputWorkshopRoot = path.join(output, "workshops", entry.workshop.data.id);
+      await ensureDir(outputWorkshopRoot);
+      const {
+        lifecycleVersion: _lifecycleVersion,
+        totalMinutes: _totalMinutes,
+        schedule: _schedule,
+        runOfShow: _runOfShow,
+        ...publicWorkshopData
+      } = entry.workshop.data;
+      const publicWorkshop = JSON.parse(JSON.stringify(publicWorkshopData));
+      await writeFile(
+        path.join(outputWorkshopRoot, "workshop.md"),
+        matter.stringify(entry.workshop.body, publicWorkshop),
+        "utf8"
+      );
+
+      const copied = new Set<string>();
+      const copyDependency = async (relativePath: string) => {
+        const normalized = relativePath.split(path.sep).join("/");
+        if (copied.has(normalized)) return;
+        copied.add(normalized);
+        await copyWorkshopPath(entry.root, outputWorkshopRoot, normalized);
+      };
+
+      for (const module of entry.modules) {
+        await copyDependency(path.relative(entry.root, module.filePath));
+        const references = [
+          module.data.slides,
+          ...module.data.sourceDocuments,
+          ...(module.data.generation ? [module.data.generation.manifest] : []),
+          ...module.data.labs,
+          ...module.data.missions,
+          ...module.data.assets
+        ];
+        for (const reference of references) await copyDependency(reference);
+        const slideStyle = path.posix.join(path.posix.dirname(module.data.slides), "style.css");
+        if (await pathExists(path.resolve(entry.root, slideStyle))) await copyDependency(slideStyle);
+        for (const asset of module.data.assets) {
+          const sidecarPath = path.resolve(entry.root, `${asset}.json`);
+          if (!(await pathExists(sidecarPath))) continue;
+          const sidecar = JSON.parse(await readFile(sidecarPath, "utf8")) as { source?: unknown };
+          if (typeof sidecar.source === "string") await copyDependency(sidecar.source);
+        }
+
+        const modulePublic = path.join(path.dirname(module.filePath), "public");
+        if (await pathExists(modulePublic)) {
+          const relativePublic = path.relative(entry.root, modulePublic);
+          await copyPath(modulePublic, path.join(outputWorkshopRoot, relativePublic));
+        }
+      }
+
+      const selectedSourcePaths = new Set(
+        entry.modules.flatMap((module) =>
+          module.data.sourceDocuments.map((item) => pathKey(path.resolve(entry.root, item)))
+        )
+      );
+      for (const storyboard of entry.storyboards.filter((item) =>
+        selectedSourcePaths.has(pathKey(item.filePath))
+      )) {
+        for (const scenePath of storyboard.data.scenes) await copyDependency(scenePath);
+        for (const characterPath of storyboard.data.characters) {
+          await copyDependency(characterPath);
+          const characterPathKey = pathKey(path.resolve(entry.root, characterPath));
+          const character = entry.characters.find((item) => pathKey(item.filePath) === characterPathKey);
+          if (character) {
+            for (const referenceImage of character.data.referenceImages) await copyDependency(referenceImage);
+          }
         }
       }
     }
-  }
 
-  const manifestRelative = path.relative(root, path.resolve(root, manifestOption));
-  await copyPath(path.resolve(root, manifestOption), path.join(output, manifestRelative));
-  await ensureDir(path.join(output, "apps", "portal", "src"));
-  await writeJson(
-    path.join(output, "apps", "portal", "src", "catalog.json"),
-    createPortalCatalog(catalog),
-    { spaces: 2 }
-  );
-  await writeJson(
-    path.join(output, "release-provenance.json"),
-    { releaseId: manifest.id, sourceCommit: manifest.commit, workshops: manifest.workshops.map((selection) => selection.id) },
-    { spaces: 2 }
-  );
-  await loadCatalog(output);
-  return output;
+    // The manifest is read from the checkout because approval is normally recorded after the
+    // reviewed content commit and therefore does not exist inside the pinned worktree. It is
+    // required to be committed and unmodified, so this is not a working-tree escape hatch.
+    const manifestRelative = path.relative(root, path.resolve(root, manifestOption));
+    const manifestTarget = path.join(output, manifestRelative);
+    await ensureDir(path.dirname(manifestTarget));
+    await writeFile(manifestTarget, manifestRaw, "utf8");
+    await ensureDir(path.join(output, "apps", "portal", "src"));
+    await writeJson(
+      path.join(output, "apps", "portal", "src", "catalog.json"),
+      createPortalCatalog(catalog),
+      { spaces: 2 }
+    );
+    await writeJson(
+      path.join(output, "release-provenance.json"),
+      {
+        releaseId: manifest.id,
+        sourceCommit: manifest.commit,
+        workshops: manifest.workshops.map((selection) => selection.id)
+      },
+      { spaces: 2 }
+    );
+    await loadCatalog(output);
+    return output;
+  });
 }
 
 export async function verifyReleaseRoutes(
   manifestOption: string,
   siteUrl: string,
-  catalog: ContentCatalog,
+  catalog?: ContentCatalog,
   root = repositoryRoot
 ): Promise<string[]> {
   const manifest = await validateApprovedRelease(manifestOption, root);
-  const selected = filterCatalogForRelease(catalog, manifest);
+  // Routes must describe the approved content, so the catalog defaults to the pinned commit.
+  const releaseCatalog =
+    catalog ?? (await withManifestWorktree(root, manifest.commit, (sourceRoot) => loadCatalog(sourceRoot)));
+  const selected = filterCatalogForRelease(releaseCatalog, manifest);
   const base = siteUrl.endsWith("/") ? siteUrl : `${siteUrl}/`;
   const routes = [
     base,
@@ -360,4 +463,154 @@ export async function validateRollbackTarget(
   }
   await validateApprovedRelease(manifestOption, root);
   return manifest;
+}
+
+/**
+ * Records the workshop owner's approval on an existing draft so preparation and approval can share
+ * one branch and one pull request. The decision itself remains a human decision; this only writes
+ * down who made it and when.
+ */
+export async function approveRelease(
+  manifestOption: string,
+  approver: string,
+  root = repositoryRoot,
+  now = new Date()
+): Promise<ReleaseManifest> {
+  if (!approver.trim()) throw new Error("Release approval requires an approver name");
+  const { filePath, manifest, body, data } = await loadReleaseManifest(manifestOption, root);
+  if (manifest.status !== "draft") {
+    throw new Error(`Only a draft release can be approved, received ${manifest.status}`);
+  }
+  const snapshot = await gitSnapshot(root);
+  try {
+    await execFileAsync("git", ["merge-base", "--is-ancestor", manifest.commit, snapshot.commit], {
+      cwd: root
+    });
+  } catch {
+    throw new Error(`Release content commit ${manifest.commit} is not an ancestor of ${snapshot.commit}`);
+  }
+  const approved: ReleaseManifest = {
+    ...manifest,
+    status: "approved",
+    approvedBy: approver.trim(),
+    approvedAt: now.toISOString()
+  };
+  await writeReleaseManifest(filePath, approved, body, data);
+  return approved;
+}
+
+/**
+ * Resolves the newest manifest so the promotion workflow and the dispatch command do not depend on a
+ * hand-typed path. Selecting the newest manifest overall, rather than the newest one that happens to
+ * hold the wanted status, prevents silently promoting a superseded release. The expected status is a
+ * parameter because promotion wants the newest to be `approved` while verification, which runs after
+ * deployment state is written back, wants it to be `deploying`.
+ */
+export async function resolveLatestManifest(
+  root = repositoryRoot,
+  expectedStatus: ReleaseManifest["status"] = "approved"
+): Promise<string> {
+  const releasesRoot = path.join(root, "releases");
+  if (!(await pathExists(releasesRoot))) throw new Error("No releases directory exists");
+  const candidates: { relativePath: string; createdAt: string; status: string }[] = [];
+  for (const entry of await readdir(releasesRoot)) {
+    if (!entry.endsWith(".md")) continue;
+    const relativePath = `releases/${entry}`;
+    let loaded;
+    try {
+      loaded = await loadReleaseManifest(relativePath, root);
+    } catch (error) {
+      // Silently skipping a malformed manifest could hide the newest release and promote an older
+      // one in its place, so an unreadable file is a hard failure.
+      throw new Error(
+        `Release manifest ${relativePath} could not be read: ${error instanceof Error ? error.message : String(error)}`
+      );
+    }
+    candidates.push({
+      relativePath,
+      // Ordering is by creation only. Mixing in approvedAt would rank a late-approved older release
+      // above a newer draft and defeat the "newest must hold the expected status" guard below.
+      createdAt: loaded.manifest.createdAt,
+      status: loaded.manifest.status
+    });
+  }
+  if (candidates.length === 0) throw new Error("No release manifest is available");
+  candidates.sort(
+    (left, right) =>
+      right.createdAt.localeCompare(left.createdAt) ||
+      right.relativePath.localeCompare(left.relativePath)
+  );
+  const newest = candidates[0]!;
+  if (newest.status !== expectedStatus) {
+    throw new Error(
+      `The newest release manifest ${newest.relativePath} is ${newest.status}, not ${expectedStatus}. Prepare and approve a new manifest, or pass an explicit manifest path.`
+    );
+  }
+  return newest.relativePath;
+}
+
+export async function resolveLatestApprovedManifest(root = repositoryRoot): Promise<string> {
+  return resolveLatestManifest(root, "approved");
+}
+
+export async function recordReleaseDeployment(
+  manifestOption: string,
+  url: string,
+  root = repositoryRoot,
+  now = new Date()
+): Promise<ReleaseManifest> {
+  const { filePath, manifest, body, data } = await loadReleaseManifest(manifestOption, root);
+  if (manifest.status !== "approved" && manifest.status !== "deploying") {
+    throw new Error(`Only an approved release can be deployed, received ${manifest.status}`);
+  }
+  const deploying: ReleaseManifest = {
+    ...manifest,
+    status: "deploying",
+    deployment: { url, deployedAt: now.toISOString() }
+  };
+  await writeReleaseManifest(filePath, deploying, body, data);
+  return deploying;
+}
+
+export async function recordReleaseVerification(
+  manifestOption: string,
+  root = repositoryRoot,
+  now = new Date()
+): Promise<ReleaseManifest> {
+  const { filePath, manifest, body, data } = await loadReleaseManifest(manifestOption, root);
+  if (!manifest.deployment) {
+    throw new Error("Release verification requires a recorded deployment");
+  }
+  if (manifest.status !== "deploying" && manifest.status !== "verified") {
+    throw new Error(`Only a deploying release can be verified, received ${manifest.status}`);
+  }
+  const verified: ReleaseManifest = {
+    ...manifest,
+    status: "verified",
+    deployment: { ...manifest.deployment, verifiedAt: now.toISOString() }
+  };
+  await writeReleaseManifest(filePath, verified, body, data);
+  return verified;
+}
+
+/**
+ * Dispatches the manual public promotion so the manifest path is never transcribed by hand.
+ */
+export async function dispatchPublicPromotion(
+  manifestOption: string,
+  root = repositoryRoot
+): Promise<void> {
+  await execFileAsync(
+    "gh",
+    [
+      "workflow",
+      "run",
+      "promote-public.yml",
+      "--ref",
+      "main",
+      "--field",
+      `release_manifest=${manifestOption}`
+    ],
+    { cwd: root }
+  );
 }

@@ -109,6 +109,7 @@ phase: idea
 sessionStatus: active
 activeTracks: []
 currentInitiative: workshop-scaffolding
+contextRefs: []
 currentOwner: Workshop Production Coordinator
 nextOwner: Human
 nextHumanGate: Scope approval
@@ -129,7 +130,7 @@ updatedAt: ${now.toISOString()}
 
 # ${title} Production State
 
-This file is the durable current-state contract. Update it through the lifecycle commands and record decision history separately.
+This file is the concise current-state contract. Keep decision history in the decision log and link exact initiative preflight sections through contextRefs. No work envelope is approved by scaffolding.
 `
   );
   await createExclusive(
@@ -137,6 +138,7 @@ This file is the durable current-state contract. Update it through the lifecycle
     `# ${title} Decision Log
 
 Record explicit human decisions, superseded baselines, gate outcomes, and reopen reasons in chronological order.
+Use the structured production-decision format in docs/production-action-controls.md for new CLI-controlled actions. Record each actual human decision once; never backfill historical consent.
 `
   );
   await createExclusive(
@@ -177,6 +179,8 @@ Use this artifact for initiative preflights and post-module process reviews. Kee
 
 - Initiative:
 - Learner outcome:
+- Participant-visible deliverable and non-substitutable visual requirement:
+- First uncertainty and smallest representative proof:
 - Acceptance signals:
 - Authoritative files and one writer per file:
 - Risk tier and reasons:

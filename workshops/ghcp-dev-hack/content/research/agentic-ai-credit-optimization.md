@@ -1,5 +1,18 @@
 # Agentic AI-Credit Optimization — Approved and Incorporated
 
+## Scoped incorporation — 2026-09-07
+
+`content/modules/02-agentic/context-caching-source.md` T8 and the approved
+`content/production/context-caching-proposal/source-verification.md`
+C3/C6/X3/X4/S2/S5/S9 qualify the older source snapshot below.
+Larger capacity does not prove it was filled. Auto's discount depends on the
+documented paid plan and supported surface, not a cheapest-result promise.
+Configuration changes may affect the actual supplied request; they do not
+prove a full cache miss, changed weights/hardware or cache deletion.
+Correct wrong requirements and remove unsafe access regardless of reuse.
+Historical title/count/timing and controls-image prose below are not the
+current 30-slide/81+45-minute native-only T8 contract.
+
 - **Initiative:** `agentic-module-development`
 - **Workshop:** `ghcp-dev-hack`
 - **Module:** `02-agentic`
@@ -113,10 +126,13 @@ every task.
 - **Observable evidence:** In CLI, compare `/context` before and after
   compaction; across surfaces, inspect the resulting usage and whether the new
   response still satisfies the task.
-- **Limitations:** `/compact` and `/context` are CLI-specific. A new session must
-  be re-anchored with necessary facts, and cache behavior means fewer visible
-  context tokens do not imply a fixed credit reduction.
-- **Source claim:** CREDIT-06 (SRC-01, SRC-02)
+- **Limitations:** CLI documents `/context` and `/compact`. VS Code also
+  documents automatic compaction and manual `/compact` or Compact Conversation
+  in supported local, background and Claude agent sessions. Check the chosen
+  host/version and verify needed facts after compaction. A new session needs
+  those facts again; fewer visible tokens do not imply a fixed credit reduction.
+- **Source claim:** CREDIT-06 (SRC-01, SRC-02); September 7 proposal register
+  S2/P13a/X4. This is documentation evidence, not an installed-host test.
 
 ### May reduce unnecessary agent work but not proven to reduce credits
 

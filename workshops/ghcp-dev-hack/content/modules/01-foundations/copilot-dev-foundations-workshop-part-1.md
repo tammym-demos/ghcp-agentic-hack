@@ -34,7 +34,7 @@
 > - Control slide layout deliberately so content stays readable and structured on-slide.
 > - Generate visual imagery that directly represents the slide wording and reinforces its meaning.
 
-**Duration**: 2 hours (120 min: 75 min verified presentation + 45 min Agent Mergewell mission play)
+**Duration**: 2 hours 2 minutes (122 min: 77 min instruction + 45 min Agent Mergewell mission play)
 **Format**: Presentation + Hands-On
 **Audience**: Software engineers and technical leads — any Copilot experience level
 **Prerequisites**: VS Code, GitHub Copilot extension, GitHub Copilot CLI
@@ -112,7 +112,7 @@ Use Ask for understanding, Plan for reviews before edits, and Agent only when sc
 
 ### Current slide 10 delivery handoff — `Built in Agents` (20 minutes)
 
-For the current approved 24-slide generated deck, slide 10 consolidates this
+For the current approved 27-slide generated deck, slide 10 consolidates this
 section's explanation, demonstration, and comparison into one runnable
 20-minute instruction block. The current manifest's count, title, and timing
 remain authoritative over the older Part 1 packet decomposition. Do not change

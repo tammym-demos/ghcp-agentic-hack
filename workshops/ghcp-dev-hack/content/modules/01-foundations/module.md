@@ -6,13 +6,13 @@ title: Foundations
 description: >-
   Build a durable mental model for daily GitHub Copilot use — surfaces, safety,
   interaction modes, cost awareness, context hygiene, and delegation discipline.
-duration: 2 hours
-totalMinutes: 120
+duration: 2 hours 2 minutes
+totalMinutes: 122
 timing:
-  instructionMinutes: 74
+  instructionMinutes: 77
   missionMinutes: 45
   discussionMinutes: 0
-  mediaPlaybackMinutes: 1
+  mediaPlaybackMinutes: 0
   setupAndTransitionsMinutes: 0
   breaksMinutes: 0
   contingencyMinutes: 0
@@ -32,22 +32,22 @@ objectives:
     to agentic patterns
 prerequisites: []
 sourceDocuments:
+  - content/modules/01-foundations/token-cache-cli-live.md
+  - content/modules/01-foundations/token-cache-cli-motion/source.md
+  - content/modules/01-foundations/context-caching.md
   - content/modules/01-foundations/copilot-dev-foundations-workshop-part-1.md
   - content/modules/01-foundations/copilot-dev-foundations-workshop-part-2.md
   - content/modules/01-foundations/complex-topics.md
   - content/modules/01-foundations/model-guide-contract.md
-  - content/modules/01-foundations/media/context-window-lifecycle-provenance.md
   - content/missions/foundations/context-and-prompts.md
   - content/production/foundations-mission-scavenger-hunt-contract.md
   - content/research/foundations-content-verification.md
   - content/storyboards/foundations-visual-narrative/storyboard.md
   - >-
     content/storyboards/foundations-visual-narrative/scenes/09-token-usage-summary.md
-  - >-
-    content/storyboards/foundations-visual-narrative/scenes/10-context-lifecycle-summary.md
 slides: content/modules/01-foundations/slides.md
 generation:
-  expectedSlides: 25
+  expectedSlides: 21
   manifest: content/modules/01-foundations/slide-manifest.md
   imageProvider: mai-image-2.5
   visualStyle: >-
@@ -60,6 +60,8 @@ labs: []
 missions:
   - content/missions/foundations/context-and-prompts.md
 assets:
+  - assets/brand/github/GitHub_Lockup_Black_Clearspace.svg
+  - assets/brand/github/GitHub_Copilot_Lockup_Black_Clearspace.svg
   - assets/brand/microsoft/microsoft-logo.png
   - assets/brand/vscode/code-stable.png
   - assets/images/foundations/foundation-welcome.png
@@ -69,26 +71,19 @@ assets:
   - assets/images/foundations/copilot-surface-benefits.png
   - assets/images/foundations/copilot-surfaces-riley-human-lock-v2.png
   - assets/images/foundations/copilot-surfaces-harness-choice-human-lock-v3.png
-  - assets/images/foundations/copilot-app-synthesis.png
   - assets/images/foundations/copilot-harness.png
   - assets/images/foundations/vscode-grounding.png
   - assets/images/foundations/cli-controlled-action.png
+  - assets/images/foundations/cli-controlled-action.png.json
   - assets/images/foundations/enterprise-boundaries.png
   - assets/images/foundations/human-accountability.png
   - assets/images/foundations/interaction-autonomy.png
-  - assets/images/foundations/token-input-handoff.png
-  - assets/images/foundations/token-output-tradeoff.png
-  - assets/images/foundations/ai-credit-ledger.png
+  - assets/images/foundations/railway-message-comparison-v1.png
+  - assets/images/foundations/railway-message-comparison-v1.png.json
   - assets/images/foundations/model-routing-evidence.png
   - assets/images/foundations/model-routing-static-plate.png
-  - assets/images/foundations/github-cloud-app-usage-evidence.png
-  - assets/images/foundations/context-window-capacity.png
-  - assets/images/foundations/clue-wrangler-context-packing.png
   - assets/images/foundations/context-drift.png
-  - assets/images/foundations/fresh-lead-context-recovery.png
-  - assets/images/foundations/context-lifecycle-static-plate.png
-  - assets/video-manifests/foundations/context-window-lifecycle.json
-  - assets/videos/foundations/context-window-lifecycle.mp4
+  - assets/images/foundations/foundations-context-funnel-wider-neck-v2.png
   - assets/images/foundations/least-privilege-key.png
   - assets/images/foundations/mission-readiness.png
   - assets/images/foundations/context-map.svg
@@ -108,4 +103,39 @@ status: review
 
 Use this module first for audiences that are new to GitHub Copilot or need a common baseline.
 
-Module structure: 74 minutes of instruction plus one minute of media playback across four sections, followed by 45 minutes of Agent Mergewell mission play. Slide count follows clarity rather than a fixed cap; the Missions artifact provides the detailed harness setup, clues, evidence, safety checkpoints, and debriefs.
+Module schedule: 77 minutes of intended instruction across four sections,
+followed by 45 minutes of Agent Mergewell mission play: 122 minutes total.
+The current 21 visible slides allocate 58 teaching minutes and 45 mission
+minutes. The remaining 19 minutes of the intended economics/additions budget
+are explicitly temporary and unallocated; they are not redistributed to the
+visible slides. Native replays are included in the allocated teaching time;
+media playback is zero. The Missions artifact retains the detailed harness
+setup, clues, evidence, safety checkpoints, and debriefs.
+
+Slide 11 production adoption (owner authorization 2026-09-07; formerly 23):
+`ManufacturingContextFunnel` reuses the exact approved wider-neck raster and
+corrected nine-click native proof. The local full-canvas typography exception
+uses Franklin Gothic Demi Cond and Bahnschrift with existing sans-serif
+fallbacks; no font files are distributed and no global theme font changes.
+See `media/reviews/2026-09-07-production-adoption.md` for production-shaped
+evidence. Its three-minute timebox, exact notes, geometry and nine clicks
+remain unchanged. The approved context/caching contract supersedes the former
+109-minute slide sum and 120-minute declaration. Shared workshop timing is
+coordinator-owned and is not edited here.
+
+The owner-approved `How your message shapes the reply` integration is slide 13.
+It uses the accepted 960×540 seven-stage native component without changing its
+teaching text, controls, reduced-motion behavior, geometry, or timing. The
+published raster and provenance sidecar are maintained at
+`assets/images/foundations/railway-message-comparison-v1.png` and
+`.png.json`; its exact approved prompt is retained module-locally so the
+sidecar source is portable. The build-safe public copy preserves the exact
+raster bytes.
+Publication authorization is `publication-railway-message-comparison-v2`.
+Historical approved assets and production evidence remain in the repository
+even when no longer declared by this 21-slide deck.
+
+Slide 14 reuses the existing two-minute standalone CLI walkthrough through
+`FoundationCacheWalkthrough`, with the same component, sequence and approved
+art bytes. See `token-cache-cli-live.md` for source, reuse, timing and the
+unchanged font limitation. Causes stays standalone; no media is generated.

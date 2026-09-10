@@ -8,9 +8,9 @@ colorSchema: light
 mdc: true
 ---
 
-<div class="advanced-brand-row">
-  <img src="/images/microsoft-logo.png" alt="Microsoft" class="advanced-microsoft-logo" />
-  <span class="advanced-github-text">GitHub</span>
+<div class="workshop-cover-logos" aria-label="GitHub and Microsoft">
+  <img class="workshop-cover-logos__github" src="/images/GitHub_Lockup_Black_Clearspace.svg" alt="GitHub" />
+  <img class="workshop-cover-logos__microsoft" src="/images/microsoft-logo.png" alt="Microsoft" />
 </div>
 
 <div class="advanced-kicker">GitHub Copilot · Advanced workflows</div>

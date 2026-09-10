@@ -6,7 +6,7 @@ status: draft
 kind: workshop
 description: 'Build practical GitHub Copilot skills through progressive, hands-on modules.'
 format: one-day
-duration: 7 hours
+duration: 7 hours 8 minutes
 defaultDeliveryVariant: one-day
 deliveryVariants:
   - id: one-day
@@ -18,7 +18,7 @@ deliveryVariants:
       - id: day-one
         title: GitHub Workshop
         start: '09:00'
-        end: '16:00'
+        end: '16:08'
         agenda:
           - id: executive-kickoff
             type: kickoff
@@ -31,71 +31,71 @@ deliveryVariants:
               Foundations: Copilot surfaces, safety, interaction modes, cost,
               and context
             start: '09:15'
-            end: '10:30'
+            end: '10:32'
             module: foundations
           - id: morning-break
             type: break
             title: Break
-            start: '10:30'
-            end: '10:45'
+            start: '10:32'
+            end: '10:47'
           - id: foundations-mission
             type: mission
             title: 'Mission: Apply context, prompting, and least-privilege practices'
-            start: '10:45'
-            end: '11:30'
+            start: '10:47'
+            end: '11:32'
             module: foundations
           - id: agentic-content-one
             type: module-content
             title: >-
               Agentic Development: Instructions, memory, context, prompts,
               agents, skills, and tools
-            start: '11:30'
-            end: '12:00'
+            start: '11:32'
+            end: '12:03'
             module: agentic
           - id: lunch
             type: lunch
             title: Lunch
-            start: '12:00'
-            end: '12:45'
+            start: '12:03'
+            end: '12:48'
           - id: agentic-content-two
             type: module-content
             title: >-
               Agentic Development: Observable loops, repository checkpoints,
               cloud agents, optimization, AI-credit controls, and human
               acceptance
-            start: '12:45'
-            end: '13:30'
+            start: '12:48'
+            end: '13:38'
             module: agentic
           - id: agentic-mission
             type: mission
             title: 'Mission: Delegate and verify a bounded agent task'
-            start: '13:30'
-            end: '14:15'
+            start: '13:38'
+            end: '14:23'
             module: agentic
           - id: advanced-content-one
             type: module-content
             title: >-
               Advanced Workflows: Multiagent orchestration and trusted
               integrations
-            start: '14:15'
-            end: '15:00'
+            start: '14:23'
+            end: '15:08'
             module: advanced
           - id: afternoon-break
             type: break
             title: Break
-            start: '15:00'
-            end: '15:15'
+            start: '15:08'
+            end: '15:23'
           - id: advanced-content-two
             type: module-content
             title: 'Advanced Workflows: Debugging evidence, deployment, and operations'
-            start: '15:15'
-            end: '15:30'
+            start: '15:23'
+            end: '15:38'
             module: advanced
           - id: advanced-mission
             type: mission
             title: 'Mission: Orchestrate, integrate, and debug with evidence'
-            start: '15:30'
-            end: '16:00'
+            start: '15:38'
+            end: '16:08'
             module: advanced
   - id: two-day
     title: GHCP Hack (2 Day)
@@ -106,7 +106,7 @@ deliveryVariants:
       - id: day-one
         title: GitHub Workshop
         start: '09:00'
-        end: '16:00'
+        end: '16:08'
         agenda:
           - id: executive-kickoff
             type: kickoff
@@ -119,71 +119,71 @@ deliveryVariants:
               Foundations: Copilot surfaces, safety, interaction modes, cost,
               and context
             start: '09:15'
-            end: '10:30'
+            end: '10:32'
             module: foundations
           - id: morning-break
             type: break
             title: Break
-            start: '10:30'
-            end: '10:45'
+            start: '10:32'
+            end: '10:47'
           - id: foundations-mission
             type: mission
             title: 'Mission: Apply context, prompting, and least-privilege practices'
-            start: '10:45'
-            end: '11:30'
+            start: '10:47'
+            end: '11:32'
             module: foundations
           - id: agentic-content-one
             type: module-content
             title: >-
               Agentic Development: Instructions, memory, context, prompts,
               agents, skills, and tools
-            start: '11:30'
-            end: '12:00'
+            start: '11:32'
+            end: '12:03'
             module: agentic
           - id: lunch
             type: lunch
             title: Lunch
-            start: '12:00'
-            end: '12:45'
+            start: '12:03'
+            end: '12:48'
           - id: agentic-content-two
             type: module-content
             title: >-
               Agentic Development: Observable loops, repository checkpoints,
               cloud agents, optimization, AI-credit controls, and human
               acceptance
-            start: '12:45'
-            end: '13:30'
+            start: '12:48'
+            end: '13:38'
             module: agentic
           - id: agentic-mission
             type: mission
             title: 'Mission: Delegate and verify a bounded agent task'
-            start: '13:30'
-            end: '14:15'
+            start: '13:38'
+            end: '14:23'
             module: agentic
           - id: advanced-content-one
             type: module-content
             title: >-
               Advanced Workflows: Multiagent orchestration and trusted
               integrations
-            start: '14:15'
-            end: '15:00'
+            start: '14:23'
+            end: '15:08'
             module: advanced
           - id: afternoon-break
             type: break
             title: Break
-            start: '15:00'
-            end: '15:15'
+            start: '15:08'
+            end: '15:23'
           - id: advanced-content-two
             type: module-content
             title: 'Advanced Workflows: Debugging evidence, deployment, and operations'
-            start: '15:15'
-            end: '15:30'
+            start: '15:23'
+            end: '15:38'
             module: advanced
           - id: advanced-mission
             type: mission
             title: 'Mission: Orchestrate, integrate, and debug with evidence'
-            start: '15:30'
-            end: '16:00'
+            start: '15:38'
+            end: '16:08'
             module: advanced
       - id: day-two
         title: GitHub Hack Day
@@ -243,6 +243,35 @@ tags:
   - hands-on
   - developer
 researchSources:
+  - type: other
+    title: Managing issues and pull requests with the GitHub Copilot app
+    url: >-
+      https://docs.github.com/en/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests#merging-a-pull-request
+    reviewedAt: '2026-09-10'
+    notes: >-
+      Scoped FND-15 provenance reconciliation for PR 61. The merging section
+      documents agent merge as an app workflow; it does not separately label it
+      experimental or preview. This is not a separate Agent Merge GA claim or
+      evidence about the VS Code Agent Merge preview.
+  - type: other
+    title: Built-in skills in the GitHub Copilot app
+    url: >-
+      https://docs.github.com/en/copilot/reference/github-copilot-app-reference/built-in-skills
+    reviewedAt: '2026-09-10'
+    notes: >-
+      Scoped FND-15 corroboration: the agent-merge skill follows up on review
+      comments, failing checks and conflicts when the app workflow invokes it.
+      No new live automation, permissions or merge exercise is authorized.
+  - type: github-changelog
+    title: GitHub Copilot app generally available
+    url: >-
+      https://github.blog/changelog/2026-06-17-github-copilot-app-generally-available/
+    reviewedAt: '2026-09-10'
+    notes: >-
+      Candidate source recorded for traceability of the existing FND-15
+      verification, not a newly approved Changelog content update. The dated
+      announcement establishes app-level GA on 2026-06-17, not separate Agent
+      Merge GA. Changelog option dispositions remain unchanged.
   - type: other
     title: Awesome Copilot
     url: 'https://github.com/github/awesome-copilot'
@@ -705,7 +734,7 @@ leaderboard:
       submissionUrl: >-
         https://github.com/tammym-demos/ghcp-dev-hack-leaderboard/issues/new?template=leaderboard-submission.yml
       standingsUrl: 'https://tammym-demos.github.io/ghcp-dev-hack-leaderboard/'
-lastReviewed: '2026-08-12'
+lastReviewed: '2026-09-10'
 ---
 # GitHub Copilot Developer Hack
 

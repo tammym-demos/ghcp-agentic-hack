@@ -15,7 +15,12 @@ class: agentic-slide agentic-priority-slide
 
 ## Direct bounded software work. Inspect the evidence. Keep the decision human.
 
-**2 hours · 75 min instruction + 45 min mission**
+**2 hours 6 minutes · 81 min instruction + 45 min mission**
+
+<div class="workshop-cover-logos" aria-label="GitHub and Microsoft">
+  <img class="workshop-cover-logos__github" src="/images/GitHub_Lockup_Black_Clearspace.svg" alt="GitHub" />
+  <img class="workshop-cover-logos__microsoft" src="/images/microsoft-logo.png" alt="Microsoft" />
+</div>
 
 ::visual::
 <div class="agentic-static-stage" role="group" aria-label="Mergewell reviews a consequential request with Riley stopped beyond the boundary and Purrmission marking the stop line">
@@ -44,7 +49,9 @@ Audience question: Which one Foundations artifact must the software collaborator
 Response guidance: Take one concise artifact and tie it to the carried-forward case
 without opening an implementation discussion. If nobody answers, use the bounded
 task as your example and keep moving.
+
 Payoff: The module opens with continuity from Foundations and one concrete input to human-directed work.
+
 Sources: content/modules/02-agentic/module.md; content/modules/02-agentic/visual-intent.md slides 1 and 3; content/research/agentic-content-verification.md AGT-12 and AGT-28
 -->
 
@@ -57,11 +64,11 @@ class: agentic-agenda-slide
 # Session Agenda
 ::text::
 
-<div class="agentic-stack" role="list" aria-label="Seventy-five-minute instruction route">
-  <div class="agentic-card" role="listitem"><b>1 · Who does what? — 15 min</b><span>Human accountability, bounded software work, reusable guidance, and tools</span></div>
-  <div class="agentic-card" role="listitem"><b>2 · Prepare a job worth delegating — 20 min</b><span>Instructions, context, scope, checks, stops, and evidence</span></div>
-  <div class="agentic-card" role="listitem"><b>3 · Choose and trust the helper — 20 min</b><span>Skills, custom agents, tool controls, planning, and approval boundaries</span></div>
-  <div class="agentic-card" role="listitem"><b>4 · Stay in charge of the result — 20 min</b><span>Observable loops, repository and cloud evidence, optimization, and the human call</span></div>
+<div class="agentic-stack" role="list" aria-label="Eighty-one-minute instruction route">
+  <div class="agentic-card" role="listitem"><b>1 · Who does what? — 3 min</b><span>Human accountability and bounded software work</span></div>
+  <div class="agentic-card" role="listitem"><b>2 · Prepare a job worth delegating — 16 min</b><span>Instructions, activation, memory, context, and prompts</span></div>
+  <div class="agentic-card" role="listitem"><b>3 · Choose and trust the helper — 12 min</b><span>Skills, custom agents, tools, and the next request</span></div>
+  <div class="agentic-card" role="listitem"><b>4 · Stay in charge of the result — 50 min</b><span>Observable loops, repository and cloud evidence, optimization, and the human call</span></div>
 </div>
 
 ::visual::
@@ -77,23 +84,28 @@ class: agentic-agenda-slide
 <!--
 Timebox: 1 minute
 
-Talk track: Seventy-five minutes of teaching, and here's how it splits.
-Fifteen minutes on who does what — that's the foundation everything else sits on.
-Then three twenty-minute blocks. Preparing the brief. Choosing and controlling your
-helper. And staying in charge of what comes back.
-The mission is separate. Forty-five minutes of its own, extending the Foundations
-case. Its detailed steps stay off these slides on purpose.
-Four checkpoints. As I name them, pick the one where your team most often loses
-control. Just hold it. No report-out yet — but test it against what you see today.
+Talk track: Which part of this route deserves your closest attention?
+Choose one as we read the four sections.
+You have eighty-one minutes of instruction. Three minutes introduce who does
+what, including these opening slides. Sixteen minutes prepare the job:
+instructions, activation, memory, context and the task brief.
+Twelve minutes separate skills, custom agents, tools and the next request.
+Fifty minutes cover the loop, human control points, repository and cloud
+evidence, and the final decision.
+These are groups in slide order, not extra sections to add later.
+The mission has its own forty-five minutes. It extends the Foundations case.
+Its detailed actions stay in the Missions experience.
 
 Transition: We start by making the split between human and software work explicit.
 
 Audience question: Which route checkpoint deserves your closest attention today?
 
-Response guidance: Pause briefly for a private choice. Don't poll the room. Invite
-learners to check their pick against the evidence they see later in the module.
+Response guidance: Allow a brief private choice. Say, "Keep that choice in mind
+as we inspect the evidence. You do not need to report it now."
+
 Payoff: Learners enter the route with a personal diagnostic focus while the protected mission timing remains clear.
-Sources: content/modules/02-agentic/module.md timing; content/modules/02-agentic/copilot-dev-agentic-workshop.md “Instruction architecture”; content/modules/02-agentic/slide-manifest.md row 2
+
+Sources: content/modules/02-agentic/module.md timing; content/modules/02-agentic/copilot-dev-agentic-workshop.md “Current instruction architecture”; content/modules/02-agentic/slide-manifest.md row 2
 -->
 
 ---
@@ -143,60 +155,130 @@ Audience question: When delegated work returns with evidence, who owns the accep
 Response guidance: Reinforce "the human" immediately. If a different answer comes
 back, draw the line between producing evidence and holding decision authority, then
 move on — this isn't the slide to debate it.
+
 Payoff: The audience states the accountability boundary before any configuration detail appears.
+
 Sources: content/modules/02-agentic/module.md; content/modules/02-agentic/visual-intent.md slide 3; content/research/agentic-content-verification.md AGT-12 and AGT-28
 -->
 
 ---
-layout: two-panel
+layout: single-panel
+class: agentic-request-slide
+transition: none
 ---
 
 ::title::
 # Instructions for Agentic Work
-::text::
+::content::
 
-## Put durable guidance where future work can find it
-
-- Repository-wide rules: `.github/copilot-instructions.md`
-- Path-specific rules: `.github/instructions/**/*.instructions.md`
-- Agent-specific instructions: recurring role behavior
-- Current task: goal, limits, checks, and stop points
-
-::visual::
-<div class="agentic-surface agentic-stack" role="img" aria-label="Instruction homes separated by scope">
-  <div class="agentic-card"><b>Repository-wide</b><span>Shared conventions and validation</span></div>
-  <div class="agentic-card"><b>Path-specific</b><span>Guidance for matching files</span></div>
-  <div class="agentic-card agentic-purple"><b>Agent-specific</b><span>Recurring role instructions</span></div>
-  <div class="agentic-card agentic-green"><b>Current task stays separate</b><span>What this job needs now</span></div>
-</div>
+<AgenticRequestStill scene="T6" />
 
 <!--
 Timebox: 2 minutes
 
-Talk track: There's a sorting problem at the heart of this, and getting it wrong
-makes everything downstream inconsistent.
-Some guidance is durable. It's true on Monday and it's still true next quarter.
-That belongs in files. Repository-wide conventions go in
-`.github/copilot-instructions.md`. Path-specific guidance goes in matching
-`.github/instructions/**/*.instructions.md` files. Recurring role behavior goes in
-agent-specific instructions.
-Some guidance is about today's job only. The outcome, the limits, the checks, the
-stop points. That travels with the task.
-One caveat worth stating out loud: support and combination rules vary by Copilot
-surface. Inspect what actually applies. Don't assume one universal stack.
-Let's sort one. "This one bug fix must preserve a named behavior." Standing
-guidance, or current task?
+Talk track: Keep standing guidance separate from today's question.
+Which of the two Markdown instruction filenames becomes obsolete just because
+the other is present? Neither. Both are documented where supported.
 
-Transition: Durable instructions give you continuity. Copilot Memory can help
-too — but it's selective.
+The host is the app that prepares the request. Check what that host supports.
+Repository-wide guidance can live in dot github slash copilot-instructions
+dot md. Path-specific guidance uses matching instruction files and an explicit
+applyTo pattern. AGENTS dot md is another supported convention, depending on
+the host. Recurring role instructions have their own scope.
 
-Audience question: Where should a one-time bug-fix acceptance criterion live?
+Our example is an outdoor community event. Rain is expected. There are one
+hundred guests. We ask, “What supplies should we bring?”
+That is today's task, not a permanent rule.
+The standing convention is different: label unconfirmed supplies clearly.
+The matching-path convention says event Markdown checklists use agreed headings.
+The pattern on screen matches those event Markdown files. It is an example,
+not a file for you to create now.
 
-Response guidance: Steer toward the current task. If the room splits, use the
-deciding test out loud: should this criterion still apply after this job is done?
-That question resolves it without a long discussion.
-Payoff: Learners sort temporary acceptance detail away from durable repository and role guidance.
-Sources: content/research/agentic-content-verification.md AGT-01 and AGT-02; content/modules/02-agentic/visual-intent.md slide 4
+Support, discovery and combination vary by host. CLI combines applicable
+instruction files without a general precedence order. A nearest-AGENTS
+format convention is not a universal rule for every host and file family.
+Choose the right scope, then inspect what applies. A correct location alone
+does not show that a running request received the intended version.
+
+Transition: The guidance may be saved in the right place. Next, check whether
+the running session actually received that version.
+
+Audience question: Which of the two Markdown instruction filenames becomes obsolete just because the other is present?
+
+Response guidance: If needed, say, "Neither. Both are documented where
+supported. Check the selected host and what applies. Keep this event's
+one-time requirements with this task rather than making them standing rules."
+
+Payoff: You can choose instruction scope without a false deprecation or
+precedence rule.
+
+Sources: content/modules/02-agentic/context-caching-source.md T6; content/production/context-caching-proposal/learning-contracts.md T6; content/production/context-caching-proposal/source-verification.md C5/X6/X7, P8/P15/S7/S8
+-->
+
+---
+layout: single-panel
+class: agentic-request-slide
+transition: none
+---
+
+::title::
+# Saved Does Not Mean Loaded
+::content::
+
+<AgenticRequestStill scene="N4" />
+
+<!--
+Timebox: 3 minutes
+
+Talk track: The saved heading changed, but the response did not. What would
+you check before concluding the model ignored the new rule?
+Our event convention used to say “Checklist.” You saved “Supplies to confirm.”
+The next observed response still says “Checklist.”
+That is a mismatch to investigate. It does not yet tell you why it happened.
+
+Read the four checks separately. Saved means the intended content exists.
+Discovered means the host found it. Applicable means its scope matches this
+work. Enabled means it was not disabled. Included means the intended version
+was sent in this request or session. Followed means the result satisfies it.
+The numbers order your diagnosis. They are not automatic transitions.
+
+In Copilot CLI, instructions can be inspected or toggled with slash
+instructions. Slash env gives loaded environment details.
+The current documentation says instruction edits are not immediately
+available in active sessions. Preserve the task state first.
+The CLI Details reference shows exit and resume with copilot dash dash
+continue, or a new session with slash new. We are not resetting a live
+session in this explanation. That path is not skill reload and does not
+prove provider-cache deletion.
+
+VS Code has a different check. Name the host and version. Inspect settings,
+file location and an explicit matching applyTo. Check response References
+and customization Diagnostics. Nested AGENTS discovery is experimental and
+setting-dependent. Slash instructions opens configuration there; do not
+assign the CLI meaning to it. Exact save-to-active-turn timing is unverified.
+The separate VS Code Details reference keeps those qualifications together.
+
+Only after the activation checks do you assess compliance.
+Even if a response uses the new heading once, that shows behavior, not which
+file supplied the rule. Included guidance is not guaranteed to be followed.
+Riley, our software collaborator, returns evidence. Mergewell, the human,
+checks it. Keep those two jobs separate while you diagnose the mismatch.
+
+Transition: Loaded instructions are one source of continuity. Selective
+memory is a different mechanism, with its own limits.
+
+Audience question: The saved heading changed, but the response did not. What would you check before concluding the model ignored the new rule?
+
+Response guidance: If the answer jumps to model failure, say, "First check the
+host and version, discovery, scope and whether that file is enabled. Then
+check which version reached this session. Only after that do we check whether
+the result followed it. A heading appearing once would show behavior, not
+prove where the rule came from."
+
+Payoff: You can troubleshoot activation without inventing a reload guarantee,
+filename deprecation or cache-protection motive.
+
+Sources: content/modules/02-agentic/context-caching-source.md N4; content/production/context-caching-proposal/learning-contracts.md N4; content/production/context-caching-proposal/source-verification.md C5/X6/X7/X9, P8/P13/P15/S7/S8
 -->
 
 ---
@@ -243,8 +325,10 @@ Audience question: Which current-task fact would you never leave to selective me
 Response guidance: Favor the outcome, limits, repository state, critical
 references, checks, or stop conditions. If anyone suggests Memory guarantees
 complete recall, correct it directly — that misunderstanding is expensive later.
+
 Payoff: Learners separate optional retained clues from the task-critical facts they must provide deliberately.
-Sources: content/research/agentic-content-verification.md AGT-04 and AGT-05; content/modules/02-agentic/visual-intent.md slide 5
+
+Sources: content/research/agentic-content-verification.md AGT-04 and AGT-05; content/modules/02-agentic/visual-intent.md slide 6
 -->
 
 ---
@@ -275,9 +359,12 @@ Talk track: A good handoff carries six things. The goal. Current repository stat
 Decisions you've already reviewed. Open questions. The files that matter. And the
 checks that shape what happens next.
 It leaves behind stale logs, unrelated files, and plans you've already superseded.
-On the CLI, you've got named context and compaction controls. Useful — but they're
-CLI-specific, and neither a fresh session nor a compacted one absolves you of
-supplying the important facts again.
+Copilot CLI documents slash context and slash compact. VS Code also documents
+automatic compaction and manual slash compact or Compact Conversation in
+supported local, background and Claude agent sessions. Check the chosen host
+and version, and verify that needed facts remain after compaction.
+Neither a fresh session nor a compacted one removes the need to supply
+important facts again.
 Let's prune one together. I'm going to name four things: the current goal, a
 reviewed decision, a failing check that's still relevant, and a plan we've already
 replaced. Say "drop" when you hear the one that no longer guides the next decision.
@@ -290,8 +377,10 @@ Audience question: Which stale item would you remove first from a handoff, and w
 Response guidance: Accept a stale log, unrelated file, superseded plan, or old
 mistake — but only when the learner also names what current fact replaces it.
 Dropping without replacing is half an answer.
+
 Payoff: The audience practices preserving continuity without preserving noise.
-Sources: content/research/agentic-content-verification.md AGT-06 and AGT-07; content/modules/02-agentic/visual-intent.md slide 6
+
+Sources: content/research/agentic-content-verification.md AGT-06 and AGT-07; content/modules/02-agentic/context-caching-source.md A07; content/production/context-caching-proposal/source-verification.md S2/P13a/X4; content/modules/02-agentic/visual-intent.md “Context for Long-Running Work”
 -->
 
 ---
@@ -339,8 +428,10 @@ Audience question: If repository guidance and the current task appear to conflic
 Response guidance: Listen for "stop and expose the conflict." Then push further:
 who resolves it, and which product surface has to be named? Do not let the room
 invent a universal winner, and don't supply one yourself.
+
 Payoff: Learners gain a conflict-handling method that works without false cross-surface hierarchy claims.
-Sources: content/research/agentic-content-verification.md AGT-01, AGT-02, and AGT-03; content/modules/02-agentic/visual-intent.md slide 7
+
+Sources: content/research/agentic-content-verification.md AGT-01, AGT-02, and AGT-03; content/modules/02-agentic/visual-intent.md slide 8
 -->
 
 ---
@@ -390,59 +481,75 @@ Audience question: Which brief field would prevent the most damaging kind of dri
 Response guidance: Accept different answers — there's no universal best field. But
 ask every speaker to name the specific failure their chosen field prevents. That
 requirement is what turns this from opinion into diagnosis.
+
 Payoff: Learners connect each part of the brief to a concrete failure mode instead of treating prompting as wordsmithing.
+
 Sources: content/research/agentic-content-verification.md AGT-08; content/modules/02-agentic/copilot-dev-agentic-workshop.md section 2
 -->
 
 ---
-layout: two-panel
+layout: single-panel
+class: agentic-request-slide
+transition: none
 ---
 
 ::title::
 # Reusable Skills
-::text::
+::content::
 
-## A skill is a saved procedure—not a worker
-
-- Packages reviewed instructions, scripts, and resources
-- Loads when that specialized procedure is relevant
-- Requires provenance and script inspection before trust
-- Guides the collaborator's use of tools
-
-::visual::
-<div class="agentic-flow" role="img" aria-label="Skill procedure used by a software collaborator">
-  <div class="agentic-step agentic-purple"><b>Reusable skill</b><span>Clue Wrangler procedure</span></div>
-  <div class="agentic-arrow">→</div>
-  <div class="agentic-step"><b>Software collaborator</b><span>Follows the procedure</span></div>
-  <div class="agentic-arrow">→</div>
-  <div class="agentic-step agentic-green"><b>Tool</b><span>Performs the action</span></div>
-</div>
+<AgenticRequestStill scene="T7" />
 
 <!--
 Timebox: 3 minutes
 
-Talk track: An agent skill is a reusable package — instructions, scripts,
-resources — for a specialized procedure you do more than once.
-Now the distinction people trip on, so let me be precise.
-The skill is not the worker. The skill is not the tool. The software collaborator
-is the worker. It follows the procedure, and it uses a tool to take the actual
-action. Three different things.
-And a shared skill is code you're about to trust. It carries scripts and resources.
-So provenance, script review, resource review, and security review all come before
-trust — not after something goes wrong.
-Clue Wrangler is our metaphor for that kind of reviewed procedure. Ours, not a
-product feature.
-What repeats on your team often enough to justify a skill?
+Talk track: A skill packages a repeatable procedure and resources.
+If the host discovers the supplies-check skill, is the whole procedure already
+active in every request? No. Discovery and use are different.
 
-Transition: A skill captures a procedure. A custom agent captures a recurring role.
+Metadata means a name and description. It helps the host find a relevant
+procedure. The selected SKILL dot md body provides its steps. Referenced
+resources are accessed as needed. Read the connector labels: when selected,
+and as needed. These are conditions, not completed checks in a real request.
+We have not observed a request loading this example.
 
-Audience question: What repeated procedure on your team might justify a skill instead of another one-off request?
+Our reviewed supplies-check procedure has a clear job. Identify the event
+requirements. Compare the draft supplies list. Flag unknown quantities.
+The brief still describes an outdoor community event with rain and one
+hundred guests. The procedure helps review a draft. It does not invent the
+missing quantities or certify the event plan.
 
-Response guidance: Look for stable, reviewable procedures with genuine repeat
-value. Challenge examples that are really a single task, or that are actually an
-unbounded role rather than a procedure.
-Payoff: The audience distinguishes reusable procedure from worker and begins applying a test for justified reuse.
-Sources: content/research/agentic-content-verification.md AGT-09; content/modules/02-agentic/visual-intent.md slide 9
+Now separate the three jobs. Riley represents the software collaborator.
+She follows the procedure. The skill is that reusable procedure. A tool
+performs a concrete action. An MCP connection gives access to an approved
+capability; the skill does not create that connection or become a worker.
+Optional forked-context behavior depends on the host and its settings.
+It is not how every skill always runs.
+
+Before use, inspect provenance: where did the package come from?
+Review dependencies, scripts, resources and data access. A useful description
+is not evidence that the package is safe or appropriate.
+Clue Wrangler is our reviewed-procedure metaphor, not a built-in feature.
+
+Details keeps the CLI references available: slash skills reload, then slash
+skills info followed by the name. They check availability and location.
+They are not instruction-session refresh. An older skill body may remain
+in history, and edited-skill activation needs a host and build check.
+Do not assume every installed body is sent, or that metadata costs no context.
+Check actual selection and use.
+
+Transition: A skill captures a procedure. A custom agent captures a recurring
+role and its boundaries.
+
+Audience question: If the host discovers the supplies-check skill, is the whole procedure already active in every request?
+
+Response guidance: If needed, say, "No. Discovery metadata helps it find a
+relevant skill. The selected body and needed resources load when used. Check
+actual use rather than assuming every installed procedure is in the request."
+
+Payoff: You can explain conditional loading and review a reusable procedure
+without confusing availability with execution.
+
+Sources: content/modules/02-agentic/context-caching-source.md T7; content/production/context-caching-proposal/learning-contracts.md T7; content/production/context-caching-proposal/source-verification.md C6, P9/P16/P10/P11; content/research/agentic-content-verification.md AGT-09
 -->
 
 ---
@@ -494,8 +601,10 @@ Audience question: What risk appears when a custom agent’s tool list is left i
 Response guidance: Steer toward unnecessary or all-available tools. Then flip it
 and ask which minimal actions the named specialist genuinely needs — most rooms
 discover the list is shorter than they assumed.
+
 Payoff: Learners see tool selection as part of role design rather than an implementation detail discovered after delegation.
-Sources: content/research/agentic-content-verification.md AGT-10; content/modules/02-agentic/visual-intent.md slide 10
+
+Sources: content/research/agentic-content-verification.md AGT-10; content/modules/02-agentic/visual-intent.md slide 11
 -->
 
 ---
@@ -538,16 +647,89 @@ by looking at it. Having permission to do something is not proof it's safe to do
 Test it. "Run the focused tests using our test-triage procedure." Which part is the
 tool, and which is the skill?
 
-Transition: Roles, procedures, actions — separated. Now let's watch the loop that
-puts them in motion.
+Transition: Before the loop, separate changing a capability from changing
+what the next request actually includes.
 
 Audience question: In “run the focused tests using our test-triage procedure,” which part is the tool and which part is the skill?
 
 Response guidance: Running the tests is the tool action; test triage is the
 reusable procedure. Correct any answer that turns either one into the worker —
 that's the confusion this slide is here to prevent.
+
 Payoff: The question locks in the worker-skill-tool distinction before the loop puts all three into motion.
-Sources: content/research/agentic-content-verification.md AGT-09 and AGT-11; content/modules/02-agentic/visual-intent.md slide 11
+
+Sources: content/research/agentic-content-verification.md AGT-09 and AGT-11; content/modules/02-agentic/visual-intent.md “Tools”; content/modules/02-agentic/context-caching-source.md E3 transition
+-->
+
+---
+layout: single-panel
+class: agentic-request-slide
+transition: none
+---
+
+::title::
+# What Changes the Next Request?
+::content::
+
+<AgenticRequestStill scene="E3" />
+
+<!--
+Timebox: 3 minutes
+
+Talk track: A file or setting changed. What did the host actually send next?
+Does saving a new supplies-check skill prove the next request will send its
+whole procedure and suffer a complete cache miss?
+No. Check discovery, selection and actual inclusion.
+
+Each row starts from the same event brief: outdoors, rain, one hundred
+guests. Each is an independent change, not the next step in a five-toggle
+demonstration. The optional Details buttons show the exact event change
+and its full conditional effect, one row at a time.
+
+Instructions can change supplied guidance only if they apply, are enabled
+and are loaded. A saved heading alone does not prove that.
+A skill can change discovery metadata, meaning its name and description.
+The selected body and needed resources load when used, not just because
+the folder exists.
+
+A tool or MCP connection can change included definitions or results.
+MCP here is a connection to an approved capability. A skill does not
+establish that connection. Definitions describe capabilities; they are not
+the same as permission to call them.
+
+A custom-agent profile can change loaded instructions, tools or an optional
+model. The role name does not prove expertise or authority.
+A model or setting change can affect usage or the supplied request.
+Changing reasoning effort does not prove different weights, different
+hardware or a complete cache miss.
+
+Ask where the supplied request first differs. A prefix is its identical
+beginning. A supported service may reuse eligible earlier processing state;
+it still processes new material and generates a new response.
+Reuse remains conditional, not established by this table.
+Appending a question or result can retain an earlier eligible prefix.
+Compaction in a supported host replaces carried history with a summary.
+That can change input and lose detail. Check retained requirements.
+
+Those are reference cases, not a sixth mechanism in this comparison.
+Tool definitions, ordering, deferred discovery and profile support vary
+by host. Use observable evidence. Do not infer hidden behavior from a
+filename, role label or setting alone.
+
+Transition: Those inputs and capabilities feed the work. Next, follow the
+observable agentic loop and the human checkpoints around it.
+
+Audience question: Does saving a new supplies-check skill prove the next request will send its whole procedure and suffer a complete cache miss?
+
+Response guidance: If the distinction is unclear, say, "No. Check what was
+discovered, whether the skill was selected, and what was actually included.
+Metadata is not the full procedure. Reuse depends on where the supplied
+request changes and whether the earlier state is eligible."
+
+Payoff: You can separate configuration, activation, actual input and usage
+instead of attributing hidden behavior to a saved file or setting.
+
+Sources: content/modules/02-agentic/context-caching-source.md E3; content/production/context-caching-proposal/learning-contracts.md E3 and section 11; content/production/context-caching-proposal/source-verification.md C6, P5/P6/P8–P11/P14–P16/S6/S9
 -->
 
 ---
@@ -586,8 +768,10 @@ Audience question: If the observation reveals an unexpected dependency change, w
 Response guidance: Favor stopping or asking at the boundary, inspecting the new
 consequence, and re-briefing if it warrants one. Don't let the answer imply an
 automatic recovery control exists.
+
 Payoff: Learners use an observable change in evidence to choose a control action inside the loop.
-Sources: content/research/agentic-content-verification.md AGT-12, AGT-13, and AGT-14; content/modules/02-agentic/visual-intent.md slide 12
+
+Sources: content/research/agentic-content-verification.md AGT-12, AGT-13, and AGT-14; content/modules/02-agentic/visual-intent.md slide 14
 -->
 
 ---
@@ -645,8 +829,10 @@ Audience question: What would make you stop and revise a plan before the first e
 Response guidance: Draw out unexplained files, scope that's too broad, missing
 validation, dependency or public-contract changes, unclear access, and absent stop
 points. Several of these usually go unmentioned until you name them.
+
 Payoff: Learners identify plan-quality evidence before tool activity makes a weak route expensive to unwind.
-Sources: content/research/agentic-content-verification.md AGT-08 and AGT-13; content/modules/02-agentic/visual-intent.md slide 13
+
+Sources: content/research/agentic-content-verification.md AGT-08 and AGT-13; content/modules/02-agentic/visual-intent.md slide 15
 -->
 
 ---
@@ -715,8 +901,10 @@ Audience question: If the collaborator proposes installing a package that the br
 Response guidance: It's ask-first or not-allowed depending on how the boundary was
 declared. Push for narrow, reject, or stop — and name approval-by-momentum out loud
 as the failure mode, because that's what actually happens under pressure.
+
 Payoff: The group rehearses a consequential decision before encountering it in mission work.
-Sources: content/research/agentic-content-verification.md AGT-11 and AGT-14; content/modules/02-agentic/visual-intent.md slide 14
+
+Sources: content/research/agentic-content-verification.md AGT-11 and AGT-14; content/modules/02-agentic/visual-intent.md slide 16
 -->
 
 ---
@@ -769,8 +957,10 @@ Audience question: What does one passing focused test prove, and what does it le
 Response guidance: Hold the answer to the specific behavior that test exercised.
 Then get one unproven area named out loud — adjacent behavior, security,
 integration, or scope. The pairing is the point.
+
 Payoff: Learners stop treating a green signal as universal proof and begin assembling an evidence stack.
-Sources: content/research/agentic-content-verification.md AGT-12, AGT-16, and AGT-28; content/modules/02-agentic/visual-intent.md slide 15
+
+Sources: content/research/agentic-content-verification.md AGT-12, AGT-16, and AGT-28; content/modules/02-agentic/visual-intent.md slide 17
 -->
 
 ---
@@ -818,8 +1008,10 @@ Audience question: What would you record at a checkpoint so another reviewer cou
 Response guidance: Look for branch or commit identity, the reviewed diff, exact
 validation results, open risks — and any external side effect listed with its own
 separate recovery step. That last one is usually missing.
+
 Payoff: Learners turn “we can roll back” into a named, evidence-backed recovery point with explicit limits.
-Sources: content/research/agentic-content-verification.md AGT-14 and AGT-15; content/modules/02-agentic/visual-intent.md slide 16
+
+Sources: content/research/agentic-content-verification.md AGT-14 and AGT-15; content/modules/02-agentic/visual-intent.md slide 18
 -->
 
 ---
@@ -883,7 +1075,9 @@ Audience question: If `/security-review` reports no finding, what does that resu
 Response guidance: Reinforce that it doesn't clear the whole repository, the
 dependency set, the history, secrets, or every vulnerability class — and it grants
 no merge permission whatsoever. Say that last part explicitly.
+
 Payoff: Learners keep a focused Copilot command distinct from repository security controls and final acceptance.
+
 Sources: content/research/agentic-content-verification.md AGT-32 through AGT-38
 -->
 
@@ -932,8 +1126,10 @@ Audience question: When a configured check fails, what new evidence should guide
 Response guidance: Ask for the failing step, exact output, affected behavior, the
 assumption that changed, and a targeted next check. If someone says "just run it
 again," name that as the anti-pattern this slide exists for.
+
 Payoff: Learners use Actions as feedback for the loop instead of treating CI as an automatic agent capability.
-Sources: content/research/agentic-content-verification.md AGT-16 and AGT-17; content/modules/02-agentic/visual-intent.md slide 18
+
+Sources: content/research/agentic-content-verification.md AGT-16 and AGT-17; content/modules/02-agentic/visual-intent.md slide 20
 -->
 
 ---
@@ -988,8 +1184,10 @@ Audience question: If a software agent submitted a pull request now, what eviden
 Response guidance: Expect tests, security results, a clear change summary, a scoped
 diff, and open risks. Group them as separate evidence streams — resist any framing
 where one of them is sufficient on its own.
+
 Payoff: The audience defines a practical review package and sees evidence, questions, and code as equal parts of the handoff.
-Sources: content/research/agentic-content-verification.md AGT-15, AGT-20, and AGT-28; content/modules/02-agentic/visual-intent.md slide 19
+
+Sources: content/research/agentic-content-verification.md AGT-15, AGT-20, and AGT-28; content/modules/02-agentic/visual-intent.md slide 21
 -->
 
 ---
@@ -1042,8 +1240,10 @@ Audience question: What is one backlog task you would delegate to a cloud agent,
 Response guidance: Make participants justify both halves using scope,
 reversibility, repository fit, permissions, and review evidence. Don't let it become
 a popularity contest about which tasks are boring.
+
 Payoff: The paired answer creates a natural autonomy boundary grounded in the audience’s own work.
-Sources: content/research/agentic-content-verification.md AGT-18, AGT-19, and AGT-20; content/modules/02-agentic/visual-intent.md slide 20
+
+Sources: content/research/agentic-content-verification.md AGT-18, AGT-19, and AGT-20; content/modules/02-agentic/visual-intent.md slide 22
 -->
 
 ---
@@ -1100,8 +1300,10 @@ Response guidance: Listen for something like "If the task requires another file 
 broader permission, stop and ask before continuing." Accept any equivalent that
 names the boundary and demands a stop or a question — reject anything that permits
 silent expansion.
+
 Payoff: Learners leave with an operational stop clause they can place directly into a bounded cloud-agent handoff.
-Sources: content/research/agentic-content-verification.md AGT-08, AGT-19, and AGT-21; content/modules/02-agentic/visual-intent.md slide 21
+
+Sources: content/research/agentic-content-verification.md AGT-08, AGT-19, and AGT-21; content/modules/02-agentic/visual-intent.md slide 23
 -->
 
 ---
@@ -1154,8 +1356,10 @@ Audience question: What useful bug or improvement have you discovered away from 
 Response guidance: Take one or two examples, then ask what repository, scope, and
 review boundary would have to be set before starting. Do not let enthusiasm imply
 Mobile controls that aren't verified.
+
 Payoff: Learners connect Mobile to reduced idle time while retaining exact product and human-review boundaries.
-Sources: content/research/agentic-content-verification.md AGT-39 through AGT-46; content/modules/02-agentic/visual-intent.md slide 22
+
+Sources: content/research/agentic-content-verification.md AGT-39 through AGT-46; content/modules/02-agentic/visual-intent.md slide 24
 -->
 
 ---
@@ -1205,8 +1409,10 @@ Audience question: How much of your team’s coding and validation guidance is d
 Response guidance: Take a quick proportion or a show of hands, then ask which
 single stable command or convention should be captured first. Keep it about
 practices — never name individuals.
+
 Payoff: The question exposes undocumented project knowledge that can otherwise make every agentic handoff inconsistent.
-Sources: content/research/agentic-content-verification.md AGT-01 and AGT-22; content/modules/02-agentic/visual-intent.md slide 23
+
+Sources: content/research/agentic-content-verification.md AGT-01 and AGT-22; content/modules/02-agentic/visual-intent.md slide 25
 -->
 
 ---
@@ -1257,59 +1463,77 @@ Response guidance: Accept a mix of factors, but insist on one diagnostic
 observation before anyone changes anything — irrelevant context, misunderstood
 acceptance criteria, unavailable tools, or repeated model failure. Changing four
 things at once teaches you nothing.
+
 Payoff: Learners replace blind retry and reflexive model switching with evidence-led workflow diagnosis.
-Sources: content/research/agentic-content-verification.md AGT-23, AGT-24, and AGT-31; content/modules/02-agentic/visual-intent.md slide 24
+
+Sources: content/research/agentic-content-verification.md AGT-23, AGT-24, and AGT-31; content/modules/02-agentic/visual-intent.md slide 26
 -->
 
 ---
 layout: single-panel
+class: agentic-request-slide agentic-request-long-title
+transition: none
 ---
 
 ::title::
 # Make Cost-Conscious Choices Before You Start
 ::content::
 
-<div class="agentic-static-stage agentic-static-stage--dense agentic-static-stage--with-band" role="group" aria-label="Mergewell selects four supported pre-run controls, then compares result quality with available AI-credit usage">
-  <img src="/images/cost-conscious-preflight-controls.png" alt="Mergewell sets physical pre-run controls before Riley starts, with quality and usage evidence kept separate">
-  <div class="agentic-static-overlay agentic-static-overlay--grid">
-    <div class="agentic-static-chip agentic-static-chip--purple"><b>Auto where supported</b><span>Paid plans currently receive a 10% model-cost discount; routing still depends on policy, model pool, availability, and task</span></div>
-    <div class="agentic-static-chip"><b>Regular defaults first</b><span>Increase context or reasoning only when complexity and the selected surface justify it</span></div>
-    <div class="agentic-static-chip"><b>Fresh or compacted context</b><span>Start fresh for unrelated work; use CLI <code>/compact</code> only for continuing long work</span></div>
-    <div class="agentic-static-chip agentic-static-chip--amber"><b>Optional CLI soft ceiling</b><span><code>/limits set max-ai-credits NUMBER</code><br>Public preview · per session · may finish slightly over</span></div>
-  </div>
-  <div class="agentic-static-band agentic-static-band--decision">RUN BOUNDED WORK → CHECK RESULT QUALITY + AVAILABLE AI-CREDIT USAGE → CONTINUE OR STOP</div>
-</div>
+<AgenticRequestStill scene="T8" />
 
 <!--
 Timebox: 3 minutes
 
-Talk track: Cost-conscious does not mean cheap. It means deliberate.
-The failure mode I want you to avoid is spending less and getting a result you
-can't use. That's not a saving. You'll pay for it twice.
-So, practically. Start with regular context and reasoning. Use Auto where it's
-supported. Strip out unrelated history. And for a bounded CLI run, consider the
-public-preview soft session ceiling when it's available to you.
-Two honest caveats.
-Auto's current paid-plan model-cost discount is a discount. It is not a promise of
-the cheapest successful result — and successful is the word doing the work in that
-sentence.
-And the CLI limit is soft. A run can finish slightly over. Plan for that rather
-than being surprised.
-Then check two things before continuing: was the result good, and what does the
-usage evidence show?
-Bounded CLI typo fix. Which control first, and what tells you to continue?
+Talk track: Would you keep the wrong outdoor requirement to preserve a
+possible hit? No. Correct the requirement first.
+Here the venue should be indoor. Rain and one hundred guests stay unchanged.
+Choice A preserves wrong guidance only to seek reuse. Choice B corrects the
+venue and checks the new result. Choose B.
+This is a decision example, not a measured cache experiment or event plan.
 
-Transition: The final decision combines cost awareness with several independent
-quality and review streams.
+Keep useful guidance stable, not wrong guidance. Choose the tools the task
+needs and proportionate settings. After the run, inspect result quality
+and the usage you can actually observe. Remove unsafe access regardless
+of any possible reuse cost. Human responsibility comes before a meter.
 
-Audience question: For a bounded Copilot CLI typo fix, which pre-run control would you choose first, and what evidence would decide whether to continue?
+Start with regular context and reasoning where appropriate. Increase them
+when the task and supported model or surface justify it. Larger capacity
+does not prove it was filled. A selected window size is not a measurement
+of occupied input.
 
-Response guidance: Favor regular context and reasoning, a fresh relevant session,
-Auto where supported, or a justified soft session ceiling. Then require both halves
-of the answer — result quality and available usage evidence. Don't let any single
-choice be framed as guaranteeing the cheapest successful run.
-Payoff: Learners connect one proportionate pre-run choice to the two post-run checks that support a continue-or-stop decision.
-Sources: content/research/agentic-ai-credit-optimization.md CREDIT-01 and CREDIT-03 through CREDIT-08; content/modules/02-agentic/visual-intent.md slide 25
+Use Auto where supported. Its documented discount depends on the paid plan
+and supported surface. It is not a promise of the cheapest successful
+result. Policy, available models and the task still matter.
+Those guards stay visible here; they are not hidden in Details.
+
+Start fresh for unrelated work. For continuing work, use the chosen host's
+supported compaction controls and check that needed requirements remain.
+CLI and named supported VS Code sessions document compaction. Do not assume
+their controls or exact behavior are identical.
+
+The optional Controls reference keeps those choices together.
+The separate CLI limit reference shows slash limits set max-ai-credits,
+followed by a number. That public-preview control is a soft session ceiling.
+An in-progress response can exceed it. It is not a hard cash cap or monthly
+budget. We are reading a reference, not setting a limit now.
+
+Finally, a setting change can affect actual input or usage. It does not
+prove a full cache miss. Check the result and available usage without
+claiming that one observed change caused a fixed saving.
+
+Transition: Cost is one consideration. Final acceptance still combines
+independent quality and review evidence under a human decision.
+
+Audience question: Would you keep the wrong outdoor requirement to preserve a possible hit?
+
+Response guidance: If needed, say, "No. Correct the venue and keep the task safe
+and accurate. Then inspect the result and the usage you can actually observe.
+A cheap wrong answer is not a saving."
+
+Payoff: You can connect a deliberate pre-run choice to quality and usage
+evidence without sacrificing correctness for reuse.
+
+Sources: content/modules/02-agentic/context-caching-source.md T8; content/research/agentic-ai-credit-optimization.md CREDIT-01/03–08, SRC-01–07; content/production/context-caching-proposal/source-verification.md C3/C6/X3/X4, P14/S5/S9/S2
 -->
 
 ---
@@ -1368,8 +1592,10 @@ Response guidance: Let the debate run briefly — it's a genuinely good argument
 land it: both are risky, because human review and automated findings answer
 different questions and neither one cancels the other. That's the takeaway, not a
 winner.
+
 Payoff: The question makes separate evidence streams and retained human authority memorable at the module’s culmination.
-Sources: content/research/agentic-content-verification.md AGT-25 through AGT-30; content/modules/02-agentic/visual-intent.md slide 26
+
+Sources: content/research/agentic-content-verification.md AGT-25 through AGT-30; content/modules/02-agentic/visual-intent.md slide 28
 -->
 
 ---
@@ -1394,12 +1620,13 @@ Audience question: Are we ready to move from the review pattern into the mission
 Response guidance: Keep it succinct and move on. If the room hesitates, say, "We have the handoff pattern; now we prove it in the mission."
 
 Payoff: Learners get a clean reset before the final agentic mission starts.
-Sources: content/modules/02-agentic/slide-manifest.md row 27; content/modules/02-agentic/module.md
+
+Sources: content/modules/02-agentic/slide-manifest.md row 29; content/modules/02-agentic/module.md
 -->
 
 ---
 layout: single-panel
-class: agentic-slide
+class: agentic-slide agentic-mission-slide
 ---
 
 ::title::
@@ -1416,7 +1643,7 @@ class: agentic-slide
   <div class="agentic-card"><b>Stuck? Ask Copilot</b><span>Copy-ready prompts on the mission page · costs no points</span></div>
 </div>
 
-<div class="agentic-decision">MISSION ROUTE · workshops/ghcp-dev-hack/agentic/missions/agent-task/</div>
+<a class="agentic-decision" href="./missions/agent-task/">MISSION ROUTE · workshops/ghcp-dev-hack/agentic/missions/agent-task/</a>
 
 <!--
 Timebox: 45 minutes
@@ -1456,6 +1683,8 @@ setup steps for their chosen tool, and to the copyable starter case if they need
 it. If nobody answers, offer one yourself: "Mine is — only the one file I named
 changes." If anyone asks about the board, remind them it shows aliases and scores
 only, and that nothing from their repository is published.
+
 Payoff: Everyone starts with one thing to judge the plan against, and ends with the evidence Advanced needs.
+
 Sources: content/missions/agentic/agent-task.md; content/modules/02-agentic/module.md
 -->

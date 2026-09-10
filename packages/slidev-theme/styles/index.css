@@ -865,6 +865,46 @@
   margin-bottom: 1.4rem;
 }
 
+.workshop-cover-logos {
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  min-height: 3.4rem;
+  margin-top: 1rem;
+  gap: 1rem;
+  align-items: center;
+}
+
+.workshop-cover-logos--foundations {
+  margin-top: auto;
+}
+
+.workshop-cover-logos__github,
+.workshop-cover-logos__microsoft {
+  display: block;
+  height: auto !important;
+  max-height: 4rem !important;
+  object-fit: contain;
+}
+
+/* Slidev 52.18 play-mode controls. Target the verified semantic control,
+   not generated utility class names, and keep the lower-left region clickable. */
+#page-root div:has(> nav button[title="Go to next slide"]) {
+  z-index: 50;
+  opacity: 1 !important;
+  pointer-events: auto;
+}
+
+.workshop-cover-logos__github {
+  width: 12rem !important;
+}
+
+.workshop-cover-logos__microsoft {
+  width: 8rem !important;
+  padding-left: 1rem;
+  border-left: 1px solid #d1d9e0;
+}
+
 .advanced-microsoft-logo {
   width: 6.4rem;
   height: auto;

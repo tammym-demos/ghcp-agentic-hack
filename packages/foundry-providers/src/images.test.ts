@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { createMaiImageRequestBody } from "./images.js";
+import { imageProviderNames, maiImageProviderNames } from "./types.js";
 
 describe("createMaiImageRequestBody", () => {
   it("creates JSON for text-to-image generation", () => {
@@ -46,5 +47,27 @@ describe("createMaiImageRequestBody", () => {
     expect(image.name).toBe("opening-frame.png");
     expect(image.type).toBe("image/png");
     expect(new Uint8Array(await image.arrayBuffer())).toEqual(new Uint8Array([1, 2, 3]));
+  });
+
+  it("sends the deployment name so a newer MAI model can be targeted", () => {
+    const body = createMaiImageRequestBody(
+      {
+        prompt: "A precise process illustration",
+        width: 1024,
+        height: 1024,
+        outputFormat: "png"
+      },
+      "MAI-Image-2.6"
+    );
+
+    expect(JSON.parse(body as string).model).toBe("MAI-Image-2.6");
+  });
+});
+
+describe("imageProviderNames", () => {
+  it("exposes both MAI image providers so provenance records the model actually used", () => {
+    expect(imageProviderNames).toContain("mai-image-2.5");
+    expect(imageProviderNames).toContain("mai-image-2.6");
+    expect(maiImageProviderNames).toEqual(["mai-image-2.5", "mai-image-2.6"]);
   });
 });

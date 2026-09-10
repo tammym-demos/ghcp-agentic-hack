@@ -1,6 +1,8 @@
 # Foundations Content Verification
 
-**Review date:** 2026-08-04
+**Review date:** 2026-08-04; Copilot App/Agent Merge availability treatment
+rechecked 2026-09-09; FND-15 source registry reconciled and URLs rechecked
+2026-09-10 for PR #61
 **Scope:** Foundations Parts 1 and 2, shared claims that affect Agentic, and the current workshop mission briefings  
 **Review status:** Source verification completed; slide revision and human content approval still required
 
@@ -23,9 +25,10 @@ Do not discard the approved Foundations characters or still images. Do not carry
 | FND-09 | Chat, CLI, cloud agent, Spaces, Spark, and third-party coding agents consume AI credits; completions and next-edit suggestions do not. | [Usage-based billing for organizations and enterprises](https://docs.github.com/en/copilot/concepts/billing/usage-based-billing-for-organizations-and-enterprises) | Verified for organization billing | State the plan/billing context. Do not generalize organization allowances to every plan. |
 | FND-10 | Auto is the default and lowest-cost choice for routine work. | [About Copilot auto model selection](https://docs.github.com/en/copilot/concepts/models/auto-model-selection) | Requires revision; rechecked 2026-08-04 | Auto uses task complexity plus system health and availability, routes along natural cache boundaries, and currently provides a 10% model-cost discount on paid plans in supported products. Teach cost efficiency, not a guarantee that every Auto-routed interaction is the cheapest possible choice. |
 | FND-11 | Usage can be monitored through the product and GitHub AI Credits pages. | [Monitoring AI Credits usage](https://docs.github.com/en/copilot/how-tos/manage-and-track-spending/monitor-ai-usage); [Copilot usage metrics](https://docs.github.com/copilot/concepts/copilot-usage-metrics) | Verified 2026-08-04 | Keep account, organization, and product-level usage distinct. Current documentation describes Copilot settings/AI usage pages and quota views in supported IDEs; re-verify exact UI paths before a live demo. |
-| FND-12 | Context windows contain instructions, history, files, tool definitions/results, and outputs; capacity is fixed per model and long sessions require context management. | [Managing context in Copilot CLI](https://docs.github.com/en/copilot/concepts/agents/copilot-cli/context-management); [Supported AI models](https://docs.github.com/en/copilot/reference/ai-models/supported-models); [Optimizing AI usage](https://docs.github.com/en/copilot/tutorials/optimize-ai-usage) | Verified 2026-08-04 for documented mechanics; teaching synthesis for degradation | Size varies by model. Selected supported models offer an optional 1-million-token context in VS Code and Copilot CLI. Copilot CLI starts automatic compaction around 80% and may pause around 95%; compaction preserves a structured summary but can lose fine detail. Teach “context rot” as the workshop's observable diagnosis, which can begin before capacity is full, not as a named universal product feature. |
+| FND-12 | Context windows contain instructions, history, files, tool definitions/results, and outputs; capacity is fixed per model and long sessions require context management. | [Managing context in Copilot CLI](https://docs.github.com/en/copilot/concepts/agents/copilot-cli/context-management); [Supported AI models](https://docs.github.com/en/copilot/reference/ai-models/supported-models); [Optimizing AI usage](https://docs.github.com/en/copilot/tutorials/optimize-ai-usage) | Verified 2026-08-04 for documented mechanics; compaction scope updated 2026-09-05 by owner attestation, citation pending; teaching synthesis for degradation | Size varies by model. Selected supported models offer an optional 1-million-token context in VS Code and Copilot CLI. Compaction is available in **both VS Code and Copilot CLI** (owner-attested 2026-09-05, superseding the earlier CLI-only scoping; documentation citation still required). The approximately 80% automatic-compaction start and 95% pause thresholds remain verified for Copilot CLI only. Compaction preserves a structured summary but can lose fine detail. Teach “context rot” as the workshop's observable diagnosis, which can begin before capacity is full, not as a named universal product feature. |
 | FND-13 | Least-privilege delegation, narrow scope, review checkpoints, and rollback reduce blast radius. | [Canceling and rolling back a Copilot CLI operation](https://docs.github.com/en/copilot/concepts/agents/copilot-cli/cancel-and-roll-back); [About cloud agent](https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-coding-agent) | Verified as governance guidance | Keep as workshop guidance, clearly labeled as an engineering operating principle rather than a product guarantee. |
 | FND-14 | Enterprise privacy, IP, content exclusion, duplicate detection, retention, and audit controls apply uniformly. | Workshop source wording; dedicated product policy pages still need to be mapped. | Requires source expansion | Split this into individually sourced claims. Avoid “uniformly” and make plan, organization policy, repository configuration, and product-surface differences explicit. |
+| FND-15 | Agent Merge is an experimental Copilot App feature. | [Merging a pull request in the GitHub Copilot app](https://docs.github.com/en/copilot/how-tos/github-copilot-app/managing-issues-and-pull-requests#merging-a-pull-request); [Built-in skills in the GitHub Copilot app](https://docs.github.com/en/copilot/reference/github-copilot-app-reference/built-in-skills); [GitHub Copilot app generally available](https://github.blog/changelog/2026-06-17-github-copilot-app-generally-available) | Not supported; rechecked 2026-09-09 | The Copilot App has been generally available since 2026-06-17, and GitHub documents Agent Merge as a normal app workflow without a separate experimental or preview label. Do not label Agent Merge experimental, but do not turn the app-level GA announcement into a separate “Agent Merge is GA” claim. |
 
 ## Source and version notes
 
@@ -33,10 +36,22 @@ Do not discard the approved Foundations characters or still images. Do not carry
 - Auto model selection documentation describes task optimization and availability-aware routing. It does not support a universal claim that Auto is always the cheapest option.
 - GitHub documents token classes and billing outcomes, not a learner-visible trace of exact tokenization. Visualize input, cached, and output accounting conceptually and keep token labels and rates as native slide content.
 - Context-window mechanics are product-specific. `/context` is verified for Copilot CLI and should not be taught as a cross-surface command.
-- `/compact` and the approximately 80%/95% automatic-compaction behavior are also Copilot CLI-specific. Do not generalize them to VS Code, GitHub.com, cloud agent, or Copilot App.
+- `/compact` and automatic compaction are **no longer Copilot CLI-only**. Workshop owner attested on 2026-09-05 that compaction now works in **both VS Code and Copilot CLI**, superseding the 2026-08-04 CLI-only scoping. **This attestation still needs a documentation or Changelog citation**; until one is attached, teach compaction as available in VS Code and Copilot CLI, and do not extend it to GitHub.com, cloud agent, or Copilot App. The approximately 80%/95% automatic-compaction thresholds remain verified for Copilot CLI only and must not be presented as VS Code behavior without separate evidence.
 - Selected supported models currently offer an optional 1-million-token context window in VS Code and Copilot CLI. Availability is model-, product-, plan-, and policy-dependent, and larger context can consume more tokens and AI credits.
 - “Context rot” is a useful workshop label for observable quality drift; it should be presented as a practical diagnosis and recovery pattern, not as a universally named GitHub feature.
 - Changelog candidates remain unchanged. No candidate Changelog entry was promoted or added to `workshop.md` during this verification pass.
+- The Copilot App GA announcement establishes the app's availability. The
+  Agent Merge documentation establishes its documented workflow and current
+  lack of a separate experimental/preview label. Keep those two statements
+  distinct.
+- PR #61 provenance correction, 2026-09-10: both cited GitHub Docs pages and
+  the dated GA announcement returned HTTP 200 and corroborated the existing
+  FND-15 treatment. Their exact URLs and scoped review notes now appear in
+  `workshop.md.researchSources`; `lastReviewed` records this latest scoped
+  review, not a recheck of every older claim. The GA Changelog source remains
+  candidate evidence, with no new content-option approval or change to
+  `github-changelog-options.md`. The preceding no-registry-edit note describes
+  the historical September 9 verification pass.
 
 ## Required next content actions
 

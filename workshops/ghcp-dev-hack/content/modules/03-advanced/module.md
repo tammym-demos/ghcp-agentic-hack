@@ -49,6 +49,7 @@ labs: []
 missions:
   - content/missions/advanced/cross-cutting-change.md
 assets:
+  - assets/brand/github/GitHub_Lockup_Black_Clearspace.svg
   - assets/brand/microsoft/microsoft-logo.png
   - assets/images/advanced/accountable-trio-cover-anchor.png
   - assets/images/advanced/parallel-integration-yard-anchor.png

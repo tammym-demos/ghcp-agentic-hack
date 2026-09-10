@@ -1,5 +1,17 @@
 # Agentic Opening Slides — Text-Only Concept Proposal
 
+## Current timing supersession — 2026-09-07
+
+This remains the historical opening concept and image fallback authority.
+The approved G contract now has 30 slides, 81 instruction + 45 mission =
+126 minutes. The opening timing label is
+`2 hours 6 minutes · 81 min instruction + 45 min mission`.
+The agenda uses contiguous groups `3 + 16 + 12 + 50 = 81`, with the same
+section titles and separate 45-minute mission. See `slide-manifest.md` and
+`context-caching-source.md`. No opening art or learning objective changes.
+The earlier 27-slide/75-minute numbers below record the original decision,
+not the active duration. Shared workshop schedule adoption remains pending.
+
 **Initiative:** `agentic-opening-slides-2026-08-13`
 
 **Workshop/module:** `ghcp-dev-hack` / `02-agentic`
