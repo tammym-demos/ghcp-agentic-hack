@@ -1,0 +1,105 @@
+[
+  {
+    "number": 1,
+    "state": "open",
+    "updated_at": "2026-08-10T15:00:00Z",
+    "created_at": "2026-08-10T15:00:00Z",
+    "labels": [
+      { "name": "leaderboard-submission" },
+      { "name": "verified-score" }
+    ],
+    "user": {
+      "login": "sample-participant-001",
+      "id": 2001
+    },
+    "body": "### Opt-in Alias\n\nMergewell One\n\n### Module\n\nFoundations\n\n### Core Points\n\n40\n\n### Bonus Points\n\n10\n\n### Self-Report Acknowledgement\n\n- [x] I confirm this is my own self-reported score for the selected module and event.\n\n### Privacy Acknowledgement\n\n- [x] I understand the published leaderboard includes only my opt-in alias and sanitized score data, and facilitators may verify or withhold entries.\n"
+  },
+  {
+    "number": 2,
+    "state": "open",
+    "updated_at": "2026-08-10T15:05:00Z",
+    "created_at": "2026-08-10T15:05:00Z",
+    "labels": [
+      { "name": "leaderboard-submission" },
+      { "name": "verified-score" }
+    ],
+    "user": {
+      "login": "sample-participant-001",
+      "id": 2001
+    },
+    "body": "### Opt-in Alias\n\nMergewell One\n\n### Module\n\nAgentic\n\n### Core Points\n\n50\n\n### Bonus Points\n\n0\n\n### Self-Report Acknowledgement\n\n- [x] I confirm this is my own self-reported score for the selected module and event.\n\n### Privacy Acknowledgement\n\n- [x] I understand the published leaderboard includes only my opt-in alias and sanitized score data, and facilitators may verify or withhold entries.\n"
+  },
+  {
+    "number": 3,
+    "state": "open",
+    "updated_at": "2026-08-10T15:10:00Z",
+    "created_at": "2026-08-10T15:10:00Z",
+    "labels": [
+      { "name": "leaderboard-submission" },
+      { "name": "verified-score" }
+    ],
+    "user": {
+      "login": "sample-participant-001",
+      "id": 2001
+    },
+    "body": "### Opt-in Alias\n\nMergewell One\n\n### Module\n\nAdvanced\n\n### Core Points\n\n40\n\n### Bonus Points\n\n10\n\n### Self-Report Acknowledgement\n\n- [x] I confirm this is my own self-reported score for the selected module and event.\n\n### Privacy Acknowledgement\n\n- [x] I understand the published leaderboard includes only my opt-in alias and sanitized score data, and facilitators may verify or withhold entries.\n"
+  },
+  {
+    "number": 4,
+    "state": "open",
+    "updated_at": "2026-08-10T15:15:00Z",
+    "created_at": "2026-08-10T15:15:00Z",
+    "labels": [
+      { "name": "leaderboard-submission" },
+      { "name": "verified-score" }
+    ],
+    "user": {
+      "login": "sample-participant-002",
+      "id": 2002
+    },
+    "body": "### Opt-in Alias\n\nRelay Two\n\n### Module\n\nFoundations\n\n### Core Points\n\n50\n\n### Bonus Points\n\n10\n\n### Self-Report Acknowledgement\n\n- [x] I confirm this is my own self-reported score for the selected module and event.\n\n### Privacy Acknowledgement\n\n- [x] I understand the published leaderboard includes only my opt-in alias and sanitized score data, and facilitators may verify or withhold entries.\n"
+  },
+  {
+    "number": 5,
+    "state": "open",
+    "updated_at": "2026-08-10T15:20:00Z",
+    "created_at": "2026-08-10T15:20:00Z",
+    "labels": [
+      { "name": "leaderboard-submission" }
+    ],
+    "user": {
+      "login": "sample-participant-002",
+      "id": 2002
+    },
+    "body": "### Opt-in Alias\n\nRelay Two\n\n### Module\n\nAgentic\n\n### Core Points\n\n40\n\n### Bonus Points\n\n10\n\n### Self-Report Acknowledgement\n\n- [x] I confirm this is my own self-reported score for the selected module and event.\n\n### Privacy Acknowledgement\n\n- [x] I understand the published leaderboard includes only my opt-in alias and sanitized score data, and facilitators may verify or withhold entries.\n"
+  },
+  {
+    "number": 6,
+    "state": "open",
+    "updated_at": "2026-08-10T15:25:00Z",
+    "created_at": "2026-08-10T15:25:00Z",
+    "labels": [
+      { "name": "leaderboard-submission" },
+      { "name": "verified-score" }
+    ],
+    "user": {
+      "login": "sample-participant-002",
+      "id": 2002
+    },
+    "body": "### Opt-in Alias\n\nRelay Two\n\n### Module\n\nAdvanced\n\n### Core Points\n\n50\n\n### Bonus Points\n\n0\n\n### Self-Report Acknowledgement\n\n- [x] I confirm this is my own self-reported score for the selected module and event.\n\n### Privacy Acknowledgement\n\n- [x] I understand the published leaderboard includes only my opt-in alias and sanitized score data, and facilitators may verify or withhold entries.\n"
+  },
+  {
+    "number": 7,
+    "state": "open",
+    "updated_at": "2026-08-09T15:30:00Z",
+    "created_at": "2026-08-09T15:30:00Z",
+    "labels": [
+      { "name": "leaderboard-submission" }
+    ],
+    "user": {
+      "login": "sample-participant-003",
+      "id": 2003
+    },
+    "body": "### Opt-in Alias\n\nPurrmission Three\n\n### Module\n\nFoundations\n\n### Core Points\n\n30\n\n### Bonus Points\n\n10\n\n### Self-Report Acknowledgement\n\n- [x] I confirm this is my own self-reported score for the selected module and event.\n\n### Privacy Acknowledgement\n\n- [x] I understand the published leaderboard includes only my opt-in alias and sanitized score data, and facilitators may verify or withhold entries.\n"
+  }
+]

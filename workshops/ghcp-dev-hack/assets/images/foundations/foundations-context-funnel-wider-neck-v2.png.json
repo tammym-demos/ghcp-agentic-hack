@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "foundations-context-funnel-wider-neck-v2",
+  "kind": "image",
+  "provider": "mai-image-2.6",
+  "deployment": "MAI-Image-2.6",
+  "promptHash": "3cb062818caaea52214f66051048038b93654ef431ecb4eaaf922d9c648f741f",
+  "prompt": "STYLE GUIDE: GitHub-aligned light editorial presentation with native Mona Sans text, accessible native tables and diagrams, original approved workshop-character stills, and explicit native review placeholders for accepted but unproduced motion stories; no generated text, product UI, logos, mascots, inherited animation compositions, or unproduced video declarations\n\nUSER PROMPT: Make one surgical edit to the supplied funnel illustration. Widen the visible lower tubular glass neck by approximately 30 percent relative to its current width, expanding evenly around its existing vertical centerline. Keep the neck's length and bottom endpoint unchanged. Adjust only the immediately adjoining lower taper, metal collar and fasteners, and wooden support where necessary for a physically coherent fit around the wider neck.\r\n\r\nPreserve everything else as closely as possible: the upper green-enamel rim, the main tapered transparent glass body, upper charcoal brackets and screws, illustrated material texture, highlights, palette, warm background, grounding shadow, camera angle, composition, and subject scale. Keep the entire funnel and support visible. Preserve the reference canvas at 1920 by 1072 if supported. Do not redesign the funnel, broaden its mouth or main body, change its height, relocate it, add props, or introduce text, labels, numbers, UI, logos, marks, people, animals, or animation. This is a local neck-width correction, not a new illustration or a style change.\r\n\r\nHuman-centered 2D editorial cartoon, warm editorial illustration style, soft off-white background, slightly richer color palette with warm coat shadows, expressive face detail on characters, clean rounded outlines with gentle weight variation, GitHub-green and Copilot-purple accents, light grounding shadow under characters, professional but approachable and likable tone.\r\n\r\nThe locked style block describes the illustration language only. This image remains character-free; preserve the supplied illustration's existing rendering rather than restyling it.\r\n\r\nNo model-generated logos, no mascots, no Octocat, no GitHub Copilot mascot, no code, no fake or real product UI, no Inspector Gadget likeness, no Albert Einstein portrait recreation, no cluttered backgrounds.",
+  "source": "content/modules/01-foundations/slides.md",
+  "createdAt": "2026-09-07T01:03:31.862Z",
+  "reviewStatus": "approved",
+  "location": "assets/images/foundations/foundations-context-funnel-wider-neck-v2.png",
+  "width": 1376,
+  "height": 768,
+  "sha256": "c592e171f2170b36f9138b9b75eae489548cd8dcf4673c75a2c07921b312617c",
+  "sourceBaselineCommit": "b8da351768fd50b6f5a13014803a255a32c7aa5b",
+  "sourcePrompt": "content/modules/01-foundations/media/prompts/images/foundations-context-funnel-wider-neck-v2.txt",
+  "approval": {
+    "approver": "workshop owner",
+    "date": "2026-09-07",
+    "scope": "Exact accepted raster promotion and local production slide18 adoption; no release or deployment",
+    "evidence": "content/production/decision-log.md#2026-09-07--corrected-manufacturing-proof-accepted-and-production-adoption-approved"
+  },
+  "inputReferenceNote": "Historical repository-relative candidate path and original image hash only; not a delivery/build dependency. Narrower reference remains local history and is not promoted.",
+  "inputReference": {
+    "path": "generated/candidates/ghcp-dev-hack/foundations/2026-09-07-funnel-snapshot/images/foundations-context-funnel-cartoon-snapshot-v1-b5cae19f51f4.png",
+    "hash": "e7f87ef636b2ebfe2ca412f760db181189474b016dc185a79f61385335f2d3d7",
+    "contentType": "image/png"
+  }
+}

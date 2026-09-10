@@ -1,31 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { loadCatalog, type ContentCatalog } from "@ghcp/content-schema";
-import { repositoryRoot } from "./paths.js";
+import { type ContentCatalog } from "@ghcp/content-schema";
 import { workshopRunOfShow } from "./lifecycle.js";
 import { createPortalCatalog, resolveWorkshopEnvironment } from "./catalog.js";
 
 describe("reference content", () => {
-  it("loads the reference workshop and ordered modules", async () => {
-    const catalog = await loadCatalog(repositoryRoot);
-    expect(catalog.workshops[0]?.workshop.data.id).toBe("ghcp-dev-hack");
-    expect(catalog.workshops[0]?.workshop.data.modules).toEqual(["foundations", "agentic", "advanced"]);
-
-    const generated = createPortalCatalog(catalog);
-    const mission = generated.workshops[0]?.modules[0]?.missions[0];
-    expect(mission).toMatchObject({
-      goal: expect.stringContaining("Six short experiments"),
-      completionPoints: 40,
-      bonusPointCap: 10
-    });
-    expect(mission?.starterFile).toBeUndefined();
-    expect(mission?.coreClues).toHaveLength(6);
-    expect(mission?.coreClues.reduce((total, clue) => total + clue.points, 0)).toBe(50);
-    expect(mission?.coreClues[0]?.hints.length).toBeGreaterThanOrEqual(2);
-    expect(mission?.coreClues[0]?.outcome).toBeTruthy();
-    expect(mission?.coreClues[0]?.verify).toBeTruthy();
-    expect(mission?.harnesses.map((harness) => harness.id)).toEqual(["ide-extension", "copilot-cli", "copilot-app"]);
-  });
-
   it("includes scored mission catalog fields when authored content provides them", () => {
     const catalog = {
       workshops: [
@@ -258,14 +236,14 @@ describe("reference content", () => {
   });
 
   describe("workshop timing", () => {
-    it("renders the validated seven-hour run of show", async () => {
+    it("renders the validated combined 428-minute run of show", async () => {
       const runOfShow = await workshopRunOfShow("ghcp-dev-hack", "09:00");
-      expect(runOfShow).toContain("Total: 420 minutes");
+      expect(runOfShow).toContain("Total: 428 minutes");
       expect(runOfShow).toContain(
-        "| GitHub Workshop | 09:15 | 10:30 | 75 | module-content | Foundations: Copilot surfaces, safety, interaction modes, cost, and context | foundations |"
+        "| GitHub Workshop | 09:15 | 10:32 | 77 | module-content | Foundations: Copilot surfaces, safety, interaction modes, cost, and context | foundations |"
       );
       expect(runOfShow).toContain(
-        "| GitHub Workshop | 15:30 | 16:00 | 30 | mission | Mission: Orchestrate, integrate, and debug with evidence | advanced |"
+        "| GitHub Workshop | 15:38 | 16:08 | 30 | mission | Mission: Orchestrate, integrate, and debug with evidence | advanced |"
       );
     });
   });

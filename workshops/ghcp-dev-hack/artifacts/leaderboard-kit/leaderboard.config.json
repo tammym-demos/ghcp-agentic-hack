@@ -1,0 +1,71 @@
+{
+  "event": {
+    "slug": "ghcp-dev-hack",
+    "name": "GHCP Dev Hack Workshop Leaderboard",
+    "timeZone": "America/New_York"
+  },
+  "pages": {
+    "title": "GHCP Dev Hack Workshop Leaderboard",
+    "description": "Sanitized standings for self-reported and facilitator-verified workshop module submissions.",
+    "refreshSeconds": 60
+  },
+  "labels": {
+    "submission": "leaderboard-submission",
+    "verified": "verified-score"
+  },
+  "aliasPolicy": {
+    "minLength": 3,
+    "maxLength": 24,
+    "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9 ._-]{1,22}[A-Za-z0-9])?$"
+  },
+  "modules": [
+    {
+      "id": "foundations",
+      "name": "Foundations",
+      "core": {
+        "min": 0,
+        "max": 50,
+        "step": 5,
+        "completion": 40
+      },
+      "bonus": {
+        "min": 0,
+        "max": 10,
+        "step": 10
+      }
+    },
+    {
+      "id": "agentic",
+      "name": "Agentic",
+      "core": {
+        "min": 0,
+        "max": 50,
+        "step": 10,
+        "completion": 40
+      },
+      "bonus": {
+        "min": 0,
+        "max": 10,
+        "step": 10
+      }
+    },
+    {
+      "id": "advanced",
+      "name": "Advanced",
+      "core": {
+        "min": 0,
+        "max": 50,
+        "step": 10,
+        "completion": 40
+      },
+      "bonus": {
+        "min": 0,
+        "max": 10,
+        "step": 10
+      }
+    }
+  ],
+  "scoreboard": {
+    "maxCumulative": 180
+  }
+}

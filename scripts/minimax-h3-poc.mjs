@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const repositoryRoot = process.cwd();
@@ -156,61 +156,8 @@ async function prepare(options) {
   );
 }
 
-async function submit(options) {
-  const prepared = await preparedRequest(options);
-  const outputDirectory = repositoryPath(required(options, "output-dir"));
-  const assetId = required(options, "asset-id");
-  const manifestPath = path.join(outputDirectory.resolved, `${assetId}.json`);
-  await readFile(manifestPath)
-    .then(() => {
-      throw new Error(`MiniMax candidate manifest already exists: ${manifestPath}`);
-    })
-    .catch((error) => {
-      if (error?.code !== "ENOENT") throw error;
-    });
-
-  const response = await minimaxRequest("v2/video_generation", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(prepared.request)
-  });
-  const result = await response.json();
-  if (!result.task_id) throw new Error("MiniMax create response did not include task_id");
-
-  await mkdir(outputDirectory.resolved, { recursive: true });
-  await writeFile(
-    manifestPath,
-    JSON.stringify(
-      {
-        schemaVersion: 1,
-        id: assetId,
-        kind: "video",
-        provider: "minimax-h3",
-        model,
-        status: "submitted",
-        taskId: result.task_id,
-        createdAt: new Date().toISOString(),
-        endpoint: `${baseUrl.replace(/\/$/, "")}/v2/video_generation`,
-        prompt: prepared.promptPath.relative,
-        promptHash: prepared.promptHash,
-        inputReference: {
-          path: prepared.inputPath.relative,
-          hash: prepared.inputHash,
-          width: prepared.dimensions.width,
-          height: prepared.dimensions.height,
-          contentType: "image/png"
-        },
-        requestHash: prepared.requestHash,
-        resolution: prepared.resolution,
-        durationSeconds: prepared.duration,
-        ratio: "adaptive",
-        location: `minimax-task:${result.task_id}`
-      },
-      null,
-      2
-    )
-  );
-  console.log(manifestPath);
+async function submit() {
+  throw new Error("Experimental paid submission is disabled: use the governed content CLI with an exact work envelope. Prepare, status and download remain inspection-only.");
 }
 
 async function query(options) {
@@ -247,6 +194,7 @@ async function query(options) {
     await writeFile(videoRepoPath.resolved, bytes);
     updated.location = videoRepoPath.relative;
     updated.outputHash = digest(bytes);
+  }
 
   await writeFile(manifestPath.resolved, JSON.stringify(updated, null, 2));
   console.log(JSON.stringify({ status: task.status, manifest: manifestPath.resolved }, null, 2));

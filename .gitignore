@@ -4,7 +4,7 @@ dist/
 .slidev/
 .pnpm-store/
 generated/candidates/
+generated/release-preflight/
 .env
 .env.*
 !.env.example
-

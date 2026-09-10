@@ -287,7 +287,7 @@ export const moduleSchema = baseContent
       .object({
         expectedSlides: z.number().int().positive(),
         manifest: relativePath,
-        imageProvider: z.enum(["gpt-image-2", "flux-2-pro", "mai-image-2.5"]),
+        imageProvider: z.enum(["gpt-image-2", "flux-2-pro", "mai-image-2.5", "mai-image-2.6"]),
         visualStyle: z.string().min(1)
       })
       .optional(),
@@ -625,6 +625,14 @@ export const productionStateSchema = z
       )
       .default([]),
     currentInitiative: id,
+    contextRefs: z.array(z.object({
+      initiative: id,
+      preflight: relativePath,
+      preflightSection: z.string().min(1).optional(),
+      decisionIds: z.array(id),
+      artifactPaths: z.array(relativePath).default([])
+    }).strict()).default([]),
+    workEnvelope: relativePath.optional(),
     currentOwner: z.string().min(1),
     nextOwner: z.string().min(1),
     nextHumanGate: z.string().min(1),
@@ -663,7 +671,7 @@ export const generatedAssetSchema = z.object({
   schemaVersion: z.literal(1),
   id,
   kind: z.enum(["image", "video"]),
-  provider: z.enum(["gpt-image-2", "flux-2-pro", "mai-image-2.5", "sora-2"]),
+  provider: z.enum(["gpt-image-2", "flux-2-pro", "mai-image-2.5", "mai-image-2.6", "sora-2"]),
   deployment: z.string().min(1),
   promptHash: z.string().regex(/^[a-f0-9]{64}$/),
   source: relativePath,

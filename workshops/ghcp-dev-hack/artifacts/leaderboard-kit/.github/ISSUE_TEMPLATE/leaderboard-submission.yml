@@ -1,0 +1,64 @@
+name: Leaderboard module submission
+description: Submit an opt-in alias and self-reported module score for the workshop leaderboard.
+title: "[Leaderboard] "
+labels:
+  - leaderboard-submission
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Submit one issue per module. Edit the same issue to correct a score. Closing the latest valid issue withdraws that module submission.
+
+        Your submission is counted against the event running on the day you open this issue, so there is nothing for you to select.
+
+        **Choose a made-up alias, not your real name.** Your alias and score are published on the shared workshop leaderboard, and this issue is visible to everyone who can see this repository. Your GitHub account is already attached to the issue you open, so the alias is what keeps your score entry itself non-identifying. Pick something fun, such as `mergewell-runner`, `curious-otter`, or `night-shift-42`. Avoid your real name, work username, email address, employer, or customer names.
+
+        Use the same alias for all three modules so your scores add up into one standing.
+  - type: input
+    id: opt-in-alias
+    attributes:
+      label: Opt-in Alias
+      description: "Use a made-up alias, not your real name. Your alias and score are published on the shared workshop board, and this issue is visible to everyone who can see the leaderboard repository. 3-24 characters, using letters, numbers, spaces, periods, dashes, and underscores only. Reuse the same alias for every module."
+      placeholder: mergewell-runner
+    validations:
+      required: true
+  - type: input
+    id: module
+    attributes:
+      label: Module
+      description: "Filled in for you when you use the Submit link on the mission page. Must be exactly one of: Foundations, Agentic, or Advanced."
+      placeholder: Foundations
+    validations:
+      required: true
+  - type: input
+    id: core-points
+    attributes:
+      label: Core Points
+      description: Filled in for you when you use the Submit link on the mission page. Foundations clues are worth 5, 10, 10, 10, and 15 points, so Foundations accepts 5-point values from 0 to 50. Agentic and Advanced clues are worth 10 points each, so they accept 10-point values from 0 to 50. 40 core points are required for module completion.
+      placeholder: "40"
+    validations:
+      required: true
+  - type: input
+    id: bonus-points
+    attributes:
+      label: Bonus Points
+      description: Filled in for you when you use the Submit link on the mission page. Either 0 or 10.
+      placeholder: "0"
+    validations:
+      required: true
+  - type: checkboxes
+    id: self-report
+    attributes:
+      label: Self-Report Acknowledgement
+      options:
+        - label: I confirm this is my own self-reported score for the selected module and event.
+          required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy Acknowledgement
+      options:
+        - label: I understand the published leaderboard includes only my opt-in alias and sanitized score data, and facilitators may verify or withhold entries.
+          required: true
+        - label: I understand this issue is visible to everyone who can see the leaderboard repository, and I have chosen an alias rather than my real name.
+          required: true

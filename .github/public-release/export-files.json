@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "modules": {
+    "ghcp-dev-hack/foundations": {
+      "files": [
+        "content/modules/01-foundations/components/FoundationNative.vue",
+        "content/modules/01-foundations/components/FoundationCacheWalkthrough.vue",
+        "content/modules/01-foundations/components/NextTokenRailway.vue",
+        "content/modules/01-foundations/components/control-navigation.mjs",
+        "content/modules/01-foundations/n3-proof/components/N3Comparison.vue",
+        "content/modules/01-foundations/token-cache-cli-motion/components/CacheWalkthrough.vue",
+        "content/modules/01-foundations/token-cache-cli-motion/components/cache-base.css",
+        "content/modules/01-foundations/token-cache-cli-motion/sequence.mjs",
+        "content/modules/01-foundations/token-cache-cli-motion/public/cli-controlled-action.png",
+        "content/modules/01-foundations/token-cache-cli-motion/public/cli-controlled-action.png.json",
+        "content/modules/01-foundations/token-cache-cli-motion/sequence.test.mjs"
+      ],
+      "tests": ["content/modules/01-foundations/token-cache-cli-motion/sequence.test.mjs"]
+    },
+    "ghcp-dev-hack/agentic": {
+      "files": [
+        "content/modules/02-agentic/components/AgenticRequestStill.vue"
+      ],
+      "tests": []
+    }
+  },
+  "workshops": {
+    "ghcp-dev-hack": {
+      "files": [
+        "artifacts/leaderboard-kit/.gitignore",
+        "artifacts/leaderboard-kit/.github/ISSUE_TEMPLATE/leaderboard-submission.yml",
+        "artifacts/leaderboard-kit/.github/workflows/publish-leaderboard.yml",
+        "artifacts/leaderboard-kit/README.md",
+        "artifacts/leaderboard-kit/RUNBOOK.md",
+        "artifacts/leaderboard-kit/package.json",
+        "artifacts/leaderboard-kit/leaderboard.config.json",
+        "artifacts/leaderboard-kit/fixtures/sample-issues.json",
+        "artifacts/leaderboard-kit/src/leaderboard.mjs",
+        "artifacts/leaderboard-kit/src/build-leaderboard.mjs",
+        "artifacts/leaderboard-kit/test/leaderboard.test.mjs"
+      ],
+      "tests": ["artifacts/leaderboard-kit/test/leaderboard.test.mjs"]
+    }
+  }
+}

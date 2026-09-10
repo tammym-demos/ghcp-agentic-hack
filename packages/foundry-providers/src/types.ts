@@ -16,7 +16,17 @@ export interface GeneratedImage {
   revisedPrompt?: string;
 }
 
-export type ImageProviderName = "gpt-image-2" | "flux-2-pro" | "mai-image-2.5";
+export const maiImageProviderNames = ["mai-image-2.5", "mai-image-2.6"] as const;
+
+export type MaiImageProviderName = (typeof maiImageProviderNames)[number];
+
+export const imageProviderNames = [
+  "gpt-image-2",
+  "flux-2-pro",
+  ...maiImageProviderNames
+] as const;
+
+export type ImageProviderName = (typeof imageProviderNames)[number];
 
 export interface VideoGenerationRequest {
   prompt: string;

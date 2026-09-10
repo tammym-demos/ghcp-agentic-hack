@@ -1,5 +1,15 @@
 # Agentic Development — Key Topics
 
+## Current incorporation authority — 2026-09-07
+
+The historical topic recommendations below do not override the current
+30-slide manifest. `context-caching-source.md` governs A04/T6, A05/N4,
+A10/T7, A13/E3 and A27/T8, including their common event example, source
+qualifications, questions, Details and the A07 compaction correction.
+All five are native stills; no new gadget or controls illustration is used.
+Existing unrelated examples, mission and assets are unchanged. The former
+Northstar-throughout recommendation does not apply to these five scenes.
+
 **Initiative:** `agentic-module-development`
 
 **Baseline status:** Approved content contract, including the additional
@@ -93,8 +103,9 @@ Teach four direct, source-backed controls:
    policy, model pool, availability, and task outcome still apply; Auto is not
    guaranteed to select the cheapest successful option.
 4. **Use fresh or compacted context appropriately.** Start a fresh conversation
-   for unrelated work. For continuing long Copilot CLI work, inspect context
-   and use `/compact` when appropriate. Re-anchor a fresh or compacted session
+   for unrelated work. Use the chosen host's supported compaction controls
+   for continuing work; CLI and supported VS Code sessions both document them.
+   Re-anchor a fresh or compacted session
    with the necessary goal, boundaries, repository state, and checks.
 
 After the run, inspect both result quality and available usage evidence before
@@ -136,17 +147,11 @@ Source basis:
 
 ## Instruction Timing
 
-For the current 27-slide generated deck, `slide-manifest.md` is the per-slide
-timing authority. Slides 1–3 receive one instruction minute each; adjacent
-slides 4–6 receive two minutes each; slides 7, 12, 14, 17, 22, and 26 receive
-four minutes each; and the remaining 14 instructional slides receive three
-minutes each.
-
-Arithmetic:
-`(3 × 1) + (3 × 2) + (6 × 4) + (14 × 3) = 75` instruction minutes. The
-semantic section architecture remains `15 + 20 + 20 + 20 = 75`, and the
-separate mission remains 45 minutes, for a 120-minute module. This timing
-correction changes no topic, title, order, or learning coverage.
+For the current 30-slide deck, `slide-manifest.md` is the per-slide authority.
+All 28 retained allocations remain. Two insertions add six minutes:
+`(3 × 1) + (3 × 2) + (6 × 4) + (16 × 3) = 81` instruction minutes.
+The contiguous route is `3 + 16 + 12 + 50 = 81`; the separate mission is
+45, total 126. Demo remains zero. Older section budgets are historical.
 
 ## Prioritized Complex Topics
 

@@ -2,8 +2,12 @@
 
 **Initiative:** `agentic-module-development`
 
-**Baseline status:** historical source baseline; current slide contract is the
-25-slide `visual-intent.md` sequence
+**Baseline status:** historical source rationale. The active 2026-09-07 contract
+is 30 slides, 81 instruction + 45 mission = 126 minutes, in `slide-manifest.md`.
+`context-caching-source.md` governs the approved five native stills, their
+questions/qualifications and host-qualified compaction correction over older
+wording below. The current contiguous instruction route is 3 + 16 + 12 + 50.
+Earlier semantic section micro-timings below are historical, not additive.
 
 **Last source review:** 2026-08-09
 
@@ -14,8 +18,9 @@
 This guide preserves source rationale and historical timing. It does not define
 the current slide count, title order, an inline lab, a storyboard, media, or
 changes to the separate mission; `visual-intent.md`, `module.md`, and
-`slide-manifest.md` now define the exact current 25-slide, 75/45-minute
-contract.
+`slide-manifest.md` define the current exact contract. Shared schedule adoption
+is coordinator-owned and pending; Foundations' proposed request/reuse teaching
+is a delivery dependency, not a claim that it has already been taught.
 
 ## Approved v2 addendum — control AI credits before an agent runs
 
@@ -31,7 +36,7 @@ used.
 The 3-minute treatment teaches four direct controls: a public-preview, soft
 Copilot CLI session ceiling; regular context and regular reasoning unless task
 complexity justifies more; Auto where supported, with the current narrowly
-scoped 10% paid-plan model-cost discount caveat; and fresh or CLI-compacted
+scoped 10% paid-plan model-cost discount caveat; and fresh or host-supported compacted
 context where appropriate. The facilitator check asks the learner to choose
 one supported control for a bounded task, then name the result-quality and
 usage evidence needed for a continue/stop decision.
@@ -107,7 +112,19 @@ The approved skill gadgets are used only when their existing behavior fits:
   validation checklist for a clean attempt or handoff. It does not create,
   reset, or inspect a session.
 
-## Instruction architecture — exactly 75 minutes
+## Current instruction architecture — exactly 81 minutes
+
+| Contiguous route | Slides | Minutes |
+| --- | --- | ---: |
+| Who does what? | A01–A03 | 3 |
+| Prepare a job worth delegating | A04–A09 | 16 |
+| Choose and trust the helper | A10–A13 | 12 |
+| Stay in charge of the result | A14–A29, including zero-minute Demo | 50 |
+| Instruction total | A01–A29 | 81 |
+| Separate mission | A30 | 45 |
+| Module total | All 30 | 126 |
+
+## Historical instruction architecture — 75 minutes, superseded
 
 All checks below are facilitator-led instructional checks. Hands-on learner
 practice remains in the separate 45-minute mission.

@@ -1,3 +1,49 @@
+/* Approved G stills only: map the nominal 960x540 frame uniformly onto
+   Slidev's inherited 980x552 page. Do not alter retained slide geometry. */
+.slidev-layout.agentic-request-slide.ghcp-single-panel {
+  position: relative;
+  display: block;
+  width: 960px;
+  height: 540px;
+  top: 0.375px;
+  padding: 0;
+  transform: scale(1.0208333333333333);
+  transform-origin: top left;
+  background: #fff;
+  color: #1f2328;
+  font-family: "Mona Sans", "Segoe UI", Arial, sans-serif;
+}
+.slidev-layout.agentic-request-slide .ghcp-single-panel__title {
+  position: absolute;
+  left: 48px;
+  top: 24px;
+  width: 864px;
+  height: 68px;
+  z-index: 1;
+}
+.slidev-layout.agentic-request-slide .ghcp-single-panel__title h1 {
+  margin: 0;
+  font: 700 32px/36px "Mona Sans", "Segoe UI", Arial, sans-serif;
+  letter-spacing: 0;
+  color: #1f2328;
+}
+.slidev-layout.agentic-request-slide.agentic-request-long-title .ghcp-single-panel__title h1 {
+  font-size: 28px;
+  line-height: 32px;
+  max-width: 690px;
+}
+.slidev-layout.agentic-request-slide .ghcp-single-panel__content {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  --ghcp-content-scale: 1 !important;
+}
+
 .agentic-slide,
 .agentic-priority-slide {
   --ink: #24211f;
@@ -875,4 +921,59 @@
 
 .slidev-page-19 .ghcp-two-panel__text {
   --ghcp-panel-scale: 1 !important;
+}
+
+/* J-authorized A30 fit repair. No ordinal selectors or shared auto-fit change.
+   Reserve real space for the complete route, including its focus outline. */
+.slidev-layout.agentic-mission-slide.ghcp-single-panel {
+  padding: 32px 48px;
+  gap: 16px;
+}
+
+.slidev-layout.agentic-mission-slide .ghcp-single-panel__title h1 {
+  font-size: 36px;
+  line-height: 40px;
+}
+
+.slidev-layout.agentic-mission-slide .ghcp-single-panel__content {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 12px;
+  padding: 16px 24px;
+}
+
+.agentic-mission-slide .ghcp-single-panel__content h3 {
+  margin: 0;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.agentic-mission-slide .agentic-grid {
+  width: 100%;
+  gap: 10px;
+}
+
+.agentic-mission-slide .agentic-card {
+  padding: 10px 12px;
+}
+
+.agentic-mission-slide .agentic-card b,
+.agentic-mission-slide .agentic-card span {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.agentic-mission-slide .agentic-decision {
+  display: block;
+  padding: 12px;
+  color: #fff;
+  font-size: 16px;
+  line-height: 22px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.agentic-mission-slide .agentic-decision:focus-visible {
+  outline: 3px solid #0969da;
+  outline-offset: 3px;
 }

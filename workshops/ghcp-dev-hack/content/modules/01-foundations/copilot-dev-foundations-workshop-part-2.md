@@ -34,7 +34,7 @@
 > - Control slide layout deliberately so content stays readable and structured on-slide.
 > - Generate visual imagery that directly represents the slide wording and reinforces its meaning.
 
-**Duration**: 2 hours (120 min: 75 min verified presentation + 45 min Agent Mergewell mission play)
+**Duration**: 2 hours 2 minutes (122 min: 77 min instruction + 45 min Agent Mergewell mission play)
 **Format**: Presentation + Hands-On
 **Audience**: Software engineers and technical leads — any Copilot experience level
 **Prerequisites**: VS Code, GitHub Copilot extension, GitHub Copilot CLI
@@ -51,37 +51,40 @@
 
 | Section | Topic | Time |
 |---------|-------|------|
-| 3 | Tokenomics, GitHub AI Credits, usage visibility, and model routing | 20 min |
-| 4 | Context windows, autonomy spectrum, and delegation discipline | 15 min |
+| 3 | Tokens, context-sensitive generation, reuse, receipts, and routing | 33 min |
+| 4 | Context windows, context rot, and delegation discipline | 9 min |
 | 5 | Agent Mergewell Mission Briefings | 45 min |
 
-## 3. Tokenomics, GitHub AI Credits, Usage Visibility, and Model Routing (20 min)
+## 3. Tokens, Generation, Reuse, Usage Visibility, and Model Routing (33 min)
 
 ### Key Points
 
-- **Slide topic (1 slide): What Is a Token? (input, output, and cache economics)** — Tokens represent input text, output text, and cached context across prompts, responses, instructions, referenced files, and chat history. Context size directly affects cost, latency, and quality stability. Every file reference, every chat turn, and every instruction block consumes token budget. **Usage Optimization**: trim noisy history and stale references before sending a prompt; reuse cached or summarized context when it preserves accuracy without restating everything.
+The adopted [context/caching source](context-caching.md) owns the exact
+examples, caveats, checks and main/Details partition for the five additions
+and five targeted revisions. It replaces the old all-history/every-turn,
+additive-cached-input, visible-output-only and cheapest-Auto implications.
+This is source reconciliation under the approved LC, not a new live demo.
 
-- **Slide topic (1 slide): GitHub AI Credits — How Copilot Charges** — GitHub AI Credits are the billing unit for Copilot usage under usage-based billing, where 1 AI credit = $0.01 USD. Model interactions consume input tokens, output tokens, and cached tokens; the token cost is converted to AI credits. Code completions and next-edit suggestions are not billed in AI credits on paid plans. Copilot Chat, Copilot CLI, the Copilot cloud agent, Copilot Spaces, Spark, and third-party coding agents can consume AI credits. **Usage Optimization**: treat AI credit telemetry as workflow tuning feedback; set team budget guardrails before scaling agentic or high-frequency usage.
+| Slide | Exact topic | Minutes | Governing source |
+| ---: | --- | ---: | --- |
+| 11 | Tokens: What Enters the Model | 3 | context-caching.md T1 |
+| 12 | From Token IDs to Numerical Representations | 2 | context-caching.md E1 |
+| 13 | How Context Shapes the Next Token | 3 | context-caching.md N1 |
+| 14 | Tokens: What Comes Back | 3 | context-caching.md T2 |
+| 15 | GitHub AI Credits | 3 | context-caching.md T3 |
+| 16 | Read the Usage Receipt | 3 | context-caching.md E2 |
+| 17 | Reuse the Work, Not the Answer | 2 | context-caching.md N2 |
+| 18 | Same Brief, New Question—or a Changed Brief? | 3 | context-caching.md N3; accepted proof |
+| 19 | Model Routing: Match the Task | 3 | context-caching.md T4; accepted Scene 09 |
+| 20 | Model Guide: Match the Workload | 2 | model-guide-contract.md; retained table/footer |
+| 21 | Usage by Harness: IDE and CLI | 3 | context-caching.md T5 |
+| 22 | Usage by Harness: GitHub, Cloud, and App | 3 | FND-01/07/11; retained content |
 
-- **Slide topic (1 slide): How to Check Your Usage** — Day-to-day usage checks use product entry points: in VS Code Chat, open the usage view from the GitHub/Copilot icon in the bottom-right status bar; in Copilot CLI, run `/usage` for session usage, `/context` to inspect current context-window token consumption, and `/model` to view or change model routing. For monthly account-level totals and budget thresholds, use GitHub billing or Copilot settings. **Learn more**: <https://learn.microsoft.com/en-us/visualstudio/ide/copilot-usage-and-models?view=visualstudio>. **Usage Optimization**: check actual usage before switching to higher-cost models or scaling autonomous workflows; a usage check takes 30 seconds and prevents billing surprises.
-
-- **Slide topic (1 slide): Model Routing — Choosing the Right Engine** — A model is the engine that interprets context and generates a response. Auto routing is the right default for most prompts because the platform selects based on reliability and availability and can reduce cost. Use the model picker to view cost indicators and switch only when the task genuinely needs it.
-
-  | Routing option | Typical fit | When to choose |
-  |---|---|---|
-  | Auto | Default for everyday tasks | Task has normal risk, normal ambiguity, and no special latency or cost requirement |
-  | Fast/general-purpose | Explanations, small edits, tests, documentation, routine refactors | Task is clear, bounded, reversible, and benefits from lower latency or cost |
-  | Deep-reasoning | Complex debugging, architecture tradeoffs, multi-step planning, ambiguous failures | Added reasoning depth is likely to prevent rework, reduce risk, or resolve uncertainty simpler models did not handle |
-
-  **Usage Optimization**: use Auto for routine work, fast/general-purpose for clear bounded tasks, and deep-reasoning only when simpler routing has failed or the task ambiguity justifies the cost.
-
-- **Slide topic (1 slide): Demo — Build a Usage-Aware Routing Checklist** — Facilitator demonstrates this prompt and states the expected result: Copilot converts the usage-window and model-picker reference into a practical pre-session checklist for the team.
-
-  ```text
-  Using https://learn.microsoft.com/en-us/visualstudio/ide/copilot-usage-and-models?view=visualstudio as a reference point, create a practical usage-check checklist for VS Code chat and Copilot CLI: include opening usage from the GitHub/Copilot icon in the bottom-right status area of VS Code, CLI `/usage` for usage, CLI `/context` for context-window token usage, CLI `/model` for model routing, GitHub billing/settings for monthly AI credit usage, and when Auto model selection is the lowest-cost first choice.
-  ```
-
-  **Usage Optimization**: run a usage and routing check before every long or high-cost session; a checklist keeps the team consistent.
+These twelve rows total 33 minutes. The short event question stands for a
+larger host request in the synthetic receipt; no performed calls, prices,
+private balances or cache-hit measurements are claimed. Keep all caveats in
+their approved visible/reference states. Cached input is part of total input;
+reasoning is inside reported output. Missing fields mean unknown.
 
 ### 🛡️ Safety Moment
 
@@ -90,13 +93,55 @@
 
 ### 💡 Optimization Tip: Route by Task Shape
 
-Prefer Auto for ordinary tasks, fast/general-purpose models for clear bounded work, and deep-reasoning only when ambiguity, risk, or repeated failure makes the extra spend worthwhile. Checking usage takes 30 seconds; billing surprises are expensive.
+Choose by task requirements, supported model/policy, tools and reviewable
+quality. Compare latency and scoped usage as evidence, not as a universal
+ranking. Auto may be a supported starting choice, not a guarantee of the
+cheapest successful result. Correct wrong context even if reuse falls.
 
-## 4. Context Windows, Autonomy Spectrum, and Delegation Discipline (15 min)
+## 4. Context Windows, Autonomy Spectrum, and Delegation Discipline (9 min)
 
 ### Key Points
 
 - **Slide topic (1 slide): Anatomy of the Context Window** — The context window combines instructions, conversation history, referenced files, tool results, and response outputs into a single token-limited container. Quality degrades when sessions accumulate stale assumptions, off-topic history, or compaction artifacts from long-running threads. **Usage Optimization**: when responses start drifting, contradicting earlier answers, or losing track of constraints, reset or re-scope the session rather than adding more context on top of the noise.
+
+  **Approved slide 23 delivery — 2026-09-07 (formerly 18):** Keep the production title
+  **Context Window: What Competes for Space**, three-minute timebox, and nine
+  presenter clicks. Use the accepted fixed illustrated funnel with native
+  teaching text. This is a fictional manufacturing production-reporting
+  software scenario, not machine controls or customer data.
+
+  | Click | Native headline | Exact example or result |
+  |---:|---|---|
+  | 1 | Instructions | Always add tests before changing shared code |
+  | 2 | User prompts | Why is the production count off by twelve units? |
+  | 3 | Append to User prompts; no repeated headline | Show me where that count is calculated. |
+  | 4 | Append to User prompts; no repeated headline | Now fix reporting without changing the API. |
+  | 5 | References & files | The production-reporting module and its unit tests |
+  | 6 | Tool definitions & results | Test run: three failures in production reporting tests |
+  | 7 | Prior model output | Earlier answer: a patch for reporting you did not apply |
+  | 8 | Reserved output headroom | The model still needs room to answer. |
+  | 9 | Compact | Summary of earlier user prompts |
+
+  Earlier user prompts remain readable at 0.86/0.78 opacity behind the newest
+  prompt. The whole reading stack fades when References & files begins;
+  accumulated context remains in the vessel. Prior output is already-carried
+  input. Reserved output headroom is protected empty space with a dashed
+  boundary, never another input deposit. Compact continuously compresses the
+  prompt material from its bottom anchor into a summary; it does not enlarge
+  the vessel. The final large summary label appears once, with
+  **Instructions + references retained** and **Some fine detail is dropped.**
+  beneath it. These are illustrative retention semantics, not a guarantee
+  about every real session's summary.
+
+  Keep the bottom caption **Example capacity: 400K tokens** and caveat
+  **Actual capacity varies by model and surface.** The number is illustrative
+  only, not a live measurement or named-model limit. In Copilot CLI, `/context`
+  inspects context consumption and `/compact` requests compaction. Attribute
+  those commands and the documented automatic-compaction thresholds to CLI,
+  not universally to every surface. FND-12 also records owner-attested VS Code
+  compaction support with documentation citation pending; this illustration
+  does not equate the surfaces' controls. Verify retained constraints after
+  compaction. Transition to **Context Rot: Recognize the Signals**.
 
 - **Slide topic (1 slide): Context Rot — Recognizing and Fixing It** — Context rot is the gradual degradation of response quality as a session accumulates irrelevant history, stale file references, and overwritten assumptions. Common signals: contradictory suggestions, repeated restating of already-solved problems, excessive hedging, or suggestions that ignore explicit constraints set earlier in the session. Fix by summarizing the essential state, opening a fresh session with that summary, and re-anchoring with current `#file` or `#selection` references. **Usage Optimization**: treat context rot as signal, not model failure; the fix is hygiene, not a better prompt.
 

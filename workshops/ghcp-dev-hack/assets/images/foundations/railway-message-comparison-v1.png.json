@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "id": "railway-poc-gpt-first-image-v1",
+  "kind": "image",
+  "provider": "gpt-image-2",
+  "deployment": "gpt-image-2",
+  "promptHash": "bb8dc86eab4eec7d461142c4966321a3bb3109e6d22633f65662739308401361",
+  "prompt": "Human-centered 2D editorial cartoon, warm editorial illustration style, soft off-white background, slightly richer color palette with warm coat shadows, expressive face detail on characters, clean rounded outlines with gentle weight variation, GitHub-green and Copilot-purple accents, light grounding shadow under characters, professional but approachable and likable tone.\r\n\r\nCreate one new landscape 16:9 teaching-scene plate: Agent Mergewell observes an original miniature railway tabletop, with Purrmission beside him in the same scene. They watch, rather than operate, the demonstration. The only characters are this adult human and this ordinary black cat. The scene is a complete quiet setup before any next-token selection, not a reveal or a completed answer.\r\n\r\nREFERENCE USE: The supplied approved welcome image is guidance only for Mergewell's identity, Purrmission's identity, proportions, wardrobe family, linework and Warm Editorial palette. Create a new composition and poses. Do not reproduce the trio arrangement or include Riley, the synthetic person at the right of that reference. Do not transfer her mechanical anatomy to Mergewell. Do not copy the reference's facial-hair shape: the current written identity below governs. Do not reproduce any collar emblem from the reference.\r\n\r\nAGENT MERGEWELL: Original adult biological human field agent with light tan skin, thick rectangular glasses, wild dark-to-silver inventor hair, expressive eyebrows, a warm eccentric expression and short neat evenly distributed dark-to-silver stubble. No separate moustache, goatee, shaped beard, long beard, full beard or patchy facial hair. Preserve his mid-length charcoal technical coat with restrained green seam accents, dark trousers and practical shoes. The coat is closed; the compact rig remains concealed and visually silent. No skill gadget is invoked. His hands and wrists are ordinary bare human anatomy, matching his face, with natural fingers; no mechanical anatomy, gloves, deployed tools or control device. At the left of the tabletop, show him in three-quarter view looking toward the demonstration. One relaxed open hand indicates the already-submitted prompt area from outside it; the other stays clear of the machinery. Neither hand touches the rails, housing, future selection area or future answer.\r\n\r\nPURRMISSION: One ordinary proportional black cat with bright observant green eyes and a minimal plain green collar tag. Keep the tag blank, without an emblem, glyph or lettering. She sits alert at the right beside the tabletop, looking toward the result area. Preserve her whole feline silhouette, ears, paws and tail. She is a companion, not a humanoid, robot, mascot, permission authority or truth detector. Her paws do not operate the demonstration.\r\n\r\nSET: One modest, original, nonbranded railway tabletop on a soft off-white editorial stage, with a simple rail bed and a small plain unlabelled processing housing. Rails suggest forward progression only. Leave the central teaching surface open for native overlays, including an empty next-position junction that those overlays will define. No branching tracks, switch, lever, controller, train spectacle, station room, factory line, answer store or elaborate internal mechanism. Neither character chooses a route, continuation or answer. No exact count of generated objects or generated causal mechanism is used to teach computation.\r\n\r\nCOMPOSITION TARGET: One full-width 16:9 canvas, intended at 1536 by 864, not a portrait-safe right pane. For proportional planning, use a nominal 960 by 540 coordinate system. Leave the upper band through y160 and the bottom band from y466 free of characters, props, marks and texture for native title, process overview and caveats. Keep the bounded art/tabletop stage within x40-920, y172-454. Mergewell's intact silhouette belongs within x60-236, y184-446; Purrmission's intact silhouette within x770-892, y326-446. Leave x260-750, y178-234 quiet for the native prompt above the tabletop. Keep x260-750, y252-430 clear and low-detail for native teaching relationships; place no hand, paw or housing over that field. Leave x248-758, y434-450 quiet for a native return connector. Keep at least 12 nominal pixels of clearance between character silhouettes and native teaching fields. Preserve recognizable faces and complete anatomy rather than shrinking characters to fit clutter. All coordinates describe desired placement, not drawn borders, numbers or a visible grid.\r\n\r\nNATIVE/GENERATED SPLIT: Generate only these two original characters, the ordinary unlabelled tabletop and railway surfaces, the small plain housing, off-white stage and light grounding shadows. Render no title, prompt, continuation, token piece, token ID, numerical representation, number, label, probability bar, selection highlight, answer strip, connector, return loop, caveat, code or UI. These will be native teaching elements outside the image generation. Leave their fields empty, without placeholder lettering, diagram substitutes or explanatory symbols. No selected answer is present in this first setup plate.\r\n\r\nNo model-generated logos, no mascots, no Octocat, no GitHub Copilot mascot, no code, no fake or real product UI, no Inspector Gadget likeness, no Albert Einstein portrait recreation, no cluttered backgrounds.\r\n\r\nNo third character, duplicated character, additional animal, branded character, existing fictional-character likeness, generated lettering, pseudo-writing, watermark, badge, emblem, collar glyph, product mark or reserved logo area. Keep the adult human fully clothed and anatomically human, and the cat entirely feline. Do not copy an existing scene or replace the characters with geometric symbols.",
+  "source": "content/modules/01-foundations/components/railway-message-comparison-v1.prompt.txt",
+  "createdAt": "2026-09-08T20:40:09.593Z",
+  "reviewStatus": "approved",
+  "location": "assets/images/foundations/railway-message-comparison-v1.png",
+  "width": 1536,
+  "height": 864,
+  "inputReference": {
+    "path": "workshops/ghcp-dev-hack/assets/images/foundations/foundation-welcome-trio-camera-ready-v3.png",
+    "hash": "0bc5a16a7aaf59164861a9c5f3ecb3fdc2e443546f96641ace9400183b358888",
+    "contentType": "image/png"
+  },
+  "generationRequest": {
+    "kind": "generate-image",
+    "workshopId": "ghcp-dev-hack",
+    "moduleId": "foundations",
+    "cycleId": "railway-poc-gpt-first-image-v1",
+    "assetId": "railway-poc-gpt-first-image-v1",
+    "provider": "gpt-image-2",
+    "deployment": "gpt-image-2",
+    "endpoint": "https://ghcp-v5-resource.openai.azure.com",
+    "source": "content/modules/01-foundations/components/railway-message-comparison-v1.prompt.txt",
+    "sourceHash": "612c6a322b69c4cfef617fad38c5653e99c056836e063a47fe8859bcd7a7cd5f",
+    "promptHash": "bb8dc86eab4eec7d461142c4966321a3bb3109e6d22633f65662739308401361",
+    "referencePath": "workshops/ghcp-dev-hack/assets/images/foundations/foundation-welcome-trio-camera-ready-v3.png",
+    "referenceHash": "0bc5a16a7aaf59164861a9c5f3ecb3fdc2e443546f96641ace9400183b358888",
+    "width": 1536,
+    "height": 864,
+    "outputFormat": "png",
+    "quality": "high",
+    "apiVersion": "2025-04-01-preview",
+    "requestPath": "openai/deployments/gpt-image-2/images/edits?api-version=2025-04-01-preview",
+    "candidates": 1,
+    "variants": 1
+  },
+  "generationAuthorization": {
+    "initiative": "next-token-railway-video-poc",
+    "envelopeId": "work-envelope-railway-gpt-image-v1",
+    "envelopeHash": "6a952ee4431b3d8936cfe714a74ba90826cdfcb22e1b30ca9f4e3e3dd4c9abed",
+    "decisionId": "paid-action-railway-gpt-image-v1",
+    "requestHash": "605ecd187f7b036d02a3fd9febeb1b6d46828fa7e6958ef63974051cffe0188a"
+  },
+  "candidateAcceptance": {
+    "decisionId": "candidate-railway-gpt-image-v1",
+    "requestHash": "667ec7a31abed673dcc69a8172f215217a992182ce953c7f346c07aa242f534a",
+    "candidateHash": "8b5f553c2dc62824277c0114e6021ab8300a6ce0d3316f007aeeb75f3d82a6f0",
+    "manifestHash": "4a4c12acbefbb058406f3b06ec8b8026e97d2cb04f15ac6057cf429b08aac876"
+  },
+  "publicationAuthorization": {
+    "initiative": "next-token-railway-video-poc",
+    "envelopeId": "work-envelope-railway-live-publication-v2",
+    "envelopeHash": "fd0009bd3fda031d8f1e53db3d4ab633e77375d9924922a341913e955aa103c2",
+    "decisionId": "publication-railway-message-comparison-v2",
+    "requestHash": "939636b4dbd3419814563a884b0a952e1ff509786371e8d27794686daff19fd1"
+  }
+}

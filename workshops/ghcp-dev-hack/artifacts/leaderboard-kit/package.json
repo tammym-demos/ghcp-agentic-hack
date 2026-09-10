@@ -1,0 +1,13 @@
+{
+  "name": "ghcp-dev-hack-leaderboard-kit",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test",
+    "build": "node src/build-leaderboard.mjs --config leaderboard.config.json --input fixtures/sample-issues.json --out sample-site"
+  }
+}
