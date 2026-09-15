@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "mission-control-opening-team-v7",
+  "kind": "image",
+  "provider": "mai-image-2.5",
+  "deployment": "MAI-Image-2.5",
+  "promptHash": "ba3cc3cce920d381cc0207406b1923c2e17a76c3d2bf8d6edb1f134b9d74dfe7",
+  "prompt": "Edit the supplied image: Agent Mergewell on viewer-left and Riley Relay on viewer-right stand with heads upright and chins raised enough for direct, eye-level camera contact. Both look straight at the viewer, especially Mergewell; their gaze is level, not skyward. Both upper arms hang vertically beside their torsos, elbows relaxed, forearms and hands resting naturally down at their sides like Chief Charter, rather than spread outward or palms-up. Keep Riley's BOTH mechanical forearms and hands clearly visible. Bring Mergewell and Riley horizontally closer to Chief Charter, reducing the gaps into one cohesive group while keeping each complete figure distinct and visible.\r\n\r\nPreserve Chief Charter and Purrmission exactly as in the reference: identities, appearance, expression, gaze, pose and position. Preserve all four characters' identities, faces, hair, glasses, costumes, accessories, colors and anatomy. Mergewell retains both biological arms and hands; Riley retains both mechanical forearms and hands and both mechanical lower legs. Keep all full bodies, hands and feet visible without overlap hiding the required mechanics. Apart from the two requested head/gaze adjustments, relaxed arm poses and closer horizontal spacing, retain every other detail as closely as possible.\r\n\r\nKeep the same warm editorial illustration style, palette, lighting, background, grounding shadows, framing, camera angle, landscape composition and edge margins. Keep Mergewell left, Chief central, Riley right and Purrmission unchanged near their feet. No redesign, restyling, zoom, crop, new props, extra or missing characters, extra or missing anatomy, new lettering, logos or branding.",
+  "source": "content/modules/01-copilot-value-lab/media/briefs/mission-control-opening-team-v7.md",
+  "createdAt": "2026-09-14T17:47:43.878Z",
+  "reviewStatus": "approved",
+  "location": "assets/images/copilot-value-lab/mission-control-opening-team-v7.png",
+  "width": 1248,
+  "height": 832,
+  "inputReference": {
+    "path": "generated/candidates/mission-control/copilot-value-lab/2026-09-14-opening-team-v6/images/mission-control-opening-team-v6-fe1517a802ec.png",
+    "hash": "fa010787c3284df26eed2a38d7da100b7e28dc4602d414495d72c589c11359eb",
+    "contentType": "image/png"
+  },
+  "generationAuthorization": {
+    "initiative": "mission-control-opening-team-image",
+    "envelopeId": "mc-opening-team-v7-edit",
+    "envelopeHash": "eb167e5025f801d9a844e1bd56b36d8b10ce2fe7a59f6278544705b3465a0475",
+    "decisionId": "mc-opening-edit-v7-paid",
+    "requestHash": "0f3988b03ebcc5a00062d117feb4ed920e670fbdd3ed823e5236c69d3f56ab9d"
+  },
+  "candidateAcceptance": {
+    "decisionId": "mc-opening-candidate-v7-r2",
+    "requestHash": "9f63ad193d8c3f8f570c35c2813d1f41f06169f70c08d3859bc3eecfdc29d140",
+    "candidateHash": "e05909a60b5fa2669d56e37849d29a4e6100c43ad666652f043ec5bb4aa6e8f9",
+    "manifestHash": "6deee12b3b67a40f14e8234638b2876b3dd0489c2d87b7c297a0dabfe379f456"
+  },
+  "publicationAuthorization": {
+    "initiative": "mission-control-opening-team-image",
+    "envelopeId": "mc-opening-team-v7-publish",
+    "envelopeHash": "a936ed7f1c758b3a8e3ae06424f8ba38002827156564848924c093f6001eb0bd",
+    "decisionId": "mc-opening-publication-v7",
+    "requestHash": "004a32203744969f62aba930e606c68805d468a05d0099e9fc65a6a4d5264fed"
+  }
+}
