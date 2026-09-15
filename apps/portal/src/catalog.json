@@ -5,7 +5,7 @@
       "id": "ghcp-dev-hack",
       "title": "GitHub Copilot Developer Hack",
       "description": "Build practical GitHub Copilot skills through progressive, hands-on modules.",
-      "duration": "7 hours 8 minutes",
+      "duration": "7 hours 4 minutes",
       "format": "one-day",
       "level": "mixed",
       "tags": [
@@ -36,14 +36,14 @@
           "title": "GitHub Workshop",
           "description": "Complete the three learning modules and Agent Mergewell missions in one focused day.",
           "route": "workshops/ghcp-dev-hack/variants/one-day/",
-          "totalMinutes": 428,
+          "totalMinutes": 424,
           "days": [
             {
               "id": "day-one",
               "title": "GitHub Workshop",
               "start": "09:00",
-              "end": "16:08",
-              "totalMinutes": 428,
+              "end": "16:04",
+              "totalMinutes": 424,
               "agenda": [
                 {
                   "id": "executive-kickoff",
@@ -86,35 +86,35 @@
                   "type": "module-content",
                   "title": "Agentic Development: Instructions, memory, context, prompts, agents, skills, and tools",
                   "start": "11:32",
-                  "end": "12:03",
+                  "end": "12:00",
                   "module": "agentic",
-                  "minutes": 31,
+                  "minutes": 28,
                   "moduleRoute": "workshops/ghcp-dev-hack/agentic/"
                 },
                 {
                   "id": "lunch",
                   "type": "lunch",
                   "title": "Lunch",
-                  "start": "12:03",
-                  "end": "12:48",
+                  "start": "12:00",
+                  "end": "12:45",
                   "minutes": 45
                 },
                 {
                   "id": "agentic-content-two",
                   "type": "module-content",
-                  "title": "Agentic Development: Observable loops, repository checkpoints, cloud agents, optimization, AI-credit controls, and human acceptance",
-                  "start": "12:48",
-                  "end": "13:38",
+                  "title": "Agentic Development: Observable loops, repository checkpoints, cloud agents, optimization, and human acceptance",
+                  "start": "12:45",
+                  "end": "13:34",
                   "module": "agentic",
-                  "minutes": 50,
+                  "minutes": 49,
                   "moduleRoute": "workshops/ghcp-dev-hack/agentic/"
                 },
                 {
                   "id": "agentic-mission",
                   "type": "mission",
                   "title": "Mission: Delegate and verify a bounded agent task",
-                  "start": "13:38",
-                  "end": "14:23",
+                  "start": "13:34",
+                  "end": "14:19",
                   "module": "agentic",
                   "minutes": 45,
                   "moduleRoute": "workshops/ghcp-dev-hack/agentic/"
@@ -123,8 +123,8 @@
                   "id": "advanced-content-one",
                   "type": "module-content",
                   "title": "Advanced Workflows: Multiagent orchestration and trusted integrations",
-                  "start": "14:23",
-                  "end": "15:08",
+                  "start": "14:19",
+                  "end": "15:04",
                   "module": "advanced",
                   "minutes": 45,
                   "moduleRoute": "workshops/ghcp-dev-hack/advanced/"
@@ -133,16 +133,16 @@
                   "id": "afternoon-break",
                   "type": "break",
                   "title": "Break",
-                  "start": "15:08",
-                  "end": "15:23",
+                  "start": "15:04",
+                  "end": "15:19",
                   "minutes": 15
                 },
                 {
                   "id": "advanced-content-two",
                   "type": "module-content",
                   "title": "Advanced Workflows: Debugging evidence, deployment, and operations",
-                  "start": "15:23",
-                  "end": "15:38",
+                  "start": "15:19",
+                  "end": "15:34",
                   "module": "advanced",
                   "minutes": 15,
                   "moduleRoute": "workshops/ghcp-dev-hack/advanced/"
@@ -151,8 +151,8 @@
                   "id": "advanced-mission",
                   "type": "mission",
                   "title": "Mission: Orchestrate, integrate, and debug with evidence",
-                  "start": "15:38",
-                  "end": "16:08",
+                  "start": "15:34",
+                  "end": "16:04",
                   "module": "advanced",
                   "minutes": 30,
                   "moduleRoute": "workshops/ghcp-dev-hack/advanced/"
@@ -170,7 +170,7 @@
             {
               "module": "agentic",
               "title": "Agentic Development",
-              "contentMinutes": 81,
+              "contentMinutes": 77,
               "missionMinutes": 45
             },
             {
@@ -186,14 +186,14 @@
           "title": "GHCP Hack (2 Day)",
           "description": "Complete the learning day, then apply the practices during a full team hack day and project readout.",
           "route": "workshops/ghcp-dev-hack/variants/two-day/",
-          "totalMinutes": 848,
+          "totalMinutes": 844,
           "days": [
             {
               "id": "day-one",
               "title": "GitHub Workshop",
               "start": "09:00",
-              "end": "16:08",
-              "totalMinutes": 428,
+              "end": "16:04",
+              "totalMinutes": 424,
               "agenda": [
                 {
                   "id": "executive-kickoff",
@@ -236,35 +236,35 @@
                   "type": "module-content",
                   "title": "Agentic Development: Instructions, memory, context, prompts, agents, skills, and tools",
                   "start": "11:32",
-                  "end": "12:03",
+                  "end": "12:00",
                   "module": "agentic",
-                  "minutes": 31,
+                  "minutes": 28,
                   "moduleRoute": "workshops/ghcp-dev-hack/agentic/"
                 },
                 {
                   "id": "lunch",
                   "type": "lunch",
                   "title": "Lunch",
-                  "start": "12:03",
-                  "end": "12:48",
+                  "start": "12:00",
+                  "end": "12:45",
                   "minutes": 45
                 },
                 {
                   "id": "agentic-content-two",
                   "type": "module-content",
-                  "title": "Agentic Development: Observable loops, repository checkpoints, cloud agents, optimization, AI-credit controls, and human acceptance",
-                  "start": "12:48",
-                  "end": "13:38",
+                  "title": "Agentic Development: Observable loops, repository checkpoints, cloud agents, optimization, and human acceptance",
+                  "start": "12:45",
+                  "end": "13:34",
                   "module": "agentic",
-                  "minutes": 50,
+                  "minutes": 49,
                   "moduleRoute": "workshops/ghcp-dev-hack/agentic/"
                 },
                 {
                   "id": "agentic-mission",
                   "type": "mission",
                   "title": "Mission: Delegate and verify a bounded agent task",
-                  "start": "13:38",
-                  "end": "14:23",
+                  "start": "13:34",
+                  "end": "14:19",
                   "module": "agentic",
                   "minutes": 45,
                   "moduleRoute": "workshops/ghcp-dev-hack/agentic/"
@@ -273,8 +273,8 @@
                   "id": "advanced-content-one",
                   "type": "module-content",
                   "title": "Advanced Workflows: Multiagent orchestration and trusted integrations",
-                  "start": "14:23",
-                  "end": "15:08",
+                  "start": "14:19",
+                  "end": "15:04",
                   "module": "advanced",
                   "minutes": 45,
                   "moduleRoute": "workshops/ghcp-dev-hack/advanced/"
@@ -283,16 +283,16 @@
                   "id": "afternoon-break",
                   "type": "break",
                   "title": "Break",
-                  "start": "15:08",
-                  "end": "15:23",
+                  "start": "15:04",
+                  "end": "15:19",
                   "minutes": 15
                 },
                 {
                   "id": "advanced-content-two",
                   "type": "module-content",
                   "title": "Advanced Workflows: Debugging evidence, deployment, and operations",
-                  "start": "15:23",
-                  "end": "15:38",
+                  "start": "15:19",
+                  "end": "15:34",
                   "module": "advanced",
                   "minutes": 15,
                   "moduleRoute": "workshops/ghcp-dev-hack/advanced/"
@@ -301,8 +301,8 @@
                   "id": "advanced-mission",
                   "type": "mission",
                   "title": "Mission: Orchestrate, integrate, and debug with evidence",
-                  "start": "15:38",
-                  "end": "16:08",
+                  "start": "15:34",
+                  "end": "16:04",
                   "module": "advanced",
                   "minutes": 30,
                   "moduleRoute": "workshops/ghcp-dev-hack/advanced/"
@@ -385,7 +385,7 @@
             {
               "module": "agentic",
               "title": "Agentic Development",
-              "contentMinutes": 81,
+              "contentMinutes": 77,
               "missionMinutes": 45
             },
             {
@@ -920,8 +920,8 @@
           "id": "agentic",
           "title": "Agentic Development",
           "description": "Help developers prepare agentic work, control tools and iterative repository loops, delegate to cloud agents, and make evidence-based pull-request decisions.",
-          "duration": "2 hours 6 minutes",
-          "totalMinutes": 126,
+          "duration": "2 hours 2 minutes",
+          "totalMinutes": 122,
           "status": "review",
           "route": "workshops/ghcp-dev-hack/agentic/",
           "missions": [

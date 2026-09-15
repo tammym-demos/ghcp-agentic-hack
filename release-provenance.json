@@ -1,6 +1,6 @@
 {
-  "releaseId": "ghcp-dev-hack-2026-09-10",
-  "sourceCommit": "d9a9ffebc78e84c318926a5c0fbe8dc9af2f0e13",
+  "releaseId": "ghcp-dev-hack-2026-09-14",
+  "sourceCommit": "91daf58e6dc5168b14ed087f6b33bc8706d49157",
   "workshops": [
     "ghcp-dev-hack"
   ]

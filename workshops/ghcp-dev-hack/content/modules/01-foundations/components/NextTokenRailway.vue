@@ -52,38 +52,41 @@ let frame = 0, previous = 0, media
 function pause() { running.value = false; cancelAnimationFrame(frame) }
 function tick(now) {
   if (!running.value) return
-  time.value = Math.min(duration.value, time.value + (now-previous)/1000)
+  let remaining = (now-previous)/1000
   previous = now
-  if (time.value >= duration.value) running.value = false
-  else frame = requestAnimationFrame(tick)
+  while (remaining > 0 && running.value) {
+    const available = duration.value - time.value
+    if (remaining < available) {
+      time.value += remaining
+      remaining = 0
+    } else {
+      time.value = duration.value
+      remaining -= available
+      if (step.value === stages.length - 1) {
+        running.value = false
+      } else {
+        step.value++
+        time.value = 0
+      }
+    }
+  }
+  if (running.value) frame = requestAnimationFrame(tick)
 }
 function play() {
   if (reduced.value) return
   if (running.value) return pause()
-  if (time.value >= duration.value) time.value = 0
+  if (step.value === stages.length - 1 && time.value >= duration.value) {
+    step.value = 0
+    time.value = 0
+  }
   running.value = true; previous = performance.now(); frame = requestAnimationFrame(tick)
 }
-function next() {
-  if (time.value < duration.value) { pause(); time.value = duration.value; return }
-  if (step.value === 6) return
-  pause(); step.value++; time.value = reduced.value ? duration.value : 0
-  if (!reduced.value) play()
-}
-function back() { pause(); step.value = Math.max(0, step.value-1); time.value = duration.value }
 function restart() { pause(); step.value = 0; time.value = reduced.value ? duration.value : 0 }
-function seek(value) { pause(); time.value = Number(value) }
 function preference() {
   reduced.value = media.matches
   if (reduced.value) { pause(); step.value = 6; time.value = duration.value }
 }
 function key(event) {
-  if (event.target instanceof HTMLInputElement) return
-  if (event.key === 'ArrowRight' && !(step.value === 6 && time.value >= duration.value)) {
-    event.preventDefault(); event.stopPropagation(); next()
-  }
-  if (event.key === 'ArrowLeft' && step.value > 0) {
-    event.preventDefault(); event.stopPropagation(); back()
-  }
   if (event.key === 'Home' && (step.value > 0 || time.value > 0)) {
     event.preventDefault(); event.stopPropagation(); restart()
   }
@@ -183,14 +186,10 @@ onUnmounted(() => { pause(); media?.removeEventListener('change', preference) })
       </template>
     </aside>
     <div class="railway-controls">
-      <button @click.stop="back" :disabled="step === 0">Back</button>
-      <button @click.stop="play" :disabled="reduced">{{ running ? 'Pause' : 'Play' }}</button>
-      <button @click.stop="next" :disabled="step === 6 && time === duration">Next</button>
-      <button @click.stop="restart">Restart</button>
-      <label>Time <input type="range" min="0" :max="duration" step=".1" :value="time" :disabled="reduced"
-        aria-label="Step time in seconds" @input="seek($event.target.value)" /></label>
+      <button @click.stop="pause" :disabled="!running || reduced">Pause</button>
+      <button @click.stop="play" :disabled="running || reduced">{{ time > 0 && !(step === 6 && time === duration) ? 'Resume' : step === 6 ? 'Replay' : 'Play' }}</button>
       <output>{{ time.toFixed(1) }}/{{ duration }}s</output>
-      <span class="status">{{ step+1 }}/7 · {{ running ? 'Playing' : time === duration ? 'Hold' : 'Ready / paused' }}</span>
+      <span class="status">{{ step+1 }}/7 · {{ running ? 'Playing continuously' : step === 6 && time === duration ? 'Complete' : time > 0 ? 'Paused' : 'Ready' }}</span>
     </div>
   </section>
 </template>
@@ -230,8 +229,6 @@ onUnmounted(() => { pause(); media?.removeEventListener('change', preference) })
 .railway button { font-family: inherit; font-size: 20px; line-height: 28px; color: #302c25; background: #fff9ef; border: 1px solid #776c61; padding: 1px 10px; border-radius: 4px; cursor: pointer; }
 .railway button:focus-visible, .railway input:focus-visible { outline: 3px solid #654096; outline-offset: 2px; }
 .railway button:disabled { cursor: default; color: #655e55; }
-.railway label { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
-.railway input { width: 92px; accent-color: #526042; }
 .railway output { min-width: 88px; font-variant-numeric: tabular-nums; }
 .status { margin-left: 8px; }
 </style>

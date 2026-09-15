@@ -1,13 +1,15 @@
-# Foundations 21-slide generation manifest
+# Foundations 24-slide generation manifest
 
 **Current authority:** Owner-approved Foundations integration of
 `next-token-railway-video-poc`, revised by the bounded
 `foundations-owner-review-2026-09-09-v1` text-contract review at baseline
 `f773ac4e544c8c1067adbdaf2e10edbcce40d651`, then the walkthrough-only insertion
-`contract-token-cache-cli-live-v1` at `cf1eeff` (including `7ac8b56`).
-The exact 21-slide order,
-retained teaching, accepted standalone railway implementation, 122-minute
-schedule budget, and temporary 19-minute unallocated gap are authoritative.
+`contract-token-cache-cli-live-v1` at `cf1eeff` (including `7ac8b56`), and the
+owner-approved three-slide plain-English introduction immediately before the
+railway.
+The exact 24-slide order, retained teaching, accepted standalone railway
+implementation, 122-minute schedule budget, and temporary 16-minute
+unallocated gap are authoritative.
 Deck implementation and integrated visual/content acceptance remain human-owned.
 
 ### Approval history
@@ -38,26 +40,28 @@ per-harness usage slide. Publication of
 | 8 | 3 | Part 1 section 1; FND-14 | Enterprise boundaries | Safety | Enterprise Data and Policy Boundaries | Approved still |
 | 9 | 2 | Part 1 safety; FND-13-FND-14 | Human review | Safety | Human Accountability for AI-Assisted Code | Approved still |
 | 10 | 20 | Part 1 section 2; FND-06-FND-07 | Interaction modes | Content | Built in Agents | Approved still |
-| 11 | 3 | Part 2 section 4; FND-12 | Bounded context | Content | Context Window: What Competes for Space | Approved illustrated plate + nine-click native manufacturing-context funnel |
+| 11 | 3 | Part 2 section 4; FND-12 | Bounded context | Content | Context Window: What Competes for Space | Approved illustrated plate + single-play nine-beat native manufacturing-context funnel |
 | 12 | 3 | Part 2 section 4; FND-12 | Observable drift | Content | Context Rot: Recognize the Signals | Approved still |
-| 13 | 2 | Owner-approved next-token-railway-video-poc | Message-shaped prediction | Content | How your message shapes the reply | Approved 960×540 raster + seven-stage native railway animation |
-| 14 | 2 | token-cache-cli-live.md; token-cache-cli-motion/source.md slide 1 | Simulated CLI accounting | Content | Same conversation. Different reuse. | Reused approved art + shared 60-second native walkthrough |
-| 15 | 3 | context-caching.md E2; V C3/C4 | Normalized usage | Table | Read the Usage Receipt | Static native receipt + two finite Details pages |
-| 16 | 2 | context-caching.md N2; V C2 | Processing-state reuse | Content | Reuse the Work, Not the Answer | Static native retained-history/new-response comparison |
-| 17 | 3 | context-caching.md T4; Part 2 section 3; FND-10; accepted Scene 09 | Routing evidence | Content | Model Routing: Match the Task | Approved static plate + deterministic native 12-second replay |
-| 18 | 2 | Model Guide contract; supported models; model comparison | Workload guide | Table | Model Guide: Match the Workload | Native two-column table |
-| 19 | 3 | Part 2 section 4; FND-13 | Delegation boundary | Safety | Least-Privilege Delegation | Approved still |
-| 20 | 0 | `module.md`; mission handoff | Demo | Demo | Demo! | Simple transition before mission |
-| 21 | 45 | Part 2 mission marker; mission artifact | Mission launch | Mission | Your Mission Starts Now | Approved still |
+| 13 | 1 | context-caching.md T1; Part 2 section 3; V C1 | Included prediction input | Content | What Enters the Next Prediction | Native input-flow diagram |
+| 14 | 1 | context-caching.md E1; Part 2 section 3; V C1 | IDs and representations | Content | From Text to Model-Ready Numbers | Native token-to-number diagram |
+| 15 | 1 | context-caching.md N1; Part 2 section 3; V C1 | Context-sensitive prediction | Content | Context Changes the Next Prediction | Native comparison and repeat-loop diagram |
+| 16 | 2 | Owner-approved next-token-railway-video-poc | Message-shaped prediction | Content | How your message shapes the reply | Approved 960×540 raster + single-play seven-stage native railway animation |
+| 17 | 2 | token-cache-cli-live.md; token-cache-cli-motion/source.md slide 1 | Simulated CLI accounting | Content | Same conversation. Different reuse. | Reused approved art + shared 60-second native walkthrough |
+| 18 | 3 | context-caching.md E2; V C3/C4 | Normalized usage | Table | Read the Usage Receipt | Static native receipt + two finite Details pages |
+| 19 | 2 | context-caching.md N2; V C2 | Processing-state reuse | Content | Reuse the Work, Not the Answer | Static native retained-history/new-response comparison |
+| 20 | 3 | context-caching.md T4; Part 2 section 3; FND-10; accepted Scene 09 | Routing evidence | Content | Model Routing: Match the Task | Approved static plate + deterministic native 12-second replay |
+| 21 | 2 | Model Guide contract; supported models; model comparison | Workload guide | Table | Model Guide: Match the Workload | Native two-column table |
+| 22 | 3 | Part 2 section 4; FND-13 | Delegation boundary | Safety | Least-Privilege Delegation | Approved still |
+| 23 | 0 | `module.md`; mission handoff | Demo | Demo | Demo! | Simple transition before mission |
+| 24 | 45 | Part 2 mission marker; mission artifact | Mission launch | Mission | Your Mission Starts Now | Approved still |
 
 ## Exact native-copy changes
 
-The slide references in this section use the owner's reviewed 22-slide
-numbering. Parenthetical target numbers identify the historical revised
-20-slide deck before this insertion; targets 14–20 below now map to 15–21.
-Titles and all existing copy stay unchanged. Live slide 14's exact source,
+Parenthetical target numbers below identify the historical reviewed deck.
+Titles and all retained copy stay unchanged. Live slide 17's exact source,
 notes, native teaching and two-minute allocation are `token-cache-cli-live.md`
-and standalone slide 1; the causes slide is not inserted.
+and standalone slide 1; the causes slide is not inserted. Slides 13–15 use
+only the approved T1/E1/N1, Part 2 section 3, and C1 boundaries.
 
 ### Current slide 4 (target slide 4)
 
@@ -119,7 +123,7 @@ practice, exact prompts, rollback, stop conditions, human plan decision, diff
 review, and restoration. The practice—not a replacement bullet—teaches when
 to escalate.
 
-### Current slide 12 (target slide 13)
+### Current slide 16 (historical target slide 13)
 
 Keep the title and all accepted teaching relationships, example words,
 illustrative scores, seven stages, controls, and caveats. Replace the exact
@@ -131,7 +135,7 @@ Notes intent: explain that the whole message and unfinished reply affect the
 next-word scores; the example numbers are illustrative; the highest score is
 chosen only for this example; likely continuation is not a fact check.
 
-### Current slide 13 (target slide 14)
+### Current slide 18 (historical target slide 14)
 
 Use this exact visible main copy:
 
@@ -163,7 +167,7 @@ Notes intent: begin with whether B's 8,000 reused tokens are extra. Work the
 single equation, separate input from output, and state that all counts are
 synthetic.
 
-### Current slide 14 (target slide 15)
+### Current slide 19 (historical target slide 15)
 
 Use this exact visible main copy:
 
@@ -201,23 +205,24 @@ English. Land the human takeaway before the caveats.
 - Opening, agenda, surfaces, and trust: slides 1-9 =
   `1 + 1 + 1 + 1 + 2 + 2 + 2 + 3 + 2 = 15` teaching minutes.
 - Interaction modes: slide 10 = `20` teaching minutes.
-- Current economics and routing allocation: slides 13-18 =
-  `2 + 2 + 3 + 2 + 3 + 2 = 14` teaching minutes.
-- Context and delegation: slides 11, 12, and 19 =
+- Current economics and routing allocation: slides 13-21 =
+  `1 + 1 + 1 + 2 + 2 + 3 + 2 + 3 + 2 = 17` teaching minutes.
+- Context and delegation: slides 11, 12, and 22 =
   `3 + 3 + 3 = 9` teaching minutes.
-- Current visible teaching allocation: `15 + 20 + 14 + 9 = 58` minutes.
-- Demo: slide 20 = `0` minutes.
-- Mission: slide 21 = `45` minutes.
-- Current visible-slide allocation: `58 + 0 + 45 = 103` minutes.
+- Current visible teaching allocation: `15 + 20 + 17 + 9 = 61` minutes.
+- Demo: slide 23 = `0` minutes.
+- Mission: slide 24 = `45` minutes.
+- Current visible-slide allocation: `61 + 0 + 45 = 106` minutes.
 - Declared Foundations schedule remains `122` minutes: `77` intended
   instruction + `45` mission.
 - Temporary unallocated instruction gap:
-  `122 - 103 = 19` minutes, equivalently `77 - 58 = 19` teaching minutes.
+  `122 - 106 = 16` minutes, equivalently `77 - 61 = 16` teaching minutes.
   These minutes are not assigned to any visible slide and are not
   redistributed.
 - The Session Agenda remains the intended schedule budget. It is not evidence
-  that the current visible slides fill the temporary 19-minute gap.
-- The full workshop schedule remains `428` minutes.
+  that the current visible slides fill the temporary 16-minute gap.
+- This insertion does not change the current full workshop schedule of `422`
+  minutes.
 
 ## Contract notes
 
@@ -228,28 +233,37 @@ English. Land the human takeaway before the caveats.
   `Payoff:`, and `Sources:`.
 - Each `Timebox:` equals its row's authoritative `Minutes`, including zero.
 - Slide 11 retains the exact accepted three-minute manufacturing-context
-  funnel, notes, raster, nine presenter-controlled four-second beats, controls,
-  holds, geometry, and reduced-motion final state from former slide 23.
-- Slide 13 retains the accepted standalone two-minute structure and 960×540
-  seven-stage native implementation, with only the explicitly contracted
-  label replacement above. Its raster reference remains
+  funnel, raster, nine four-second beats, final hold, geometry, and
+  reduced-motion final state from former slide 23. One Play control runs the
+  complete sequence continuously; Pause and Replay remain available.
+- Slides 13–15 are one-minute native HTML teaching diagrams. They introduce
+  no generated media, measured tokenization, measured scores, or unsupported
+  internals.
+- Slide 16 retains the accepted standalone two-minute structure and 960×540
+  seven-stage native implementation. One Play control runs the complete
+  sequence continuously; Pause and Replay remain available. Its raster reference remains
   `/images/railway-message-comparison-v1.png`.
-- Slide 17 retains its approved static plate and deterministic native
+- Slide 20 retains its approved static plate and deterministic native
   12-second replay.
 - All teaching words, labels, examples, scores, controls, caveats, product
   marks, and decisions remain native HTML or SVG.
 - Required transition sequence around the structural change is:
   `Built in Agents` → `Context Window: What Competes for Space` →
   `Context Rot: Recognize the Signals` →
+  `What Enters the Next Prediction` →
+  `From Text to Model-Ready Numbers` →
+  `Context Changes the Next Prediction` →
   `How your message shapes the reply` → `Same conversation. Different reuse.` →
   `Read the Usage Receipt` →
   `Reuse the Work, Not the Answer` → `Model Routing: Match the Task` →
   `Model Guide: Match the Workload` → `Least-Privilege Delegation` →
   `Demo!` → `Your Mission Starts Now`.
 - Transition intent: bounded interaction consumes context; context capacity
-  leads directly to observable drift and reset/re-scope; a trustworthy,
-  focused message then leads to next-word prediction; prediction leads to its
-  simulated CLI accounting, then a separate synthetic usage receipt;
+  leads directly to observable drift and reset/re-scope; the introduction then
+  separates included input, token IDs, learned numeric representations, and
+  context-sensitive selection before the railway demonstrates the whole
+  comparison; prediction leads to its simulated CLI accounting, then a
+  separate synthetic usage receipt;
   receipt leads to reuse; reuse evidence informs routing;
   workload choice leads to the separate permissions boundary; least privilege
   hands off to mission practice.

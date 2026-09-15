@@ -6,7 +6,7 @@ status: draft
 kind: workshop
 description: 'Build practical GitHub Copilot skills through progressive, hands-on modules.'
 format: one-day
-duration: 7 hours 8 minutes
+duration: 7 hours 4 minutes
 defaultDeliveryVariant: one-day
 deliveryVariants:
   - id: one-day
@@ -18,7 +18,7 @@ deliveryVariants:
       - id: day-one
         title: GitHub Workshop
         start: '09:00'
-        end: '16:08'
+        end: '16:04'
         agenda:
           - id: executive-kickoff
             type: kickoff
@@ -50,52 +50,51 @@ deliveryVariants:
               Agentic Development: Instructions, memory, context, prompts,
               agents, skills, and tools
             start: '11:32'
-            end: '12:03'
+            end: '12:00'
             module: agentic
           - id: lunch
             type: lunch
             title: Lunch
-            start: '12:03'
-            end: '12:48'
+            start: '12:00'
+            end: '12:45'
           - id: agentic-content-two
             type: module-content
             title: >-
               Agentic Development: Observable loops, repository checkpoints,
-              cloud agents, optimization, AI-credit controls, and human
-              acceptance
-            start: '12:48'
-            end: '13:38'
+              cloud agents, optimization, and human acceptance
+            start: '12:45'
+            end: '13:34'
             module: agentic
           - id: agentic-mission
             type: mission
             title: 'Mission: Delegate and verify a bounded agent task'
-            start: '13:38'
-            end: '14:23'
+            start: '13:34'
+            end: '14:19'
             module: agentic
           - id: advanced-content-one
             type: module-content
             title: >-
               Advanced Workflows: Multiagent orchestration and trusted
               integrations
-            start: '14:23'
-            end: '15:08'
+            start: '14:19'
+            end: '15:04'
             module: advanced
           - id: afternoon-break
             type: break
             title: Break
-            start: '15:08'
-            end: '15:23'
+            start: '15:04'
+            end: '15:19'
           - id: advanced-content-two
             type: module-content
             title: 'Advanced Workflows: Debugging evidence, deployment, and operations'
-            start: '15:23'
-            end: '15:38'
+            start: '15:19'
+            end: '15:34'
             module: advanced
           - id: advanced-mission
             type: mission
             title: 'Mission: Orchestrate, integrate, and debug with evidence'
-            start: '15:38'
-            end: '16:08'
+            start: '15:34'
+            end: '16:04'
             module: advanced
   - id: two-day
     title: GHCP Hack (2 Day)
@@ -106,7 +105,7 @@ deliveryVariants:
       - id: day-one
         title: GitHub Workshop
         start: '09:00'
-        end: '16:08'
+        end: '16:04'
         agenda:
           - id: executive-kickoff
             type: kickoff
@@ -138,52 +137,51 @@ deliveryVariants:
               Agentic Development: Instructions, memory, context, prompts,
               agents, skills, and tools
             start: '11:32'
-            end: '12:03'
+            end: '12:00'
             module: agentic
           - id: lunch
             type: lunch
             title: Lunch
-            start: '12:03'
-            end: '12:48'
+            start: '12:00'
+            end: '12:45'
           - id: agentic-content-two
             type: module-content
             title: >-
               Agentic Development: Observable loops, repository checkpoints,
-              cloud agents, optimization, AI-credit controls, and human
-              acceptance
-            start: '12:48'
-            end: '13:38'
+              cloud agents, optimization, and human acceptance
+            start: '12:45'
+            end: '13:34'
             module: agentic
           - id: agentic-mission
             type: mission
             title: 'Mission: Delegate and verify a bounded agent task'
-            start: '13:38'
-            end: '14:23'
+            start: '13:34'
+            end: '14:19'
             module: agentic
           - id: advanced-content-one
             type: module-content
             title: >-
               Advanced Workflows: Multiagent orchestration and trusted
               integrations
-            start: '14:23'
-            end: '15:08'
+            start: '14:19'
+            end: '15:04'
             module: advanced
           - id: afternoon-break
             type: break
             title: Break
-            start: '15:08'
-            end: '15:23'
+            start: '15:04'
+            end: '15:19'
           - id: advanced-content-two
             type: module-content
             title: 'Advanced Workflows: Debugging evidence, deployment, and operations'
-            start: '15:23'
-            end: '15:38'
+            start: '15:19'
+            end: '15:34'
             module: advanced
           - id: advanced-mission
             type: mission
             title: 'Mission: Orchestrate, integrate, and debug with evidence'
-            start: '15:38'
-            end: '16:08'
+            start: '15:34'
+            end: '16:04'
             module: advanced
       - id: day-two
         title: GitHub Hack Day
@@ -739,3 +737,11 @@ lastReviewed: '2026-09-10'
 # GitHub Copilot Developer Hack
 
 This workshop moves from effective everyday assistance to agentic development and advanced repository workflows.
+
+The learning day is 424 minutes (7 hours 4 minutes): Foundations 122
+(77 instruction + 45 mission), Agentic 122 (77 + 45), Advanced 90 (60 + 30),
+setup 15 and breaks 75. Both delivery variants run 09:00–16:04 on day one.
+Agentic content before lunch is 28 minutes, 11:32–12:00; the retained
+post-lunch content is 49 minutes, 12:45–13:34. The two-day variant's 420-minute second
+day is unchanged; its aggregate is 844 minutes. Instruction totals 214 minutes.
+The two-minute loop introduction is added without redistributing other time.

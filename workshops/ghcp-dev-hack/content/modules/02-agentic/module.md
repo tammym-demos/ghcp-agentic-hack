@@ -7,10 +7,10 @@ description: >-
   Help developers prepare agentic work, control tools and iterative repository
   loops, delegate to cloud agents, and make evidence-based pull-request
   decisions.
-duration: 2 hours 6 minutes
-totalMinutes: 126
+duration: 2 hours 2 minutes
+totalMinutes: 122
 timing:
-  instructionMinutes: 81
+  instructionMinutes: 77
   missionMinutes: 45
   discussionMinutes: 0
   mediaPlaybackMinutes: 0
@@ -43,13 +43,12 @@ sourceDocuments:
   - content/modules/02-agentic/opening-slides-concept.md
   - content/modules/02-agentic/visual-intent.md
   - content/research/agentic-content-verification.md
-  - content/research/agentic-ai-credit-optimization.md
   - content/modules/02-agentic/key-topics.md
   - content/modules/02-agentic/copilot-dev-agentic-workshop.md
   - content/missions/agentic/agent-task.md
 slides: content/modules/02-agentic/slides.md
 generation:
-  expectedSlides: 30
+  expectedSlides: 29
   manifest: content/modules/02-agentic/slide-manifest.md
   imageProvider: gpt-image-2
   visualStyle: >-
@@ -85,27 +84,34 @@ status: review
 
 # Agentic Development
 
-## Current 30-slide generation contract
+## Current 29-slide generation contract
 
 `slide-manifest.md` owns exact titles, order and minutes; `visual-intent.md`
-and `context-caching-source.md` implement the approved 2026-09-07 G contract.
-Insert A05 `Saved Does Not Mean Loaded` and A13 `What Changes the Next Request?`,
-three minutes each. A04/T6, A10/T7 and A27/T8 are the only targeted redesigns.
-All 28 retained identities, titles, relative order and allocations remain.
-Earlier 25/27/28-slide contracts are historical.
+and `context-caching-source.md` implement the approved G contract as amended by
+`contract-agentic-remove-e3-2026-09-14` and
+`contract-agentic-remove-t8-2026-09-14` and
+`contract-agentic-loop-intro-2026-09-14` in `production/decision-log.md`.
+Old A13/E3 is removed with its three minutes; E3 remains inactive reusable
+source, not a slide. Tools12 now leads to What Is an Agentic Loop? at A13
+(2 minutes), then the unchanged animated The Agentic Loop at A14 (4 minutes).
+T8 at former A26 is removed with its three minutes; Agentic Optimization
+at A26 leads directly to Code Quality, Copilot Review, and Human Acceptance
+at A27. T8 source, component and artwork remain inactive/reusable.
+All 28 prior identities, titles, relative order and allocations remain.
+Earlier 25/27/28/29/30-slide contracts are historical.
 
-Slides 1–28 provide 81 instruction minutes:
-`(3 × 1) + (3 × 2) + (6 × 4) + (16 × 3) = 81`.
-The contiguous agenda groups are `3 + 16 + 12 + 50 = 81`.
-Slide 29 is the zero-minute `Demo!`; slide 30 is the separate 45-minute
-mission. Total: `81 + 0 + 45 = 126`. No extra playback or discussion time.
+Slides 1–27 provide 77 instruction minutes:
+`(3 × 1) + (4 × 2) + (6 × 4) + (14 × 3) = 77`.
+The contiguous agenda groups are `3 + 16 + 9 + 49 = 77`.
+Slide 28 is the zero-minute `Demo!`; slide 29 is the separate 45-minute
+mission. Total: `77 + 0 + 45 = 122`. No extra playback or discussion time.
 
-This is local Agentic integration awaiting human acceptance, not aggregate
-schedule adoption. Foundations remains live at 22 slides/64 instruction;
-Advanced remains 20/60. The approved combined 77-slide/428-minute schedule
-is a coordinator-owned dependency, not a claim that Foundations is adopted.
-The new request/reuse prerequisites in Foundations remain a delivery
-dependency; these notes do not claim the pending slides were already taught.
+Whole-module integration acceptance remains independent. Actual module
+metadata allocates Foundations 77 + 45 = 122, Agentic 77 + 45 = 122 and
+Advanced 60 + 30 = 90 minutes. With setup 15 and breaks 75, workshop timing
+is 424 minutes, including 214 instruction minutes; second day remains 420.
+Older Foundations 22-slide/64-minute and proposed-27 wording is historical,
+not current timing authority or evidence that a participant was taught it.
 
 ## Teaching and role boundaries
 
@@ -135,14 +141,17 @@ Clarification responses, unsupported exact controls or status labels, complete
 session-interface claims, and automatic review or acceptance claims are
 excluded; Copilot code review is a separate eligible action.
 
-The AI-credit treatment follows the approved CREDIT and SRC mappings in
-`agentic-ai-credit-optimization.md`. It distinguishes documented product
-controls from workflow practices and promises no fixed saving. Exact text,
-commands, labels, diagrams, and evidence remain native Slidev content.
+T8 product-control teaching and its CREDIT/SRC dependency are inactive
+reusable history in `context-caching-source.md` and
+`content/research/agentic-ai-credit-optimization.md`, not active slide coverage.
+The existing product-control objective remains referenced by the unchanged
+mission; removing T8 does not remove or rewrite mission practice.
+Retained Agentic Optimization remains workflow practice without a fixed-saving
+promise. Exact text, commands, labels, diagrams, and evidence remain native.
 
 ## Mission boundary
 
-Slide 30 points to the separate `Your Mission: Hand Off Work with Confidence`
+Slide 29 points to the separate `Your Mission: Hand Off Work with Confidence`
 mission and
 does not duplicate its instructions. The mission now consumes the exported
 Foundations case file or the facilitator starter for legitimate catch-up,
@@ -155,14 +164,14 @@ totals for Advanced through `content/missions/agentic/agent-task.md`.
 ## Production boundary
 
 All 13 approved static images declared above remain protected and portable.
-T8 omits `cost-conscious-preflight-controls.png` without modifying or deleting
+Removed T8 leaves `cost-conscious-preflight-controls.png` unplaced without modifying or deleting
 the original, sidecar or public copy. The other 12 remain on shifted slides
-3, 8, 11, 12, 15–17, 21–24 and 28 through contained module-public paths.
+3, 8, 11, 12, 15–17, 21–24 and 27 through contained module-public paths.
 Slide 1
 temporarily reuses the already declared
 `approval-boundary-human-decision.png` contained and unmodified; it is a
 governed fallback and does not imply approval, promotion, or availability of
-the new original title scene. Slide 14 uses the approved deterministic native
+the new original title scene. Slide 13 is native text only. Slide 14 uses the approved deterministic native
 animation. The module-local stylesheet reproduces the owner-approved deck
 without changing the shared theme. The approved concept authorizes the new
 prompt and bounded paid-action packet only; it authorizes no generated pixels,

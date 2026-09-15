@@ -2,11 +2,17 @@
 
 **Initiative:** `agentic-module-development`
 
-**Baseline status:** historical source rationale. The active 2026-09-07 contract
-is 30 slides, 81 instruction + 45 mission = 126 minutes, in `slide-manifest.md`.
-`context-caching-source.md` governs the approved five native stills, their
+**Baseline status:** historical source rationale. The active contract, amended
+by `contract-agentic-remove-e3-2026-09-14` and
+`contract-agentic-remove-t8-2026-09-14` and
+`contract-agentic-loop-intro-2026-09-14`, is 29 slides,
+77 instruction + 45 mission = 122 minutes, in `slide-manifest.md`.
+`context-caching-source.md` governs the three retained native stills, their
 questions/qualifications and host-qualified compaction correction over older
-wording below. The current contiguous instruction route is 3 + 16 + 12 + 50.
+wording below. E3 and T8 are inactive reusable history, not active topic
+coverage. Existing mission objectives are unchanged. Agentic Optimization is A26 and leads directly
+to Human Acceptance at A27. The current contiguous
+instruction route is 3 + 16 + 9 + 49.
 Earlier semantic section micro-timings below are historical, not additive.
 
 **Last source review:** 2026-08-09
@@ -18,9 +24,219 @@ Earlier semantic section micro-timings below are historical, not additive.
 This guide preserves source rationale and historical timing. It does not define
 the current slide count, title order, an inline lab, a storyboard, media, or
 changes to the separate mission; `visual-intent.md`, `module.md`, and
-`slide-manifest.md` define the current exact contract. Shared schedule adoption
-is coordinator-owned and pending; Foundations' proposed request/reuse teaching
-is a delivery dependency, not a claim that it has already been taught.
+`slide-manifest.md` define the current exact contract. Workshop metadata now
+totals 424 minutes (214 instruction); other module allocations and second-day
+420 remain unchanged. Older pending-schedule/Foundations-proposal wording is
+historical, not evidence of current timing or prior participant learning.
+
+## Approved A13 — agentic loop introduction
+
+Authority: `production/decision-log.md#content-agentic-loop-intro-2026-09-14`
+and `#contract-agentic-loop-intro-2026-09-14`. Exact title
+**What Is an Agentic Loop?**, exactly **2 minutes**, immediately after Tools12.
+The unchanged four-minute animation follows at A14.
+
+**Lead:** An agentic loop is a repeated cycle of work and feedback—not a single answer.
+
+- **MERGEWELL SETS THE DESTINATION:** Define the outcome, boundaries, and what evidence will count as done.
+- **RILEY TAKES A BOUNDED STEP:** Inspect context, propose a plan, and use an appropriate tool.
+- **THE RESULT CHANGES THE NEXT STEP:** Read the tool output, diff, error, or test result; then continue, adjust, ask, or stop.
+- **MERGEWELL STAYS IN CONTROL:** Review consequential plans and actions, steer when the work drifts, and decide whether the result is accepted.
+- **PURRMISSION MARKS THE BOUNDARY:** Pause before permissions, sensitive data, destructive actions, or consequences that are difficult to reverse.
+- **TAKEAWAY:** The loop is observable work plus evidence and human control—not hidden reasoning or automatic permission to continue.
+
+All copy is native and visible on main in three responsibility zones:
+human Mergewell's destination/control, software Riley's bounded step/evidence,
+and Purrmission's boundary. No new media, hidden core copy, animation
+duplication, hidden-reasoning, state-machine or literal-product-design claim.
+Reuse only `content/research/agentic-content-verification.md` AGT-12/13/14,
+reviewed 2026-08-09; no new external research.
+Seven ordered notes sections budget 220–250 spoken words including engagement.
+Early question: “What must happen before Riley takes another step?”
+Response: inspect evidence, check the boundary, and involve human steering to
+continue or stop where needed.
+Exact transition: “Now watch those responsibilities move through one concrete loop.”
+Rendered acceptance remains independent.
+
+The following approved sections retain their historical content-decision IDs;
+the insertion shifts former A17/A18/A19/A25/A26 to A18/A19/A20/A26/A27.
+Historical receipts retain their original ordinals.
+
+## Approved A18 — plain-English Git save points
+
+Current slide 18 retains **Repository State as a Checkpoint**, 3 minutes.
+Authority: `production/decision-log.md#content-agentic-git-save-points-2026-09-14`.
+All of the following is visible native text:
+
+- **Framing:** Use Git as save points while Riley works.
+- **BRANCH:** Keep this task separate from other work.
+- **DIFF:** See exactly what Riley changed before you accept it.
+- **CHECKS:** Record which tests and validations passed, failed, or did not run.
+- **COMMIT:** Save a reviewed point that you can compare with or return to later.
+- **IMPORTANT LIMIT:** Git can restore repository files. It cannot undo an email already sent, an API call, a deployment, a database change, or another external side effect.
+- **TAKEAWAY:** Mergewell should know both the Git recovery point and the separate recovery plan for anything outside the repository.
+
+Riley's software work pauses at reviewed points; Mergewell inspects the diff,
+records exact check evidence and decides whether to continue. Checks are not
+proof of all behavior being correct. A commit stores a repository snapshot;
+saving it does not automatically revert files or external effects. Recovery
+depends on the host and consequence, not a universal or easy one-click rollback.
+External effects need their own mechanism where recovery is possible.
+Reuse `content/research/agentic-content-verification.md` AGT-14/15,
+reviewed 2026-08-09; no fresh external claim or CLI rewind commands.
+Native Warm Editorial cards and full-width boundary/takeaway; no new media.
+Seven spoken-note sections include an early email question and transition to
+current 19, **Security Before and After Push**. The 3-minute allocation is
+unchanged; facilitation timing and rendered acceptance remain unmeasured/pending.
+
+## Approved A19 — expanded security before and after push
+
+Authority: `production/decision-log.md#content-agentic-security-expanded-2026-09-14`.
+Exact title **Security Before and After Push**, 4 minutes. All following
+headings and full sentences remain visible on main, not hidden in Details.
+
+### BEFORE PUSH — MERGEWELL REVIEWS RILEY’S ACTIVE CHANGES:
+
+Use `/security-review` in Copilot CLI to look for security problems in the current changes. It is a focused review—not proof that the whole repository is safe.
+
+### AT PUSH — PURRMISSION WATCHES FOR EXPOSED SECRETS:
+
+If push protection is configured and recognizes a supported secret, it may block the push. A successful push does not mean every secret or security issue was checked.
+
+### AFTER PUSH — GITHUB RETURNS SEPARATE SECURITY EVIDENCE:
+
+**CODE SCANNING:** Configured analysis may report code vulnerabilities.
+
+**DEPENDENCY REVIEW:** An applicable pull request may flag risky dependency changes.
+
+These checks have different setup, coverage, and triggers.
+
+### HUMAN DECISION — MERGEWELL VALIDATES THE FINDINGS:
+
+Ask Riley to fix confirmed issues, stop when the risk or permission boundary changes, and continue only after reviewing the relevant evidence. A clean result is not permission to merge.
+
+Source boundaries: AGT-32–AGT-38, reviewed 2026-08-10, reused without fresh
+research. Copilot CLI reviews active changes, not the whole repository.
+Purrmission marks a boundary; GitHub push protection is the actual control.
+Code scanning follows configured events, not every push. Dependency review
+concerns an applicable PR, with supported files and dependency graph setup;
+its Actions control is separately configured. These are not sequential automatic
+gates. Findings, no findings, suggested fixes and successful pushes remain
+limited evidence for human validation. Native role framing only, no new media.
+Seven source-mapped notes sections include an early answerable question and
+transition to current A20, **GitHub Actions as Loop Feedback**.
+
+## Approved A20 — Actions three-step feedback
+
+Owner-approved 2026-09-14 under
+`production/decision-log.md#content-agentic-actions-three-steps-2026-09-14`.
+This active section supersedes the generic four-card former-A19 flow and its overly
+broad CI narration, not the historical source rationale below.
+Exact title **GitHub Actions as Loop Feedback**, current slide **20**,
+**3 minutes**; current module 29 slides / 77 + 45 = 122.
+
+1. **RILEY RETURNS A CHANGE** — A push or pull request starts only the workflows the repository has configured.
+2. **ACTIONS RETURNS EVIDENCE** — Read whether each check passed, failed, was skipped, or never ran. A missing check is not a passing check.
+3. **MERGEWELL CHOOSES THE NEXT MOVE** — Continue when the required checks support the change; revise using the exact failure evidence; stop when the result exposes a new risk or boundary.
+
+**Takeaway:** GitHub Actions provides feedback. It does not decide, approve, or fix the change automatically.
+
+All three complete meanings and the takeaway remain visible in native Warm
+Editorial rows. Riley is the software helper returning the change; configured
+Actions returns evidence; human Mergewell chooses. No image, generated mark,
+new asset, or required character artwork. Next: Pull Requests as Agent Handoffs.
+
+Source basis reused, not freshly researched:
+`content/research/agentic-content-verification.md` **AGT-16/AGT-17**,
+reviewed **2026-08-09**. Ordinary workflows follow configured repository events,
+including push, pull request, manual and scheduled runs. Read commit-associated
+pass/fail/skipped/missing results; missing is not passing. Inspect exact failure
+evidence before retrying; check results are not approval. Notes distinguish
+ordinary workflows from cloud-agent Actions environments and product-specific
+review runs with their different security/runner boundaries. Cloud-agent PR
+workflows are restricted by default until write-authorized approval, which may
+be configurable. Do not imply Copilot inherently runs CI or deny all product
+use of Actions. No new commands, facts, timing, or media.
+
+## Approved A26 — six practical optimization tips
+
+Owner-approved 2026-09-14 under
+`production/decision-log.md#content-agentic-optimization-six-tips-2026-09-14`.
+This active section supersedes the generic noisy/focused former-A25 comparison,
+not the historical source rationale below. Exact title **Agentic Optimization**,
+current slide **26**, **3 minutes**; current module 29 slides / 77 + 45 = 122.
+
+1. **Give one clear job** — Say what should change, what must stay untouched, and what “done” looks like.
+2. **Pack only useful context** — Point to the relevant files, error, or example—not every document in the project.
+3. **Plan before expensive work** — For a complex change, review the approach before the agent edits lots of files.
+4. **Use the tools you already have** — Let tests, formatters, and scripts do repeatable checks instead of asking the agent to judge everything.
+5. **Check small, then check wider** — Start with the test closest to the change; run broader checks before accepting the result.
+6. **Don’t repeat a failed attempt blindly** — Inspect the failure, learn something new, then change the approach—or stop and ask.
+
+**Exact example — Mergewell to Riley:**
+“Fix the date validation in this form. Leave the layout alone. Start with the validation tests, then run the form checks. If the fix requires a dependency change, stop and ask.”
+
+**Takeaway:** Optimize for useful, verified progress—not simply fewer credits.
+
+**Qualification:** These practices can reduce wasted work, but don’t guarantee savings or correctness.
+
+Native Warm Editorial teaching: six numbered cards show all complete actionable
+meanings on the main slide; accessible Details opens the full example and Back
+returns to the six tips. Title, human/software role framing, takeaway and
+qualification remain visible in both views. No required image or new media.
+Mergewell is the accountable human who briefs and verifies; Riley executes
+the delegated software work. Next: Code Quality, Copilot Review, and Human
+Acceptance at A27. This teaching packet retains its title and three minutes.
+
+Source basis reused, not freshly researched:
+`content/research/agentic-content-verification.md` **AGT-23** supports clear
+prompts, lean relevant context, focused work, minimal tools, deterministic
+tests/linters and research-plan-implement separation. **AGT-24/AGT-31**
+qualify cost and reasoning effects; neither supports universal savings or
+correctness promises. All three were reviewed **2026-08-09**. This packet
+adds no commands or product claims and does not restore inactive T8 teaching.
+
+## Approved A27 — three-stage review
+
+Owner-approved 2026-09-14 under
+`production/decision-log.md#content-agentic-review-three-stages-2026-09-14`.
+This active section supersedes the old four-evidence-chip former-A26 treatment.
+Exact title **Code Quality, Copilot Review, and Human Acceptance**, current
+slide **27**, **4 minutes**; current module 29 slides / 77 + 45 = 122.
+
+**CODE QUALITY**
+- Scans the code for rule-based issues.
+- Reports CodeQL findings and configured coverage evidence.
+- Does not automatically request Copilot review or approve the change.
+
+**COPILOT REVIEW**
+- Reads the pull-request diff and leaves AI-generated comments.
+- Must be requested or configured separately.
+- Comments can be wrong or incomplete and may need to be requested again after a push.
+
+**HUMAN REVIEW**
+- Inspects the diff, tests, Code Quality findings, and Copilot comments together.
+- Validates what matters and resolves conflicts.
+- Decides whether to revise, reject, or merge.
+
+The native order is review teaching, not Code Quality triggering Copilot.
+Code Quality is a distinct product; deterministic/rules-based CodeQL refers
+to PR analysis, not every default-branch AI analysis. Coverage requires
+configured/uploaded evidence. Copilot review always submits Comment, not
+Approve or Request changes; it neither satisfies required approvals nor
+blocks merge. Comments can be wrong/incomplete, and no comments is not proof
+of correctness. Manual review does not automatically rerun after a push
+unless automatic new-push review is configured. Ordinary diff/tests/configured
+Actions evidence belongs under human inspection, not a fourth teaching card.
+
+Code Quality and Copilot Review deliver separate evidence to human Mergewell.
+Purrmission marks the acceptance boundary. Reuse the approved declared/public
+`evidence-streams-human-acceptance.png` unchanged as supporting art: its four
+unlabelled lanes are not four stages. Remove the competing native four-lane
+labels. All nine bullets lead on the main view. Source basis reused, not
+freshly researched: `content/research/agentic-content-verification.md`
+**AGT-25 through AGT-30**, reviewed **2026-08-09**. No billing, enablement,
+commands, new product claims or media.
 
 ## Approved v2 addendum — control AI credits before an agent runs
 
@@ -112,17 +328,17 @@ The approved skill gadgets are used only when their existing behavior fits:
   validation checklist for a clean attempt or handoff. It does not create,
   reset, or inspect a session.
 
-## Current instruction architecture — exactly 81 minutes
+## Current instruction architecture — exactly 77 minutes
 
 | Contiguous route | Slides | Minutes |
 | --- | --- | ---: |
 | Who does what? | A01–A03 | 3 |
 | Prepare a job worth delegating | A04–A09 | 16 |
-| Choose and trust the helper | A10–A13 | 12 |
-| Stay in charge of the result | A14–A29, including zero-minute Demo | 50 |
-| Instruction total | A01–A29 | 81 |
-| Separate mission | A30 | 45 |
-| Module total | All 30 | 126 |
+| Choose and trust the helper | A10–A12 | 9 |
+| Stay in charge of the result | A13–A28, including zero-minute Demo | 49 |
+| Instruction total | A01–A28 | 77 |
+| Separate mission | A29 | 45 |
+| Module total | All 29 | 122 |
 
 ## Historical instruction architecture — 75 minutes, superseded
 

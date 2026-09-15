@@ -63,21 +63,25 @@ status: review
 
 ## Current context/caching source — 2026-09-07
 
-The approved 22-slide manifest and [context-caching.md](context-caching.md)
+The approved 24-slide manifest and [context-caching.md](context-caching.md)
 supersede the historical token-slide inventory and ten-minute estimate.
-Slides 12–18 currently allocate 18 instruction minutes to message inference,
-normalized receipts, processing reuse, routing and usage evidence. The earlier
-input, ID, next-token, output, AI-credit and first-difference slides are
-removed. Original assets and production evidence remain preserved as history.
+Slides 13–21 currently allocate 17 instruction minutes to included input,
+token IDs and representations, context-sensitive prediction, the railway
+demonstration, normalized receipts, processing reuse and routing. The earlier
+long-form input, ID, next-token, output, AI-credit and first-difference slides
+remain removed; slides 13–15 are the new one-minute plain-English introduction
+defined by the current contract. Original assets and production evidence remain
+preserved as history.
 The accepted manufacturing/context-window slide is now slide 11; its words,
-notes, geometry, art, nine clicks and three minutes do not change.
+geometry, art, nine four-second beats and three minutes do not change. One Play
+control now runs the complete sequence continuously.
 
 ## Current slide 11 adoption — 2026-09-07
 
-The current 22-slide manifest supersedes the historical context-lifecycle
+The current 24-slide manifest supersedes the historical context-lifecycle
 slide/keyframe inventory below. Slide 11, **Context Window: What Competes for
 Space**, now uses the accepted fixed wider-neck illustrated plate with nine
-presenter-controlled native beats in three minutes. Exact manufacturing
+continuous native beats in three minutes. Exact manufacturing
 software examples and CLI attribution are governed by Part 2 section 4 and
 FND-12. User prompts accumulate on three separate clicks; output headroom is
 protected empty space; Compact continuously compresses earlier prompts while
@@ -85,9 +89,10 @@ retaining instructions and references in the illustration and dropping some
 fine detail. The capacity caption is illustrative, not a named-model claim.
 The observable acceptance signal is explaining these distinctions and the
 need to verify a compacted summary before continuing. The next production
-slide is **How your message shapes the reply**; **Context Rot: Recognize the
-Signals** remains slide 19. No removed slide or archived runtime is
-reintroduced. See
+slide is **Context Rot: Recognize the Signals**, followed by the three native
+plain-English prediction introductions and the retained **How your message
+shapes the reply** railway at slide 16. No removed long-form slide or archived
+runtime is reintroduced. See
 [production-adoption evidence](media/reviews/2026-09-07-production-adoption.md).
 
 ## Historical mappings

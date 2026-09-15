@@ -1,22 +1,21 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref, useId, watch } from "vue";
-import { useNav, useSlideContext } from "@slidev/client";
+import { computed, onBeforeUnmount, onMounted, ref, useId } from "vue";
+import { useSlideContext } from "@slidev/client";
 import { BEATS, DURATION, layersFor, motionFor, promptStackFor, stratumPath } from "../lib/manufacturing-context-sequence.mjs";
 
 const plate = `${import.meta.env.BASE_URL}images/foundations-context-funnel-wider-neck-v2.png`;
-const { $clicks, $slidev } = useSlideContext();
+const { $slidev } = useSlideContext();
 // Fit the accepted 960x540 composition to this deck's canvas, not its panels.
 // This is one uniform transform; all intrinsic art/text geometry stays locked.
 const canvasScale = $slidev.configs.canvasWidth / 960;
-const nav = useNav();
 const reduced = ref(false);
 const paused = ref(false);
 const running = ref(false);
 const elapsed = ref(DURATION);
 const previous = ref(0);
+const step = ref(0);
 const uid = `funnel-full-${useId().replace(/[^a-zA-Z0-9]/g, "")}`;
 const id = (name: string) => `${uid}-${name}`;
-const step = computed(() => reduced.value ? 9 : Math.max(0, Math.min(9, $clicks.value ?? 0)));
 const beat = computed(() => BEATS[step.value]);
 const oldBeat = computed(() => BEATS[previous.value]);
 const motion = computed(() => motionFor(step.value, elapsed.value, running.value));
@@ -26,20 +25,42 @@ let frame = 0, lastFrame = 0;
 function tick(now: number) {
   if (lastFrame && !paused.value) elapsed.value = Math.min(DURATION, elapsed.value + now - lastFrame);
   lastFrame = now;
-  if (elapsed.value < DURATION) frame = requestAnimationFrame(tick);
-  else { running.value = false; frame = 0; }
+  if (elapsed.value < DURATION) {
+    frame = requestAnimationFrame(tick);
+    return;
+  }
+  if (step.value < 9) {
+    previous.value = step.value;
+    step.value += 1;
+    elapsed.value = 0;
+    frame = requestAnimationFrame(tick);
+    return;
+  }
+  running.value = false;
+  frame = 0;
 }
-watch(step, (next, prev) => {
+function play() {
+  if (reduced.value || running.value) return;
   cancelAnimationFrame(frame);
-  previous.value = prev;
+  previous.value = 0;
+  step.value = 1;
   paused.value = false;
-  running.value = !reduced.value && next > prev;
-  elapsed.value = running.value ? 0 : DURATION;
+  running.value = true;
+  elapsed.value = 0;
   lastFrame = 0;
-  if (running.value) frame = requestAnimationFrame(tick);
-});
+  frame = requestAnimationFrame(tick);
+}
 let media: MediaQueryList;
-const updateMotion = () => { reduced.value = media.matches; };
+const updateMotion = () => {
+  reduced.value = media.matches;
+  cancelAnimationFrame(frame);
+  paused.value = false;
+  running.value = false;
+  previous.value = reduced.value ? 8 : 0;
+  step.value = reduced.value ? 9 : 0;
+  elapsed.value = DURATION;
+  lastFrame = 0;
+};
 onMounted(() => {
   media = matchMedia("(prefers-reduced-motion: reduce)");
   updateMotion();
@@ -49,7 +70,6 @@ onBeforeUnmount(() => {
   cancelAnimationFrame(frame);
   media?.removeEventListener("change", updateMotion);
 });
-const go = (n: number) => nav.go(nav.currentPage.value, Math.max(0, Math.min(9, n)));
 const interior = "M396 132 Q684 190 972 132 L927 216 L778 397 C746 432 737 445 736 480 L728 604 Q729 627 685 630 Q643 628 642 606 L634 478 C633 446 625 430 596 398 L442 221 Z";
 const entry = "M340 -180 H1035 V95 L972 132 L927 216 L778 397 C746 432 737 445 736 480 L728 604 Q729 627 685 630 Q643 628 642 606 L634 478 C633 446 625 430 596 398 L442 221 L396 132 L340 95 Z";
 </script>
@@ -137,11 +157,9 @@ const entry = "M340 -180 H1035 V95 L972 132 L927 216 L778 397 C746 432 737 445 7
       <p class="capacity-caveat">Actual capacity varies by model and surface.</p>
     </section>
     <nav class="controls" aria-label="Context animation playback">
-      <span class="state-label">{{ reduced ? 'Reduced motion · final summary' : `${step}/9 · ${step ? beat.headline : 'Ready'}` }}</span>
-      <button aria-label="Previous state" :disabled="step === 0 || reduced" @click.stop="go(step - 1)">Back</button>
+      <span class="state-label">{{ reduced ? 'Reduced motion · final summary' : step === 0 ? 'Ready' : step === 9 && !running ? 'Complete' : `${step}/9 · ${beat.headline}` }}</span>
       <button aria-label="Pause or resume motion" :disabled="!running || reduced" @click.stop="paused = !paused">{{ paused ? 'Resume' : 'Pause' }}</button>
-      <button aria-label="Replay from start" :disabled="reduced" @click.stop="go(0)">Replay</button>
-      <button aria-label="Next state" :disabled="step === 9 || reduced" @click.stop="go(step + 1)">Next</button>
+      <button aria-label="Play full sequence" :disabled="running || reduced" @click.stop="play">{{ step === 0 ? 'Play' : 'Replay' }}</button>
     </nav>
   </main>
 </template>

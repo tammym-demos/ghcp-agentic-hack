@@ -1,16 +1,20 @@
 # Agentic Opening Slides — Text-Only Concept Proposal
 
-## Current timing supersession — 2026-09-07
+## Current timing supersession — 2026-09-14
 
 This remains the historical opening concept and image fallback authority.
-The approved G contract now has 30 slides, 81 instruction + 45 mission =
-126 minutes. The opening timing label is
-`2 hours 6 minutes · 81 min instruction + 45 min mission`.
-The agenda uses contiguous groups `3 + 16 + 12 + 50 = 81`, with the same
+The approved G contract, amended by `contract-agentic-remove-e3-2026-09-14`
+and `contract-agentic-remove-t8-2026-09-14`, then
+`contract-agentic-loop-intro-2026-09-14`,
+now has 29 slides, 77 instruction + 45 mission = 122 minutes.
+Old A13/E3 and former A26/T8 are inactive reusable history. The opening timing label is
+`2 hours 2 minutes · 77 min instruction + 45 min mission`.
+The agenda uses contiguous groups `3 + 16 + 9 + 49 = 77`, with the same
 section titles and separate 45-minute mission. See `slide-manifest.md` and
 `context-caching-source.md`. No opening art or learning objective changes.
 The earlier 27-slide/75-minute numbers below record the original decision,
-not the active duration. Shared workshop schedule adoption remains pending.
+not the active contract. Workshop metadata is now 424 minutes, with other
+module allocations and second-day 420 unchanged; acceptance remains separate.
 
 **Initiative:** `agentic-opening-slides-2026-08-13`
 

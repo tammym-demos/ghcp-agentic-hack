@@ -65,11 +65,28 @@ layout: two-panel
 
 <div class="foundations-agenda">
 
-- **1 · Surfaces and trust — 15 min:** IDE, CLI, GitHub.com, cloud/app boundaries, policy, and accountability
-- **2 · Interaction modes — 20 min:** VS Code Chat, inline assistance, Ask, Plan, and Agent
-- **3 · Economics and routing — 33 min:** tokens, generation, reuse, AI Credits, receipts, and model choice
-- **4 · Context and delegation — 9 min:** context windows, context rot signals, and least privilege
-- **5 · Missions — 45 min:** use a harness, produce evidence, and debrief
+<ul>
+  <li>
+    <strong>1 · Surfaces and trust — 15 min:</strong>
+    <span>IDE, CLI, GitHub.com, cloud/app boundaries, policy, and accountability</span>
+  </li>
+  <li>
+    <strong>2 · Interaction modes — 20 min:</strong>
+    <span>VS Code Chat, inline assistance, Ask, Plan, and Agent</span>
+  </li>
+  <li>
+    <strong>3 · Economics and routing — 33 min:</strong>
+    <span>tokens, generation, reuse, AI Credits, receipts, and model choice</span>
+  </li>
+  <li>
+    <strong>4 · Context and delegation — 9 min:</strong>
+    <span>context windows, context rot signals, and least privilege</span>
+  </li>
+  <li>
+    <strong>5 · Missions — 45 min:</strong>
+    <span>use a harness, produce evidence, and debrief</span>
+  </li>
+</ul>
 
 </div>
 
@@ -557,7 +574,6 @@ Sources: content/modules/01-foundations/copilot-dev-foundations-workshop-part-1.
 
 ---
 layout: none
-clicks: 9
 ---
 
 <ManufacturingContextFunnel>
@@ -581,7 +597,7 @@ The headline enters the glass and dissolves. The rule stays in context.
 Now build the User prompts stack. First: Why is the production count off by
 twelve units? Next: Show me where that count is calculated. Then: Now fix
 reporting without changing the API.
-Each prompt gets its own click. The earlier prompts stay readable, a little
+The sequence advances automatically. The earlier prompts stay readable, a little
 softer, so you can follow one growing task. We don't repeat the big headline.
 
 References and files brings in the production-reporting module and its unit
@@ -659,6 +675,160 @@ If the room is quiet, say, "When a constraint disappears, stop and re-scope."
 Payoff: Learners gain observable stop signals and a concrete reset response before examining prediction.
 
 Sources: content/modules/01-foundations/copilot-dev-foundations-workshop-part-2.md section 4; content/research/foundations-content-verification.md FND-12
+-->
+
+---
+layout: single-panel
+class: foundations-prediction-intro foundations-what-enters
+---
+
+::title::
+# What Enters the Next Prediction
+::content::
+
+<div class="foundations-input-flow" aria-label="Three included inputs contribute to the next prediction">
+  <div class="foundations-input-flow__sources">
+    <div class="foundations-concept-card">
+      <span class="foundations-concept-card__number">1</span>
+      <strong>Selected instructions and context</strong>
+      <small>Only what the host actually includes</small>
+    </div>
+    <div class="foundations-concept-card">
+      <span class="foundations-concept-card__number">2</span>
+      <strong>The user’s message</strong>
+      <small>The question or request being answered</small>
+    </div>
+    <div class="foundations-concept-card">
+      <span class="foundations-concept-card__number">3</span>
+      <strong>The reply so far</strong>
+      <small>The unfinished answer already produced</small>
+    </div>
+  </div>
+  <div class="foundations-flow-arrow" aria-hidden="true">→</div>
+  <div class="foundations-next-card">
+    <span>These contribute to</span>
+    <strong>the next prediction</strong>
+  </div>
+</div>
+
+<div class="foundations-file-boundary">
+  <span aria-hidden="true">📄</span>
+  <strong>Saved files are not automatically included.</strong>
+  <span>A file can exist without being selected, retrieved, or supplied.</span>
+</div>
+
+<!--
+Timebox: 1 minute
+
+Talk track: Before we watch a next-word prediction, ask what enters that moment. The host prepares what is actually included. That can contain selected instructions and useful context, the user’s message, and the reply written so far. All three can contribute to the next prediction. “Selected” matters. Saving a file in a folder does not automatically put its contents into every request. The file must actually be selected, retrieved, or otherwise included by the host. So do not confuse what exists on disk with what the model receives. This is the boundary to inspect when a reply seems to miss an important fact.
+
+Transition: Once text is included, it has to become the kind of numeric input the model can use.
+
+Audience question: Does saving a file mean its contents enter every prediction?
+
+Response guidance: Listen for “no.” If needed, say, “Existence is not inclusion. Check what this host actually supplied.”
+
+Payoff: Learners separate saved material from the instructions, context, message, and unfinished reply that are actually included.
+
+Sources: content/modules/01-foundations/context-caching.md T1; content/modules/01-foundations/copilot-dev-foundations-workshop-part-2.md section 3; content/production/context-caching-proposal/source-verification.md C1
+-->
+
+---
+layout: single-panel
+class: foundations-prediction-intro foundations-token-bridge
+---
+
+::title::
+# From Text to Model-Ready Numbers
+::content::
+
+<div class="foundations-example-label">Illustrative only — not measured model data</div>
+
+<div class="foundations-token-flow" aria-label="Text becomes token pieces, IDs select entries, and learned numeric representations are separate">
+  <div class="foundations-token-flow__heading">Text</div>
+  <div class="foundations-token-flow__arrow" aria-hidden="true">→</div>
+  <div class="foundations-token-flow__heading">Token pieces</div>
+  <div class="foundations-token-flow__arrow" aria-hidden="true">→</div>
+  <div class="foundations-token-flow__heading">Entry IDs</div>
+  <div class="foundations-token-flow__arrow" aria-hidden="true">→</div>
+  <div class="foundations-token-flow__heading">Learned numeric representations</div>
+
+  <div class="foundations-token-flow__text"><strong>rain expected</strong></div>
+  <div class="foundations-token-flow__arrow" aria-hidden="true">→</div>
+  <div class="foundations-token-pieces"><span class="foundations-token-value">rain</span><span class="foundations-token-value"> expected</span></div>
+  <div class="foundations-token-flow__arrow" aria-hidden="true">→</div>
+  <div class="foundations-token-ids"><span class="foundations-token-value">17</span><span class="foundations-token-value">904</span></div>
+  <div class="foundations-token-flow__arrow" aria-hidden="true">→</div>
+  <div class="foundations-token-vectors"><span class="foundations-token-value">[0.2, −0.4, 0.7]</span><span class="foundations-token-value">[−0.1, 0.6, 0.3]</span></div>
+</div>
+
+<div class="foundations-token-takeaways">
+  <strong>An ID selects an entry. The learned list of numbers is separate.</strong>
+  <span><b>904</b> does not mean “more meaning” than <b>17</b>.</span>
+</div>
+
+<!--
+Timebox: 1 minute
+
+Talk track: Now follow one short phrase. Text is split into token pieces. Here, “rain expected” is shown as two pieces, but this is only an illustration, not a measured split from a Copilot model. Each piece gets an ID. Think of that ID as an entry number in a vocabulary. It selects an entry; it is not the model-ready meaning by itself. A separate learned list of numbers represents that entry for later processing. These lists are shortened examples, not measured model data. Most importantly, ID nine hundred four is not richer or more meaningful than ID seventeen. A larger entry number is just a larger entry number.
+
+Transition: With numeric representations ready, we can see why changing one word can change what comes next.
+
+Audience question: Does ID 904 contain more meaning than ID 17?
+
+Response guidance: Say, “No. The ID selects an entry. The learned numeric representation is a different thing.”
+
+Payoff: Learners can distinguish text pieces, entry IDs, and the separate learned numeric representations used by the model.
+
+Sources: content/modules/01-foundations/context-caching.md E1; content/modules/01-foundations/copilot-dev-foundations-workshop-part-2.md section 3; content/production/context-caching-proposal/source-verification.md C1
+-->
+
+---
+layout: single-panel
+class: foundations-prediction-intro foundations-context-change
+---
+
+::title::
+# Context Changes the Next Prediction
+::content::
+
+<div class="foundations-fixed-rule">Keep the model and selection rule fixed</div>
+
+<div class="foundations-context-compare" aria-label="Changing rain to sunny can change next-token scores and the illustrative response">
+  <div class="foundations-context-lane">
+    <div class="foundations-context-lane__input">Outdoor event · <strong>rain</strong> · 100 guests</div>
+    <div class="foundations-context-lane__change">Next-token scores<br><strong>can change</strong></div>
+    <div class="foundations-context-lane__reply">Illustrative start<br><strong>Bring rain covers…</strong></div>
+  </div>
+  <div class="foundations-context-lane">
+    <div class="foundations-context-lane__input">Outdoor event · <strong>sunny</strong> · 100 guests</div>
+    <div class="foundations-context-lane__change">Next-token scores<br><strong>can change</strong></div>
+    <div class="foundations-context-lane__reply">Illustrative start<br><strong>Bring sun shades…</strong></div>
+  </div>
+</div>
+
+<div class="foundations-repeat-loop">
+  <strong>Select a token</strong><span aria-hidden="true">→</span>
+  <strong>Append it to the reply</strong><span aria-hidden="true">→</span>
+  <strong>Repeat</strong><span class="foundations-repeat-loop__back" aria-hidden="true">↺</span>
+</div>
+
+<div class="foundations-truth-caveat">No measured scores. A plausible continuation is not a verified fact.</div>
+
+<!--
+Timebox: 1 minute
+
+Talk track: Keep the model and its selection rule fixed. Now change one word in the included context: rain becomes sunny. That small change can change the scores for possible next tokens. The two response starts shown here are illustrative; they are not observed outputs, measured token splits, or measured scores. After the selection rule chooses a token, that token is appended to the reply. The updated reply then contributes to the next prediction, and the process repeats. This explains how the same model can continue differently when the supplied context changes. It does not prove either suggestion is correct. A phrase can sound plausible and still need verification.
+
+Transition: The railway now slows this loop down and shows one complete comparison from message to appended word.
+
+Audience question: What stayed fixed, and what changed?
+
+Response guidance: Look for “the model and selection rule stayed fixed; one context word changed.” Add that the next-token scores can therefore change.
+
+Payoff: Learners connect a context change to changed next-token scores, repeated selection, and the need to verify plausible output.
+
+Sources: content/modules/01-foundations/context-caching.md N1; content/modules/01-foundations/copilot-dev-foundations-workshop-part-2.md section 3; content/production/context-caching-proposal/source-verification.md C1
 -->
 
 ---
