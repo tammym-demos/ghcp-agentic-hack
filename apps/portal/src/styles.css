@@ -28,6 +28,32 @@ body {
   max-width: 52rem;
 }
 
+.hero--landing {
+  padding-top: 4.25rem;
+  padding-bottom: 4.25rem;
+  border-bottom-color: rgb(130 80 223 / 45%);
+  background:
+    radial-gradient(circle at 78% 35%, rgb(163 113 247 / 18%), transparent 24rem),
+    linear-gradient(135deg, #ffffff 48%, #f6f0ff);
+  box-shadow: inset 0 4px #8250df;
+}
+
+.hero--landing .eyebrow {
+  color: #6639ba;
+}
+
+.hero--landing h1 {
+  max-width: 18ch;
+  margin-bottom: 1rem;
+  font-size: clamp(2.6rem, 6vw, 4.75rem);
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.hero--landing .hero__lede {
+  font-size: clamp(1.05rem, 1.7vw, 1.3rem);
+}
+
 .eyebrow {
   color: #1a7f37;
   font-weight: 700;
@@ -57,6 +83,23 @@ h1 {
   line-height: 1.55;
 }
 
+.workshop-detail .hero {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.workshop-detail h1 {
+  max-width: 24ch;
+  font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  overflow-wrap: anywhere;
+}
+
+.workshop-detail .catalog {
+  padding-top: 2.5rem;
+}
+
 .catalog {
   max-width: 72rem;
   margin: 0 auto;
@@ -70,6 +113,11 @@ h1 {
   margin-bottom: 1.5rem;
 }
 
+.catalog__heading h2 {
+  padding-left: 0.75rem;
+  border-left: 4px solid #8250df;
+}
+
 .catalog__heading span {
   color: #57606a;
 }
@@ -77,6 +125,69 @@ h1 {
 .workshop-grid {
   display: grid;
   gap: 1.5rem;
+}
+
+.team-spotlight {
+  margin-top: 3rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid #d0d7de;
+  border-radius: 1rem;
+  background: linear-gradient(145deg, #f6f8fa, #fff 60%);
+  box-shadow: 0 16px 44px rgb(31 35 40 / 10%);
+}
+
+.team-spotlight__heading {
+  margin-bottom: 1.5rem;
+}
+
+.team-spotlight__heading > div {
+  max-width: 45rem;
+}
+
+.team-spotlight__heading h2,
+.resource-section h2 {
+  margin-bottom: 0.5rem;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+.team-spotlight__heading p:last-child {
+  margin-bottom: 0;
+  color: #57606a;
+  line-height: 1.6;
+}
+
+.team-spotlight__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 39rem;
+  border-radius: 0.75rem;
+  object-fit: contain;
+}
+
+.team-spotlight__cast {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0 0;
+}
+
+.team-spotlight__cast div {
+  padding: 0.35rem 0.5rem;
+  border-left: 2px solid rgb(163 113 247 / 45%);
+  text-align: center;
+}
+
+.team-spotlight__cast dt {
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.team-spotlight__cast dd {
+  margin: 0.1rem 0 0;
+  color: #57606a;
+  font-size: 0.78rem;
+  line-height: 1.3;
 }
 
 .workshop-card {
@@ -194,6 +305,7 @@ h1 {
 
 .module-list__item {
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
   align-items: center;
   justify-content: space-between;
@@ -208,8 +320,14 @@ h1 {
 }
 
 .module-list__content {
-  flex: 1;
+  flex: 1 1 20rem;
   min-width: 0;
+  overflow-wrap: anywhere;
+  line-height: 1.5;
+}
+
+.module-list__item > .module-list__actions {
+  max-width: 100%;
 }
 
 .module-list__actions {
@@ -232,13 +350,15 @@ h1 {
 }
 
 .module-list__duration {
+  display: block;
+  margin-top: 0.75rem;
   color: #1a7f37;
+  font-size: 0.9rem;
   font-weight: 600;
-  white-space: nowrap;
 }
 
 .detail-section,
-.skills-section {
+.resource-section {
   margin-top: 3rem;
   padding: 1.5rem;
   border: 1px solid #d0d7de;
@@ -247,31 +367,36 @@ h1 {
 }
 
 .detail-section li,
-.skills-section > p,
-.skill-card p {
+.resource-card p {
   color: #57606a;
   line-height: 1.6;
 }
 
-.skills-grid {
+.resource-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
 }
 
-.skill-card {
-  padding: 1rem;
+.resource-card {
+  padding: clamp(1.25rem, 3vw, 2rem);
   border: 1px solid #d0d7de;
   border-radius: 0.75rem;
+  background: #fff;
 }
 
-.skill-card h3 {
-  font-size: 1.1rem;
+.resource-card--app {
+  border-color: rgb(163 113 247 / 60%);
+  background: linear-gradient(145deg, #fff, #f6f0ff);
 }
 
-.skill-card a,
-.skills-section a {
-  color: #a371f7;
+.resource-card h3 {
+  margin-bottom: 0.75rem;
+  font-size: 1.5rem;
+}
+
+.resource-card .button-link {
+  margin-top: 0.5rem;
 }
 
 .readout-contract {
@@ -287,6 +412,10 @@ h1 {
 
 .detail-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.detail-grid--single {
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .variant-grid {
@@ -852,9 +981,23 @@ h1 {
     padding-bottom: 4rem;
   }
 
+  .hero--landing {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .hero--landing h1 {
+    font-size: clamp(2.35rem, 13vw, 3.4rem);
+  }
+
   .module-list__item {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .module-list__content {
+    flex-basis: auto;
+    width: 100%;
   }
 
   .module-list__actions {
@@ -895,5 +1038,13 @@ h1 {
   .mission-starter pre,
   .mission-starter > p {
     grid-column: auto;
+  }
+
+  .team-spotlight__cast {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .resource-grid {
+    grid-template-columns: 1fr;
   }
 }

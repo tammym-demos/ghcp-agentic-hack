@@ -5,9 +5,11 @@ Authority: `contract-token-cache-cli-live-v1` in
 `content/production/token-cache-cli-motion/plan.md`. Integration baseline
 `cf1eeff` includes the authoritative owner edits at `7ac8b56`.
 
-Insert only standalone slide 1 as live slide 14, exact title
-**Same conversation. Different reuse.**, two minutes. Live 13 remains
-**How your message shapes the reply**; former 14–20 become 15–21 unchanged.
+The original integration inserted only standalone slide 1 as live slide 14,
+exact title **Same conversation. Different reuse.**, two minutes. In the
+current 24-slide manifest it is slide 17: the three approved plain-English
+prediction slides are 13–15, **How your message shapes the reply** is slide 16,
+and the former 15–21 remain unchanged at 18–24.
 **A miss is not always deletion.** remains standalone only.
 
 Reuse `token-cache-cli-motion/source.md`, first-slide notes and teaching,
@@ -36,12 +38,12 @@ portrait. No shared navigation styles or components are modified.
 
 ## Reconciled live inventory and timing
 
-`slide-manifest.md` governs all 21 exact title rows. Existing slide bytes and
-notes are retained; only the new notes transition distinguishes the examples.
-Visible instruction: 56 + 2 = 58 minutes. Mission: 45. Visible allocation:
-103. Intended instruction remains 77; gap: 77 − 58 = 19, or 122 − 103 = 19.
-Declared module 122 and workshop 428 minutes remain unchanged. The two-minute
-walkthrough includes its one-minute motion; no separate media minutes.
+`slide-manifest.md` governs all 24 exact title rows. Existing walkthrough bytes
+and notes are retained. Visible instruction is 61 minutes; mission is 45;
+visible allocation is 106. Intended instruction remains 77; the temporary gap
+is 77 − 61 = 16, or 122 − 106 = 16. The declared 122-minute module is
+unchanged. The two-minute walkthrough includes its one-minute motion; no
+separate media minutes.
 
 ## Existing asset declaration
 
@@ -49,4 +51,4 @@ walkthrough includes its one-minute motion; no separate media minutes.
 build input `token-cache-cli-motion/public/cli-controlled-action.png` and
 `.png.json` are unchanged byte-identical approved copies. Provenance prompt:
 `media/prompts/images/cli-controlled-action-v3.txt`. Reused on live slides 7
-and 14 and standalone slide 1. No new acceptance or publication claim.
+and 17 and standalone slide 1. No new acceptance or publication claim.

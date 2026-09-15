@@ -64,20 +64,23 @@ const references: Record<string, { label: string; lines: string[] }[]> = {
   ],
   T8: [
     { label: "Controls", lines: [
-      "Auto where supported; no cheapest-result promise",
-      "Auto discount depends on the documented paid plan and supported surface",
-      "Regular context/reasoning first where appropriate",
-      "Larger capacity does not prove it was filled",
-      "Fresh for unrelated work; supported compaction for continuing work",
-      "Check retained requirements after compaction",
-      "Check result quality + available usage"
+      "Start with regular context and reasoning, where appropriate.",
+      "Increase only when the task and supported controls justify it.",
+      "A larger context window is capacity—not input actually used.",
+      "Auto’s discount depends on the documented paid plan and supported surface.",
+      "Use Auto only where supported; it may not give the cheapest successful result.",
+      "Start a fresh session for unrelated work.",
+      "For continuing work, use supported compaction, then check retained requirements.",
+      "CLI and VS Code do not necessarily offer the same controls or behavior.",
+      "Check Riley’s result and the usage information available to you."
     ] },
     { label: "CLI limit", lines: [
       "CLI public preview: /limits set max-ai-credits NUMBER",
-      "Soft session ceiling; in-progress response can exceed it",
-      "It is not a hard cash cap or monthly budget",
-      "Auto discount depends on the documented paid plan and supported surface",
-      "Auto where supported; no cheapest-result promise"
+      "This sets a soft ceiling for this session’s AI credits.",
+      "A response already in progress can go over that ceiling.",
+      "It is not a hard cash cap or a monthly budget.",
+      "Auto’s discount depends on the documented paid plan and supported surface.",
+      "Use Auto only where supported; it may not give the cheapest successful result."
     ] }
   ]
 };
@@ -88,7 +91,10 @@ const caveats: Record<string, string[]> = {
   N4: ["Included does not guarantee followed.", "Observed behavior alone does not prove which file was included."],
   T7: ["Discovery is not invocation. Metadata is not zero context.", "Review provenance, dependencies, scripts and data access before use."],
   E3: ["Where does the supplied request first differ? Reuse remains conditional.", "Saving a skill does not prove its full procedure was sent."],
-  T8: ["Correct unsafe requirements/access regardless of reuse."]
+  T8: [
+    "Correct wrong or unsafe requirements. Remove unsafe tool or data access,",
+    "even if it costs more. Do not keep wrong instructions to try to save credits."
+  ]
 };
 async function select(label: string) {
   view.value = label;
@@ -170,25 +176,23 @@ async function select(label: string) {
         </table>
       </template>
       <template v-if="scene === 'T8'">
-        <section class="request-region request-choice" aria-label="Correct the venue before work">
-          <div data-check>Wrong venue in the brief: outdoor</div>
-          <div data-check>A: Keep it only to seek reuse</div>
-          <div data-check>B: Correct to indoor; keep rain and 100 guests</div>
-          <div class="request-heading" data-check>Choose B: correct the requirement, then check the result</div>
+        <section class="request-region t8-takeaway" aria-label="Main takeaway">
+          <div class="request-heading" data-check>Get the task right first.</div>
+          <div data-check>Then choose sensible settings and check the result and usage.</div>
         </section>
-        <section class="request-region request-guards" aria-label="Visible capacity and Auto limits">
-          <div data-check>Larger capacity does not prove</div>
-          <div data-check>it was filled</div>
-          <div data-check>Auto discount depends on the</div>
-          <div data-check>documented paid plan and</div>
-          <div data-check>supported surface</div>
-          <div data-check>Auto where supported;</div>
-          <div data-check>no cheapest-result promise</div>
+        <section class="request-region t8-story" aria-label="Human corrects, software works, human verifies">
+          <div data-check><strong>Mergewell corrects the brief:</strong> indoor, not outdoor; still rain and 100 guests.</div>
+          <div data-check><strong>Riley, the software collaborator,</strong> updates the supplies list.</div>
+          <div data-check><strong>Mergewell checks</strong> Riley’s result against the corrected brief.</div>
         </section>
-        <section class="request-region request-decisions" aria-label="Human choice and evidence">
-          <div data-check>Keep useful guidance stable—not wrong guidance</div>
-          <div data-check>Choose needed tools and proportionate settings</div>
-          <div data-check>Check result quality + available usage</div>
+        <section class="request-region t8-settings" aria-label="Sensible settings">
+          <div data-check>Start with regular context and reasoning, where appropriate.</div>
+          <div data-check>Increase only when the task and supported controls justify it.</div>
+        </section>
+        <section class="request-region t8-guards" aria-label="Visible capacity and Auto limits">
+          <div data-check>A larger context window is capacity—not the amount of input actually used.</div>
+          <div data-check>Auto’s discount depends on the documented paid plan and supported surface.</div>
+          <div data-check>Use Auto only where supported; it may not give the cheapest successful result.</div>
         </section>
       </template>
     </div>

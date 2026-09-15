@@ -1,14 +1,22 @@
 # Agentic Development — Key Topics
 
-## Current incorporation authority — 2026-09-07
+## Current incorporation authority — amended 2026-09-14
 
 The historical topic recommendations below do not override the current
-30-slide manifest. `context-caching-source.md` governs A04/T6, A05/N4,
-A10/T7, A13/E3 and A27/T8, including their common event example, source
+29-slide manifest under `contract-agentic-remove-e3-2026-09-14`,
+`contract-agentic-remove-t8-2026-09-14` and
+`contract-agentic-loop-intro-2026-09-14`.
+What Is an Agentic Loop? adds two minutes at A13 before the unchanged
+four-minute animation at A14; active source is `copilot-dev-agentic-workshop.md`.
+`context-caching-source.md` governs A04/T6, A05/N4,
+A10/T7, including their common event example, source
 qualifications, questions, Details and the A07 compaction correction.
-All five are native stills; no new gadget or controls illustration is used.
+All three are native stills; no new gadget or controls illustration is used.
+Old A13/E3 and former A26/T8 are inactive reusable history, not slides,
+active slide coverage or allocated instruction minutes. Agentic Optimization is A26;
+Human Acceptance is A27, Demo A28 and mission A29: 77 + 45 = 122 minutes.
 Existing unrelated examples, mission and assets are unchanged. The former
-Northstar-throughout recommendation does not apply to these five scenes.
+Northstar-throughout recommendation does not apply to these three scenes.
 
 **Initiative:** `agentic-module-development`
 

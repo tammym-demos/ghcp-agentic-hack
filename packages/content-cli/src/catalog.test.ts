@@ -236,14 +236,14 @@ describe("reference content", () => {
   });
 
   describe("workshop timing", () => {
-    it("renders the validated combined 428-minute run of show", async () => {
+    it("renders the loop-intro 424-minute run of show with other allocations preserved", async () => {
       const runOfShow = await workshopRunOfShow("ghcp-dev-hack", "09:00");
-      expect(runOfShow).toContain("Total: 428 minutes");
+      expect(runOfShow).toContain("Total: 424 minutes");
       expect(runOfShow).toContain(
         "| GitHub Workshop | 09:15 | 10:32 | 77 | module-content | Foundations: Copilot surfaces, safety, interaction modes, cost, and context | foundations |"
       );
       expect(runOfShow).toContain(
-        "| GitHub Workshop | 15:38 | 16:08 | 30 | mission | Mission: Orchestrate, integrate, and debug with evidence | advanced |"
+        "| GitHub Workshop | 15:34 | 16:04 | 30 | mission | Mission: Orchestrate, integrate, and debug with evidence | advanced |"
       );
     });
   });

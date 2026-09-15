@@ -15,7 +15,7 @@ class: agentic-slide agentic-priority-slide
 
 ## Direct bounded software work. Inspect the evidence. Keep the decision human.
 
-**2 hours 6 minutes · 81 min instruction + 45 min mission**
+**2 hours 2 minutes · 77 min instruction + 45 min mission**
 
 <div class="workshop-cover-logos" aria-label="GitHub and Microsoft">
   <img class="workshop-cover-logos__github" src="/images/GitHub_Lockup_Black_Clearspace.svg" alt="GitHub" />
@@ -64,11 +64,11 @@ class: agentic-agenda-slide
 # Session Agenda
 ::text::
 
-<div class="agentic-stack" role="list" aria-label="Eighty-one-minute instruction route">
+<div class="agentic-stack" role="list" aria-label="Seventy-seven-minute instruction route">
   <div class="agentic-card" role="listitem"><b>1 · Who does what? — 3 min</b><span>Human accountability and bounded software work</span></div>
   <div class="agentic-card" role="listitem"><b>2 · Prepare a job worth delegating — 16 min</b><span>Instructions, activation, memory, context, and prompts</span></div>
-  <div class="agentic-card" role="listitem"><b>3 · Choose and trust the helper — 12 min</b><span>Skills, custom agents, tools, and the next request</span></div>
-  <div class="agentic-card" role="listitem"><b>4 · Stay in charge of the result — 50 min</b><span>Observable loops, repository and cloud evidence, optimization, and the human call</span></div>
+  <div class="agentic-card" role="listitem"><b>3 · Choose and trust the helper — 9 min</b><span>Skills, custom agents, and tools</span></div>
+  <div class="agentic-card" role="listitem"><b>4 · Stay in charge of the result — 49 min</b><span>Observable loops, repository and cloud evidence, optimization, and the human call</span></div>
 </div>
 
 ::visual::
@@ -86,11 +86,11 @@ Timebox: 1 minute
 
 Talk track: Which part of this route deserves your closest attention?
 Choose one as we read the four sections.
-You have eighty-one minutes of instruction. Three minutes introduce who does
+You have seventy-seven minutes of instruction. Three minutes introduce who does
 what, including these opening slides. Sixteen minutes prepare the job:
 instructions, activation, memory, context and the task brief.
-Twelve minutes separate skills, custom agents, tools and the next request.
-Fifty minutes cover the loop, human control points, repository and cloud
+Nine minutes separate skills, custom agents and tools.
+Forty-nine minutes cover the loop, human control points, repository and cloud
 evidence, and the final decision.
 These are groups in slide order, not extra sections to add later.
 The mission has its own forty-five minutes. It extends the Foundations case.
@@ -171,7 +171,23 @@ transition: none
 # Instructions for Agentic Work
 ::content::
 
+<div class="character-correction character-correction--instructions">
+  <div class="character-main">
+    <section class="character-dossier">
+      <h2>Mergewell files the standing guidance</h2>
+      <div class="character-scope"><b>Repository-wide</b><code>.github/copilot-instructions.md</code></div>
+      <div class="character-scope"><b>Path-specific · explicit matching applyTo</b><code>.github/instructions/**/*.instructions.md</code></div>
+      <div class="character-scope character-scope--inline"><b>AGENTS.md</b> · Where supported by this host</div>
+      <div class="character-scope character-scope--inline"><b>Recurring role instructions</b> · Separate role scope</div>
+      <div class="character-rule">Label unconfirmed supplies clearly.<br><code>applyTo: "events/**/*.md"</code><br>Event Markdown checklists use agreed headings.</div>
+    </section>
+    <section class="character-field">
+      <div class="character-art"><img src="/images/human-directed-operating-split.png" alt="Human Mergewell briefs software collaborator Riley, who returns evidence for his decision"></div>
+      <div class="character-brief"><b>Riley receives today's task</b><span>Outdoor community event · rain · 100 guests</span><strong>What supplies should we bring?</strong><span>Today's requirements—not permanent rules.</span></div>
+    </section>
+  </div>
 <AgenticRequestStill scene="T6" />
+</div>
 
 <!--
 Timebox: 2 minutes
@@ -225,7 +241,26 @@ transition: none
 # Saved Does Not Mean Loaded
 ::content::
 
-<AgenticRequestStill scene="N4" />
+<div class="character-correction character-correction--activation">
+  <div class="character-main">
+    <section class="character-dossier">
+      <h2>Mergewell checks the handoff</h2>
+      <div class="character-mismatch">Saved convention: <strong>Supplies to confirm</strong><br>Observed response heading: <strong>Checklist</strong></div>
+      <div class="character-checks" aria-label="Four diagnostic checks, not automatic transitions">
+        <div>1 · Saved</div>
+        <div>2 · Discovered / applicable / enabled</div>
+        <div>3 · Included in this request/session</div>
+        <div>4 · Followed in the result</div>
+      </div>
+      <div class="character-rule">CLI: <code>/instructions</code> · <code>/env</code><br>Instruction refresh differs from skill reload.</div>
+    </section>
+    <section class="character-field">
+      <div class="character-art"><img src="/images/human-directed-operating-split.png" alt="Riley returns evidence to human Mergewell for his review, not automatic acceptance"></div>
+      <div class="character-brief"><b>Riley returns evidence</b><span>VS Code: settings · <code>applyTo</code></span><span>References · Diagnostics</span><span>Save-to-active-turn timing remains unverified.</span></div>
+    </section>
+  </div>
+  <AgenticRequestStill scene="N4" />
+</div>
 
 <!--
 Timebox: 3 minutes
@@ -497,7 +532,27 @@ transition: none
 # Reusable Skills
 ::content::
 
-<AgenticRequestStill scene="T7" />
+<div class="character-correction character-correction--skills">
+  <div class="character-main">
+    <section class="character-dossier">
+      <h2>Mergewell reviews the procedure</h2>
+      <div><b>Reviewed supplies-check procedure</b></div>
+      <div class="character-stages" aria-label="Conditional loading, not confirmed request contents">
+        <div>Discover: metadata/description</div>
+        <div class="character-condition">↓ when selected</div>
+        <div>Use: selected <code>SKILL.md</code> body</div>
+        <div class="character-condition">↓ as needed</div>
+        <div>Access: needed resources</div>
+      </div>
+      <div class="character-rule">Identify requirements → compare draft list<br>→ flag unknown quantities</div>
+    </section>
+    <section class="character-field">
+      <div class="character-art"><img src="/images/human-directed-operating-split.png" alt="Mergewell directs bounded work; software collaborator Riley follows a reviewed procedure and returns evidence"></div>
+      <div class="character-brief"><b>Riley follows the procedure</b><span>Riley: software collaborator</span><span>Skill: reusable procedure</span><span>Tool: performs an action</span></div>
+    </section>
+  </div>
+  <AgenticRequestStill scene="T7" />
+</div>
 
 <!--
 Timebox: 3 minutes
@@ -569,12 +624,11 @@ layout: two-panel
 - Check support on the selected product surface
 
 ::visual::
-<div class="agentic-static-stage" role="group" aria-label="Riley's specialist dossier separates permitted test work from required stops">
+<div class="agentic-specialist-dossier" role="group" aria-label="Riley's specialist dossier defines the recurring role, permitted test work, and required stops">
   <img src="/images/custom-agent-specialist-role.png" alt="Riley stands beside a specialist dossier with bounded permissions and stops">
-  <div class="agentic-static-overlay agentic-static-overlay--bottom">
-    <div class="agentic-static-chip agentic-static-chip--green"><b>May do</b><span>Read code · edit tests · run focused checks</span></div>
-    <div class="agentic-static-chip agentic-static-chip--red"><b>Must stop before</b><span>Production edits · dependencies · public contracts</span></div>
-  </div>
+  <section class="specialist-compartment specialist-compartment--role" aria-label="Specialist role"><b>Specialist role</b><span>Purpose &amp; instructions</span><span>Expected result</span></section>
+  <section class="specialist-compartment specialist-compartment--may" aria-label="May do"><b>May do</b><span>Read code · edit tests</span><span>Run focused checks</span></section>
+  <section class="specialist-compartment specialist-compartment--stop" aria-label="Must stop before"><b>Must stop before</b><span>Production edits</span><span>Dependencies</span><span>Public contracts</span></section>
 </div>
 
 <!--
@@ -647,8 +701,8 @@ by looking at it. Having permission to do something is not proof it's safe to do
 Test it. "Run the focused tests using our test-triage procedure." Which part is the
 tool, and which is the skill?
 
-Transition: Before the loop, separate changing a capability from changing
-what the next request actually includes.
+Transition: Next, define an agentic loop and the responsibilities that keep
+the work under human control.
 
 Audience question: In “run the focused tests using our test-triage procedure,” which part is the tool and which part is the skill?
 
@@ -658,78 +712,79 @@ that's the confusion this slide is here to prevent.
 
 Payoff: The question locks in the worker-skill-tool distinction before the loop puts all three into motion.
 
-Sources: content/research/agentic-content-verification.md AGT-09 and AGT-11; content/modules/02-agentic/visual-intent.md “Tools”; content/modules/02-agentic/context-caching-source.md E3 transition
+Sources: content/research/agentic-content-verification.md AGT-09 and AGT-11; content/modules/02-agentic/visual-intent.md “Tools”; content/modules/02-agentic/context-caching-source.md A12 transition
 -->
 
 ---
 layout: single-panel
-class: agentic-request-slide
-transition: none
+class: agentic-loop-intro-slide
 ---
 
 ::title::
-# What Changes the Next Request?
+# What Is an Agentic Loop?
 ::content::
 
-<AgenticRequestStill scene="E3" />
+<div class="loop-intro">
+  <p class="loop-intro-lead">An agentic loop is a repeated cycle of work and feedback—not a single answer.</p>
+  <div class="loop-intro-zones">
+    <section class="loop-intro-zone loop-intro-human">
+      <h2>MERGEWELL SETS THE DESTINATION</h2>
+      <p>Define the outcome, boundaries, and what evidence will count as done.</p>
+      <h2>MERGEWELL STAYS IN CONTROL</h2>
+      <p>Review consequential plans and actions, steer when the work drifts, and decide whether the result is accepted.</p>
+    </section>
+    <section class="loop-intro-zone loop-intro-work">
+      <h2>RILEY TAKES A BOUNDED STEP</h2>
+      <p>Inspect context, propose a plan, and use an appropriate tool.</p>
+      <h2>THE RESULT CHANGES THE NEXT STEP</h2>
+      <p>Read the tool output, diff, error, or test result; then continue, adjust, ask, or stop.</p>
+    </section>
+    <section class="loop-intro-zone loop-intro-boundary">
+      <h2>PURRMISSION MARKS THE BOUNDARY</h2>
+      <p>Pause before permissions, sensitive data, destructive actions, or consequences that are difficult to reverse.</p>
+    </section>
+  </div>
+  <section class="loop-intro-takeaway">
+    <h2>TAKEAWAY</h2>
+    <p>The loop is observable work plus evidence and human control—not hidden reasoning or automatic permission to continue.</p>
+  </section>
+</div>
 
 <!--
-Timebox: 3 minutes
+Timebox: 2 minutes
 
-Talk track: A file or setting changed. What did the host actually send next?
-Does saving a new supplies-check skill prove the next request will send its
-whole procedure and suffer a complete cache miss?
-No. Check discovery, selection and actual inclusion.
+Talk track: Before Riley takes another step, what needs to happen?
+Keep that question in mind as we separate three responsibilities.
+An agentic loop is repeated work and feedback, not one answer that arrives
+finished. Each result gives you something to inspect before the work continues.
 
-Each row starts from the same event brief: outdoors, rain, one hundred
-guests. Each is an independent change, not the next step in a five-toggle
-demonstration. The optional Details buttons show the exact event change
-and its full conditional effect, one row at a time.
+Mergewell represents you, the accountable human developer. You set the
+destination: the outcome, the boundaries, and the evidence that will count as
+done. You also review consequential plans and actions. When the work drifts,
+you steer it. You decide whether to accept the result.
 
-Instructions can change supplied guidance only if they apply, are enabled
-and are loaded. A saved heading alone does not prove that.
-A skill can change discovery metadata, meaning its name and description.
-The selected body and needed resources load when used, not just because
-the folder exists.
+Riley represents the software collaborator, not another human decision maker.
+She inspects relevant context, proposes a plan, and uses an appropriate tool.
+Then the result matters. A diff, tool output, error, or test result can change
+the next move. Continuing, adjusting, asking, and stopping are different choices,
+not automatic permission to keep going.
 
-A tool or MCP connection can change included definitions or results.
-MCP here is a connection to an approved capability. A skill does not
-establish that connection. Definitions describe capabilities; they are not
-the same as permission to call them.
+Purrmission marks the boundary. Pause before permissions, sensitive data,
+destructive actions, or consequences that are difficult to reverse.
+These roles describe work you can observe and evidence you can review.
+They do not reveal hidden reasoning or describe every product's internal design.
 
-A custom-agent profile can change loaded instructions, tools or an optional
-model. The role name does not prove expertise or authority.
-A model or setting change can affect usage or the supplied request.
-Changing reasoning effort does not prove different weights, different
-hardware or a complete cache miss.
+Transition: Now watch those responsibilities move through one concrete loop.
 
-Ask where the supplied request first differs. A prefix is its identical
-beginning. A supported service may reuse eligible earlier processing state;
-it still processes new material and generates a new response.
-Reuse remains conditional, not established by this table.
-Appending a question or result can retain an earlier eligible prefix.
-Compaction in a supported host replaces carried history with a summary.
-That can change input and lose detail. Check retained requirements.
+Audience question: What must happen before Riley takes another step?
 
-Those are reference cases, not a sixth mechanism in this comparison.
-Tool definitions, ordering, deferred discovery and profile support vary
-by host. Use observable evidence. Do not infer hidden behavior from a
-filename, role label or setting alone.
+Response guidance: If needed, say, “Inspect the evidence, check the boundary,
+and bring in human steering where needed to continue or stop.”
 
-Transition: Those inputs and capabilities feed the work. Next, follow the
-observable agentic loop and the human checkpoints around it.
+Payoff: You can separate software work from human control and judge the next
+step by evidence rather than momentum.
 
-Audience question: Does saving a new supplies-check skill prove the next request will send its whole procedure and suffer a complete cache miss?
-
-Response guidance: If the distinction is unclear, say, "No. Check what was
-discovered, whether the skill was selected, and what was actually included.
-Metadata is not the full procedure. Reuse depends on where the supplied
-request changes and whether the earlier state is eligible."
-
-Payoff: You can separate configuration, activation, actual input and usage
-instead of attributing hidden behavior to a saved file or setting.
-
-Sources: content/modules/02-agentic/context-caching-source.md E3; content/production/context-caching-proposal/learning-contracts.md E3 and section 11; content/production/context-caching-proposal/source-verification.md C6, P5/P6/P8–P11/P14–P16/S6/S9
+Sources: content/research/agentic-content-verification.md AGT-12, AGT-13, AGT-14; content/modules/02-agentic/copilot-dev-agentic-workshop.md “Approved A13 — agentic loop introduction”; content/modules/02-agentic/visual-intent.md slide 13
 -->
 
 ---
@@ -965,171 +1020,196 @@ Sources: content/research/agentic-content-verification.md AGT-12, AGT-16, and AG
 
 ---
 layout: single-panel
+class: agentic-checkpoint-slide
 ---
 
 ::title::
 # Repository State as a Checkpoint
 ::content::
 
-<div class="agentic-flow" role="img" aria-label="Repository checkpoint sequence">
-  <div class="agentic-step"><b>Branch</b><span>Separate task line</span></div>
-  <div class="agentic-arrow">→</div>
-  <div class="agentic-step"><b>Working diff</b><span>Inspect every change</span></div>
-  <div class="agentic-arrow">→</div>
-  <div class="agentic-step"><b>Validation</b><span>Keep exact results</span></div>
-  <div class="agentic-arrow">→</div>
-  <div class="agentic-step agentic-green"><b>Reviewable commit</b><span>Named checked checkpoint</span></div>
+<p class="checkpoint-framing">Use Git as save points while Riley works.</p>
+
+<div class="checkpoint-cards">
+  <section class="checkpoint-card"><h2>BRANCH</h2><p>Keep this task separate from other work.</p></section>
+  <section class="checkpoint-card"><h2>DIFF</h2><p>See exactly what Riley changed before you accept it.</p></section>
+  <section class="checkpoint-card"><h2>CHECKS</h2><p>Record which tests and validations passed, failed, or did not run.</p></section>
+  <section class="checkpoint-card checkpoint-card--saved"><h2>COMMIT</h2><p>Save a reviewed point that you can compare with or return to later.</p></section>
 </div>
 
-<div class="agentic-callout agentic-safety">A Git checkpoint does not reverse every external side effect.</div>
+<section class="checkpoint-limit"><h2>IMPORTANT LIMIT</h2><p>Git can restore repository files. It cannot undo an email already sent, an API call, a deployment, a database change, or another external side effect.</p></section>
+
+<section class="checkpoint-takeaway"><h2>TAKEAWAY</h2><p>Mergewell should know both the Git recovery point and the separate recovery plan for anything outside the repository.</p></section>
 
 <!--
 Timebox: 3 minutes
 
-Talk track: You already own the best checkpoint system for this. It's Git. You
-don't need anything new.
-A branch separates this line of work from everything else. The working diff shows
-you every current change. Your validation record says what was actually checked.
-And a named, reviewable commit preserves a repository state you can return to.
-That's your recovery point, and it's free.
-But I want to be honest about its limits, because "we can always roll back" gets
-said far too casually.
-A commit reverses files. It does not reverse an installed package on someone's
-machine, a network call that already went out, data you already wrote, or anything
-an external system did in response.
-Your recovery route has to match the consequence. Not just the code.
-What would you record so another reviewer could pick this up cold?
+Talk track: If Riley sends an email, can a Git save point take it back?
+Keep that question in mind as we walk through these four cards.
+Riley is the software doing the task. Mergewell is the human who pauses the work,
+inspects the evidence, and decides whether to continue.
+A branch keeps this task on a separate line of development. The diff shows
+exactly what changed. Mergewell reviews that change before accepting it.
+For checks, record what actually ran and whether it passed or failed. Also record
+what did not run. A passing result is evidence about that check, not proof that
+all behavior is correct.
+Once reviewed, a commit stores a snapshot of the repository. Name that point so
+another reviewer can compare it with later work or use it for repository recovery.
+Saving the commit does not itself revert any files. Recovery still needs a
+deliberate action; there is no universal one-click undo.
+Now return to the email. Git can restore repository files, but it cannot undo
+an email already sent, an API call, a deployment, a database change, or another
+external side effect. Each needs its own recovery mechanism, where one is possible.
+Before Riley continues, Mergewell should know the Git recovery point and the
+separate plan for effects outside the repository. That is what makes the pause
+useful: someone else can see what was reviewed, what remains uncertain, and how
+to respond if the next step goes wrong.
 
-Transition: Around the push boundary, security evidence adds several more distinct
-checkpoints.
+Transition: Next, Security Before and After Push adds distinct security evidence
+around the push boundary. Keep the same habit: inspect the evidence before
+deciding what it supports.
 
-Audience question: What would you record at a checkpoint so another reviewer could recover or continue confidently?
+Audience question: Can Git take back an email Riley already sent?
 
-Response guidance: Look for branch or commit identity, the reviewed diff, exact
-validation results, open risks — and any external side effect listed with its own
-separate recovery step. That last one is usually missing.
+Response guidance: If you are unsure, separate the files from the consequence.
+Git can restore the files. The email has already left the repository and needs
+a separate response.
 
-Payoff: Learners turn “we can roll back” into a named, evidence-backed recovery point with explicit limits.
+Payoff: You can name a reviewed repository save point without promising that it
+will undo everything Riley has done.
 
 Sources: content/research/agentic-content-verification.md AGT-14 and AGT-15; content/modules/02-agentic/visual-intent.md slide 18
 -->
 
 ---
 layout: single-panel
-class: agentic-priority-slide
+class: agentic-security-expanded-slide
 ---
 
 ::title::
 # Security Before and After Push
 ::content::
 
-<div class="agentic-loop-plate" role="group" aria-label="Focused active-change review followed by three distinct conditional security checkpoints and Purrmission-marked human validation">
-  <div class="agentic-security-plate">
-    <div class="agentic-security-origin"><span class="agentic-route-condition">Before push · active changes</span><b>`/security-review`</b><span>Focused review—not a complete audit</span></div>
-    <div class="agentic-security-connector" aria-hidden="true">→</div>
-    <div class="agentic-security-lanes" aria-label="Conditional repository security evidence">
-      <div class="agentic-security-lane"><span class="agentic-route-condition">At push · may</span><div><b>Push protection</b><span>Can block detected supported secrets</span></div></div>
-      <div class="agentic-security-lane"><span class="agentic-route-condition">Configured event</span><div><b>Configured code scanning</b><span>Inspect resulting alerts</span></div></div>
-      <div class="agentic-security-lane"><span class="agentic-route-condition">Applicable PR</span><div><b>Applicable dependency review</b><span>Inspect changed dependencies on the pull request</span></div></div>
-    </div>
-    <div class="agentic-security-connector" aria-hidden="true">→</div>
-    <div class="agentic-security-review"><span class="agentic-route-condition">Purrmission · safety boundary</span><b>Human validates</b><span>Findings are evidence, not acceptance</span></div>
-  </div>
-  <div class="agentic-callout agentic-safety"><b>Conditional checkpoints:</b> no one control is a complete security audit or permission to merge.</div>
+<div class="security-stages" role="group" aria-label="Distinct conditional security evidence and a human decision, not automatic gates">
+  <section class="security-stage security-before"><h2>BEFORE PUSH — MERGEWELL REVIEWS RILEY’S ACTIVE CHANGES:</h2><p>Use <code>/security-review</code> in Copilot CLI to look for security problems in the current changes. It is a focused review—not proof that the whole repository is safe.</p></section>
+  <section class="security-stage security-at"><h2>AT PUSH — PURRMISSION WATCHES FOR EXPOSED SECRETS:</h2><p>If push protection is configured and recognizes a supported secret, it may block the push. A successful push does not mean every secret or security issue was checked.</p></section>
+  <section class="security-stage security-after"><h2>AFTER PUSH — GITHUB RETURNS SEPARATE SECURITY EVIDENCE:</h2><div class="security-evidence"><section><h3>CODE SCANNING:</h3><p>Configured analysis may report code vulnerabilities.</p></section><section><h3>DEPENDENCY REVIEW:</h3><p>An applicable pull request may flag risky dependency changes.</p></section></div><p class="security-conditions">These checks have different setup, coverage, and triggers.</p></section>
+  <section class="security-stage security-human"><h2>HUMAN DECISION — MERGEWELL VALIDATES THE FINDINGS:</h2><p>Ask Riley to fix confirmed issues, stop when the risk or permission boundary changes, and continue only after reviewing the relevant evidence. A clean result is not permission to merge.</p></section>
 </div>
-
-<style>
-.agentic-loop-plate{--ink:#24211f;--muted:#625b54;--line:#d8cfc2;--paper:#fffdf7;--rail:#403a36;--purple:#7650b7;--green:#287a45;--amber:#9a6700;display:grid;grid-template-rows:1fr auto;gap:.8rem;height:100%;color:var(--ink)}
-.agentic-security-plate{display:grid;grid-template-columns:minmax(8.5rem,.8fr) 1.1rem minmax(0,2.8fr) 1.1rem minmax(8.5rem,.8fr);gap:.65rem;align-items:center;height:100%}
-.agentic-security-origin,.agentic-security-review{padding:.9rem;border:1px solid var(--line);border-top:5px solid var(--purple);border-radius:.75rem;background:var(--paper);box-shadow:0 5px 12px rgb(77 61 45 / 7%)}.agentic-security-review{border-top-color:var(--green)}
-.agentic-security-origin b,.agentic-security-review b{display:block;font-size:.86rem}.agentic-security-origin span,.agentic-security-review span{display:block;margin-top:.3rem;color:var(--muted);font-size:.68rem;line-height:1.3}
-.agentic-route-condition{display:block;margin-bottom:.28rem!important;color:var(--amber)!important;font-size:.59rem!important;font-weight:850;letter-spacing:.07em;text-transform:uppercase}.agentic-security-connector{color:var(--rail);font-size:1.15rem;font-weight:900;text-align:center}
-.agentic-security-lanes{display:grid;gap:.48rem;padding:.6rem;border-block:2px dashed #9d8f83;background:#fbf7f0}.agentic-security-lane{display:grid;grid-template-columns:5.8rem minmax(0,1fr);gap:.6rem;align-items:center;padding:.55rem .65rem;border:1px solid var(--line);background:#fff}.agentic-security-lane:nth-child(1){border-radius:999px}.agentic-security-lane:nth-child(2){border-radius:.65rem}.agentic-security-lane:nth-child(3){border-radius:.2rem}
-.agentic-security-lane b{display:block;font-size:.78rem}.agentic-security-lane span{display:block;margin-top:.15rem;color:var(--muted);font-size:.64rem;line-height:1.25}
-.agentic-loop-plate .agentic-callout{margin:0;padding:.65rem .8rem;border:1px solid var(--line);border-left:5px solid var(--amber);border-radius:.55rem;background:#fff6d8;box-shadow:0 4px 10px rgb(77 61 45 / 6%)}
-</style>
 
 <!--
 Timebox: 4 minutes
 
-Talk track: Security here is not one control. It's four separate ones, each with
-its own conditions, and treating them as a single safety net is how people get
-caught out.
-In an interactive CLI session, `/security-review` reviews your active local
-changes. Local. Active. Not a repository audit.
-At the push boundary, applicable push protection may block detected supported
-secrets.
-Configured code scanning produces alerts — from the events it was configured for.
-And an applicable pull request can surface dependency-review evidence.
-Notice how many qualifiers I just used. Applicable. Configured. Supported. Every
-lane has its own setup, coverage, trigger, plan, and availability boundary.
-And whether it finds something or finds nothing, a human still validates the
-result. Clean is a finding too, and it also has a scope.
-So — `/security-review` comes back clean. What have you not learned?
+Talk track: If your push succeeds, does that prove the change is safe?
+Keep that question in mind. These are separate sources of evidence, not a chain
+of automatic gates.
+Before push, Mergewell reviews Riley's active changes. Riley is the software
+helper; Mergewell is the human responsible for the decision.
+Use `/security-review` in an interactive Copilot CLI session to look for security
+problems in the current changes. It can return prioritized findings and suggested
+fixes. This is a focused review, not proof that the whole repository is safe.
+It does not clear the repository history, every secret, or every kind of vulnerability.
+At push, Purrmission marks the safety boundary. GitHub push protection is the
+actual control, not the character. If it is configured and recognizes a supported
+secret, it may block the push. Settings, supported patterns, bypass behavior,
+and the push path affect that result. A successful push does not mean every
+secret or security issue was checked.
+After push, inspect the separate evidence that applies. Configured code scanning
+may report code vulnerabilities. It follows its configured events; a push alone
+does not guarantee analysis ran.
+Dependency review concerns an applicable pull request. Supported manifest or
+lock-file changes and an enabled dependency graph matter. It may flag risky
+dependency changes. A dependency review action is a separate configured control,
+not something every repository runs automatically.
+These checks have different setup, coverage, and triggers. Access and plan
+requirements also differ. Do not treat an absent result as a passing check.
+Now return to the human decision. Mergewell validates findings and suggested
+fixes. Ask Riley to fix confirmed issues. Stop when the risk or permission
+boundary changes. Continue only after reviewing the relevant evidence.
+A finding, no finding, or a successful push is evidence within a limited scope.
+A clean result is not permission to merge.
 
-Transition: That's one evidence family. Ordinary GitHub Actions gives us a broader
-configured loop.
+Transition: Next, GitHub Actions as Loop Feedback shows how to read ordinary
+configured workflow results and choose whether to continue, revise, or stop.
 
-Audience question: If `/security-review` reports no finding, what does that result still not prove?
+Audience question: If your push succeeds, does that prove the change is safe?
 
-Response guidance: Reinforce that it doesn't clear the whole repository, the
-dependency set, the history, secrets, or every vulnerability class — and it grants
-no merge permission whatsoever. Say that last part explicitly.
+Response guidance: If you are unsure, ask what actually ran and what it covered.
+A successful push does not prove that every secret or security issue was checked.
+The human still reviews the relevant evidence.
 
-Payoff: Learners keep a focused Copilot command distinct from repository security controls and final acceptance.
+Payoff: You can separate focused local review, push protection, code scanning,
+and dependency review without handing the merge decision to any of them.
 
-Sources: content/research/agentic-content-verification.md AGT-32 through AGT-38
+Sources: content/research/agentic-content-verification.md AGT-32 through AGT-38; content/modules/02-agentic/copilot-dev-agentic-workshop.md Approved A19; content/modules/02-agentic/visual-intent.md slide 19
 -->
 
 ---
 layout: single-panel
+class: agentic-actions-slide
 ---
 
 ::title::
 # GitHub Actions as Loop Feedback
 ::content::
 
-<div class="agentic-flow" role="img" aria-label="Configured workflow feedback loop">
-  <div class="agentic-step"><b>Push or pull request</b><span>Repository event</span></div>
-  <div class="agentic-arrow">→</div>
-  <div class="agentic-step"><b>Configured workflow</b><span>Runs permitted jobs</span></div>
-  <div class="agentic-arrow">→</div>
-  <div class="agentic-step agentic-amber"><b>Check evidence</b><span>Pass · fail · skip · missing</span></div>
-  <div class="agentic-arrow">→</div>
-  <div class="agentic-step agentic-green"><b>Developer decision</b><span>Continue · revise · stop</span></div>
+<div class="actions-stages" role="group" aria-label="Software change, configured feedback, human decision">
+  <section class="actions-stage">
+    <span class="actions-number" aria-hidden="true">1</span>
+    <div><h2>RILEY RETURNS A CHANGE</h2>
+    <p>A push or pull request starts only the workflows the repository has configured.</p></div>
+  </section>
+  <section class="actions-stage">
+    <span class="actions-number" aria-hidden="true">2</span>
+    <div><h2>ACTIONS RETURNS EVIDENCE</h2>
+    <p>Read whether each check passed, failed, was skipped, or never ran. A missing check is not a passing check.</p></div>
+  </section>
+  <section class="actions-stage actions-stage--human">
+    <span class="actions-number" aria-hidden="true">3</span>
+    <div><h2>MERGEWELL CHOOSES THE NEXT MOVE</h2>
+    <p>Continue when the required checks support the change; revise using the exact failure evidence; stop when the result exposes a new risk or boundary.</p></div>
+  </section>
 </div>
 
-<div class="agentic-callout">Keep ordinary repository workflows separate from cloud-agent environments and product-specific review runs.</div>
+<div class="actions-takeaway"><strong>TAKEAWAY</strong><p>GitHub Actions provides feedback. It does not decide, approve, or fix the change automatically.</p></div>
 
 <!--
 Timebox: 3 minutes
 
-Talk track: Let me clear up a misconception I hear a lot.
-A GitHub Actions workflow runs because a configured repository event fired. A push.
-A pull request. That's it. Copilot did not run continuous integration for you, and
-it doesn't inherently do CI at all.
-What you get back — pass, fail, skipped, or a check that never ran — is evidence
-attached to that commit. Watch for that last one especially. A check that's missing
-is not a check that passed.
-And cloud-agent environments and product-specific review runs have their own
-security and runner boundaries. Different rules, same-looking output.
-Then use the result to decide: continue, revise, or stop.
-What you must not do is turn a failure into a blind retry. Same input, same code,
-hoping. That's not a strategy.
-So when a check fails — what new evidence should shape the next attempt?
+Talk track: If a check never ran, would you call it a pass?
+Keep that question in mind as we follow the change.
+Riley is the software helper. Riley returns a change through a push or pull request.
+That starts only the workflows the repository has configured for that event.
+It does not create checks that nobody configured.
+Actions returns evidence associated with the commit. Read each result:
+passed, failed, skipped, or never ran. A missing check is not a passing check.
+If a check fails, inspect the failing step and exact output before another attempt.
+Use that evidence to change the approach, rather than retrying blindly.
+Mergewell is the human choosing the next move. Continue when the required checks
+support the change. Revise using the exact failure evidence. Stop when the result
+exposes a new risk or boundary. A green check is evidence, not approval.
+One distinction matters here. We are describing ordinary repository workflows.
+Repositories can also configure manual or scheduled runs. Cloud-agent Actions
+environments and product-specific review runs have different security and runner
+boundaries. Cloud-agent pull-request workflows are restricted by default until
+someone with write access approves them; that behavior may be configurable.
+Do not assume the same execution rules apply everywhere.
+The takeaway is simple: Actions provides feedback. It does not decide, approve,
+or fix the change automatically. You still need to judge what the results mean.
 
-Transition: A pull request packages that commit evidence with the change and its
-open questions, and hands it to another human.
+Transition: Now put the change, its check evidence, and its open questions into
+the pull request. That is the handoff another human needs to review.
 
-Audience question: When a configured check fails, what new evidence should guide the next attempt?
+Audience question: If a required check never ran, would you treat the change as
+having passed that check?
 
-Response guidance: Ask for the failing step, exact output, affected behavior, the
-assumption that changed, and a targeted next check. If someone says "just run it
-again," name that as the anti-pattern this slide exists for.
+Response guidance: If you are unsure, separate missing evidence from successful
+evidence. No result means we cannot call that check a pass. If your next move is
+to retry, first name the failure output or missing evidence that would guide it.
 
-Payoff: Learners use Actions as feedback for the loop instead of treating CI as an automatic agent capability.
+Payoff: You can use check results to choose continue, revise, or stop without
+handing the human decision to Actions.
 
-Sources: content/research/agentic-content-verification.md AGT-16 and AGT-17; content/modules/02-agentic/visual-intent.md slide 20
+Sources: content/research/agentic-content-verification.md AGT-16 and AGT-17 (reviewed 2026-08-09); content/modules/02-agentic/copilot-dev-agentic-workshop.md Approved A20 — Actions three-step feedback; content/modules/02-agentic/visual-intent.md slide 20
 -->
 
 ---
@@ -1417,185 +1497,149 @@ Sources: content/research/agentic-content-verification.md AGT-01 and AGT-22; con
 
 ---
 layout: single-panel
+class: agentic-optimization-slide
 ---
 
 ::title::
 # Agentic Optimization
 ::content::
 
-<div class="agentic-grid" role="img" aria-label="Noisy and focused agentic workflows">
-  <div class="agentic-card agentic-amber">
-    <b>Before · noisy process</b>
-    <span>Unrelated context<br>Broad checks after every edit<br>Blind retries with no new evidence</span>
-  </div>
-  <div class="agentic-card agentic-green">
-    <b>After · focused process</b>
-    <span>Relevant context<br>Targeted check, then broader validation<br>Each retry explains what changed</span>
-  </div>
-</div>
-
-<div class="agentic-callout">Measure irrelevant context, check scope, repeated attempts, and proof quality—do not promise fixed savings or success.</div>
+<AgenticOptimizationTips />
 
 <!--
 Timebox: 3 minutes
 
-Talk track: Agentic optimization is workflow optimization. It is not model
-shopping.
-Picture two paths side by side.
-The noisy one drags along unrelated context, runs broad checks after every single
-edit, and repeats attempts without any new information. That last one is the real
-killer — trying again is not evidence.
-The focused one carries relevant context, runs a targeted check before broad
-validation, and explains what changed before every retry.
-Now let me be careful about what I'm claiming. These practices can reduce
-unnecessary work. They do not guarantee quality, and they do not guarantee a fixed
-credit saving. Compare what you can observe. Don't attribute the win to model
-magic.
-So when a response misses — how do you tell whether the problem is the context, the
-brief, the tools, or the model?
+Talk track: Before you hit retry, what would you inspect first: the brief,
+the context, or the failed check? Name one clue.
 
-Transition: The same right-sizing applies to product controls and credit exposure
-before work even starts.
+First, give one clear job. Say what should change, what must stay untouched,
+and what “done” looks like. Mergewell owns that brief; Riley carries out the
+software work. Second, pack only useful context. Point to the relevant files,
+error, or example, not every document in the project.
 
-Audience question: When a response misses the mark, what evidence would help you decide whether the problem is context, the brief, the tools, or the model?
+Third, plan before expensive work. For a complex change, review the approach
+before the agent edits lots of files. Fourth, use the tools you already have.
+Let tests, formatters, and scripts do repeatable checks instead of asking the
+agent to judge everything.
 
-Response guidance: Accept a mix of factors, but insist on one diagnostic
-observation before anyone changes anything — irrelevant context, misunderstood
-acceptance criteria, unavailable tools, or repeated model failure. Changing four
-things at once teaches you nothing.
+Fifth, check small, then check wider. Start with the test closest to the change;
+run broader checks before accepting the result. Sixth, don’t repeat a failed
+attempt blindly. Inspect the failure, learn something new, then change the
+approach—or stop and ask.
 
-Payoff: Learners replace blind retry and reflexive model switching with evidence-led workflow diagnosis.
+Open Details for Mergewell’s full brief to Riley: “Fix the date validation in
+this form. Leave the layout alone. Start with the validation tests, then run
+the form checks. If the fix requires a dependency change, stop and ask.”
 
-Sources: content/research/agentic-content-verification.md AGT-23, AGT-24, and AGT-31; content/modules/02-agentic/visual-intent.md slide 26
+Return to the six tips. Optimize for useful, verified progress—not simply fewer credits.
+These practices can reduce wasted work, but don’t guarantee savings or correctness.
+
+Transition: Next, bring Code Quality, Copilot review, and the other evidence
+together for the human acceptance decision.
+
+Audience question: Before you hit retry, what would you inspect first: the brief,
+the context, or the failed check? What clue would you look for?
+
+Response guidance: If you’re unsure, start with the failed check. What did it
+expect, and what happened instead? Use that difference to choose your next move.
+
+Payoff: You can give a clearer brief, verify the work, and choose whether to
+adjust or stop instead of repeating a failure blindly.
+
+Sources: content/modules/02-agentic/copilot-dev-agentic-workshop.md “Approved A26 — six practical optimization tips”; content/research/agentic-content-verification.md AGT-23, AGT-24, and AGT-31 (reviewed 2026-08-09); content/modules/02-agentic/visual-intent.md slide 26
 -->
 
 ---
 layout: single-panel
-class: agentic-request-slide agentic-request-long-title
-transition: none
----
-
-::title::
-# Make Cost-Conscious Choices Before You Start
-::content::
-
-<AgenticRequestStill scene="T8" />
-
-<!--
-Timebox: 3 minutes
-
-Talk track: Would you keep the wrong outdoor requirement to preserve a
-possible hit? No. Correct the requirement first.
-Here the venue should be indoor. Rain and one hundred guests stay unchanged.
-Choice A preserves wrong guidance only to seek reuse. Choice B corrects the
-venue and checks the new result. Choose B.
-This is a decision example, not a measured cache experiment or event plan.
-
-Keep useful guidance stable, not wrong guidance. Choose the tools the task
-needs and proportionate settings. After the run, inspect result quality
-and the usage you can actually observe. Remove unsafe access regardless
-of any possible reuse cost. Human responsibility comes before a meter.
-
-Start with regular context and reasoning where appropriate. Increase them
-when the task and supported model or surface justify it. Larger capacity
-does not prove it was filled. A selected window size is not a measurement
-of occupied input.
-
-Use Auto where supported. Its documented discount depends on the paid plan
-and supported surface. It is not a promise of the cheapest successful
-result. Policy, available models and the task still matter.
-Those guards stay visible here; they are not hidden in Details.
-
-Start fresh for unrelated work. For continuing work, use the chosen host's
-supported compaction controls and check that needed requirements remain.
-CLI and named supported VS Code sessions document compaction. Do not assume
-their controls or exact behavior are identical.
-
-The optional Controls reference keeps those choices together.
-The separate CLI limit reference shows slash limits set max-ai-credits,
-followed by a number. That public-preview control is a soft session ceiling.
-An in-progress response can exceed it. It is not a hard cash cap or monthly
-budget. We are reading a reference, not setting a limit now.
-
-Finally, a setting change can affect actual input or usage. It does not
-prove a full cache miss. Check the result and available usage without
-claiming that one observed change caused a fixed saving.
-
-Transition: Cost is one consideration. Final acceptance still combines
-independent quality and review evidence under a human decision.
-
-Audience question: Would you keep the wrong outdoor requirement to preserve a possible hit?
-
-Response guidance: If needed, say, "No. Correct the venue and keep the task safe
-and accurate. Then inspect the result and the usage you can actually observe.
-A cheap wrong answer is not a saving."
-
-Payoff: You can connect a deliberate pre-run choice to quality and usage
-evidence without sacrificing correctness for reuse.
-
-Sources: content/modules/02-agentic/context-caching-source.md T8; content/research/agentic-ai-credit-optimization.md CREDIT-01/03–08, SRC-01–07; content/production/context-caching-proposal/source-verification.md C3/C6/X3/X4, P14/S5/S9/S2
--->
-
----
-layout: single-panel
-class: agentic-priority-slide
+class: agentic-priority-slide agentic-review-slide
 ---
 
 ::title::
 # Code Quality, Copilot Review, and Human Acceptance
 ::content::
 
-<div class="agentic-static-stage agentic-static-stage--dense" role="group" aria-label="Four evidence streams remain separate through Purrmission's boundary before Mergewell's human decision">
-  <img src="/images/evidence-streams-human-acceptance.png" alt="Four distinct evidence lanes reach Mergewell's review desk before a human decision">
-  <div class="agentic-static-overlay agentic-static-overlay--six" style="grid-template-columns:repeat(4,minmax(0,1fr))">
-    <div class="agentic-static-chip"><b>Diff</b><span>Stream 01 · changed work<br>What changed, and was it in scope?</span></div>
-    <div class="agentic-static-chip"><b>Ordinary GitHub Actions</b><span>Stream 02 · configured checks<br>Did configured checks pass?</span></div>
-    <div class="agentic-static-chip agentic-static-chip--purple"><b>GitHub Code Quality</b><span>Stream 03 · deterministic findings<br>Which deterministic CodeQL findings appeared?</span></div>
-    <div class="agentic-static-chip agentic-static-chip--amber"><b>GitHub Copilot code review</b><span>Stream 04 · review comments<br>Which Comment findings need validation?</span></div>
-  </div>
-  <div class="agentic-static-band agentic-static-band--safety"><b>Purrmission guards the acceptance boundary.</b> The four streams remain separate evidence.</div>
-  <div class="agentic-static-band agentic-static-band--decision">MERGEWELL'S HUMAN DECISION · ACCEPT · REVISE · REJECT · RECOVER · MERGE</div>
+<div class="review-stages" role="group" aria-label="Review teaching order: Code Quality, then separately requested Copilot Review, then Human Review. Not an automated trigger chain.">
+  <section class="review-stage">
+    <h2><span aria-hidden="true">1 · </span>CODE QUALITY</h2>
+    <ul>
+      <li>Scans the code for rule-based issues.</li>
+      <li>Reports CodeQL findings and configured coverage evidence.</li>
+      <li>Does not automatically request Copilot review or approve the change.</li>
+    </ul>
+  </section>
+  <section class="review-stage">
+    <h2><span aria-hidden="true">2 · </span>COPILOT REVIEW</h2>
+    <ul>
+      <li>Reads the pull-request diff and leaves AI-generated comments.</li>
+      <li>Must be requested or configured separately.</li>
+      <li>Comments can be wrong or incomplete and may need to be requested again after a push.</li>
+    </ul>
+  </section>
+  <section class="review-stage">
+    <h2><span aria-hidden="true">3 · </span>HUMAN REVIEW</h2>
+    <ul>
+      <li>Inspects the diff, tests, Code Quality findings, and Copilot comments together.</li>
+      <li>Validates what matters and resolves conflicts.</li>
+      <li>Decides whether to revise, reject, or merge.</li>
+    </ul>
+  </section>
 </div>
-
-<style>
-.agentic-evidence-plate{--ink:#24211f;--muted:#625b54;--line:#d8cfc2;--paper:#fffdf7;--green:#287a45;--amber:#9a6700;display:grid;grid-template-rows:1fr auto auto;gap:.72rem;height:100%;color:var(--ink)}
-.agentic-evidence-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.72rem;width:100%}.agentic-evidence-card{min-width:0;padding:.85rem;border:1px solid var(--line);background:var(--paper);box-shadow:0 7px 14px rgb(77 61 45 / 8%)}.agentic-evidence-card:nth-child(1){border-top:6px solid #557b9e;border-radius:.85rem}.agentic-evidence-card:nth-child(2){border-top:6px double #6c7e53;border-radius:.35rem}.agentic-evidence-card:nth-child(3){border-top:6px solid #8b6cae;border-radius:.85rem .2rem .85rem .2rem}.agentic-evidence-card:nth-child(4){border-top:6px dashed #a16c49;border-radius:.2rem .85rem .2rem .85rem}
-.agentic-evidence-card b{display:block;font-size:.78rem;line-height:1.2}.agentic-evidence-card span:last-child{display:block;margin-top:.38rem;color:var(--muted);font-size:.67rem;line-height:1.3}.agentic-stream-tag{display:block;margin-bottom:.3rem;color:var(--muted);font-size:.58rem;font-weight:850;letter-spacing:.07em;line-height:1.15;text-transform:uppercase}
-.agentic-evidence-plate .agentic-callout{margin:0;padding:.65rem .8rem;border:1px solid var(--line);border-left:5px solid var(--amber);border-radius:.55rem;background:#fff6d8;box-shadow:0 4px 10px rgb(77 61 45 / 6%)}.agentic-evidence-plate .agentic-decision{margin:0;padding:.7rem;border:1px solid #1e6337;border-radius:.55rem;color:#fff;background:#276f42;box-shadow:0 5px 0 #184b2b;text-align:center;font-size:.75rem;font-weight:800;letter-spacing:.025em}
-</style>
+<figure class="review-support">
+  <img src="/images/evidence-streams-human-acceptance.png" alt="Mergewell inspects incoming evidence at his desk; Purrmission stands beside the acceptance boundary.">
+  <figcaption>Separate evidence.<br><strong>Mergewell decides.</strong><br>Purrmission marks the acceptance boundary.</figcaption>
+</figure>
 
 <!--
 Timebox: 4 minutes
 
-Talk track: This is the evidence desk. Everything in this module lands here.
-Four instruments, four different questions.
-The diff tells you what changed. GitHub Actions reports the checks you configured.
-GitHub Code Quality gives you deterministic CodeQL findings. And Copilot code review
-gives you comments — which still need validating.
-Two details that have changed and that people still get wrong. Code Quality no
-longer automatically adds Copilot as a reviewer. And a requested Copilot review does
-not automatically repeat after every new push by default. Check, don't assume.
-Think of these like cockpit instruments. Your altimeter reduces uncertainty about
-altitude. It does not fly the plane. Neither does your airspeed indicator, and
-neither do all of them together.
-Mergewell still owns accept, revise, reject, recover, and merge.
-So let me put two bad options in front of you. A pull request that passed every
-automated check but no human looked at it. Or one an expert reviewed carefully while
-a security scan was still failing. Which is riskier?
+Talk track: If Code Quality passes and Copilot leaves no comments, who decides
+whether this change is ready to merge? Hold that question as we walk down these
+three stages. This is a review order, not an automatic chain of actions.
 
-Transition: We're ready to put the whole handoff-and-decision pattern into the
-scored mission.
+First, Code Quality scans the code for rule-based issues. It reports CodeQL
+findings and configured coverage evidence. Here we mean its pull-request
+analysis: deterministic, rules-based CodeQL checks. We are not calling every
+default-branch AI analysis deterministic. Coverage depends on what your team
+configured and uploaded; it is not evidence you can assume exists.
+Code Quality is a distinct product. It does not automatically request Copilot
+review, and it does not approve the change.
 
-Audience question: Which is riskier: a pull request that passed every automated check but received no human review, or one an expert reviewed while a security scan still failed—and why?
+Second, Copilot Review reads the pull-request diff and leaves AI-generated
+comments. You must request it or configure it separately. Those comments can
+be wrong or incomplete. No comments is not proof that the change is correct.
+Copilot submits Comment, not Approve or Request changes. Its review neither
+satisfies required approvals nor blocks merging.
+After a push, a manually requested review does not automatically run again.
+Request another review when needed, unless automatic review of new pushes
+is configured. Check the evidence against the current diff.
 
-Response guidance: Let the debate run briefly — it's a genuinely good argument. Then
-land it: both are risky, because human review and automated findings answer
-different questions and neither one cancels the other. That's the takeaway, not a
-winner.
+Third, Human Review brings the evidence together. You inspect the diff, tests,
+Code Quality findings, and Copilot comments. Include the ordinary GitHub
+Actions checks your team configured here, rather than treating them as another
+reviewer. Validate what matters and resolve conflicts. A passing check does
+not cancel a credible concern; an AI comment does not settle it either.
 
-Payoff: The question makes separate evidence streams and retained human authority memorable at the module’s culmination.
+Look at Mergewell at the desk. Code Quality and Copilot Review deliver separate
+evidence to him. Purrmission marks the acceptance boundary, not a tool approval.
+Mergewell is the human who decides whether to revise, reject, or merge.
+Take a moment to answer the opening question, and name one piece of evidence
+you would inspect before making that decision.
 
-Sources: content/research/agentic-content-verification.md AGT-25 through AGT-30; content/modules/02-agentic/visual-intent.md slide 28
+Transition: Carry that separation into the mission: delegate the work, inspect
+the returned evidence, and keep the acceptance decision with the human.
+
+Audience question: If Code Quality passes and Copilot leaves no comments, who
+decides whether to merge, and what would you inspect first?
+
+Response guidance: If the room is quiet, say: “Start with the diff. Does it solve
+the agreed problem, and what test supports that?” If answers treat a tool as
+the approver, say: “That is useful evidence. Who validates it and owns the
+decision?” Give people a brief chance to explain a different first check.
+
+Payoff: You can use both tools without handing either one the decision.
+Separate evidence supports human judgment; it does not replace it.
+
+Sources: content/modules/02-agentic/copilot-dev-agentic-workshop.md “Approved A27 — three-stage review”; content/research/agentic-content-verification.md AGT-25 through AGT-30 (reviewed 2026-08-09); content/modules/02-agentic/visual-intent.md slide 27
 -->
 
 ---
@@ -1621,7 +1665,7 @@ Response guidance: Keep it succinct and move on. If the room hesitates, say, "We
 
 Payoff: Learners get a clean reset before the final agentic mission starts.
 
-Sources: content/modules/02-agentic/slide-manifest.md row 29; content/modules/02-agentic/module.md
+Sources: content/modules/02-agentic/slide-manifest.md row 28; content/modules/02-agentic/module.md
 -->
 
 ---

@@ -1,23 +1,27 @@
 # Agentic Module: Current Visual Intent
 
-## Approved G incorporation — 2026-09-07
+## Approved G incorporation — amended 2026-09-14
 
-Current inventory: 30 exact slides in `slide-manifest.md`, 81 instruction +
-45 mission = 126 minutes. `context-caching-source.md` governs the five
+Current inventory: 29 exact slides in `slide-manifest.md`, 77 instruction +
+45 mission = 122 minutes under `contract-agentic-remove-e3-2026-09-14`,
+`contract-agentic-remove-t8-2026-09-14` and
+`contract-agentic-loop-intro-2026-09-14`.
+Old A13/E3 and former A26/T8 are inactive reusable history, not generated slides.
+`context-caching-source.md` governs the three retained
 approved static scenes and their coupled wording; scene-proposals.md v1.3
 owns their exact main/Details words and nominal geometry. All other retained
 visual concepts remain unchanged. Native still implementation is awaiting
 human rendered acceptance. Schema status is not promoted.
 
-The new five scenes use `single-panel` with the standard full-width title
+The three retained scenes use `single-panel` with the standard full-width title
 and one complete native teaching surface. Their module-local 960×540 frame
 maps uniformly to the inherited 980×552 page, without changing shared theme
 or retained slides. Required type is 20/24, specified table/path type 18/24,
 and essential caveats 18/22. No auto-shrink, scroll, truncation or new art.
 Main is the complete static/reduced-motion fallback. Optional instant Details
 retains the title/caveats, has Back to diagram, and resets on slide re-entry.
-Controls are keyboard accessible. E3 requires actual header and measured
-six-pixel nominal table/footer separation. T8's original asset remains intact.
+Controls are keyboard accessible. E3's former header/table geometry is
+inactive history. T8's original asset remains intact.
 
 **Initiative:** `agentic-module-development`;
 `agentic-opening-slides-2026-08-13`
@@ -28,9 +32,11 @@ six-pixel nominal table/footer separation. T8's original asset remains intact.
 The Agentic module visuals rely on a warm, human-centered editorial cartoon style that grounds abstract software concepts in a physical detective world. Agent Mergewell is the accountable human field agent who owns all final decisions, while software collaborators are depicted as distinct glowing or specialized avatars who perform delegated typing and searching. Reusable skills are represented as mechanical gadgets deployed by Mergewell, preventing confusion between a script and a worker. The environment uses physical props like corkboards, desk trays, structured folders, and route maps instead of abstract cloud diagrams to make invisible repository state obvious. Purrmission the cat appears specifically to mark consequential safety, permission, or acceptance boundaries. All exact text, code, commands, product UI, and repository evidence remain as native Slidev overlays to ensure technical accuracy and maintainability.
 
 ## Treatment Categories
-- Five approved request/activation scenes are native-only stills.
+- Three retained request/activation scenes are native stills; the existing
+  A04/A05/A10 character-world corrections remain unchanged.
 - Twelve retained approved images remain in use; the thirteenth controls
   image remains protected but unplaced. The opening keeps its existing fallback.
+- New A13 is a native two-minute definition with three responsibility zones.
 - The existing 30-second agentic-loop replay remains unchanged at A14.
 
 ## Highest-Priority Concepts for Owner Approval
@@ -39,7 +45,7 @@ The Agentic module visuals rely on a warm, human-centered editorial cartoon styl
 3. **Slide 14 (The Agentic Loop):** Existing observable loop and human gate.
 4. **Slide 16 (Approval Boundaries):** Existing allowed, ask-first, and prohibited actions.
 5. **Slide 19 (Security Before and After Push):** Existing separate conditional security checks.
-6. **Slide 28 (Human Acceptance):** Existing four distinct evidence streams and human decision.
+6. **Slide 27 (Human Acceptance):** Existing approved three-stage review and human decision.
 
 ## Graphics Recommended for Discard
 Most current abstract `boards`, `trays`, `folios`, and `routes` created purely with CSS borders should be discarded or heavily simplified in favor of either clear native UI/text layouts or the proposed physical-world illustrations. Abstract boxes without a clear physical metaphor currently fail to convey the human relationship to the software.
@@ -58,12 +64,14 @@ Words like "Bounded issue", "Delegated work", "durable repository guidance", and
 Slide 1 welcomes learners with the approved three-character role hierarchy,
 using the approved `approval-boundary-human-decision.png` only as a governed
 temporary fallback until a new-scene candidate is separately accepted and
-promoted. Slide 2 presents the native `3 + 16 + 12 + 50` instructional route
+promoted. Slide 2 presents the native `3 + 16 + 9 + 49` instructional route
 and separate 45-minute mission. Preserved slide 3 establishes the
 human-directed operating split. Each instructional slide then teaches one
 concept with a small, self-contained example only where it improves
-understanding. Slide 28 brings the evidence concepts together for the human
-acceptance decision, slide 29 is the retained zero-minute Demo, and slide 30 points to the separate
+understanding. Tools at slide 12 flows to What Is an Agentic Loop? at 13,
+then the unchanged animation at 14.
+Agentic Optimization at 26 leads directly to slide 27, which brings the evidence concepts together for the human
+acceptance decision; slide 28 is the retained zero-minute Demo, and slide 29 points to the separate
 `Your Mission: Hand Off Work with Confidence` mission.
 
 ---
@@ -75,14 +83,14 @@ acceptance decision, slide 29 is the retained zero-minute Demo, and slide 30 poi
 2. **What we would show:** Agent Mergewell receives a blank evidence folio from Riley Relay beside a clearly bounded work lane, while Purrmission marks one closed consequential scope or permission threshold.
 3. **Why this visual helps:** The scene establishes accountable human direction, bounded software collaboration, returned evidence, and a safety threshold without presenting the metaphor as literal product architecture.
 4. **Character use:** Mergewell largest at the accountability desk; Riley active but bounded and returning evidence; Purrmission subordinate at the consequential threshold.
-5. **Native overlay:** `GitHub Copilot · Agentic development`; `Module 2: Agentic Development — Workshop Guide`; `Direct bounded software work. Inspect the evidence. Keep the decision human.`; `2 hours 6 minutes · 81 min instruction + 45 min mission`.
+5. **Native overlay:** `GitHub Copilot · Agentic development`; `Module 2: Agentic Development — Workshop Guide`; `Direct bounded software work. Inspect the evidence. Keep the decision human.`; `2 hours 2 minutes · 77 min instruction + 45 min mission`.
 6. **Treatment:** approved new-scene concept; temporarily render the already approved, declared `approval-boundary-human-decision.png` contained and unmodified. This fallback is governance-only and does not satisfy or imply candidate approval for the new handoff scene.
 7. **Safe area and crop:** left 42% native copy and right 58% contained scene intent; all characters, evidence, and threshold remain complete with at least 48 px visual-pane clearance at 1920×1080.
 8. **Accessibility:** Native copy carries the promise; alt intent is `Agent Mergewell receives evidence from Riley Relay while Purrmission marks a consequential boundary before the human decision.`
 
 ### 2. Session Agenda
-1. **What the developer should understand:** The module contains 81 minutes of instruction in four contiguous sections followed by one separate 45-minute mission.
-2. **What we would show:** Four numbered native route rows—`Who does what?` (3), `Prepare a job worth delegating` (16), `Choose and trust the helper` (12), and `Stay in charge of the result` (50)—beside a separate native 45-minute mission card.
+1. **What the developer should understand:** The module contains 77 minutes of instruction in four contiguous sections followed by one separate 45-minute mission.
+2. **What we would show:** Four numbered native route rows—`Who does what?` (3), `Prepare a job worth delegating` (16), `Choose and trust the helper` (9), and `Stay in charge of the result` (49)—beside a separate native 45-minute mission card.
 3. **Why this visual helps:** Learners see the route and protected mission handoff without adding section dividers or moving detailed mission actions into the deck.
 4. **Character use:** none; this is a fully native timing and hierarchy surface.
 5. **Native overlay:** All section labels, descriptions, numbers, and minutes remain native text in reading order and use structure in addition to color.
@@ -202,15 +210,18 @@ or MCP connection. Exact question/recovery: `context-caching-source.md` T7.
 7. **Treatment:** native-first illustration recommended.
 8. **Owner preview sentence:** You would see a software collaborator choose a specific action from a workbench while a skill card provides the reusable workflow.
 
-### 13. What Changes the Next Request?
-E3, 3 minutes. One static table, five independent mechanisms, not a toggle
-sequence. Intro y108–132; actual Mechanism / What may change in the next
-request header y132–156; row heights 48/48/72/48/72 through y444.
-Columns x48–240 and x264–912 at 18/24. Footer y450–494 leaves six nominal
-pixels, requiring actual browser proof. All conditional effects remain in
-main; exact independent event changes and full effects remain in separate
-Details. Footer persists there. No sixth row, character or hidden packet
-order. Exact question/recovery: `context-caching-source.md` E3.
+Direct transition: “Next, define an agentic loop and the responsibilities that keep
+the work under human control.” Source: `context-caching-source.md` A12 transition.
+
+### 13. What Is an Agentic Loop?
+1. **What the developer should understand:** Repeated observable work and feedback require evidence and human control, not automatic permission to continue.
+2. **What we would show:** Native Warm Editorial title and lead, two adjacent responsibility zones for Mergewell's destination/control and Riley's bounded step/evidence, then a full-width Purrmission boundary and takeaway.
+3. **Why this visual helps:** Groups all five responsibilities by owner before the animation shows them moving through a concrete loop.
+4. **Character use:** Native role labels only: Mergewell is the accountable human; Riley is the software collaborator; Purrmission marks the consequential boundary. No new art or reserved image space.
+5. **Native overlay:** Every exact label and sentence from `copilot-dev-agentic-workshop.md` “Approved A13 — agentic loop introduction”, including the complete lead and takeaway, is visible on main. No Details or animated duplication.
+6. **Treatment:** Fixed target-only single-panel hierarchy on the 980×552 canvas; 20px/24px body (19.6px effective at 960), 19px/22px long headings, 32px/38px title; raised title sibling and content clear of persistent navigation. No shared CSS changes.
+7. **Notes and source:** Exactly two minutes, seven ordered sections, early next-step question, 220–250 spoken words, AGT-12/13/14 only. Exact transition: “Now watch those responsibilities move through one concrete loop.”
+8. **Acceptance boundary:** Content and structural implementation approved; actual rendered acceptance remains a separate human decision.
 
 ### 14. The Agentic Loop
 1. **What the developer should understand:** The software works in a cycle of planning, acting, and checking, pausing for your approval when needed.
@@ -261,40 +272,37 @@ order. Exact question/recovery: `context-caching-source.md` E3.
 * **Proposed replacement:** "Checking the work"
 
 ### 18. Repository State as a Checkpoint
-1. **What the developer should understand:** Use Git branches and commits as safe save points so you can review the work and easily undo mistakes.
-2. **What we would show:** A timeline on a wall with clear pushpins for "Branch", "Diff", and "Commit", showing where it is safe to pause.
-3. **Why this visual helps:** Connects the agent workflow back to standard, reliable Git mechanics.
-4. **Character use:** character-world-only/no character.
-5. **Native overlay:** "Branch", "Working diff", "Validation", "Reviewable commit".
-6. **Concept example:** Use branches, diffs, validation, and commits as reviewable recovery points.
-7. **Treatment:** native graphic preferred.
-8. **Owner preview sentence:** You would see a simple timeline with pushpins marking safe Git save points for the software's work.
-* **Flagged language:** "Repository State"
-* **Proposed replacement:** "Git Save Points"
+1. **What the developer should understand:** Git saves reviewed repository points; external side effects need a separate recovery mechanism. No automatic or universal undo.
+2. **What we would show:** Exact title above "Use Git as save points while Riley works." A native 2×2 BRANCH / DIFF / CHECKS / COMMIT hierarchy, followed by the full IMPORTANT LIMIT and TAKEAWAY.
+3. **Why this visual helps:** Plain-English actions distinguish task separation, inspection, actual check evidence and a stored reviewed snapshot.
+4. **Character use:** Riley does software work; Mergewell pauses, inspects, records and decides. Native text only; no required illustration or new media.
+5. **Native overlay:** All approved wording in `copilot-dev-agentic-workshop.md` Approved A18 remains visible, including email, API call, deployment, database change and another external side effect.
+6. **Concept example:** Name both the Git recovery point and the separate recovery plan for anything outside the repository.
+7. **Treatment:** Warm Editorial native cards, dark text, green reviewed-point accent; full-width title with dedicated stacking and all safety text above persistent navigation. Body 20px on the 980px canvas; no hidden or scaled-down text.
+8. **Owner preview sentence:** You would see four practical save-point cards with a clear, complete boundary explaining what Git cannot undo.
+* **Contract:** Exact title and 3 minutes preserved. AGT-14/15 reused; technical proof does not grant rendered acceptance.
 
 ### 19. Security Before and After Push
-1. **What the developer should understand:** Run `/security-review` to inspect the active changes before pushing, then treat push protection, code scanning, and dependency review as separate GitHub security evidence on the push or pull request.
-2. **What we would show:** One local review lane feeding a GitHub repository checkpoint, followed by three distinct security gates for secrets, code findings, and dependency changes.
-3. **Why this visual helps:** Prevents learners from treating one Copilot command as a complete security audit or confusing it with repository security controls.
-4. **Character use:** character-world-only/no character.
-5. **Native overlay:** "`/security-review`", "Active changes", "Push protection", "Code scanning", "Dependency review", "Human reviews findings".
-6. **Concept example:** Review a code diff locally, push the reviewed checkpoint, and inspect each configured security result before continuing.
-7. **Treatment:** native graphic preferred.
-8. **Owner preview sentence:** You would see a local security review flow into separate GitHub gates that check secrets, code, and dependency changes.
-* **Flagged language:** "Security audit"
-* **Proposed replacement:** "Security review and repository checks"
+1. **What the developer should understand:** Focused Copilot CLI current-change review, conditional GitHub push protection, configured code scanning and applicable-PR dependency review provide distinct evidence, not proof of safety or merge permission.
+2. **What we would show:** BEFORE PUSH and AT PUSH above AFTER PUSH and HUMAN DECISION in a native 2×2 hierarchy. The after-push card separates CODE SCANNING and DEPENDENCY REVIEW with their full sentences.
+3. **Why this visual helps:** No connecting arrows or automatic-gate chain. Each stage retains its conditional scope and the human owns the decision.
+4. **Character use:** Native named roles only: Riley does software work; Mergewell reviews and decides; Purrmission marks the safety boundary. Notes explicitly name GitHub push protection as the actual control, not the character.
+5. **Native overlay:** Every heading and complete sentence from `copilot-dev-agentic-workshop.md` Approved A19 remains on main, including all qualifications and the clean-result boundary. Native `/security-review` has explicit light-theme contrast.
+6. **Concept example:** A successful push does not mean every secret or security issue was checked. Validate findings, fix confirmed issues, and stop when risk or permission changes.
+7. **Treatment:** Warm Editorial native graphic, target-only fixed layout and raised title layer. Body 19px on the 980px canvas; all core text above persistent navigation. No new component, art, generated type, fake UI or Details needed.
+8. **Owner preview sentence:** You would see separate before/at/after-push evidence and a clearly human decision, with all approved explanations visible.
+* **Authority:** `production/decision-log.md#content-agentic-security-expanded-2026-09-14`. Exact title and 4 minutes retained; AGT-32–AGT-38 reused. Rendered and module acceptance remain independent.
 
 ### 20. GitHub Actions as Loop Feedback
-1. **What the developer should understand:** Pushing code triggers automated checks, and you use those pass/fail results to decide what the software should do next.
-2. **What we would show:** A factory conveyor belt where a pushed code box goes through a scanner (Actions), comes out with a red light, and gets sent back.
-3. **Why this visual helps:** Shows that Actions are independent validators, not something the agent magically runs itself.
-4. **Character use:** character-world-only/no character.
-5. **Native overlay:** "Push", "Configured trigger", "Check results", "Developer decision".
-6. **Concept example:** Use configured checks on a commit to choose revise, continue, or stop.
-7. **Treatment:** native graphic preferred.
-8. **Owner preview sentence:** You would see a code box passing through an automated scanner that flashes a red light, sending it back for fixes.
-* **Flagged language:** "Configured trigger"
-* **Proposed replacement:** "Automated rules"
+1. **What the developer should understand:** Riley returns a change; configured Actions returns evidence; human Mergewell chooses continue, revise, or stop. Missing is not passing, and feedback is not approval or an automatic fix.
+2. **What we would show:** Three wide numbered native rows, followed by the full approved takeaway. All approved sentences remain on main at 960×540.
+3. **Why this visual helps:** Makes the software/evidence/human responsibilities distinct without generic tiny flow cards or an automatic-success conveyor.
+4. **Character use:** Native character-world roles only: software Riley and human Mergewell. No image, mascot, reserved artwork space, or forced Purrmission cameo.
+5. **Native overlay:** Exact approved RILEY RETURNS A CHANGE / ACTIONS RETURNS EVIDENCE / MERGEWELL CHOOSES THE NEXT MOVE headings and complete bodies from the active Approved A20 source section.
+6. **Concept example:** Inspect exact failure evidence before retrying; stop for a new risk or boundary. Notes briefly distinguish ordinary repository workflows from cloud-agent and product-specific review contexts.
+7. **Treatment:** Warm Editorial native graphic; target-only single-panel fixed canvas with an explicitly raised title layer, readable full-width text and clear space above navigation. No media or component needed.
+8. **Owner preview sentence:** You would see Riley return the change, Actions report what actually ran, and Mergewell retain the next decision.
+* **Authority:** `production/decision-log.md#content-agentic-actions-three-steps-2026-09-14`; exact title and 3 minutes unchanged. Rendered acceptance remains independent.
 
 ### 21. Pull Requests as Agent Handoffs
 1. **What the developer should understand:** A pull request is how the software hands the work, the proof, and any questions back to the human.
@@ -357,46 +365,32 @@ order. Exact question/recovery: `context-caching-source.md` E3.
 * **Proposed replacement:** "Team Rules"
 
 ### 26. Agentic Optimization
-1. **What the developer should understand:** You get better results by giving the software fewer files to read and specific tests to run, rather than just hitting retry.
-2. **What we would show:** A side-by-side comparison: a messy, noisy funnel failing to produce a fix versus a clean, targeted funnel working perfectly.
-3. **Why this visual helps:** Moves optimization from "AI magic" to standard developer focus.
-4. **Character use:** character-world-only/no character.
-5. **Native overlay:** "Before -> noisy process", "After -> focused process".
-6. **Concept example:** Compare noisy and focused task context, check breadth, retries, and proof quality without promising savings.
-7. **Treatment:** native graphic preferred.
-8. **Owner preview sentence:** You would see a before-and-after diagram showing how removing extra files and running targeted tests makes the software succeed.
-* **Flagged language:** "Agentic Optimization"
-* **Proposed replacement:** "Getting Better Results"
+1. **What the developer should understand:** Optimize for useful, verified progress—not simply fewer credits. Six actionable habits can reduce wasted work, but do not guarantee savings or correctness.
+2. **What we would show:** One native Warm Editorial panel with a two-column, three-row numbered card grid. All six headings and full actionable meanings remain readable on the main view at 960×540. No table, image or full-prompt cramming.
+3. **Why this visual helps:** The main view gives usable guidance without opening anything; a clear Details control reveals one complete brief rather than another abstract before/after claim.
+4. **Character use:** Named role framing: Mergewell, the accountable human, briefs and verifies; Riley, the software collaborator, executes. No new artwork or reserved image space.
+5. **Native overlay:** Exact six headings and meanings from `copilot-dev-agentic-workshop.md` “Approved A26 — six practical optimization tips”. Title, role framing, takeaway and no-guarantees qualification remain visible on main and example views.
+6. **Concept example:** Exact Mergewell-to-Riley date-validation prompt from that approved source section, unabridged through native Details; pointer/keyboard-operable Back returns to all six tips.
+7. **Treatment:** Native `AgenticOptimizationTips` with target-only geometry, 19px tip bodies, 20px headings, at least 18.5px qualification and 4.5:1 normal-text contrast. Bottom-right controls clear shared navigation; no auto-shrinking. Seven source-mapped spoken notes sections retain the exact 3-minute allocation and transition to Code Quality at A27.
+8. **Owner preview sentence:** You would see six practical habits you can use immediately, then open Mergewell’s complete brief to Riley while the title and no-guarantees caveat stay visible.
+* **Authority:** `production/decision-log.md#scope-agentic-optimization-six-tips-2026-09-14` and `#content-agentic-optimization-six-tips-2026-09-14`; content approval is not rendered acceptance. Exact title and three-minute allocation retained within the amended 29-slide/122-minute contract. AGT-23/24/31 reviewed 2026-08-09 reused; no new research or T8 commands.
 
-### 27. Make Cost-Conscious Choices Before You Start
-T8, 3 minutes. Native static venue correction: choose indoor rather than
-preserve wrong outdoor guidance for reuse; rain/100 stay unchanged.
-The seven exact 20/24 guard lines occupy x48–480/y220–388: capacity-not-filled,
-Auto's documented paid-plan/supported-surface discount condition and
-no-cheapest-result promise. Right column keeps useful guidance, needed tools,
-proportionate settings and quality/usage checks. Unsafe-access caveat stays
-visible. Controls and qualified CLI limit are separate supplementary Details.
-Original controls art/sidecar/public copy are preserved but not placed; no
-new background, character or optional art. Exact question/recovery and all
-Details: `context-caching-source.md` T8 and scene-proposals.md v1.3 T8.
+### 27. Code Quality, Copilot Review, and Human Acceptance
+1. **What the developer should understand:** Code Quality and separately requested Copilot Review provide separate evidence; Human Review validates it and decides whether to revise, reject, or merge.
+2. **What we would show:** Three ordered native rows, CODE QUALITY → COPILOT REVIEW → HUMAN REVIEW, with all nine exact bullets from “Approved A27 — three-stage review” in `copilot-dev-agentic-workshop.md`. The order is teaching, not an automatic trigger chain.
+3. **Why this visual helps:** The full caveats stay readable on the main view. Diff, tests and configured Actions are evidence inspected under Human Review, not a fourth card.
+4. **Character use:** Human Mergewell inspects separate tool evidence; Purrmission marks the acceptance boundary. Neither tool approves or merges.
+5. **Native overlay:** No four-lane labels. Three stage headings, exact nine bullets, and a separate character caption; no generated typography.
+6. **Concept example:** Code Quality passing and Copilot leaving no comments still require human inspection and judgment.
+7. **Treatment:** illustration required. Reuse declared/public `evidence-streams-human-acceptance.png` byte-unchanged; its four unlabelled lanes are supporting scene detail, not four teaching stages.
+8. **Owner preview sentence:** You would read three clear review stages beside Mergewell at the evidence desk and Purrmission at the acceptance boundary.
+* **Target-only layout exception:** A27 uses the approved A26 fixed native 980×552 single-panel geometry pattern with an explicitly raised title layer. Three wide rows lead; the unchanged raster is a right-aligned supporting image, with the existing image-containment rule preserving the full scene and both characters. No shared navigation/layout changes, media regeneration or title/timebox change.
 
-### 28. Code Quality, Copilot Review, and Human Acceptance
-1. **What the developer should understand:** Automated scans, AI reviews, and test results are just information; only the human decides to merge the code.
-2. **What we would show:** Mergewell sitting at the final review desk. Four distinct paper streams (Diff, Actions, Code Quality, Copilot Review) land on his desk, while Purrmission guards the big green "MERGE" button.
-3. **Why this visual helps:** Keeps Actions, Code Quality, Copilot review, diff, and human acceptance visibly separate.
-4. **Character use:** Mergewell and Purrmission.
-5. **Native overlay:** "Diff", "Ordinary GitHub Actions", "GitHub Code Quality", "GitHub Copilot code review", "HUMAN DECISION".
-6. **Concept example:** Keep the diff, Actions, Code Quality, and Copilot review evidence separate before the human acceptance decision.
-7. **Treatment:** illustration required.
-8. **Owner preview sentence:** You would see four different streams of information arriving at Mergewell's desk, where he makes the final decision to push the merge button guarded by Purrmission.
-* **Flagged language:** "Human Acceptance"
-* **Proposed replacement:** "Human Approval"
-
-### 29. Demo!
+### 28. Demo!
 Retained zero-minute handoff. Native Demo text only; no extra transition
 slide or unbudgeted activity.
 
-### 30. Your Mission: Hand Off Work with Confidence
+### 29. Your Mission: Hand Off Work with Confidence
 1. **What the developer should understand:** It is time to carry the Foundations case forward, delegate one bounded multi-file task, and return inspected evidence with separate module totals.
 2. **What we would show:** A native mission briefing with four cards covering the Foundations case-file entry, the 45-minute scored envelope, the Purrmission safety checkpoint, and the evidence export.
 3. **Why this visual helps:** Prepares them for the scored mission without duplicating the exact steps on the slide.
@@ -408,10 +402,27 @@ slide or unbudgeted activity.
 
 ---
 
+## Inactive history / reusable E3 — old A13
+
+Removed with its three minutes under the 2026-09-14 structural amendment.
+The former proposal below is retained verbatim, not an active slide or
+current rendering requirement.
+
+E3, 3 minutes. One static table, five independent mechanisms, not a toggle
+sequence. Intro y108–132; actual Mechanism / What may change in the next
+request header y132–156; row heights 48/48/72/48/72 through y444.
+Columns x48–240 and x264–912 at 18/24. Footer y450–494 leaves six nominal
+pixels, requiring actual browser proof. All conditional effects remain in
+main; exact independent event changes and full effects remain in separate
+Details. Footer persists there. No sixth row, character or hidden packet
+order. Exact question/recovery: `context-caching-source.md` E3.
+
 ## Remaining human decisions
 
 G rendered readiness is a human decision after actual local review, independent
 of Foundations proof acceptance. A–G content/contract/concept gates are already
-approved, not requested again here. Shared schedule adoption and pending
-Foundations teaching remain coordinator dependencies. Retained historical
+approved, not requested again here. The structural amendment reconciles
+actual workshop metadata to 424 minutes; whole-module integration acceptance
+remains independent. Older pending-schedule/Foundations wording is historical.
+Retained historical
 terminology suggestions above are not new approval requests or title changes.

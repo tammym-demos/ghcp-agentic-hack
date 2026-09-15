@@ -214,31 +214,86 @@ function bootPortal(): void {
 }
 
 function renderCatalog(): void {
-  const variants = workshops.flatMap((workshop) =>
-    workshop.deliveryVariants.map((variant) => ({ workshop, variant }))
-  );
-  app!.innerHTML = `
-    ${hero("GitHub Copilot learning experiences", "Choose a workshop", "Hands-on modules for building practical, verifiable GitHub Copilot skills.")}
+  app!.innerHTML = renderLandingPage(workshops);
+}
+
+export function renderLandingPage(catalogWorkshops: CatalogWorkshop[]): string {
+  const cards = renderWorkshopCards(catalogWorkshops);
+  return `
+    ${hero("GitHub Copilot learning experiences", "Choose a workshop", "Hands-on modules for building practical, verifiable GitHub Copilot skills.", "", "hero--landing")}
     <section class="catalog" aria-labelledby="catalog-heading">
       <div class="catalog__heading">
         <h2 id="catalog-heading">Workshop catalog</h2>
-        <span>${variants.length} available</span>
+        <span>${cards.length} available</span>
       </div>
-      <div class="workshop-grid">${variants.map(({ workshop, variant }) => renderVariantCard(workshop, variant)).join("")}</div>
-      ${renderSkills()}
+      <div class="workshop-grid">${cards.join("")}</div>
+      ${renderResources()}
+      ${renderCharacterTeam(catalogWorkshops)}
     </section>
   `;
 }
 
-function renderVariantCard(workshop: CatalogWorkshop, variant: DeliveryVariant): string {
+export function renderWorkshopCards(catalogWorkshops: CatalogWorkshop[]): string[] {
+  return prioritizeMissionControl(catalogWorkshops).flatMap((workshop) =>
+    workshop.deliveryVariants.length > 0
+      ? workshop.deliveryVariants.map((variant) => renderWorkshopCard(
+        { ...variant, tags: workshop.tags },
+        [`${variant.days.length} day${variant.days.length === 1 ? "" : "s"}`, formatMinutes(variant.totalMinutes), workshop.level]
+      ))
+      : [renderWorkshopCard(workshop, [workshop.duration, workshop.level])]
+  );
+}
+
+function prioritizeMissionControl(catalogWorkshops: CatalogWorkshop[]): CatalogWorkshop[] {
+  return catalogWorkshops
+    .map((workshop, index) => ({ workshop, index }))
+    .sort((left, right) => {
+      const leftPriority = left.workshop.id === "mission-control" ? 0 : 1;
+      const rightPriority = right.workshop.id === "mission-control" ? 0 : 1;
+      return leftPriority - rightPriority || left.index - right.index;
+    })
+    .map(({ workshop }) => workshop);
+}
+
+function renderCharacterTeam(catalogWorkshops: CatalogWorkshop[]): string {
+  const missionControl = catalogWorkshops.find((workshop) => workshop.id === "mission-control");
+  if (!missionControl) return "";
+
+  const team = [
+    ["Agent Mergewell", "Accountable human engineer"],
+    ["Purrmission", "Boundary signal"],
+    ["Chief Charter", "Organizational sponsor"],
+    ["Riley Relay", "Bounded agent collaborator"]
+  ];
+  const image = url("workshops/mission-control/assets/images/copilot-value-lab/mission-control-opening-team-v7.png");
+
+  return `<section class="team-spotlight" aria-labelledby="team-heading">
+    <div class="team-spotlight__heading">
+      <div>
+        <p class="eyebrow">Meet the Mission Control team</p>
+        <h2 id="team-heading">Part of the team. One accountable mission.</h2>
+        <p>These team members help keep ownership, boundaries and organizational outcomes visible while you work with GitHub Copilot.</p>
+      </div>
+    </div>
+    <img class="team-spotlight__image" src="${image}" width="1248" height="832" alt="Agent Mergewell, Purrmission the black cat, Chief Charter and Riley Relay standing together." />
+    <dl class="team-spotlight__cast">
+      ${team.map(([name, persona]) => `<div><dt>${name}</dt><dd>${persona}</dd></div>`).join("")}
+    </dl>
+  </section>`;
+}
+
+function renderWorkshopCard(
+  entry: Pick<CatalogWorkshop, "title" | "description" | "route" | "tags">,
+  details: string[]
+): string {
   return `
     <article class="workshop-card">
-      ${metadata([`${variant.days.length} day${variant.days.length === 1 ? "" : "s"}`, formatMinutes(variant.totalMinutes), workshop.level])}
-      <h3><a class="title-link" href="${url(variant.route)}">${escapeHtml(variant.title)}</a></h3>
-      <p>${escapeHtml(variant.description)}</p>
-      <div class="tags">${workshop.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
+      ${metadata(details)}
+      <h3><a class="title-link" href="${url(entry.route)}">${escapeHtml(entry.title)}</a></h3>
+      <p>${escapeHtml(entry.description)}</p>
+      <div class="tags">${entry.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
       <div class="module-list__actions">
-        <a class="button-link" href="${url(variant.route)}">View workshop</a>
+        <a class="button-link" href="${url(entry.route)}">View workshop</a>
       </div>
     </article>
   `;
@@ -292,33 +347,36 @@ export function renderMissionSubmission(
 function renderWorkshopDetail(workshopId: string): void {
   const workshop = workshops.find((candidate) => candidate.id === workshopId);
   if (!workshop) return renderNotFound();
+  app!.innerHTML = renderWorkshopPage(workshop);
+}
+
+export function renderWorkshopPage(workshop: CatalogWorkshop): string {
   const visibleModules = workshop.modules.some((module) => module.status === "published")
     ? workshop.modules.filter((module) => module.status === "published")
     : workshop.modules;
-  app!.innerHTML = `
+  const hasVariants = workshop.deliveryVariants.length > 0;
+  return `<div class="workshop-detail">
     ${hero("Workshop", workshop.title, workshop.description, `<a class="back-link" href="${url("")}">← All workshops</a>`)}
-    <section class="catalog detail-grid">
-      <div>
+    <section class="catalog detail-grid${hasVariants ? "" : " detail-grid--single"}">
+      ${hasVariants ? `<div>
         <div class="catalog__heading"><h2>Delivery options</h2><span>${workshop.deliveryVariants.length}</span></div>
         <div class="variant-grid">
-          ${workshop.deliveryVariants.length > 0
-            ? workshop.deliveryVariants.map((variant) => `
+          ${workshop.deliveryVariants.map((variant) => `
               <article class="variant-card">
                 <p class="eyebrow">${formatMinutes(variant.totalMinutes)}</p>
                 <h3><a class="title-link" href="${url(variant.route)}">${escapeHtml(variant.title)}</a></h3>
                 <p>${escapeHtml(variant.description)}</p>
                 <a class="button-link" href="${url(variant.route)}">View agenda</a>
-              </article>`).join("")
-            : "<p>No delivery variants are currently published.</p>"}
+              </article>`).join("")}
         </div>
-      </div>
+      </div>` : ""}
       <div>
         <div class="catalog__heading"><h2>Modules</h2><span>${visibleModules.length}</span></div>
         <ol class="module-list">${visibleModules.map(renderModule).join("")}</ol>
         ${renderLeaderboardPointer(workshop)}
       </div>
     </section>
-  `;
+  </div>`;
 }
 
 function renderVariantDetail(workshopId: string, variantId: string): void {
@@ -1105,32 +1163,43 @@ export function renderModule(module: CatalogModule): string {
     <div class="module-list__content">
       <strong>${escapeHtml(module.title)}</strong>
       <small>${escapeHtml(module.description)}</small>
+      <span class="module-list__duration">${escapeHtml(module.duration)}</span>
     </div>
     <div class="module-list__actions">
-      <span class="module-list__duration">${escapeHtml(module.duration)}</span>
       <a class="button-link" href="${url(module.route)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(`${module.title} slides (opens in new tab)`)}">Slides <span aria-hidden="true">↗</span></a>
       ${missionButtons}
     </div>
   </li>`;
 }
 
-function renderSkills(): string {
-  const roles = [
-    ["Software developer", "Implementation, code review, testing, and documentation"],
-    ["Technical lead / architect", "Architecture decisions, planning, security, and governance"],
-    ["QA / test engineer", "Test strategy, regression risk, accessibility, and release evidence"],
-    ["DevOps / platform engineer", "GitHub Actions, infrastructure, observability, and deployment"],
-    ["Product / program / project manager", "Requirements, issue planning, delivery summaries, and stakeholder communication"]
-  ];
-  return `<section class="skills-section" aria-labelledby="skills-heading">
-    <div class="catalog__heading"><h2 id="skills-heading">Skills by role persona</h2><a href="https://github.com/github/awesome-copilot">Explore Awesome Copilot</a></div>
-    <p>Start with the reusable skill areas most relevant to your role, then review the broader community catalog before adopting any resource.</p>
-    <div class="skills-grid">${roles.map(([role, focus]) => `<article class="skill-card"><h3>${escapeHtml(role ?? "")}</h3><p>${escapeHtml(focus ?? "")}</p><a href="https://github.com/github/awesome-copilot/tree/main/skills">Review skills</a></article>`).join("")}</div>
+function renderResources(): string {
+  return `<section class="resource-section" aria-labelledby="resources-heading">
+    <div class="catalog__heading">
+      <div>
+        <p class="eyebrow">Keep exploring</p>
+        <h2 id="resources-heading">Build with GitHub Copilot</h2>
+      </div>
+    </div>
+    <div class="resource-grid">
+      <article class="resource-card resource-card--app">
+        <p class="eyebrow">Desktop experience</p>
+        <h3>GitHub Copilot app</h3>
+        <p>The desktop home for agent-driven development. Start from an issue, pull request or prompt, run parallel sessions, and review changes with integrated terminal and browser canvases.</p>
+        <a class="button-link" href="https://github.com/github/app" target="_blank" rel="noopener noreferrer">Download GitHub Copilot app <span aria-hidden="true">↗</span></a>
+      </article>
+      <article class="resource-card">
+        <p class="eyebrow">Community collection</p>
+        <h3>Awesome Copilot</h3>
+        <p>Explore community-created agents, instructions, skills, hooks, workflows and plugins. Review each resource and its documentation before installing it.</p>
+        <a class="button-link button-link--secondary" href="https://awesome-copilot.github.com/" target="_blank" rel="noopener noreferrer">Explore Awesome Copilot <span aria-hidden="true">↗</span></a>
+      </article>
+    </div>
   </section>`;
 }
 
-function hero(eyebrow: string, title: string, lede: string, before = ""): string {
-  return `<header class="hero"><div class="hero__content">${before}<p class="eyebrow">${escapeHtml(eyebrow)}</p><h1>${escapeHtml(title)}</h1><p class="hero__lede">${escapeHtml(lede)}</p></div></header>`;
+function hero(eyebrow: string, title: string, lede: string, before = "", modifier = ""): string {
+  const classes = modifier ? `hero ${modifier}` : "hero";
+  return `<header class="${classes}"><div class="hero__content">${before}<p class="eyebrow">${escapeHtml(eyebrow)}</p><h1>${escapeHtml(title)}</h1><p class="hero__lede">${escapeHtml(lede)}</p></div></header>`;
 }
 
 function metadata(values: string[]): string {

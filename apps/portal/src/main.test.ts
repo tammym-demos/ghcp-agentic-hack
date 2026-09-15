@@ -10,6 +10,9 @@ import {
   normalizeMission,
   parseMissionProgress,
   renderModule,
+  renderLandingPage,
+  renderWorkshopCards,
+  renderWorkshopPage,
   renderLeaderboardPointer,
   renderMissionBackLink,
   renderMissionSubmission,
@@ -243,6 +246,187 @@ describe("workshop module navigation", () => {
     expect(html).toContain('target="_blank" rel="noopener noreferrer"');
     expect(html).toContain("Foundations slides (opens in new tab)");
     expect(html).toContain("Foundations mission, 45 minutes (opens in new tab)");
+  });
+
+  it("keeps long duration text with module content, not in the action toolbar", () => {
+    const module: CatalogModule = {
+      ...workshop.modules[0]!,
+      duration: "Full-day deck, 09:00-17:00, including three break/lunch utilities"
+    };
+    const html = renderModule(module);
+    const [content, actions] = html.split('<div class="module-list__actions">');
+    expect(content).toContain(`<span class="module-list__duration">${module.duration}</span>`);
+    expect(actions).not.toContain(module.duration);
+    expect(actions).toContain("Slides");
+  });
+});
+
+describe("workshop detail layout", () => {
+  it("omits empty delivery options and gives modules the full grid width", () => {
+    const html = renderWorkshopPage(workshop);
+    expect(html).not.toContain("Delivery options");
+    expect(html).not.toContain("No delivery variants");
+    expect(html).toContain('class="catalog detail-grid detail-grid--single"');
+    expect(html).toContain("<h2>Modules</h2><span>2</span>");
+    expect(html).toContain(workshop.modules[0]!.title);
+    expect(html).toContain(workshop.modules[1]!.title);
+  });
+
+  it("retains real delivery options and their generated agenda links", () => {
+    const variant = {
+      id: "one-day",
+      title: "One-day workshop",
+      description: "A full day",
+      route: `${workshop.route}variants/one-day/`,
+      totalMinutes: 480,
+      days: [],
+      modulePhases: []
+    };
+    const html = renderWorkshopPage({ ...workshop, deliveryVariants: [variant] });
+    expect(html).toContain("<h2>Delivery options</h2><span>1</span>");
+    expect(html).toContain(`href="${import.meta.env.BASE_URL}${variant.route}"`);
+    expect(html).toContain("View agenda");
+    expect(html).not.toContain("detail-grid--single");
+  });
+
+  it("preserves published-module filtering and supports empty module lists", () => {
+    const html = renderWorkshopPage({
+      ...workshop,
+      modules: workshop.modules.map((module, index) => ({
+        ...module, status: index === 0 ? "published" : "draft"
+      }))
+    });
+    expect(html).toContain("<h2>Modules</h2><span>1</span>");
+    expect(html).toContain("Foundations slides");
+    expect(html).not.toContain("Agentic Development slides");
+    expect(renderWorkshopPage({ ...workshop, modules: [] })).toContain("<h2>Modules</h2><span>0</span>");
+  });
+});
+
+describe("workshop catalog cards", () => {
+  const standalone: CatalogWorkshop = {
+    ...workshop,
+    id: "mission-control",
+    title: "Mission Control: The Copilot Value Lab",
+    route: "workshops/mission-control/",
+    duration: "One day",
+    deliveryVariants: []
+  };
+
+  it("includes workshops without delivery variants using their generated workshop route", () => {
+    const cards = renderWorkshopCards([standalone]);
+    expect(cards).toHaveLength(1);
+    expect(cards[0]).toContain(standalone.title);
+    expect(cards[0]).toContain(`href="${import.meta.env.BASE_URL}${standalone.route}"`);
+    expect(cards[0]).toContain("View workshop");
+    expect(cards[0]).toContain("One day");
+  });
+
+  it("preserves each delivery variant alongside standalone workshops without duplicate parent cards", () => {
+    const withVariants: CatalogWorkshop = {
+      ...workshop,
+      deliveryVariants: ["one-day", "two-day"].map((id, index) => ({
+        id,
+        title: `Delivery ${id}`,
+        description: `Agenda ${id}`,
+        route: `${workshop.route}variants/${id}/`,
+        totalMinutes: 480 * (index + 1),
+        days: Array.from({ length: index + 1 }, (_, day) => ({
+          id: `day-${day + 1}`,
+          title: `Day ${day + 1}`,
+          start: "09:00",
+          end: "17:00",
+          totalMinutes: 480,
+          agenda: []
+        })),
+        modulePhases: []
+      }))
+    };
+    const source = [withVariants, standalone];
+    const cards = renderWorkshopCards(source);
+    expect(cards).toHaveLength(3);
+    expect(cards[0]).toContain(standalone.title);
+    for (const [index, variant] of withVariants.deliveryVariants.entries()) {
+      expect(cards[index + 1]).toContain(`href="${import.meta.env.BASE_URL}${variant.route}"`);
+      expect(cards[index + 1]).toContain(variant.title);
+      expect(cards[index + 1]).not.toContain(`href="${import.meta.env.BASE_URL}${workshop.route}"`);
+    }
+    expect(cards[1]).toContain("1 day");
+    expect(cards[2]).toContain("2 days");
+    expect(source).toEqual([withVariants, standalone]);
+  });
+
+  it("escapes authored standalone metadata and handles an empty catalog", () => {
+    const cards = renderWorkshopCards([{ ...standalone, title: "<title>", duration: "<duration>" }]);
+    expect(cards[0]).toContain("&lt;title&gt;");
+    expect(cards[0]).toContain("&lt;duration&gt;");
+    expect(renderWorkshopCards([])).toEqual([]);
+  });
+});
+
+describe("landing page features", () => {
+  const missionControl: CatalogWorkshop = {
+    ...workshop,
+    id: "mission-control",
+    title: "Mission Control: The Copilot Value Lab",
+    route: "workshops/mission-control/",
+    duration: "One day",
+    deliveryVariants: []
+  };
+
+  it("features the approved Mission Control team and their personas", () => {
+    const html = renderLandingPage([workshop, missionControl]);
+    expect(html).toContain('class="hero hero--landing"');
+    expect(html).toContain("mission-control-opening-team-v7.png");
+    expect(html).toContain("Agent Mergewell");
+    expect(html).toContain("Accountable human engineer");
+    expect(html).toContain("Purrmission");
+    expect(html).toContain("Boundary signal");
+    expect(html).toContain("Chief Charter");
+    expect(html).toContain("Organizational sponsor");
+    expect(html).toContain("Riley Relay");
+    expect(html).toContain("Bounded agent collaborator");
+    expect(html).toContain("Part of the team. One accountable mission.");
+    expect(html).not.toContain("Four roles.");
+    expect(html).not.toContain("Explore Mission Control");
+    expect(html.indexOf("Meet the Mission Control team")).toBeGreaterThan(
+      html.indexOf("Explore Awesome Copilot")
+    );
+  });
+
+  it("puts Mission Control before existing workshop variants without mutating source order", () => {
+    const existingWorkshop = {
+      ...workshop,
+      deliveryVariants: [{
+        id: "one-day",
+        title: "GitHub Workshop",
+        description: "One-day delivery",
+        route: `${workshop.route}variants/one-day/`,
+        totalMinutes: 480,
+        days: [],
+        modulePhases: []
+      }]
+    };
+    const source = [existingWorkshop, missionControl];
+    const html = renderLandingPage(source);
+    expect(html.indexOf(missionControl.title)).toBeLessThan(html.indexOf("GitHub Workshop"));
+    expect(source[0]).toBe(existingWorkshop);
+  });
+
+  it("replaces role cards with official app and Awesome Copilot resources", () => {
+    const html = renderLandingPage([missionControl]);
+    expect(html).not.toContain("Skills by role persona");
+    expect(html).not.toContain("Software developer");
+    expect(html).toContain('href="https://github.com/github/app"');
+    expect(html).toContain("Download GitHub Copilot app");
+    expect(html).toContain('href="https://awesome-copilot.github.com/"');
+    expect(html).toContain('target="_blank" rel="noopener noreferrer"');
+  });
+
+  it("omits the team feature when a filtered catalog does not include Mission Control", () => {
+    const html = renderLandingPage([workshop]);
+    expect(html).not.toContain("Meet the Mission Control team");
+    expect(html).not.toContain("mission-control-opening-team-v7.png");
   });
 });
 

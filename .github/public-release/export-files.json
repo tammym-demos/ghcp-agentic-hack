@@ -22,6 +22,12 @@
         "content/modules/02-agentic/components/AgenticRequestStill.vue"
       ],
       "tests": []
+    },
+    "mission-control/copilot-value-lab": {
+      "files": [
+        "content/modules/01-copilot-value-lab/global-bottom.vue"
+      ],
+      "tests": []
     }
   },
   "workshops": {

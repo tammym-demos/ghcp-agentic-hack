@@ -7,7 +7,7 @@ The corrected `human-packet-v3.md` and decision-log receipt record independent
 G/ST-A approval at 2026-09-07T15:13:58.917-04:00. This source incorporates
 that teaching; it does not record human acceptance of rendered output.
 
-This module-local source governs the five affected scenes and the narrow
+This module-local source governs the three retained affected scenes and the narrow
 compaction correction over older Agentic source/visual wording. All other
 teaching remains governed by the declared sources. No broad source-refresh
 claim is made. Public-source fetches are the Curator's September 7 evidence,
@@ -15,20 +15,25 @@ not installed Copilot host tests performed during slide production.
 
 ## Current timing and delivery dependency
 
-30 slides; 81 instruction + 45 mission = 126 minutes. Retain every old
-title/order/allocation. A05/N4 and A13/E3 add three minutes each.
+29 slides; 77 instruction + 45 mission = 122 minutes, under
+`contract-agentic-remove-e3-2026-09-14` and
+`contract-agentic-remove-t8-2026-09-14`, followed by
+`contract-agentic-loop-intro-2026-09-14` in `production/decision-log.md`.
+New A13, What Is an Agentic Loop?, adds exactly two minutes before the
+unchanged four-minute animation at A14. Old A13–A28 shift to A14–A29.
+Old A13/E3 and former A26/T8 are removed, three minutes each;
+retain every other title/order/allocation.
 The contiguous route is Who does what? 3 (A01–A03), Prepare a job worth
-delegating 16 (A04–A09), Choose and trust the helper 12 (A10–A13), Stay in
-charge of the result 50 (A14–A29, including zero-minute Demo), mission 45.
+delegating 16 (A04–A09), Choose and trust the helper 9 (A10–A12), Stay in
+charge of the result 49 (A13–A28, including zero-minute Demo), mission 45 (A29).
 
-The approved combined schedule is 27/30/20 slides and 77/81/60 instruction,
-missions 45/45/30, module totals 122/126/90, learning day 428, second day 420.
-It is not live here. Current Foundations teaching remains 22/64; its proposed
-token/request/reuse sequence is a real delivery prerequisite for this
-integrated learning path. Do not say “as we already saw” about those pending
-slides. G implementation is independent of F proof acceptance. Coordinator
-owns shared timing wiring after the module return; do not invent an interim
-public agenda or add an unapproved remedial slide.
+Actual module metadata allocates 77/77/60 instruction, missions 45/45/30,
+module totals 122/122/90, learning day 424, second day 420 (aggregate 844).
+Setup 15 and breaks 75 are unchanged. Older 27/30/20 proposed inventory,
+Foundations 22/64 and pending-schedule wording are historical, not current
+timing authority. Prerequisite continuity does not prove prior participant
+learning; G implementation and whole-module acceptance remain independent.
+No remedial slide or redistribution is authorized.
 
 ## T6 / A04 — Instructions for Agentic Work — 2 minutes
 
@@ -54,6 +59,31 @@ rather than making them standing rules.”
 Transition: “The guidance may be saved in the right place. Next, check whether
 the running session actually received that version.”
 Sources: V C5/X6/X7, P8/P15/S7/S8; AGT-01/02.
+
+### A04 character-world wording and layout — 2026-09-14
+
+Authority: decision-log `scope-agentic-character-correction-4-5-10-2026-09-14`.
+This bounded treatment supersedes the prior exact scene wording/geometry
+for A04 only, not its teaching, title, notes or two-minute allocation.
+Native dossier heading: **Mergewell files the standing guidance**.
+Keep the repository-wide, path-specific/explicit matching applyTo,
+supported AGENTS.md and separate recurring-role scopes above.
+The standing rule reads **Label unconfirmed supplies clearly.**
+Keep the exact illustrative pattern and agreed event Markdown headings.
+Beside the contained, already approved `human-directed-operating-split.png`,
+the native task card reads **Riley receives today's task**;
+**Outdoor community event · rain · 100 guests**;
+**What supplies should we bring?**;
+**Today's requirements—not permanent rules.**
+The human files guidance; the software collaborator receives bounded work.
+Both original host-support/no-obsolescence qualifications remain visible.
+This is approved-art reuse, not new media or asset acceptance.
+
+Readability repair under `scope-agentic-readability-repair-continuation-2026-09-14`:
+keep both short scope rows inline (supported AGENTS.md; separate recurring role).
+Native paths and pattern remain 18/24 with explicit readable foreground and
+background. Full standing guidance stays inside the dossier; caveats stay
+above shared navigation. No wording, notes, timing or host claim is removed.
 
 ## N4 / A05 — Saved Does Not Mean Loaded — 3 minutes
 
@@ -86,6 +116,22 @@ would show behavior, not prove where the rule came from.”
 Transition: “Loaded instructions are one source of continuity. Selective
 memory is a different mechanism, with its own limits.”
 Sources: V C5/X6/X7/X9; P8/P13/P15/S7/S8.
+
+### A05 character-world wording and layout — 2026-09-14
+
+Authority: `scope-agentic-character-correction-4-5-10-2026-09-14` and its
+explicit readability-repair continuation. After the technical A04 sample,
+the native dossier reads **Mergewell checks the handoff**. Retain the exact
+saved **Supplies to confirm** / observed **Checklist** mismatch and all four
+diagnostic checks, not automatic transitions. The CLI strip keeps
+`/instructions`, `/env` and **Instruction refresh differs from skill reload.**
+Reuse contained approved `human-directed-operating-split.png` beside
+**Riley returns evidence**. The native VS Code card retains settings,
+`applyTo`, References, Diagnostics, and unverified save-to-active-turn timing.
+Keep both caveats and all qualified CLI/VS Code Details verbatim, using
+pointer-reachable controls above the shared navigation. Human Mergewell
+checks the evidence; Riley does not decide acceptance. Notes and three-minute
+allocation are unchanged. No new product claim or media acceptance.
 
 ## Narrow A07 compaction adjacency — 2 minutes unchanged
 
@@ -125,7 +171,37 @@ Transition: “A skill captures a procedure. A custom agent captures a recurring
 role and its boundaries.”
 Sources: V C6, P9/P16/P10/P11; AGT-09.
 
-## E3 / A13 — What Changes the Next Request? — 3 minutes
+### A10 character-world wording and layout — 2026-09-14
+
+Same target-wording and explicit continuation authority as A05. Native
+dossier heading: **Mergewell reviews the procedure**. Keep **Reviewed
+supplies-check procedure**, metadata/description, **when selected**,
+selected `SKILL.md` body, **as needed**, and needed resources as conditional
+stages, not observed loading. Keep **Identify requirements → compare draft
+list → flag unknown quantities**. Reuse contained approved
+`human-directed-operating-split.png` beside **Riley follows the procedure**,
+**Riley: software collaborator**, **Skill: reusable procedure**, and
+**Tool: performs an action**. The human reviews; the software collaborator
+follows a reviewed procedure rather than becoming that procedure or tool.
+Keep discovery/invocation and provenance caveats and the qualified Skill
+checks Details verbatim; notes retain MCP, optional forked-context and Clue
+Wrangler boundaries. Three-minute allocation and source mappings unchanged.
+No new gadget, skill, claim, media or acceptance is introduced.
+
+## A12 transition — Tools to What Is an Agentic Loop?
+
+Tools retains its three-minute worker/skill/tool distinction. The direct
+transition is: “Next, define an agentic loop and the responsibilities that keep
+the work under human control.” New A13 introduces the loop in two minutes;
+The Agentic Loop is now A14, still four minutes. This supersedes only the
+prior Tools transition, not the remaining worker/skill/tool teaching.
+
+## Inactive history / reusable E3 — old A13 — What Changes the Next Request?
+
+Removed from the generated deck on 2026-09-14 by the scope/contract decisions
+above. The former three-minute source below, including its old transition,
+is preserved verbatim for reuse/history, not active teaching or timing.
+`AgenticRequestStill` retains E3 capability; no component or asset cleanup.
 
 Five independent changes from the same outdoor/rain/100 baseline, not a
 five-toggle tour. Main retains a real two-column table with a header and all
@@ -160,44 +236,65 @@ Tools transition only: “Before the loop, separate changing a capability from
 changing what the next request actually includes.”
 Sources: V C6; P5/P6/P8–P11/P14–P16/S6/S9.
 
-## T8 / A27 — Make Cost-Conscious Choices Before You Start — 3 minutes
+## A26 transition — Agentic Optimization directly to Human Acceptance
 
-Wrong venue: outdoor. A keeps it only to seek reuse. B corrects to indoor,
-retains rain and 100 guests, then checks the result. Choose B.
-Keep useful guidance stable, not wrong guidance. Choose needed tools and
-proportionate settings; check quality and available usage after work.
-Correct unsafe requirements/access regardless of reuse.
+Agentic Optimization retains its exact teaching and three-minute allocation.
+The direct transition is: “Next, bring Code Quality, Copilot review, and the
+other evidence together for the human acceptance decision.” The next slide
+is Code Quality, Copilot Review, and Human Acceptance at A27, four minutes.
 
-Main must show all capacity/Auto guards: larger capacity does not prove it
-was filled; Auto discount depends on the documented paid plan and supported
-surface; Auto where supported, no cheapest-result promise. The original
+## Inactive history / reusable T8 — former A26 — Make Cost-Conscious Choices Before You Start
+
+Removed with its three minutes under `contract-agentic-remove-t8-2026-09-14`.
+The entire former source body below is preserved verbatim for reuse/history,
+not active slide teaching or allocated instruction minutes.
+Component support, styles and artwork remain intact. No Foundations
+integration has been implemented here.
+
+Owner revision `scope-agentic-t8-plain-english-2026-09-14` supersedes the
+historical scene-proposals.md v1.3 T8 wording and nominal geometry only.
+This is plain-English decision teaching, not cache-theory instruction.
+Main takeaway: “Get the task right first. Then choose sensible settings and
+check the result and usage.” Mergewell, the human, corrects outdoor to indoor;
+rain and 100 guests still apply. Riley, the software collaborator, updates
+the supplies list. Mergewell checks Riley’s result against the corrected brief.
+Do not keep wrong instructions to try to save credits. Keep requirements
+that still apply. Choose only needed tools; correct wrong or unsafe
+requirements and remove unsafe tool/data access even if it costs more.
+
+Main retains regular context/reasoning where appropriate; increase only
+when the task and supported controls justify it. All capacity/Auto guards
+remain visible in full sentences: a larger context window is capacity,
+not the amount of input actually used; Auto’s discount depends on the
+documented paid plan and supported surface; use Auto only where supported,
+with no promise of the cheapest successful result. The original
 controls image and sidecar are preserved but omitted from this still.
 
 Controls Details preserves regular context/reasoning where appropriate,
 fresh for unrelated work, supported compaction for continuing work, retained
-requirement checks, quality/usage and both Auto qualifications. Separate CLI
+requirement checks, quality/usage and both Auto qualifications. CLI
+and VS Code controls or behavior must not be assumed identical. Separate CLI
 limit Details keeps `/limits set max-ai-credits NUMBER`, public preview,
 soft session ceiling, possible in-progress overrun, not a hard cash cap or
 monthly budget, and both Auto caveats together. No command is executed.
 No fixed saving, universal timer, every-setting-full-miss or weights/hardware
 claim. No token definitions, prices, balances or live cache experiment.
 
-Question: “Would you keep the wrong outdoor requirement to preserve a possible hit?”
-Recovery: “No. Correct the venue and keep the task safe and accurate. Then
-inspect the result and the usage you can actually observe. A cheap wrong
-answer is not a saving.”
-Transition: “Cost is one consideration. Final acceptance still combines
-independent quality and review evidence under a human decision.”
+Question: “Would you keep a wrong instruction just to try to save credits?”
+Recovery: “No. Correct the venue, keep the requirements that still apply,
+and check Riley’s result. Safe, correct work comes first.”
+Transition: “Now bring the evidence together. Cost matters, but the human
+still decides whether the work is good enough to accept.”
 Sources: CREDIT-01/03–08, SRC-01–07; AGT-23/24; V C3/C6/X3/X4, P14/S5/S9/S2.
 
 ## Display and acceptance boundary
 
-All five scenes are native stills. Main = final = reduced-motion fallback.
+The three retained scenes are native stills. Main = final = reduced-motion fallback.
 Optional Details instantly replaces only the body and retains title/caveats;
 Back to diagram restores main, slide re-entry resets main. No new animation,
 art, background adoption, font redistribution or asset promotion. Scene v1.3
-owns exact native wording and nominal bounds. E3 ends at y444, its footer
-starts y450, and the actual six-pixel separation must be browser-proved.
+owns exact native wording and nominal bounds. The historical E3 geometry
+(table y444, footer y450) and all T8 treatment are inactive and require no current rendered proof.
 Required font floors are not negotiable through auto-fit.
 Acceptance signals O5/O6/O7 are answerable oral checks, not observed participant
 success. No missions, scoring, leaderboard or shared lifecycle changes.
