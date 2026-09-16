@@ -2104,22 +2104,25 @@
     },
     {
       "id": "mission-control",
-      "title": "Mission Control: The Copilot Value Lab",
-      "description": "A facilitated working day connecting GitHub Copilot consumption to organizational decisions and engineering outcomes.",
+      "title": "Mission Control: The Copilot Value",
+      "description": "A facilitated decision workshop connecting GitHub Copilot consumption to organizational decisions and engineering outcomes.",
       "duration": "09:00-17:00; 405 facilitated minutes plus 75 break/lunch minutes",
       "format": "one-day",
       "level": "mixed",
       "tags": [
         "github-copilot"
       ],
-      "prerequisites": [],
+      "prerequisites": [
+        "Familiarity with one organizational engineering workflow and the decisions that govern it",
+        "Bring available baseline evidence if practical; missing evidence may be recorded as a decision gap"
+      ],
       "route": "workshops/mission-control/",
       "deliveryVariants": [],
       "modules": [
         {
           "id": "copilot-value-lab",
-          "title": "The Copilot Value Lab",
-          "description": "Connect GitHub Copilot consumption to organizational decisions and engineering outcomes.",
+          "title": "The Copilot Value",
+          "description": "Connect GitHub Copilot consumption to organizational decisions and engineering outcomes through an architect and leadership decision workshop.",
           "duration": "Full-day deck, 09:00-17:00, including three break/lunch utilities",
           "totalMinutes": 480,
           "status": "draft",
