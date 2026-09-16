@@ -78,14 +78,14 @@ class: mc mc-kickoff
 <div class="mc-stack mc-agenda">
   <h2>One working day</h2>
   <div class="mc-agenda-group"><h3>Morning</h3><p>Mission briefing · Capacity versus leverage · Four paths to AI ROI · Optimize current usage</p></div>
-  <div class="mc-agenda-group"><h3>Afternoon</h3><p>CSX optimization · Investment · Bounded pilot · Operating model · Scorecard, gates, and readout</p></div>
+  <div class="mc-agenda-group"><h3>Afternoon</h3><p>Current-state optimization · Investment · Bounded pilot · Operating model · Scorecard, gates, and readout</p></div>
   <div class="mc-agenda-group"><h3>Breaks / lunch</h3><p>10:15 break · 12:15 lunch · 14:15 break</p></div>
 </div>
 
 <!--
 Timebox: 5 minutes
 
-Talk track: What decision or outcome would make this day useful to you? Share your name, role, and that desired result with a partner or your table. You have three minutes total, so keep the introduction short and make the decision concrete. This morning we will define the mission, separate capacity from leverage, choose an ROI path, and examine current usage. This afternoon we will prioritize a CSX optimization, choose an investment approach, bound a pilot, assign enterprise decision rights, build a scorecard, and set the final gates. This is an interactive leadership workshop, not a hands-on application lab. The three break windows stay protected.
+Talk track: What decision or outcome would make this day useful to you? Share your name, role, and that desired result with a partner or your table. You have three minutes total, so keep the introduction short and make the decision concrete. This morning we will define the mission, separate capacity from leverage, choose an ROI path, and examine current usage. This afternoon we will prioritize a current-state optimization, choose an investment approach, bound a pilot, assign enterprise decision rights, build a scorecard, and set the final gates. This is an interactive leadership workshop, not a hands-on application lab. The three break windows stay protected.
 
 Transition: Carry your desired decision into the mission brief and connect it to one workflow.
 
@@ -581,7 +581,7 @@ Timebox: 20 minutes
 
 Talk track: What is the lightest control that supports a responsible decision? Move through the ladder in order: forecast, notification, review threshold, time-boxed exception, and supported enforced stop. An alert informs an owner. A stop blocks an action only where the delivered product supports it. Then apply the optimization method exactly: baseline the current pattern, change one meaningful lever, hold the task and acceptance criteria constant, compare completion, intervention, quality, time, and cost, then keep, revise, or stop. Use five minutes to explain the ladder and method, ten minutes to construct a guided comparison, and five minutes to test whether the proposed evidence supports the decision. One run, lower usage, or lower cost is not enough.
 
-Transition: Keep this experiment frame. After lunch, you will use it to prioritize a current-state CSX optimization.
+Transition: Keep this experiment frame. After lunch, you will use it to prioritize a current-state optimization.
 
 Audience question: Which control and one meaningful lever would you test first?
 
@@ -604,7 +604,7 @@ class: mc mc-break
 
   <p class="mc-return">Back at <b>13:00</b></p>
   <div class="mc-break-rule"></div>
-  <p>Next: CSX current-state optimization</p>
+  <p>Next: current-state optimization</p>
 </div>
 
 <!--
@@ -612,7 +612,7 @@ Timebox: 45 minutes
 
 Talk track: We are taking the full forty-five minutes for lunch. What time will we return? One o’clock. There is no installation, homework, or required task during lunch. Keep your experiment frame for the afternoon decision work.
 
-Transition: At 13:00, return for the CSX current-state optimization discussion.
+Transition: At 13:00, return for the current-state optimization discussion.
 
 Audience question: What is our return time?
 
@@ -630,9 +630,9 @@ class: mc mc-canvas-slide
 
 ::title::
 
-# Prioritize CSX optimization changes
+# Prioritize current-state optimization changes
 
-<div class="mc-meta"><span>S12 · CSX current-state optimization</span><span>13:00–13:45 · 45 min</span></div>
+<div class="mc-meta"><span>S12 · Current-state optimization</span><span>13:00–13:45 · 45 min</span></div>
 
 ::text::
 
@@ -672,7 +672,7 @@ Response guidance: If the group starts with a solution, say, “First describe t
 
 Payoff: You leave with one prioritized optimization change, its owner, evidence source, limitation, and keep, revise, or stop criteria.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s12-prioritize-csx-optimization-changes
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s12-prioritize-current-state-optimization-changes
 -->
 
 ---

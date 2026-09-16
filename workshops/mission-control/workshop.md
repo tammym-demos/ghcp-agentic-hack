@@ -87,7 +87,7 @@ By 17:00, participants can:
 | 10:30-11:15 | 45 | Four paths to AI ROI | S06-S08 |
 | 11:15-12:15 | 60 | Optimize current usage: guided examples | S09-S11 |
 | 12:15-13:00 | 45 | Lunch | U02 |
-| 13:00-13:45 | 45 | CSX current-state optimization discussion | S12 |
+| 13:00-13:45 | 45 | Current-state optimization discussion | S12 |
 | 13:45-14:15 | 30 | Investment and budget decisions | S13 |
 | 14:15-14:30 | 15 | Break | U03 |
 | 14:30-15:15 | 45 | Pilot boundary and agent deployment | S14 |
