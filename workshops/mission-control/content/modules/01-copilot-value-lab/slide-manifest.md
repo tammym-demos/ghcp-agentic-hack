@@ -27,7 +27,7 @@ visible slides; there are no hidden or zero-minute slides.
 | 12 | S10 | Find high-consumption workflow patterns | 20 | 11:35-11:55 | two-panel | mission-control-source.md#s10-find-high-consumption-workflow-patterns |
 | 13 | S11 | Control the budget and test the change | 20 | 11:55-12:15 | single-panel | mission-control-source.md#s11-control-the-budget-and-test-the-change |
 | 14 | U02 | Lunch | 45 | 12:15-13:00 | section | mission-control-source.md#u02-lunch |
-| 15 | S12 | Prioritize CSX optimization changes | 45 | 13:00-13:45 | two-panel | mission-control-source.md#s12-prioritize-csx-optimization-changes |
+| 15 | S12 | Prioritize current-state optimization changes | 45 | 13:00-13:45 | two-panel | mission-control-source.md#s12-prioritize-current-state-optimization-changes |
 | 16 | S13 | Choose the investment approach | 30 | 13:45-14:15 | single-panel | mission-control-source.md#s13-choose-the-investment-approach |
 | 17 | U03 | Break | 15 | 14:15-14:30 | section | mission-control-source.md#u03-break |
 | 18 | S14 | Bound the pilot and agent deployment | 45 | 14:30-15:15 | single-panel | mission-control-source.md#s14-bound-the-pilot-and-agent-deployment |
@@ -42,7 +42,7 @@ visible slides; there are no hidden or zero-minute slides.
 - Capacity versus leverage: S03 15 + S04 15 + S05 15 = **45**.
 - Four paths to AI ROI: S06 15 + S07 15 + S08 15 = **45**.
 - Optimize current usage: S09 20 + S10 20 + S11 20 = **60**.
-- CSX current state: S12 = **45**.
+- Current-state optimization: S12 = **45**.
 - Investment and budget: S13 = **30**.
 - Pilot boundary: S14 = **45**.
 - Enterprise operating model: S15 = **45**.
@@ -68,7 +68,7 @@ separate setup/transition and contingency allocations are zero.
 | S03-S05 | Contrast attempted/delegated capacity with `Developer leverage = completed work / developer hours`; map `code -> PR -> story -> release -> business outcome`; discuss integration, testing, review, dependencies, risk/compliance, coordination and waiting. |
 | S06-S08 | Teach labor efficiency, higher throughput, expanded ownership and compounding capability; select primary/secondary paths; choose among essential human work, process structure, practical ownership scope and organizational learning/adaptability as the limiting factor. |
 | S09-S11 | Select a model by task complexity, context, risk, validation and expected value without volatile claims; diagnose oversized/irrelevant context, retries, unclear acceptance, broad agent scope, unnecessary output, review queues and abandoned work; apply forecast, notification, review threshold, time-boxed exception and supported enforced stop. |
-| S11-S12 | Apply `baseline current pattern -> change one meaningful lever -> hold task and acceptance criteria constant -> compare completion, intervention, quality, time and cost -> keep, revise or stop`; prioritize the CSX canvas fields current pattern, lever, baseline, expected effect, evidence source, owner, limitation and keep/revise/stop. |
+| S11-S12 | Apply `baseline current pattern -> change one meaningful lever -> hold task and acceptance criteria constant -> compare completion, intervention, quality, time and cost -> keep, revise or stop`; prioritize the current-state canvas fields current pattern, lever, baseline, expected effect, evidence source, owner, limitation and keep/revise/stop. |
 | S13 | Separate fixed licenses and variable usage; distinguish exploration, production and exception funding; use credit lifecycle and alert-versus-stop distinctions; expand funding only after reliability and leverage are demonstrated. |
 | S14 | Decide use case, participants, tools/models, data boundary, human checkpoints, validation, exceptions, stop conditions and rollback. |
 | S15 | Assign decision rights/workflow across business owner, engineering, architecture, platform governance, security/compliance and Finance/FinOps, including monitoring, incidents, expiry and escalation. |

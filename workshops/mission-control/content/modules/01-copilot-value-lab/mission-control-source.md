@@ -83,7 +83,7 @@ or attempted tasks from being counted as completed value.
 | 10:30-11:15 | 45 | Four paths to AI ROI | S06-S08 |
 | 11:15-12:15 | 60 | Optimize current usage: guided examples | S09-S11 |
 | 12:15-13:00 | 45 | Lunch | U02 |
-| 13:00-13:45 | 45 | CSX current-state optimization discussion | S12 |
+| 13:00-13:45 | 45 | Current-state optimization discussion | S12 |
 | 13:45-14:15 | 30 | Investment and budget decisions | S13 |
 | 14:15-14:30 | 15 | Break | U03 |
 | 14:30-15:15 | 45 | Pilot boundary and agent deployment | S14 |
@@ -161,7 +161,7 @@ Use this compact agenda language:
 
 - **Morning:** Mission briefing; Capacity versus leverage; Four paths to AI ROI;
   Optimize current usage: guided examples.
-- **Afternoon:** CSX current-state optimization; investment and budget; bounded
+- **Afternoon:** Current-state optimization; investment and budget; bounded
   pilot and agent deployment; enterprise operating model; scorecard, funding
   decision and pilot readout.
 - **Breaks/lunch:** 10:15 break; 12:15 lunch; 14:15 break.
@@ -394,11 +394,11 @@ Output: a controlled optimization experiment frame to use after lunch.
 Character-free utility. Release the room for the full lunch and show a 13:00
 return time. No instruction, installation or required task.
 
-## S12 Prioritize CSX optimization changes
+## S12 Prioritize current-state optimization changes
 
 **13:00-13:45, 45 minutes.**
 
-Facilitate the CSX current-state optimization discussion using a native canvas
+Facilitate the current-state optimization discussion using a native canvas
 with these exact fields:
 
 | Field | Decision prompt |
