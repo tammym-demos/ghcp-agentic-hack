@@ -1,142 +1,141 @@
-# Mission Control: The Copilot Value Lab
+# Mission Control: The Copilot Value
 
 **Govern the spend. Guide the work. Prove the value.**
 
-## Source and scope
+## Source authority and claim boundary
 
-Sanitized teaching conversion of the recovered, unchanged concept, not a new
-workshop architecture. Initiative `mission-control-local-review-deck`; baseline
-`mc-recovered-concept-680d21c332ac-a1-placeholder-v1`. Original SHA256
-`680d21c332ac9ba7f14d816cb78dabc99fd7bcd08c6165635dda610a1c00f2b4`.
-Authority and private provenance remain in
-`content/production/decision-log.md` (D01–D04) and
-`content/production/iteration-review.md#mission-control-local-review-deck`.
-The private document, reference presentation, internal links and identifying
-details are not reproduced here. The bounded opening revision is initiative
-`mission-control-opening-kickoff-revision`, baseline
-`8cc855b9e1b1b88edb65cd648e385d15ba628620`, governed by
-`content/production/decision-log.md#mc-d07-cover-labels-and-five-minute-kickoff`
-and its scoped iteration preflight. It changes S01's visible title/labels,
-adds S01A and reallocates five minutes from S02; all later source anchors,
-instruction and clocks remain unchanged.
+This sanitized module source implements initiative
+`mission-control-value-decision-workshop-revision` against baseline commit
+`91f168060327dd773c96de199921a4e35081bf8c` and Mission Control tree
+`0d9aaf1e205709090517b3e938660484fd6054ed`. Its approved scope, exact
+slide contract and content direction are recorded in
+`content/production/decision-log.md#mc-vdw-d01-scope`,
+`content/production/decision-log.md#mc-vdw-d02-contract` and
+`content/production/decision-log.md#mc-vdw-d03-content`.
 
-This is a **local review deck**, not event readiness, participant completion or
-release approval. D02 approves the A1 cost-center-filter **design**, not its
-implementation. D03's opening placeholder has since been replaced by the
-separately accepted v7 illustration; this revision reuses it unchanged.
-There is no built real dashboard, participant-account setup,
-enterprise-control change or measured lab outcome established here.
-No current pricing, billing calculation, cache saving or automatic enforcement
-claim is established by this source.
+The two approved Matthew Gunter videos informed the morning concept sequence.
+They remain authoring sources only: do not embed, publish, link, reproduce or
+quote them in the participant deck. This source uses the owner-approved concept
+synthesis rather than making claims about the videos. It makes no volatile
+pricing, entitlement, model-availability, enforcement or product-roadmap claim.
+Any future current-product claim requires separate provenance and approval.
 
-One module objective is unchanged: connect GitHub Copilot consumption to
-organizational decisions and engineering outcomes. The audience includes
-engineering and business leaders, platform/GitHub administrators, builders,
-security and architecture, and Finance/FinOps.
+The participant-visible objective is to connect GitHub Copilot consumption to
+organizational decisions and engineering outcomes. Capacity and activity are not
+treated as value by themselves. Participants use a workflow, evidence and
+decision canvases to produce a bounded pilot package.
 
-The day follows the approved arc: brief the mission → observe consumption → set
-controls → test improvements → assign decision rights → measure outcomes →
-commit to action. Short show → do → review cycles protect participant practice.
-The six connected outputs are a usage baseline and data-gap list; a control and
-exception map; an optimization experiment record and backlog; a governance
-charter; a value scorecard; and an owned 30/60/90-day action plan.
+## Audience, prerequisites and outcomes
 
-## Agenda and accounting
+**Audience:** architects; engineering and business leaders; developer-platform
+and GitHub administrators; security and compliance leaders; and Finance/FinOps
+partners.
 
-`workshop.md` owns the exact full-day agenda. This transcription allocates the
-approved blocks with the owner-selected kickoff inserted inside Mission briefing,
-not an added day block or minute.
+**Prerequisites:** familiarity with one organizational engineering workflow and
+its intended business outcome. Available baseline evidence is useful but not
+required. No Copilot App session, coding environment, starter repository,
+synthetic fixture or product-administration access is required.
 
-| Time | Minutes | Block | Slides |
+By the end of the day, participants can:
+
+1. distinguish attempted or delegated capacity from developer leverage;
+2. map the completion boundary and constraints that separate code activity from
+   business outcomes;
+3. select primary and secondary AI ROI paths and name the limiting factor;
+4. apply a controlled optimization method and prioritize a current-state change;
+5. define pilot boundaries, funding, decision rights, measures and gates; and
+6. present an owned pilot package with dependencies and a next review date.
+
+## Governing concepts and terminology
+
+Use these statements consistently across instruction, practice and notes:
+
+- **Developer leverage = completed work / developer hours.**
+- Attempted work, delegated work, generated output, token usage and other
+  activity measures may describe capacity or consumption; they are not leverage
+  unless work crosses an agreed completion boundary.
+- Completion extends through **code -> PR -> story -> release -> business
+  outcome**. Constraints accumulate across that chain.
+- The four AI ROI paths are **labor efficiency**, **higher throughput**,
+  **expanded ownership** and **compounding capability**.
+- The limiting factors are exactly **essential human work**, **process
+  structure**, **practical ownership scope**, and **organizational
+  learning/adaptability**.
+- The optimization method is exactly: **baseline current pattern -> change one meaningful lever -> hold task and acceptance criteria constant -> compare completion, intervention, quality, time and cost -> keep, revise or stop**.
+- Separate fixed licenses from variable usage. Distinguish exploration,
+  production and exception funding. Prefer forecasts, notifications and review
+  thresholds before hard stops. Expand funding only when reliability and
+  leverage are demonstrated.
+
+“Completed work” means work that reaches the boundary selected for the
+experiment; participants must name that boundary. “Accepted outcome” means an
+outcome that satisfies the held acceptance criteria and applicable human,
+quality, risk and compliance checks. These definitions prevent generated output
+or attempted tasks from being counted as completed value.
+
+## Exact agenda and accounting
+
+| Time | Minutes | Approved block | Slides |
 | --- | ---: | --- | --- |
-| 09:00–09:30 | 30 | Mission briefing | S01, S01A, S02 |
-| 09:30–10:15 | 45 | Follow the credits | S03–S05 |
-| 10:15–10:30 | 15 | Break | U01 |
-| 10:30–11:30 | 60 | The evidence room | S06 |
-| 11:30–12:15 | 45 | Set the guardrails | S07–S09 |
-| 12:15–13:00 | 45 | Lunch | U02 |
-| 13:00–14:15 | 75 | Guided hands-on optimization lab: Copilot App | S10–S13 |
-| 14:15–14:30 | 15 | Break | U03 |
-| 14:30–15:30 | 60 | The operating charter | S14–S15 |
-| 15:30–16:15 | 45 | Prove the value | S16 |
-| 16:15–16:45 | 30 | Route to results | S17 |
-| 16:45–17:00 | 15 | Mission readout | S18 |
+| 09:00-09:30 | 30 | Mission briefing | S01, S01A, S02 |
+| 09:30-10:15 | 45 | Capacity versus leverage | S03-S05 |
+| 10:15-10:30 | 15 | Break | U01 |
+| 10:30-11:15 | 45 | Four paths to AI ROI | S06-S08 |
+| 11:15-12:15 | 60 | Optimize current usage: guided examples | S09-S11 |
+| 12:15-13:00 | 45 | Lunch | U02 |
+| 13:00-13:45 | 45 | CSX current-state optimization discussion | S12 |
+| 13:45-14:15 | 30 | Investment and budget decisions | S13 |
+| 14:15-14:30 | 15 | Break | U03 |
+| 14:30-15:15 | 45 | Pilot boundary and agent deployment | S14 |
+| 15:15-16:00 | 45 | Enterprise orchestration and production operating model | S15 |
+| 16:00-16:40 | 40 | Pilot scorecard and funding decision | S16, S17 |
+| 16:40-17:00 | 20 | Pilot decision and readout | S18 |
 
-**18 existing instructional + 1 kickoff + 3 utility = 22 visible slides. 405 facilitated + 75 breaks
-and lunch = 480 scheduled minutes.** Facilitated time includes participant
-work, discussion and transitions, not 405 minutes of narration. The schema's
-345 instruction / 45 mission / 15 discussion / 75 breaks split is a coarse
-account: the separately specified 45 practice and 15 review minutes belong
-to the lab; other exercises remain inside their existing agenda blocks.
-The opening block is S01 09:00–09:01 (1), S01A 09:01–09:06 (5) and
-S02 09:06–09:30 (24): 1 + 5 + 24 = 30. Preserve stable S01–S18 and U01–U03
-IDs; S01A is the new ID, not a renumbering of S02.
+Facilitated arithmetic:
+30 + 45 + 45 + 60 + 45 + 30 + 45 + 45 + 40 + 20 = **405**.
+Break/lunch arithmetic: 15 + 45 + 15 = **75**.
+Elapsed arithmetic: 405 + 75 = **480 minutes**, exactly 09:00-17:00.
 
-Lab round 1 is S10's two-minute briefing plus S11's three-minute demonstration,
-15-minute participant practice and five-minute shared review. Rounds 2 and 3
-each remain five demonstration / 15 practice / five review minutes. There is no
-extra pre-lab lecture. A facilitator uses an event timer; the deck has no
-autonomous countdown that advances participants or shortens their windows.
+The morning contains 180 facilitated minutes. Capacity-versus-leverage and
+Matthew-informed ROI concepts occupy two complete 45-minute blocks, followed by
+60 minutes of explicit guided optimization. The afternoon contains 225
+facilitated minutes and produces decisions rather than a hands-on application
+lab.
 
-## Visual and interaction contract
+## Visual, interaction and media contract
 
-Use `theme: ghcp` and shared layouts, with workshop-local styling only. Use cream
-paper `#fffdf7` / `#f8f1e7`, warm ink `#24211f`, muted `#625b54`, lines `#d8cfc2`,
-green `#287a45` and restrained purple `#7650b7`. Font stack is Mona Sans, Segoe UI,
-Arial, sans-serif; no remote font dependency is required for local review.
+Keep the current warm editorial Slidev treatment and use native HTML/SVG for
+titles, labels, formulas, workflow chains, tables, prompts, canvases and
+diagrams. Do not fabricate product UI, bake generated typography into images or
+add a new visual asset.
 
-Standard instruction uses a full-width title and two equal panels: teaching or
-action left, a meaningful native relationship right. Full-width teaching
-tables, diagrams and exercises use the shared single-panel layout only where
-the manifest records the reason. Dedicated shared cover, section and lab
-layouts are bounded exceptions. Titles, names, prompts, code, labels, numbers,
-tables and diagrams are editable HTML/SVG, never baked into an image.
+S01 alone reuses the exact approved illustration
+`assets/images/copilot-value-lab/mission-control-opening-team-v7.png`, SHA256
+`e05909a60b5fa2669d56e37849d29a4e6100c43ad666652f043ec5bb4aa6e8f9`,
+with contain framing, no crop, pixel edit, replacement or new generation. Its
+approved adjacent `.png.json` sidecar remains the identity and provenance
+record. Preserve the existing separate local Microsoft and GitHub brand pair.
+All later slides and utilities remain character-free and use no image, video,
+iframe or generated media.
 
-S01 alone reuses the complete approved v7 quartet illustration with native teaching
-names/roles beneath it, never overlaid on the art. All later
-slides and utilities are character-free; no portraits, silhouettes, hands,
-avatars, feline motifs, character-shaped icons or reprises. No generated logos,
-fabricated UI or live telemetry.
-
-The owner's 2026-09-13 branding request permits two separate native official
-marks: Microsoft and the GitHub wordmark lockup. Use one pair on every slide,
-larger on the opening and discreet in the footer elsewhere. Preserve the
-supplied artwork, colors, aspect ratio and clear space; do not crop, recolor,
-animate, distort or add effects. Keep the pair clear of teaching content and
-presentation controls. These are brand overlays, not generated character
-artwork or a co-hosting/endorsement claim. The image-generation prompt remains
-logo-free. Reuse local approved files; no build/runtime brand download.
-Source and owner-use records live beside the declared files in
-`assets/brand/microsoft/` and `assets/brand/github/`.
-
-Use presenter-controlled click builds to show one relationship or decision at
-a time, then hold a fully readable state. Use short opacity changes, no moving
-characters, autonomous video, perpetual animation or timed advance. Standard
-previous/next click navigation permits replay; reduced motion removes transitions
-without changing the content or click order. S07 is the representative
-six-layer hierarchy. Technical rendering does not decide human teaching/look
-acceptance.
-
-The workshop-local **Read this slide** control is an accessible/mobile reading
-equivalent, not an additional slide. It presents the same native content at its
-complete click state in a scrollable dialog, with stacked panels and horizontally
-scrollable tables where needed. It does not copy presenter notes or introduce
-new instruction. Keyboard users can open it, close it and return to the slide.
+Presenter-controlled native builds may reveal relationships or decision steps.
+Every build must finish in a fully readable hold and have a reduced-motion
+equivalent. Do not use autoplay, autonomous timing or perpetual motion.
 
 <a id="s01-opening-and-cast-introduction"></a>
 
-## S01 Mission Control: The Copilot Value Lab
+## S01 Mission Control: The Copilot Value
 
-09:00–09:01, one minute. Exact primary visible title: **Mission Control: The
-Copilot Value Lab**. Retain the tagline **Govern the spend. Guide the work. Prove
-the value.** Remove the visible “Mission briefing”/time kicker and “Opening and
-cast introduction” heading; the explicit legacy source anchor above remains
-stable. Keep S01's ID as non-visible contract metadata.
+**09:00-09:01, 1 minute.**
 
-Budget 15 seconds for welcome/purpose, 30 seconds to introduce the fictional
-teaching team and 15 seconds to move into participant introductions. These roles
-are not a software architecture or the five accountable governance functions.
-Exact editable labels, below the complete image in depicted left-to-right order:
+Welcome participants and state the decision-workshop purpose: connect Copilot
+consumption to organizational decisions and engineering outcomes. Retain the
+exact native title, tagline, approved v7 illustration, four native labels and
+local brand treatment already approved for S01. Do not change the illustration
+or create an additional opening visual.
+
+Preserve these exact native labels beneath the complete image, in depicted
+left-to-right order:
 
 | Name | Role |
 | --- | --- |
@@ -145,384 +144,482 @@ Exact editable labels, below the complete image in depicted left-to-right order:
 | Chief Charter | Organizational sponsor |
 | Riley Relay | Bounded agent collaborator |
 
-Full-name authority: repository
-`workshops/ghcp-dev-hack/content/characters/agent-mergewell/character.md`
-(frontmatter `title`, `# Agent Mergewell`, `## Persona`) and
-`workshops/ghcp-dev-hack/content/characters/riley-relay/character.md`
-(frontmatter `title`, `# Riley Relay`, `## Role boundaries`). These verify names
-and human/bounded-agent distinctions, not new role text; D07 preserves the
-Mission Control roles above.
+Instruction/practice split: 1 minute welcome and purpose.
 
-Reuse only `assets/images/copilot-value-lab/mission-control-opening-team-v7.png`,
-SHA256 `e05909a60b5fa2669d56e37849d29a4e6100c43ad666652f043ec5bb4aa6e8f9`,
-with contain framing, no crop, pixel edits or replacement. The approved adjacent
-`.png.json` records prior acceptance/publication; no new media action is implied.
-Keep the authorized native brand pair separate from the illustration and labels.
+Output: readiness to name the workflow and decision that matter today.
 
-## S01A Introductions and today’s agenda
+## S01A Introductions and today's agenda
 
-09:01–09:06, five minutes. Exact visible title: **Introductions and today’s
-agenda**. Stable source anchor:
-`mission-control-source.md#s01a-introductions-and-todays-agenda`.
-Use native two-panel content, no new artwork. This kickoff supports naming a
-desired outcome and locating it in the existing day; it does not replace S02's
-decision/evidence work or add a seventh workshop output.
+**09:01-09:06, 5 minutes.**
 
-Exact introduction-panel content:
+Ask participants to share their name, role and one desired decision or outcome
+for the day. Orient them to the morning concept blocks and the afternoon pilot
+package. Make clear that the day is an interactive leadership workshop, not a
+hands-on Copilot App lab.
 
-- **Introduce yourself**
-- “Share your name, role and one desired outcome for today.”
-- “Pairs: one minute each. Then a few brief desired-outcome shares.”
-- “Carry your desired outcome into Define the mission.”
+Use this compact agenda language:
 
-Exact agenda-panel heading: **Today’s agenda**. Use only these existing named
-day blocks, in order within compact morning/afternoon groups, with a separate
-breaks/lunch line. Do not reproduce the full schedule table:
+- **Morning:** Mission briefing; Capacity versus leverage; Four paths to AI ROI;
+  Optimize current usage: guided examples.
+- **Afternoon:** CSX current-state optimization; investment and budget; bounded
+  pilot and agent deployment; enterprise operating model; scorecard, funding
+  decision and pilot readout.
+- **Breaks/lunch:** 10:15 break; 12:15 lunch; 14:15 break.
 
-- **Morning:** Mission briefing · Follow the credits · The evidence room · Set the guardrails
-- **Afternoon:** Guided hands-on optimization lab: Copilot App · The operating charter · Prove the value · Route to results · Mission readout
-- **Breaks/lunch:** Break 10:15–10:30 · Lunch 12:15–13:00 · Break 14:15–14:30
+Instruction/practice split: 1 minute prompt and orientation; 3 minutes paired or
+table introductions; 1 minute transition. If the group is large, do not promise
+a full-room introduction from every participant.
 
-Protected activity split: 09:01–09:01:30 (0.5 minute) prompt/pair setup;
-09:01:30–09:03:30 (2 minutes) paired introductions, one minute each;
-09:03:30–09:04:30 (1 minute) invite a few brief desired-outcome shares;
-09:04:30–09:06 (1.5 minutes) orient to the agenda and transition to S02.
-Total 0.5 + 2 + 1 + 1.5 = 5. Do not promise everyone a full-plenary turn.
-For an odd group, a triad shares the same two-minute window; no extra time.
-If nobody volunteers, retain the outcome privately and proceed without
-inventing a response. The agenda is orientation, not twelve mini-lectures.
-
-Coverage: D07 supplies name/role/desired-outcome practice; the approved agenda
-above supplies orientation; S02's existing mission brief turns that outcome
-into a decision, owner and evidence need. Recognition of the fictional roles
-is bounded to S01; S01A and every later slide remain character-free.
+Output: one desired decision or outcome to carry into S02.
 
 ## S02 Define the mission
 
-09:06–09:30, 24 minutes. Align business questions, stakeholders, decisions,
-available evidence and success criteria. Introduce the six connected outputs.
-Participants state what they need to decide and what evidence would make the
-answer credible. This is an alignment discussion, not a product presentation.
-Use the desired outcome from S01A, without repeating participant introductions.
-Activity split: 09:06–09:09 (3 minutes) brief the decision/evidence task and six
-outputs; 09:09–09:21 (12 minutes) participants draft and compare mission
-questions; 09:21–09:30 (9 minutes) discuss/select questions to carry forward and
-transition. Total 3 + 12 + 9 = 24, replacing the former 3 + 16 + 10 = 29.
-Keep unresolved owners/evidence explicit; do not presume group agreement.
+**09:06-09:30, 24 minutes.**
 
-Fill in the mission brief: “We need to decide ___; the decision owner is ___;
-the evidence we have is ___; the evidence we still need is ___; success would
-look like ___.” Carry the question into the evidence room.
+Participants choose one workflow and define the organizational decision the day
+must support. They name the current completion boundary, business outcome,
+decision owner, available evidence and missing evidence. Do not presume
+agreement or require invented baseline values.
 
-## S03 Follow the credits
+Native mission brief:
 
-09:30–09:45, 15 minutes. Preserve the seven-step reference lifecycle in order:
+> For workflow ___, the business outcome is ___; completed currently means ___;
+> the decision we need to make is ___; the decision owner is ___; evidence
+> available is ___; evidence missing is ___.
 
-1. **License input** contributes included capacity, with optional enterprise-funded
-   additional capacity kept distinct.
-2. **Enterprise pool** consolidates capacity in the **Enterprise AI Credit Pool**.
-3. **Cost centers** allocate budgets, quotas and controls in the reference model.
-4. **Team inheritance** carries the applicable cost-center settings.
-5. **User settings** apply the assigned profile and relevant settings.
-6. **Model access** follows approved categories and access profiles.
-7. **FinOps oversight** monitors usage, spend, trends, anomalies, forecasts and
-   optimization.
+Instruction/practice split: 4 minutes frame the task; 12 minutes draft and
+compare briefs; 8 minutes select the workflow and preserve unresolved evidence
+or owner gaps.
 
-Group steps 1–3 as **Fund & allocate**, 4–6 as **Inherit & govern**, and 7 as
-**Optimize**. Funding, allocation, inheritance, access and optimization are
-separate concepts. This is the reviewed reference operating model, not a
-universal organization migration requirement or a guarantee of product controls.
-Have learners trace a usage question back to its funding and allocation owner.
+Output: one mission brief used throughout the day.
 
-## S04 What changes consumption
+## S03 Capacity is not leverage
 
-09:45–10:00, 15 minutes. Use a native request/context/output receipt to connect
-model choice, context scope, response size, cache reuse and bounded agent
-workflows to the amount and kind of work requested. Prefer one or two changes per
-comparison and preserve the same task and acceptance criteria. Smaller context
-is not better if it removes necessary information.
+**09:30-09:45, 15 minutes.**
 
-Label the receipt as an illustration, not a measured run or bill. Record only
-usage evidence available in the chosen surface or approved report. Note
-configuration and cache variability; token counts do not establish an exact
-bill. Do not promise a saving from a single run. Fill in: “Same task ___;
-same acceptance ___; lever changed ___; available usage source ___;
-quality observation ___; limitation ___.”
+Show the distinction among attempted work, delegated work and completed work.
+More attempts, generations or delegated tasks can increase apparent capacity or
+activity without increasing accepted outcomes.
 
-## S05 Meet the lab environment
+Display the native formula exactly:
 
-10:00–10:15, 15 minutes. Recommended surface: GitHub Copilot App, with a separate,
-isolated participant session on the approved prepared project. The intended flow
-is inspect project → provide relevant context → review plan → authorize bounded
-work → inspect changes and proof → accept, revise or stop.
+> **Developer leverage = completed work / developer hours**
 
-Use Plan and Interactive workflows for visible human checkpoints, subject to
-preflight of the selected App version. Autopilot, parallel agents and automatic
-merge are not prerequisites. The App is not an enterprise billing or policy
-console. The synthetic dashboard is not official billing evidence.
+The denominator is developer hours, not AI activity. The numerator is work that
+crosses the completion boundary defined in S02. Do not claim that a particular
+tool, model or usage level raises leverage.
 
-A known-good starter, accessible project, approved setup guide, synthetic
-fixtures, account/model/policy/runtime access, exact commands and expected
-results must be supplied and tested before delivery. None has been built or
-verified by this deck unit. After a brief orientation, participants inspect
-their own approved environment; do not turn this time into an installation
-session. Fill in “Starter revision ___; synthetic fixture ___; approved
-session/access ___; blocker and support owner ___.”
+Instruction/practice split: 5 minutes teach the distinction; 6 minutes classify
+example measures as capacity/activity or leverage evidence; 4 minutes discuss
+what “completed” must mean for the selected workflow.
+
+Output: an agreed completion definition and one measure that must not be
+mistaken for leverage.
+
+## S04 Define the completion boundary
+
+**09:45-10:00, 15 minutes.**
+
+Use one native left-to-right chain:
+
+> **code -> PR -> story -> release -> business outcome**
+
+Explain that constraints accumulate as work moves across the chain. A local
+coding gain can disappear in review, integration, testing, coordination or
+release. Participants select the boundary appropriate to their pilot and state
+what evidence proves that the work crossed it.
+
+Instruction/practice split: 5 minutes explain the chain and accumulating
+constraints; 6 minutes mark the current and desired completion boundaries;
+4 minutes compare the evidence needed at each boundary.
+
+Output: a selected completion boundary and its acceptance evidence.
+
+## S05 Find where leverage is lost
+
+**10:00-10:15, 15 minutes.**
+
+Facilitate a customer discussion across these exact leverage-loss areas:
+**integration, testing, review, dependencies, risk/compliance, coordination and
+waiting**. Ask where generated or delegated work queues, returns for rework or
+stops before the S04 boundary. Keep the discussion tied to the selected
+workflow; do not generalize a participant example into a product claim.
+
+Instruction/practice split: 2 minutes frame the seven areas; 9 minutes map the
+customer workflow and discuss the dominant loss points; 4 minutes select one
+constraint to carry forward.
+
+Output: a leverage-loss map with one prioritized constraint and an evidence gap.
 
 ## U01 Break
 
-10:15–10:30, 15 minutes. Character-free break card. Return at 10:30 for the
-evidence room. No added instruction or activity requirement during the break.
+**10:15-10:30, 15 minutes.**
 
-## S06 Open the evidence room
+Character-free utility. Release the room for the full break and show a 10:30
+return time. No instruction, homework or required discussion.
 
-10:30–11:30, 60 minutes. Demonstrate a small attribution question in the prepared
-synthetic usage ledger, then protect investigation time. Reuse cost-center, team,
-user, access-tier, model-category and usage relationships. Trace the applicable
-budget owner and the evidence FinOps would inspect. No individual productivity
-rankings, production data or private tenant evidence.
+## S06 Four paths to AI ROI
 
-The deck shows **relationship fields**, not an invented dataset, live dashboard
-or measured result. The delivery starter must provide matching keys and concrete
-fixture values. An aggregated organizational report, if separately approved, is
-a distinct private reference and is not required lab input.
+**10:30-10:45, 15 minutes.**
 
-Participants produce the first artifact: “Question from S02 ___; cost center ___;
-team ___; user ___; assigned tier ___; permitted model category ___; observed
-usage and source ___; budget owner ___; baseline finding ___; data gap ___;
-decision this could inform ___.” Carry the finding and gap into S07–S09.
+Introduce the four paths as distinct ways a workflow may create value:
 
-## S07 Trace the guardrails
+1. **Labor efficiency:** less developer effort for the same accepted outcome.
+2. **Higher throughput:** more accepted outcomes through the same bounded system.
+3. **Expanded ownership:** a practical increase in what a person or team can
+   responsibly complete.
+4. **Compounding capability:** reusable organizational learning, patterns,
+   evaluation or operating capability that improves later work.
 
-11:30–11:45, 15 minutes. Preserve the six-layer hierarchy:
+The paths are decision hypotheses, not guaranteed outcomes. More activity or
+consumption does not establish any path.
 
-1. One enterprise organization in the reference scenario.
-2. Enterprise guardrails: policies/standards, approved model catalog, user
-   tiers/access, security/compliance and monitoring/reporting.
-3. One shared **Enterprise AI Credit Pool**, distinguishing included license
-   credits from optional enterprise-funded additional capacity.
-4. Departmental cost centers with budget and showback ownership.
-5. Teams inheriting the applicable cost-center controls.
-6. Users inheriting access through their assigned tier.
+Instruction/practice split: 6 minutes explain the four paths; 5 minutes map
+examples to paths; 4 minutes discuss overlaps and evidence needs.
 
-Use the S06 finding. Trace a synthetic user upward to a budget owner and back down
-to the permitted category. Fill in the chain and mark missing evidence.
-**Operating model ≠ product enforcement.** Confirm exact scope for inheritance,
-model access, allocations, token quotas and evaluation expiry before any
-administration demonstration. No production settings are changed.
+Output: a shared four-path vocabulary.
 
-## S08 Three access profiles
+## S07 Match the path to the outcome
 
-11:45–12:00, 15 minutes. Preserve these organizational profiles; they are not
-GitHub Copilot subscription-plan names:
+**10:45-11:00, 15 minutes.**
 
-- **Standard Users:** baseline standard-model access; default AI credit
-  allocation and the reference's standard token quota.
-- **Power Users:** standard and approved premium models; increased AI credit
-  allocation and a higher token quota. Justify breadth by role/workflow needs.
-- **R&D / Experimental Users:** broadest reference profile including experimental
-  models and the highest credit allocation, **time-boxed for evaluation and innovation**.
-  Broader access is not an exemption from governance or unlimited spending.
+Participants select one **primary** and one **secondary** ROI path for the S02
+workflow. The primary path determines the dominant outcome and scorecard
+emphasis; the secondary path records a plausible additional effect without
+double-counting it.
 
-Use qualitative baseline, expanded and time-boxed labels. Do not convert relative
-access breadth into budget shares, guaranteed quotas, product entitlements or
-available enforcement. Participants write “Workflow need ___; profile ___;
-permitted category ___; constraint ___; review/expiry ___.”
+Native selection prompt:
 
-## S09 Make an exception decision
+> Business outcome ___; primary ROI path ___ because ___; secondary ROI path ___
+> because ___; evidence that would distinguish them ___.
 
-12:00–12:15, 15 minutes. Reuse the synthetic attribution case to consider a request
-for broader/time-boxed model access or a budget exception. Produce the control
-and exception map: “Request and reason ___; owner ___; permitted category ___;
-allocation/quota assumptions ___; threshold ___; time box ___; alert recipient ___;
-verified enforced stop, if supported ___; exception approver ___;
-security/compliance reviewer ___; escalation ___; decision ___; review date ___.”
+Instruction/practice split: 3 minutes frame primary versus secondary; 8 minutes
+select and justify; 4 minutes challenge whether the chosen evidence reflects an
+accepted outcome.
 
-Distinguish an **alert** that informs an owner from a **supported enforced stop**
-that actually blocks an action. Neither is implemented by a worksheet or by the
-App lab. Any read-only admin walkthrough is a separate, delivery-specific
-verification prerequisite; no exact setting screen is asserted here. Use
-accept/revise/stop with justification, not unbounded approval by default.
+Output: primary and secondary ROI paths with evidence rationale.
+
+## S08 Name the limiting factor
+
+**11:00-11:15, 15 minutes.**
+
+Use exactly these four limiting factors:
+
+1. **essential human work**
+2. **process structure**
+3. **practical ownership scope**
+4. **organizational learning/adaptability**
+
+Participants identify which factor currently constrains the selected ROI path
+and which evidence would show that the constraint moved. A limiting factor is a
+testable diagnosis, not a reason to remove necessary human or governance work.
+
+Instruction/practice split: 4 minutes define the factors; 7 minutes diagnose the
+workflow; 4 minutes compare diagnoses and record uncertainty.
+
+Output: one primary limiting factor, rationale and evidence need.
+
+## S09 Select the model for the work
+
+**11:15-11:35, 20 minutes.**
+
+Guide model selection using **task complexity, required context, risk,
+validation effort and expected value**. Compare models only within the
+organization's approved and available choices at delivery time. Do not name
+volatile prices, multipliers, entitlements, quotas, model availability or
+enforcement behavior.
+
+Native decision sequence:
+
+> Task ___; complexity ___; context needed ___; risk ___; validation required
+> ___; expected value ___; approved model choice ___; reason to revisit ___.
+
+Instruction/practice split: 6 minutes explain the criteria; 10 minutes compare
+guided examples; 4 minutes debrief how validation and expected value affect the
+choice.
+
+Output: a model-selection rationale that can be reviewed without a pricing
+claim.
+
+## S10 Find high-consumption workflow patterns
+
+**11:35-11:55, 20 minutes.**
+
+Use guided examples to identify these patterns:
+
+- oversized/irrelevant context;
+- retries;
+- unclear acceptance;
+- broad agent scope;
+- unnecessary output;
+- review queues; and
+- abandoned work.
+
+Consumption is a diagnostic signal, not proof of waste. Participants connect
+each pattern to the completion boundary, limiting factor and evidence needed
+before changing it.
+
+Instruction/practice split: 5 minutes introduce the patterns; 10 minutes
+diagnose examples; 5 minutes compare which pattern is material and controllable.
+
+Output: one high-consumption pattern, its likely leverage effect and an evidence
+limitation.
+
+## S11 Control the budget and test the change
+
+**11:55-12:15, 20 minutes.**
+
+Use a control ladder in this order: **forecast, notification, review threshold,
+time-boxed exception, supported enforced stop**. Distinguish an alert that
+informs an owner from a supported enforced stop that blocks an action. Do not
+imply that every product surface supports every control.
+
+Apply the optimization method exactly:
+
+> **baseline current pattern -> change one meaningful lever -> hold task and acceptance criteria constant -> compare completion, intervention, quality, time and cost -> keep, revise or stop**
+
+Use baseline/change/evidence/keep-revise-stop as the visible experiment frame.
+One run, lower usage or lower cost does not establish a better outcome.
+
+Instruction/practice split: 5 minutes explain the control ladder and method;
+10 minutes construct a guided comparison; 5 minutes test whether the evidence
+supports keep, revise or stop.
+
+Output: a controlled optimization experiment frame to use after lunch.
 
 ## U02 Lunch
 
-12:15–13:00, 45 minutes. Character-free lunch card. Return at 13:00 for the guided
-lab. No homework, installation task or added demonstration during lunch.
+**12:15-13:00, 45 minutes.**
 
-## S10 Lab mission
+Character-free utility. Release the room for the full lunch and show a 13:00
+return time. No instruction, installation or required task.
 
-13:00–13:02, two minutes. A1 is the **approved design** for adding a cost-center
-filter to a small prepared synthetic usage dashboard. It is not a built sample.
-Use cost-center, team, access-tier, model-category and usage relationships so the
-governance exercises and App practice share one case.
+## S12 Prioritize CSX optimization changes
 
-Acceptance is unchanged: selected totals match the synthetic fixtures; clearing
-the cost-center filter restores the prior all-cost-center view **without changing
-other criteria**; no-match behavior is clear; existing views still work; targeted
-tests provide evidence. Exclude a whole dashboard rewrite, new enterprise
-enforcement, billing changes, production data and unrelated features.
+**13:00-13:45, 45 minutes.**
 
-Two minutes here plus three on S11 share round 1's five-minute demonstration.
-Each participant directs work and inspects proof in an isolated session.
-The learner's evidence, not an attractive preview or a demonstration watched,
-supports accept/revise/stop.
+Facilitate the CSX current-state optimization discussion using a native canvas
+with these exact fields:
 
-## S11 Scope and plan
+| Field | Decision prompt |
+| --- | --- |
+| Current pattern | What happens now, without judging it? |
+| Lever | What one meaningful factor could change? |
+| Baseline | What comparable starting evidence exists? |
+| Expected effect | Which completion, intervention, quality, time or cost measure should move? |
+| Evidence source | Where will comparable evidence come from? |
+| Owner | Who owns the change and evidence? |
+| Limitation | What prevents a confident conclusion? |
+| Decision | Keep, revise or stop? |
 
-13:02–13:25, 23 minutes: three minutes demonstration, 15 practice, five review.
-Consume the S06 attribution finding and S09 control boundary, alongside the
-prepared starter and fixtures. Open the approved project in an isolated App
-session, inspect relevant files/data, then submit the planning prompt. No edits
-are authorized by this round. Actual App mechanics must be preflighted.
+Hold the task and acceptance criteria constant. Prioritize changes by expected
+leverage, evidence quality, feasibility and risk; do not prioritize by raw
+consumption alone.
 
-The draft planning prompt is preserved **exactly**:
+Instruction/practice split: 5 minutes frame the canvas; 30 minutes discuss and
+complete candidate changes; 10 minutes compare and prioritize.
 
-> Inspect this sample dashboard and propose a plan for a cost-center filter. Selected totals must match the synthetic dataset; clearing the cost-center selection must restore the prior all-cost-center view without changing other criteria; no-match cases must be clear. Identify the relevant files, targeted tests, and open questions. Do not edit yet.
+Output: one prioritized optimization change with baseline, owner, limitation
+and keep/revise/stop criteria.
 
-Participants inspect their proposed files, targeted tests, open questions,
-excluded changes and acceptance criteria before sharing the checkpoint. Produce
-the scoped plan: “Relevant files ___; selected fixture and expected totals ___;
-clear behavior/other criteria ___; no-match proof ___; regression checks ___;
-open questions ___; scope agreed ___.”
+## S13 Choose the investment approach
 
-No-penalty hints, used progressively: first compare the proposal with A1's
-acceptance list; next locate the data and the existing filtering path; finally
-ask the facilitator to help trace one fixture through the starter before
-resubmitting a bounded plan. Help never takes time from another learner's
-15-minute practice window.
+**13:45-14:15, 30 minutes.**
 
-## S12 Implement within bounds
+Separate **fixed licenses** from **variable usage**. Distinguish three funding
+purposes:
 
-13:25–13:50, 25 minutes: five demonstration, 15 practice, five review. Consume the
-reviewed S11 plan. Participants authorize only the agreed change in their own
-session, inspect the changed-file list, run the prepared targeted checks and
-compare results with fixture-based expectations. A plan is not blanket permission.
+- **exploration funding** for bounded learning before reliability is known;
+- **production funding** for reliable, governed work with demonstrated leverage;
+- **exception funding** for a time-boxed need outside the normal allocation.
 
-The private concept's generic implementation/review checkpoint is preserved
-exactly (it supplies no separate copy-ready implementation or verification prompt):
+Use the credit lifecycle—forecast, allocate, observe, notify, review, adjust or
+expire—as a useful operating frame without claiming a universal product
+workflow. Distinguish an alert from a supported enforced stop. Prefer forecasts,
+notifications and review thresholds before hard stops. Expand funding only when
+reliability and leverage are demonstrated.
 
-> Each participant reviews the plan and authorizes only the agreed change, then inspects the changed-file list, targeted test results, preview behavior, and unresolved risks. Participants record accept, revise, or stop from their own evidence before the group debrief. Prompt wording expresses intent; actual permissions, approval mechanisms, and organizational policy remain separate controls.
+Instruction/practice split: 7 minutes explain the funding purposes and credit
+lifecycle; 15 minutes assign the prioritized change to an investment approach;
+8 minutes decide its review threshold, exception path and funding evidence.
 
-Produce implementation/check evidence: “Authorized scope ___; changed files ___;
-targeted command ___; expected result ___; actual result ___; unexpected change or
-failure ___; unresolved risk ___; checkpoint used, if any ___.”
-
-No-penalty hints: first compare changed files with the agreed plan; next inspect
-one failing fixture/assertion rather than widening the task; then use the
-facilitator's rehearsed, known-good catch-up checkpoint and record what remains
-unverified. The checkpoint does not do all participant work on their behalf.
-Concrete test commands and checkpoints must be supplied before delivery, not
-invented in the deck.
-
-## S13 Verify and judge
-
-13:50–14:15, 25 minutes: five demonstration, 15 practice, five review. Consume the
-S12 changed-file/test record. Each participant inspects the diff and results,
-previews the bounded behavior, and checks selected totals, clearing while
-preserving other criteria, clear no-match behavior and unchanged existing views.
-Use the exact fixture expectations and concrete test commands from the prepared
-starter; none is claimed to have run here.
-
-Produce the optimization experiment record and backlog: “Selected total expected
-___ / actual ___; clear behavior ___; no-match behavior ___; existing views ___;
-targeted checks ___; usage evidence actually available ___; accept/revise/stop ___;
-quality or value observation ___; limitation ___; follow-up ___.”
-
-No-penalty hints: compare one selected total with its fixture; then compare the
-clear action with the same other criteria still set; finally ask for the
-rehearsed checkpoint and record any missing test or unavailable access. No result
-is presumed, and lower credits or one run do not prove ROI.
-
-Protect the complete 15-minute practice window in every round. Review before
-advancing. Prefer individual work; if approved pairing is necessary, rotate the
-operator so everyone uses the tools. Give early finishers optional inspection of
-one remaining limitation without shortening others' time. If access or an outage
-blocks practice, record the gap and arrange supported completion. A recording or
-observer-only fallback does not satisfy hands-on completion.
+Output: a funding approach that identifies fixed versus variable cost,
+alert/review behavior, owner and expansion condition.
 
 ## U03 Break
 
-14:15–14:30, 15 minutes. Character-free break card. Return at 14:30 for the operating
-charter. No new instruction or required lab repair during the break.
+**14:15-14:30, 15 minutes.**
 
-## S14 Five accountable functions
+Character-free utility. Release the room for the full break and show a 14:30
+return time. No instruction or required decision repair.
 
-14:30–14:50, 20 minutes. Use five distinct functions, not four teaching characters:
+## S14 Bound the pilot and agent deployment
 
-| Function | Reference accountability |
-| --- | --- |
-| Platform Governance | Policies, approved model catalog, tiers, enterprise controls, governance reporting |
-| Finance | Budgets, funding, licensing, chargeback strategy |
-| FinOps | Consumption, trends, anomalies, forecasts, optimization opportunities |
-| Engineering Leadership | Classify users, justify premium access, guide adoption |
-| Developers | Work within approved models, limits and policies |
+**14:30-15:15, 45 minutes.**
 
-Participants map actual delivery stakeholders or explicitly unresolved role
-placeholders to those functions. Keep Finance funding/accountability distinct
-from FinOps monitoring/optimization. Name security/compliance reviewers, exception
-approvers and escalation owners; do not infer them from platform permissions.
-These assignments begin the governance charter.
+Build a native pilot canvas with these exact fields:
 
-## S15 Exercise the charter
+- use case;
+- participants;
+- tools/models;
+- data boundary;
+- human checkpoints;
+- validation;
+- exceptions;
+- stop conditions; and
+- rollback.
 
-14:50–15:30, 40 minutes. Reuse the earlier synthetic exception. Add a tier-change
-or time-boxed R&D evaluation case; compare assignments across groups so the
-budget, tier and evaluation requests are all considered. Use S09's control map
-and S14's functions, not a new permission framework.
+The tools/models field records approved choices and selection logic, not a
+future entitlement promise. Human checkpoints name who reviews what and when.
+Validation connects directly to the held acceptance criteria. Exceptions are
+time-boxed and owned. Stop conditions and rollback are operational decisions,
+not decorative safety language.
 
-Complete a native request workflow: “Request ___; evidence/reason ___;
-recommends ___; funds ___; approves policy/access ___; reviews security/compliance
-___; monitors ___; handles expiry ___; escalation owner ___; decision ___;
-review date ___.” Identify missing owners and dependencies before readout.
-The charter is a workshop decision artifact, not an executed enterprise control.
+Instruction/practice split: 5 minutes frame the canvas; 28 minutes define the
+pilot and agent boundary; 12 minutes challenge scope, checkpoints, validation,
+exceptions, stopping and rollback.
 
-## S16 Prove the value
+Output: a bounded pilot and agent-deployment definition.
 
-15:30–16:15, 45 minutes. Build the scorecard across **adoption, delivery, quality,
-capacity and financial** measures. Connect FinOps usage/spend observations to
-engineering and business outcomes. Activity, wider model access, or lower credits
-alone are not proof of ROI.
+## S15 Orchestrate and operate at enterprise scale
 
-For each category fill in “Measure ___; baseline ___; evidence source ___;
-owner ___; cadence ___; decision this changes ___.” Consume the baseline,
-lab observations/limitations and charter. Check comparability and missing
-evidence. Do not calculate a return from invented prices, an unbuilt starter or
-one unrepresentative run.
+**15:15-16:00, 45 minutes.**
 
-## S17 Route to results
+Define decision rights and workflow across:
 
-16:15–16:45, 30 minutes. Turn the baseline, control map, lab record, charter and
-scorecard into an owned **30/60/90-day** plan. Reveal three checkpoints
-progressively, then hold the complete map. These numbers are day offsets, not
-profile breadth, budgets or quotas.
+- **business owner**;
+- **engineering**;
+- **architecture**;
+- **platform governance**;
+- **security/compliance**; and
+- **Finance/FinOps**.
 
-At each checkpoint write “Action ___; accountable owner ___; dependency ___;
-expected evidence ___; review date ___; decision ___.” Challenge missing owners,
-unmeasurable outcomes and actions that depend on unverified access or controls.
-An action plan is not a promise that its benefit has occurred.
+Use a native workflow:
 
-## S18 Mission readout
+> proposes -> validates -> approves boundary -> funds -> enables -> monitors ->
+> handles incident/exception -> reviews expiry or escalation
 
-16:45–17:00, 15 minutes. Use a native decision board: **agreed / needs evidence /
-owner and date**. Each group states the most important next action and the
-evidence that would show progress. Confirm unresolved questions, accountable
-owners and next review dates without inventing agreement.
+Assign who recommends, decides, executes, monitors and is consulted at each
+step. Include monitoring, incidents, expiry and escalation. Keep policy decision
+rights distinct from product permissions, and Finance funding distinct from
+FinOps observation and optimization. The operating model is a decision artifact,
+not proof that a control has been implemented.
 
-Readout sentence: “Our next action is ___; we will look for ___; ___ owns the
-review on ___.” Close in the warm editorial world without character reprise.
+Instruction/practice split: 8 minutes explain the decision-rights workflow;
+25 minutes assign roles for the pilot; 12 minutes stress-test an incident,
+exception, expiry or escalation.
 
-## Delivery prerequisites and acceptance boundary
+Output: an enterprise production operating model with explicit decision rights,
+handoffs and unresolved dependencies.
 
-Still required before an event: an approved App setup guide and accessible
-sample repository; a working known-good dashboard starter and synthetic fixtures;
-verified participant account, organization policy, model and runtime access;
-concrete commands/expected test results; accessible catch-up checkpoints;
-facilitator rehearsal and participant support; verified environment-specific
-read-only administration claims; accessible/reduced-motion alternatives and
-human lab review. All are prerequisites, not completed work.
+## S16 Build the pilot scorecard
 
-Local validation, a production-shaped build and browser screenshots establish
-only technical evidence for review. Human look/teaching acceptance, finished-deck
-acceptance, lab/event readiness and further media/publication decisions remain
-independent of prior exact-v7 acceptance. No paid work, real controls, participant outcomes, push or release
-is authorized or claimed by this implementation.
+**16:00-16:25, 25 minutes.**
+
+Use these seven measures:
+
+1. valid completion;
+2. developer intervention;
+3. cycle time;
+4. rework/quality;
+5. AI cost per accepted outcome;
+6. operational risk; and
+7. business outcome.
+
+Every measure must have **baseline, source, owner, cadence and decision**. Use
+the same completion boundary and acceptance criteria established earlier. AI
+cost per accepted outcome connects variable usage to accepted outcomes; it does
+not treat cost reduction alone as ROI.
+
+Instruction/practice split: 5 minutes explain the seven measures and five
+required fields; 15 minutes build the pilot scorecard; 5 minutes identify
+missing or non-comparable evidence.
+
+Output: a scorecard with seven measures and owned evidence fields.
+
+## S17 Set funding and scale gates
+
+**16:25-16:40, 15 minutes.**
+
+Set explicit **stop, revise, fund and scale** thresholds and owned checkpoints.
+A useful 30/60/90 structure may be used when it fits the pilot; those numbers
+are review horizons, not a promise of results.
+
+Native gate prompt:
+
+> Gate ___; threshold/evidence ___; checkpoint date ___; owner ___; decision
+> authority ___; if unmet ___; if met ___.
+
+Funding expansion requires demonstrated reliability and leverage. A scale gate
+must not rely only on adoption, usage, model access or generated output.
+
+Instruction/practice split: 3 minutes frame the gates; 8 minutes set thresholds
+and checkpoints; 4 minutes test the funding and scale decision.
+
+Output: owned stop/revise/fund/scale gates and review checkpoints.
+
+## S18 Pilot decision and mission readout
+
+**16:40-17:00, 20 minutes.**
+
+Assemble the final pilot package:
+
+- pilot hypothesis;
+- ROI path;
+- optimization changes;
+- boundary;
+- funding;
+- measures;
+- owner;
+- dependencies; and
+- next review.
+
+Every group must be able to complete this exact sentence:
+
+`For workflow ___, we will test ROI path ___ through pilot ___, within boundary ___, funded by ___, governed by ___, measured using ___, and reviewed on ___ to decide whether to stop, revise, or scale.`
+
+Do not invent consensus. Record unresolved dependencies, evidence gaps and the
+person who owns each next action.
+
+Instruction/practice split: 3 minutes assemble the board; 12 minutes group
+readouts and challenge; 5 minutes confirm owners, dependencies and review dates.
+
+Output: the final pilot decision statement and owned next review.
+
+## Speaker-notes contract
+
+Downstream notes compliance is governed by
+`.github/skills/slide-contract-review/SKILL.md`. Every visible slide, including
+S01, S01A and U01-U03, requires exactly one speaker-notes HTML comment directly
+after the slide. It must contain these non-empty sections exactly once and in
+this order, with a blank line between sections:
+
+1. `Timebox:`
+2. `Talk track:`
+3. `Transition:`
+4. `Audience question:`
+5. `Response guidance:`
+6. `Payoff:`
+7. `Sources:`
+
+The numeric timebox must match the manifest exactly; use singular
+`Timebox: 1 minute` for S01 and plural `Timebox: <number> minutes` for every
+other slide in this contract. There are no zero-minute slides. Notes must use
+natural spoken business narration, put the slide-specific answerable question
+early, provide conditional recovery language without inventing a participant
+response, and protect the stated discussion/practice windows rather than filling
+them with speech. `Sources:` is unspoken metadata and uses the governing
+repository source anchor.
+
+## Local review and release boundary
+
+The current `slides.md` predates this contract and is intentionally not changed
+by the Content Architect. A title/content mismatch is therefore expected until
+the Deck Producer handoff. This source authorizes no media work, provider call,
+paid action, product configuration, participant environment, publication,
+release, push or deployment.
+
+Contract validation and a later local deck build can establish implementation
+evidence only. Human content/teaching acceptance, integration readiness, local
+release-candidate acceptance, publication and participant outcomes remain
+independent decisions.
