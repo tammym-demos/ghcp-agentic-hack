@@ -596,10 +596,15 @@ export async function recordReleaseVerification(
 /**
  * Dispatches the manual public promotion so the manifest path is never transcribed by hand.
  */
+export function normalizeWorkflowManifestPath(manifestOption: string): string {
+  return manifestOption.replaceAll("\\", "/");
+}
+
 export async function dispatchPublicPromotion(
   manifestOption: string,
   root = repositoryRoot
 ): Promise<void> {
+  const workflowManifest = normalizeWorkflowManifestPath(manifestOption);
   await execFileAsync(
     "gh",
     [
@@ -609,7 +614,7 @@ export async function dispatchPublicPromotion(
       "--ref",
       "main",
       "--field",
-      `release_manifest=${manifestOption}`
+      `release_manifest=${workflowManifest}`
     ],
     { cwd: root }
   );

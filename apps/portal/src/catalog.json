@@ -2104,25 +2104,28 @@
     },
     {
       "id": "mission-control",
-      "title": "Mission Control: The Copilot Value",
-      "description": "A facilitated decision workshop connecting GitHub Copilot consumption to organizational decisions and engineering outcomes.",
-      "duration": "09:00-17:00; 405 facilitated minutes plus 75 break/lunch minutes",
+      "title": "Mission Control: AI Development Governance and Value Realization",
+      "description": "A full-day decision workshop for connecting AI development use and spending to accepted engineering and business outcomes, practical governance, and an owned pilot decision.",
+      "duration": "09:00-17:00; 405 teaching/group-work minutes plus 75 break/lunch minutes",
       "format": "one-day",
       "level": "mixed",
       "tags": [
-        "github-copilot"
+        "github-copilot",
+        "ai-governance",
+        "roi"
       ],
       "prerequisites": [
-        "Familiarity with one organizational engineering workflow and the decisions that govern it",
-        "Bring available baseline evidence if practical; missing evidence may be recorded as a decision gap"
+        "Familiarity with one organizational engineering workflow and its intended business outcome",
+        "Authority to represent, or access to, the business, engineering, platform, architecture, risk, finance, and measurement decisions in scope",
+        "Bring available usage, cost, quality, delivery, risk, and outcome evidence when practical; record missing evidence as unknown"
       ],
       "route": "workshops/mission-control/",
       "deliveryVariants": [],
       "modules": [
         {
           "id": "copilot-value-lab",
-          "title": "The Copilot Value",
-          "description": "Connect GitHub Copilot consumption to organizational decisions and engineering outcomes through an architect and leadership decision workshop.",
+          "title": "Mission Control: AI Development Governance and Value Realization",
+          "description": "Connect AI development use and spending to accepted outcomes, practical governance, fair optimization comparisons, and an owned investment decision, using GitHub Copilot as the main customer-neutral example.",
           "duration": "Full-day deck, 09:00-17:00, including three break/lunch utilities",
           "totalMinutes": 480,
           "status": "draft",

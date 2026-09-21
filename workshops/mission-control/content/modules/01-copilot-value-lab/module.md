@@ -2,34 +2,37 @@
 schemaVersion: 1
 kind: module
 id: copilot-value-lab
-title: The Copilot Value
-description: Connect GitHub Copilot consumption to organizational decisions and engineering outcomes through an architect and leadership decision workshop.
+title: "Mission Control: AI Development Governance and Value Realization"
+description: Connect AI development use and spending to accepted outcomes, practical governance, fair optimization comparisons, and an owned investment decision, using GitHub Copilot as the main customer-neutral example.
 duration: "Full-day deck, 09:00-17:00, including three break/lunch utilities"
 totalMinutes: 480
 timing:
-  instructionMinutes: 151
+  instructionMinutes: 171
   missionMinutes: 0
-  discussionMinutes: 254
+  discussionMinutes: 234
   mediaPlaybackMinutes: 0
   setupAndTransitionsMinutes: 0
   breaksMinutes: 75
   contingencyMinutes: 0
 objectives:
-  - Distinguish capacity and activity from developer leverage, defined as completed work divided by developer hours.
-  - Select primary and secondary AI ROI paths and identify the limiting factor at the workflow completion boundary.
-  - Prioritize a controlled current-usage optimization using baseline, change, evidence and keep/revise/stop logic.
-  - Produce a bounded pilot package with funding, governance, scorecard, gates, owners, dependencies and a next review.
+  - Distinguish investment, consumption, activity, completed work, accepted outcomes, and business value; select primary and secondary ROI paths.
+  - Define the completion boundary, leverage losses, limiting factor, expected ROI, evidence need, and attribution limit for one workflow.
+  - Build a usage-and-economics starting point and a governance control map without guessing missing facts or unsupported product behavior.
+  - Compare model, context, and tool-permission changes fairly while holding the task, boundary, and acceptance rules constant.
+  - Rank opportunities, choose funding, assign decision rights, and create pilot and executive scorecards with stop/revise/fund/scale gates.
+  - Produce and present an owned 30/60/90-day pilot investment package with unresolved dependencies and the next review.
 prerequisites:
-  - Familiarity with one organizational engineering workflow and its business outcome
-  - Available baseline evidence is useful but not required; missing evidence is recorded explicitly
+  - Familiarity with one organizational engineering workflow and its intended business outcome
+  - Representation of, or access to, the seven business, engineering, platform, architecture, risk, finance, and measurement decision functions
+  - Available evidence is useful but not required; missing evidence must be recorded as unknown
 sourceDocuments:
   - content/modules/01-copilot-value-lab/mission-control-source.md
 slides: content/modules/01-copilot-value-lab/slides.md
 generation:
-  expectedSlides: 22
+  expectedSlides: 45
   manifest: content/modules/01-copilot-value-lab/slide-manifest.md
   imageProvider: gpt-image-2
-  visualStyle: "Native warm editorial decision room; Mona Sans with Segoe UI/Arial fallbacks; cream, ink, green and restrained purple. One approved v7 team illustration on S01 only; no later characters, generated typography, fake UI or new visual assets."
+  visualStyle: "Released Mission Control character-world treatment with native editable text, tables, formulas, prompts, and diagrams. Preserve the approved opening image unchanged; no new character artwork, generated media, fake UI, or screenshot pixels."
 labs: []
 missions: []
 assets:
@@ -40,87 +43,72 @@ assets:
 status: draft
 ---
 
-# The Copilot Value
+# Mission Control: AI Development Governance and Value Realization
 
-This is the text-only contract for initiative
-`mission-control-value-decision-workshop-revision` at approved baseline commit
-`91f168060327dd773c96de199921a4e35081bf8c` and Mission Control tree
-`0d9aaf1e205709090517b3e938660484fd6054ed`.
+This approved text-only module contract implements initiative
+`mission-control-ai-governance-value-revision` at baseline commit
+`bd29c949c0a7bb3675dbc49c88352137c96799ac`.
 
-## Audience and prerequisites
+## Audience
 
-The module is for architects, engineering and business leaders,
-developer-platform and GitHub administrators, security/compliance leaders, and
-Finance/FinOps partners. Participants should know one organizational engineering
-workflow and its intended business outcome. They do not need a coding exercise,
-Copilot App session, starter repository or product-administration access.
-Available baseline evidence is useful, but a missing baseline is an explicit
-decision gap rather than a reason to invent data.
+- **P1:** Business and Application Outcome Owner
+- **P2:** Engineering and Delivery Leader
+- **P3:** Developer Platform and GitHub Administrator
+- **P4:** Enterprise Architecture and AI Platform Owner
+- **P5:** Security, Risk, Privacy, Legal, and Compliance Owner
+- **P6:** Finance, FinOps, Procurement, and Budget Owner
+- **P7:** Data, Analytics, and Measurement Owner
+
+One participant may cover several functions. Every required function must still
+have a named owner or be recorded as an unresolved dependency. GitHub Copilot is
+the main example; the guidance remains customer-neutral and applies broadly to
+other approved AI development services.
 
 ## Learning and decision sequence
 
-1. **Mission briefing:** choose a workflow and the organizational decision the
-   day must support.
-2. **Capacity versus leverage:** distinguish activity from completed work per
-   developer hour, map the completion boundary and identify lost leverage.
-3. **Four paths to AI ROI:** select primary/secondary paths and identify the
-   limiting factor.
-4. **Optimize current usage:** use guided examples to control one meaningful
-   change while holding the task and acceptance criteria constant.
-5. **Decide the pilot:** prioritize current-state changes, funding, boundary,
-   agent deployment, enterprise decision rights, measures and gates.
-6. **Read out the package:** name owners, dependencies and the next review used
-   to decide whether to stop, revise or scale.
+1. Define the mission and name the seven decision functions.
+2. Learn ROI fundamentals and map completion, lost leverage, paths, and limits.
+3. Read usage and economics evidence without guessing missing values.
+4. connect governance teaching copy to a practical control map.
+5. compare model, context, and tool-permission changes fairly.
+6. rank investments and assign funding and operating decision rights.
+7. build pilot and executive evidence, gates, and a 30/60/90 plan.
+8. make and present the next responsible pilot decision.
 
-The morning concept sequence occupies 180 facilitated minutes before lunch:
-Mission briefing (30), Capacity versus leverage (45), Four paths to AI ROI (45)
-and Optimize current usage (60). The afternoon's 225 facilitated minutes produce
-decisions and a pilot package. Three utilities provide 75 break/lunch minutes.
+## Objective-to-practice coverage
 
-## Required participant outputs
+| Objective | Instruction | Participant practice and output |
+| --- | --- | --- |
+| ROI and value distinctions | S05-S12 | S10-S12 select paths, diagnose a limiting factor, and state testable expected ROI. |
+| Usage/economics starting point | S13-S16 | S15-S16 read evidence, calculate only supported totals, and record owners, periods, costs, and unknowns. |
+| Governance/control map | S17-S20 | S20 applies the four teaching surfaces to an owned control map without changing their visible copy. |
+| Fair optimization comparison | S21-S26 | S22, S24, and S26 create three comparison records with one changed factor and keep/revise/stop decisions. |
+| Investment, ownership, and proof | S27-S38 | S29 ranks options; S30-S33 assign and stress-test rights; S36-S38 build scorecards and gates. |
+| Owned action and decision | S39-S42 | Participants sequence a 30/60/90 plan, assemble the package, challenge evidence, and decide the next step. |
 
-- a defined workflow, completion boundary and leverage-loss map;
-- selected primary and secondary ROI paths plus the limiting factor;
-- a prioritized current-state optimization canvas;
-- an exploration/production/exception funding decision;
-- a bounded pilot and agent-deployment canvas;
-- an enterprise operating model with explicit decision rights;
-- a pilot scorecard and stop/revise/fund/scale gates; and
-- a final owned pilot statement:
+## Time and count contract
 
-`For workflow ___, we will test ROI path ___ through pilot ___, within boundary ___, funded by ___, governed by ___, measured using ___, and reviewed on ___ to decide whether to stop, revise, or scale.`
+The exact contract is 42 workshop slides plus U01/U02/U03, or **45 visible
+rows**. Teaching/group work totals **405 minutes** and breaks/lunch total **75
+minutes**, continuously **09:00-17:00**. Coarse metadata classifies 171 minutes
+as instruction and 234 as participant discussion/work; all mission, media,
+separate setup/transition, and contingency allocations are zero.
 
-## Time accounting
+## Source and implementation boundary
 
-The deck contains exactly 22 visible slides and spans 09:00-17:00:
-405 facilitated + 75 break/lunch = 480 minutes. The coarse module metadata
-classifies S01 and S03-S11 as 151 instruction minutes, and S01A, S02 and S12-S18
-as 254 discussion/decision-work minutes. Mission, media playback, separate setup,
-contingency and autonomous-transition allocations are zero.
+The released 22-slide Mission Control source governs the value/ROI concepts.
+Released Foundations governs five named technical teaching surfaces. The
+rejected 39-slide work contributes only bounded worksheets or exercise ideas
+identified in the source; it has no inherited approval. Four supplied
+governance images are authoring references only. Their permitted teaching copy
+is transcribed into native text; their confidential footer, template, branding,
+and pixels are excluded.
 
-## Source, media and delivery boundaries
+Detailed downstream speaker-notes compliance is governed by
+`.github/skills/slide-contract-review/SKILL.md`; this pass does not author
+`slides.md` or notes. The current 22-slide deck is expected to mismatch until a
+later, separately approved Producer handoff.
 
-`mission-control-source.md` is the governing sanitized source and
-`slide-manifest.md` is the exact generated-deck contract. The two approved
-Matthew Gunter videos remain authoring sources only. They are not embedded,
-published, quoted at length or used to support volatile pricing, entitlement,
-availability or enforcement claims.
-
-Preserve the exact existing S01 v7 declaration and identity:
-`assets/images/copilot-value-lab/mission-control-opening-team-v7.png` and its
-adjacent `.png.json` sidecar. The existing official Microsoft and GitHub assets
-remain native local overlays. The compatibility value
-`generation.imageProvider: gpt-image-2` is inert schema metadata, not permission
-to call a provider. No media generation, replacement or publication is
-authorized.
-
-All formulas, workflow chains, decision canvases, product labels, tables,
-prompts and diagrams must be native Slidev/HTML. There is no fake UI, generated
-typography or new visual asset. `labs: []` and `missions: []` are intentional:
-the revised workshop produces leadership decisions, not a participant coding
-mission.
-
-The current generated deck remains a pending downstream implementation. Local
-validation, builds and rendered review are technical evidence only. Human
-teaching/content acceptance, event readiness, release, publication, deployment
-and participant outcomes remain independent decisions.
+This source/manifest is a candidate awaiting human exact contract/content
+approval. It does not authorize deck implementation, a demo selection, media,
+paid action, push, pull request, release, deployment, or publication.

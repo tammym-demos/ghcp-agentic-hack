@@ -10,6 +10,7 @@ import {
   approveRelease,
   exportPublicRelease,
   filterCatalogForRelease,
+  normalizeWorkflowManifestPath,
   recordReleaseDeployment,
   recordReleaseVerification,
   resolveLatestApprovedManifest,
@@ -22,6 +23,11 @@ const temporaryDirectories: string[] = [];
 
 afterEach(async () => {
   await Promise.all(temporaryDirectories.splice(0).map((root) => rm(root, { recursive: true, force: true })));
+});
+
+it("normalizes Windows manifest paths for GitHub Actions", () => {
+  expect(normalizeWorkflowManifestPath("releases\\workshop-portfolio.md"))
+    .toBe("releases/workshop-portfolio.md");
 });
 
 describe("portfolio release selection", () => {

@@ -25,6 +25,13 @@
     },
     "mission-control/copilot-value-lab": {
       "files": [
+        "content/modules/01-copilot-value-lab/components/MissionControlCompletionBoundary.vue",
+        "content/modules/01-copilot-value-lab/components/MissionControlContextSelection.vue",
+        "content/modules/01-copilot-value-lab/components/MissionControlContextWindow.vue",
+        "content/modules/01-copilot-value-lab/components/MissionControlEnforcementScope.vue",
+        "content/modules/01-copilot-value-lab/components/MissionControlModelChoice.vue",
+        "content/modules/01-copilot-value-lab/components/MissionControlToolPermission.vue",
+        "content/modules/01-copilot-value-lab/components/MissionControlValueChain.vue",
         "content/modules/01-copilot-value-lab/global-bottom.vue"
       ],
       "tests": []
