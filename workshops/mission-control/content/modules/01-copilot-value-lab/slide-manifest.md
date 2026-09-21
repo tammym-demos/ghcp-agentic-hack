@@ -1,145 +1,142 @@
 # Mission Control slide manifest
 
-Initiative `mission-control-value-decision-workshop-revision`.
-Baseline commit `91f168060327dd773c96de199921a4e35081bf8c`; Mission Control
-tree `0d9aaf1e205709090517b3e938660484fd6054ed`. Human authority:
-`content/production/decision-log.md#mc-vdw-d01-scope`,
-`content/production/decision-log.md#mc-vdw-d02-contract` and
-`content/production/decision-log.md#mc-vdw-d03-content`.
+Initiative `mission-control-ai-governance-value-revision`; baseline commit
+`bd29c949c0a7bb3675dbc49c88352137c96799ac`. Human authority:
+`content/production/decision-log.md#mc-agvr-d01-scope`,
+`content/production/decision-log.md#mc-agvr-d02-contract` and
+`content/production/decision-log.md#mc-agvr-d03-content`.
 
-This is the exact generated-deck title, ID, order, minute, clock, layout and
-source-anchor contract. Stable IDs are not visible positions. All 22 rows are
-visible slides; there are no hidden or zero-minute slides.
+This is the approved exact ID, title, order, minute, clock, layout, source,
+responsibility, and output contract. Stable IDs are not visible positions. All
+45 rows are visible and have non-zero minutes. D02 and D03 authorize bounded
+local deck implementation; representative and integration acceptance remain
+separate human decisions.
 
-| # | ID | Exact source title | Minutes | Clock | Layout | Governing source |
-| --- | --- | --- | ---: | --- | --- | --- |
-| 1 | S01 | Mission Control: The Copilot Value | 1 | 09:00-09:01 | advanced-cover | mission-control-source.md#s01-opening-and-cast-introduction |
-| 2 | S01A | Introductions and today's agenda | 5 | 09:01-09:06 | two-panel | mission-control-source.md#s01a-introductions-and-todays-agenda |
-| 3 | S02 | Define the mission | 24 | 09:06-09:30 | two-panel | mission-control-source.md#s02-define-the-mission |
-| 4 | S03 | Capacity is not leverage | 15 | 09:30-09:45 | two-panel | mission-control-source.md#s03-capacity-is-not-leverage |
-| 5 | S04 | Define the completion boundary | 15 | 09:45-10:00 | two-panel | mission-control-source.md#s04-define-the-completion-boundary |
-| 6 | S05 | Find where leverage is lost | 15 | 10:00-10:15 | two-panel | mission-control-source.md#s05-find-where-leverage-is-lost |
-| 7 | U01 | Break | 15 | 10:15-10:30 | section | mission-control-source.md#u01-break |
-| 8 | S06 | Four paths to AI ROI | 15 | 10:30-10:45 | single-panel | mission-control-source.md#s06-four-paths-to-ai-roi |
-| 9 | S07 | Match the path to the outcome | 15 | 10:45-11:00 | two-panel | mission-control-source.md#s07-match-the-path-to-the-outcome |
-| 10 | S08 | Name the limiting factor | 15 | 11:00-11:15 | single-panel | mission-control-source.md#s08-name-the-limiting-factor |
-| 11 | S09 | Select the model for the work | 20 | 11:15-11:35 | two-panel | mission-control-source.md#s09-select-the-model-for-the-work |
-| 12 | S10 | Find high-consumption workflow patterns | 20 | 11:35-11:55 | two-panel | mission-control-source.md#s10-find-high-consumption-workflow-patterns |
-| 13 | S11 | Control the budget and test the change | 20 | 11:55-12:15 | single-panel | mission-control-source.md#s11-control-the-budget-and-test-the-change |
-| 14 | U02 | Lunch | 45 | 12:15-13:00 | section | mission-control-source.md#u02-lunch |
-| 15 | S12 | Prioritize current-state optimization changes | 45 | 13:00-13:45 | two-panel | mission-control-source.md#s12-prioritize-current-state-optimization-changes |
-| 16 | S13 | Choose the investment approach | 30 | 13:45-14:15 | single-panel | mission-control-source.md#s13-choose-the-investment-approach |
-| 17 | U03 | Break | 15 | 14:15-14:30 | section | mission-control-source.md#u03-break |
-| 18 | S14 | Bound the pilot and agent deployment | 45 | 14:30-15:15 | single-panel | mission-control-source.md#s14-bound-the-pilot-and-agent-deployment |
-| 19 | S15 | Orchestrate and operate at enterprise scale | 45 | 15:15-16:00 | two-panel | mission-control-source.md#s15-orchestrate-and-operate-at-enterprise-scale |
-| 20 | S16 | Build the pilot scorecard | 25 | 16:00-16:25 | single-panel | mission-control-source.md#s16-build-the-pilot-scorecard |
-| 21 | S17 | Set funding and scale gates | 15 | 16:25-16:40 | two-panel | mission-control-source.md#s17-set-funding-and-scale-gates |
-| 22 | S18 | Pilot decision and mission readout | 20 | 16:40-17:00 | single-panel | mission-control-source.md#s18-pilot-decision-and-mission-readout |
+| # | ID | Exact source title | Minutes | Clock | Layout | Governing source | Responsibility where useful | Output |
+| ---: | --- | --- | ---: | --- | --- | --- | --- | --- |
+| 1 | S01 | Mission Control: AI Development Governance and Value Realization | 2 | 09:00-09:02 | advanced-cover | mission-control-source.md#s01-mission-control-ai-development-governance-and-value-realization | — | Shared purpose |
+| 2 | S02 | From AI Spend to Measurable Value | 5 | 09:02-09:07 | two-panel | mission-control-source.md#s02-from-ai-spend-to-measurable-value | — | Decision question |
+| 3 | S03 | Today's Route and Decision Functions | 7 | 09:07-09:14 | two-panel | mission-control-source.md#s03-todays-route-and-decision-functions | Name P1-P7 | Named functions or dependencies |
+| 4 | S04 | Define the Mission | 16 | 09:14-09:30 | single-panel | mission-control-source.md#s04-define-the-mission | Lead P1/P2; Evidence P3/P7; Review P4/P5/P6; Decide P1 | Mission brief |
+| 5 | S05 | From Investment to Value | 7 | 09:30-09:37 | single-panel | mission-control-source.md#s05-from-investment-to-value | — | Classified measure |
+| 6 | S06 | Capacity Is Not Leverage | 7 | 09:37-09:44 | two-panel | mission-control-source.md#s06-capacity-is-not-leverage | — | Leverage definition |
+| 7 | S07 | Define the Completion Boundary | 7 | 09:44-09:51 | single-panel | mission-control-source.md#s07-define-the-completion-boundary | — | Completion boundary |
+| 8 | S08 | Find Where Leverage Is Lost | 7 | 09:51-09:58 | two-panel | mission-control-source.md#s08-find-where-leverage-is-lost | — | Leverage-loss map |
+| 9 | S09 | Four Paths to AI ROI | 7 | 09:58-10:05 | single-panel | mission-control-source.md#s09-four-paths-to-ai-roi | — | Four-path vocabulary |
+| 10 | S10 | Match the Path to the Outcome | 7 | 10:05-10:12 | two-panel | mission-control-source.md#s10-match-the-path-to-the-outcome | Lead P1/P2; Evidence P6/P7; Review P4/P5; Decide P1 | Primary/secondary paths |
+| 11 | S11 | Name the Limiting Factor | 7 | 10:12-10:19 | single-panel | mission-control-source.md#s11-name-the-limiting-factor | — | Limiting factor |
+| 12 | S12 | State the ROI Hypothesis and Limits | 11 | 10:19-10:30 | single-panel | mission-control-source.md#s12-state-the-roi-hypothesis-and-limits | Lead P1; Evidence P7/P2/P3; Review P5/P6; Decide P1 | ROI hypothesis and limit |
+| 13 | U01 | Break | 15 | 10:30-10:45 | section | mission-control-source.md#u01-break | — | Full protected break |
+| 14 | S13 | What Enters the Next Prediction | 10 | 10:45-10:55 | two-panel | mission-control-source.md#s13-what-enters-the-next-prediction | — | Request-input map |
+| 15 | S14 | Context Window: What Competes for Space | 10 | 10:55-11:05 | single-panel | mission-control-source.md#s14-context-window-what-competes-for-space | — | Context rule |
+| 16 | S15 | Read the Usage Receipt | 10 | 11:05-11:15 | two-panel | mission-control-source.md#s15-read-the-usage-receipt | Facilitator-led Copilot CLI `/usage` demonstration | Receipt interpretation |
+| 17 | S16 | Build the Usage and Cost Starting Point | 15 | 11:15-11:30 | single-panel | mission-control-source.md#s16-build-the-usage-and-cost-starting-point | Lead P3/P6; Evidence P4/P7/P2; Review P1/P5; Decide P6 | Usage/cost starting point |
+| 18 | S17 | Governance Fundamentals | 10 | 11:30-11:40 | single-panel | mission-control-source.md#s17-governance-fundamentals | — | Governance roles/objects |
+| 19 | S18 | How Do Others Enforce Governance? | 10 | 11:40-11:50 | single-panel | mission-control-source.md#s18-how-do-others-enforce-governance | — | Enforcement distinction |
+| 20 | S19 | Enforcement Scope – How to Enforce | 10 | 11:50-12:00 | single-panel | mission-control-source.md#s19-enforcement-scope-how-to-enforce | — | Enforcement sequence |
+| 21 | S20 | Transparent Enforcement Prioritization | 15 | 12:00-12:15 | single-panel | mission-control-source.md#s20-transparent-enforcement-prioritization | Lead P5/P3; Evidence P4/P2; Review P6/P7; Decide P1/P5 | Control map |
+| 22 | U02 | Lunch | 45 | 12:15-13:00 | section | mission-control-source.md#u02-lunch | — | Full protected lunch |
+| 23 | S21 | Model Choice Demonstration | 6 | 13:00-13:06 | two-panel | mission-control-source.md#s21-model-choice-demonstration | Candidate only; selection pending | Comparison criteria |
+| 24 | S22 | Model Choice Practice and Evidence Review | 9 | 13:06-13:15 | two-panel | mission-control-source.md#s22-model-choice-practice-and-evidence-review | Lead P2/P4; Evidence P3/P7; Review P5/P6; Decide P1/P2 | Comparison record 1 |
+| 25 | S23 | Context Selection Demonstration | 6 | 13:15-13:21 | two-panel | mission-control-source.md#s23-context-selection-demonstration | Candidate only; selection pending | Comparison criteria |
+| 26 | S24 | Context Selection Practice and Evidence Review | 9 | 13:21-13:30 | two-panel | mission-control-source.md#s24-context-selection-practice-and-evidence-review | Lead P2/P4; Evidence P3/P7; Review P5/P6; Decide P1/P2 | Comparison record 2 |
+| 27 | S25 | Tool-and-Permission Demonstration | 6 | 13:30-13:36 | two-panel | mission-control-source.md#s25-tool-and-permission-demonstration | Candidate only; selection pending | Comparison criteria |
+| 28 | S26 | Tool-and-Permission Practice and Evidence Review | 9 | 13:36-13:45 | two-panel | mission-control-source.md#s26-tool-and-permission-practice-and-evidence-review | Lead P2/P4; Evidence P3/P7; Review P5/P6; Decide P1/P5 | Comparison record 3 |
+| 29 | S27 | Choose the Funding Purpose | 9 | 13:45-13:54 | single-panel | mission-control-source.md#s27-choose-the-funding-purpose | Lead P6/P1; Evidence P3/P7; Review P2/P4/P5; Decide P6 | Funding purpose |
+| 30 | S28 | Choose Central Funding, Showback, or Chargeback | 9 | 13:54-14:03 | single-panel | mission-control-source.md#s28-choose-central-funding-showback-or-chargeback | Lead P6; Evidence P3/P7; Review P1/P2/P4/P5; Decide P6/P1 | Funding/reporting approach |
+| 31 | S29 | Rank the Portfolio | 12 | 14:03-14:15 | single-panel | mission-control-source.md#s29-rank-the-portfolio | Lead P6/P1; Evidence P2/P3/P7; Review P4/P5; Decide P1/P6 | Ranked portfolio |
+| 32 | U03 | Break | 15 | 14:15-14:30 | section | mission-control-source.md#u03-break | — | Full protected break |
+| 33 | S30 | Assign Recommend, Decide, Fund, Approve, Execute | 10 | 14:30-14:40 | two-panel | mission-control-source.md#s30-assign-recommend-decide-fund-approve-execute | Lead P1/P2; Evidence P3/P4/P5/P6; Review P7; Decide named authorities | Charter part 1 |
+| 34 | S31 | Assign Enable, Monitor, Review, Renew, Retire, Escalate | 10 | 14:40-14:50 | two-panel | mission-control-source.md#s31-assign-enable-monitor-review-renew-retire-escalate | Lead P2/P3; Evidence P4/P5/P6/P7; Review P1; Decide named authorities | Charter part 2 |
+| 35 | S32 | Stress-Test the Operating Model | 10 | 14:50-15:00 | single-panel | mission-control-source.md#s32-stress-test-the-operating-model | Named response authorities | Stress-test result |
+| 36 | S33 | Complete the Ownership and Decision Map | 15 | 15:00-15:15 | single-panel | mission-control-source.md#s33-complete-the-ownership-and-decision-map | Lead P1/P2; Evidence P3-P7; Review/Decide named authorities | Operating charter |
+| 37 | S34 | Connect the Change to an Accepted Outcome | 8 | 15:15-15:23 | two-panel | mission-control-source.md#s34-connect-the-change-to-an-accepted-outcome | — | Outcome evidence chain |
+| 38 | S35 | Make the Comparison Fair | 8 | 15:23-15:31 | single-panel | mission-control-source.md#s35-make-the-comparison-fair | — | Comparison design |
+| 39 | S36 | Build the Seven-Measure Pilot Scorecard | 10 | 15:31-15:41 | single-panel | mission-control-source.md#s36-build-the-seven-measure-pilot-scorecard | Lead P7/P1/P6; Evidence P2/P3/P4; Review P5; Decide P1 | Pilot scorecard |
+| 40 | S37 | Build the Executive Scorecard | 9 | 15:41-15:50 | two-panel | mission-control-source.md#s37-build-the-executive-scorecard | Lead P1/P7/P6; Evidence P2/P3/P4; Review P5; Decide P1/P6 | Executive scorecard |
+| 41 | S38 | Set Stop, Revise, Fund, and Scale Gates | 10 | 15:50-16:00 | single-panel | mission-control-source.md#s38-set-stop-revise-fund-and-scale-gates | Named gate owners and authorities | Decision gates |
+| 42 | S39 | Set the 30/60/90 Review Points | 14 | 16:00-16:14 | single-panel | mission-control-source.md#s39-set-the-30-60-90-review-points | Named action owners and authorities | Review points |
+| 43 | S40 | Sequence the First Actions | 16 | 16:14-16:30 | single-panel | mission-control-source.md#s40-sequence-the-first-actions | Lead P2/P1; Evidence all owners; Review P5/P6/P7; Decide action authorities | Sequenced plan |
+| 44 | S41 | Assemble the Pilot Decision Package | 14 | 16:30-16:44 | single-panel | mission-control-source.md#s41-assemble-the-pilot-decision-package | Lead P1/pilot owner; Evidence P2-P7; Review funding/policy/scale authorities | Pilot package |
+| 45 | S42 | Present, Challenge, and Decide | 16 | 16:44-17:00 | single-panel | mission-control-source.md#s42-present-challenge-and-decide | Lead P1/pilot owner; Evidence P2-P7; Decide named authorities | Final statement and decision |
 
-## Contract arithmetic
+## Exact section arithmetic
 
-- Mission briefing: S01 1 + S01A 5 + S02 24 = **30**.
-- Capacity versus leverage: S03 15 + S04 15 + S05 15 = **45**.
-- Four paths to AI ROI: S06 15 + S07 15 + S08 15 = **45**.
-- Optimize current usage: S09 20 + S10 20 + S11 20 = **60**.
-- Current-state optimization: S12 = **45**.
-- Investment and budget: S13 = **30**.
-- Pilot boundary: S14 = **45**.
-- Enterprise operating model: S15 = **45**.
-- Scorecard/funding: S16 25 + S17 15 = **40**.
-- Pilot decision/readout: S18 = **20**.
-- Facilitated: 30 + 45 + 45 + 60 + 45 + 30 + 45 + 45 + 40 + 20 =
-  **405 minutes**.
-- Utilities: U01 15 + U02 45 + U03 15 = **75 minutes**.
-- Elapsed: 405 + 75 = **480 minutes**, continuously 09:00-17:00.
-- Visible count: 19 S-slides + 3 U-slides = **22 visible slides**.
+- Mission briefing: 2 + 5 + 7 + 16 = **30 minutes / 4 slides**.
+- ROI fundamentals: 7 + 7 + 7 + 7 + 7 + 7 + 7 + 11 =
+  **60 minutes / 8 slides**.
+- Usage and economics evidence: 10 + 10 + 10 + 15 =
+  **45 minutes / 4 slides**.
+- Governance and controls: 10 + 10 + 10 + 15 =
+  **45 minutes / 4 slides**.
+- Guided optimization lab: 6 + 9 + 6 + 9 + 6 + 9 =
+  **45 minutes / 6 slides**.
+- Investment and portfolio decisions: 9 + 9 + 12 =
+  **30 minutes / 3 slides**.
+- Enterprise operating model: 10 + 10 + 10 + 15 =
+  **45 minutes / 4 slides**.
+- Prove ROI: 8 + 8 + 10 + 9 + 10 = **45 minutes / 5 slides**.
+- 30/60/90 action plan: 14 + 16 = **30 minutes / 2 slides**.
+- Pilot decision and executive readout: 14 + 16 =
+  **30 minutes / 2 slides**.
+- Facilitated: 30 + 60 + 45 + 45 + 45 + 30 + 45 + 45 + 30 + 30 =
+  **405 minutes / 42 slides**.
+- Utilities: U01 15 + U02 45 + U03 15 =
+  **75 minutes / 3 slides**.
+- Elapsed: 405 + 75 = **480 minutes**, continuously **09:00-17:00**.
+- Visible count: 42 S-slides + 3 U-slides = **45 rows**.
 
-The metadata split is also exact: S01 + S03-S11 =
-1 + 45 + 45 + 60 = **151 instruction minutes**. S01A + S02 + S12-S18 =
-5 + 24 + 45 + 30 + 45 + 45 + 25 + 15 + 20 =
-**254 discussion/decision-work minutes**. 151 + 254 = 405. Mission, media,
-separate setup/transition and contingency allocations are zero.
+The metadata split is also exact:
 
-## Content coverage
+- Instruction by section: 13 + 31 + 22 + 31 + 24 + 11 + 15 + 15 + 5 + 4 =
+  **171 minutes**.
+- Protected participant work: 17 + 29 + 23 + 14 + 21 + 19 + 30 + 30 + 25 +
+  26 = **234 minutes**.
+- 171 + 234 = **405 facilitated minutes**. Mission, media, separate
+  setup/transition, and contingency allocations are zero.
 
-| Slides | Required instruction and participant practice |
-| --- | --- |
-| S01-S02 | Preserve exact S01 visual identity; orient participants; select a workflow, business outcome, completion boundary, decision owner and available/missing evidence. |
-| S03-S05 | Contrast attempted/delegated capacity with `Developer leverage = completed work / developer hours`; map `code -> PR -> story -> release -> business outcome`; discuss integration, testing, review, dependencies, risk/compliance, coordination and waiting. |
-| S06-S08 | Teach labor efficiency, higher throughput, expanded ownership and compounding capability; select primary/secondary paths; choose among essential human work, process structure, practical ownership scope and organizational learning/adaptability as the limiting factor. |
-| S09-S11 | Select a model by task complexity, context, risk, validation and expected value without volatile claims; diagnose oversized/irrelevant context, retries, unclear acceptance, broad agent scope, unnecessary output, review queues and abandoned work; apply forecast, notification, review threshold, time-boxed exception and supported enforced stop. |
-| S11-S12 | Apply `baseline current pattern -> change one meaningful lever -> hold task and acceptance criteria constant -> compare completion, intervention, quality, time and cost -> keep, revise or stop`; prioritize the current-state canvas fields current pattern, lever, baseline, expected effect, evidence source, owner, limitation and keep/revise/stop. |
-| S13 | Separate fixed licenses and variable usage; distinguish exploration, production and exception funding; use credit lifecycle and alert-versus-stop distinctions; expand funding only after reliability and leverage are demonstrated. |
-| S14 | Decide use case, participants, tools/models, data boundary, human checkpoints, validation, exceptions, stop conditions and rollback. |
-| S15 | Assign decision rights/workflow across business owner, engineering, architecture, platform governance, security/compliance and Finance/FinOps, including monitoring, incidents, expiry and escalation. |
-| S16 | Score valid completion, developer intervention, cycle time, rework/quality, AI cost per accepted outcome, operational risk and business outcome; every measure has baseline, source, owner, cadence and decision. |
-| S17 | Set stop/revise/fund/scale thresholds and owned checkpoints; 30/60/90 is useful when appropriate, not mandatory or predictive. |
-| S18 | Assemble pilot hypothesis, ROI path, optimization changes, boundary, funding, measures, owner, dependencies and next review; complete the exact final decision sentence. |
+## Outcome, practice, and reuse coverage
 
-## Required final sentence
+| Required outcome | Instruction | Practice/output | Approved reuse |
+| --- | --- | --- | --- |
+| Mission and decision owners | S01-S03 | S04 mission brief | Released Mission Control |
+| ROI fundamentals | S05-S09, S11 | S10-S12 paths, limit, hypothesis | Released Mission Control |
+| Usage and economics | S13-S15 | S16 starting point | Five named Foundations surfaces; rejected worksheet only where identified |
+| Governance and controls | S17-S20 | S20 separate control-map activity | Owner-permitted governance teaching copy; bounded rejected control-map idea |
+| Fair optimization | S21/S23/S25 | S22/S24/S26 records | Foundations model/least-privilege surfaces; bounded rejected comparison structure |
+| Investment and portfolio | S27-S28 | S29 ranked decision | Released Mission Control investment concepts |
+| Operating model | S30-S32 | S33 charter | Bounded rejected charter/stress-test structure |
+| Prove ROI | S34-S35 | S36-S38 scorecards/gates | Released Mission Control scorecard and gates |
+| Action and readout | S39 | S40-S42 plan/package/decision | Released readout; bounded rejected 30/60/90 structure |
 
-S18 must support and display this exact native text:
+P1-P7 all appear in decision responsibilities. Labels are omitted from
+instruction-only rows rather than repeated decoratively.
 
-`For workflow ___, we will test ROI path ___ through pilot ___, within boundary ___, funded by ___, governed by ___, measured using ___, and reviewed on ___ to decide whether to stop, revise, or scale.`
+## Required final statement
 
-## Speaker-notes contract
+S42 must display exactly:
+
+`For workflow ___, we will test ROI path ___ through pilot ___, within boundary ___, funded by ___, governed by ___, measured using ___, and reviewed on ___ by decision authority ___ to decide whether to stop, revise, fund, or scale.`
+
+## Downstream notes and implementation contract
 
 Notes compliance is governed by
-`.github/skills/slide-contract-review/SKILL.md`; this section defines the
-downstream contract and does not author the notes.
+`.github/skills/slide-contract-review/SKILL.md`; this manifest does not author
+notes or `slides.md`. Every visible row later requires one notes comment with
+the exact row timebox and the required seven non-empty sections in order.
+Narration must protect participant-work time. S17-S20 explanation and limits
+belong in notes and must not rewrite their visible teaching copy.
 
-Every visible slide in the table requires exactly one speaker-notes HTML comment
-directly after that slide. The comment must contain these seven non-empty
-sections exactly once and in this order, separated by blank lines:
-`Timebox:`, `Talk track:`, `Transition:`, `Audience question:`,
-`Response guidance:`, `Payoff:`, `Sources:`.
+All visible text, formulas, prompts, tables, and diagrams remain native editable
+content. The released opening image may be reused unchanged. No governance
+screenshot pixels, confidential footer, source template, original branding,
+fake UI, new character artwork, or generated media is permitted.
 
-The `Timebox:` value is the row's exact numeric `Minutes` value:
-S01 uses `Timebox: 1 minute`; every other row uses
-`Timebox: <number> minutes`. There are no zero-minute rows in this contract;
-if a future approved row has zero, it must use `Timebox: 0 minutes`.
+S15 and S21-S26 describe candidate teaching/demo roles only. No demo is
+selected. Current pricing, entitlements, quotas, model availability, controls,
+and enforcement behavior require future current sourcing.
 
-The notes must use natural word-for-word spoken business narration, plain verbs
-and second-person address. Put a slide-specific answerable question early.
-Response guidance must offer conditional recovery words without pretending an
-answer occurred. State the payoff explicitly. Protect participant work and
-discussion time rather than filling long timeboxes with narration. `Sources:`
-is unspoken metadata and must use that row's governing repository source anchor.
-
-## Native implementation and exact S01 reuse
-
-All visible titles, formulas, workflow chains, prompts, labels, tables, canvases
-and diagrams are native Slidev/HTML. Do not use fake UI, generated typography,
-new visual assets, embedded video, iframe, autoplay or autonomous advance.
-Presenter-controlled builds must retain a readable final hold and reduced-motion
-equivalent.
-
-Preserve S01's current `advanced-cover` implementation, exact native title and
-tagline, existing four native cast labels, existing separate local Microsoft
-and GitHub brand pair, and the complete approved v7 image
-`/images/mission-control-opening-team-v7.png`. The authoritative source asset is
-`assets/images/copilot-value-lab/mission-control-opening-team-v7.png`, SHA256
-`e05909a60b5fa2669d56e37849d29a4e6100c43ad666652f043ec5bb4aa6e8f9`.
-Keep contain framing, dimensions 1248x832, and no crop, pixel edits,
-replacement, generated variant or overlay text. The adjacent `.png.json`
-remains declared. S01 is the only slide with workshop-character art; all later
-slides and utilities remain character-free.
-
-Reuse existing shared `two-panel`, `single-panel` and `section` layouts. S06,
-S08, S11, S13, S14, S16 and S18 use `single-panel` because their four-path,
-limiting-factor, method/control, funding, boundary, scorecard and readout
-surfaces need one continuous native canvas. S10 changes from the obsolete
-`advanced-lab` treatment to `two-panel`; no slide represents a coding mission.
-
-## Authoring-source and release boundary
-
-The two approved Matthew Gunter videos are authoring sources only. Do not embed,
-publish, link or reproduce them. Do not turn them into volatile pricing,
-entitlement, availability or enforcement claims.
-
-The current `slides.md` remains outside this Architect change and is expected to
-fail the revised title/content contract until Deck Producer implementation.
-That mismatch does not weaken this approved contract. Local tests, validation,
-builds and rendered inspection are technical evidence only. No provider call,
-paid action, new media, publication, release, push, PR, deployment, event
-readiness or human acceptance is authorized or claimed.
+The existing 22-slide deck is expected to mismatch this candidate contract
+until a later approved Producer handoff. This candidate does not authorize deck
+implementation, media, paid action, push, pull request, release, deployment,
+publication, or claims of human approval.

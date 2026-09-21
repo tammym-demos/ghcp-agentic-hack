@@ -43,6 +43,21 @@ it("declares the exact selected runtime import closure without copying proof or 
     ]) expect(files.has(`${prefix}${file}`), file).toBe(true);
     expect(plan.tests).toContain(`${prefix}token-cache-cli-motion/sequence.test.mjs`);
   }
+  const missionControl = catalog.workshops.flatMap(workshop => workshop.modules)
+    .find(module => module.data.id === "copilot-value-lab");
+  if (missionControl) {
+    const prefix = "workshops/mission-control/content/modules/01-copilot-value-lab/";
+    for (const file of [
+      "components/MissionControlCompletionBoundary.vue",
+      "components/MissionControlContextSelection.vue",
+      "components/MissionControlContextWindow.vue",
+      "components/MissionControlEnforcementScope.vue",
+      "components/MissionControlModelChoice.vue",
+      "components/MissionControlToolPermission.vue",
+      "components/MissionControlValueChain.vue",
+      "global-bottom.vue"
+    ]) expect(files.has(`${prefix}${file}`), file).toBe(true);
+  }
 });
 
 it("uses the legacy plan only when declarations are absent, not malformed or unreadable", async () => {

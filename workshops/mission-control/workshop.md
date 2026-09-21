@@ -1,32 +1,40 @@
 ---
 schemaVersion: 1
 id: mission-control
-title: 'Mission Control: The Copilot Value'
+title: 'Mission Control: AI Development Governance and Value Realization'
 status: draft
 kind: workshop
 description: >-
-  A facilitated decision workshop connecting GitHub Copilot consumption to
-  organizational decisions and engineering outcomes.
+  A full-day decision workshop for connecting AI development use and spending to
+  accepted engineering and business outcomes, practical governance, and an owned
+  pilot decision.
 format: one-day
-duration: '09:00-17:00; 405 facilitated minutes plus 75 break/lunch minutes'
+duration: '09:00-17:00; 405 teaching/group-work minutes plus 75 break/lunch minutes'
 level: mixed
 audience:
-  - Engineering and business leaders
-  - Architects and engineering leaders
+  - Business and application outcome owners
+  - Engineering and delivery leaders
   - Developer-platform and GitHub administrators
-  - Security and compliance leaders
-  - Finance and FinOps partners
+  - Enterprise architecture and AI platform owners
+  - 'Security, risk, privacy, legal, and compliance owners'
+  - 'Finance, FinOps, procurement, and budget owners'
+  - 'Data, analytics, and measurement owners'
 prerequisites:
   - >-
-    Familiarity with one organizational engineering workflow and the decisions
-    that govern it
+    Familiarity with one organizational engineering workflow and its intended
+    business outcome
   - >-
-    Bring available baseline evidence if practical; missing evidence may be
-    recorded as a decision gap
+    Authority to represent, or access to, the business, engineering, platform,
+    architecture, risk, finance, and measurement decisions in scope
+  - >-
+    Bring available usage, cost, quality, delivery, risk, and outcome evidence
+    when practical; record missing evidence as unknown
 modules:
   - copilot-value-lab
 tags:
   - github-copilot
+  - ai-governance
+  - roi
 researchSources:
   - type: other
     title: GitHub Brand Toolkit - Logo
@@ -50,75 +58,85 @@ researchSources:
       Reuse the existing owner-supplied Brand Central asset for the requested
       local native placement. The public guidelines do not themselves grant a
       logo license.
-lastReviewed: '2026-09-15'
+  - type: other
+    title: GitHub Copilot CLI command reference
+    url: >-
+      https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference
+    reviewedAt: '2026-09-19'
+    notes: >-
+      Confirms `/usage` reports per-model session usage totals. Treat it as
+      accumulated session evidence, not current context occupancy, an
+      account-period invoice, or ROI proof.
+lastReviewed: '2026-09-19'
 ---
-# Mission Control: The Copilot Value
+# Mission Control: AI Development Governance and Value Realization
 
-**Govern the spend. Guide the work. Prove the value.**
+GitHub Copilot is the main example. The decisions and methods remain
+customer-neutral and broadly useful for other approved AI development services.
 
-This full-day architect and leadership decision workshop preserves one objective:
-connect GitHub Copilot consumption to organizational decisions and engineering
-outcomes. It does not require a Copilot App lab or a prepared coding environment.
-The 22-slide source contract is approved for deterministic local implementation;
-the generated deck, teaching readiness, release and publication remain pending
-independent review.
+This full-day workshop helps leaders connect AI development use and spending to
+a business outcome, choose an ROI path, define practical controls and decision
+rights, compare one change fairly, and decide whether to stop, revise, fund, or
+scale an owned pilot.
 
 ## Participant outcomes
 
 By 17:00, participants can:
 
-1. distinguish attempted or delegated capacity from developer leverage, defined
-   as completed work divided by developer hours;
-2. map a workflow's completion boundary, accumulated constraints, primary and
-   secondary AI ROI paths, and limiting factor;
-3. prioritize one current-usage optimization with a comparable baseline,
-   controlled change, evidence source and keep/revise/stop decision;
-4. define a bounded pilot, funding approach, enterprise decision rights,
-   scorecard and stop/revise/fund/scale gates; and
-5. present an owned pilot package with dependencies and a next review date.
+1. distinguish investment, consumption, activity, completed work, accepted
+   outcomes, and business value, then choose primary and secondary ROI paths;
+2. define a workflow completion boundary, find where leverage is lost, and
+   state the limiting factor and evidence needed to test expected ROI;
+3. build a usage-and-economics starting point that separates fixed and variable
+   costs, identifies owners and periods, and records missing evidence as unknown;
+4. define a control map covering policy, access, privacy, least privilege,
+   thresholds, exceptions, human checks, stopping, rollback, and escalation;
+5. compare model, context, and tool-permission changes fairly while holding the
+   task, completion boundary, and acceptance rules constant;
+6. rank opportunities, choose a funding approach, assign operating decision
+   rights, and build pilot and executive scorecards with decision gates; and
+7. present an owned 30/60/90-day pilot package and make the next responsible
+   stop, revise, fund, or scale decision.
 
 ## Exact agenda
 
-| Time | Minutes | Approved block | Slides |
+| Time | Minutes | Segment | Visible rows |
 | --- | ---: | --- | --- |
-| 09:00-09:30 | 30 | Mission briefing | S01, S01A, S02 |
-| 09:30-10:15 | 45 | Capacity versus leverage | S03-S05 |
-| 10:15-10:30 | 15 | Break | U01 |
-| 10:30-11:15 | 45 | Four paths to AI ROI | S06-S08 |
-| 11:15-12:15 | 60 | Optimize current usage: guided examples | S09-S11 |
+| 09:00-09:30 | 30 | Mission briefing | S01-S04 |
+| 09:30-10:30 | 60 | ROI fundamentals | S05-S12 |
+| 10:30-10:45 | 15 | Break | U01 |
+| 10:45-11:30 | 45 | Usage and economics evidence | S13-S16 |
+| 11:30-12:15 | 45 | Governance and controls | S17-S20 |
 | 12:15-13:00 | 45 | Lunch | U02 |
-| 13:00-13:45 | 45 | Current-state optimization discussion | S12 |
-| 13:45-14:15 | 30 | Investment and budget decisions | S13 |
+| 13:00-13:45 | 45 | Guided optimization lab | S21-S26 |
+| 13:45-14:15 | 30 | Investment and portfolio decisions | S27-S29 |
 | 14:15-14:30 | 15 | Break | U03 |
-| 14:30-15:15 | 45 | Pilot boundary and agent deployment | S14 |
-| 15:15-16:00 | 45 | Enterprise orchestration and production operating model | S15 |
-| 16:00-16:40 | 40 | Pilot scorecard and funding decision | S16, S17 |
-| 16:40-17:00 | 20 | Pilot decision and readout | S18 |
+| 14:30-15:15 | 45 | Enterprise operating model | S30-S33 |
+| 15:15-16:00 | 45 | Prove ROI | S34-S38 |
+| 16:00-16:30 | 30 | 30/60/90 action plan | S39-S40 |
+| 16:30-17:00 | 30 | Pilot decision and executive readout | S41-S42 |
 
-Arithmetic: 30 + 45 + 15 + 45 + 60 + 45 + 45 + 30 + 15 + 45 + 45 +
-40 + 20 = **480 minutes**. The facilitated blocks total
-30 + 45 + 45 + 60 + 45 + 30 + 45 + 45 + 40 + 20 =
-**405 minutes**. Breaks and lunch total 15 + 45 + 15 = **75 minutes**.
+Facilitated arithmetic: 30 + 60 + 45 + 45 + 45 + 30 + 45 + 45 + 30 + 30 =
+**405 minutes**. Utilities: 15 + 45 + 15 = **75 minutes**. Total:
+405 + 75 = **480 minutes**, continuously 09:00-17:00. The exact visible count is
+42 workshop slides plus U01/U02/U03 = **45 rows**.
 
-The schema's coarse categories classify S01 and S03-S11 as 151 instruction
-minutes, and S01A, S02 and S12-S18 as 254 discussion/decision-work minutes.
-151 + 254 = 405 facilitated minutes. Mission, media playback, separate setup,
-contingency and autonomous-transition budgets are all zero.
+## Participation and delivery boundary
 
-## Experience boundary
+The seven functional roles are P1 Business/Application Outcome, P2
+Engineering/Delivery, P3 Developer Platform/GitHub Administration, P4
+Enterprise Architecture/AI Platform, P5 Security/Risk/Privacy/Legal/Compliance,
+P6 Finance/FinOps/Procurement/Budget, and P7 Data/Analytics/Measurement. One
+person may cover more than one role, but each decision function needs a named
+owner. Lead / Evidence / Review / Decide appears only where responsibilities
+differ.
 
-The morning gives substantial time to capacity versus leverage, four ROI paths
-and an explicit optimization method. The afternoon converts those concepts into
-decisions and a pilot package. Discussion blocks protect participant work; they
-are not continuous narration.
+No participant coding environment, account, repository, administration screen,
+or live network connection is required. Current prices, entitlements, quotas,
+model availability, controls, and enforcement behavior require future current
+sourcing. Missing values remain unknown rather than becoming zero or a guess.
 
-No participant coding environment, Copilot App access, starter repository,
-synthetic fixture, product administration screen or lab rehearsal is a
-dependency. Product labels, formulas, prompts, tables and diagrams remain native
-Slidev/HTML. Reuse the exact approved S01 v7 illustration and existing local
-brand assets unchanged. Do not create or embed media, fake UI or generated
-typography.
-
-This is a local review contract. Validation and a later deck build can establish
-technical evidence only. They do not establish human content acceptance,
-teaching readiness, release approval, publication or participant outcomes.
+`mission-control-source.md` and `slide-manifest.md` are a candidate text-only
+source and contract awaiting human exact contract/content approval. They do not
+authorize deck implementation, media work, paid action, push, pull request,
+release, deployment, publication, or claims of participant outcomes.

@@ -84,6 +84,15 @@
   flex-shrink: 0;
 }
 
+.slidev-layout.mc .mc-stack--animation {
+  overflow: hidden;
+}
+
+.slidev-layout.mc .mc-stack--animation > .native-animation-stage,
+.slidev-layout.mc .ghcp-two-panel__visual .native-animation-stage {
+  flex: 1 1 auto;
+}
+
 .slidev-layout.mc h2,
 .slidev-layout.mc .ghcp-two-panel__text h2,
 .slidev-layout.mc .ghcp-single-panel__content h2 {
@@ -225,6 +234,58 @@
   background: #f0eaf7;
   font-size: 16px;
   line-height: 1.4;
+}
+
+.slidev-layout.mc .mc-cli-demo {
+  justify-content: center;
+}
+
+.slidev-layout.mc .mc-cli-demo__terminal {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 9px;
+  color: #f6f8fa;
+  background: #24292f;
+}
+
+.slidev-layout.mc .mc-cli-demo__terminal code {
+  padding: 7px 9px;
+  border: 1px solid #6e7681;
+  border-radius: 6px;
+  color: #aff5b4;
+  background: #0d1117;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.slidev-layout.mc .mc-cli-demo__terminal span {
+  color: #f6f8fa;
+  font-size: 14px;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.slidev-layout.mc .mc-cli-demo__read {
+  display: grid;
+  gap: 5px;
+  padding: 11px 12px;
+  border: 1px solid var(--mc-line);
+  border-left: 4px solid var(--mc-green);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.slidev-layout.mc .mc-cli-demo__read b {
+  color: var(--mc-green);
+  font-size: 15px;
+}
+
+.slidev-layout.mc .mc-cli-demo__read span {
+  font-size: 15px;
+  line-height: 1.3;
 }
 
 .slidev-layout.mc .mc-hierarchy {
@@ -745,16 +806,9 @@
 
 .slidev-layout.mc.mc-cover .mc-tagline {
   color: var(--mc-green) !important;
-  font-size: 23px;
-  font-weight: 600;
-  line-height: 1.35;
-}
-
-.slidev-layout.mc.mc-cover .mc-cover-status {
-  margin-top: 27px;
-  color: var(--mc-muted) !important;
-  font-size: 14px;
-  line-height: 1.4;
+  font-size: 30px;
+  font-weight: 680;
+  line-height: 1.28;
 }
 
 .slidev-layout.mc .mc-opening-visual {
@@ -796,7 +850,7 @@
 }
 
 .slidev-layout.mc .mc-cast dt {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   line-height: 1.2;
 }
@@ -804,8 +858,8 @@
 .slidev-layout.mc .mc-cast dd {
   margin: 0;
   color: var(--mc-muted);
-  font-size: 12px;
-  line-height: 1.2;
+  font-size: 13px;
+  line-height: 1.25;
 }
 
 .slidev-layout.mc.mc-kickoff .mc-agenda {
@@ -1434,6 +1488,743 @@
 .slidev-layout.mc .mc-evidence-board,
 .slidev-layout.mc .mc-verification {
   gap: 9px;
+}
+
+/* Canonical 45-slide expansion: reusable native teaching surfaces. */
+.slidev-layout.mc .mc-center {
+  justify-content: center;
+}
+
+.slidev-layout.mc .mc-statement-list,
+.slidev-layout.mc .mc-chip-grid,
+.slidev-layout.mc .mc-question-grid,
+.slidev-layout.mc .mc-three-grid,
+.slidev-layout.mc .mc-four-grid,
+.slidev-layout.mc .mc-five-grid,
+.slidev-layout.mc .mc-evidence-strip,
+.slidev-layout.mc .mc-role-grid {
+  display: grid;
+  gap: 9px;
+}
+
+.slidev-layout.mc .mc-statement-list p {
+  padding: 12px 14px;
+  border-left: 3px solid var(--mc-green);
+  background: var(--mc-wash);
+}
+
+.slidev-layout.mc .mc-flow,
+.slidev-layout.mc .mc-chain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  padding: 14px;
+  border: 1px solid var(--mc-line);
+  border-radius: 8px;
+  background: var(--mc-wash);
+}
+
+.slidev-layout.mc .mc-flow b,
+.slidev-layout.mc .mc-chain b {
+  color: var(--mc-green);
+  font-size: 18px;
+}
+
+.slidev-layout.mc .mc-flow i,
+.slidev-layout.mc .mc-chain i,
+.slidev-layout.mc .mc-process-line i {
+  color: var(--mc-purple);
+  font-style: normal;
+}
+
+.slidev-layout.mc .mc-role-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.slidev-layout.mc .mc-role-grid b,
+.slidev-layout.mc .mc-chip-grid b,
+.slidev-layout.mc .mc-five-grid b,
+.slidev-layout.mc .mc-evidence-strip b,
+.slidev-layout.mc .mc-package-grid b {
+  display: grid;
+  place-items: center;
+  min-height: 48px;
+  padding: 8px;
+  border-top: 3px solid var(--mc-green);
+  border-radius: 6px;
+  background: var(--mc-wash);
+  font-size: 14px;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.slidev-layout.mc .mc-role-grid b:last-child {
+  grid-column: 2 / 4;
+}
+
+.slidev-layout.mc .mc-role-grid span {
+  display: block;
+  color: var(--mc-muted);
+  font-size: 12px;
+}
+
+.slidev-layout.mc .mc-value-chain {
+  grid-template-columns: repeat(11, auto);
+  gap: 5px;
+}
+
+.slidev-layout.mc .mc-value-chain > div {
+  min-width: 0;
+  padding: 8px;
+}
+
+.slidev-layout.mc .mc-value-chain b {
+  font-size: 14px;
+}
+
+.slidev-layout.mc .mc-value-chain span {
+  font-size: 11px;
+}
+
+.slidev-layout.mc .mc-chip-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.slidev-layout.mc .mc-chip-grid--compact {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.slidev-layout.mc .mc-question-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.slidev-layout.mc .mc-question-grid > div,
+.slidev-layout.mc .mc-three-grid > div,
+.slidev-layout.mc .mc-four-grid > div {
+  display: grid;
+  align-content: start;
+  gap: 5px;
+  padding: 11px 13px;
+  border: 1px solid var(--mc-line);
+  border-top: 3px solid var(--mc-green);
+  border-radius: 7px;
+  background: var(--mc-wash);
+}
+
+.slidev-layout.mc .mc-question-grid b,
+.slidev-layout.mc .mc-three-grid b,
+.slidev-layout.mc .mc-four-grid b {
+  color: var(--mc-green);
+  font-size: 17px;
+}
+
+.slidev-layout.mc .mc-question-grid span,
+.slidev-layout.mc .mc-three-grid span {
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.slidev-layout.mc .mc-question-grid--stack {
+  grid-template-columns: 1fr;
+}
+
+.slidev-layout.mc .mc-three-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.slidev-layout.mc .mc-four-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.slidev-layout.mc .mc-five-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.slidev-layout.mc .mc-evidence-strip {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.slidev-layout.mc .mc-review-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.slidev-layout.mc .mc-review-card {
+  display: grid;
+  align-content: start;
+  gap: 3px;
+  min-height: 50px;
+  padding: 6px 8px;
+  border: 1px solid var(--mc-line);
+  border-top: 3px solid var(--mc-green);
+  border-radius: 7px;
+  background: var(--mc-wash);
+}
+
+.slidev-layout.mc .mc-review-card b {
+  color: var(--mc-green);
+  font-size: 13px;
+  line-height: 1.15;
+}
+
+.slidev-layout.mc .mc-review-card span {
+  color: var(--mc-muted);
+  font-size: 11px;
+}
+
+.slidev-layout.mc .mc-context-flow,
+.slidev-layout.mc .mc-governance-top,
+.slidev-layout.mc .mc-governance-roles,
+.slidev-layout.mc .mc-governance-objects,
+.slidev-layout.mc .mc-score-measures,
+.slidev-layout.mc .mc-score-fields,
+.slidev-layout.mc .mc-exec-views,
+.slidev-layout.mc .mc-decision-strip {
+  display: grid;
+  gap: 7px;
+}
+
+.slidev-layout.mc .mc-context-flow {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.slidev-layout.mc .mc-context-flow span,
+.slidev-layout.mc .mc-score-measures span,
+.slidev-layout.mc .mc-score-fields span,
+.slidev-layout.mc .mc-exec-views span,
+.slidev-layout.mc .mc-decision-strip b {
+  display: grid;
+  place-items: center;
+  min-height: 50px;
+  padding: 7px;
+  border-top: 3px solid var(--mc-green);
+  border-radius: 6px;
+  background: var(--mc-wash);
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.slidev-layout.mc .mc-governance-top {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.slidev-layout.mc .mc-governance-roles {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.slidev-layout.mc .mc-governance-objects {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.slidev-layout.mc .mc-governance-top b,
+.slidev-layout.mc .mc-governance-role,
+.slidev-layout.mc .mc-governance-object {
+  display: grid;
+  place-items: center;
+  min-height: 48px;
+  padding: 7px 9px;
+  border: 1px solid var(--mc-line);
+  border-top: 3px solid var(--mc-green);
+  border-radius: 7px;
+  background: var(--mc-wash);
+  font-size: 15px;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.slidev-layout.mc .mc-governance-role {
+  min-height: 72px;
+}
+
+.slidev-layout.mc .mc-governance-role span {
+  color: var(--mc-muted);
+  font-size: 12px;
+}
+
+.slidev-layout.mc .mc-governance-object {
+  border-top-color: var(--mc-purple);
+  background: #f0eaf7;
+}
+
+.slidev-layout.mc .mc-compare-lanes {
+  display: grid;
+  grid-template-columns: 1fr 30px 1fr;
+  align-items: stretch;
+  gap: 7px;
+}
+
+.slidev-layout.mc .mc-compare-lane {
+  display: grid;
+  align-content: center;
+  gap: 7px;
+  padding: 12px;
+  border: 1px solid var(--mc-line);
+  border-top: 3px solid var(--mc-green);
+  border-radius: 8px;
+  background: var(--mc-wash);
+}
+
+.slidev-layout.mc .mc-compare-lane b {
+  color: var(--mc-green);
+  font-size: 18px;
+}
+
+.slidev-layout.mc .mc-compare-lane span {
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+.slidev-layout.mc .mc-compare-arrow {
+  display: grid;
+  place-items: center;
+  color: var(--mc-purple);
+  font-size: 25px;
+}
+
+.slidev-layout.mc .mc-score-measures {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.slidev-layout.mc .mc-score-measures span:last-child {
+  grid-column: 2 / 4;
+  border-top-color: var(--mc-purple);
+  background: #f0eaf7;
+}
+
+.slidev-layout.mc .mc-score-fields {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.slidev-layout.mc .mc-score-fields span {
+  min-height: 38px;
+  border: 1px solid var(--mc-line);
+  background: #fff;
+}
+
+.slidev-layout.mc .mc-exec-views {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.slidev-layout.mc .mc-decision-strip {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.slidev-layout.mc .mc-enforcement {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 20px;
+}
+
+.slidev-layout.mc .mc-enforcement-scale {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  justify-items: center;
+}
+
+.slidev-layout.mc .mc-enforcement-scale span {
+  width: 4px;
+  border-radius: 2px;
+  background: linear-gradient(var(--mc-line), var(--mc-purple));
+}
+
+.slidev-layout.mc .mc-enforcement-steps {
+  display: grid;
+  gap: 5px;
+}
+
+.slidev-layout.mc .mc-enforcement-steps b {
+  padding: 8px 12px;
+  border-left: 3px solid var(--mc-green);
+  background: var(--mc-wash);
+  text-align: center;
+}
+
+.slidev-layout.mc .mc-enforcement-steps i {
+  color: var(--mc-purple);
+  font-style: normal;
+  text-align: center;
+}
+
+.slidev-layout.mc .mc-priority-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.slidev-layout.mc .mc-priority-grid > div {
+  padding: 7px 10px;
+  border-left: 3px solid var(--mc-green);
+  background: var(--mc-wash);
+  font-size: 13px;
+  line-height: 1.22;
+}
+
+.slidev-layout.mc .mc-priority-grid .mc-priority-net {
+  grid-column: 1 / -1;
+  border-left-color: var(--mc-purple);
+  background: #f0eaf7;
+}
+
+.slidev-layout.mc .mc-process-line {
+  padding: 16px;
+  border: 1px solid var(--mc-line);
+  border-top: 3px solid var(--mc-green);
+  border-radius: 7px;
+  background: var(--mc-wash);
+  font-size: 17px;
+  font-weight: 650;
+  line-height: 1.8;
+  text-align: center;
+}
+
+.slidev-layout.mc .mc-package-grid b {
+  min-height: 40px;
+}
+
+.slidev-layout.mc.mc-break p {
+  color: var(--mc-muted);
+  font-size: 30px;
+}
+
+.slidev-layout.mc.mc-break p b {
+  color: var(--mc-green);
+}
+
+/*
+ * D05 readability refinement.
+ *
+ * Keep the accepted component vocabulary and 960×540 canvas, but use the
+ * available panel height and raise the floor for small native labels. The
+ * rules are grouped by reusable surface rather than tuned to slide numbers.
+ * Cover and utility layouts remain deliberate-whitespace exceptions.
+ */
+.slidev-layout.mc.ghcp-two-panel .mc-stack,
+.slidev-layout.mc.ghcp-single-panel .mc-stack {
+  justify-content: center;
+  gap: 13px;
+}
+
+.slidev-layout.mc .mc-small,
+.slidev-layout.mc .ghcp-two-panel__text .mc-small,
+.slidev-layout.mc .ghcp-single-panel__content .mc-small {
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.slidev-layout.mc .mc-field {
+  gap: 7px;
+  padding: 13px 15px;
+  font-size: 17px;
+}
+
+.slidev-layout.mc .mc-field > b {
+  font-size: 15px;
+}
+
+.slidev-layout.mc .mc-statement-list {
+  gap: 13px;
+}
+
+.slidev-layout.mc .mc-statement-list p {
+  padding: 16px 17px;
+  font-size: 20px;
+}
+
+.slidev-layout.mc .mc-callout {
+  padding: 12px 15px;
+  font-size: 17px;
+}
+
+.slidev-layout.mc .mc-prompt {
+  padding: 17px 19px;
+  font-size: 20px;
+}
+
+.slidev-layout.mc .mc-flow,
+.slidev-layout.mc .mc-chain {
+  min-height: 74px;
+  padding: 17px;
+}
+
+.slidev-layout.mc .mc-flow b,
+.slidev-layout.mc .mc-chain b {
+  font-size: 20px;
+}
+
+.slidev-layout.mc .mc-role-grid {
+  gap: 11px;
+}
+
+.slidev-layout.mc .mc-role-grid b,
+.slidev-layout.mc .mc-chip-grid b,
+.slidev-layout.mc .mc-five-grid b,
+.slidev-layout.mc .mc-evidence-strip b,
+.slidev-layout.mc .mc-package-grid b {
+  min-height: 61px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.slidev-layout.mc .mc-role-grid span {
+  margin-top: 3px;
+  font-size: 14px;
+}
+
+.slidev-layout.mc .mc-value-chain > div {
+  min-height: 88px;
+  align-content: center;
+  padding: 10px;
+}
+
+.slidev-layout.mc .mc-value-chain b {
+  font-size: 16px;
+}
+
+.slidev-layout.mc .mc-value-chain span {
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+.slidev-layout.mc .mc-question-grid,
+.slidev-layout.mc .mc-three-grid,
+.slidev-layout.mc .mc-four-grid {
+  gap: 12px;
+}
+
+.slidev-layout.mc .mc-question-grid > div,
+.slidev-layout.mc .mc-three-grid > div,
+.slidev-layout.mc .mc-four-grid > div {
+  min-width: 0;
+  min-height: 96px;
+  padding: 15px 16px;
+  overflow-wrap: anywhere;
+}
+
+.slidev-layout.mc .mc-question-grid b,
+.slidev-layout.mc .mc-three-grid b,
+.slidev-layout.mc .mc-four-grid b {
+  font-size: 19px;
+}
+
+.slidev-layout.mc .mc-question-grid span,
+.slidev-layout.mc .mc-three-grid span {
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+.slidev-layout.mc .mc-review-grid {
+  gap: 6px;
+}
+
+.slidev-layout.mc .mc-review-card {
+  min-height: 62px;
+  gap: 5px;
+  padding: 9px 10px;
+}
+
+.slidev-layout.mc .mc-review-card b {
+  font-size: 15px;
+}
+
+.slidev-layout.mc .mc-review-card span {
+  font-size: 13px;
+  line-height: 1.25;
+}
+
+.slidev-layout.mc .mc-context-flow,
+.slidev-layout.mc .mc-score-measures,
+.slidev-layout.mc .mc-score-fields,
+.slidev-layout.mc .mc-exec-views,
+.slidev-layout.mc .mc-decision-strip {
+  gap: 9px;
+}
+
+.slidev-layout.mc .mc-context-flow span,
+.slidev-layout.mc .mc-score-measures span,
+.slidev-layout.mc .mc-score-fields span,
+.slidev-layout.mc .mc-exec-views span,
+.slidev-layout.mc .mc-decision-strip b {
+  min-height: 62px;
+  padding: 9px;
+  font-size: 15px;
+}
+
+.slidev-layout.mc .mc-score-fields span {
+  min-height: 48px;
+}
+
+.slidev-layout.mc .mc-governance-top,
+.slidev-layout.mc .mc-governance-roles,
+.slidev-layout.mc .mc-governance-objects {
+  gap: 10px;
+}
+
+.slidev-layout.mc .mc-governance-top b,
+.slidev-layout.mc .mc-governance-role,
+.slidev-layout.mc .mc-governance-object {
+  min-height: 61px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.slidev-layout.mc .mc-governance-role {
+  min-height: 82px;
+}
+
+.slidev-layout.mc .mc-governance-role span {
+  font-size: 14px;
+}
+
+.slidev-layout.mc .mc-enforcement {
+  grid-template-columns: 105px 1fr;
+  gap: 24px;
+}
+
+.slidev-layout.mc .mc-enforcement-steps {
+  gap: 7px;
+}
+
+.slidev-layout.mc .mc-enforcement-steps b {
+  padding: 8px 14px;
+  font-size: 16px;
+}
+
+.slidev-layout.mc .mc-priority-grid {
+  gap: 9px;
+}
+
+.slidev-layout.mc .mc-priority-grid > div {
+  padding: 10px 12px;
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+.slidev-layout.mc .mc-compare-lane {
+  min-height: 126px;
+  padding: 16px;
+}
+
+.slidev-layout.mc .mc-compare-lane b {
+  font-size: 20px;
+}
+
+.slidev-layout.mc .mc-compare-lane span {
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.slidev-layout.mc .mc-table {
+  font-size: 17px;
+  line-height: 1.35;
+}
+
+.slidev-layout.mc .mc-table th,
+.slidev-layout.mc .mc-table td {
+  padding: 7px 11px;
+}
+
+.slidev-layout.mc .mc-table thead th {
+  font-size: 14px;
+}
+
+.slidev-layout.mc .mc-pilot-scorecard {
+  font-size: 15px;
+}
+
+.slidev-layout.mc .mc-pilot-scorecard th,
+.slidev-layout.mc .mc-pilot-scorecard td {
+  padding: 5px 9px;
+}
+
+.slidev-layout.mc .mc-funding-grid {
+  gap: 15px;
+}
+
+.slidev-layout.mc .mc-funding-grid > div {
+  min-height: 146px;
+  padding: 15px 16px;
+}
+
+.slidev-layout.mc .mc-funding-grid b {
+  font-size: 20px;
+}
+
+.slidev-layout.mc .mc-funding-grid span {
+  font-size: 16px;
+}
+
+.slidev-layout.mc .mc-pilot-grid {
+  gap: 12px;
+}
+
+.slidev-layout.mc .mc-pilot-grid > div {
+  min-height: 111px;
+  padding: 11px 13px;
+}
+
+.slidev-layout.mc .mc-pilot-grid b {
+  font-size: 18px;
+}
+
+.slidev-layout.mc .mc-pilot-grid span,
+.slidev-layout.mc .mc-pilot-grid em {
+  font-size: 14px;
+}
+
+.slidev-layout.mc .mc-operating-flow span {
+  min-height: 70px;
+  padding: 9px;
+  font-size: 15px;
+}
+
+.slidev-layout.mc .mc-gate-grid {
+  gap: 14px;
+}
+
+.slidev-layout.mc .mc-gate-grid > div {
+  min-height: 116px;
+  padding: 15px;
+}
+
+.slidev-layout.mc .mc-gate-grid b {
+  font-size: 21px;
+}
+
+.slidev-layout.mc .mc-gate-grid span {
+  font-size: 16px;
+}
+
+.slidev-layout.mc .mc-package-grid {
+  gap: 8px;
+}
+
+.slidev-layout.mc .mc-package-grid span {
+  padding: 11px 12px;
+  font-size: 16px;
+}
+
+.slidev-layout.mc .mc-package-grid b {
+  min-height: 52px;
+}
+
+.slidev-layout.mc .mc-chip-grid--compact b {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.slidev-layout.mc .mc-process-line {
+  padding: 20px;
+  font-size: 19px;
+}
+
+.slidev-layout.mc .mc-final-sentence {
+  padding: 18px 20px;
+  font-size: 22px;
 }
 
 /* Reveals are presenter-controlled. There is no autonomous animation. */
