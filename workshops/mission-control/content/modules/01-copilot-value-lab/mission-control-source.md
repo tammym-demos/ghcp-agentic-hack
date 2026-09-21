@@ -121,15 +121,18 @@ text/HTML/SVG in any later implementation. Preserve the released opening image
 unchanged. Do not create new character artwork, generated media, fake product
 screens, generated typography, or screenshot-based slides.
 
-## Candidate teaching/demo boundary
+## Teaching/demo boundary
 
-S15 and S21-S26 define candidate facilitator-led teaching or demo roles and the
-decision each could support. They are recommendations, not selected production
-demos. Before production, a human must choose each demo, its teaching point,
-synthetic data and calculations, facilitation mode, minutes, sourcing limits,
-fallback, and whether a real environment is necessary. The default candidate
-uses clearly labeled synthetic evidence in native editable content and works
-without a network or participant account.
+S15 is the selected facilitator-led GitHub Copilot CLI `/usage` demonstration.
+The live path requires the facilitator to verify an authenticated CLI and
+network connection before delivery; participants still require no account,
+repository, coding environment, or network connection. If the facilitator path
+is unavailable, use a clearly labeled synthetic `/usage` receipt with the same
+fields and evidence limits.
+
+S21, S23, and S25 use the selected native synthetic treatments. They require no
+live product environment and make no claims about current model availability,
+controls, prices, quotas, or measured improvement.
 
 <a id="s01-mission-control-ai-development-governance-and-value-realization"></a>
 
@@ -595,10 +598,10 @@ Visible teaching copy:
 > Compare only choices approved and available at delivery time.
 > Lowest use is not automatically best value.
 
-Reuse `Model Routing: Match the Task`. Candidate teaching/demo role, not
-selected: compare two synthetic results for the same task and acceptance rules.
-Decision need: which choice offers better expected value. Current model names,
-availability, prices, and multipliers are out of scope without future sourcing.
+Reuse `Model Routing: Match the Task`. The selected native synthetic treatment
+compares two results for the same task and acceptance rules. Decision need:
+which choice offers better expected value. Current model names, availability,
+prices, and multipliers are out of scope without future sourcing.
 
 Output: criteria for a fair model-choice comparison.
 
@@ -634,9 +637,9 @@ Visible teaching copy:
 > Then: only context needed for the task.
 > Compare the accepted result, not context size alone.
 
-Candidate teaching/demo role, not selected: a native synthetic before/after
-could show context removal. Decision need: whether less unhelpful context
-improves time or cost without reducing completion or quality.
+The selected native synthetic before/after shows context removal while holding
+the task and acceptance rules constant. It establishes the comparison method;
+it does not claim that less context improved completion, quality, time, or cost.
 
 Output: criteria for a fair context comparison.
 
@@ -672,10 +675,11 @@ Visible teaching copy:
 > bounded task.
 > Name the human check. Stop before an unapproved action.
 
-Reuse the released Foundations surface. Candidate teaching/demo role, not
-selected: compare a reviewable planning task with broad access and then only
-needed access; take no live action. Decision need: necessary permissions, human
-checkpoint, and stopping boundary. Do not claim a specific current control.
+Reuse the released Foundations surface. The selected non-interactive native
+safety sequence compares a reviewable planning task with broad access and then
+only needed access; it takes no live action. Decision need: necessary
+permissions, human checkpoint, and stopping boundary. Do not claim a specific
+current control.
 
 Output: criteria for a fair least-privilege comparison.
 
@@ -1008,9 +1012,10 @@ must live in notes rather than rewriting S17-S20 visible copy.
 
 ## Approval and implementation boundary
 
-This 45-slide source and its manifest are a **candidate awaiting human exact
-contract/content approval**. The existing 22-slide `slides.md` is expected to
-mismatch and remains untouched. This candidate does not authorize deck
-implementation, demo selection, media generation, character artwork, paid
-action, push, pull request, release, deployment, publication, or claims of
-teaching readiness or participant outcomes.
+D02 and D03 approved this 45-slide source and manifest for bounded local
+implementation. D06 selected the S15 facilitator demonstration; D07 accepted
+the implemented S21 treatment; D09 selected the S23 and S25 treatments; D11
+accepted the integrated animation expansion. Those decisions do not authorize
+future content changes, media generation, character artwork, paid action,
+push, pull request, release, deployment, publication, or participant-outcome
+claims.

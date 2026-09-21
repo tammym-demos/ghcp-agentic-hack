@@ -1559,8 +1559,19 @@
   text-align: center;
 }
 
+.slidev-layout.mc .mc-role-grid b:nth-child(5) {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.slidev-layout.mc .mc-role-grid b:nth-child(6) {
+  grid-column: 2;
+  grid-row: 2;
+}
+
 .slidev-layout.mc .mc-role-grid b:last-child {
-  grid-column: 2 / 4;
+  grid-column: 3 / 5;
+  grid-row: 2;
 }
 
 .slidev-layout.mc .mc-role-grid span {
@@ -1790,8 +1801,19 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+.slidev-layout.mc .mc-score-measures span:nth-child(5) {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.slidev-layout.mc .mc-score-measures span:nth-child(6) {
+  grid-column: 2;
+  grid-row: 2;
+}
+
 .slidev-layout.mc .mc-score-measures span:last-child {
-  grid-column: 2 / 4;
+  grid-column: 3 / 5;
+  grid-row: 2;
   border-top-color: var(--mc-purple);
   background: #f0eaf7;
 }

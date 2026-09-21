@@ -69,11 +69,11 @@ other approved AI development services.
 1. Define the mission and name the seven decision functions.
 2. Learn ROI fundamentals and map completion, lost leverage, paths, and limits.
 3. Read usage and economics evidence without guessing missing values.
-4. connect governance teaching copy to a practical control map.
-5. compare model, context, and tool-permission changes fairly.
-6. rank investments and assign funding and operating decision rights.
-7. build pilot and executive evidence, gates, and a 30/60/90 plan.
-8. make and present the next responsible pilot decision.
+4. Connect governance teaching copy to a practical control map.
+5. Compare model, context, and tool-permission changes fairly.
+6. Rank investments and assign funding and operating decision rights.
+7. Build pilot and executive evidence, gates, and a 30/60/90 plan.
+8. Make and present the next responsible pilot decision.
 
 ## Objective-to-practice coverage
 
@@ -109,6 +109,9 @@ Detailed downstream speaker-notes compliance is governed by
 `slides.md` or notes. The current 22-slide deck is expected to mismatch until a
 later, separately approved Producer handoff.
 
-This source/manifest is a candidate awaiting human exact contract/content
-approval. It does not authorize deck implementation, a demo selection, media,
-paid action, push, pull request, release, deployment, or publication.
+The source and manifest are approved and the selected teaching treatments are
+implemented. The live S15 path requires a facilitator-authenticated CLI and
+network connection; participants require neither, and a clearly labeled
+synthetic receipt is the fallback. Future content changes, media, paid action,
+push, pull request, release, deployment, and publication remain separately
+gated.

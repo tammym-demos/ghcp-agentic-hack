@@ -603,7 +603,7 @@ class: mc
 
 # Read the Usage Receipt
 
-<div class="mc-meta"><span>S15 · Candidate demonstration</span><span>11:05–11:15 · 10 min</span></div>
+<div class="mc-meta"><span>S15 · Selected facilitator demonstration</span><span>11:05–11:15 · 10 min</span></div>
 
 ::text::
 
@@ -613,6 +613,7 @@ class: mc
     <b>owner</b><b>service/model</b><b>use case</b><b>period</b><b>new input</b>
     <b>reused input</b><b>output</b><b>quality/result</b><b>cost</b><b>unknown fields</b>
   </div>
+  <p class="mc-small"><b>Fallback:</b> clearly labeled synthetic receipt when the facilitator CLI or network is unavailable.</p>
 </div>
 
 ::visual::
@@ -634,13 +635,13 @@ class: mc
 <!--
 Timebox: 10 minutes
 
-Talk track: Which field decides whether a usage total is trustworthy? I will start GitHub Copilot CLI in a new, non-confidential empty folder and make one bounded request. Then I will run `/usage`. Read the model and the accumulated session token totals the installed CLI reports. Exact fields can vary by CLI version and model. This is session evidence, not a receipt for only the last request. It is not the current context-window gauge, an account-period invoice, or ROI evidence. Use six minutes for the demonstration and four minutes to identify one supported interpretation and one evidence limit.
+Talk track: Which field decides whether a usage total is trustworthy? Before delivery, verify that the facilitator has an authenticated GitHub Copilot CLI and network connection; participants need neither. I will start the CLI in a new, non-confidential empty folder and make one bounded request, then run `/usage`. If the facilitator CLI or network is unavailable, use the clearly labeled synthetic receipt with the same fields and evidence limits. Read the model and accumulated session token totals. Exact fields can vary by CLI version and model. This is session evidence, not a receipt for only the last request, the current context-window gauge, an account-period invoice, or ROI evidence. Use six minutes for the demonstration and four minutes to identify one supported interpretation and one evidence limit.
 
 Transition: Apply that discipline to Build the Usage and Cost Starting Point.
 
 Audience question: Which missing field would stop you from using this record for a decision?
 
-Response guidance: If the session total is attributed only to the last request, say, “The command reports accumulated session work; start a clean session for a clearer demonstration, and still state the scope.” If someone asks for dollars, say, “Use the applicable account and billing evidence; do not infer money from an unlabeled token field.”
+Response guidance: If the live path is unavailable, switch to the labeled synthetic receipt rather than asking a participant to sign in. If the session total is attributed only to the last request, say, “The command reports accumulated session work; start a clean session for a clearer demonstration, and still state the scope.” If someone asks for dollars, say, “Use the applicable account and billing evidence; do not infer money from an unlabeled token field.”
 
 Payoff: Participants interpret one receipt and state its evidence limit.
 
@@ -886,7 +887,7 @@ class: mc
 
 # Model Choice Demonstration
 
-<div class="mc-meta"><span>S21 · Candidate demonstration</span><span>13:00–13:06 · 6 min</span></div>
+<div class="mc-meta"><span>S21 · Selected native demonstration</span><span>13:00–13:06 · 6 min</span></div>
 
 ::text::
 
@@ -904,7 +905,7 @@ class: mc
 <!--
 Timebox: 6 minutes
 
-Talk track: Which choice offers better expected value for the same task? Match complexity, required context, risk, validation effort, and expected value. Compare only choices approved and available at delivery time. Lowest use is not automatically best value. This is a candidate teaching role, not a selected demo. Use the full six minutes to frame a fair comparison without naming current models, prices, or availability.
+Talk track: Which choice offers better expected value for the same task? Match complexity, required context, risk, validation effort, and expected value. Compare only choices approved and available at delivery time. Lowest use is not automatically best value. This selected native synthetic demonstration frames a fair comparison without naming current models, prices, or availability. Use the full six minutes.
 
 Transition: Apply the criteria in Model Choice Practice and Evidence Review.
 
@@ -969,7 +970,7 @@ class: mc
 
 # Context Selection Demonstration
 
-<div class="mc-meta"><span>S23 · Candidate demonstration</span><span>13:15–13:21 · 6 min</span></div>
+<div class="mc-meta"><span>S23 · Selected native demonstration</span><span>13:15–13:21 · 6 min</span></div>
 
 ::text::
 
@@ -1054,7 +1055,7 @@ class: mc
 
 # Tool-and-Permission Demonstration
 
-<div class="mc-meta"><span>S25 · Candidate demonstration</span><span>13:30–13:36 · 6 min</span></div>
+<div class="mc-meta"><span>S25 · Selected native safety demonstration</span><span>13:30–13:36 · 6 min</span></div>
 
 ::text::
 
@@ -1072,7 +1073,7 @@ class: mc
 <!--
 Timebox: 6 minutes
 
-Talk track: What is the least access needed for this bounded task? Give the service only the tools, data, permissions, and time needed. Name the human check and stop before an unapproved action. This is a candidate teaching role, not a selected live demo. Use the six minutes to compare broad access with needed access without taking action or claiming a specific current control.
+Talk track: What is the least access needed for this bounded task? Give the service only the tools, data, permissions, and time needed. Name the human check and stop before an unapproved action. This selected non-interactive native safety sequence compares broad access with needed access without taking action or claiming a specific current control. Use the full six minutes.
 
 Transition: Record the controlled result in Tool-and-Permission Practice and Evidence Review.
 

@@ -29,18 +29,18 @@ separate human decisions.
 | 13 | U01 | Break | 15 | 10:30-10:45 | section | mission-control-source.md#u01-break | — | Full protected break |
 | 14 | S13 | What Enters the Next Prediction | 10 | 10:45-10:55 | two-panel | mission-control-source.md#s13-what-enters-the-next-prediction | — | Request-input map |
 | 15 | S14 | Context Window: What Competes for Space | 10 | 10:55-11:05 | single-panel | mission-control-source.md#s14-context-window-what-competes-for-space | — | Context rule |
-| 16 | S15 | Read the Usage Receipt | 10 | 11:05-11:15 | two-panel | mission-control-source.md#s15-read-the-usage-receipt | Facilitator-led Copilot CLI `/usage` demonstration | Receipt interpretation |
+| 16 | S15 | Read the Usage Receipt | 10 | 11:05-11:15 | two-panel | mission-control-source.md#s15-read-the-usage-receipt | Selected facilitator CLI demonstration; synthetic receipt fallback | Receipt interpretation |
 | 17 | S16 | Build the Usage and Cost Starting Point | 15 | 11:15-11:30 | single-panel | mission-control-source.md#s16-build-the-usage-and-cost-starting-point | Lead P3/P6; Evidence P4/P7/P2; Review P1/P5; Decide P6 | Usage/cost starting point |
 | 18 | S17 | Governance Fundamentals | 10 | 11:30-11:40 | single-panel | mission-control-source.md#s17-governance-fundamentals | — | Governance roles/objects |
 | 19 | S18 | How Do Others Enforce Governance? | 10 | 11:40-11:50 | single-panel | mission-control-source.md#s18-how-do-others-enforce-governance | — | Enforcement distinction |
 | 20 | S19 | Enforcement Scope – How to Enforce | 10 | 11:50-12:00 | single-panel | mission-control-source.md#s19-enforcement-scope-how-to-enforce | — | Enforcement sequence |
 | 21 | S20 | Transparent Enforcement Prioritization | 15 | 12:00-12:15 | single-panel | mission-control-source.md#s20-transparent-enforcement-prioritization | Lead P5/P3; Evidence P4/P2; Review P6/P7; Decide P1/P5 | Control map |
 | 22 | U02 | Lunch | 45 | 12:15-13:00 | section | mission-control-source.md#u02-lunch | — | Full protected lunch |
-| 23 | S21 | Model Choice Demonstration | 6 | 13:00-13:06 | two-panel | mission-control-source.md#s21-model-choice-demonstration | Candidate only; selection pending | Comparison criteria |
+| 23 | S21 | Model Choice Demonstration | 6 | 13:00-13:06 | two-panel | mission-control-source.md#s21-model-choice-demonstration | Selected native synthetic demonstration | Comparison criteria |
 | 24 | S22 | Model Choice Practice and Evidence Review | 9 | 13:06-13:15 | two-panel | mission-control-source.md#s22-model-choice-practice-and-evidence-review | Lead P2/P4; Evidence P3/P7; Review P5/P6; Decide P1/P2 | Comparison record 1 |
-| 25 | S23 | Context Selection Demonstration | 6 | 13:15-13:21 | two-panel | mission-control-source.md#s23-context-selection-demonstration | Candidate only; selection pending | Comparison criteria |
+| 25 | S23 | Context Selection Demonstration | 6 | 13:15-13:21 | two-panel | mission-control-source.md#s23-context-selection-demonstration | Selected native synthetic demonstration | Comparison criteria |
 | 26 | S24 | Context Selection Practice and Evidence Review | 9 | 13:21-13:30 | two-panel | mission-control-source.md#s24-context-selection-practice-and-evidence-review | Lead P2/P4; Evidence P3/P7; Review P5/P6; Decide P1/P2 | Comparison record 2 |
-| 27 | S25 | Tool-and-Permission Demonstration | 6 | 13:30-13:36 | two-panel | mission-control-source.md#s25-tool-and-permission-demonstration | Candidate only; selection pending | Comparison criteria |
+| 27 | S25 | Tool-and-Permission Demonstration | 6 | 13:30-13:36 | two-panel | mission-control-source.md#s25-tool-and-permission-demonstration | Selected non-interactive native safety sequence | Comparison criteria |
 | 28 | S26 | Tool-and-Permission Practice and Evidence Review | 9 | 13:36-13:45 | two-panel | mission-control-source.md#s26-tool-and-permission-practice-and-evidence-review | Lead P2/P4; Evidence P3/P7; Review P5/P6; Decide P1/P5 | Comparison record 3 |
 | 29 | S27 | Choose the Funding Purpose | 9 | 13:45-13:54 | single-panel | mission-control-source.md#s27-choose-the-funding-purpose | Lead P6/P1; Evidence P3/P7; Review P2/P4/P5; Decide P6 | Funding purpose |
 | 30 | S28 | Choose Central Funding, Showback, or Chargeback | 9 | 13:54-14:03 | single-panel | mission-control-source.md#s28-choose-central-funding-showback-or-chargeback | Lead P6; Evidence P3/P7; Review P1/P2/P4/P5; Decide P6/P1 | Funding/reporting approach |
@@ -132,11 +132,13 @@ content. The released opening image may be reused unchanged. No governance
 screenshot pixels, confidential footer, source template, original branding,
 fake UI, new character artwork, or generated media is permitted.
 
-S15 and S21-S26 describe candidate teaching/demo roles only. No demo is
-selected. Current pricing, entitlements, quotas, model availability, controls,
-and enforcement behavior require future current sourcing.
+S15 is the selected facilitator-led CLI demonstration with a clearly labeled
+synthetic receipt fallback. S21, S23, and S25 are selected native synthetic
+treatments and require no live product environment. Current pricing,
+entitlements, quotas, model availability, controls, and enforcement behavior
+require future current sourcing.
 
-The existing 22-slide deck is expected to mismatch this candidate contract
-until a later approved Producer handoff. This candidate does not authorize deck
-implementation, media, paid action, push, pull request, release, deployment,
-publication, or claims of human approval.
+D02 and D03 authorized bounded implementation, and D11 accepted the integrated
+deck. Those decisions do not authorize future content changes, media, paid
+action, push, pull request, release, deployment, publication, or participant
+outcome claims.
