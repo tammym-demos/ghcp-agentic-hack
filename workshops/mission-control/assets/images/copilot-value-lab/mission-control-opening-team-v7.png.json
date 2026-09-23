@@ -12,11 +12,6 @@
   "location": "assets/images/copilot-value-lab/mission-control-opening-team-v7.png",
   "width": 1248,
   "height": 832,
-  "inputReference": {
-    "path": "generated/candidates/mission-control/copilot-value-lab/2026-09-14-opening-team-v6/images/mission-control-opening-team-v6-fe1517a802ec.png",
-    "hash": "fa010787c3284df26eed2a38d7da100b7e28dc4602d414495d72c589c11359eb",
-    "contentType": "image/png"
-  },
   "generationAuthorization": {
     "initiative": "mission-control-opening-team-image",
     "envelopeId": "mc-opening-team-v7-edit",

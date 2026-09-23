@@ -91,6 +91,43 @@ describe("exact media work envelopes", () => {
     await authorizedAction(f.requests[0]!, async () => undefined, f.roots);
     await expect(authorizedAction(f.requests[1]!, vi.fn(), f.roots)).rejects.toThrow("sample awaits");
   });
+  it("allows only the explicitly approved pending sample batch", async () => {
+    const f = await fixture(3);
+    await authorizationFixture(f.roots, f.requests, {
+      sampleStatus: "pending",
+      limits: { maxActions: 3, maxProviderCalls: 3, maxCandidates: 3, sampleBatchSize: 2 }
+    });
+    const provider = vi.fn(async () => "candidate");
+    await expect(authorizedAction(f.requests[0]!, provider, f.roots)).resolves.toBe("candidate");
+    await expect(authorizedAction(f.requests[1]!, provider, f.roots)).resolves.toBe("candidate");
+    await expect(authorizedAction(f.requests[2]!, provider, f.roots))
+      .rejects.toThrow("outside the pending image sample batch");
+    expect(provider).toHaveBeenCalledTimes(2);
+  });
+  it("distinguishes an ungrouped paid action from an exhausted sample batch", async () => {
+    const f = await fixture(2);
+    await authorizationFixture(f.roots, f.requests, {
+      limits: { maxActions: 2, maxProviderCalls: 2, maxCandidates: 2, sampleBatchSize: 1 },
+      sampleStatus: "pending"
+    });
+    const provider = vi.fn();
+    await expect(authorizedAction(f.requests[1]!, provider, f.roots))
+      .rejects.toThrow("outside the pending image sample batch");
+    expect(provider).not.toHaveBeenCalled();
+  });
+  it("stops an approved sample batch after an uncertain submission", async () => {
+    const f = await fixture(2);
+    await authorizationFixture(f.roots, f.requests, {
+      sampleStatus: "pending",
+      limits: { maxActions: 2, maxProviderCalls: 2, maxCandidates: 2, sampleBatchSize: 2 }
+    });
+    await expect(authorizedAction(f.requests[0]!, async () => {
+      throw new Error("provider outcome unknown");
+    }, f.roots)).rejects.toThrow("provider outcome unknown");
+    const provider = vi.fn();
+    await expect(authorizedAction(f.requests[1]!, provider, f.roots)).rejects.toThrow("Uncertain");
+    expect(provider).not.toHaveBeenCalled();
+  });
   it("does not clear stale locks after a crash", async () => {
     const f = await fixture();
     await mkdir(path.join(f.roots.candidatesRoot, "demo", "module", "cycle", "authorizations", ".reservation-lock"), { recursive: true });

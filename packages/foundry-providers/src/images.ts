@@ -94,6 +94,7 @@ export class MaiImageProvider implements ImageProvider {
   readonly name: MaiImageProviderName;
   private readonly endpoint = requiredEnvironment("FOUNDRY_MAI_IMAGE_ENDPOINT");
   private readonly deployment = requiredEnvironment("FOUNDRY_MAI_IMAGE_DEPLOYMENT");
+  private readonly scope = maiImageScope(this.endpoint);
 
   constructor(name: MaiImageProviderName = "mai-image-2.5") {
     this.name = name;
@@ -107,7 +108,7 @@ export class MaiImageProvider implements ImageProvider {
     const body = createMaiImageRequestBody(request, this.deployment);
     const response = await foundryRequest<OpenAiImageResponse>(
       this.endpoint,
-      "https://cognitiveservices.azure.com/.default",
+      this.scope,
       request.inputReference ? "mai/v1/images/edits" : "mai/v1/images/generations",
       {
         method: "POST",
@@ -125,6 +126,16 @@ export class MaiImageProvider implements ImageProvider {
       revisedPrompt: image.revised_prompt
     };
   }
+}
+
+export function maiImageScope(endpoint: string): string {
+  const path = new URL(endpoint).pathname.replace(/\/+$/, "");
+  if (path.includes("/api/projects/")) {
+    throw new Error(
+      "MAI image generation requires the resource endpoint; Foundry project endpoints do not expose the MAI image route"
+    );
+  }
+  return "https://cognitiveservices.azure.com/.default";
 }
 
 export function createMaiImageRequestBody(

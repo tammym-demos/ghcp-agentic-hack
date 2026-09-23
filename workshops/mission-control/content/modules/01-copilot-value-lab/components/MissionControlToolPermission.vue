@@ -15,7 +15,7 @@
       <div class="mc-tool-permission-animation__stop">
         <b>Stop before an unapproved action.</b>
       </div>
-      <p>Candidate teaching role only. No live action or current-control claim.</p>
+      <p>Selected native safety sequence. No live action or current-control claim.</p>
     </div>
   </NativeAnimationStage>
 </template>

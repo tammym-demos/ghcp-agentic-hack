@@ -21,10 +21,5 @@
     "scope": "Exact accepted raster promotion and local production slide18 adoption; no release or deployment",
     "evidence": "content/production/decision-log.md#2026-09-07--corrected-manufacturing-proof-accepted-and-production-adoption-approved"
   },
-  "inputReferenceNote": "Historical repository-relative candidate path and original image hash only; not a delivery/build dependency. Narrower reference remains local history and is not promoted.",
-  "inputReference": {
-    "path": "generated/candidates/ghcp-dev-hack/foundations/2026-09-07-funnel-snapshot/images/foundations-context-funnel-cartoon-snapshot-v1-b5cae19f51f4.png",
-    "hash": "e7f87ef636b2ebfe2ca412f760db181189474b016dc185a79f61385335f2d3d7",
-    "contentType": "image/png"
-  }
+  "inputReferenceNote": "Historical repository-relative candidate path and original image hash only; not a delivery/build dependency. Narrower reference remains local history and is not promoted."
 }

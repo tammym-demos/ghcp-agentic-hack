@@ -690,6 +690,23 @@ export const generatedAssetSchema = z.object({
     .optional()
 });
 
+export const localDeterministicImageSchema = z.object({
+  schemaVersion: z.literal(1),
+  id,
+  kind: z.literal("local-deterministic-image"),
+  source: relativePath,
+  createdAt: z.string().datetime(),
+  reviewStatus: z.literal("approved"),
+  location: relativePath,
+  sha256: z.string().regex(/^[a-f0-9]{64}$/),
+  width: z.number().int().positive(),
+  height: z.number().int().positive(),
+  sourceCandidateSha256: z.string().regex(/^[a-f0-9]{64}$/),
+  transformManifestSha256: z.string().regex(/^[a-f0-9]{64}$/),
+  candidateAcceptanceDecision: id,
+  publicationDecision: id
+});
+
 export type Workshop = z.infer<typeof workshopSchema>;
 export type DeliveryVariant = z.infer<typeof deliveryVariantSchema>;
 export type Module = z.infer<typeof moduleSchema>;
@@ -703,3 +720,4 @@ export type ComplexTopicPlan = z.infer<typeof complexTopicPlanSchema>;
 export type ReleaseManifest = z.infer<typeof releaseManifestSchema>;
 export type ProductionState = z.infer<typeof productionStateSchema>;
 export type GeneratedAsset = z.infer<typeof generatedAssetSchema>;
+export type LocalDeterministicImage = z.infer<typeof localDeterministicImageSchema>;
