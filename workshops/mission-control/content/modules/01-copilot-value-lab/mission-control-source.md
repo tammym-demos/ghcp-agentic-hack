@@ -20,9 +20,9 @@ future current sourcing and approval. Unknown evidence stays unknown.
 
 The four governance reference images are authoring inputs only. The owner
 reports source-owner permission to reuse and restyle their visible teaching
-copy; this is owner-attested and not independent legal verification. S17-S20
+copy; this is owner-attested and not independent legal verification. S19-S22
 transcribe that copy as native text. They exclude the confidential footer,
-original template and branding, and screenshot pixels. S20 omits the directed
+original template and branding, and screenshot pixels. S22 omits the directed
 phrase from its title. Explanations and limits are source notes, not changes to
 the approved visible teaching copy.
 
@@ -81,20 +81,20 @@ Use these terms before relying on shorthand:
 | Time | Minutes | Segment | Slides |
 | --- | ---: | --- | --- |
 | 09:00-09:30 | 30 | Mission briefing | S01-S04 |
-| 09:30-10:30 | 60 | ROI fundamentals | S05-S12 |
+| 09:30-10:30 | 60 | ROI fundamentals | S05-S14 |
 | 10:30-10:45 | 15 | Break | U01 |
-| 10:45-11:30 | 45 | Usage and economics evidence | S13-S16 |
-| 11:30-12:15 | 45 | Governance and controls | S17-S20 |
+| 10:45-11:30 | 45 | Usage and economics evidence | S15-S18 |
+| 11:30-12:15 | 45 | Governance and controls | S19-S22 |
 | 12:15-13:00 | 45 | Lunch | U02 |
-| 13:00-13:45 | 45 | Guided optimization lab | S21-S26 |
-| 13:45-14:15 | 30 | Investment and portfolio decisions | S27-S29 |
+| 13:00-13:45 | 45 | Guided optimization lab | S23-S28 |
+| 13:45-14:15 | 30 | Investment and portfolio decisions | S29-S31 |
 | 14:15-14:30 | 15 | Break | U03 |
-| 14:30-15:15 | 45 | Enterprise operating model | S30-S33 |
-| 15:15-16:00 | 45 | Prove ROI | S34-S38 |
-| 16:00-16:30 | 30 | 30/60/90 action plan | S39-S40 |
-| 16:30-17:00 | 30 | Pilot decision and executive readout | S41-S42 |
+| 14:30-15:15 | 45 | Enterprise operating model | S32-S35 |
+| 15:15-16:00 | 45 | Prove ROI | S36-S40 |
+| 16:00-16:30 | 30 | 30/60/90 action plan | S41-S42 |
+| 16:30-17:00 | 30 | Pilot decision and executive readout | S43-S44 |
 
-The 42 workshop slides contain 171 instruction minutes and 234 protected
+The 44 workshop slides contain 171 instruction minutes and 234 protected
 participant-work minutes: 171 + 234 = **405**. U01/U02/U03 contain
 15 + 45 + 15 = **75** break/lunch minutes. Total elapsed time is
 405 + 75 = **480 minutes**, continuously 09:00-17:00. Mission, media playback,
@@ -103,33 +103,44 @@ separate setup/transition, and contingency budgets are zero.
 ## Reuse inventory and native-text boundary
 
 - **Released Mission Control:** opening identity (S01), mission brief (S04),
-  capacity/leverage and completion concepts (S06-S08), four ROI paths and
-  limiting factors (S09-S11), investment approach (S27), pilot scorecard and
-  gates (S36-S38), and final readout (S41-S42).
-- **Released Foundations:** `What Enters the Next Prediction` (S13), `Context
-  Window: What Competes for Space` (S14), `Read the Usage Receipt` (S15),
-  `Model Routing: Match the Task` (S21), and `Least-Privilege Delegation`
-  (S25). Reuse approved source and editable treatment, not screenshot pixels.
+  completion and leverage-loss concepts (S10-S11), ROI path matching and
+  limiting factors (S12-S13), investment approach (S29), pilot scorecard and
+  gates (S38-S40), and final readout (S43-S44).
+- **Owner-supplied Engineering Value deck, reference only:** Matt Gunter
+  supplied "Intro to Engineering Value with GitHub and AI" on 2026-09-22 as
+  the teaching source for S06 (its slides 2-5), S07 (slide 6), S08 (slide 7),
+  and S09 (slide 8). Its concepts and wording are rebuilt as native editable
+  content in the Mission Control treatment. Its screenshot pixels, dark
+  template, emoji artwork, and the unsourced dollar value estimate on its
+  slide 5 are excluded. Reuse permission is owner-attested, not independently
+  verified.
+- **Released Foundations:** `What Enters the Next Prediction` (S15), `Context
+  Window: What Competes for Space` (S16), `Read the Usage Receipt` (S17),
+  `Model Routing: Match the Task` (S23), and `Least-Privilege Delegation`
+  (S27). Reuse approved source and editable treatment, not screenshot pixels.
 - **Rejected 39-slide work, optional and bounded:** facts/assumptions/unknowns
-  (S12, S16, S22, S24, S26, S35); starting-evidence worksheet (S16);
-  capability-versus-policy and control-map activity (S17-S20); fictional
-  comparison structure (S21-S26); operating charter and stress test (S30-S33);
-  and 30/60/90 structure (S39-S40). None inherits approval.
+  (S14, S18, S24, S26, S28, S37); starting-evidence worksheet (S18);
+  capability-versus-policy and control-map activity (S19-S22); fictional
+  comparison structure (S23-S28); operating charter and stress test (S32-S35);
+  and 30/60/90 structure (S41-S42). None inherits approval.
 
 All titles, labels, formulas, tables, prompts, and diagrams are native editable
 text/HTML/SVG in any later implementation. Preserve the released opening image
 unchanged. Do not create new character artwork, generated media, fake product
 screens, generated typography, or screenshot-based slides.
 
-## Candidate teaching/demo boundary
+## Teaching/demo boundary
 
-S15 and S21-S26 define candidate facilitator-led teaching or demo roles and the
-decision each could support. They are recommendations, not selected production
-demos. Before production, a human must choose each demo, its teaching point,
-synthetic data and calculations, facilitation mode, minutes, sourcing limits,
-fallback, and whether a real environment is necessary. The default candidate
-uses clearly labeled synthetic evidence in native editable content and works
-without a network or participant account.
+S17 is the selected facilitator-led GitHub Copilot CLI `/usage` demonstration.
+The live path requires the facilitator to verify an authenticated CLI and
+network connection before delivery; participants still require no account,
+repository, coding environment, or network connection. If the facilitator path
+is unavailable, use a clearly labeled synthetic `/usage` receipt with the same
+fields and evidence limits.
+
+S23, S25, and S27 use the selected native synthetic treatments. They require no
+live product environment and make no claims about current model availability,
+controls, prices, quotas, or measured improvement.
 
 <a id="s01-mission-control-ai-development-governance-and-value-realization"></a>
 
@@ -213,7 +224,7 @@ Output: one mission brief and central investment decision.
 
 ## S05 From Investment to Value
 
-**09:30-09:37, 7 minutes: 4 instruction, 3 participant work.**
+**09:30-09:36, 6 minutes: 3 instruction, 3 participant work.**
 
 Visible teaching copy:
 
@@ -230,29 +241,153 @@ may be useful context, but none proves value alone.
 
 Output: one current measure classified without overclaiming it.
 
-<a id="s06-capacity-is-not-leverage"></a>
+<a id="s06-the-leverage-rectangle"></a>
 
-## S06 Capacity Is Not Leverage
+## S06 The Leverage Rectangle
 
-**09:37-09:44, 7 minutes: 4 instruction, 3 participant work.**
+**09:36-09:43, 7 minutes: 5 instruction, 2 participant work.**
+
+Source: owner-supplied Engineering Value deck, slides 2-5. Presenter-advanced
+native build in four beats on one fixed chart: **Business outcomes** (vertical)
+by **Developer time spent** (horizontal).
+
+Visible teaching copy, by beat:
+
+1. **Existing SDLC capacity** is a rectangle with a diagonal.
+   > **Leverage = slope of the diagonal.**
+   > A steeper diagonal means more business outcomes per unit of developer
+   > time.
+   > Today's process sets the slope: outcomes delivered for the developer time
+   > spent.
+2. **IDE AI** and **Platform AI** appear inside the rectangle, labeled
+   **Basic AI improvements**.
+   > Basic AI improvements free developer time inside the existing SDLC. On
+   > their own, the diagonal barely changes.
+3. **Automation**, **Compliance**, and **Coordination** appear, labeled
+   **Process & decision-making improvements**, with a dashed
+   **Improved leverage?** rectangle and a steeper diagonal.
+   > Process and decision-making improvements are what let freed time become
+   > more outcomes. That is where the slope can rise.
+4. The existing rectangle narrows as the improvements take effect, the
+   improvements are grouped outside it, and a higher **Achievable leverage**
+   rectangle appears with the steepest diagonal.
+   > **Journey of improvement:** 1. Standardization and streamlining ·
+   > 2. Efficient automation lifecycle · 3. Efficient policy compliance
+   > lifecycles · 4. Collaboration and reuse · 5. Low-cost improvement of
+   > codebases, apps, processes, and systems (AI, automation, modernization)
+
+The leverage definition stays visible in every beat. The chart is labeled
+**Conceptual model — not measured data or a promised result.** The dollar
+estimate on the source slide is excluded. Reduced motion shows each beat's
+resting state without transitions.
+
+Output: shared language for leverage as outcomes per unit of developer time.
+
+<a id="s07-four-ai-roi-paths-and-what-must-be-true-for-each"></a>
+
+## S07 Four AI ROI Paths — and What Must Be True for Each
+
+**09:43-09:49, 6 minutes: 4 instruction, 2 participant work.**
+
+Source: owner-supplied Engineering Value deck, slide 6.
 
 Visible teaching copy:
 
-> Attempted work ≠ completed work
-> Delegated work ≠ accepted outcome
-> **Developer leverage = completed work / developer hours**
+> Each path converts AI-created capacity differently. The more ambitious the
+> ROI outcome, the more contingencies must be satisfied.
 
-The numerator uses the mission's completion boundary. The denominator is human
-developer time, not AI usage. Participants name one activity measure that must
-not be mistaken for leverage.
+| Path | 1. Task efficiency | 2. Decision making | 3. Process | 4. Individual scope | 5. Compounding by improving all 4 | ROI outcome |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | Reduced task effort or risk | Reduce required task hours | Capacity can be removed from the process | — | — | **Labor efficiency:** same output, leverage from fewer human hours. Primary limiting factor: unimprovable work. |
+| 2 | Reduced task effort or risk | Reduce cycle time | Task efficiency becomes cycle efficiency | — | — | **Higher throughput:** same process, leverage from more completed work. Primary limiting factor: unimprovable structure. |
+| 3 | Reduced task effort or risk | Reduce handoffs and coordination | Individuals expand scope and complete more of the outcome | Expand outcomes individuals own | — | **Expanded ownership:** individual leverage increases the outcomes they own. Primary limiting factor: unimprovable scope. |
+| 4 | Reduced task effort or risk | Choose new improvements to boost existing improvements | Improvements are combined iteratively | Ownership and available paths expand | Improvement is measured, maintained, confirmed | **Compounding leverage:** today's capacity improves tomorrow's possibilities. Primary limiting factor: learning and adaptability. |
 
-Output: an agreed leverage definition and one non-value activity measure.
+Paths run from easier to harder to achieve. They are hypotheses, not
+guaranteed results. Participants name the path that best fits their mission.
 
-<a id="s07-define-the-completion-boundary"></a>
+Output: shared language for four ROI paths and their contingencies.
 
-## S07 Define the Completion Boundary
+<a id="s08-ai-creates-capacity-faster-than-it-creates-leverage"></a>
 
-**09:44-09:51, 7 minutes: 4 instruction, 3 participant work.**
+## S08 AI Creates Capacity Faster Than It Creates Leverage
+
+**09:49-09:54, 5 minutes: 3 instruction, 2 participant work.**
+
+Source: owner-supplied Engineering Value deck, slide 7.
+
+Visible teaching copy:
+
+> AI capacity can rise rapidly, while developer leverage rises only when that
+> capacity converts into more completed work per developer hour.
+
+An illustrative indexed chart over **Human only · AI assistance · Interactive
+agents · Autonomous agents** shows: **Dev hours** (relatively fixed), **AI
+capacity** (usage, tokens, work attempted), **Dev leverage** (completed work
+per developer hour), and scope-level leverage at **LOC**, **PR**, and **Story**
+boundaries. Annotation: larger completion scope reflects more review,
+coordination, and SDLC overhead.
+
+> **Reading the curves**
+> **AI capacity:** work that can be attempted or delegated.
+> **Dev leverage:** rises only when AI capacity converts into more completed
+> work per developer hour.
+> **Scope matters:** as scope increases from LOC to PR to story, realized
+> leverage is increasingly affected by structure, efficiency, rework, risk,
+> coordination, dependencies, and other SDLC overhead.
+> **Developer leverage = completed work ÷ developer hours**
+> AI usage and output are not the same as leverage.
+
+Label the chart **Illustrative shape, not measured data.** It sets
+expectations for impact at different completion boundaries; it is not a
+forecast. Participants say which boundary their current evidence measures.
+
+Output: an expectation for impact at the selected completion boundary.
+
+<a id="s09-four-ways-the-sdlc-can-absorb-time-savings"></a>
+
+## S09 Four Ways the SDLC Can Absorb Time Savings
+
+**09:54-10:00, 6 minutes: 4 instruction, 2 participant work.**
+
+Source: owner-supplied Engineering Value deck, slide 8.
+
+Visible teaching copy:
+
+> **AI makes tasks more efficient — time-boxed view.** Within a fixed time
+> box, saved time becomes more **productive time** by default. Less
+> **delay**, **cost**, and **risk** are alternative gains that require
+> awareness.
+
+| Where savings go | Developers and output | Process effect |
+| --- | --- | --- |
+| Fewer devs, same output | fewer developers, same output | Process is unaffected |
+| Same devs, features per cycle ↑ | same developers, more features | Process benefits 1× |
+| Same devs, investments per cycle ↑ | same developers, more investments | Process benefits 2× |
+| Same devs, more cycles | same developers, more cycles and overhead | Process suffers |
+
+The native layout keeps the source's compass geometry around the time-boxed
+centre: north is **Fewer devs, same output** beside **Process is
+unaffected**; west is **Same devs, features per cycle ↑** above **Process
+benefits 1×**; east is **Same devs, investments per cycle ↑** above
+**Process benefits 2×**; south is **Same devs, more cycles** beside
+**Process suffers**. Dotted diagonal rays run from the centre's corners to
+the slide corners. The presenter builds the slide in five states: the centre
+alone, then north, south, west and east on successive clicks, each keeping
+earlier paths visible. Capacity and overhead meters are relative only: a
+dashed outline marks the pre-AI baseline and the solid bar shows whether the
+share stays the same, grows (arrow) or shrinks; they carry no scale or
+measured values. Decorative developer and work-item marks replace the source
+emoji. Visible prompt: **Where is your saved time likely to go today?**
+Participants name where their saved time is likely to go.
+
+Output: a named default absorption path and the awareness needed to redirect it.
+
+<a id="s10-define-the-completion-boundary"></a>
+
+## S10 Define the Completion Boundary
+
+**10:00-10:05, 5 minutes: 2 instruction, 3 participant work.**
 
 Visible teaching copy:
 
@@ -265,11 +400,11 @@ the current and pilot boundaries.
 
 Output: a selected completion boundary and acceptance evidence.
 
-<a id="s08-find-where-leverage-is-lost"></a>
+<a id="s11-find-where-leverage-is-lost"></a>
 
-## S08 Find Where Leverage Is Lost
+## S11 Find Where Leverage Is Lost
 
-**09:51-09:58, 7 minutes: 4 instruction, 3 participant work.**
+**10:05-10:10, 5 minutes: 2 instruction, 3 participant work.**
 
 Visible teaching copy:
 
@@ -282,29 +417,11 @@ one local example into a general product claim.
 
 Output: a leverage-loss map with one prioritized constraint.
 
-<a id="s09-four-paths-to-ai-roi"></a>
+<a id="s12-match-the-path-to-the-outcome"></a>
 
-## S09 Four Paths to AI ROI
+## S12 Match the Path to the Outcome
 
-**09:58-10:05, 7 minutes: 4 instruction, 3 participant work.**
-
-Visible teaching copy:
-
-> **Labor efficiency:** less effort for the same accepted outcome
-> **Higher throughput:** more accepted outcomes through the same system
-> **Expanded ownership:** more work a person or team can responsibly complete
-> **Compounding capability:** reusable learning, patterns, evaluation, or
-> operating capability that improves later work
-
-These are hypotheses, not guaranteed results.
-
-Output: shared language for four ROI paths.
-
-<a id="s10-match-the-path-to-the-outcome"></a>
-
-## S10 Match the Path to the Outcome
-
-**10:05-10:12, 7 minutes: 3 instruction, 4 participant work.**
+**10:10-10:16, 6 minutes: 2 instruction, 4 participant work.**
 
 Visible teaching copy:
 
@@ -318,11 +435,11 @@ Responsibility: **Lead P1/P2 · Evidence P6/P7 · Review P4/P5 · Decide P1**.
 
 Output: primary and secondary ROI paths with evidence rationale.
 
-<a id="s11-name-the-limiting-factor"></a>
+<a id="s13-name-the-limiting-factor"></a>
 
-## S11 Name the Limiting Factor
+## S13 Name the Limiting Factor
 
-**10:12-10:19, 7 minutes: 4 instruction, 3 participant work.**
+**10:16-10:21, 5 minutes: 2 instruction, 3 participant work.**
 
 Visible teaching copy:
 
@@ -331,16 +448,17 @@ Visible teaching copy:
 > Organizational learning/adaptability**
 > What evidence would show that the limit moved?
 
-A limiting factor is a testable diagnosis, not permission to remove necessary
-human or governance work.
+These map to the primary limiting factors on S07. A limiting factor is a
+testable diagnosis, not permission to remove necessary human or governance
+work.
 
 Output: one limiting factor, rationale, and evidence need.
 
-<a id="s12-state-the-roi-hypothesis-and-limits"></a>
+<a id="s14-state-the-roi-hypothesis-and-limits"></a>
 
-## S12 State the ROI Hypothesis and Limits
+## S14 State the ROI Hypothesis and Limits
 
-**10:19-10:30, 11 minutes: 4 instruction, 7 participant work.**
+**10:21-10:30, 9 minutes: 4 instruction, 5 participant work.**
 
 Visible teaching copy:
 
@@ -369,9 +487,9 @@ Release the room for the full break. No homework or required discussion.
 
 Output: the full protected break.
 
-<a id="s13-what-enters-the-next-prediction"></a>
+<a id="s15-what-enters-the-next-prediction"></a>
 
-## S13 What Enters the Next Prediction
+## S15 What Enters the Next Prediction
 
 **10:45-10:55, 10 minutes: 6 instruction, 4 participant work.**
 
@@ -387,9 +505,9 @@ approved service and configuration; do not imply a universal product pipeline.
 
 Output: one request mapped into known and unknown inputs.
 
-<a id="s14-context-window-what-competes-for-space"></a>
+<a id="s16-context-window-what-competes-for-space"></a>
 
-## S14 Context Window: What Competes for Space
+## S16 Context Window: What Competes for Space
 
 **10:55-11:05, 10 minutes: 6 instruction, 4 participant work.**
 
@@ -405,9 +523,9 @@ product limit.
 
 Output: one relevant-context rule and one removal candidate.
 
-<a id="s15-read-the-usage-receipt"></a>
+<a id="s17-read-the-usage-receipt"></a>
 
-## S15 Read the Usage Receipt
+## S17 Read the Usage Receipt
 
 **11:05-11:15, 10 minutes: 6 instruction, 4 participant work.**
 
@@ -428,15 +546,29 @@ Selected facilitator demonstration:
    context-window occupancy, an account-period invoice, ROI evidence, or proof
    that one request caused the full session total.
 
+If the live path is unavailable, display the native offline fallback labeled
+**Synthetic `/usage` receipt**. Its representative accumulated session totals
+are:
+
+| Model | Input tokens | Output tokens | Session total |
+| --- | ---: | ---: | ---: |
+| `model-alpha` | 12,480 | 2,160 | 14,640 |
+| `model-beta` | 3,920 | 640 | 4,560 |
+
+For the synthetic receipt, reused-input tokens, dollar cost, quality/result,
+owner, use case, and period are **unknown**. The values are accumulated
+synthetic session totals, not evidence that one request caused the whole
+session total.
+
 Exact fields may vary with the installed CLI version and model. Missing fields
 remain unknown. Do not expose a participant's private account balance or infer
 dollar cost from fields that the CLI does not label as money.
 
 Output: one receipt interpretation and its evidence limit.
 
-<a id="s16-build-the-usage-and-cost-starting-point"></a>
+<a id="s18-build-the-usage-and-cost-starting-point"></a>
 
-## S16 Build the Usage and Cost Starting Point
+## S18 Build the Usage and Cost Starting Point
 
 **11:15-11:30, 15 minutes: 4 instruction, 11 participant work.**
 
@@ -454,9 +586,9 @@ sources; this slide supplies fields, not values.
 
 Output: a segmented usage-and-cost starting point with attribution gaps.
 
-<a id="s17-governance-fundamentals"></a>
+<a id="s19-governance-fundamentals"></a>
 
-## S17 Governance Fundamentals
+## S19 Governance Fundamentals
 
 **11:30-11:40, 10 minutes: 8 instruction, 2 participant work.**
 
@@ -483,9 +615,9 @@ explanation to the visible copy.
 
 Output: roles and governed objects identified for later application.
 
-<a id="s18-how-do-others-enforce-governance"></a>
+<a id="s20-how-do-others-enforce-governance"></a>
 
-## S18 How Do Others Enforce Governance?
+## S20 How Do Others Enforce Governance?
 
 **11:40-11:50, 10 minutes: 8 instruction, 2 participant work.**
 
@@ -509,9 +641,9 @@ present the last row as a current product claim or fill either unknown.
 Output: a distinction between constraints that operate inherently and policies
 that need owners and evidence.
 
-<a id="s19-enforcement-scope-how-to-enforce"></a>
+<a id="s21-enforcement-scope-how-to-enforce"></a>
 
-## S19 Enforcement Scope – How to Enforce
+## S21 Enforcement Scope – How to Enforce
 
 **11:50-12:00, 10 minutes: 8 instruction, 2 participant work.**
 
@@ -535,9 +667,9 @@ control. Current behavior needs current sourcing.
 
 Output: a shared enforcement sequence without an unsupported product promise.
 
-<a id="s20-transparent-enforcement-prioritization"></a>
+<a id="s22-transparent-enforcement-prioritization"></a>
 
-## S20 Transparent Enforcement Prioritization
+## S22 Transparent Enforcement Prioritization
 
 **12:00-12:15, 15 minutes: 7 instruction, 8 participant work.**
 
@@ -582,9 +714,9 @@ Release the room for the full lunch. No installation or required task.
 
 Output: the full protected lunch.
 
-<a id="s21-model-choice-demonstration"></a>
+<a id="s23-model-choice-demonstration"></a>
 
-## S21 Model Choice Demonstration
+## S23 Model Choice Demonstration
 
 **13:00-13:06, 6 minutes: 6 instruction, 0 participant work.**
 
@@ -595,16 +727,16 @@ Visible teaching copy:
 > Compare only choices approved and available at delivery time.
 > Lowest use is not automatically best value.
 
-Reuse `Model Routing: Match the Task`. Candidate teaching/demo role, not
-selected: compare two synthetic results for the same task and acceptance rules.
-Decision need: which choice offers better expected value. Current model names,
-availability, prices, and multipliers are out of scope without future sourcing.
+Reuse `Model Routing: Match the Task`. The selected native synthetic treatment
+compares two results for the same task and acceptance rules. Decision need:
+which choice offers better expected value. Current model names, availability,
+prices, and multipliers are out of scope without future sourcing.
 
 Output: criteria for a fair model-choice comparison.
 
-<a id="s22-model-choice-practice-and-evidence-review"></a>
+<a id="s24-model-choice-practice-and-evidence-review"></a>
 
-## S22 Model Choice Practice and Evidence Review
+## S24 Model Choice Practice and Evidence Review
 
 **13:06-13:15, 9 minutes: 2 instruction, 7 participant work.**
 
@@ -621,9 +753,9 @@ Responsibility: **Lead P2/P4 · Evidence P3/P7 · Review P5/P6 · Decide P1/P2**
 
 Output: controlled model-choice comparison record 1 of 3.
 
-<a id="s23-context-selection-demonstration"></a>
+<a id="s25-context-selection-demonstration"></a>
 
-## S23 Context Selection Demonstration
+## S25 Context Selection Demonstration
 
 **13:15-13:21, 6 minutes: 6 instruction, 0 participant work.**
 
@@ -634,15 +766,15 @@ Visible teaching copy:
 > Then: only context needed for the task.
 > Compare the accepted result, not context size alone.
 
-Candidate teaching/demo role, not selected: a native synthetic before/after
-could show context removal. Decision need: whether less unhelpful context
-improves time or cost without reducing completion or quality.
+The selected native synthetic before/after shows context removal while holding
+the task and acceptance rules constant. It establishes the comparison method;
+it does not claim that less context improved completion, quality, time, or cost.
 
 Output: criteria for a fair context comparison.
 
-<a id="s24-context-selection-practice-and-evidence-review"></a>
+<a id="s26-context-selection-practice-and-evidence-review"></a>
 
-## S24 Context Selection Practice and Evidence Review
+## S26 Context Selection Practice and Evidence Review
 
 **13:21-13:30, 9 minutes: 2 instruction, 7 participant work.**
 
@@ -659,9 +791,9 @@ Responsibility: **Lead P2/P4 · Evidence P3/P7 · Review P5/P6 · Decide P1/P2**
 
 Output: controlled context comparison record 2 of 3.
 
-<a id="s25-tool-and-permission-demonstration"></a>
+<a id="s27-tool-and-permission-demonstration"></a>
 
-## S25 Tool-and-Permission Demonstration
+## S27 Tool-and-Permission Demonstration
 
 **13:30-13:36, 6 minutes: 6 instruction, 0 participant work.**
 
@@ -672,16 +804,17 @@ Visible teaching copy:
 > bounded task.
 > Name the human check. Stop before an unapproved action.
 
-Reuse the released Foundations surface. Candidate teaching/demo role, not
-selected: compare a reviewable planning task with broad access and then only
-needed access; take no live action. Decision need: necessary permissions, human
-checkpoint, and stopping boundary. Do not claim a specific current control.
+Reuse the released Foundations surface. The selected non-interactive native
+safety sequence compares a reviewable planning task with broad access and then
+only needed access; it takes no live action. Decision need: necessary
+permissions, human checkpoint, and stopping boundary. Do not claim a specific
+current control.
 
 Output: criteria for a fair least-privilege comparison.
 
-<a id="s26-tool-and-permission-practice-and-evidence-review"></a>
+<a id="s28-tool-and-permission-practice-and-evidence-review"></a>
 
-## S26 Tool-and-Permission Practice and Evidence Review
+## S28 Tool-and-Permission Practice and Evidence Review
 
 **13:36-13:45, 9 minutes: 2 instruction, 7 participant work.**
 
@@ -698,9 +831,9 @@ Responsibility: **Lead P2/P4 · Evidence P3/P7 · Review P5/P6 · Decide P1/P5**
 
 Output: controlled tool/permission comparison record 3 of 3.
 
-<a id="s27-choose-the-funding-purpose"></a>
+<a id="s29-choose-the-funding-purpose"></a>
 
-## S27 Choose the Funding Purpose
+## S29 Choose the Funding Purpose
 
 **13:45-13:54, 9 minutes: 4 instruction, 5 participant work.**
 
@@ -716,9 +849,9 @@ Responsibility: **Lead P6/P1 · Evidence P3/P7 · Review P2/P4/P5 · Decide P6**
 
 Output: a funding purpose and complete cost-category checklist.
 
-<a id="s28-choose-central-funding-showback-or-chargeback"></a>
+<a id="s30-choose-central-funding-showback-or-chargeback"></a>
 
-## S28 Choose Central Funding, Showback, or Chargeback
+## S30 Choose Central Funding, Showback, or Chargeback
 
 **13:54-14:03, 9 minutes: 4 instruction, 5 participant work.**
 
@@ -733,9 +866,9 @@ Responsibility: **Lead P6 · Evidence P3/P7 · Review P1/P2/P4/P5 · Decide P6/P
 
 Output: a funding/reporting approach, owner, and review threshold.
 
-<a id="s29-rank-the-portfolio"></a>
+<a id="s31-rank-the-portfolio"></a>
 
-## S29 Rank the Portfolio
+## S31 Rank the Portfolio
 
 **14:03-14:15, 12 minutes: 3 instruction, 9 participant work.**
 
@@ -765,9 +898,9 @@ Release the room for the full break. No required decision repair.
 
 Output: the full protected break.
 
-<a id="s30-assign-recommend-decide-fund-approve-execute"></a>
+<a id="s32-assign-recommend-decide-fund-approve-execute"></a>
 
-## S30 Assign Recommend, Decide, Fund, Approve, Execute
+## S32 Assign Recommend, Decide, Fund, Approve, Execute
 
 **14:30-14:40, 10 minutes: 4 instruction, 6 participant work.**
 
@@ -782,9 +915,9 @@ named authority**.
 
 Output: first half of the operating charter with no unnamed authority.
 
-<a id="s31-assign-enable-monitor-review-renew-retire-escalate"></a>
+<a id="s33-assign-enable-monitor-review-renew-retire-escalate"></a>
 
-## S31 Assign Enable, Monitor, Review, Renew, Retire, Escalate
+## S33 Assign Enable, Monitor, Review, Renew, Retire, Escalate
 
 **14:40-14:50, 10 minutes: 4 instruction, 6 participant work.**
 
@@ -798,9 +931,9 @@ named authority**.
 
 Output: second half of the operating charter and handoffs.
 
-<a id="s32-stress-test-the-operating-model"></a>
+<a id="s34-stress-test-the-operating-model"></a>
 
-## S32 Stress-Test the Operating Model
+## S34 Stress-Test the Operating Model
 
 **14:50-15:00, 10 minutes: 4 instruction, 6 participant work.**
 
@@ -815,9 +948,9 @@ any broken handoff.
 
 Output: stress-test result and unresolved ownership gaps.
 
-<a id="s33-complete-the-ownership-and-decision-map"></a>
+<a id="s35-complete-the-ownership-and-decision-map"></a>
 
-## S33 Complete the Ownership and Decision Map
+## S35 Complete the Ownership and Decision Map
 
 **15:00-15:15, 15 minutes: 3 instruction, 12 participant work.**
 
@@ -832,9 +965,9 @@ authority**.
 
 Output: a complete operating charter with dependencies and escalation path.
 
-<a id="s34-connect-the-change-to-an-accepted-outcome"></a>
+<a id="s36-connect-the-change-to-an-accepted-outcome"></a>
 
-## S34 Connect the Change to an Accepted Outcome
+## S36 Connect the Change to an Accepted Outcome
 
 **15:15-15:23, 8 minutes: 4 instruction, 4 participant work.**
 
@@ -852,9 +985,9 @@ outcome.
 
 Output: an evidence chain from change to accepted business outcome.
 
-<a id="s35-make-the-comparison-fair"></a>
+<a id="s37-make-the-comparison-fair"></a>
 
-## S35 Make the Comparison Fair
+## S37 Make the Comparison Fair
 
 **15:23-15:31, 8 minutes: 3 instruction, 5 participant work.**
 
@@ -870,9 +1003,9 @@ the result.
 
 Output: a fair comparison design and stated limitation.
 
-<a id="s36-build-the-seven-measure-pilot-scorecard"></a>
+<a id="s38-build-the-seven-measure-pilot-scorecard"></a>
 
-## S36 Build the Seven-Measure Pilot Scorecard
+## S38 Build the Seven-Measure Pilot Scorecard
 
 **15:31-15:41, 10 minutes: 3 instruction, 7 participant work.**
 
@@ -887,9 +1020,9 @@ Responsibility: **Lead P7/P1/P6 · Evidence P2/P3/P4 · Review P5 · Decide P1**
 
 Output: a seven-measure pilot scorecard with missing evidence visible.
 
-<a id="s37-build-the-executive-scorecard"></a>
+<a id="s39-build-the-executive-scorecard"></a>
 
-## S37 Build the Executive Scorecard
+## S39 Build the Executive Scorecard
 
 **15:41-15:50, 9 minutes: 3 instruction, 6 participant work.**
 
@@ -904,9 +1037,9 @@ Responsibility: **Lead P1/P7/P6 · Evidence P2/P3/P4 · Review P5 · Decide P1/P
 
 Output: an executive scorecard mapped to the pilot evidence.
 
-<a id="s38-set-stop-revise-fund-and-scale-gates"></a>
+<a id="s40-set-stop-revise-fund-and-scale-gates"></a>
 
-## S38 Set Stop, Revise, Fund, and Scale Gates
+## S40 Set Stop, Revise, Fund, and Scale Gates
 
 **15:50-16:00, 10 minutes: 2 instruction, 8 participant work.**
 
@@ -921,9 +1054,9 @@ A scale gate cannot rely only on adoption, usage, access, or generated output.
 
 Output: owned thresholds and decision checkpoints.
 
-<a id="s39-set-the-30-60-90-review-points"></a>
+<a id="s41-set-the-30-60-90-review-points"></a>
 
-## S39 Set the 30/60/90 Review Points
+## S41 Set the 30/60/90 Review Points
 
 **16:00-16:14, 14 minutes: 3 instruction, 11 participant work.**
 
@@ -938,9 +1071,9 @@ These are review horizons, not promised result dates.
 
 Output: owned 30-, 60-, and 90-day review points.
 
-<a id="s40-sequence-the-first-actions"></a>
+<a id="s42-sequence-the-first-actions"></a>
 
-## S40 Sequence the First Actions
+## S42 Sequence the First Actions
 
 **16:14-16:30, 16 minutes: 2 instruction, 14 participant work.**
 
@@ -955,9 +1088,9 @@ each action authority**.
 
 Output: a sequenced action plan and operating/executive review dates.
 
-<a id="s41-assemble-the-pilot-decision-package"></a>
+<a id="s43-assemble-the-pilot-decision-package"></a>
 
-## S41 Assemble the Pilot Decision Package
+## S43 Assemble the Pilot Decision Package
 
 **16:30-16:44, 14 minutes: 2 instruction, 12 participant work.**
 
@@ -973,9 +1106,9 @@ and scale authorities · Decide designated authorities**.
 
 Output: a complete pilot investment package with unresolved items visible.
 
-<a id="s42-present-challenge-and-decide"></a>
+<a id="s44-present-challenge-and-decide"></a>
 
-## S42 Present, Challenge, and Decide
+## S44 Present, Challenge, and Decide
 
 **16:44-17:00, 16 minutes: 2 instruction, 14 participant work.**
 
@@ -1004,13 +1137,14 @@ this order: `Timebox:`, `Talk track:`, `Transition:`, `Audience question:`,
 Narration must use plain business language, place an answerable question early,
 provide conditional recovery language, protect participant-work time, and cite
 the row's governing repository anchor. Governance-slide explanation and limits
-must live in notes rather than rewriting S17-S20 visible copy.
+must live in notes rather than rewriting S19-S22 visible copy.
 
 ## Approval and implementation boundary
 
-This 45-slide source and its manifest are a **candidate awaiting human exact
-contract/content approval**. The existing 22-slide `slides.md` is expected to
-mismatch and remains untouched. This candidate does not authorize deck
-implementation, demo selection, media generation, character artwork, paid
-action, push, pull request, release, deployment, publication, or claims of
-teaching readiness or participant outcomes.
+D02 and D03 approved this 45-slide source and manifest for bounded local
+implementation. D06 selected the S17 facilitator demonstration; D07 accepted
+the implemented S23 treatment; D09 selected the S25 and S27 treatments; D11
+accepted the integrated animation expansion. Those decisions do not authorize
+future content changes, media generation, character artwork, paid action,
+push, pull request, release, deployment, publication, or participant-outcome
+claims.

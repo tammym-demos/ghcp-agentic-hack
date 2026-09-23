@@ -1,7 +1,7 @@
 import os from "node:os";
 import path from "node:path";
 import { execFile } from "node:child_process";
-import { mkdtemp, rm } from "node:fs/promises";
+import { mkdtemp, readdir as readDirectory, rm } from "node:fs/promises";
 import { promisify } from "node:util";
 import fsExtra from "fs-extra";
 import matter from "gray-matter";
@@ -14,7 +14,14 @@ import {
 import { gitSnapshot } from "./lifecycle.js";
 import { createPortalCatalog } from "./catalog.js";
 import { repositoryRoot } from "./paths.js";
-import { assertPinnedEntry, publicExportPlan, publicPackageScripts } from "./public-export.js";
+import {
+  assertPinnedEntry,
+  isPublicExportLocation,
+  isPublicExportPath,
+  isUnsafePublicMetadataValue,
+  publicExportPlan,
+  publicPackageScripts
+} from "./public-export.js";
 
 const { copy, ensureDir, pathExists, readFile, readdir, writeFile, writeJson } = fsExtra;
 const execFileAsync = promisify(execFile);
@@ -247,24 +254,186 @@ async function copyRequiredPath(source: string, destination: string): Promise<vo
   await copyPath(source, destination);
 }
 
-async function copyWorkshopPath(workshopRoot: string, outputWorkshopRoot: string, relativePath: string) {
+async function copyWorkshopFile(
+  workshopRoot: string,
+  outputWorkshopRoot: string,
+  relativePath: string,
+  outputRelativePath = relativePath
+) {
   const source = path.resolve(workshopRoot, relativePath);
-  const relative = path.relative(workshopRoot, source);
-  if (relative.startsWith("..") || path.isAbsolute(relative)) {
-    throw new Error(`Public release dependency escapes the workshop root: ${relativePath}`);
-  }
-  if (!(await pathExists(source))) {
-    throw new Error(`Public release dependency does not exist: ${relativePath}`);
-  }
-  const destination = path.join(outputWorkshopRoot, ...relativePath.split("/"));
+  const destination = path.join(outputWorkshopRoot, ...outputRelativePath.split("/"));
   await ensureDir(path.dirname(destination));
   await copyPath(source, destination);
-  if (await pathExists(`${source}.json`)) await copyPath(`${source}.json`, `${destination}.json`);
 }
 
 function pathKey(value: string): string {
   const normalized = path.normalize(value);
   return process.platform === "win32" ? normalized.toLowerCase() : normalized;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+const OMIT_PUBLIC_METADATA = Symbol("omit-public-metadata");
+
+function projectPublicMetadata(value: unknown): unknown | typeof OMIT_PUBLIC_METADATA {
+  if (typeof value === "string") {
+    return isUnsafePublicMetadataValue(value) ? OMIT_PUBLIC_METADATA : value;
+  }
+  if (Array.isArray(value)) {
+    return value.flatMap((item) => {
+      const projected = projectPublicMetadata(item);
+      return projected === OMIT_PUBLIC_METADATA ? [] : [projected];
+    });
+  }
+  if (!isRecord(value)) return value;
+  const projected: Record<string, unknown> = {};
+  for (const [key, item] of Object.entries(value)) {
+    if (key === "inputReference" && isRecord(item) &&
+        item.path !== undefined && !isPublicExportPath(item.path)) {
+      if (isUnsafePublicMetadataValue(item.path)) continue;
+      throw new Error(`Public release sidecar inputReference.path is invalid: ${String(item.path)}`);
+    }
+    const publicItem = projectPublicMetadata(item);
+    if (publicItem !== OMIT_PUBLIC_METADATA) projected[key] = publicItem;
+  }
+  return projected;
+}
+
+interface WorkshopDependencyPlan {
+  dependencies: string[];
+  publicSidecars: Map<string, Record<string, unknown>>;
+  publicCopies: Map<string, string>;
+}
+
+function rewritePublicSourcePath(relativePath: string): string {
+  const rewritten = [
+    "public-sources",
+    ...relativePath.split("/").map((segment) => {
+      const lower = segment.toLowerCase();
+      if (["archive", "review", "reviews", "production", "generated", "node_modules", ".git", "private-tests"]
+        .includes(lower)) return `${segment}-source`;
+      if (/^\.env(?:$|[.-])/.test(segment)) return segment.replace(/^\./, "");
+      return segment;
+    })
+  ].join("/");
+  if (!isPublicExportPath(rewritten)) {
+    throw new Error(`Public release sidecar source is restricted: ${relativePath}`);
+  }
+  return rewritten;
+}
+
+async function planWorkshopDependencies(
+  entry: ContentCatalog["workshops"][number]
+): Promise<WorkshopDependencyPlan> {
+  const dependencies = new Set<string>();
+  const publicSidecars = new Map<string, Record<string, unknown>>();
+  const publicCopies = new Map<string, string>();
+  const addPublicCopy = async (relativePath: string): Promise<string> => {
+    const normalized = relativePath.split(path.sep).join("/");
+    await assertPinnedEntry(entry.root, normalized);
+    const rewritten = rewritePublicSourcePath(normalized);
+    const existing = publicCopies.get(rewritten);
+    if (existing && existing !== normalized) {
+      throw new Error(`Public release sidecar source rewrite collided: ${normalized}`);
+    }
+    publicCopies.set(rewritten, normalized);
+    return rewritten;
+  };
+  const addDependency = async (relativePath: string): Promise<void> => {
+    const normalized = relativePath.split(path.sep).join("/");
+    if (dependencies.has(normalized)) return;
+    const source = path.resolve(entry.root, normalized);
+    if (!(await pathExists(source))) {
+      throw new Error(`Public release dependency does not exist: ${normalized}`);
+    }
+    await assertPinnedEntry(entry.root, normalized);
+    dependencies.add(normalized);
+
+    const sidecarRelativePath = `${normalized}.json`;
+    const sidecarPath = path.resolve(entry.root, sidecarRelativePath);
+    if (!(await pathExists(sidecarPath))) return;
+    await assertPinnedEntry(entry.root, sidecarRelativePath);
+    dependencies.add(sidecarRelativePath);
+    const sidecar: unknown = JSON.parse(await readFile(sidecarPath, "utf8"));
+    if (!isRecord(sidecar)) {
+      throw new Error(`Public release sidecar must contain an object: ${sidecarRelativePath}`);
+    }
+    let publicSource = sidecar.source;
+    if (sidecar.source !== undefined) {
+      if (typeof sidecar.source !== "string") {
+        throw new Error(`Public release sidecar source is restricted: ${String(sidecar.source)}`);
+      }
+      publicSource = isPublicExportPath(sidecar.source)
+        ? sidecar.source
+        : await addPublicCopy(sidecar.source);
+      if (publicSource === sidecar.source) await addDependency(sidecar.source);
+    }
+    if (sidecar.location !== undefined && !isPublicExportLocation(sidecar.location)) {
+      throw new Error(`Public release sidecar location is restricted: ${String(sidecar.location)}`);
+    }
+    const projected = projectPublicMetadata(
+      publicSource === sidecar.source ? sidecar : { ...sidecar, source: publicSource }
+    );
+    if (!isRecord(projected)) throw new Error(`Public release sidecar projection failed: ${sidecarRelativePath}`);
+    publicSidecars.set(sidecarRelativePath, projected);
+  };
+
+  const addDirectory = async (relativeDirectory: string): Promise<void> => {
+    const normalized = relativeDirectory.split(path.sep).join("/");
+    await assertPinnedEntry(entry.root, normalized, true);
+    const directory = path.resolve(entry.root, normalized);
+    const children = await readDirectory(directory, { withFileTypes: true });
+    children.sort((left, right) => left.name.localeCompare(right.name));
+    for (const child of children) {
+      if (["node_modules", "dist", ".vite", ".slidev", "private-tests"].includes(child.name)) continue;
+      const childPath = path.posix.join(normalized, child.name);
+      if (child.isDirectory()) {
+        await addDirectory(childPath);
+      } else if (child.isFile()) {
+        await addDependency(childPath);
+      } else {
+        throw new Error(`Public release dependency tree contains a redirected entry: ${childPath}`);
+      }
+    }
+  };
+
+  for (const module of entry.modules) {
+    await addDependency(path.relative(entry.root, module.filePath));
+    for (const reference of [
+      module.data.slides,
+      ...module.data.sourceDocuments,
+      ...(module.data.generation ? [module.data.generation.manifest] : []),
+      ...module.data.labs,
+      ...module.data.missions,
+      ...module.data.assets
+    ]) await addDependency(reference);
+    const slideStyle = path.posix.join(path.posix.dirname(module.data.slides), "style.css");
+    if (await pathExists(path.resolve(entry.root, slideStyle))) await addDependency(slideStyle);
+    const modulePublic = path.join(path.dirname(module.filePath), "public");
+    if (await pathExists(modulePublic)) await addDirectory(path.relative(entry.root, modulePublic));
+  }
+
+  const selectedSourcePaths = new Set(
+    entry.modules.flatMap((module) =>
+      module.data.sourceDocuments.map((item) => pathKey(path.resolve(entry.root, item)))
+    )
+  );
+  for (const storyboard of entry.storyboards.filter((item) =>
+    selectedSourcePaths.has(pathKey(item.filePath))
+  )) {
+    for (const scenePath of storyboard.data.scenes) await addDependency(scenePath);
+    for (const characterPath of storyboard.data.characters) {
+      await addDependency(characterPath);
+      const characterPathKey = pathKey(path.resolve(entry.root, characterPath));
+      const character = entry.characters.find((item) => pathKey(item.filePath) === characterPathKey);
+      if (character) {
+        for (const referenceImage of character.data.referenceImages) await addDependency(referenceImage);
+      }
+    }
+  }
+  return { dependencies: [...dependencies], publicSidecars, publicCopies };
 }
 
 export async function exportPublicRelease(
@@ -292,6 +461,10 @@ export async function exportPublicRelease(
     const completeCatalog = await loadCatalog(sourceRoot);
     const catalog = filterCatalogForRelease(completeCatalog, manifest);
     const publicPlan = await publicExportPlan(sourceRoot, catalog);
+    const workshopDependencies = new Map<string, WorkshopDependencyPlan>();
+    for (const entry of catalog.workshops) {
+      workshopDependencies.set(pathKey(entry.root), await planWorkshopDependencies(entry));
+    }
     for (const file of [".github/public-release/pages.yml", ".github/public-release/README.md"]) {
       await assertPinnedEntry(sourceRoot, file);
     }
@@ -338,58 +511,19 @@ export async function exportPublicRelease(
         "utf8"
       );
 
-      const copied = new Set<string>();
-      const copyDependency = async (relativePath: string) => {
-        const normalized = relativePath.split(path.sep).join("/");
-        if (copied.has(normalized)) return;
-        copied.add(normalized);
-        await copyWorkshopPath(entry.root, outputWorkshopRoot, normalized);
-      };
-
-      for (const module of entry.modules) {
-        await copyDependency(path.relative(entry.root, module.filePath));
-        const references = [
-          module.data.slides,
-          ...module.data.sourceDocuments,
-          ...(module.data.generation ? [module.data.generation.manifest] : []),
-          ...module.data.labs,
-          ...module.data.missions,
-          ...module.data.assets
-        ];
-        for (const reference of references) await copyDependency(reference);
-        const slideStyle = path.posix.join(path.posix.dirname(module.data.slides), "style.css");
-        if (await pathExists(path.resolve(entry.root, slideStyle))) await copyDependency(slideStyle);
-        for (const asset of module.data.assets) {
-          const sidecarPath = path.resolve(entry.root, `${asset}.json`);
-          if (!(await pathExists(sidecarPath))) continue;
-          const sidecar = JSON.parse(await readFile(sidecarPath, "utf8")) as { source?: unknown };
-          if (typeof sidecar.source === "string") await copyDependency(sidecar.source);
-        }
-
-        const modulePublic = path.join(path.dirname(module.filePath), "public");
-        if (await pathExists(modulePublic)) {
-          const relativePublic = path.relative(entry.root, modulePublic);
-          await copyPath(modulePublic, path.join(outputWorkshopRoot, relativePublic));
+      const dependencyPlan = workshopDependencies.get(pathKey(entry.root));
+      for (const dependency of dependencyPlan?.dependencies ?? []) {
+        const publicSidecar = dependencyPlan?.publicSidecars.get(dependency);
+        if (publicSidecar) {
+          const destination = path.join(outputWorkshopRoot, ...dependency.split("/"));
+          await ensureDir(path.dirname(destination));
+          await writeJson(destination, publicSidecar, { spaces: 2 });
+        } else {
+          await copyWorkshopFile(entry.root, outputWorkshopRoot, dependency);
         }
       }
-
-      const selectedSourcePaths = new Set(
-        entry.modules.flatMap((module) =>
-          module.data.sourceDocuments.map((item) => pathKey(path.resolve(entry.root, item)))
-        )
-      );
-      for (const storyboard of entry.storyboards.filter((item) =>
-        selectedSourcePaths.has(pathKey(item.filePath))
-      )) {
-        for (const scenePath of storyboard.data.scenes) await copyDependency(scenePath);
-        for (const characterPath of storyboard.data.characters) {
-          await copyDependency(characterPath);
-          const characterPathKey = pathKey(path.resolve(entry.root, characterPath));
-          const character = entry.characters.find((item) => pathKey(item.filePath) === characterPathKey);
-          if (character) {
-            for (const referenceImage of character.data.referenceImages) await copyDependency(referenceImage);
-          }
-        }
+      for (const [outputRelativePath, sourceRelativePath] of dependencyPlan?.publicCopies ?? []) {
+        await copyWorkshopFile(entry.root, outputWorkshopRoot, sourceRelativePath, outputRelativePath);
       }
     }
 

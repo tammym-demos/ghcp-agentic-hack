@@ -183,7 +183,7 @@ class: mc
 
 # From Investment to Value
 
-<div class="mc-meta"><span>S05 · ROI fundamentals</span><span>09:30–09:37 · 7 min</span></div>
+<div class="mc-meta"><span>S05 · ROI fundamentals</span><span>09:30–09:36 · 6 min</span></div>
 
 ::content::
 
@@ -192,11 +192,11 @@ class: mc
 </div>
 
 <!--
-Timebox: 7 minutes
+Timebox: 6 minutes
 
-Talk track: Where does your current measure sit in this chain? Investment, consumption, and activity can be useful context. Completed work crosses the boundary. An accepted outcome also passes required checks. Value is the useful engineering or business result. Spend four minutes on the distinctions, then use three minutes to classify one current measure without overclaiming it.
+Talk track: Where does your current measure sit in this chain? Investment, consumption, and activity can be useful context. Completed work crosses the boundary. An accepted outcome also passes required checks. Value is the useful engineering or business result. Spend three minutes on the distinctions, then use three minutes to classify one current measure without overclaiming it.
 
-Transition: The next distinction is Capacity Is Not Leverage: attempted or delegated work is not automatically completed work.
+Transition: Hold that chain in mind. The Leverage Rectangle shows why freed developer time does not automatically become more outcomes.
 
 Audience question: Is your current measure investment, consumption, activity, completed work, accepted outcome, or value?
 
@@ -208,46 +208,207 @@ Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s05-from
 -->
 
 ---
-layout: two-panel
+layout: single-panel
 class: mc
+clicks: 3
 ---
 
 ::title::
 
-# Capacity Is Not Leverage
+# The Leverage Rectangle
 
-<div class="mc-meta"><span>S06 · ROI fundamentals</span><span>09:37–09:44 · 7 min</span></div>
+<div class="mc-meta"><span>S06 · ROI fundamentals</span><span>09:36–09:43 · 7 min</span></div>
 
-::text::
+::content::
 
-<div class="mc-stack" data-slide-id="S06">
-  <div class="mc-callout">Attempted work ≠ completed work</div>
-  <div class="mc-callout">Delegated work ≠ accepted outcome</div>
-  <p>Name one activity measure that must not be mistaken for leverage.</p>
-</div>
-
-::visual::
-
-<div class="mc-stack mc-center">
-  <p class="mc-kicker">Use the mission’s completion boundary</p>
-  <div class="mc-formula"><span>Developer leverage</span><strong>=</strong><span class="mc-fraction"><b>completed work</b><i>developer hours</i></span></div>
-  <p class="mc-small">The denominator is human developer time, not AI usage.</p>
+<div class="mc-stack mc-stack--animation" data-slide-id="S06">
+  <MissionControlLeverageRectangle />
 </div>
 
 <!--
 Timebox: 7 minutes
 
-Talk track: Which activity measure could be mistaken for leverage? Attempted work is not completed work, and delegated work is not an accepted outcome. Developer leverage equals completed work divided by developer hours. The numerator uses the mission boundary; the denominator is human developer time, not AI usage. Teach for four minutes, then give three minutes to identify a non-value activity measure.
+Talk track: What does leverage look like as a shape? Advance this build in four beats. Beat one: existing SDLC capacity plots business outcomes against developer time spent, and leverage is the slope of the diagonal. A steeper diagonal means more business outcomes per unit of developer time. Click. Beat two: IDE AI and Platform AI are basic AI improvements. They free developer time inside the existing SDLC, but on their own the diagonal barely changes. Click. Beat three: automation, compliance, and coordination are process and decision-making improvements. They are what let freed time become more outcomes, and that is where the slope can rise. Click. Beat four: as those improvements take hold, the existing rectangle narrows and a higher achievable-leverage rectangle becomes possible. Read the five-step journey of improvement. Spend about five minutes on the build, then give two minutes for participants to name which improvements their mission already has. Keep it conceptual: this is a model, not measured data or a promised result.
 
-Transition: The formula needs a defensible numerator. Define the Completion Boundary and the evidence that proves work crossed it.
+Transition: The rectangle shows that leverage depends on more than tools. Next: Four AI ROI Paths — and What Must Be True for Each names the distinct ways capacity can become value.
 
-Audience question: Which activity measure must not be treated as leverage?
+Audience question: Which of the five journey steps does your selected workflow already have, and which is missing?
 
-Response guidance: If prompts or generated output are offered as leverage, ask, “What completed work crossed the agreed boundary?”
+Response guidance: If someone reads the chart as a forecast, say, “This is a shape for reasoning, not a number. We measure the slope later at the completion boundary.” If only AI tools are named, ask, “What process or decision change would let the freed time become more outcomes?”
 
-Payoff: The room agrees on leverage and one measure that does not prove it.
+Payoff: Participants share one definition of leverage — business outcomes per unit of developer time — and see that process and decision-making improvements are what raise it.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s06-capacity-is-not-leverage
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s06-the-leverage-rectangle
+-->
+
+---
+layout: single-panel
+class: mc
+---
+
+::title::
+
+# Four AI ROI Paths — and What Must Be True for Each
+
+<div class="mc-meta"><span>S07 · ROI fundamentals</span><span>09:43–09:49 · 6 min</span></div>
+
+::content::
+
+<div class="mc-stack" data-slide-id="S07">
+  <p class="mc-small mc-compact-note">Each path converts AI-created capacity differently. The more ambitious the ROI outcome, the more contingencies must be satisfied.</p>
+  <div class="mc-path-grid">
+    <span class="mc-path-grid__corner">Easier<br>↓<br>Harder</span>
+    <b>1. Task efficiency</b><b>2. Decision making</b><b>3. Process</b><b>4. Individual scope</b><b>5. Compounding by improving all 4</b><b>ROI outcome</b>
+    <i>1</i><span>Reduced task effort or risk</span><span>Reduce required task hours</span><span>Capacity can be removed from the process</span><span class="is-empty">—</span><span class="is-empty">—</span>
+    <div class="mc-path-grid__outcome"><b>Labor efficiency</b><span>Same output, leverage from fewer human hours</span><small>Primary limiting factor: unimprovable work</small></div>
+    <i>2</i><span>Reduced task effort or risk</span><span>Reduce cycle time</span><span>Task efficiency becomes cycle efficiency</span><span class="is-empty">—</span><span class="is-empty">—</span>
+    <div class="mc-path-grid__outcome"><b>Higher throughput</b><span>Same process, leverage from more completed work</span><small>Primary limiting factor: unimprovable structure</small></div>
+    <i>3</i><span>Reduced task effort or risk</span><span>Reduce handoffs and coordination</span><span>Individuals expand scope and complete more of the outcome</span><span>Expand outcomes individuals own</span><span class="is-empty">—</span>
+    <div class="mc-path-grid__outcome"><b>Expanded ownership</b><span>Individual leverage increases the outcomes they own</span><small>Primary limiting factor: unimprovable scope</small></div>
+    <i>4</i><span>Reduced task effort or risk</span><span>Choose new improvements to boost existing improvements</span><span>Improvements are combined iteratively</span><span>Ownership and available paths expand</span><span>Improvement is measured, maintained, confirmed</span>
+    <div class="mc-path-grid__outcome"><b>Compounding leverage</b><span>Today’s capacity improves tomorrow’s possibilities</span><small>Primary limiting factor: learning and adaptability</small></div>
+  </div>
+  <p class="mc-small mc-compact-note">These are hypotheses, not guaranteed results.</p>
+</div>
+
+<!--
+Timebox: 6 minutes
+
+Talk track: Which path describes the value you are trying to create, and what must be true for it? Read each row from left to right. Every path starts with reduced task effort or risk. Labor efficiency then needs fewer required task hours and capacity that can actually be removed from the process; its limit is work that cannot be improved. Higher throughput needs shorter cycle time so task efficiency becomes cycle efficiency; its limit is structure. Expanded ownership needs fewer handoffs so individuals complete more of the outcome they own; its limit is scope. Compounding leverage combines improvements iteratively and measures, maintains, and confirms them; its limit is learning and adaptability. The paths run from easier to harder to achieve. Spend four minutes on the rows, then give participants two minutes to name the path that best fits their mission. These are hypotheses, not guaranteed results.
+
+Transition: Keep your path in view. AI Creates Capacity Faster Than It Creates Leverage sets expectations for how much of that path we should see at each completion boundary.
+
+Audience question: Which path best matches your mission, and which contingency is least certain today?
+
+Response guidance: If an answer names activity or consumption, ask, “What accepted outcome would change?” If several paths seem plausible, say, “Choose the dominant hypothesis and keep the others as possible secondary effects.”
+
+Payoff: Participants share four ROI paths and the contingencies each one requires, without turning activity into promised value.
+
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s07-four-ai-roi-paths-and-what-must-be-true-for-each
+-->
+
+---
+layout: single-panel
+class: mc
+---
+
+::title::
+
+# AI Creates Capacity Faster Than It Creates Leverage
+
+<div class="mc-meta"><span>S08 · ROI fundamentals</span><span>09:49–09:54 · 5 min</span></div>
+
+::content::
+
+<div class="mc-stack" data-slide-id="S08">
+  <p class="mc-small mc-compact-note">AI capacity can rise rapidly, while developer leverage rises only when that capacity converts into more completed work per developer hour.</p>
+  <MissionControlCapacityCurves />
+</div>
+
+<!--
+Timebox: 5 minutes
+
+Talk track: Why can AI usage climb while leverage barely moves? This is an illustrative shape, not measured data. As AI matures from assistance to interactive and autonomous agents, AI capacity — work that can be attempted or delegated — can rise quickly while developer hours stay relatively fixed. Developer leverage rises only when that capacity converts into more completed work per developer hour. The dashed lines show why the completion boundary matters: measured at lines of code, the gain looks largest; at pull request and story, review, coordination, rework, risk, and dependencies absorb more of it. Spend three minutes on the curves, then two minutes for participants to say which boundary their current evidence measures.
+
+Transition: If capacity is created but not converted, where does it go? Four Ways the SDLC Can Absorb Time Savings shows the options.
+
+Audience question: At which boundary does your current evidence measure impact: lines of code, pull request, or story?
+
+Response guidance: If someone cites a line-of-code or acceptance-rate gain as ROI, say, “That is capacity at the smallest scope. What should we expect at the pull request or story boundary?”
+
+Payoff: Participants set an impact expectation for their selected completion boundary.
+
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s08-ai-creates-capacity-faster-than-it-creates-leverage
+-->
+
+---
+layout: single-panel
+class: mc
+clicks: 4
+---
+
+::title::
+
+# Four Ways the SDLC Can Absorb Time Savings
+
+<div class="mc-meta"><span>S09 · ROI fundamentals</span><span>09:54–10:00 · 6 min</span></div>
+
+::content::
+
+<div class="mc-stack" data-slide-id="S09">
+  <div class="mc-absorb" :data-step="$clicks ?? 4">
+    <svg class="mc-absorb__rays" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="1" y1="2" x2="27" y2="23" vector-effect="non-scaling-stroke" /><line x1="99" y1="2" x2="73" y2="23" vector-effect="non-scaling-stroke" /><line x1="1" y1="98" x2="27" y2="77" vector-effect="non-scaling-stroke" /><line x1="99" y1="98" x2="73" y2="77" vector-effect="non-scaling-stroke" /></svg>
+    <section data-beat="1" class="mc-absorb__path mc-absorb__path--n mc-absorb__path--neutral">
+      <b>Fewer devs, same output</b>
+      <span class="mc-absorb__units" aria-hidden="true"><i></i><i></i><i></i><i class="is-off"></i><i class="is-off"></i></span>
+      <span class="mc-absorb__units mc-absorb__units--work" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+    </section>
+    <section data-beat="1" class="mc-absorb__effect mc-absorb__effect--n mc-absorb__effect--neutral">
+      <em>Process is unaffected</em>
+      <span class="mc-meter mc-meter--capacity is-same"><span>Capacity hrs</span></span>
+      <span class="mc-meter mc-meter--overhead is-same"><span>Overhead hrs</span></span>
+    </section>
+    <section data-beat="3" class="mc-absorb__path mc-absorb__path--w mc-absorb__path--benefit">
+      <b>Same devs, features per cycle ↑</b>
+      <span class="mc-absorb__units" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+      <span class="mc-absorb__units mc-absorb__units--work" aria-hidden="true"><i class="is-big"></i><i class="is-big"></i><i class="is-big"></i><i class="is-big"></i><i class="is-big"></i></span>
+    </section>
+    <section data-beat="3" class="mc-absorb__effect mc-absorb__effect--w mc-absorb__effect--benefit">
+      <em>Process benefits 1×</em>
+      <span class="mc-meter mc-meter--capacity is-grow"><span>Capacity</span></span>
+      <span class="mc-meter mc-meter--overhead is-same"><span>Overhead</span></span>
+    </section>
+    <div class="mc-absorb__center">
+      <b>AI makes tasks more efficient</b>
+      <div class="mc-absorb__gains">
+        <span class="mc-meter mc-meter--productive is-grow"><span>Productive time</span></span>
+        <span class="mc-meter mc-meter--delay is-shrink"><span>Delay</span></span>
+        <strong class="mc-absorb__brace">Default gain</strong>
+        <span class="mc-meter mc-meter--cost is-shrink"><span>Cost</span></span>
+        <span class="mc-meter mc-meter--risk is-shrink"><span>Risk</span></span>
+        <strong class="mc-absorb__brace mc-absorb__brace--aware">Alternative gains<small>require awareness</small></strong>
+      </div>
+      <span class="mc-absorb__axis" aria-hidden="true"></span>
+      <span class="mc-kicker">Time-boxed view</span>
+      <p class="mc-small">Where is your saved time likely to go today?</p>
+    </div>
+    <section data-beat="4" class="mc-absorb__path mc-absorb__path--e mc-absorb__path--compound">
+      <b>Same devs, investments per cycle ↑</b>
+      <span class="mc-absorb__units" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+      <span class="mc-absorb__units mc-absorb__units--work" aria-hidden="true"><i class="is-big"></i><i class="is-big"></i><i class="is-big"></i><i class="is-small"></i><i class="is-small"></i><i class="is-small"></i><i class="is-small"></i></span>
+    </section>
+    <section data-beat="4" class="mc-absorb__effect mc-absorb__effect--e mc-absorb__effect--compound">
+      <em>Process benefits 2×</em>
+      <span class="mc-meter mc-meter--capacity is-grow"><span>Capacity</span></span>
+      <span class="mc-meter mc-meter--overhead is-shrink"><span>Overhead</span></span>
+    </section>
+    <section data-beat="2" class="mc-absorb__path mc-absorb__path--s mc-absorb__path--suffers">
+      <b>Same devs, more cycles</b>
+      <span class="mc-absorb__units" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+      <span class="mc-absorb__units mc-absorb__units--work" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+    </section>
+    <section data-beat="2" class="mc-absorb__effect mc-absorb__effect--s mc-absorb__effect--suffers">
+      <em>Process suffers</em>
+      <span class="mc-meter mc-meter--capacity is-shrink"><span>Capacity</span></span>
+      <span class="mc-meter mc-meter--overhead is-grow"><span>Overhead</span></span>
+    </section>
+  </div>
+</div>
+
+<!--
+Timebox: 6 minutes
+
+Talk track: Where does saved time go when nobody decides? Within a fixed time box, AI makes tasks more efficient, and by default the saved time becomes more productive time. Less delay, cost, and risk are alternative gains, but they require awareness. The SDLC can then absorb the savings in four ways; advance once for each. Click one, north: fewer developers with the same output leaves the process unaffected. Click two, south: the same developers running more cycles adds overhead, and the process suffers. Click three, west: the same developers delivering more features per cycle benefits the process once. Click four, east: the same developers adding investments each cycle benefits the process twice, because those investments improve later cycles. Spend four minutes on the four ways, then two minutes for participants to name where their saved time is likely to go today.
+
+Transition: To see which way savings are absorbed, we need to know where work counts as finished. Define the Completion Boundary for the pilot.
+
+Audience question: Where is your saved time most likely to go today, and who would need to decide to redirect it?
+
+Response guidance: If the answer is “nowhere in particular,” say, “That is the default gain. Name the awareness or decision that would redirect it.” If fewer developers is the only answer, say, “That is one path, and it leaves the process unchanged.”
+
+Payoff: Participants name a default absorption path and the awareness needed to redirect it.
+
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s09-four-ways-the-sdlc-can-absorb-time-savings
 -->
 
 ---
@@ -259,18 +420,18 @@ class: mc
 
 # Define the Completion Boundary
 
-<div class="mc-meta"><span>S07 · ROI fundamentals</span><span>09:44–09:51 · 7 min</span></div>
+<div class="mc-meta"><span>S10 · ROI fundamentals</span><span>10:00–10:05 · 5 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S07">
+<div class="mc-stack" data-slide-id="S10">
   <MissionControlCompletionBoundary />
 </div>
 
 <!--
-Timebox: 7 minutes
+Timebox: 5 minutes
 
-Talk track: Where should finished work count for this pilot? Trace code, pull request, story, release, and business outcome. A local gain can disappear later in the chain. Use four minutes to explain the choices, then three minutes to mark the current and pilot boundaries and name the acceptance evidence.
+Talk track: Where should finished work count for this pilot? Trace code, pull request, story, release, and business outcome. As the capacity curves showed, a local gain can disappear later in the chain. Use two minutes to explain the choices, then three minutes to mark the current and pilot boundaries and name the acceptance evidence.
 
 Transition: Once the boundary is visible, Find Where Leverage Is Lost before work reaches it.
 
@@ -280,7 +441,7 @@ Response guidance: If the boundary is too distant for the pilot, say, “Choose 
 
 Payoff: Participants select a completion boundary and acceptance evidence.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s07-define-the-completion-boundary
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s10-define-the-completion-boundary
 -->
 
 ---
@@ -292,11 +453,11 @@ class: mc
 
 # Find Where Leverage Is Lost
 
-<div class="mc-meta"><span>S08 · ROI fundamentals</span><span>09:51–09:58 · 7 min</span></div>
+<div class="mc-meta"><span>S11 · ROI fundamentals</span><span>10:05–10:10 · 5 min</span></div>
 
 ::text::
 
-<div class="mc-stack" data-slide-id="S08">
+<div class="mc-stack" data-slide-id="S11">
   <p>Where does work queue, return, or stop?</p>
   <div class="mc-chip-grid">
     <b>Integration</b><b>Testing</b><b>Review</b><b>Dependencies</b>
@@ -314,11 +475,11 @@ class: mc
 </div>
 
 <!--
-Timebox: 7 minutes
+Timebox: 5 minutes
 
-Talk track: Where does work queue, return, or stop before crossing the boundary? Look across integration, testing, review, dependencies, risk and compliance, coordination, and waiting. Use four minutes to map the losses, then three minutes to mark the dominant constraint for the selected workflow. Keep a local example local.
+Talk track: Where does work queue, return, or stop before crossing the boundary? Look across integration, testing, review, dependencies, risk and compliance, coordination, and waiting. Use two minutes to map the losses, then three minutes to mark the dominant constraint for the selected workflow. Keep a local example local.
 
-Transition: With the constraint visible, Four Paths to AI ROI gives us distinct hypotheses for where value may appear.
+Transition: With the constraint visible, return to your ROI path. Match the Path to the Outcome connects the hypothesis to the accepted result and its decision owner.
 
 Audience question: Which loss most limits accepted completion today?
 
@@ -326,47 +487,7 @@ Response guidance: If everything is selected, say, “Choose the constraint whos
 
 Payoff: Participants create a leverage-loss map with one prioritized constraint.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s08-find-where-leverage-is-lost
--->
-
----
-layout: single-panel
-class: mc
----
-
-::title::
-
-# Four Paths to AI ROI
-
-<div class="mc-meta"><span>S09 · ROI fundamentals</span><span>09:58–10:05 · 7 min</span></div>
-
-::content::
-
-<div class="mc-stack" data-slide-id="S09">
-  <p class="mc-kicker">Four distinct value hypotheses</p>
-  <div class="mc-roi-grid">
-    <div><b>Labor efficiency</b><span>less effort for the same accepted outcome</span></div>
-    <div><b>Higher throughput</b><span>more accepted outcomes through the same system</span></div>
-    <div><b>Expanded ownership</b><span>more work a person or team can responsibly complete</span></div>
-    <div><b>Compounding capability</b><span>reusable learning, patterns, evaluation, or operating capability that improves later work</span></div>
-  </div>
-  <div class="mc-callout">These are hypotheses, not guaranteed results.</div>
-</div>
-
-<!--
-Timebox: 7 minutes
-
-Talk track: Which path describes the value you are trying to create? Labor efficiency means less effort for the same accepted outcome. Higher throughput means more accepted outcomes through the same system. Expanded ownership means more work a person or team can responsibly complete. Compounding capability means reusable learning, patterns, evaluation, or operating capability that improves later work. Spend four minutes distinguishing the paths. Then give participants three minutes to name the path that best fits their selected workflow. Keep the language as a hypothesis. None of these paths is a guaranteed result.
-
-Transition: Keep the selected ROI path visible. Next: Match the Path to the Outcome. Connect the hypothesis to the accepted result and its decision owner.
-
-Audience question: Which ROI path best matches your selected business outcome?
-
-Response guidance: If an answer names activity or consumption, say, “What accepted outcome would change?” If several paths seem plausible, say, “Choose the dominant hypothesis and keep the others as possible secondary effects.”
-
-Payoff: Participants share four precise ROI paths without turning activity into promised value.
-
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s09-four-paths-to-ai-roi
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s11-find-where-leverage-is-lost
 -->
 
 ---
@@ -378,11 +499,11 @@ class: mc
 
 # Match the Path to the Outcome
 
-<div class="mc-meta"><span>S10 · ROI fundamentals</span><span>10:05–10:12 · 7 min</span></div>
+<div class="mc-meta"><span>S12 · ROI fundamentals</span><span>10:10–10:16 · 6 min</span></div>
 
 ::text::
 
-<div class="mc-stack" data-slide-id="S10">
+<div class="mc-stack" data-slide-id="S12">
   <div class="mc-field"><b>Business outcome</b><span>___</span></div>
   <div class="mc-field"><b>Primary ROI path</b><span>___ because ___</span></div>
   <div class="mc-field"><b>Secondary ROI path</b><span>___ because ___</span></div>
@@ -397,9 +518,9 @@ class: mc
 </div>
 
 <!--
-Timebox: 7 minutes
+Timebox: 6 minutes
 
-Talk track: Which path is primary, and what evidence distinguishes it from the secondary path? Use three minutes to frame the fields, then protect four minutes for participants. Connect both paths to the business outcome, state why each fits, identify distinguishing evidence, and expose double-counting risk.
+Talk track: Which of the four ROI paths is primary, and what evidence distinguishes it from the secondary path? Use two minutes to frame the fields, then protect four minutes for participants. Connect both paths to the business outcome, state why each fits, identify distinguishing evidence, and expose double-counting risk.
 
 Transition: A path can still be blocked. Name the Limiting Factor that most constrains it now.
 
@@ -409,7 +530,7 @@ Response guidance: If the same benefit appears twice, say, “Assign it once or 
 
 Payoff: Participants choose primary and secondary ROI paths with an evidence rationale.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s10-match-the-path-to-the-outcome
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s12-match-the-path-to-the-outcome
 -->
 
 ---
@@ -421,11 +542,11 @@ class: mc
 
 # Name the Limiting Factor
 
-<div class="mc-meta"><span>S11 · ROI fundamentals</span><span>10:12–10:19 · 7 min</span></div>
+<div class="mc-meta"><span>S13 · ROI fundamentals</span><span>10:16–10:21 · 5 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S11">
+<div class="mc-stack" data-slide-id="S13">
   <p>Which factor limits the selected path now?</p>
   <div class="mc-four-grid">
     <div><b>Essential human work</b></div><div><b>Process structure</b></div>
@@ -436,9 +557,9 @@ class: mc
 </div>
 
 <!--
-Timebox: 7 minutes
+Timebox: 5 minutes
 
-Talk track: Which factor limits the selected ROI path now? Consider essential human work, process structure, practical ownership scope, and organizational learning or adaptability. Spend four minutes on the diagnosis, then three minutes to choose one factor and state what evidence would show movement. Necessary human and governance work is not waste.
+Talk track: Which factor limits the selected ROI path now? These are the primary limiting factors from the four ROI paths: essential human work, process structure, practical ownership scope, and organizational learning or adaptability. Spend two minutes on the diagnosis, then three minutes to choose one factor and state what evidence would show movement. Necessary human and governance work is not waste.
 
 Transition: Turn the path and limiting factor into a testable statement on State the ROI Hypothesis and Limits.
 
@@ -448,7 +569,7 @@ Response guidance: If the answer proposes removing a required check, say, “Kee
 
 Payoff: Participants name one limiting factor, rationale, and evidence need.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s11-name-the-limiting-factor
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s13-name-the-limiting-factor
 -->
 
 ---
@@ -460,20 +581,20 @@ class: mc
 
 # State the ROI Hypothesis and Limits
 
-<div class="mc-meta"><span>S12 · ROI fundamentals</span><span>10:19–10:30 · 11 min</span></div>
+<div class="mc-meta"><span>S14 · ROI fundamentals</span><span>10:21–10:30 · 9 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S12">
+<div class="mc-stack" data-slide-id="S14">
   <div class="mc-prompt">We expect ___ value through ___ ROI path by changing ___ at boundary ___.<br>We will test it with ___ evidence over ___ comparison window.<br>We can credit ___ to AI only if ___.</div>
   <div class="mc-evidence-strip"><b>Facts: ___</b><b>Assumptions: ___</b><b>Unknowns: ___</b></div>
   <p class="mc-small"><b>Lead P1 · Evidence P7/P2/P3 · Review P5/P6 · Decide P1</b></p>
 </div>
 
 <!--
-Timebox: 11 minutes
+Timebox: 9 minutes
 
-Talk track: What value do you expect, and what can you honestly credit to AI? Use four minutes to frame the hypothesis, boundary, evidence, comparison window, and attribution condition. Then protect seven minutes for participants to complete the statement and separate facts, assumptions, and unknowns. Require a comparison, not a promise based on one run.
+Talk track: What value do you expect, and what can you honestly credit to AI? Use four minutes to frame the hypothesis, boundary, evidence, comparison window, and attribution condition. Then protect five minutes for participants to complete the statement and separate facts, assumptions, and unknowns. Require a comparison, not a promise based on one run.
 
 Transition: Preserve the hypothesis and take the full Break. We return at 10:45 to inspect usage and economics evidence.
 
@@ -483,7 +604,7 @@ Response guidance: If causation is assumed, say, “Name the comparison and the 
 
 Payoff: Participants produce a testable ROI hypothesis with an explicit attribution limit.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s12-state-the-roi-hypothesis-and-limits
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s14-state-the-roi-hypothesis-and-limits
 -->
 
 ---
@@ -522,11 +643,11 @@ class: mc
 
 # What Enters the Next Prediction
 
-<div class="mc-meta"><span>S13 · Usage and economics</span><span>10:45–10:55 · 10 min</span></div>
+<div class="mc-meta"><span>S15 · Usage and economics</span><span>10:45–10:55 · 10 min</span></div>
 
 ::text::
 
-<div class="mc-stack" data-slide-id="S13">
+<div class="mc-stack" data-slide-id="S15">
   <p>A request may combine:</p>
   <div class="mc-chip-grid">
     <b>instructions</b><b>conversation</b><b>selected code or files</b>
@@ -558,7 +679,7 @@ Response guidance: If a universal pipeline is assumed, say, “Confirm the appro
 
 Payoff: Participants map one request into known and unknown inputs.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s13-what-enters-the-next-prediction; workshops/ghcp-dev-hack/content/modules/01-foundations/slides.md#what-enters-the-next-prediction
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s15-what-enters-the-next-prediction; workshops/ghcp-dev-hack/content/modules/01-foundations/slides.md#what-enters-the-next-prediction
 -->
 
 ---
@@ -570,11 +691,11 @@ class: mc
 
 # Context Window: What Competes for Space
 
-<div class="mc-meta"><span>S14 · Foundations reuse</span><span>10:55–11:05 · 10 min</span></div>
+<div class="mc-meta"><span>S16 · Foundations reuse</span><span>10:55–11:05 · 10 min</span></div>
 
 ::content::
 
-<div class="mc-stack mc-stack--animation" data-slide-id="S14">
+<div class="mc-stack mc-stack--animation" data-slide-id="S16">
   <MissionControlContextWindow />
 </div>
 
@@ -591,7 +712,7 @@ Response guidance: If someone asks for a universal limit, say, “This surface t
 
 Payoff: Participants leave with one relevant-context rule and one removal candidate.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s14-context-window-what-competes-for-space; workshops/ghcp-dev-hack/content/modules/01-foundations/slides.md#context-window-what-competes-for-space
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s16-context-window-what-competes-for-space; workshops/ghcp-dev-hack/content/modules/01-foundations/slides.md#context-window-what-competes-for-space
 -->
 
 ---
@@ -603,48 +724,60 @@ class: mc
 
 # Read the Usage Receipt
 
-<div class="mc-meta"><span>S15 · Candidate demonstration</span><span>11:05–11:15 · 10 min</span></div>
+<div class="mc-meta"><span>S17 · Selected facilitator demonstration</span><span>11:05–11:15 · 10 min</span></div>
 
 ::text::
 
-<div class="mc-stack" data-slide-id="S15">
+<div class="mc-stack" data-slide-id="S17">
   <p class="mc-kicker">Read each record by</p>
   <div class="mc-chip-grid mc-chip-grid--compact">
     <b>owner</b><b>service/model</b><b>use case</b><b>period</b><b>new input</b>
     <b>reused input</b><b>output</b><b>quality/result</b><b>cost</b><b>unknown fields</b>
   </div>
+  <p class="mc-small"><b>Fallback:</b> clearly labeled synthetic receipt when the facilitator CLI or network is unavailable.</p>
 </div>
 
 ::visual::
 
 <div class="mc-stack mc-cli-demo">
-  <p class="mc-kicker">Live Copilot CLI demonstration</p>
+  <p class="mc-kicker">Primary · Live Copilot CLI demonstration</p>
   <div class="mc-cli-demo__terminal" aria-label="Copilot CLI commands for the usage demonstration">
     <code>copilot</code>
     <span>Make one bounded, non-confidential request.</span>
     <code>/usage</code>
   </div>
-  <div class="mc-cli-demo__read">
-    <b>Read</b>
-    <span>model · accumulated session token totals · missing fields</span>
+  <div class="mc-synthetic-receipt" aria-label="Synthetic slash usage receipt offline fallback">
+    <div class="mc-synthetic-receipt__heading">
+      <b>Synthetic <code>/usage</code> receipt</b>
+      <span>Offline fallback · representative values</span>
+    </div>
+    <table aria-label="Representative per-model accumulated session token totals">
+      <thead><tr><th>Model</th><th>Input</th><th>Output</th><th>Session total</th></tr></thead>
+      <tbody>
+        <tr><td><code>model-alpha</code></td><td>12,480</td><td>2,160</td><td>14,640</td></tr>
+        <tr><td><code>model-beta</code></td><td>3,920</td><td>640</td><td>4,560</td></tr>
+      </tbody>
+    </table>
+    <p><b>Unknown:</b> reused-input tokens · dollar cost · quality/result · owner · use case · period</p>
+    <small>Accumulated synthetic session totals—not evidence that one request caused the whole session total.</small>
   </div>
-  <div class="mc-callout"><b>Not</b> current context occupancy · an invoice · ROI evidence</div>
+  <div class="mc-callout"><b>Not</b> current context occupancy · an invoice · dollar cost · ROI evidence</div>
 </div>
 
 <!--
 Timebox: 10 minutes
 
-Talk track: Which field decides whether a usage total is trustworthy? I will start GitHub Copilot CLI in a new, non-confidential empty folder and make one bounded request. Then I will run `/usage`. Read the model and the accumulated session token totals the installed CLI reports. Exact fields can vary by CLI version and model. This is session evidence, not a receipt for only the last request. It is not the current context-window gauge, an account-period invoice, or ROI evidence. Use six minutes for the demonstration and four minutes to identify one supported interpretation and one evidence limit.
+Talk track: Which field decides whether a usage total is trustworthy? Before delivery, verify that the facilitator has an authenticated GitHub Copilot CLI and network connection; participants need neither. I will start the CLI in a new, non-confidential empty folder and make one bounded request, then run `/usage`. If the facilitator CLI or network is unavailable, use the clearly labeled synthetic receipt with the same fields and evidence limits. Read the model and accumulated session token totals. Exact fields can vary by CLI version and model. This is session evidence, not a receipt for only the last request, the current context-window gauge, an account-period invoice, or ROI evidence. Use six minutes for the demonstration and four minutes to identify one supported interpretation and one evidence limit.
 
 Transition: Apply that discipline to Build the Usage and Cost Starting Point.
 
 Audience question: Which missing field would stop you from using this record for a decision?
 
-Response guidance: If the session total is attributed only to the last request, say, “The command reports accumulated session work; start a clean session for a clearer demonstration, and still state the scope.” If someone asks for dollars, say, “Use the applicable account and billing evidence; do not infer money from an unlabeled token field.”
+Response guidance: If the live path is unavailable, switch to the labeled synthetic receipt rather than asking a participant to sign in. If the session total is attributed only to the last request, say, “The command reports accumulated session work; start a clean session for a clearer demonstration, and still state the scope.” If someone asks for dollars, say, “Use the applicable account and billing evidence; do not infer money from an unlabeled token field.”
 
 Payoff: Participants interpret one receipt and state its evidence limit.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s15-read-the-usage-receipt; workshop.md researchSources; workshops/ghcp-dev-hack/content/production/context-caching-proposal/source-verification.md#c4-context-usage-and-evidence-p12b-p13p13a-s2s3
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s17-read-the-usage-receipt; workshop.md researchSources; workshops/ghcp-dev-hack/content/production/context-caching-proposal/source-verification.md#c4-context-usage-and-evidence-p12b-p13p13a-s2s3
 -->
 
 ---
@@ -656,11 +789,11 @@ class: mc
 
 # Build the Usage and Cost Starting Point
 
-<div class="mc-meta"><span>S16 · Usage and economics</span><span>11:15–11:30 · 15 min</span></div>
+<div class="mc-meta"><span>S18 · Usage and economics</span><span>11:15–11:30 · 15 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S16">
+<div class="mc-stack" data-slide-id="S18">
   <p class="mc-kicker">Record the evidence before the change</p>
   <div class="mc-review-grid">
     <div class="mc-review-card"><b>Population / team</b><span>___</span></div><div class="mc-review-card"><b>Use case</b><span>___</span></div>
@@ -688,7 +821,7 @@ Response guidance: If participants turn an unknown into zero, say, “Keep it un
 
 Payoff: Participants produce a segmented usage-and-cost starting point with attribution gaps visible.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s16-build-the-usage-and-cost-starting-point
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s18-build-the-usage-and-cost-starting-point
 -->
 
 ---
@@ -700,11 +833,11 @@ class: mc
 
 # Governance Fundamentals
 
-<div class="mc-meta"><span>S17 · Governance and controls</span><span>11:30–11:40 · 10 min</span></div>
+<div class="mc-meta"><span>S19 · Governance and controls</span><span>11:30–11:40 · 10 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S17">
+<div class="mc-stack" data-slide-id="S19">
   <div class="mc-governance-top"><b>Offenses</b><b>Penalties</b><b>Amendments</b></div>
   <div class="mc-governance-roles">
     <div class="mc-governance-role"><b>Creators</b><span>(Committee)</span></div><div class="mc-governance-role"><b>Communicators</b><span>(Training, docs)</span></div>
@@ -729,7 +862,7 @@ Response guidance: If participants map every role to one group, say, “Record t
 
 Payoff: Participants identify governance roles and governed objects without converting the analogy into a product claim.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s17-governance-fundamentals
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s19-governance-fundamentals
 -->
 
 ---
@@ -741,11 +874,11 @@ class: mc
 
 # How Do Others Enforce Governance?
 
-<div class="mc-meta"><span>S18 · Governance and controls</span><span>11:40–11:50 · 10 min</span></div>
+<div class="mc-meta"><span>S20 · Governance and controls</span><span>11:40–11:50 · 10 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S18">
+<div class="mc-stack" data-slide-id="S20">
   <table class="mc-table">
     <thead><tr><th>Law</th><th>Governing body</th><th>Penalties for Non-Compliance</th><th>Legal or Technical Enforcement</th></tr></thead>
     <tbody>
@@ -772,7 +905,7 @@ Response guidance: If someone tries to fill either question mark, say, “Keep t
 
 Payoff: Participants distinguish inherent constraints from policies needing owners and evidence.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s18-how-do-others-enforce-governance
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s20-how-do-others-enforce-governance
 -->
 
 ---
@@ -784,11 +917,11 @@ class: mc
 
 # Enforcement Scope – How to Enforce
 
-<div class="mc-meta"><span>S19 · Governance and controls</span><span>11:50–12:00 · 10 min</span></div>
+<div class="mc-meta"><span>S21 · Governance and controls</span><span>11:50–12:00 · 10 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S19">
+<div class="mc-stack" data-slide-id="S21">
   <MissionControlEnforcementScope />
 </div>
 
@@ -805,7 +938,7 @@ Response guidance: If a technical stop is assumed, say, “Confirm current suppo
 
 Payoff: Participants share an enforcement sequence without an unsupported product promise.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s19-enforcement-scope-how-to-enforce
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s21-enforcement-scope-how-to-enforce
 -->
 
 ---
@@ -817,11 +950,11 @@ class: mc mc-dense
 
 # Transparent Enforcement Prioritization
 
-<div class="mc-meta"><span>S20 · Governance and controls</span><span>12:00–12:15 · 15 min</span></div>
+<div class="mc-meta"><span>S22 · Governance and controls</span><span>12:00–12:15 · 15 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S20">
+<div class="mc-stack" data-slide-id="S22">
   <div class="mc-priority-grid">
     <div><b>Object – the technical object that needs governance</b></div>
     <div><b>Offense – A possible breach of governance</b></div>
@@ -847,7 +980,7 @@ Response guidance: If the point value is treated as ROI, say, “Use it only to 
 
 Payoff: Participants create an owned control map with evidence and an exception path.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s20-transparent-enforcement-prioritization
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s22-transparent-enforcement-prioritization
 -->
 
 ---
@@ -886,11 +1019,11 @@ class: mc
 
 # Model Choice Demonstration
 
-<div class="mc-meta"><span>S21 · Candidate demonstration</span><span>13:00–13:06 · 6 min</span></div>
+<div class="mc-meta"><span>S23 · Selected native demonstration</span><span>13:00–13:06 · 6 min</span></div>
 
 ::text::
 
-<div class="mc-stack" data-slide-id="S21">
+<div class="mc-stack" data-slide-id="S23">
   <p>Match the task using:</p>
   <div class="mc-chip-grid"><b>complexity</b><b>required context</b><b>risk</b><b>validation effort</b><b>expected value</b></div>
 </div>
@@ -904,7 +1037,7 @@ class: mc
 <!--
 Timebox: 6 minutes
 
-Talk track: Which choice offers better expected value for the same task? Match complexity, required context, risk, validation effort, and expected value. Compare only choices approved and available at delivery time. Lowest use is not automatically best value. This is a candidate teaching role, not a selected demo. Use the full six minutes to frame a fair comparison without naming current models, prices, or availability.
+Talk track: Which choice offers better expected value for the same task? Match complexity, required context, risk, validation effort, and expected value. Compare only choices approved and available at delivery time. Lowest use is not automatically best value. This selected native synthetic demonstration frames a fair comparison without naming current models, prices, or availability. Use the full six minutes.
 
 Transition: Apply the criteria in Model Choice Practice and Evidence Review.
 
@@ -914,7 +1047,7 @@ Response guidance: If a current model or price is asserted, say, “That require
 
 Payoff: Participants gain criteria for a fair model-choice comparison.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s21-model-choice-demonstration; workshops/ghcp-dev-hack/content/modules/01-foundations/slides.md#model-routing-match-the-task
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s23-model-choice-demonstration; workshops/ghcp-dev-hack/content/modules/01-foundations/slides.md#model-routing-match-the-task
 -->
 
 ---
@@ -926,11 +1059,11 @@ class: mc
 
 # Model Choice Practice and Evidence Review
 
-<div class="mc-meta"><span>S22 · Guided optimization lab</span><span>13:06–13:15 · 9 min</span></div>
+<div class="mc-meta"><span>S24 · Guided optimization lab</span><span>13:06–13:15 · 9 min</span></div>
 
 ::text::
 
-<div class="mc-stack" data-slide-id="S22">
+<div class="mc-stack" data-slide-id="S24">
   <p>Same workflow, boundary, task, and acceptance rules</p>
   <div class="mc-callout">Change: <b>model choice only</b></div>
   <div class="mc-field"><b>Compare</b><span>completion · developer intervention · quality · time · risk · cost</span></div>
@@ -957,7 +1090,7 @@ Response guidance: If more than the model changes, say, “Reset the comparison 
 
 Payoff: Participants produce controlled model-choice comparison record 1 of 3.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s22-model-choice-practice-and-evidence-review
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s24-model-choice-practice-and-evidence-review
 -->
 
 ---
@@ -969,11 +1102,11 @@ class: mc
 
 # Context Selection Demonstration
 
-<div class="mc-meta"><span>S23 · Candidate demonstration</span><span>13:15–13:21 · 6 min</span></div>
+<div class="mc-meta"><span>S25 · Selected native demonstration</span><span>13:15–13:21 · 6 min</span></div>
 
 ::text::
 
-<div class="mc-stack" data-slide-id="S23">
+<div class="mc-stack" data-slide-id="S25">
   <p>Hold the task and acceptance rules constant.</p>
   <div class="mc-field"><b>First</b><span>stale, repeated, or unrelated context.</span></div>
   <div class="mc-field"><b>Then</b><span>only context needed for the task.</span></div>
@@ -999,7 +1132,7 @@ Response guidance: If the task or acceptance rule changes, say, “Reset the com
 
 Payoff: Participants can state the criteria for a fair context-selection comparison.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s23-context-selection-demonstration
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s25-context-selection-demonstration
 -->
 
 ---
@@ -1011,11 +1144,11 @@ class: mc
 
 # Context Selection Practice and Evidence Review
 
-<div class="mc-meta"><span>S24 · Guided optimization lab</span><span>13:21–13:30 · 9 min</span></div>
+<div class="mc-meta"><span>S26 · Guided optimization lab</span><span>13:21–13:30 · 9 min</span></div>
 
 ::text::
 
-<div class="mc-stack" data-slide-id="S24">
+<div class="mc-stack" data-slide-id="S26">
   <p>Same workflow, boundary, task, and acceptance rules</p>
   <div class="mc-callout">Change: <b>context selection only</b></div>
   <div class="mc-field"><b>Compare</b><span>completion · developer intervention · quality · time · risk · cost</span></div>
@@ -1042,7 +1175,7 @@ Response guidance: If participants change more than context, say, “Return to o
 
 Payoff: Participants produce controlled context comparison record 2 of 3 with an explicit decision and limits.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s24-context-selection-practice-and-evidence-review
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s26-context-selection-practice-and-evidence-review
 -->
 
 ---
@@ -1054,11 +1187,11 @@ class: mc
 
 # Tool-and-Permission Demonstration
 
-<div class="mc-meta"><span>S25 · Candidate demonstration</span><span>13:30–13:36 · 6 min</span></div>
+<div class="mc-meta"><span>S27 · Selected native safety demonstration</span><span>13:30–13:36 · 6 min</span></div>
 
 ::text::
 
-<div class="mc-stack" data-slide-id="S25">
+<div class="mc-stack" data-slide-id="S27">
   <h2>Least-Privilege Delegation</h2>
   <p>Give the service only the tools, data, permissions, and time needed for the bounded task.</p>
 </div>
@@ -1072,7 +1205,7 @@ class: mc
 <!--
 Timebox: 6 minutes
 
-Talk track: What is the least access needed for this bounded task? Give the service only the tools, data, permissions, and time needed. Name the human check and stop before an unapproved action. This is a candidate teaching role, not a selected live demo. Use the six minutes to compare broad access with needed access without taking action or claiming a specific current control.
+Talk track: What is the least access needed for this bounded task? Give the service only the tools, data, permissions, and time needed. Name the human check and stop before an unapproved action. This selected non-interactive native safety sequence compares broad access with needed access without taking action or claiming a specific current control. Use the full six minutes.
 
 Transition: Record the controlled result in Tool-and-Permission Practice and Evidence Review.
 
@@ -1082,7 +1215,7 @@ Response guidance: If broad access is justified by convenience, say, “Start fr
 
 Payoff: Participants gain criteria for a fair least-privilege comparison.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s25-tool-and-permission-demonstration; workshops/ghcp-dev-hack/content/modules/01-foundations/slides.md#least-privilege-delegation
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s27-tool-and-permission-demonstration; workshops/ghcp-dev-hack/content/modules/01-foundations/slides.md#least-privilege-delegation
 -->
 
 ---
@@ -1094,11 +1227,11 @@ class: mc
 
 # Tool-and-Permission Practice and Evidence Review
 
-<div class="mc-meta"><span>S26 · Guided optimization lab</span><span>13:36–13:45 · 9 min</span></div>
+<div class="mc-meta"><span>S28 · Guided optimization lab</span><span>13:36–13:45 · 9 min</span></div>
 
 ::text::
 
-<div class="mc-stack" data-slide-id="S26">
+<div class="mc-stack" data-slide-id="S28">
   <p>Same workflow, boundary, task, and acceptance rules</p>
   <div class="mc-callout">Change: <b>tools or permissions only</b></div>
   <div class="mc-field"><b>Compare</b><span>completion · developer intervention · quality · time · risk · cost</span></div>
@@ -1125,7 +1258,7 @@ Response guidance: If task scope changes, say, “Reset to the bounded task and 
 
 Payoff: Participants produce controlled tool-and-permission comparison record 3 of 3.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s26-tool-and-permission-practice-and-evidence-review
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s28-tool-and-permission-practice-and-evidence-review
 -->
 
 ---
@@ -1137,11 +1270,11 @@ class: mc
 
 # Choose the Funding Purpose
 
-<div class="mc-meta"><span>S27 · Investment and portfolio</span><span>13:45–13:54 · 9 min</span></div>
+<div class="mc-meta"><span>S29 · Investment and portfolio</span><span>13:45–13:54 · 9 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S27">
+<div class="mc-stack" data-slide-id="S29">
   <div class="mc-three-grid">
     <div><b>Exploration</b><span>bounded learning before reliability is known</span></div>
     <div><b>Production</b><span>governed work with demonstrated reliability and leverage</span></div>
@@ -1164,7 +1297,7 @@ Response guidance: If production is chosen without reliability evidence, say, �
 
 Payoff: Participants select a funding purpose and complete cost categories.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s27-choose-the-funding-purpose
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s29-choose-the-funding-purpose
 -->
 
 ---
@@ -1176,11 +1309,11 @@ class: mc
 
 # Choose Central Funding, Showback, or Chargeback
 
-<div class="mc-meta"><span>S28 · Investment and portfolio</span><span>13:54–14:03 · 9 min</span></div>
+<div class="mc-meta"><span>S30 · Investment and portfolio</span><span>13:54–14:03 · 9 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S28">
+<div class="mc-stack" data-slide-id="S30">
   <div class="mc-three-grid">
     <div><b>Central funding</b><span>one budget pays</span></div>
     <div><b>Showback</b><span>report use or cost to an owner without moving money</span></div>
@@ -1203,7 +1336,7 @@ Response guidance: If chargeback is treated as a simple report, restate that it 
 
 Payoff: Participants choose a funding or reporting approach with an owner and threshold.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s28-choose-central-funding-showback-or-chargeback
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s30-choose-central-funding-showback-or-chargeback
 -->
 
 ---
@@ -1215,11 +1348,11 @@ class: mc
 
 # Rank the Portfolio
 
-<div class="mc-meta"><span>S29 · Investment and portfolio</span><span>14:03–14:15 · 12 min</span></div>
+<div class="mc-meta"><span>S31 · Investment and portfolio</span><span>14:03–14:15 · 12 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S29">
+<div class="mc-stack" data-slide-id="S31">
   <div class="mc-five-grid"><b>expected value</b><b>evidence strength</b><b>practicality</b><b>risk</b><b>cost exposure</b></div>
   <div class="mc-decision-strip"><b>fund first</b><b>gather evidence</b><b>wait</b><b>stop</b></div>
   <div class="mc-callout">Do not rank by adoption or consumption alone.</div>
@@ -1239,7 +1372,7 @@ Response guidance: If adoption dominates, say, “Show the accepted outcome and 
 
 Payoff: Participants produce a ranked portfolio with funding ownership and thresholds.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s29-rank-the-portfolio
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s31-rank-the-portfolio
 -->
 
 ---
@@ -1278,11 +1411,11 @@ class: mc
 
 # Assign Recommend, Decide, Fund, Approve, Execute
 
-<div class="mc-meta"><span>S30 · Enterprise operating model</span><span>14:30–14:40 · 10 min</span></div>
+<div class="mc-meta"><span>S32 · Enterprise operating model</span><span>14:30–14:40 · 10 min</span></div>
 
 ::text::
 
-<div class="mc-stack" data-slide-id="S30">
+<div class="mc-stack" data-slide-id="S32">
   <p>For each pilot decision, name who:</p>
   <div class="mc-chip-grid"><b>recommends</b><b>decides</b><b>funds</b><b>approves</b><b>executes</b></div>
 </div>
@@ -1308,7 +1441,7 @@ Response guidance: If one role is assigned every right, say, “Confirm that eac
 
 Payoff: Participants complete the first half of the operating charter.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s30-assign-recommend-decide-fund-approve-execute
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s32-assign-recommend-decide-fund-approve-execute
 -->
 
 ---
@@ -1320,11 +1453,11 @@ class: mc
 
 # Assign Enable, Monitor, Review, Renew, Retire, Escalate
 
-<div class="mc-meta"><span>S31 · Enterprise operating model</span><span>14:40–14:50 · 10 min</span></div>
+<div class="mc-meta"><span>S33 · Enterprise operating model</span><span>14:40–14:50 · 10 min</span></div>
 
 ::text::
 
-<div class="mc-stack" data-slide-id="S31">
+<div class="mc-stack" data-slide-id="S33">
   <p>Name who:</p>
   <div class="mc-chip-grid"><b>enables</b><b>monitors</b><b>reviews</b><b>renews</b><b>retires</b><b>escalates</b></div>
 </div>
@@ -1349,7 +1482,7 @@ Response guidance: If ownership is a team name only, say, “Name the accountabl
 
 Payoff: Participants complete the second half of the operating charter.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s31-assign-enable-monitor-review-renew-retire-escalate
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s33-assign-enable-monitor-review-renew-retire-escalate
 -->
 
 ---
@@ -1361,11 +1494,11 @@ class: mc
 
 # Stress-Test the Operating Model
 
-<div class="mc-meta"><span>S32 · Enterprise operating model</span><span>14:50–15:00 · 10 min</span></div>
+<div class="mc-meta"><span>S34 · Enterprise operating model</span><span>14:50–15:00 · 10 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S32">
+<div class="mc-stack" data-slide-id="S34">
   <p>Test one:</p>
   <div class="mc-four-grid"><div><b>incident</b></div><div><b>exception</b></div><div><b>expired approval</b></div><div><b>evidence failure</b></div></div>
   <div class="mc-question-grid">
@@ -1387,7 +1520,7 @@ Response guidance: If authority is unclear, say, “Record the gap; do not assig
 
 Payoff: Participants record a stress-test result and unresolved ownership gaps.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s32-stress-test-the-operating-model
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s34-stress-test-the-operating-model
 -->
 
 ---
@@ -1399,11 +1532,11 @@ class: mc
 
 # Complete the Ownership and Decision Map
 
-<div class="mc-meta"><span>S33 · Enterprise operating model</span><span>15:00–15:15 · 15 min</span></div>
+<div class="mc-meta"><span>S35 · Enterprise operating model</span><span>15:00–15:15 · 15 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S33">
+<div class="mc-stack" data-slide-id="S35">
   <div class="mc-process-line">proposes <i>→</i> validates <i>→</i> approves boundary <i>→</i> funds <i>→</i> enables <i>→</i> monitors <i>→</i> handles incident/exception <i>→</i> reviews expiry or escalation</div>
   <div class="mc-callout">For every step: <b>owner, evidence, next handoff, and decision date.</b></div>
   <p class="mc-small"><b>Lead P1/P2 · Evidence P3-P7 · Review/Decide each named authority</b></p>
@@ -1422,7 +1555,7 @@ Response guidance: If a gap remains, say, “Keep it visible as a dependency and
 
 Payoff: Participants produce a complete operating charter with an escalation path.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s33-complete-the-ownership-and-decision-map
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s35-complete-the-ownership-and-decision-map
 -->
 
 ---
@@ -1434,11 +1567,11 @@ class: mc
 
 # Connect the Change to an Accepted Outcome
 
-<div class="mc-meta"><span>S34 · Prove ROI</span><span>15:15–15:23 · 8 min</span></div>
+<div class="mc-meta"><span>S36 · Prove ROI</span><span>15:15–15:23 · 8 min</span></div>
 
 ::text::
 
-<div class="mc-stack" data-slide-id="S34">
+<div class="mc-stack" data-slide-id="S36">
   <div class="mc-field"><b>Change</b><span>___ in workflow ___</span></div>
   <div class="mc-field"><b>Completion boundary</b><span>___</span></div>
   <div class="mc-field"><b>Required acceptance checks</b><span>___</span></div>
@@ -1466,7 +1599,7 @@ Response guidance: If the chain stops at usage or cost, ask, “What accepted ou
 
 Payoff: Participants produce an evidence chain from change to accepted outcome.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s34-connect-the-change-to-an-accepted-outcome
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s36-connect-the-change-to-an-accepted-outcome
 -->
 
 ---
@@ -1478,11 +1611,11 @@ class: mc
 
 # Make the Comparison Fair
 
-<div class="mc-meta"><span>S35 · Prove ROI</span><span>15:23–15:31 · 8 min</span></div>
+<div class="mc-meta"><span>S37 · Prove ROI</span><span>15:23–15:31 · 8 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S35">
+<div class="mc-stack" data-slide-id="S37">
   <p>Compare the same:</p>
   <div class="mc-five-grid"><b>task</b><b>population</b><b>period</b><b>completion boundary</b><b>acceptance test</b></div>
   <div class="mc-callout"><b>Change one important factor.</b></div>
@@ -1502,7 +1635,7 @@ Response guidance: If several factors changed, say, “Narrow the comparison or 
 
 Payoff: Participants produce a fair comparison design with a stated limitation.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s35-make-the-comparison-fair
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s37-make-the-comparison-fair
 -->
 
 ---
@@ -1514,11 +1647,11 @@ class: mc
 
 # Build the Seven-Measure Pilot Scorecard
 
-<div class="mc-meta"><span>S36 · Prove ROI</span><span>15:31–15:41 · 10 min</span></div>
+<div class="mc-meta"><span>S38 · Prove ROI</span><span>15:31–15:41 · 10 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S36">
+<div class="mc-stack" data-slide-id="S38">
   <div class="mc-score-measures">
     <span>Valid completion</span><span>Developer intervention</span><span>Cycle time</span><span>Rework/quality</span>
     <span>AI cost per accepted outcome</span><span>Operational risk</span><span>Business outcome</span>
@@ -1541,7 +1674,7 @@ Response guidance: If adoption or usage replaces an outcome, say, “Which accep
 
 Payoff: Participants produce a seven-measure pilot scorecard with missing evidence visible.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s36-build-the-seven-measure-pilot-scorecard
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s38-build-the-seven-measure-pilot-scorecard
 -->
 
 ---
@@ -1553,11 +1686,11 @@ class: mc
 
 # Build the Executive Scorecard
 
-<div class="mc-meta"><span>S37 · Prove ROI</span><span>15:41–15:50 · 9 min</span></div>
+<div class="mc-meta"><span>S39 · Prove ROI</span><span>15:41–15:50 · 9 min</span></div>
 
 ::text::
 
-<div class="mc-stack" data-slide-id="S37">
+<div class="mc-stack" data-slide-id="S39">
   <p>Roll evidence into five views:</p>
   <div class="mc-exec-views"><span>Adoption</span><span>Delivery</span><span>Quality</span><span>Capacity</span><span>Financial</span></div>
   <div class="mc-callout">Adoption shows use. It does not prove value by itself.</div>
@@ -1585,7 +1718,7 @@ Response guidance: If one metric is copied into every view, say, “Name the dis
 
 Payoff: Participants produce an executive scorecard mapped to the pilot evidence.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s37-build-the-executive-scorecard
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s39-build-the-executive-scorecard
 -->
 
 ---
@@ -1597,11 +1730,11 @@ class: mc
 
 # Set Stop, Revise, Fund, and Scale Gates
 
-<div class="mc-meta"><span>S38 · Prove ROI</span><span>15:50–16:00 · 10 min</span></div>
+<div class="mc-meta"><span>S40 · Prove ROI</span><span>15:50–16:00 · 10 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S38">
+<div class="mc-stack" data-slide-id="S40">
   <div class="mc-prompt">Gate ___ · threshold/evidence ___ · checkpoint date ___ · owner ___ · decision authority ___<br>If unmet ___ · If met ___</div>
   <div class="mc-decision-strip"><b>Stop</b><b>Revise</b><b>Fund</b><b>Scale</b></div>
   <div class="mc-callout">A scale gate cannot rely only on adoption, usage, access, or generated output.</div>
@@ -1620,7 +1753,7 @@ Response guidance: If a threshold is vague, say, “Name the evidence and the de
 
 Payoff: Participants create owned thresholds and decision checkpoints.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s38-set-stop-revise-fund-and-scale-gates
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s40-set-stop-revise-fund-and-scale-gates
 -->
 
 ---
@@ -1632,11 +1765,11 @@ class: mc
 
 # Set the 30/60/90 Review Points
 
-<div class="mc-meta"><span>S39 · Action plan</span><span>16:00–16:14 · 14 min</span></div>
+<div class="mc-meta"><span>S41 · Action plan</span><span>16:00–16:14 · 14 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S39">
+<div class="mc-stack" data-slide-id="S41">
   <div class="mc-three-grid">
     <div><b>30 days</b><span>first evidence, control, or ownership gap to close</span></div>
     <div><b>60 days</b><span>comparison and operating review</span></div>
@@ -1659,7 +1792,7 @@ Response guidance: If a horizon is framed as guaranteed value, say, “Rewrite i
 
 Payoff: Participants produce owned 30-, 60-, and 90-day review points.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s39-set-the-30-60-90-review-points
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s41-set-the-30-60-90-review-points
 -->
 
 ---
@@ -1671,11 +1804,11 @@ class: mc
 
 # Sequence the First Actions
 
-<div class="mc-meta"><span>S40 · Action plan</span><span>16:14–16:30 · 16 min</span></div>
+<div class="mc-meta"><span>S42 · Action plan</span><span>16:14–16:30 · 16 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S40">
+<div class="mc-stack" data-slide-id="S42">
   <p>Put first:</p>
   <div class="mc-chip-grid">
     <b>blocked dependencies</b><b>evidence collection</b><b>control decisions</b>
@@ -1698,7 +1831,7 @@ Response guidance: If an action has no owner or date, say, “It is not yet sequ
 
 Payoff: Participants produce a sequenced action plan and review dates.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s40-sequence-the-first-actions
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s42-sequence-the-first-actions
 -->
 
 ---
@@ -1710,11 +1843,11 @@ class: mc
 
 # Assemble the Pilot Decision Package
 
-<div class="mc-meta"><span>S41 · Pilot decision</span><span>16:30–16:44 · 14 min</span></div>
+<div class="mc-meta"><span>S43 · Pilot decision</span><span>16:30–16:44 · 14 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S41">
+<div class="mc-stack" data-slide-id="S43">
   <div class="mc-package-grid">
     <b>mission</b><b>ROI path</b><b>expected value</b><b>usage/cost starting point</b><b>control map</b>
     <b>three comparisons</b><b>funding</b><b>operating charter</b><b>pilot + executive scorecards</b><b>gates</b><b>30/60/90 plan</b>
@@ -1736,7 +1869,7 @@ Response guidance: If a gap is hidden to make the package look complete, say, �
 
 Payoff: Participants assemble a complete pilot investment package with unresolved items visible.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s41-assemble-the-pilot-decision-package
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s43-assemble-the-pilot-decision-package
 -->
 
 ---
@@ -1748,11 +1881,11 @@ class: mc
 
 # Present, Challenge, and Decide
 
-<div class="mc-meta"><span>S42 · Executive readout</span><span>16:44–17:00 · 16 min</span></div>
+<div class="mc-meta"><span>S44 · Executive readout</span><span>16:44–17:00 · 16 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S42">
+<div class="mc-stack" data-slide-id="S44">
   <p>Present the recommendation. Challenge the evidence. Record the next decision.</p>
   <div class="mc-decision-strip"><b>Stop</b><b>Revise</b><b>Fund</b><b>Scale</b></div>
   <div class="mc-final-sentence">For workflow ___, we will test ROI path ___ through pilot ___, within boundary ___, funded by ___, governed by ___, measured using ___, and reviewed on ___ by decision authority ___ to decide whether to stop, revise, fund, or scale.</div>
@@ -1772,5 +1905,5 @@ Response guidance: If authority or a review date is missing, say, “Keep that d
 
 Payoff: Participants complete the final pilot investment statement and record an explicit next decision.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s42-present-challenge-and-decide
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s44-present-challenge-and-decide
 -->

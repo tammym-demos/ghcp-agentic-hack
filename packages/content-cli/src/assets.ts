@@ -14,7 +14,12 @@ import {
   type ImageProvider,
   type ImageProviderName
 } from "@ghcp/foundry-providers";
-import { generatedAssetSchema, mediaActionRequestSchema, type MediaActionRequest } from "@ghcp/content-schema";
+import {
+  generatedAssetSchema,
+  localDeterministicImageSchema,
+  mediaActionRequestSchema,
+  type MediaActionRequest
+} from "@ghcp/content-schema";
 import { candidatesRoot, repositoryRoot, workshopsRoot } from "./paths.js";
 import { assertCandidateAccepted, authorizedAction, type ActionAuthorizationEvidence, type AuthorizationRoots } from "./authorization.js";
 import { canonical, localFile } from "./production-records.js";
@@ -488,7 +493,7 @@ export async function promoteImage(
 }
 
 export async function validateApprovedImageSidecars(root = repositoryRoot): Promise<number> {
-  const rasterPaths = await fg(
+  const canonicalRasterPaths = await fg(
     [
       "workshops/*/assets/images/**/*.{png,jpg,jpeg,webp}",
       "workshops/*/content/modules/*/media/references/**/*.{png,jpg,jpeg,webp}",
@@ -496,6 +501,14 @@ export async function validateApprovedImageSidecars(root = repositoryRoot): Prom
     ],
     { cwd: root, absolute: true, onlyFiles: true }
   );
+  const publicSidecars = await fg(
+    "workshops/*/content/modules/*/public/images/**/*.{png,jpg,jpeg,webp}.json",
+    { cwd: root, absolute: true, onlyFiles: true }
+  );
+  const rasterPaths = [...new Set([
+    ...canonicalRasterPaths,
+    ...publicSidecars.map(sidecarPath => sidecarPath.slice(0, -".json".length))
+  ])];
   const errors: string[] = [];
 
   for (const imagePath of rasterPaths) {
@@ -514,8 +527,13 @@ export async function validateApprovedImageSidecars(root = repositoryRoot): Prom
     }
 
     try {
-      const manifest = generatedAssetSchema.parse(await readJson(sidecarPath));
-      if (manifest.kind !== "image") throw new Error("sidecar kind must be image");
+      const raw = await readJson(sidecarPath);
+      const manifest = raw?.kind === "local-deterministic-image"
+        ? localDeterministicImageSchema.parse(raw)
+        : generatedAssetSchema.parse(raw);
+      if (manifest.kind !== "image" && manifest.kind !== "local-deterministic-image") {
+        throw new Error("sidecar kind must be image");
+      }
       if (manifest.reviewStatus !== "approved") {
         throw new Error(`reviewStatus must be approved, received ${manifest.reviewStatus}`);
       }
@@ -529,6 +547,10 @@ export async function validateApprovedImageSidecars(root = repositoryRoot): Prom
       const sourcePath = path.resolve(workshopRoot, ...manifest.source.split("/"));
       if (!(await pathExists(sourcePath))) throw new Error(`source does not exist: ${manifest.source}`);
       await assertImageDimensions(imagePath, manifest.width, manifest.height);
+      if (manifest.kind === "local-deterministic-image") {
+        const imageHash = digest(await readFile(imagePath));
+        if (imageHash !== manifest.sha256) throw new Error(`sha256 does not match raster ${imageHash}`);
+      }
     } catch (error) {
       errors.push(`${relativeImage}: ${error instanceof Error ? error.message : String(error)}`);
     }

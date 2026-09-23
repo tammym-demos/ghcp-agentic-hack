@@ -1,5 +1,5 @@
 import { execFile } from "node:child_process";
-import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, readdir, rm, symlink, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { promisify } from "node:util";
@@ -20,9 +20,31 @@ import {
 
 const execFileAsync = promisify(execFile);
 const temporaryDirectories: string[] = [];
+type SidecarMetadataCase =
+  "public-file" | "restricted-file" | "directory" | "redirected-file" |
+  "reference-restricted" | "nested-source-restricted" | "location-restricted" |
+  "input-reference-restricted" | "nested-metadata-restricted" |
+  "public-url-location" | "credentialed-url-location" | "signed-url-location";
+const sidecarMetadataCases: Array<[boolean, SidecarMetadataCase]> = [
+  [true, "public-file"],
+  [false, "public-file"],
+  [true, "restricted-file"],
+  [true, "directory"],
+  [true, "reference-restricted"],
+  [true, "nested-source-restricted"],
+  [true, "location-restricted"],
+  [true, "input-reference-restricted"],
+  [true, "nested-metadata-restricted"],
+  [true, "public-url-location"],
+  [true, "credentialed-url-location"],
+  [true, "signed-url-location"]
+];
+if (process.platform !== "win32") sidecarMetadataCases.push([true, "redirected-file"]);
 
 afterEach(async () => {
-  await Promise.all(temporaryDirectories.splice(0).map((root) => rm(root, { recursive: true, force: true })));
+  await Promise.all(temporaryDirectories.splice(0).map((root) =>
+    rm(root, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 })
+  ));
 });
 
 it("normalizes Windows manifest paths for GitHub Actions", () => {
@@ -151,7 +173,9 @@ workshops:
     );
   });
 
-  it.each([true, false])("exports selected content from pinned snapshots (declarations: %s)", async (hasDeclarations) => {
+  it.each(sidecarMetadataCases)(
+    "exports selected content from pinned snapshots (declarations: %s, sidecar metadata: %s)",
+    async (hasDeclarations, sidecarMetadataCase) => {
     const root = await mkdtemp(path.join(os.tmpdir(), "ghcp-public-export-"));
     temporaryDirectories.push(root);
     await mkdir(path.join(root, ".github", "public-release"), { recursive: true });
@@ -308,16 +332,78 @@ status: published
         provider: "gpt-image-2",
         deployment: "test",
         promptHash: "0".repeat(64),
-        source: "content/modules/01-intro/prompt.txt",
+        source: {
+          "public-file": "content/modules/01-intro/prompt.txt",
+          "restricted-file": "content/modules/01-intro/review/screenshot.png",
+          directory: "content/modules/01-intro",
+          "redirected-file": "content/modules/01-intro/public-source/screenshot.png",
+          "reference-restricted": "content/modules/01-intro/prompt.txt",
+          "nested-source-restricted": "assets/provenance.txt",
+          "location-restricted": "content/modules/01-intro/prompt.txt",
+          "input-reference-restricted": "content/modules/01-intro/prompt.txt",
+          "nested-metadata-restricted": "content/modules/01-intro/prompt.txt",
+          "public-url-location": "content/modules/01-intro/prompt.txt",
+          "credentialed-url-location": "content/modules/01-intro/prompt.txt",
+          "signed-url-location": "content/modules/01-intro/prompt.txt"
+        }[sidecarMetadataCase],
         createdAt: "2026-08-05T18:00:00.000Z",
         reviewStatus: "approved",
-        location: "assets/diagram.txt"
+        location: ({
+          "location-restricted": "content/modules/01-intro/review/screenshot.png",
+          "public-url-location": "https://public.example.com/media/diagram.png",
+          "credentialed-url-location": "https://user:secret@public.example.com/media/diagram.png",
+          "signed-url-location": "https://public.example.com/media/diagram.png?sig=secret"
+        } as Partial<Record<SidecarMetadataCase, string>>)[sidecarMetadataCase] ?? "assets/diagram.txt",
+        inputReference: sidecarMetadataCase === "input-reference-restricted"
+          ? {
+              path: "generated/candidates/test-workshop/private-reference.png",
+              hash: "1".repeat(64),
+              contentType: "image/png"
+            }
+          : undefined,
+        providerProvenance: sidecarMetadataCase === "nested-metadata-restricted"
+          ? {
+              originalCandidate: "generated/candidates/test-workshop/private-candidate.png",
+              originalCandidateHash: "2".repeat(64),
+              reviewPacket: "content/modules/01-intro/review/private-packet.md"
+            }
+          : undefined
       })
     );
+    if (sidecarMetadataCase === "redirected-file") {
+      await symlink("review", path.join(moduleRoot, "public-source"), "dir");
+    }
+    await writeFile(path.join(root, "workshops", "test-workshop", "assets", "reference.txt"), "reference");
+    if (sidecarMetadataCase === "reference-restricted") {
+      await writeFile(
+        path.join(root, "workshops", "test-workshop", "assets", "reference.txt.json"),
+        JSON.stringify({
+          schemaVersion: 1,
+          id: "reference",
+          kind: "image",
+          provider: "gpt-image-2",
+          deployment: "test",
+          promptHash: "0".repeat(64),
+          source: "content/modules/01-intro/review/screenshot.png",
+          createdAt: "2026-08-05T18:00:00.000Z",
+          reviewStatus: "approved",
+          location: "assets/reference.txt"
+        })
+      );
+    }
     await writeFile(
       path.join(root, "workshops", "test-workshop", "content", "modules", "01-intro", "prompt.txt"),
       "Generate a diagram"
     );
+    if (sidecarMetadataCase === "nested-source-restricted") {
+      await writeFile(path.join(root, "workshops", "test-workshop", "assets", "provenance.txt"), "provenance");
+      await writeFile(
+        path.join(root, "workshops", "test-workshop", "assets", "provenance.txt.json"),
+        JSON.stringify({
+          source: "content/modules/01-intro/review/screenshot.png"
+        })
+      );
+    }
     await writeFile(
       path.join(root, "workshops", "test-workshop", "content", "storyboards", "intro", "storyboard.md"),
       `---
@@ -362,7 +448,7 @@ visualTraits:
 continuityRules:
   - Keep the same clothing
 referenceImages:
-  - assets/diagram.txt
+  - assets/reference.txt
 status: published
 ---
 `
@@ -427,15 +513,83 @@ workshops:
     if (!hasDeclarations) await writeFile(
       path.join(root, ".github", "public-release", "export-files.json"), "{"
     );
+    const successfulCases = new Set<SidecarMetadataCase>([
+      "public-file",
+      "restricted-file",
+      "reference-restricted",
+      "nested-source-restricted",
+      "input-reference-restricted",
+      "nested-metadata-restricted",
+      "public-url-location"
+    ]);
+    if (!successfulCases.has(sidecarMetadataCase)) {
+      await expect(exportPublicRelease("releases/test-release.md", "public-export", root))
+        .rejects.toThrow(
+          ["location-restricted", "credentialed-url-location", "signed-url-location"]
+            .includes(sidecarMetadataCase)
+              ? "Public release sidecar location is restricted"
+            : "Public export paths must name regular files"
+        );
+      await expect(readdir(path.join(root, "public-export"))).resolves.toEqual([]);
+      return;
+    }
     const output = await exportPublicRelease("releases/test-release.md", "public-export", root);
     const exportedCatalog = await loadCatalog(output);
     const exportedWorkshop = await readFile(
       path.join(output, "workshops", "test-workshop", "workshop.md"),
       "utf8"
     );
+    const exportedSidecar = JSON.parse(await readFile(
+      path.join(output, "workshops", "test-workshop", "assets", "diagram.txt.json"),
+      "utf8"
+    ));
 
     expect(exportedCatalog.workshops[0]?.modules.map((module) => module.data.id)).toEqual(["introduction"]);
     expect(exportedWorkshop).not.toContain("lifecycleVersion");
+    if (sidecarMetadataCase === "input-reference-restricted") {
+      expect(exportedSidecar.inputReference).toBeUndefined();
+    }
+    if (sidecarMetadataCase === "nested-metadata-restricted") {
+      expect(exportedSidecar.providerProvenance).toEqual({
+        originalCandidateHash: "2".repeat(64)
+      });
+    }
+    if (sidecarMetadataCase === "public-url-location") {
+      expect(exportedSidecar.location).toBe("https://public.example.com/media/diagram.png");
+    }
+    if (sidecarMetadataCase === "restricted-file") {
+      expect(exportedSidecar.source).toBe("public-sources/content/modules/01-intro/review-source/screenshot.png");
+      await expect(
+        readFile(
+          path.join(
+            output,
+            "workshops",
+            "test-workshop",
+            "public-sources",
+            "content",
+            "modules",
+            "01-intro",
+            "review-source",
+            "screenshot.png"
+          ),
+          "utf8"
+        )
+      ).resolves.toBe("private evidence");
+    }
+    if (sidecarMetadataCase === "reference-restricted") {
+      const exportedReferenceSidecar = JSON.parse(await readFile(
+        path.join(output, "workshops", "test-workshop", "assets", "reference.txt.json"),
+        "utf8"
+      ));
+      expect(exportedReferenceSidecar.source).toBe("public-sources/content/modules/01-intro/review-source/screenshot.png");
+    }
+    if (sidecarMetadataCase === "nested-source-restricted") {
+      const exportedProvenanceSidecar = JSON.parse(await readFile(
+        path.join(output, "workshops", "test-workshop", "assets", "provenance.txt.json"),
+        "utf8"
+      ));
+      expect(exportedProvenanceSidecar.source).toBe("public-sources/content/modules/01-intro/review-source/screenshot.png");
+    }
     for (const file of hasDeclarations
       ? ["components/Wrapper.vue", "motion/Scene.vue", "motion/scene.css", "motion/runtime.test.mjs"] : []) {
       const relative = path.join("workshops", "test-workshop", "content", "modules", "01-intro", file);
@@ -444,7 +598,8 @@ workshops:
     for (const file of [
       "packages/example/private-tests/archive.test.mjs",
       "workshops/test-workshop/content/modules/01-intro/motion/private-proof.md",
-      "workshops/test-workshop/content/modules/01-intro/review/screenshot.png"
+      "workshops/test-workshop/content/modules/01-intro/review/screenshot.png",
+      "workshops/test-workshop/content/production/production-state.md"
     ]) await expect(readFile(path.join(output, file))).rejects.toThrow();
     const scripts = JSON.parse(await readFile(path.join(output, "package.json"), "utf8")).scripts;
     expect(scripts).toEqual(hasDeclarations ? {
@@ -463,19 +618,18 @@ workshops:
       await expect(readFile(path.join(output, "workshops", "test-workshop", "content", "modules",
         "01-intro", "motion", "runtime.test.mjs"))).rejects.toMatchObject({ code: "ENOENT" });
     }
-    await expect(
-      readFile(path.join(output, "workshops", "test-workshop", "content", "production", "production-state.md"))
-    ).rejects.toThrow();
     await expect(readFile(path.join(output, ".github", "workflows", "pages.yml"), "utf8")).resolves.toContain(
       "Public Pages"
     );
     await expect(readFile(path.join(output, "release-provenance.json"), "utf8")).resolves.toContain(commit);
-    await expect(
-      readFile(
-        path.join(output, "workshops", "test-workshop", "content", "modules", "01-intro", "prompt.txt"),
-        "utf8"
-      )
-    ).resolves.toContain("Generate a diagram");
+    if (!["restricted-file", "nested-source-restricted"].includes(sidecarMetadataCase)) {
+      await expect(
+        readFile(
+          path.join(output, "workshops", "test-workshop", "content", "modules", "01-intro", "prompt.txt"),
+          "utf8"
+        )
+      ).resolves.toContain("Generate a diagram");
+    }
     await expect(
       readFile(
         path.join(output, "workshops", "test-workshop", "content", "modules", "01-intro", "style.css"),

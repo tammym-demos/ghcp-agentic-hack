@@ -76,12 +76,14 @@ export const workEnvelopeSchema = z.object({
   actions: z.array(z.object({
     id,
     decisionId: id,
+    sampleGroup: id.optional(),
     request: mediaActionRequestSchema
   }).strict()).min(1),
   limits: z.object({
     maxActions: z.number().int().positive(),
     maxProviderCalls: z.number().int().nonnegative(),
-    maxCandidates: z.number().int().nonnegative()
+    maxCandidates: z.number().int().nonnegative(),
+    sampleBatchSize: z.number().int().positive().optional()
   }).strict(),
   stopConditions: z.array(z.string().min(1)).min(1),
   sampleStatus: z.enum(["pending", "passed", "failed"]),
@@ -94,6 +96,61 @@ export const workEnvelopeSchema = z.object({
   ] as const) {
     if (new Set(values).size !== values.length) {
       ctx.addIssue({ code: "custom", path: [field], message: "Duplicate identifiers are ambiguous" });
+    }
+  }
+  const sampleBatchSize = envelope.limits.sampleBatchSize;
+  const imageActions = envelope.actions.filter(action => action.request.kind === "generate-image");
+  const sampleActions = envelope.actions.filter(action => action.sampleGroup);
+  for (const action of sampleActions) {
+    if (action.request.kind !== "generate-image") {
+      ctx.addIssue({
+        code: "custom",
+        path: ["actions"],
+        message: "sampleGroup is supported only for generate-image actions"
+      });
+    }
+  }
+  if (sampleBatchSize === undefined && sampleActions.length) {
+    ctx.addIssue({
+      code: "custom",
+      path: ["actions"],
+      message: "sampleGroup requires limits.sampleBatchSize"
+    });
+  }
+  if (sampleBatchSize !== undefined) {
+    for (const [field, maximum] of [
+      ["maxActions", envelope.limits.maxActions],
+      ["maxProviderCalls", envelope.limits.maxProviderCalls],
+      ["maxCandidates", envelope.limits.maxCandidates],
+      ["imageActions", imageActions.length]
+    ] as const) {
+      if (sampleBatchSize > maximum) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["limits", "sampleBatchSize"],
+          message: `sampleBatchSize cannot exceed ${field} (${maximum})`
+        });
+      }
+    }
+    if (sampleBatchSize !== sampleActions.length) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["limits", "sampleBatchSize"],
+        message: "A comparison envelope must identify exactly sampleBatchSize actions using sampleGroup"
+      });
+    }
+    const grouped = new Map<string, number>();
+    for (const action of sampleActions) {
+      grouped.set(action.sampleGroup!, (grouped.get(action.sampleGroup!) ?? 0) + 1);
+    }
+    for (const [group, count] of grouped) {
+      if (count > 3) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["actions"],
+          message: `sampleGroup ${group} exceeds three candidates`
+        });
+      }
     }
   }
 });

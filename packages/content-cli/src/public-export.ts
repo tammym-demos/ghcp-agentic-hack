@@ -17,11 +17,47 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
+export function isPublicExportPath(value: unknown): value is string {
+  return typeof value === "string" &&
+    /^[a-zA-Z0-9_./-]+$/.test(value) &&
+    !value.startsWith("/") &&
+    !value.split("/").some(part => !part || part === "." || part === "..") &&
+    !value.split("/").some(part =>
+      ["archive", "review", "reviews", "production", "generated", "node_modules", ".git", "private-tests"]
+        .includes(part.toLowerCase())
+    ) &&
+    !/(^|\/)\.env(?:[./]|$)/i.test(value);
+}
+
+function isCredentialFreeHttpsUrl(value: unknown): value is string {
+  if (typeof value !== "string") return false;
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" &&
+      !url.username &&
+      !url.password &&
+      !url.search &&
+      !url.hash;
+  } catch {
+    return false;
+  }
+}
+
+export function isPublicExportLocation(value: unknown): value is string {
+  return isPublicExportPath(value) || isCredentialFreeHttpsUrl(value);
+}
+
+export function isUnsafePublicMetadataValue(value: unknown): value is string {
+  if (typeof value !== "string") return false;
+  if (/^[a-z][a-z0-9+.-]*:\/\//i.test(value)) return !isCredentialFreeHttpsUrl(value);
+  const normalized = value.split("\\").join("/");
+  const pathLike = /^[a-zA-Z0-9_./-]+$/.test(normalized) &&
+    (normalized.includes("/") || normalized.startsWith("."));
+  return pathLike && !isPublicExportPath(normalized);
+}
+
 function validatePath(value: unknown): asserts value is string {
-  if (typeof value !== "string" || !/^[a-zA-Z0-9_./-]+$/.test(value) ||
-      value.startsWith("/") || value.split("/").some(part => !part || part === "." || part === "..") ||
-      value.split("/").some(part => ["archive", "review", "reviews", "production", "generated", "node_modules", ".git", "private-tests"].includes(part.toLowerCase())) ||
-      /(^|\/)\.env(?:[./]|$)/i.test(value)) {
+  if (!isPublicExportPath(value)) {
     throw new Error(`Invalid public export file: ${String(value)}`);
   }
 }

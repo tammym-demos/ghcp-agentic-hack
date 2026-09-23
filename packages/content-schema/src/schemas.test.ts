@@ -1,11 +1,33 @@
 import { describe, expect, it } from "vitest";
 import {
+  localDeterministicImageSchema,
   missionSchema,
   moduleSchema,
   productionStateSchema,
   releaseManifestSchema,
   workshopSchema
 } from "./schemas.js";
+
+describe("localDeterministicImageSchema", () => {
+  it("accepts truthful local derivative provenance", () => {
+    expect(localDeterministicImageSchema.safeParse({
+      schemaVersion: 1,
+      id: "accepted-local-image",
+      kind: "local-deterministic-image",
+      source: "content/review.md",
+      createdAt: "2026-09-22T00:00:00.000Z",
+      reviewStatus: "approved",
+      location: "content/modules/01-intro/public/images/accepted.png",
+      sha256: "0".repeat(64),
+      width: 1920,
+      height: 1080,
+      sourceCandidateSha256: "1".repeat(64),
+      transformManifestSha256: "2".repeat(64),
+      candidateAcceptanceDecision: "decision-1",
+      publicationDecision: "decision-2"
+    }).success).toBe(true);
+  });
+});
 
 describe("workshopSchema", () => {
   it("accepts a valid workshop", () => {

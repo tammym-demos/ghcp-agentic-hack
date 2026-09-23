@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { createMaiImageRequestBody } from "./images.js";
+import { createMaiImageRequestBody, maiImageScope } from "./images.js";
 import { imageProviderNames, maiImageProviderNames } from "./types.js";
 
 describe("createMaiImageRequestBody", () => {
@@ -69,5 +69,19 @@ describe("imageProviderNames", () => {
     expect(imageProviderNames).toContain("mai-image-2.5");
     expect(imageProviderNames).toContain("mai-image-2.6");
     expect(maiImageProviderNames).toEqual(["mai-image-2.5", "mai-image-2.6"]);
+  });
+});
+
+describe("maiImageScope", () => {
+  it("rejects Foundry project endpoints because they do not expose the MAI image route", () => {
+    expect(() =>
+      maiImageScope("https://example.services.ai.azure.com/api/projects/example-project")
+    ).toThrow("requires the resource endpoint");
+  });
+
+  it("preserves the Cognitive Services audience for a resource endpoint", () => {
+    expect(maiImageScope("https://example.services.ai.azure.com/")).toBe(
+      "https://cognitiveservices.azure.com/.default"
+    );
   });
 });

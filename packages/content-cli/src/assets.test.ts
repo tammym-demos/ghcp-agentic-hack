@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
@@ -218,6 +219,174 @@ describe("promoteImage", () => {
 });
 
 describe("validateApprovedImageSidecars", () => {
+  it("ignores sidecar-less static images in module public directories", async () => {
+    const root = await temporaryRoot();
+    const imagePath = path.join(
+      root,
+      "workshops",
+      "demo",
+      "content",
+      "modules",
+      "01-intro",
+      "public",
+      "images",
+      "static.png"
+    );
+    await mkdir(path.dirname(imagePath), { recursive: true });
+    await writeFile(imagePath, onePixelPng);
+
+    await expect(validateApprovedImageSidecars(root)).resolves.toBe(0);
+  });
+
+  it("validates approved images in module public directories", async () => {
+    const root = await temporaryRoot();
+    const workshopRoot = path.join(root, "workshops", "demo");
+    const imagePath = path.join(
+      workshopRoot,
+      "content",
+      "modules",
+      "01-intro",
+      "public",
+      "images",
+      "test.png"
+    );
+    await mkdir(path.dirname(imagePath), { recursive: true });
+    await writeFile(path.join(workshopRoot, "content", "prompt.txt"), "prompt");
+    await writeFile(imagePath, onePixelPng);
+    await writeFile(
+      `${imagePath}.json`,
+      JSON.stringify({
+        schemaVersion: 1,
+        id: "test-image",
+        kind: "image",
+        provider: "gpt-image-2",
+        deployment: "test",
+        promptHash: "0".repeat(64),
+        source: "content/prompt.txt",
+        createdAt: "2026-08-04T00:00:00.000Z",
+        reviewStatus: "approved",
+        location: "content/modules/01-intro/public/images/test.png",
+        width: 1,
+        height: 1
+      })
+    );
+
+    await expect(validateApprovedImageSidecars(root)).resolves.toBe(1);
+  });
+
+  it("validates local deterministic provenance in module public directories", async () => {
+    const root = await temporaryRoot();
+    const workshopRoot = path.join(root, "workshops", "demo");
+    const imagePath = path.join(
+      workshopRoot,
+      "content",
+      "modules",
+      "01-intro",
+      "public",
+      "images",
+      "local.png"
+    );
+    await mkdir(path.dirname(imagePath), { recursive: true });
+    await writeFile(path.join(workshopRoot, "content", "review.md"), "review");
+    await writeFile(imagePath, onePixelPng);
+    await writeFile(
+      `${imagePath}.json`,
+      JSON.stringify({
+        schemaVersion: 1,
+        id: "local-image",
+        kind: "local-deterministic-image",
+        source: "content/review.md",
+        createdAt: "2026-09-22T00:00:00.000Z",
+        reviewStatus: "approved",
+        location: "content/modules/01-intro/public/images/local.png",
+        sha256: createHash("sha256").update(onePixelPng).digest("hex"),
+        width: 1,
+        height: 1,
+        sourceCandidateSha256: "1".repeat(64),
+        transformManifestSha256: "2".repeat(64),
+        candidateAcceptanceDecision: "decision-1",
+        publicationDecision: "decision-2"
+      })
+    );
+
+    await expect(validateApprovedImageSidecars(root)).resolves.toBe(1);
+  });
+
+  it("rejects a local deterministic raster whose hash does not match", async () => {
+    const root = await temporaryRoot();
+    const workshopRoot = path.join(root, "workshops", "demo");
+    const imagePath = path.join(
+      workshopRoot,
+      "content",
+      "modules",
+      "01-intro",
+      "public",
+      "images",
+      "local.png"
+    );
+    await mkdir(path.dirname(imagePath), { recursive: true });
+    await writeFile(path.join(workshopRoot, "content", "review.md"), "review");
+    await writeFile(imagePath, onePixelPng);
+    await writeFile(
+      `${imagePath}.json`,
+      JSON.stringify({
+        schemaVersion: 1,
+        id: "local-image",
+        kind: "local-deterministic-image",
+        source: "content/review.md",
+        createdAt: "2026-09-22T00:00:00.000Z",
+        reviewStatus: "approved",
+        location: "content/modules/01-intro/public/images/local.png",
+        sha256: "0".repeat(64),
+        width: 1,
+        height: 1,
+        sourceCandidateSha256: "1".repeat(64),
+        transformManifestSha256: "2".repeat(64),
+        candidateAcceptanceDecision: "decision-1",
+        publicationDecision: "decision-2"
+      })
+    );
+
+    await expect(validateApprovedImageSidecars(root)).rejects.toThrow(
+      "sha256 does not match raster"
+    );
+  });
+
+  it("rejects a public sidecar whose raster is missing", async () => {
+    const root = await temporaryRoot();
+    const workshopRoot = path.join(root, "workshops", "demo");
+    const imagePath = path.join(
+      workshopRoot,
+      "content",
+      "modules",
+      "01-intro",
+      "public",
+      "images",
+      "missing.png"
+    );
+    await mkdir(path.dirname(imagePath), { recursive: true });
+    await writeFile(path.join(workshopRoot, "content", "prompt.txt"), "prompt");
+    await writeFile(
+      `${imagePath}.json`,
+      JSON.stringify({
+        schemaVersion: 1,
+        id: "missing-image",
+        kind: "image",
+        provider: "gpt-image-2",
+        deployment: "test",
+        promptHash: "0".repeat(64),
+        source: "content/prompt.txt",
+        createdAt: "2026-08-04T00:00:00.000Z",
+        reviewStatus: "approved",
+        location: "content/modules/01-intro/public/images/missing.png",
+        width: 1,
+        height: 1
+      })
+    );
+
+    await expect(validateApprovedImageSidecars(root)).rejects.toThrow("ENOENT");
+  });
+
   it("rejects candidate state in approved asset folders", async () => {
     const root = await temporaryRoot();
     const imagePath = path.join(root, "workshops", "demo", "assets", "images", "test.png");

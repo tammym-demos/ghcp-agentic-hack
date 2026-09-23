@@ -134,8 +134,19 @@ export async function authorizedAction<T>(
     if (used.length >= current.envelope.limits.maxActions ||
         (isPaid(request) && (paidCount >= current.envelope.limits.maxProviderCalls ||
           paidCount >= current.envelope.limits.maxCandidates))) throw new Error("Work envelope exhausted");
-    if (isPaid(request) && current.envelope.sampleStatus === "pending" && paidCount > 0) {
-      throw new Error("Representative sample awaits human review; no batch expansion");
+    const sampleBatchSize = current.envelope.limits.sampleBatchSize ?? 1;
+    if (isPaid(request) && current.envelope.sampleStatus === "pending") {
+      const sampleActionIds = new Set(current.envelope.actions
+        .filter(action => action.sampleGroup)
+        .map(action => action.id));
+      const sampleCount = used.filter(entry => entry.paid === true &&
+        typeof entry.actionId === "string" && sampleActionIds.has(entry.actionId)).length;
+      if (current.envelope.limits.sampleBatchSize !== undefined && !current.action.sampleGroup) {
+        throw new Error("Paid action is outside the pending image sample batch; use a listed sample action or record human review");
+      }
+      if (current.envelope.limits.sampleBatchSize === undefined ? paidCount > 0 : sampleCount >= sampleBatchSize) {
+        throw new Error("Representative sample awaits human review; approved sample batch exhausted");
+      }
     }
     recordPath = path.join(journal, `${current.envelope.id}--${current.action.id}.json`);
     record = { schemaVersion: 1, envelopeId: current.envelope.id, envelopeHash: current.envelopeHash,

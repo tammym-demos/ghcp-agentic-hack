@@ -23,7 +23,15 @@ export async function authorizationFixture(
     schemaVersion: 1, id: "test-envelope", initiative: "test-initiative",
     moduleId: first.moduleId, cycleId: first.cycleId, status: "active", baseline,
     ownedPaths: ["content", "assets"], gateDecisions: gates.map(gate => `${gate}-decision`),
-    actions: requests.map((request, index) => ({ id: `action-${index}`, decisionId: `decision-${index}`, request })),
+    actions: requests.map((request, index) => ({
+      id: `action-${index}`,
+      decisionId: `decision-${index}`,
+      ...(overrides.limits?.sampleBatchSize &&
+        index < overrides.limits.sampleBatchSize
+        ? { sampleGroup: "sample-group" }
+        : {}),
+      request
+    })),
     limits: { maxActions: requests.length, maxProviderCalls: requests.length, maxCandidates: requests.length },
     stopConditions: ["Stop on failed sample"], sampleStatus: "passed", expiresAt: "2099-01-01T00:00:00.000Z",
     ...overrides

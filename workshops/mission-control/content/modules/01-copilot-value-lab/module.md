@@ -29,7 +29,7 @@ sourceDocuments:
   - content/modules/01-copilot-value-lab/mission-control-source.md
 slides: content/modules/01-copilot-value-lab/slides.md
 generation:
-  expectedSlides: 45
+  expectedSlides: 47
   manifest: content/modules/01-copilot-value-lab/slide-manifest.md
   imageProvider: gpt-image-2
   visualStyle: "Released Mission Control character-world treatment with native editable text, tables, formulas, prompts, and diagrams. Preserve the approved opening image unchanged; no new character artwork, generated media, fake UI, or screenshot pixels."
@@ -69,26 +69,26 @@ other approved AI development services.
 1. Define the mission and name the seven decision functions.
 2. Learn ROI fundamentals and map completion, lost leverage, paths, and limits.
 3. Read usage and economics evidence without guessing missing values.
-4. connect governance teaching copy to a practical control map.
-5. compare model, context, and tool-permission changes fairly.
-6. rank investments and assign funding and operating decision rights.
-7. build pilot and executive evidence, gates, and a 30/60/90 plan.
-8. make and present the next responsible pilot decision.
+4. Connect governance teaching copy to a practical control map.
+5. Compare model, context, and tool-permission changes fairly.
+6. Rank investments and assign funding and operating decision rights.
+7. Build pilot and executive evidence, gates, and a 30/60/90 plan.
+8. Make and present the next responsible pilot decision.
 
 ## Objective-to-practice coverage
 
 | Objective | Instruction | Participant practice and output |
 | --- | --- | --- |
-| ROI and value distinctions | S05-S12 | S10-S12 select paths, diagnose a limiting factor, and state testable expected ROI. |
-| Usage/economics starting point | S13-S16 | S15-S16 read evidence, calculate only supported totals, and record owners, periods, costs, and unknowns. |
-| Governance/control map | S17-S20 | S20 applies the four teaching surfaces to an owned control map without changing their visible copy. |
-| Fair optimization comparison | S21-S26 | S22, S24, and S26 create three comparison records with one changed factor and keep/revise/stop decisions. |
-| Investment, ownership, and proof | S27-S38 | S29 ranks options; S30-S33 assign and stress-test rights; S36-S38 build scorecards and gates. |
-| Owned action and decision | S39-S42 | Participants sequence a 30/60/90 plan, assemble the package, challenge evidence, and decide the next step. |
+| ROI and value distinctions | S05-S14 | S07-S09 name a path, boundary expectation, and absorption path; S10-S14 set the boundary, map losses, select paths, diagnose a limiting factor, and state testable expected ROI. |
+| Usage/economics starting point | S15-S18 | S17-S18 read evidence, calculate only supported totals, and record owners, periods, costs, and unknowns. |
+| Governance/control map | S19-S22 | S22 applies the four teaching surfaces to an owned control map without changing their visible copy. |
+| Fair optimization comparison | S23-S28 | S24, S26, and S28 create three comparison records with one changed factor and keep/revise/stop decisions. |
+| Investment, ownership, and proof | S29-S40 | S31 ranks options; S32-S35 assign and stress-test rights; S38-S40 build scorecards and gates. |
+| Owned action and decision | S41-S44 | Participants sequence a 30/60/90 plan, assemble the package, challenge evidence, and decide the next step. |
 
 ## Time and count contract
 
-The exact contract is 42 workshop slides plus U01/U02/U03, or **45 visible
+The exact contract is 44 workshop slides plus U01/U02/U03, or **47 visible
 rows**. Teaching/group work totals **405 minutes** and breaks/lunch total **75
 minutes**, continuously **09:00-17:00**. Coarse metadata classifies 171 minutes
 as instruction and 234 as participant discussion/work; all mission, media,
@@ -96,7 +96,9 @@ separate setup/transition, and contingency allocations are zero.
 
 ## Source and implementation boundary
 
-The released 22-slide Mission Control source governs the value/ROI concepts.
+The released 22-slide Mission Control source governs the value/ROI concepts;
+the owner-supplied Engineering Value deck governs S06-S09 as a reference-only
+source rebuilt natively.
 Released Foundations governs five named technical teaching surfaces. The
 rejected 39-slide work contributes only bounded worksheets or exercise ideas
 identified in the source; it has no inherited approval. Four supplied
@@ -109,6 +111,9 @@ Detailed downstream speaker-notes compliance is governed by
 `slides.md` or notes. The current 22-slide deck is expected to mismatch until a
 later, separately approved Producer handoff.
 
-This source/manifest is a candidate awaiting human exact contract/content
-approval. It does not authorize deck implementation, a demo selection, media,
-paid action, push, pull request, release, deployment, or publication.
+The source and manifest are approved and the selected teaching treatments are
+implemented. The live S17 path requires a facilitator-authenticated CLI and
+network connection; participants require neither, and a clearly labeled
+synthetic receipt is the fallback. Future content changes, media, paid action,
+push, pull request, release, deployment, and publication remain separately
+gated.

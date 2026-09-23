@@ -103,23 +103,23 @@ By 17:00, participants can:
 | Time | Minutes | Segment | Visible rows |
 | --- | ---: | --- | --- |
 | 09:00-09:30 | 30 | Mission briefing | S01-S04 |
-| 09:30-10:30 | 60 | ROI fundamentals | S05-S12 |
+| 09:30-10:30 | 60 | ROI fundamentals | S05-S14 |
 | 10:30-10:45 | 15 | Break | U01 |
-| 10:45-11:30 | 45 | Usage and economics evidence | S13-S16 |
-| 11:30-12:15 | 45 | Governance and controls | S17-S20 |
+| 10:45-11:30 | 45 | Usage and economics evidence | S15-S18 |
+| 11:30-12:15 | 45 | Governance and controls | S19-S22 |
 | 12:15-13:00 | 45 | Lunch | U02 |
-| 13:00-13:45 | 45 | Guided optimization lab | S21-S26 |
-| 13:45-14:15 | 30 | Investment and portfolio decisions | S27-S29 |
+| 13:00-13:45 | 45 | Guided optimization lab | S23-S28 |
+| 13:45-14:15 | 30 | Investment and portfolio decisions | S29-S31 |
 | 14:15-14:30 | 15 | Break | U03 |
-| 14:30-15:15 | 45 | Enterprise operating model | S30-S33 |
-| 15:15-16:00 | 45 | Prove ROI | S34-S38 |
-| 16:00-16:30 | 30 | 30/60/90 action plan | S39-S40 |
-| 16:30-17:00 | 30 | Pilot decision and executive readout | S41-S42 |
+| 14:30-15:15 | 45 | Enterprise operating model | S32-S35 |
+| 15:15-16:00 | 45 | Prove ROI | S36-S40 |
+| 16:00-16:30 | 30 | 30/60/90 action plan | S41-S42 |
+| 16:30-17:00 | 30 | Pilot decision and executive readout | S43-S44 |
 
 Facilitated arithmetic: 30 + 60 + 45 + 45 + 45 + 30 + 45 + 45 + 30 + 30 =
 **405 minutes**. Utilities: 15 + 45 + 15 = **75 minutes**. Total:
 405 + 75 = **480 minutes**, continuously 09:00-17:00. The exact visible count is
-42 workshop slides plus U01/U02/U03 = **45 rows**.
+44 workshop slides plus U01/U02/U03 = **47 rows**.
 
 ## Participation and delivery boundary
 
