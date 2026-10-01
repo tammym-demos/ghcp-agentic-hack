@@ -9,7 +9,7 @@ description: >-
   accepted engineering and business outcomes, practical governance, and an owned
   pilot decision.
 format: one-day
-duration: '09:00-17:00; 405 teaching/group-work minutes plus 75 break/lunch minutes'
+duration: '09:00-17:03; 408 teaching/group-work minutes plus 75 break/lunch minutes'
 level: mixed
 audience:
   - Business and application outcome owners
@@ -67,7 +67,27 @@ researchSources:
       Confirms `/usage` reports per-model session usage totals. Treat it as
       accumulated session evidence, not current context occupancy, an
       account-period invoice, or ROI proof.
-lastReviewed: '2026-09-19'
+  - type: other
+    title: GitHub Copilot billing - GitHub Docs
+    url: >-
+      https://docs.github.com/en/billing/concepts/product-billing/github-copilot-billing
+    reviewedAt: '2026-09-24'
+    notes: >-
+      Official billing concept: GitHub Copilot AI credits are usage-based
+      billing units. Included allowances depend on plan; AIC here is local
+      shorthand, not a token count, premium-request equivalence, or a
+      billed-invoice claim. Reverify at delivery.
+  - type: other
+    title: Models and pricing for GitHub Copilot - GitHub Docs
+    url: >-
+      https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing
+    reviewedAt: '2026-09-24'
+    notes: >-
+      Official model-specific input, output, cached-input and applicable
+      cache-write accounting. Cache is not automatically free; do not infer
+      credits from bytes or token totals alone, promise savings, or freeze
+      volatile models/rates. Reverify applicable terms at delivery.
+lastReviewed: '2026-09-24'
 ---
 # Mission Control: AI Development Governance and Value Realization
 
@@ -81,7 +101,7 @@ scale an owned pilot.
 
 ## Participant outcomes
 
-By 17:00, participants can:
+By 17:03, participants can:
 
 1. distinguish investment, consumption, activity, completed work, accepted
    outcomes, and business value, then choose primary and secondary ROI paths;
@@ -92,7 +112,8 @@ By 17:00, participants can:
 4. define a control map covering policy, access, privacy, least privilege,
    thresholds, exceptions, human checks, stopping, rollback, and escalation;
 5. compare model, context, and tool-permission changes fairly while holding the
-   task, completion boundary, and acceptance rules constant;
+   task, completion boundary, and acceptance rules constant, and weigh GitHub
+   Copilot AI credits alongside accepted work, review time, and risk;
 6. rank opportunities, choose a funding approach, assign operating decision
    rights, and build pilot and executive scorecards with decision gates; and
 7. present an owned 30/60/90-day pilot package and make the next responsible
@@ -108,18 +129,20 @@ By 17:00, participants can:
 | 10:45-11:30 | 45 | Usage and economics evidence | S15-S18 |
 | 11:30-12:15 | 45 | Governance and controls | S19-S22 |
 | 12:15-13:00 | 45 | Lunch | U02 |
-| 13:00-13:45 | 45 | Guided optimization lab | S23-S28 |
-| 13:45-14:15 | 30 | Investment and portfolio decisions | S29-S31 |
-| 14:15-14:30 | 15 | Break | U03 |
-| 14:30-15:15 | 45 | Enterprise operating model | S32-S35 |
-| 15:15-16:00 | 45 | Prove ROI | S36-S40 |
-| 16:00-16:30 | 30 | 30/60/90 action plan | S41-S42 |
-| 16:30-17:00 | 30 | Pilot decision and executive readout | S43-S44 |
+| 13:00-13:48 | 48 | Guided optimization lab | S23-S29 |
+| 13:48-14:18 | 30 | Investment and portfolio decisions | S30-S32 |
+| 14:18-14:33 | 15 | Break | U03 |
+| 14:33-15:18 | 45 | Enterprise operating model | S33-S36 |
+| 15:18-16:03 | 45 | Prove ROI | S37-S41 |
+| 16:03-16:33 | 30 | 30/60/90 action plan | S42-S43 |
+| 16:33-17:03 | 30 | Pilot decision and executive readout | S44-S45 |
 
-Facilitated arithmetic: 30 + 60 + 45 + 45 + 45 + 30 + 45 + 45 + 30 + 30 =
-**405 minutes**. Utilities: 15 + 45 + 15 = **75 minutes**. Total:
-405 + 75 = **480 minutes**, continuously 09:00-17:00. The exact visible count is
-44 workshop slides plus U01/U02/U03 = **47 rows**.
+Facilitated arithmetic: 30 + 60 + 45 + 45 + 48 + 30 + 45 + 45 + 30 + 30 =
+**408 minutes** (174 instruction, 234 protected participant work). Utilities:
+15 + 45 + 15 = **75 minutes**. Total: 408 + 75 = **483 minutes**, continuously
+09:00-17:03. The exact visible count is 45 workshop slides plus U01/U02/U03 =
+**48 rows**. S29 adds three instruction minutes, not a new exercise; the
+existing lab retains 21 participant-work minutes.
 
 ## Participation and delivery boundary
 
@@ -136,7 +159,9 @@ or live network connection is required. Current prices, entitlements, quotas,
 model availability, controls, and enforcement behavior require future current
 sourcing. Missing values remain unknown rather than becoming zero or a guess.
 
-`mission-control-source.md` and `slide-manifest.md` are a candidate text-only
-source and contract awaiting human exact contract/content approval. They do not
-authorize deck implementation, media work, paid action, push, pull request,
-release, deployment, publication, or claims of participant outcomes.
+The owner has approved the preceding 47-row contract/content and the new
+S29 content and 48-row timing/position contract separately. The Workshop
+Production Coordinator records the new decisions; this text does not assign
+their IDs. The new text-only source/manifest is not an integrated deck and does
+not authorize media work, paid action, push, pull request, release, deployment,
+publication, or claims of participant outcomes.

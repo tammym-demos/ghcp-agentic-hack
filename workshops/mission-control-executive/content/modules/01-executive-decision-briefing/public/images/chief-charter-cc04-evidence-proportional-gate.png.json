@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "chief-charter-cc04-evidence-proportional-gate-b",
+  "kind": "image",
+  "provider": "mai-image-2.5",
+  "deployment": "MAI-Image-2.5",
+  "promptHash": "ac7d0dd15f3beefe86187f46d3ab6f536113c4fd3c86fdfa960915cadaa154ae",
+  "prompt": "Create one original 16:9 editorial illustration for the CC-04 evidence-proportional-gate still in “Choose Stop, Revise, Fund, or Scale.” This is character artwork for a native teaching slide, not a finished slide. It must contain only Chief Morgan Charter on a quiet background, with no teaching text, labels, gate, branches, choice, or interface inside the pixels.\r\n\r\nUse the supplied accepted CC-01 Chief Morgan Charter image solely as private identity, wardrobe, palette, line, lighting, and material continuity evidence. Preserve the same recognizable fictional character: her reference-specific tapered face and mature-but-not-elderly age impression, brown eyes and their established treatment behind black cat-eye glasses, warm complexion, brown-dominant professional updo, and the fixed roughly one-third natural-gray placement visible in the reference. Do not mirror, move, enlarge, erase, swap sides, or reinterpret the gray sections. Preserve her realistic tall adult proportions, deep-green tailored suit, ivory blouse, established stronger rounded ink contours, facial construction, tailoring lines, matte color shapes, and restrained warm shadow cues. Omit the small lapel badge or mark; her clothing must be unbranded and mark-free.\r\n\r\nCompose CC-04 independently from first principles as a new waist-up evidence-proportional-gate portrait. It must not be a crop, mirror, reframe, edit, extension, tracing, collage, derivative, or pose-preserving copy of CC-01, CC-02, CC-03, or any other still. Do not preserve the CC-01 full-body pose or another still’s gesture. Do not reproduce the source frame, its contact shadow, its background boundaries, or any source-frame seam. Use the reference to hold identity and look only, while creating new waist-up body construction, shoulder relationship, neutral arm and hand placement, direct gaze, and silhouette for this neutral gate role.\r\n\r\nPlace Chief in the right-side footprint with only a slight leftward body opening toward native gate content that will be added outside the image. Show an intentional waist-up portrait with composed shoulders, direct eye-level audience gaze, quiet resolve, and quiet neutral hands. Her hands, pose, gaze, lighting, and background must give no branch cue, directional preference, verdict, recommendation, approval, or disapproval. Do not point, use an open-hand attention cue, cross her arms, make a thumbs-up, celebrate, highlight a direction, or favor Stop, Revise, Fund, or Scale. Chief holds accountable presence without becoming an automated gatekeeper.\r\n\r\nChief should occupy approximately 48 to 60 percent of the final slide height and 22 to 30 percent of its width when contained. Preserve the complete hair silhouette, glasses, shoulders, body contour, and any visible hands. Keep every essential feature at least 8 percent inside the source frame. Preserve generous calm negative space across the left side for the native four-way gate, gate fields, thresholds, staged growth path, and explicit unavailable-Scale treatment. Keep the title band and bottom evidence-to-decision rail visually empty. The background is a clean soft off-white editorial stage with no room, environment, furniture, scenery, prop, branch highlight, ray, color patch, or decorative telemetry.\r\n\r\nRender in the accepted Anchor A Native Warm Editorial 2D treatment: smooth rounded ink and matte wash, clean rounded charcoal contours, broad matte color shapes, minimal paper grain, restrained warm wash shadows, nearly diffuse frontal light, shallow two-dimensional depth, and at most a small soft tonal separation. Retain the accepted identity-specific stronger line and shadow cues around the eyes, glasses, face, hair, suit tailoring, and hands. Keep the image warm, credible, composed, clearly two-dimensional, and legible at presentation scale. Do not redesign, generically soften, age up, widen, shorten, caricature, sexualize, infantilize, or make Chief mascot-like.\r\n\r\nInclude no badge or mark, words, letters, numbers, pseudo-writing, branch names, gate numbers, thresholds, charts, formulas, code, arrows, screens, generated UI, fake interface, signage, labels, logos, trademarks, official marks, product marks, extra people, animals, accessories, props, or source-frame seam. Include no GitHub mascot or character, including Octocat, Mona, Invertocat, or any Copilot mascot. Include no copyrighted character likeness, celebrity likeness, or identifiable real-person likeness. Exclude photorealism, 3D-rendered realism, anime, sci-fi, command centers, holograms, glowing circuitry, robots, synthetic bodies, weapons, armor, uniforms, rank insignia, superhero or military gestures, malformed anatomy, distorted glasses, and extra or missing fingers or limbs. Keep all text and teaching labels native and out of the generated pixels.",
+  "source": "content/modules/01-executive-decision-briefing/media/prompts/public/chief-charter-cc04-evidence-proportional-gate.prompt.txt",
+  "createdAt": "2026-09-22T23:27:59.593Z",
+  "reviewStatus": "approved",
+  "location": "content/modules/01-executive-decision-briefing/public/images/chief-charter-cc04-evidence-proportional-gate.png",
+  "width": 1360,
+  "height": 768,
+  "generationAuthorization": {
+    "initiative": "mission-control-executive-decision-briefing",
+    "envelopeId": "mce-chief-charter-cc03-cc04-comparison-v1",
+    "envelopeHash": "bd56bde0fb13bfc7153e61acfb407b1eccc52945e1a86eb876b16b56ed31c3d7",
+    "decisionId": "mce-d70-cc04-b-paid-action",
+    "requestHash": "f062a0b0cefc31bccb90218ae1b128c2134d90a55a21e96003ff8a6d25c02d12"
+  },
+  "candidateAcceptance": {
+    "decisionId": "mce-d74-cc04-b-candidate-acceptance",
+    "requestHash": "9521384e6dbcc96f698312479cfafc3b834e42ec60a34f8c6bb8616d3e21cc4b",
+    "candidateHash": "abb6d0b8c9d858112454296f28c6e085053d0436ba25ae82d73950c9602ae5e3",
+    "manifestHash": "5dd9e0dbb0e43a8a95a9a53f71ca88fbccc0cbe7c6a02fabddd3f9162ec50947"
+  },
+  "publicationAuthorization": {
+    "initiative": "mission-control-executive-decision-briefing",
+    "envelopeId": "mce-chief-charter-cc03-cc04-accept-publish-v1",
+    "envelopeHash": "6d4ca894b615f9c5153efb8686936521a48698364e8cbe69ff9ee73bb184d5a7",
+    "decisionId": "mce-d76-cc04-b-publication",
+    "requestHash": "6d8c2198eaed0995feb70c9200b191113d7ddfa8ddaac07c75008d50381a8988"
+  }
+}

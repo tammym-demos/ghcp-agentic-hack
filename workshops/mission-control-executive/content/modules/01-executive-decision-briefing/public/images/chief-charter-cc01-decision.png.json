@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "kind": "local-deterministic-image",
+  "id": "chief-charter-cc01-decision",
+  "source": "content/modules/01-executive-decision-briefing/media/public-provenance/chief-charter-cc01-decision.md",
+  "createdAt": "2026-09-22T22:42:44.363Z",
+  "reviewStatus": "approved",
+  "location": "content/modules/01-executive-decision-briefing/public/images/chief-charter-cc01-decision.png",
+  "sha256": "839bf2068476e5ee684f90dbfeaab28710cffd0afe1e0fc9987829f80569811f",
+  "width": 1920,
+  "height": 1080,
+  "sourceCandidateSha256": "c202cbfa8311cd9476b5eb821ec7fb39ddffbb9e5c48726ab7b6e59ca5ce055f",
+  "transformManifestSha256": "77f8ef3e774009092f296391227ddf1a96ba91e3903f0f7d92d91c33173ff0a7",
+  "candidateAcceptanceDecision": "mce-d36-v6-seam-cleanup-candidate-acceptance",
+  "publicationDecision": "mce-d58-accepted-chief-image-publication"
+}

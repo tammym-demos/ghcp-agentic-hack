@@ -14,6 +14,8 @@ afterEach(async () => {
 
 it("declares the exact selected runtime import closure without copying proof or review trees", async () => {
   const catalog = await loadCatalog(repositoryRoot);
+  expect(catalog.workshops.map(workshop => workshop.workshop.data.id).sort())
+    .toEqual(["ghcp-dev-hack", "mission-control", "mission-control-executive"]);
   const plan = await publicExportPlan(repositoryRoot, catalog);
   if (!plan) throw new Error("Current snapshot must declare public export files");
   const files = new Set(plan.files);
@@ -58,6 +60,17 @@ it("declares the exact selected runtime import closure without copying proof or 
       "global-bottom.vue"
     ]) expect(files.has(`${prefix}${file}`), file).toBe(true);
   }
+  const executive = catalog.workshops.find(workshop => workshop.workshop.data.id === "mission-control-executive");
+  const executiveModule = executive?.modules.find(module => module.data.id === "executive-decision-briefing");
+  if (!executive || !executiveModule) throw new Error("Executive briefing must be selected");
+  const slides = await readFile(path.join(executive.root, executiveModule.data.slides), "utf8");
+  const referencedComponents = [...new Set(
+    [...slides.matchAll(/<([A-Z][A-Za-z0-9]*)\b/g)].map(match => match[1]!)
+  )].sort();
+  expect(referencedComponents).toEqual(["ChiefCharacterImage", "EvidenceDecisionRail", "ExecutiveMotion"]);
+  const prefix = "workshops/mission-control-executive/content/modules/01-executive-decision-briefing/components/";
+  expect(plan.files.filter(file => file.startsWith(prefix)).sort())
+    .toEqual(referencedComponents.map(component => `${prefix}${component}.vue`));
 });
 
 it("uses the legacy plan only when declarations are absent, not malformed or unreadable", async () => {
