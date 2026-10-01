@@ -37,6 +37,14 @@
         "content/modules/01-copilot-value-lab/global-bottom.vue"
       ],
       "tests": []
+    },
+    "mission-control-executive/executive-decision-briefing": {
+      "files": [
+        "content/modules/01-executive-decision-briefing/components/ChiefCharacterImage.vue",
+        "content/modules/01-executive-decision-briefing/components/EvidenceDecisionRail.vue",
+        "content/modules/01-executive-decision-briefing/components/ExecutiveMotion.vue"
+      ],
+      "tests": []
     }
   },
   "workshops": {

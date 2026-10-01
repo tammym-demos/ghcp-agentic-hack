@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "chief-charter-cc03-human-owned-controls-b",
+  "kind": "image",
+  "provider": "mai-image-2.5",
+  "deployment": "MAI-Image-2.5",
+  "promptHash": "11be5b153d86a62bdc2317947acb21c4e623dccd2f632f2f00cfd965bd5f9159",
+  "prompt": "Create one original 16:9 editorial illustration for the CC-03 human-owned-controls still in “Name Owners, Controls, and Exceptions.” This is character artwork for a native teaching slide, not a finished slide. It must contain only Chief Morgan Charter on a quiet background, with no teaching text, labels, owner route, control record, or interface inside the pixels.\r\n\r\nUse the supplied accepted CC-01 Chief Morgan Charter image solely as private identity, wardrobe, palette, line, lighting, and material continuity evidence. Preserve the same recognizable fictional character: her reference-specific tapered face and mature-but-not-elderly age impression, brown eyes and their established treatment behind black cat-eye glasses, warm complexion, brown-dominant professional updo, and the fixed roughly one-third natural-gray placement visible in the reference. Do not mirror, move, enlarge, erase, swap sides, or reinterpret the gray sections. Preserve her realistic tall adult proportions, deep-green tailored suit, ivory blouse, established stronger rounded ink contours, facial construction, tailoring lines, matte color shapes, and restrained warm shadow cues. Omit the small lapel badge or mark; her clothing must be unbranded and mark-free.\r\n\r\nCompose CC-03 independently from first principles as a new three-quarter human-owned-controls portrait. It must not be a crop, mirror, reframe, edit, extension, tracing, collage, derivative, or pose-preserving copy of CC-01, CC-02, or any other still. Do not preserve the CC-01 full-body pose. Do not reproduce the source frame, its contact shadow, its background boundaries, or any source-frame seam. Use the reference to hold identity and look only, while creating new three-quarter body construction, grounded stance, shoulder relationship, arm placement, hand anatomy, gaze, and silhouette for this controls role.\r\n\r\nPlace Chief in the right-side footprint and open the composition toward the left. Show an intentional three-quarter portrait with a grounded, composed stance and one subtle, anatomically complete open-palm gesture cueing left toward a native owner route and control record that will be added outside the image. The gesture invites scrutiny and accountability rather than issuing a command. Her other hand is quiet and anatomically complete. Use a calm direct or near-direct audience gaze. Chief owns or convenes the human decision; she does not operate, automate, embody, or sit inside the control mechanism, and she does not signal military authority.\r\n\r\nChief should occupy approximately 48 to 60 percent of the final slide height and 22 to 30 percent of its width when contained. Preserve the complete hair silhouette, glasses, torso contour, grounded three-quarter stance, and meaningful open palm. Keep every essential feature and gesture at least 8 percent inside the source frame. Preserve generous quiet negative space across the left side for the native owner route, owner rows, control record, exception path, pause and escalation path, rollback, and restart authority. Keep the title band and bottom evidence-to-decision rail visually empty. The background is a clean soft off-white editorial stage with no room, environment, furniture, scenery, prop, route node, or decorative telemetry.\r\n\r\nRender in the accepted Anchor A Native Warm Editorial 2D treatment: smooth rounded ink and matte wash, clean rounded charcoal contours, broad matte color shapes, minimal paper grain, restrained warm wash shadows, nearly diffuse frontal light, shallow two-dimensional depth, and at most a small soft tonal separation. Retain the accepted identity-specific stronger line and shadow cues around the eyes, glasses, face, hair, suit tailoring, and hands. Keep the image warm, credible, composed, clearly two-dimensional, and legible at presentation scale. Do not redesign, generically soften, age up, widen, shorten, caricature, sexualize, infantilize, or make Chief mascot-like.\r\n\r\nInclude no badge or mark, words, letters, numbers, pseudo-writing, owner labels, controls, exception records, charts, formulas, code, arrows, screens, generated UI, fake interface, route nodes, signage, labels, logos, trademarks, official marks, product marks, extra people, animals, accessories, props, or source-frame seam. Include no GitHub mascot or character, including Octocat, Mona, Invertocat, or any Copilot mascot. Include no copyrighted character likeness, celebrity likeness, or identifiable real-person likeness. Exclude photorealism, 3D-rendered realism, anime, sci-fi, command centers, holograms, glowing circuitry, robots, synthetic bodies, weapons, armor, uniforms, rank insignia, superhero or military gestures, malformed anatomy, distorted glasses, and extra or missing fingers or limbs. Keep all text and teaching labels native and out of the generated pixels.",
+  "source": "content/modules/01-executive-decision-briefing/media/prompts/public/chief-charter-cc03-human-owned-controls.prompt.txt",
+  "createdAt": "2026-09-22T23:26:07.984Z",
+  "reviewStatus": "approved",
+  "location": "content/modules/01-executive-decision-briefing/public/images/chief-charter-cc03-human-owned-controls.png",
+  "width": 1360,
+  "height": 768,
+  "generationAuthorization": {
+    "initiative": "mission-control-executive-decision-briefing",
+    "envelopeId": "mce-chief-charter-cc03-cc04-comparison-v1",
+    "envelopeHash": "bd56bde0fb13bfc7153e61acfb407b1eccc52945e1a86eb876b16b56ed31c3d7",
+    "decisionId": "mce-d67-cc03-b-paid-action",
+    "requestHash": "eb3f2d6947651a8b1b2368c3fe13a7800299727e857af7db79d802badc924c49"
+  },
+  "candidateAcceptance": {
+    "decisionId": "mce-d73-cc03-b-candidate-acceptance",
+    "requestHash": "8cd90bec2c6db83ce72e49e5d39cc44812a226f78d48abfc76a609110ea5c0cf",
+    "candidateHash": "3f6c9bc10da5352413c1cac680559e006ae620965ea280f8cf842aae1b0e9020",
+    "manifestHash": "9ac942f1c9dcbc5a4deaa3b0e6679337fea353ad56f3d4107b598a18f51058c4"
+  },
+  "publicationAuthorization": {
+    "initiative": "mission-control-executive-decision-briefing",
+    "envelopeId": "mce-chief-charter-cc03-cc04-accept-publish-v1",
+    "envelopeHash": "6d4ca894b615f9c5153efb8686936521a48698364e8cbe69ff9ee73bb184d5a7",
+    "decisionId": "mce-d75-cc03-b-publication",
+    "requestHash": "2e3c2ca28d1047e0977c52c221f43dae0904bb891e59eb32b351605c587c0d0c"
+  }
+}

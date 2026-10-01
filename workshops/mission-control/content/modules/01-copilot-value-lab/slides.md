@@ -38,15 +38,15 @@ class: mc mc-cover
 <!--
 Timebox: 2 minutes
 
-Talk track: Welcome to Mission Control. Which decision about AI development investment must become clearer today? Agent Mergewell is our accountable human field agent. Chief Morgan Charter leads governance and value decisions. Riley Relay represents a bounded software-agent collaborator. Purrmission is the safety guardian. We will govern the spend, guide the work, and prove the value. GitHub Copilot is our main example, while the decisions apply broadly to approved AI development services. By the end of the day, you will have an evidence-based pilot decision rather than a promise based on activity.
+Talk track: Welcome to Mission Control. What decision about AI development spending would you like to make with more confidence? Look at this team: Mergewell stands for the human who remains accountable; Charter stands for governance and value; Relay is a software collaborator working within bounds; Purrmission reminds us to check safety. They are guides, not your organization's decision makers. GitHub Copilot will be our main example, but you can use the same decision method for other approved AI development services. Today you will build the evidence for a pilot decision, not assume that more AI activity means more value.
 
-Transition: Start with From AI Spend to Measurable Value and separate use from the evidence leaders need.
+Transition: First, let's see why a record of spending or use is only the start of that decision.
 
 Audience question: Which investment decision must become clearer today?
 
-Response guidance: If the answer is broad, say, “Keep it provisional; we will shape it around one workflow and one decision owner.”
+Response guidance: If no decision comes to mind, say, “It could be whether to test a workflow, fund a pilot, or wait for evidence. We'll narrow it to your own workflow shortly.”
 
-Payoff: The room shares the purpose and evidence standard for the day.
+Payoff: You know the goal: a decision about a bounded pilot backed by evidence and accountable people.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s01-mission-control-ai-development-governance-and-value-realization
 -->
@@ -83,15 +83,15 @@ class: mc
 <!--
 Timebox: 5 minutes
 
-Talk track: Which decision about AI investment is hardest to make today? Spending and use are inputs. Completed, accepted outcomes are evidence. Business value is the result leaders must test. We will connect use to control, outcome, and decision. Take two minutes to write one decision question. Do not assume adoption, consumption, or a single pilot run proves value.
+Talk track: Which AI investment decision is hard to make right now? The left panel separates what you spend and use from work that actually finishes and passes your checks. The arrow on the right asks how use was governed, what outcome followed, and what choice that evidence supports. For example, a record of tool use tells you people tried it. It does not tell you whether an accepted piece of work reached a customer or helped the business. Write down one decision question you want this chain to answer. A single pilot run will not prove value on its own.
 
-Transition: Place that question on Today’s Route and Decision Functions, then name who represents each required decision function.
+Transition: Keep that question handy. Next we'll see the route to answering it and who needs to be involved.
 
 Audience question: Which decision about AI investment is currently hardest to make?
 
-Response guidance: If someone offers a metric instead of a decision, say, “What choice should that metric inform?”
+Response guidance: If you hear a metric rather than a decision, ask, “What would you do differently once you knew that number?” Leave room for people to write a question.
 
-Payoff: Each participant carries one decision question into the workshop.
+Payoff: You have a decision question to test against the evidence throughout the day.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s02-from-ai-spend-to-measurable-value
 -->
@@ -125,15 +125,15 @@ class: mc
 <!--
 Timebox: 7 minutes
 
-Talk track: Who represents each decision function today? The morning moves from mission and ROI into usage, economics, governance, and controls. The afternoon moves through fair comparisons, portfolio choices, operating ownership, proof, action, and readout. Take three minutes to name P1 through P7. One person may cover several functions, but every function needs an owner or an explicit dependency.
+Talk track: Who can speak for the decisions this pilot will need? The route on the left starts with the mission and value question, then builds usage and governance evidence. Later you will compare options, decide who funds and operates the pilot, and prepare a readout. The seven functions on the right are not a seating chart. For example, a platform administrator may know what is configured but cannot by that fact approve risk or funding. Name who can represent each function. One person can cover more than one, but if a function is absent, write down who must be consulted rather than treating silence as approval.
 
-Transition: With the functions visible, use Define the Mission to select one workflow and one investment decision.
+Transition: Now let's give these owners a concrete workflow and decision to work on.
 
 Audience question: Which decision function is missing or unclear?
 
-Response guidance: If a person is unavailable, say, “Name the function, mark it unresolved, and identify who can confirm the decision later.”
+Response guidance: If a function has no representative, say, “Let's mark it as a dependency and name someone who can reach the right owner.” Allow the room to check coverage.
 
-Payoff: The room has named representatives or visible ownership dependencies.
+Payoff: You have named the required decision functions or the dependencies needed to involve them.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s03-todays-route-and-decision-functions
 -->
@@ -161,15 +161,15 @@ class: mc
 <!--
 Timebox: 16 minutes
 
-Talk track: Which workflow and investment decision will anchor the day? I will frame the brief for four minutes. Then you have twelve protected minutes to draft, compare, and select one mission. Name the desired result, completion boundary, available and missing evidence, decision owner, and today’s investment decision. Keep disagreement and unknown evidence visible.
+Talk track: What single workflow would make this exercise useful to you? The sentence on the screen is a working brief, not a claim that everyone already agrees. Imagine a team considering help with preparing pull requests. The result they want is not simply more suggestions; they need to say when the work is finished and who can accept it. Use your own workflow instead. Have the outcome and delivery owners lead; ask platform and measurement owners what evidence exists, and let architecture, risk, and finance flag constraints. Draft and compare options, then select one mission. Leave missing evidence and disagreements visible for the decision owner.
 
-Transition: Keep the mission brief in view. From Investment to Value gives us the language to classify the measures around it.
+Transition: With a workflow chosen, let's distinguish what goes into it from the value it might deliver.
 
 Audience question: Where does work count as finished for this mission?
 
-Response guidance: If the group starts with a feature, say, “Name the organizational decision that feature should support.” If evidence is missing, keep it unknown.
+Response guidance: If the group starts with a tool feature, ask, “What decision about this workflow would that feature help you make?” If a source is missing, say, “Write unknown and name who could check it.” Give the group room to draft.
 
-Payoff: Participants produce one mission brief and central investment decision.
+Payoff: You have a shared working mission brief and a specific investment decision, with gaps still visible.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s04-define-the-mission
 -->
@@ -194,15 +194,15 @@ class: mc
 <!--
 Timebox: 6 minutes
 
-Talk track: Where does your current measure sit in this chain? Investment, consumption, and activity can be useful context. Completed work crosses the boundary. An accepted outcome also passes required checks. Value is the useful engineering or business result. Spend three minutes on the distinctions, then use three minutes to classify one current measure without overclaiming it.
+Talk track: What are you counting today? As this chain builds, notice that each step asks a different question. A license is an investment; tokens used are consumption; suggestions reviewed are activity. A pull request reaching your agreed finish line is completed work, but it becomes an accepted outcome only after the required human, quality, security, risk, and compliance checks. Value asks what useful result that accepted work delivered. Return to your mission and put one measure where it belongs. If it sits early in the chain, that's useful context, not proof of ROI.
 
-Transition: Hold that chain in mind. The Leverage Rectangle shows why freed developer time does not automatically become more outcomes.
+Transition: Next, the leverage picture shows why making a task faster may still leave that chain's outcome unchanged.
 
 Audience question: Is your current measure investment, consumption, activity, completed work, accepted outcome, or value?
 
-Response guidance: If a measure spans categories, say, “Name the evidence that moves it from one category to the next.”
+Response guidance: If a measure is described as value just because it rose, ask, “What passed the finish line and the required checks?” Let participants classify their own measure.
 
-Payoff: Participants classify one current measure without treating activity as value.
+Payoff: You can name what your current measure shows and what further evidence value would require.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s05-from-investment-to-value
 -->
@@ -228,15 +228,15 @@ clicks: 3
 <!--
 Timebox: 7 minutes
 
-Talk track: What does leverage look like as a shape? Advance this build in four beats. Beat one: existing SDLC capacity plots business outcomes against developer time spent, and leverage is the slope of the diagonal. A steeper diagonal means more business outcomes per unit of developer time. Click. Beat two: IDE AI and Platform AI are basic AI improvements. They free developer time inside the existing SDLC, but on their own the diagonal barely changes. Click. Beat three: automation, compliance, and coordination are process and decision-making improvements. They are what let freed time become more outcomes, and that is where the slope can rise. Click. Beat four: as those improvements take hold, the existing rectangle narrows and a higher achievable-leverage rectangle becomes possible. Read the five-step journey of improvement. Spend about five minutes on the build, then give two minutes for participants to name which improvements their mission already has. Keep it conceptual: this is a model, not measured data or a promised result.
+Talk track: What would make your team's freed time turn into finished outcomes? Start with the rectangle: across it is developer time, up it is business outcomes, and the diagonal's slope is leverage—more completed outcomes for each developer hour means a steeper slope. Now IDE and platform AI appear inside the existing process. They can free time without much change to that slope. Next, automation, compliance, and coordination appear: improving how work moves and decisions get made is what could raise the slope. Finally, the smaller old rectangle and higher possible one show a journey, not a forecast. Standardize and streamline, build an efficient automation and policy lifecycle, collaborate and reuse, then improve the codebase and process at low cost. Which of those changes could your mission actually support? This drawing is conceptual, not measured data or a promised result.
 
-Transition: The rectangle shows that leverage depends on more than tools. Next: Four AI ROI Paths — and What Must Be True for Each names the distinct ways capacity can become value.
+Transition: The slope can improve in different ways. Let's look at the distinct paths and what each one requires.
 
 Audience question: Which of the five journey steps does your selected workflow already have, and which is missing?
 
-Response guidance: If someone reads the chart as a forecast, say, “This is a shape for reasoning, not a number. We measure the slope later at the completion boundary.” If only AI tools are named, ask, “What process or decision change would let the freed time become more outcomes?”
+Response guidance: If someone reads a promised gain from the chart, say, “It's a model, not a measurement; our pilot must test the result.” If only tools are named, ask, “What process decision would let their saved time reach accepted work?”
 
-Payoff: Participants share one definition of leverage — business outcomes per unit of developer time — and see that process and decision-making improvements are what raise it.
+Payoff: You can explain leverage as outcomes per developer hour and identify the process change needed to test an improvement.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s06-the-leverage-rectangle
 -->
@@ -274,15 +274,15 @@ class: mc
 <!--
 Timebox: 6 minutes
 
-Talk track: Which path describes the value you are trying to create, and what must be true for it? Read each row from left to right. Every path starts with reduced task effort or risk. Labor efficiency then needs fewer required task hours and capacity that can actually be removed from the process; its limit is work that cannot be improved. Higher throughput needs shorter cycle time so task efficiency becomes cycle efficiency; its limit is structure. Expanded ownership needs fewer handoffs so individuals complete more of the outcome they own; its limit is scope. Compounding leverage combines improvements iteratively and measures, maintains, and confirms them; its limit is learning and adaptability. The paths run from easier to harder to achieve. Spend four minutes on the rows, then give participants two minutes to name the path that best fits their mission. These are hypotheses, not guaranteed results.
+Talk track: What kind of value are you actually trying to create? Read this table as a set of conditions, not four promised returns. Each row begins with easier or safer task work. If the aim is the same output with fewer human hours, those hours must really come out of the process; essential work may limit that path. If the aim is more finished work, shorter tasks must shorten the whole cycle, which process structure may block. A broader outcome owned by one person also needs fewer handoffs and workable scope. The hardest path keeps improving the process itself; that needs learning and maintenance. Point to the row that fits your mission and the condition you cannot yet verify.
 
-Transition: Keep your path in view. AI Creates Capacity Faster Than It Creates Leverage sets expectations for how much of that path we should see at each completion boundary.
+Transition: Next, let's see why even a plausible path can look strong at the task level and weaker at the finish line.
 
 Audience question: Which path best matches your mission, and which contingency is least certain today?
 
-Response guidance: If an answer names activity or consumption, ask, “What accepted outcome would change?” If several paths seem plausible, say, “Choose the dominant hypothesis and keep the others as possible secondary effects.”
+Response guidance: If someone names use instead of an outcome, ask, “What finished work would change?” If several rows fit, say, “Choose your primary hypothesis and mark the other as possible, not an extra counted benefit.”
 
-Payoff: Participants share four ROI paths and the contingencies each one requires, without turning activity into promised value.
+Payoff: You can choose a likely ROI path and state the condition that must hold before it creates value.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s07-four-ai-roi-paths-and-what-must-be-true-for-each
 -->
@@ -308,15 +308,15 @@ class: mc
 <!--
 Timebox: 5 minutes
 
-Talk track: Why can AI usage climb while leverage barely moves? This is an illustrative shape, not measured data. As AI matures from assistance to interactive and autonomous agents, AI capacity — work that can be attempted or delegated — can rise quickly while developer hours stay relatively fixed. Developer leverage rises only when that capacity converts into more completed work per developer hour. The dashed lines show why the completion boundary matters: measured at lines of code, the gain looks largest; at pull request and story, review, coordination, rework, risk, and dependencies absorb more of it. Spend three minutes on the curves, then two minutes for participants to say which boundary their current evidence measures.
+Talk track: Have you ever seen more AI output without more finished work? This indexed drawing is illustrative, not your team's data or a forecast. Moving across the examples from human-only work through AI assistance and agents, the capacity to attempt work rises quickly while developer hours stay relatively steady. The other lines ask how much of that capacity survives at different finish lines. A gain counted as lines of code can shrink when a pull request needs review or a story waits on another team. Leverage is completed work divided by developer hours, not output divided by tool use. Tell me where your current evidence stops: code, pull request, or story.
 
-Transition: If capacity is created but not converted, where does it go? Four Ways the SDLC Can Absorb Time Savings shows the options.
+Transition: If extra capacity does not reach your finish line, the next picture asks where that saved time went.
 
 Audience question: At which boundary does your current evidence measure impact: lines of code, pull request, or story?
 
-Response guidance: If someone cites a line-of-code or acceptance-rate gain as ROI, say, “That is capacity at the smallest scope. What should we expect at the pull request or story boundary?”
+Response guidance: If an early-stage gain is called ROI, say, “That may be useful capacity. What evidence shows it survived review and the chosen finish line?”
 
-Payoff: Participants set an impact expectation for their selected completion boundary.
+Payoff: You know why the finish line changes what you can claim about leverage.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s08-ai-creates-capacity-faster-than-it-creates-leverage
 -->
@@ -398,15 +398,15 @@ clicks: 4
 <!--
 Timebox: 6 minutes
 
-Talk track: Where does saved time go when nobody decides? Within a fixed time box, AI makes tasks more efficient, and by default the saved time becomes more productive time. Less delay, cost, and risk are alternative gains, but they require awareness. The SDLC can then absorb the savings in four ways; advance once for each. Click one, north: fewer developers with the same output leaves the process unaffected. Click two, south: the same developers running more cycles adds overhead, and the process suffers. Click three, west: the same developers delivering more features per cycle benefits the process once. Click four, east: the same developers adding investments each cycle benefits the process twice, because those investments improve later cycles. Spend four minutes on the four ways, then two minutes for participants to name where their saved time is likely to go today.
+Talk track: Where will your saved time actually go? Start at the center: within a fixed work window, faster tasks tend to create more productive time by default. Lower delay, cost, or risk needs an intentional choice. Now look north: fewer developers, same output, but the process itself does not improve. South: the same team runs more cycles and takes on more overhead, so the process can suffer. West: the team fits more features into a cycle; the process benefits. East: the team also spends capacity on improvements that could help later cycles. The bars show relative direction, not measured savings or a guarantee. Think about your pilot: which path would happen without an explicit decision, and who could redirect it?
 
-Transition: To see which way savings are absorbed, we need to know where work counts as finished. Define the Completion Boundary for the pilot.
+Transition: To test whether any of those paths helps, we first need an agreed point where work counts as finished.
 
 Audience question: Where is your saved time most likely to go today, and who would need to decide to redirect it?
 
-Response guidance: If the answer is “nowhere in particular,” say, “That is the default gain. Name the awareness or decision that would redirect it.” If fewer developers is the only answer, say, “That is one path, and it leaves the process unchanged.”
+Response guidance: If no one knows where time goes, say, “Mark the likely default as a hypothesis and name what you would observe.” If staff reduction is suggested, say, “That's one possible path, not an automatic result of faster tasks.”
 
-Payoff: Participants name a default absorption path and the awareness needed to redirect it.
+Payoff: You can name a plausible absorption path and the decision needed to change it.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s09-four-ways-the-sdlc-can-absorb-time-savings
 -->
@@ -431,15 +431,15 @@ class: mc
 <!--
 Timebox: 5 minutes
 
-Talk track: Where should finished work count for this pilot? Trace code, pull request, story, release, and business outcome. As the capacity curves showed, a local gain can disappear later in the chain. Use two minutes to explain the choices, then three minutes to mark the current and pilot boundaries and name the acceptance evidence.
+Talk track: Where will you count work as finished in your pilot? Follow the line from code through pull request and story to release and business outcome. A faster code suggestion is not yet an accepted story; review or testing can still send it back. If your team measures only code produced, you cannot claim a release benefit from that measure. Mark where you measure today and where you want to test the pilot. What check will show that work really crossed that line? Keep a later business result as a separate question if your chosen boundary stops earlier.
 
-Transition: Once the boundary is visible, Find Where Leverage Is Lost before work reaches it.
+Transition: Now that we know where finished work counts, let's find what holds it up before it gets there.
 
 Audience question: What evidence proves work crossed your selected boundary?
 
-Response guidance: If the boundary is too distant for the pilot, say, “Choose a measurable boundary and state which later outcome it can and cannot support.”
+Response guidance: If a business outcome is too far away to measure in this pilot, say, “Choose a boundary you can check, and be clear about the later result it does not yet prove.” Give the group space to mark both boundaries.
 
-Payoff: Participants select a completion boundary and acceptance evidence.
+Payoff: You leave with a specific finish line and the evidence needed to count accepted work there.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s10-define-the-completion-boundary
 -->
@@ -477,15 +477,15 @@ class: mc
 <!--
 Timebox: 5 minutes
 
-Talk track: Where does work queue, return, or stop before crossing the boundary? Look across integration, testing, review, dependencies, risk and compliance, coordination, and waiting. Use two minutes to map the losses, then three minutes to mark the dominant constraint for the selected workflow. Keep a local example local.
+Talk track: What slows your work just before it crosses the finish line? The left side names possible places work queues or comes back; the right side asks you to choose the main loss for your workflow and show the evidence. For example, faster pull-request drafting may not help if review is where work repeatedly waits. Mark the point that most constrains accepted completion, rather than checking every box. This is a diagnosis about your chosen workflow, not a general claim about the tool.
 
-Transition: With the constraint visible, return to your ROI path. Match the Path to the Outcome connects the hypothesis to the accepted result and its decision owner.
+Transition: Once we've named the bottleneck, we can choose the value path most likely to address it.
 
 Audience question: Which loss most limits accepted completion today?
 
-Response guidance: If everything is selected, say, “Choose the constraint whose movement would most affect the mission decision.”
+Response guidance: If every item is marked, ask, “Which one, if it improved, would change the mission decision most?” Give the group room to locate evidence.
 
-Payoff: Participants create a leverage-loss map with one prioritized constraint.
+Payoff: You have one prioritized loss to test, with a reason tied to your finish line.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s11-find-where-leverage-is-lost
 -->
@@ -520,15 +520,15 @@ class: mc
 <!--
 Timebox: 6 minutes
 
-Talk track: Which of the four ROI paths is primary, and what evidence distinguishes it from the secondary path? Use two minutes to frame the fields, then protect four minutes for participants. Connect both paths to the business outcome, state why each fits, identify distinguishing evidence, and expose double-counting risk.
+Talk track: Which path is your main bet, and which is only a possible second benefit? The left panel ties both to the business outcome from your mission. The right asks what evidence would tell them apart. If you expect shorter pull-request review and more accepted stories, decide whether cycle throughput is the primary benefit; don't also count the same saved hours as a separate labor saving unless you can show a distinct result. Let your outcome and delivery owners propose the paths and your finance and measurement owners check what can be counted. Write down what remains uncertain.
 
-Transition: A path can still be blocked. Name the Limiting Factor that most constrains it now.
+Transition: Now let's test what could keep your primary path from working.
 
 Audience question: What evidence would distinguish the primary path from the secondary path?
 
-Response guidance: If the same benefit appears twice, say, “Assign it once or explain the distinct evidence for each path.”
+Response guidance: If the same gain appears in both paths, say, “Count it once unless separate evidence supports two distinct outcomes.” Leave room to choose a primary path.
 
-Payoff: Participants choose primary and secondary ROI paths with an evidence rationale.
+Payoff: You have a primary and secondary value hypothesis without counting the same benefit twice.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s12-match-the-path-to-the-outcome
 -->
@@ -559,15 +559,15 @@ class: mc
 <!--
 Timebox: 5 minutes
 
-Talk track: Which factor limits the selected ROI path now? These are the primary limiting factors from the four ROI paths: essential human work, process structure, practical ownership scope, and organizational learning or adaptability. Spend two minutes on the diagnosis, then three minutes to choose one factor and state what evidence would show movement. Necessary human and governance work is not waste.
+Talk track: What stops your chosen path from turning faster tasks into accepted work? These four cards correspond to the paths we just discussed. If review is a necessary human check, it is not waste to remove; the question might be whether waiting or handoffs around it can improve. If the workflow cannot move because of dependencies, the limiting factor may be process structure instead. Choose the best current diagnosis for your mission and say what observation would show that it changed. Treat this as something to test, not permission to bypass required checks.
 
-Transition: Turn the path and limiting factor into a testable statement on State the ROI Hypothesis and Limits.
+Transition: Let's put that diagnosis into a claim we can actually test, with limits on what we credit to AI.
 
 Audience question: What evidence would show that the limiting factor moved?
 
-Response guidance: If the answer proposes removing a required check, say, “Keep the check and test whether another part of the flow can improve.”
+Response guidance: If someone proposes dropping a required check, say, “Keep that check. Can you reduce waiting around it instead?” Give people space to name their evidence need.
 
-Payoff: Participants name one limiting factor, rationale, and evidence need.
+Payoff: You have a testable limiting factor without treating essential oversight as waste.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s13-name-the-limiting-factor
 -->
@@ -594,15 +594,15 @@ class: mc
 <!--
 Timebox: 9 minutes
 
-Talk track: What value do you expect, and what can you honestly credit to AI? Use four minutes to frame the hypothesis, boundary, evidence, comparison window, and attribution condition. Then protect five minutes for participants to complete the statement and separate facts, assumptions, and unknowns. Require a comparison, not a promise based on one run.
+Talk track: What would need to happen before you could say the pilot helped? The first line is your expectation, not a result. For example, you might expect more accepted stories if pull requests spend less time waiting, but you still need a comparison over a defined period and the same acceptance checks. The second line names that evidence. The third is the guardrail: what portion could you credit to AI if staffing, task mix, or process also changed? Ask the outcome owner to draft the claim with measurement and delivery evidence. Mark facts, assumptions, and unknowns separately. One run is not a proof.
 
-Transition: Preserve the hypothesis and take the full Break. We return at 10:45 to inspect usage and economics evidence.
+Transition: Keep that hypothesis for the evidence work after the break.
 
 Audience question: What condition must hold before you credit the result to AI?
 
-Response guidance: If causation is assumed, say, “Name the comparison and the other factors that must remain controlled.”
+Response guidance: If a future gain is described as achieved, say, “That's the expectation. What comparison and checks would let us test it?” Give participants space to write their limits.
 
-Payoff: Participants produce a testable ROI hypothesis with an explicit attribution limit.
+Payoff: You have a testable value hypothesis and a clear boundary on what you could attribute to AI.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s14-state-the-roi-hypothesis-and-limits
 -->
@@ -621,15 +621,15 @@ class: mc mc-break
 <!--
 Timebox: 15 minutes
 
-Talk track: We are on break for the full fifteen minutes. Please return at 10:45. There is no homework or required discussion.
+Talk track: Let's take a full break. Please return at 10:45. Nothing to prepare while you're away.
 
-Transition: At 10:45, we begin with What Enters the Next Prediction.
+Transition: When we return at 10:45, we'll look at what enters the next prediction.
 
 Audience question: What time do we return?
 
-Response guidance: If asked about tasks, say, “There are none; protect the break.”
+Response guidance: If anyone asks for an assignment, say, “No homework; enjoy your break.”
 
-Payoff: Participants receive the full protected break.
+Payoff: You can take the full break without a required task.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#u01-break
 -->
@@ -669,15 +669,15 @@ class: mc
 <!--
 Timebox: 10 minutes
 
-Talk track: Which input is easiest to overlook? A request may combine instructions, conversation, selected code or files, retrieved context, tool results, and system constraints. Exact inputs vary by approved service and configuration. Use six minutes to map the categories, then protect four minutes to label one request as new, reused, relevant, or unknown.
+Talk track: What do you think travels with a request beyond the words you just typed? The left panel gives possible inputs: earlier conversation, selected files, retrieved material, tool results, instructions, and constraints. The boxes on the right ask you to sort one request into what is new, what may be reused, what matters for the task, and what you do not know. If your workflow involves a pull request, a selected file might be relevant while an old unrelated discussion might not be. Do not assume every approved service assembles requests the same way. Try the map with your own task and mark uncertain inputs as unknown.
 
-Transition: Those inputs compete for working space. Next: Context Window: What Competes for Space.
+Transition: Once we know what could enter the request, let's ask what deserves the limited working space.
 
 Audience question: What in your request is new, reused, relevant, or unknown?
 
-Response guidance: If a universal pipeline is assumed, say, “Confirm the approved service and configuration before treating that input as present.”
+Response guidance: If someone assumes a field is always included, say, “That depends on the approved service and configuration. Mark it unknown until you can check.” Leave space to map a request.
 
-Payoff: Participants map one request into known and unknown inputs.
+Payoff: You can distinguish possible request inputs from those your workflow has actually confirmed.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s15-what-enters-the-next-prediction; workshops/ghcp-dev-hack/content/modules/01-foundations/slides.md#what-enters-the-next-prediction
 -->
@@ -702,15 +702,15 @@ class: mc
 <!--
 Timebox: 10 minutes
 
-Talk track: Which category is easiest to forget when you estimate what a task carries? This reuses the released Foundations teaching surface as editable text and structure, without a product-limit claim. Instructions, conversation, code, files, retrieved material, tool results, and generated output all compete for limited working space. More context is not automatically better context. Spend six minutes establishing that rule and naming the categories. Then protect four minutes for participants to identify one item that helps their task and one removal candidate. Do not supply a current capacity number. Actual limits vary by approved service and configuration.
+Talk track: Which item would you keep if the task had room for less context? Follow the drawing as instructions, conversation, files, retrieved material, tool results, and output compete for working space. The point is selection, not a published size limit. For a pull-request task, the acceptance rules and relevant code may matter more than a repeated, outdated exchange. More material can compete with what is useful; removing material is not a win unless the accepted result still holds. Tell me one item needed for your mission's task and one candidate to remove. The actual space available depends on the approved service and configuration; we are not asserting a current product limit.
 
-Transition: Keep that selection rule. Next: Read the Usage Receipt. Separate the evidence before you build the usage and cost starting point.
+Transition: Now we'll look at what a usage receipt can tell us—and what it cannot tell us about that working space.
 
 Audience question: What context helps your task and acceptance rules, and what could be removed?
 
-Response guidance: If someone asks for a universal limit, say, “This surface teaches selection, not a current product capacity.” If everything is labeled useful, say, “Which item changes the task or its acceptance decision?”
+Response guidance: If asked for a universal limit, say, “We need current evidence for your approved configuration; this picture teaches selection.” If everything is kept, ask, “Which item affects your task or its acceptance check?”
 
-Payoff: Participants leave with one relevant-context rule and one removal candidate.
+Payoff: You have a rule for choosing relevant context and one item to test removing.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s16-context-window-what-competes-for-space; workshops/ghcp-dev-hack/content/modules/01-foundations/slides.md#context-window-what-competes-for-space
 -->
@@ -767,15 +767,15 @@ class: mc
 <!--
 Timebox: 10 minutes
 
-Talk track: Which field decides whether a usage total is trustworthy? Before delivery, verify that the facilitator has an authenticated GitHub Copilot CLI and network connection; participants need neither. I will start the CLI in a new, non-confidential empty folder and make one bounded request, then run `/usage`. If the facilitator CLI or network is unavailable, use the clearly labeled synthetic receipt with the same fields and evidence limits. Read the model and accumulated session token totals. Exact fields can vary by CLI version and model. This is session evidence, not a receipt for only the last request, the current context-window gauge, an account-period invoice, or ROI evidence. Use six minutes for the demonstration and four minutes to identify one supported interpretation and one evidence limit.
+Talk track: What does this receipt actually count? I'll use a facilitator-authenticated Copilot CLI in a new, empty, non-confidential folder, make one bounded request, and run `/usage`. Participants do not need an account or a network connection. If my CLI or network was not verified before delivery, we'll use the table clearly labeled synthetic instead. Look at each model's input, output, and accumulated session total. That total belongs to session work, not just the request you watched. It is not current context occupancy, a period invoice, dollar cost, or ROI. Fields may vary with the installed CLI and model. In the synthetic receipt, owner, use case, period, reused input, quality, and cost are unknown. What can you safely say from it, and what would need another source?
 
-Transition: Apply that discipline to Build the Usage and Cost Starting Point.
+Transition: Let's use that distinction between observed use and missing evidence to build your cost starting point.
 
 Audience question: Which missing field would stop you from using this record for a decision?
 
-Response guidance: If the live path is unavailable, switch to the labeled synthetic receipt rather than asking a participant to sign in. If the session total is attributed only to the last request, say, “The command reports accumulated session work; start a clean session for a clearer demonstration, and still state the scope.” If someone asks for dollars, say, “Use the applicable account and billing evidence; do not infer money from an unlabeled token field.”
+Response guidance: If the facilitator's authenticated CLI or network is unavailable, say, “We'll use the labeled synthetic example; no participant sign-in is needed.” If all session use is credited to the request, say, “This is accumulated session work, not a per-request figure.” For dollars, say, “We need applicable billing evidence, not an unlabeled token total.” Do not expose a private account balance or count the same use twice; unknown is not zero.
 
-Payoff: Participants interpret one receipt and state its evidence limit.
+Payoff: You can interpret a session-use record without mistaking it for a bill, a context gauge, or proof of value.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s17-read-the-usage-receipt; workshop.md researchSources; workshops/ghcp-dev-hack/content/production/context-caching-proposal/source-verification.md#c4-context-usage-and-evidence-p12b-p13p13a-s2s3
 -->
@@ -811,15 +811,15 @@ class: mc
 <!--
 Timebox: 15 minutes
 
-Talk track: Which field is most likely to be missing today? Take four minutes to frame this as a starting point, not a completed business case. Record the population or team, use case, period, licenses or entitlements, approved models or services, fixed cost, variable usage, implementation, validation, change management, operating cost, cost owner, data source, and missing data. Label every entry as fact, assumption, or unknown. Then stop talking and protect eleven minutes for participant work. Current entitlements, models, and costs must come from future approved sources; this slide supplies fields, not values.
+Talk track: What would finance need before comparing the cost of this pilot with accepted outcomes? This grid is a starting record, not a filled-in bill. Start with the team, use case, and period so figures have a scope. Then keep a license cost separate from usage and from the human work of implementation, checking results, changing practice, and operating the pilot. A session receipt alone cannot fill those cells. Your platform and finance owners can identify sources, and measurement can flag gaps; label each entry fact, assumption, or unknown. Use only approved current evidence for entitlements, available services, and costs. Work on your own record now, even if much of it remains unknown.
 
-Transition: Keep the unknowns visible. Governance Fundamentals needs named roles and governed objects, not invented certainty.
+Transition: With a scoped cost record, we can ask who sets and checks the rules for this pilot.
 
 Audience question: Which field is missing, and who can supply the evidence?
 
-Response guidance: If participants turn an unknown into zero, say, “Keep it unknown and name the evidence owner.” If costs are combined, say, “Separate fixed, variable, implementation, validation, change-management, and operating entries.”
+Response guidance: If someone fills a missing cost with zero, say, “Unknown is not free; name who can provide the figure.” If costs blur together, ask, “Which are fixed, usage-related, or people and operating costs?” Give teams room to fill the grid.
 
-Payoff: Participants produce a segmented usage-and-cost starting point with attribution gaps visible.
+Payoff: You have a scoped cost-and-use starting point that shows evidence owners and gaps.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s18-build-the-usage-and-cost-starting-point
 -->
@@ -852,15 +852,15 @@ class: mc
 <!--
 Timebox: 10 minutes
 
-Talk track: Who creates, communicates, enforces, validates, and audits governance in your organization? This is a governance-role teaching model and analogy. It is not a claim about GitHub Copilot. Use eight minutes to walk the visible copy exactly as shown: offenses, penalties, amendments; creators, communicators, enforcers, validators, and auditors; then who and what is governed. The labels are intentionally unchanged from the owner-permitted source copy. Protect the final two minutes for participants to identify the relevant roles and governed objects for later application.
+Talk track: Who actually writes the rule for your pilot, and who checks that it works? This diagram is an organizational analogy, not a description of GitHub Copilot controls. The top row asks what counts as an offense, what happens, and how a rule changes. The middle separates people who create and explain a rule from those who enforce, validate, or independently audit it. At the bottom, name the people and technical objects the rule covers. For example, a rule about access to pilot data needs a policy owner as well as someone who can confirm its scope. Identify which functions in your organization do that work; don't infer a product feature from the labels.
 
-Transition: Carry those roles and objects forward. Next: How Do Others Enforce Governance? Distinguish constraints from policies that need owners and evidence.
+Transition: Now that we know who and what may be governed, let's ask which rules enforce themselves and which need people.
 
 Audience question: Which governance role is currently clear, and which remains unresolved?
 
-Response guidance: If participants map every role to one group, say, “Record that choice, then ask which validation or audit needs independence.” If they infer a product control, say, “This analogy names organizational roles; current controls require separate sourcing.”
+Response guidance: If one group is named for everything, ask, “Who would independently check its work?” If a label is read as a product capability, say, “This is a roles model; confirm actual controls separately.”
 
-Payoff: Participants identify governance roles and governed objects without converting the analogy into a product claim.
+Payoff: You can identify the roles and objects your pilot's governance must cover without assuming a product control exists.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s19-governance-fundamentals
 -->
@@ -895,15 +895,15 @@ class: mc
 <!--
 Timebox: 10 minutes
 
-Talk track: Which constraints operate inherently, and which policies need an owner and evidence? These rows are analogies, not current product claims. Use eight minutes to compare the governing body, penalty, and legal or technical enforcement. Leave both unknowns in the final row unchanged. Use two minutes to identify where your workflow needs a named organizational owner.
+Talk track: Does your pilot's policy work on its own, or does someone have to enforce it? Read the rows as analogies. Gravity does not need a committee; a corporate card rule needs an employer, a consequence, and a way to detect misuse. The last row has question marks on purpose. We are not filling in a claim about SharePoint or any other current product. Compare that uncertainty with your own workflow: who owns a rule about approved access, and what evidence would show whether it was followed? Tell me where a process or technical check would have to be confirmed rather than assumed.
 
-Transition: Move from analogies to the sequence on Enforcement Scope – How to Enforce.
+Transition: Next we'll separate writing a rule from the different ways you might carry it out.
 
 Audience question: Where does your policy depend on communication, process, or a technical stop?
 
-Response guidance: If someone tries to fill either question mark, say, “Keep the source unknown unchanged and apply the question to your own control map later.”
+Response guidance: If someone fills the question marks, say, “Those are deliberately unknown here. Let's ask who owns the equivalent question in your pilot.” Leave space for a brief example.
 
-Payoff: Participants distinguish inherent constraints from policies needing owners and evidence.
+Payoff: You can tell an inherent constraint from a policy that needs an owner and a way to verify it.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s20-how-do-others-enforce-governance
 -->
@@ -928,15 +928,15 @@ class: mc
 <!--
 Timebox: 10 minutes
 
-Talk track: Where does your current approach sit from less to more enforcement? Walk the visible descending sequence exactly: requirement or policy, proactive enforcement, reactive enforcement, validators-monitoring, and offenses, penalties, amendments. Use eight minutes to distinguish an alert, a process rule, and a supported technical stop. Do not claim every service supports every control. Use two minutes to select the current point in the sequence.
+Talk track: If you wrote a pilot policy today, what would make it real? Follow this descending sequence from a stated requirement to action before a breach, action after one, monitoring, and then consequences or a changed rule. The side scale asks how much enforcement is involved. A reminder to review a request is not the same as a human process that requires approval, and neither is proof of a technical stop. For the access rule you just discussed, point to what your organization actually does now. Mark any proposed technical behavior as unverified until its support and configuration are checked; not every service offers every control.
 
-Transition: Use Transparent Enforcement Prioritization to decide which governance object deserves attention first.
+Transition: With the enforcement choices clear, let's decide which object and risk deserve attention first.
 
 Audience question: Which step describes your current enforcement approach?
 
-Response guidance: If a technical stop is assumed, say, “Confirm current supported behavior before treating it as enforceable.”
+Response guidance: If a reminder is called a technical block, say, “An alert, a process rule, and a supported stop are different. Which one can you actually verify?”
 
-Payoff: Participants share an enforcement sequence without an unsupported product promise.
+Payoff: You can describe your current enforcement step and what still needs verification.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s21-enforcement-scope-how-to-enforce
 -->
@@ -970,15 +970,15 @@ class: mc mc-dense
 <!--
 Timebox: 15 minutes
 
-Talk track: Which object and possible offense should be prioritized first? Walk the visible copy unchanged for seven minutes. This point value is an illustrative prioritization method, not an ROI formula or accepted accounting method. Cost categories can overlap, so define them before calculation. Then protect eight minutes for a separate control map: object, policy, access and privacy, least privilege, threshold, exception, human checkpoint, stop, rollback, escalation, owner, evidence, and review date. Lead P5/P3; Evidence P4/P2; Review P6/P7; Decide P1/P5.
+Talk track: Which possible breach would you address first in your chosen workflow? The visible rows start with the object and offense, then ask what happens and what a good-enough response costs. The final point value is only a way to discuss priorities; it is not ROI or an accepted accounting formula. Costs may overlap, so define them before adding anything. Now make a separate control map for your pilot. For example, if an agent could see data it does not need, name the access boundary, a human check, what stops the task, who handles an exception, and who reviews the rule. Include privacy, least privilege, thresholds, rollback, escalation, evidence, and a review date. Let risk and platform lead; keep any unverified control marked as unknown.
 
-Transition: Preserve the control map and take the full Lunch. Return at 13:00 for Model Choice Demonstration.
+Transition: Keep your control map for the comparison lab. We'll take lunch before trying those choices.
 
 Audience question: Which control needs an owner, exception path, and review date?
 
-Response guidance: If the point value is treated as ROI, say, “Use it only to discuss priority; finance must define valid cost treatment.”
+Response guidance: If the point value is called ROI, say, “It's a discussion aid, not an accounting result. Finance must define any real cost calculation.” Give the group room to map the exception and owner.
 
-Payoff: Participants create an owned control map with evidence and an exception path.
+Payoff: You have an owned control map that states evidence, a human checkpoint, exceptions, and the next review.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s22-transparent-enforcement-prioritization
 -->
@@ -997,15 +997,15 @@ class: mc mc-break
 <!--
 Timebox: 45 minutes
 
-Talk track: Lunch is protected for the full forty-five minutes. Please return at 13:00. There is no installation or required task.
+Talk track: It's time for lunch. Please return at 13:00. There is nothing to install or finish during the break.
 
-Transition: At 13:00, we resume with Model Choice Demonstration.
+Transition: When you return at 13:00, we'll use a synthetic example to compare model choices.
 
 Audience question: What time do we return?
 
-Response guidance: If asked to complete work, say, “No required task; protect lunch.”
+Response guidance: If anyone asks about preparation, say, “No task is assigned over lunch.”
 
-Payoff: Participants receive the full protected lunch.
+Payoff: You can take the full lunch without homework.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#u02-lunch
 -->
@@ -1037,15 +1037,15 @@ class: mc
 <!--
 Timebox: 6 minutes
 
-Talk track: Which choice offers better expected value for the same task? Match complexity, required context, risk, validation effort, and expected value. Compare only choices approved and available at delivery time. Lowest use is not automatically best value. This selected native synthetic demonstration frames a fair comparison without naming current models, prices, or availability. Use the full six minutes.
+Talk track: If two approved model choices both finish the task, how would you choose between them? This is a synthetic comparison, not a live benchmark or a list of currently available models. The criteria at left tell you to consider the task's complexity, needed context, risk, the effort to check the answer, and the value of an accepted result. Follow the two examples at right while keeping the task and acceptance rules fixed. A choice that uses less may still cost more in human checking or fail a required check. Which evidence would decide for your pilot? Before making a real choice, confirm availability and costs from approved current sources.
 
-Transition: Apply the criteria in Model Choice Practice and Evidence Review.
+Transition: Now use the same acceptance rules to record your own model-choice comparison.
 
 Audience question: Which criterion would most change the model-choice decision?
 
-Response guidance: If a current model or price is asserted, say, “That requires future current sourcing; keep this comparison at the criteria level.”
+Response guidance: If someone supplies a current model or price from memory, say, “Keep this example synthetic. We need an approved current source before using that detail.” If lowest use is treated as the winner, ask, “Did the result pass the same checks?”
 
-Payoff: Participants gain criteria for a fair model-choice comparison.
+Payoff: You can identify the evidence needed to choose a model for accepted work, rather than judging use alone.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s23-model-choice-demonstration; workshops/ghcp-dev-hack/content/modules/01-foundations/slides.md#model-routing-match-the-task
 -->
@@ -1080,15 +1080,15 @@ class: mc
 <!--
 Timebox: 9 minutes
 
-Talk track: What evidence supports keep, revise, or stop? Use two minutes to restate the controlled comparison: same workflow, boundary, task, and acceptance rules; model choice is the only change. Compare completion, developer intervention, quality, time, risk, and cost. Then protect seven minutes for participants to record facts, assumptions, unknowns, limits, and a provisional decision.
+Talk track: What would make you keep one model choice rather than revise or stop? This worksheet fixes your workflow, finish line, task, and acceptance checks; only the model changes. If one result seems quicker but needs more developer repair, you have not settled the value question. Note what was completed, what people had to fix, and any quality or risk issue before looking at time and cost. Record observed facts separately from assumptions and missing evidence. Write a keep, revise, or stop decision that the evidence supports; it may be provisional. Your delivery and architecture leads can guide the comparison, while risk and finance review their checks.
 
-Transition: Keep record one. Next, Context Selection Demonstration changes context only.
+Transition: Save this record. Next we hold the task steady and examine a change to the context instead.
 
 Audience question: Which result is a fact, and which is still an assumption?
 
-Response guidance: If more than the model changes, say, “Reset the comparison and change one factor only.”
+Response guidance: If several factors change at once, say, “Let's hold the task and checks steady so the model is the only difference.” Give participants room to record unknowns.
 
-Payoff: Participants produce controlled model-choice comparison record 1 of 3.
+Payoff: You have a model-choice comparison record with a bounded decision and visible evidence gaps.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s24-model-choice-practice-and-evidence-review
 -->
@@ -1122,15 +1122,15 @@ class: mc
 <!--
 Timebox: 6 minutes
 
-Talk track: What must stay fixed for this to be a fair comparison? Hold the task and acceptance rules constant. First inspect stale, repeated, or unrelated context. Then retain only the context needed for the task. Compare the accepted result, not context size alone. Use the full six minutes for this facilitator-led demonstration frame. Name the one changed factor and the evidence that would decide whether the change helped. Do not present a result that has not been measured, and do not imply that smaller context is automatically better.
+Talk track: If we remove an old, unrelated conversation, what would have to stay the same to tell whether that helped? This before-and-after is synthetic. Both sides use the same task and acceptance checks; only the selected context changes. The first side includes stale or repeated material, and the second keeps what the task needs. Smaller input is not automatically a better result. We would need to see whether the work reaches the same finish line with the required quality, and then check effort, time, risk, and cost. Tell me which evidence would let your pilot make that comparison. This picture does not report a measured improvement.
 
-Transition: Now participants will build the matching Context Selection Practice and Evidence Review record and decide whether to keep, revise, or stop.
+Transition: Let's use that one-change method in your context comparison record.
 
 Audience question: What must remain unchanged between the first and second run?
 
-Response guidance: If the task or acceptance rule changes, say, “Reset the comparison; context selection must be the only changed factor.” If size is treated as success, say, “Check accepted completion and quality before time or cost.”
+Response guidance: If someone also changes the task, say, “Reset it so only context changes.” If smaller is called better, ask, “Did the result still pass the same acceptance checks?”
 
-Payoff: Participants can state the criteria for a fair context-selection comparison.
+Payoff: You know how to test a context change without mistaking less input for a better outcome.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s25-context-selection-demonstration
 -->
@@ -1165,15 +1165,15 @@ class: mc
 <!--
 Timebox: 9 minutes
 
-Talk track: Which evidence will support a keep, revise, or stop decision? Take two minutes to restate the controlled comparison. Keep the same workflow, boundary, task, and acceptance rules. Change context selection only. Compare completion, developer intervention, quality, time, risk, and cost. Record facts, assumptions, unknowns, and limits. Then stop narrating and protect seven minutes for participants to complete the record and make a decision. The decision can remain provisional when evidence is missing; missing evidence must stay visible.
+Talk track: What would tell you that the context change is worth keeping? Use this worksheet with the same workflow, task, finish line, and acceptance rules you just used. Change only which material the task receives. A shorter prompt is not the result we are buying; accepted completion with an appropriate level of checking is the test. Compare the human effort, quality, time, risk, and cost as evidence allows. Mark what you observed, what you assumed, and what you still need to know. Choose keep, revise, or stop, or mark that choice provisional until the missing evidence is available. Please make your own record now.
 
-Transition: Keep this comparison record. Next: Tool-and-Permission Demonstration. Hold the task and acceptance rules constant while permission scope changes.
+Transition: Keep this record alongside the model comparison. Next we'll change the access boundary, not the task.
 
 Audience question: Which result is a fact, and which remains an assumption or unknown?
 
-Response guidance: If participants change more than context, say, “Return to one changed factor.” If they choose keep without accepted-result evidence, say, “Mark the decision provisional and name the missing source.”
+Response guidance: If someone varies both model and context, say, “Hold the model fixed for this record.” If a decision has no accepted-result evidence, say, “Mark it provisional and name the source you need.” Allow working time.
 
-Payoff: Participants produce controlled context comparison record 2 of 3 with an explicit decision and limits.
+Payoff: You have a context comparison and a decision whose limits are visible.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s26-context-selection-practice-and-evidence-review
 -->
@@ -1205,15 +1205,15 @@ class: mc
 <!--
 Timebox: 6 minutes
 
-Talk track: What is the least access needed for this bounded task? Give the service only the tools, data, permissions, and time needed. Name the human check and stop before an unapproved action. This selected non-interactive native safety sequence compares broad access with needed access without taking action or claiming a specific current control. Use the full six minutes.
+Talk track: What would this task need to read or do, and what should it never do without a person? Watch this non-interactive, synthetic safety sequence. The planning task stays the same; the first view gives broad access, and the second narrows tools, data, permissions, and duration to what is needed. Narrow access alone does not prove a better result, but it makes the boundary easier to reason about. For your pilot, name the specific necessary access and where a human must review before an action. Nothing on this slide performs a live action or proves that a particular current product control is available.
 
-Transition: Record the controlled result in Tool-and-Permission Practice and Evidence Review.
+Transition: Now let's record what would change when permission scope changes and what would still need checking.
 
 Audience question: Which permission is necessary, and where is the human checkpoint?
 
-Response guidance: If broad access is justified by convenience, say, “Start from the bounded task and add only what its acceptance rules require.”
+Response guidance: If broad access is offered for convenience, say, “Start with what the bounded task actually needs.” If a technical control is assumed, say, “We must verify its current support before relying on it.”
 
-Payoff: Participants gain criteria for a fair least-privilege comparison.
+Payoff: You can name needed access, a human checkpoint, and the stopping boundary for the comparison.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s27-tool-and-permission-demonstration; workshops/ghcp-dev-hack/content/modules/01-foundations/slides.md#least-privilege-delegation
 -->
@@ -1248,15 +1248,15 @@ class: mc
 <!--
 Timebox: 9 minutes
 
-Talk track: What evidence supports the permission decision? Use two minutes to frame the same workflow, boundary, task, and acceptance rules. Change tools or permissions only. Compare completion, developer intervention, quality, time, risk, and cost. Then protect seven minutes to record facts, assumptions, unknowns, limits, and keep, revise, or stop.
+Talk track: What would justify the access you give this task? In this third record, keep the workflow, task, finish line, and acceptance checks fixed. Change only the tools or permissions. A proposed narrow scope may still fail to complete the work; a broad scope may cross a policy boundary even if the output looks good. Check accepted completion and human intervention alongside quality, time, risk, and cost. Note which behavior you have actually verified and where the human must stop an unapproved action. Mark facts, assumptions, and unknowns; then record keep, revise, or stop with the appropriate risk and outcome decision owners.
 
-Transition: Bring all three comparison records into Choose the Funding Purpose.
+Transition: Carry the three comparison records into Use Copilot AI Credits Wisely, then decide what kind of investment the evidence justifies.
 
 Audience question: Which permission changed, and what accepted result changed with it?
 
-Response guidance: If task scope changes, say, “Reset to the bounded task and isolate tools or permissions.”
+Response guidance: If the task scope changes, say, “Reset to the bounded task so permissions are the only variable.” If a control is only proposed, say, “Mark support unknown until it is checked.” Give the group room to decide.
 
-Payoff: Participants produce controlled tool-and-permission comparison record 3 of 3.
+Payoff: You have an access comparison with a human checkpoint and a defensible decision limit.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s28-tool-and-permission-practice-and-evidence-review
 -->
@@ -1268,13 +1268,54 @@ class: mc
 
 ::title::
 
-# Choose the Funding Purpose
+# Use Copilot AI Credits Wisely
 
-<div class="mc-meta"><span>S29 · Investment and portfolio</span><span>13:45–13:54 · 9 min</span></div>
+<div class="mc-meta"><span>S29 · Guided optimization lab</span><span>13:45–13:48 · 3 min</span></div>
 
 ::content::
 
 <div class="mc-stack" data-slide-id="S29">
+  <p class="mc-small">Here, <b>AIC</b> means GitHub Copilot AI credits: a billing unit, not a token count.</p>
+  <div class="mc-four-grid">
+    <div><b>1. Model fit</b><span class="mc-small">Match an approved model to a bounded task; verify the accepted result.</span></div>
+    <div><b>2. Relevant context</b><span class="mc-small">Send only current, relevant context; remove repeats and stale material.</span></div>
+    <div><b>3. Inspect before retry</b><span class="mc-small">Ask for the needed output and acceptance check; inspect before retrying.</span></div>
+    <div><b>4. Applicable rates</b><span class="mc-small">Check model-specific input, output and applicable cached-token rates.</span></div>
+  </div>
+  <div class="mc-callout"><b>Payoff:</b> Same task and checks; weigh AIC, review time and risk against accepted work.</div>
+  <p class="mc-small">No guaranteed savings. Recheck applicable usage and rates at delivery.</p>
+</div>
+
+<!--
+Timebox: 3 minutes
+
+Talk track: Which of your three comparisons preserved accepted work and the human safety checkpoint? This is a quick way to read those records before a funding choice, not another experiment. Here AIC means GitHub Copilot AI credits, a billing unit, not a token count. The four cards remind you to match an approved model to the task, keep context current and relevant, ask for the output and acceptance check you need, and inspect before retrying. Credit accounting can depend on the model and on input, output, and applicable cached-token rates. Keep the task and checks fixed. Weigh credits, review time, and risk against work that actually passed. None of these tips guarantees savings or excuses a weaker result or an unsafe action.
+
+Transition: Bring that AIC-aware view of accepted work into Choose the Funding Purpose.
+
+Audience question: Which existing comparison record best preserves accepted work and the human checkpoint?
+
+Response guidance: If someone chooses the fewest tokens alone, say, “Tokens aren't credits or accepted value. Check the applicable rates, human review, and required safety checks.” If AIC evidence is unavailable, say, “Mark it unknown, not zero; check approved current usage and rates before deciding cost.”
+
+Payoff: You can use AIC as one criterion alongside review effort, risk, and accepted work when choosing funding.
+
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s29-use-copilot-ai-credits-wisely
+-->
+
+---
+layout: single-panel
+class: mc
+---
+
+::title::
+
+# Choose the Funding Purpose
+
+<div class="mc-meta"><span>S30 · Investment and portfolio</span><span>13:48–13:57 · 9 min</span></div>
+
+::content::
+
+<div class="mc-stack" data-slide-id="S30">
   <div class="mc-three-grid">
     <div><b>Exploration</b><span>bounded learning before reliability is known</span></div>
     <div><b>Production</b><span>governed work with demonstrated reliability and leverage</span></div>
@@ -1287,17 +1328,17 @@ class: mc
 <!--
 Timebox: 9 minutes
 
-Talk track: Are you funding exploration, production, or a time-limited exception? Use four minutes to distinguish the purposes and separate fixed license, variable usage, implementation, validation, change management, and operating cost. Then protect five minutes to select the purpose and complete the cost-category checklist.
+Talk track: What kind of commitment is your evidence ready for? These three cards distinguish learning within bounds from routine governed operation and from a time-limited exception. If your comparison still lacks acceptance or risk evidence, that looks more like exploration than proven production. The line below the cards reminds us that paying for access is not the entire cost: checking results and changing the workflow also take effort. With finance and the outcome owner, choose a funding purpose for your pilot and identify the cost categories you must investigate. Do not turn unknown costs into a budget estimate.
 
-Transition: With the purpose clear, Choose Central Funding, Showback, or Chargeback.
+Transition: Once we know why we're paying, we need to choose who pays and how use or cost is reported.
 
 Audience question: Which funding purpose matches the current evidence?
 
-Response guidance: If production is chosen without reliability evidence, say, “Mark the gap and consider bounded exploration.”
+Response guidance: If production is proposed without reliability evidence, say, “Mark that gap. Would a bounded exploration be the responsible next step?” Leave time to choose the purpose.
 
-Payoff: Participants select a funding purpose and complete cost categories.
+Payoff: You have a funding purpose matched to evidence, plus the cost categories still to verify.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s29-choose-the-funding-purpose
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s30-choose-the-funding-purpose
 -->
 
 ---
@@ -1309,11 +1350,11 @@ class: mc
 
 # Choose Central Funding, Showback, or Chargeback
 
-<div class="mc-meta"><span>S30 · Investment and portfolio</span><span>13:54–14:03 · 9 min</span></div>
+<div class="mc-meta"><span>S31 · Investment and portfolio</span><span>13:57–14:06 · 9 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S30">
+<div class="mc-stack" data-slide-id="S31">
   <div class="mc-three-grid">
     <div><b>Central funding</b><span>one budget pays</span></div>
     <div><b>Showback</b><span>report use or cost to an owner without moving money</span></div>
@@ -1326,17 +1367,17 @@ class: mc
 <!--
 Timebox: 9 minutes
 
-Talk track: Which approach makes ownership clear without creating unhelpful behavior? Define central funding, showback, and chargeback in plain English. Use four minutes for the distinctions, then protect five minutes to choose an approach, owner, and review threshold.
+Talk track: Who should see the cost, and who should actually pay it? Under central funding, one budget pays. With showback, the team sees its use or cost without moving money. Chargeback means an agreed process assigns that cost to a budget owner. Those are different choices, not three labels for the same report. For a pilot still learning its usage pattern, ask what arrangement makes ownership clear and is fair to administer; don't assume a billing mechanism exists because a report can be shown. With finance, choose the approach, name its owner, and set a threshold for revisiting it.
 
-Transition: Use the funding approach and evidence to Rank the Portfolio.
+Transition: Next, use that cost ownership and the evidence so far to compare this pilot with other opportunities.
 
 Audience question: Which approach is fair and practical for this pilot?
 
-Response guidance: If chargeback is treated as a simple report, restate that it assigns cost through an agreed process.
+Response guidance: If chargeback is called a report, say, “A report is showback; chargeback moves cost through an agreed process.” Give the group space to choose a review threshold.
 
-Payoff: Participants choose a funding or reporting approach with an owner and threshold.
+Payoff: You have a funding or reporting choice with a responsible owner and a point to review it.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s30-choose-central-funding-showback-or-chargeback
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s31-choose-central-funding-showback-or-chargeback
 -->
 
 ---
@@ -1348,11 +1389,11 @@ class: mc
 
 # Rank the Portfolio
 
-<div class="mc-meta"><span>S31 · Investment and portfolio</span><span>14:03–14:15 · 12 min</span></div>
+<div class="mc-meta"><span>S32 · Investment and portfolio</span><span>14:06–14:18 · 12 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S31">
+<div class="mc-stack" data-slide-id="S32">
   <div class="mc-five-grid"><b>expected value</b><b>evidence strength</b><b>practicality</b><b>risk</b><b>cost exposure</b></div>
   <div class="mc-decision-strip"><b>fund first</b><b>gather evidence</b><b>wait</b><b>stop</b></div>
   <div class="mc-callout">Do not rank by adoption or consumption alone.</div>
@@ -1362,17 +1403,17 @@ class: mc
 <!--
 Timebox: 12 minutes
 
-Talk track: Which opportunity deserves funding first, and why? Use three minutes to frame expected value, evidence strength, practicality, risk, and cost exposure. The decisions are fund first, gather evidence, wait, or stop. Then protect nine minutes to rank the options and name the budget owner and thresholds. Adoption or consumption alone cannot determine rank.
+Talk track: If you could only back one opportunity first, which would it be? The five headings on this slide make the comparison broader than tool adoption: expected outcome, strength of the evidence, ability to run the work, risk, and cost exposure. An option with high use but no clear finish line may need evidence before money. An option with a useful outcome but an unresolved policy approval may have to wait. Rank your real options against these headings, then decide which to fund first, investigate, wait on, or stop. Name the budget owner and the threshold that would change the choice.
 
-Transition: Record the portfolio decision and take the full Break. Return at 14:30 to Assign Recommend, Decide, Fund, Approve, Execute.
+Transition: Keep your ranking and funding owner. After the break, we'll assign the rest of the operating decisions.
 
 Audience question: Which factor most changes the ranking?
 
-Response guidance: If adoption dominates, say, “Show the accepted outcome and evidence strength that make use decision-relevant.”
+Response guidance: If use alone determines the order, ask, “What accepted outcome and evidence strength would justify that ranking?” Leave the group space to compare options.
 
-Payoff: Participants produce a ranked portfolio with funding ownership and thresholds.
+Payoff: You have a ranked set of opportunities and a funding choice tied to evidence rather than use alone.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s31-rank-the-portfolio
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s32-rank-the-portfolio
 -->
 
 ---
@@ -1383,21 +1424,21 @@ class: mc mc-break
 # Break
 
 <div data-slide-id="U03">
-  <p>Please return at <b>14:30</b>.</p>
+  <p>Please return at <b>14:33</b>.</p>
 </div>
 
 <!--
 Timebox: 15 minutes
 
-Talk track: We are on break for the full fifteen minutes. Please return at 14:30. No decision repair is required during the break.
+Talk track: Let's take the full break. Please return at 14:33. You do not need to resolve any open decision while you're away.
 
-Transition: At 14:30, begin with Assign Recommend, Decide, Fund, Approve, Execute.
+Transition: When we return at 14:33, we'll name who has each pilot decision right.
 
 Audience question: What time do we return?
 
-Response guidance: If asked to keep working, say, “Protect the break; unresolved items remain visible.”
+Response guidance: If anyone asks whether to keep working, say, “No homework; the open items can wait.”
 
-Payoff: Participants receive the full protected break.
+Payoff: You can take the full break without doing decision work.
 
 Sources: content/modules/01-copilot-value-lab/mission-control-source.md#u03-break
 -->
@@ -1411,11 +1452,11 @@ class: mc
 
 # Assign Recommend, Decide, Fund, Approve, Execute
 
-<div class="mc-meta"><span>S32 · Enterprise operating model</span><span>14:30–14:40 · 10 min</span></div>
+<div class="mc-meta"><span>S33 · Enterprise operating model</span><span>14:33–14:43 · 10 min</span></div>
 
 ::text::
 
-<div class="mc-stack" data-slide-id="S32">
+<div class="mc-stack" data-slide-id="S33">
   <p>For each pilot decision, name who:</p>
   <div class="mc-chip-grid"><b>recommends</b><b>decides</b><b>funds</b><b>approves</b><b>executes</b></div>
 </div>
@@ -1431,17 +1472,17 @@ class: mc
 <!--
 Timebox: 10 minutes
 
-Talk track: Who recommends, decides, funds, approves, and executes each pilot decision? Use four minutes to distinguish these rights. Product permission is not policy authority, and funding is not risk approval. Then protect six minutes to assign names and leave no implied authority.
+Talk track: If someone can turn a pilot feature on, does that mean they can approve the pilot? No. The left panel separates recommending a change, making the investment decision, funding it, approving its boundary, and doing the work. The warnings on the right matter: a product permission does not grant policy authority, and a budget does not grant risk approval. For your pilot, name the real people or functions holding each right. For example, a platform owner might execute an approved configuration while the outcome owner makes the investment decision. Check the authority, not just the job title, and leave any missing approval visibly unresolved.
 
-Transition: Complete the second half with Assign Enable, Monitor, Review, Renew, Retire, Escalate.
+Transition: Getting a pilot started is only half the charter. Next we assign who keeps it governed.
 
 Audience question: Which decision right is currently unnamed?
 
-Response guidance: If one role is assigned every right, say, “Confirm that each authority is intentional and valid.”
+Response guidance: If one person is given every right, ask, “Which of those rights can they actually exercise, and which needs separate approval?” Leave space to assign owners.
 
-Payoff: Participants complete the first half of the operating charter.
+Payoff: You have named who may recommend, decide, fund, approve, and execute without confusing access with authority.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s32-assign-recommend-decide-fund-approve-execute
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s33-assign-recommend-decide-fund-approve-execute
 -->
 
 ---
@@ -1453,11 +1494,11 @@ class: mc
 
 # Assign Enable, Monitor, Review, Renew, Retire, Escalate
 
-<div class="mc-meta"><span>S33 · Enterprise operating model</span><span>14:40–14:50 · 10 min</span></div>
+<div class="mc-meta"><span>S34 · Enterprise operating model</span><span>14:43–14:53 · 10 min</span></div>
 
 ::text::
 
-<div class="mc-stack" data-slide-id="S33">
+<div class="mc-stack" data-slide-id="S34">
   <p>Name who:</p>
   <div class="mc-chip-grid"><b>enables</b><b>monitors</b><b>reviews</b><b>renews</b><b>retires</b><b>escalates</b></div>
 </div>
@@ -1472,17 +1513,17 @@ class: mc
 <!--
 Timebox: 10 minutes
 
-Talk track: Who enables, monitors, reviews, renews, retires, and escalates? Use four minutes to frame the evidence, cadence, handoff, expiry, and backup owner required for each right. Then protect six minutes to name those owners and handoffs.
+Talk track: Once the pilot starts, who notices when its approval expires or a control stops working? These cards extend your charter from launch into operation. Enabling is different from monitoring; renewing a bounded approval is different from quietly leaving access in place. For each right, attach the evidence the owner needs, when they check it, who receives the handoff, and who covers an absence. For example, if an exception is nearing expiry, someone must review it or escalate rather than assume it renews itself. Work through your pilot's owners and mark missing backups as dependencies.
 
-Transition: Put both charter halves under pressure in Stress-Test the Operating Model.
+Transition: Let's test these handoffs against a difficult situation rather than trusting that the chart alone will work.
 
 Audience question: Which handoff or backup owner is missing?
 
-Response guidance: If ownership is a team name only, say, “Name the accountable function and the person or role that receives the handoff.”
+Response guidance: If ownership is only “the team,” ask, “Who receives the alert and who takes over if that person is absent?” Give the group room to identify the backup.
 
-Payoff: Participants complete the second half of the operating charter.
+Payoff: You have operating owners, review handoffs, and expiry paths for the pilot.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s33-assign-enable-monitor-review-renew-retire-escalate
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s34-assign-enable-monitor-review-renew-retire-escalate
 -->
 
 ---
@@ -1494,11 +1535,11 @@ class: mc
 
 # Stress-Test the Operating Model
 
-<div class="mc-meta"><span>S34 · Enterprise operating model</span><span>14:50–15:00 · 10 min</span></div>
+<div class="mc-meta"><span>S35 · Enterprise operating model</span><span>14:53–15:03 · 10 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S34">
+<div class="mc-stack" data-slide-id="S35">
   <p>Test one:</p>
   <div class="mc-four-grid"><div><b>incident</b></div><div><b>exception</b></div><div><b>expired approval</b></div><div><b>evidence failure</b></div></div>
   <div class="mc-question-grid">
@@ -1510,17 +1551,17 @@ class: mc
 <!--
 Timebox: 10 minutes
 
-Talk track: Which scenario is most likely to expose a broken handoff? Choose an incident, exception, expired approval, or evidence failure. Use four minutes to frame who pauses work, investigates, informs leaders, approves recovery, and restarts or retires the pilot. Then protect six minutes to run the scenario. Do not claim an incident occurred.
+Talk track: Which of these imagined events would most challenge your pilot charter? Pick just one. Suppose an approval expires while work is underway. The boxes ask who pauses the work and investigates, who tells leaders, who can approve recovery, and who decides to restart or retire. Walk the scenario using the authorities you just named. If no one can make a required call, do not fill the gap by assuming the nearest person has permission. Record the missing handoff and who must resolve it. This is a stress test on paper, not a report of an actual incident.
 
-Transition: Carry every broken handoff into Complete the Ownership and Decision Map.
+Transition: Bring the gaps you found into the full ownership map so the next handoff is explicit.
 
 Audience question: Who has authority to pause and restart the pilot?
 
-Response guidance: If authority is unclear, say, “Record the gap; do not assign authority by convenience.”
+Response guidance: If no one knows who may restart, say, “Leave that authority unresolved and name who must confirm it.” Give participants room to run their scenario.
 
-Payoff: Participants record a stress-test result and unresolved ownership gaps.
+Payoff: You have tested a realistic handoff and recorded the authority gaps before they become pilot assumptions.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s34-stress-test-the-operating-model
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s35-stress-test-the-operating-model
 -->
 
 ---
@@ -1532,11 +1573,11 @@ class: mc
 
 # Complete the Ownership and Decision Map
 
-<div class="mc-meta"><span>S35 · Enterprise operating model</span><span>15:00–15:15 · 15 min</span></div>
+<div class="mc-meta"><span>S36 · Enterprise operating model</span><span>15:03–15:18 · 15 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S35">
+<div class="mc-stack" data-slide-id="S36">
   <div class="mc-process-line">proposes <i>→</i> validates <i>→</i> approves boundary <i>→</i> funds <i>→</i> enables <i>→</i> monitors <i>→</i> handles incident/exception <i>→</i> reviews expiry or escalation</div>
   <div class="mc-callout">For every step: <b>owner, evidence, next handoff, and decision date.</b></div>
   <p class="mc-small"><b>Lead P1/P2 · Evidence P3-P7 · Review/Decide each named authority</b></p>
@@ -1545,17 +1586,17 @@ class: mc
 <!--
 Timebox: 15 minutes
 
-Talk track: Where does the ownership chain still break? Use three minutes to frame the sequence from proposal through validation, boundary approval, funding, enabling, monitoring, incident or exception handling, and expiry or escalation review. Then protect twelve minutes to name the owner, evidence, next handoff, and decision date for every step.
+Talk track: Where might your pilot get stuck between a good proposal and a responsible review? Read the arrows as handoffs, not as proof that a function has already signed off. A proposal needs validation; an approved boundary still needs funding and someone to enable it; monitoring needs a route to handle an exception or expiry. At each arrow, ask what evidence travels with the work and who receives it next. Use the gaps from your stress test to fill this map with owners and decision dates. If an authority is absent, record the dependency and the escalation path rather than naming a convenient substitute.
 
-Transition: Use the completed charter to Connect the Change to an Accepted Outcome.
+Transition: With the operating chain mapped, we can trace how a governed change might lead to an accepted result.
 
 Audience question: Which step lacks an owner, evidence source, or next handoff?
 
-Response guidance: If a gap remains, say, “Keep it visible as a dependency and name who must resolve it.”
+Response guidance: If a handoff still has no authority, say, “That stays a dependency. Who can resolve it, and by when?” Let the group complete the map.
 
-Payoff: Participants produce a complete operating charter with an escalation path.
+Payoff: You have a working operating charter, including visible unresolved handoffs and escalation.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s35-complete-the-ownership-and-decision-map
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s36-complete-the-ownership-and-decision-map
 -->
 
 ---
@@ -1567,11 +1608,11 @@ class: mc
 
 # Connect the Change to an Accepted Outcome
 
-<div class="mc-meta"><span>S36 · Prove ROI</span><span>15:15–15:23 · 8 min</span></div>
+<div class="mc-meta"><span>S37 · Prove ROI</span><span>15:18–15:26 · 8 min</span></div>
 
 ::text::
 
-<div class="mc-stack" data-slide-id="S36">
+<div class="mc-stack" data-slide-id="S37">
   <div class="mc-field"><b>Change</b><span>___ in workflow ___</span></div>
   <div class="mc-field"><b>Completion boundary</b><span>___</span></div>
   <div class="mc-field"><b>Required acceptance checks</b><span>___</span></div>
@@ -1589,17 +1630,17 @@ class: mc
 <!--
 Timebox: 8 minutes
 
-Talk track: What evidence links the change to an accepted business outcome? Use four minutes to trace the workflow change, completion boundary, acceptance checks, engineering result, business result, and linking evidence. Then protect four minutes to complete the chain. Cost or usage reduction alone is not ROI.
+Talk track: If your pilot makes one step faster, what would make that matter to the business? The left side starts with the change, the finish line, and the checks work must pass. The right asks what engineering result follows, what business result you expect, and how you would link the two. For example, faster pull-request drafting is not yet a shorter delivery cycle; a reviewed, accepted story would be evidence closer to that claim. Trace your own mission through the boxes. If the chain stops at tokens or cost, ask what accepted outcome they support. A lower bill or higher use by itself is not ROI.
 
-Transition: Before interpreting that chain, Make the Comparison Fair.
+Transition: Before we credit a result to the change, let's design a comparison that can survive a challenge.
 
 Audience question: Where is the weakest link between change and business result?
 
-Response guidance: If the chain stops at usage or cost, ask, “What accepted outcome does that change support?”
+Response guidance: If the chain ends with activity, ask, “Which finished result passed your required checks?” Leave space to write the missing link.
 
-Payoff: Participants produce an evidence chain from change to accepted outcome.
+Payoff: You have a chain showing what would connect the pilot change to an accepted outcome and useful result.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s36-connect-the-change-to-an-accepted-outcome
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s37-connect-the-change-to-an-accepted-outcome
 -->
 
 ---
@@ -1611,11 +1652,11 @@ class: mc
 
 # Make the Comparison Fair
 
-<div class="mc-meta"><span>S37 · Prove ROI</span><span>15:23–15:31 · 8 min</span></div>
+<div class="mc-meta"><span>S38 · Prove ROI</span><span>15:26–15:34 · 8 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S37">
+<div class="mc-stack" data-slide-id="S38">
   <p>Compare the same:</p>
   <div class="mc-five-grid"><b>task</b><b>population</b><b>period</b><b>completion boundary</b><b>acceptance test</b></div>
   <div class="mc-callout"><b>Change one important factor.</b></div>
@@ -1625,17 +1666,17 @@ class: mc
 <!--
 Timebox: 8 minutes
 
-Talk track: Which factor must remain fixed for the comparison to be credible? Hold the task, population, period, completion boundary, and acceptance test constant, then change one important factor. Use three minutes to frame the design and protect five minutes to identify a confounder or data-quality issue and record facts, assumptions, unknowns, and limits.
+Talk track: If pilot work appears to finish faster, what else might explain it? The five headings remind you to compare like with like: the same task, people or group, period, finish line, and acceptance check. Change one important factor for the comparison. If the pilot also moves to easier work or skips review, you cannot credit the difference to AI alone. Design a comparison for your workflow and name at least one confounder or data-quality gap. Mark what you know, what you assume, and what remains unknown before you interpret any apparent gain.
 
-Transition: Put that fair comparison into Build the Seven-Measure Pilot Scorecard.
+Transition: Next we'll turn that comparison plan into measures that can inform a pilot decision.
 
 Audience question: Which confounder could change your interpretation?
 
-Response guidance: If several factors changed, say, “Narrow the comparison or state that attribution remains limited.”
+Response guidance: If several things changed, say, “Can we narrow the comparison? If not, state clearly what we cannot attribute to AI.” Give the group space to note a limit.
 
-Payoff: Participants produce a fair comparison design with a stated limitation.
+Payoff: You have a comparison design and a named reason its conclusions may be limited.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s37-make-the-comparison-fair
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s38-make-the-comparison-fair
 -->
 
 ---
@@ -1647,11 +1688,11 @@ class: mc
 
 # Build the Seven-Measure Pilot Scorecard
 
-<div class="mc-meta"><span>S38 · Prove ROI</span><span>15:31–15:41 · 10 min</span></div>
+<div class="mc-meta"><span>S39 · Prove ROI</span><span>15:34–15:44 · 10 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S38">
+<div class="mc-stack" data-slide-id="S39">
   <div class="mc-score-measures">
     <span>Valid completion</span><span>Developer intervention</span><span>Cycle time</span><span>Rework/quality</span>
     <span>AI cost per accepted outcome</span><span>Operational risk</span><span>Business outcome</span>
@@ -1664,17 +1705,17 @@ class: mc
 <!--
 Timebox: 10 minutes
 
-Talk track: Which measure would change a pilot decision rather than merely describe activity? Use three minutes to frame the seven measures: valid completion, developer intervention, cycle time, rework and quality, AI cost per accepted outcome, operational risk, and business outcome. Every measure needs a definition, starting point, source, owner, cadence, and decision supported. Then protect seven minutes for participants to build the scorecard. Keep missing evidence visible. The earlier comparisons can supply evidence, but they do not by themselves establish business value.
+Talk track: Which signal would make you stop or change this pilot? This scorecard keeps the evidence close to the workflow: did work finish validly, how much human help did it need, how long did it take, and did quality hold? It also asks about AI cost per accepted outcome, operational risk, and the business result. That is different from simply counting attempts. For your pilot, define what one measure means, where its starting evidence comes from, and who will check it. Then fill the rest with a source, review rhythm, and decision each measure supports. Keep missing sources visible; the lab comparisons alone do not establish business value.
 
-Transition: Roll this detailed pilot evidence into Build the Executive Scorecard without losing limits or ownership.
+Transition: Now let's translate these detailed pilot signals into a view leaders can use without hiding uncertainty.
 
 Audience question: Which measure currently lacks a source, owner, or decision?
 
-Response guidance: If adoption or usage replaces an outcome, say, “Which accepted or business outcome does it support?” If a source is unavailable, say, “Keep the measure and mark the evidence dependency.”
+Response guidance: If use is offered as the outcome, ask, “Which accepted work or business result does it help explain?” If a source is absent, say, “Mark that evidence dependency; don't make up a starting value.” Allow the scorecard work to continue.
 
-Payoff: Participants produce a seven-measure pilot scorecard with missing evidence visible.
+Payoff: You have a pilot scorecard that ties measures to decision owners while exposing missing evidence.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s38-build-the-seven-measure-pilot-scorecard
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s39-build-the-seven-measure-pilot-scorecard
 -->
 
 ---
@@ -1686,11 +1727,11 @@ class: mc
 
 # Build the Executive Scorecard
 
-<div class="mc-meta"><span>S39 · Prove ROI</span><span>15:41–15:50 · 9 min</span></div>
+<div class="mc-meta"><span>S40 · Prove ROI</span><span>15:44–15:53 · 9 min</span></div>
 
 ::text::
 
-<div class="mc-stack" data-slide-id="S39">
+<div class="mc-stack" data-slide-id="S40">
   <p>Roll evidence into five views:</p>
   <div class="mc-exec-views"><span>Adoption</span><span>Delivery</span><span>Quality</span><span>Capacity</span><span>Financial</span></div>
   <div class="mc-callout">Adoption shows use. It does not prove value by itself.</div>
@@ -1708,17 +1749,17 @@ class: mc
 <!--
 Timebox: 9 minutes
 
-Talk track: Which executive view will carry each pilot measure into a decision? Use three minutes to explain the relationship. The seven-measure pilot scorecard preserves operational detail. The executive scorecard rolls that evidence into adoption, delivery, quality, capacity, and financial views. Each view shows the decision, trend, limit, owner, and next review. Adoption shows use; it does not prove value by itself. Then protect six minutes for participants to map the pilot evidence into the five views without hiding missing data or limits.
+Talk track: What does a leader need to see to decide whether this pilot continues? The left panel groups the detailed scorecard into views of use, delivery, quality, capacity, and finances. The right shows the relationship: the pilot measures provide evidence; these views organize the decision, its trend, limit, owner, and next review. If adoption rises while accepted completion falls, do not smooth that conflict away. Which pilot measure belongs under each view, and what decision does it help make? Keep evidence limits beside the summary so the executive view does not make an uncertain result look proven.
 
-Transition: Carry both scorecards forward. Next: Set Stop, Revise, Fund, and Scale Gates.
+Transition: Once the evidence is organized for leaders, we need rules for what happens at a checkpoint.
 
 Audience question: Which pilot measure supports each executive view, and where is the evidence still missing?
 
-Response guidance: If one metric is copied into every view, say, “Name the distinct decision each view supports.” If adoption is offered as value, repeat, “Adoption shows use; it does not prove value by itself.”
+Response guidance: If the same use metric fills every view, ask, “What distinct decision does each view support?” If adoption is called value, say, “It shows use; where is the accepted outcome?”
 
-Payoff: Participants produce an executive scorecard mapped to the pilot evidence.
+Payoff: You have a leadership view that carries pilot evidence and its limits into a decision.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s39-build-the-executive-scorecard
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s40-build-the-executive-scorecard
 -->
 
 ---
@@ -1730,11 +1771,11 @@ class: mc
 
 # Set Stop, Revise, Fund, and Scale Gates
 
-<div class="mc-meta"><span>S40 · Prove ROI</span><span>15:50–16:00 · 10 min</span></div>
+<div class="mc-meta"><span>S41 · Prove ROI</span><span>15:53–16:03 · 10 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S40">
+<div class="mc-stack" data-slide-id="S41">
   <div class="mc-prompt">Gate ___ · threshold/evidence ___ · checkpoint date ___ · owner ___ · decision authority ___<br>If unmet ___ · If met ___</div>
   <div class="mc-decision-strip"><b>Stop</b><b>Revise</b><b>Fund</b><b>Scale</b></div>
   <div class="mc-callout">A scale gate cannot rely only on adoption, usage, access, or generated output.</div>
@@ -1743,17 +1784,17 @@ class: mc
 <!--
 Timebox: 10 minutes
 
-Talk track: What evidence triggers stop, revise, fund, or scale? Use two minutes to frame the threshold, checkpoint date, owner, authority, and actions if unmet or met. Then protect eight minutes to write the gates. A scale gate cannot rely only on adoption, usage, access, or generated output.
+Talk track: What would cause you to pause this pilot rather than keep spending? The sentence on screen is a decision rule, not a blank approval. Set the evidence threshold and checkpoint, name who brings the evidence and who can make the call, then write what happens if the threshold is met or missed. For example, if required acceptance checks fail, a stop or revision may be appropriate even if use is growing. Funding or scaling needs more than access or generated output; it needs accepted results and the relevant risk and cost evidence. Write the gates for your mission and leave an unresolved authority marked as such.
 
-Transition: Put the gates on a calendar with Set the 30/60/90 Review Points.
+Transition: Next we'll give those decision gates review points and owners on the plan.
 
 Audience question: Who holds authority at each gate?
 
-Response guidance: If a threshold is vague, say, “Name the evidence and the decision it unlocks.”
+Response guidance: If a gate says “looks good,” ask, “Which evidence, checked by whom, would make that a decision?” Give people space to write both met and unmet actions.
 
-Payoff: Participants create owned thresholds and decision checkpoints.
+Payoff: You have owned stop, revise, fund, and scale conditions, not automatic approval.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s40-set-stop-revise-fund-and-scale-gates
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s41-set-stop-revise-fund-and-scale-gates
 -->
 
 ---
@@ -1765,11 +1806,11 @@ class: mc
 
 # Set the 30/60/90 Review Points
 
-<div class="mc-meta"><span>S41 · Action plan</span><span>16:00–16:14 · 14 min</span></div>
+<div class="mc-meta"><span>S42 · Action plan</span><span>16:03–16:17 · 14 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S41">
+<div class="mc-stack" data-slide-id="S42">
   <div class="mc-three-grid">
     <div><b>30 days</b><span>first evidence, control, or ownership gap to close</span></div>
     <div><b>60 days</b><span>comparison and operating review</span></div>
@@ -1782,17 +1823,17 @@ class: mc
 <!--
 Timebox: 14 minutes
 
-Talk track: What must be reviewed at 30, 60, and 90 days? Use three minutes to frame the horizons: close the first evidence, control, or ownership gap; review the comparison and operating model; then review investment decision evidence. Protect eleven minutes to name the action, evidence, owner, decision maker, dependency, and date. These are review horizons, not promised result dates.
+Talk track: What should your team know at each review, not what do you hope will magically be true by then? The first card is for closing an evidence, control, or ownership gap. The middle card checks the comparison and how the pilot is running. The last card gathers what the investment decision requires. For example, if a cost source is missing now, assign someone to obtain it before a funding review rather than assume a figure. Put an action, evidence source, owner, decision maker, dependency, and real review date beside each point. These are review horizons, not promised dates for a benefit.
 
-Transition: Turn the review points into executable order with Sequence the First Actions.
+Transition: A calendar alone won't unblock the work. Let's put the necessary actions in order.
 
 Audience question: Which dependency must be closed first?
 
-Response guidance: If a horizon is framed as guaranteed value, say, “Rewrite it as evidence to review, not a promised result.”
+Response guidance: If someone promises a result at a review point, say, “Make that the evidence you'll check, not a guaranteed outcome.” Leave time to assign the review owners.
 
-Payoff: Participants produce owned 30-, 60-, and 90-day review points.
+Payoff: You have owned review points that ask for evidence rather than promise results.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s41-set-the-30-60-90-review-points
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s42-set-the-30-60-90-review-points
 -->
 
 ---
@@ -1804,11 +1845,11 @@ class: mc
 
 # Sequence the First Actions
 
-<div class="mc-meta"><span>S42 · Action plan</span><span>16:14–16:30 · 16 min</span></div>
+<div class="mc-meta"><span>S43 · Action plan</span><span>16:17–16:33 · 16 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S42">
+<div class="mc-stack" data-slide-id="S43">
   <p>Put first:</p>
   <div class="mc-chip-grid">
     <b>blocked dependencies</b><b>evidence collection</b><b>control decisions</b>
@@ -1821,17 +1862,17 @@ class: mc
 <!--
 Timebox: 16 minutes
 
-Talk track: Which action unlocks the next responsible decision? Use two minutes to frame blocked dependencies, evidence collection, control decisions, comparison setup, operating handoffs, and leadership reviews. Then protect fourteen minutes to sequence the actions and give each an owner, due date, dependency, and decision it unlocks.
+Talk track: What has to happen before your pilot can responsibly start or continue? These chips are not a checklist to perform in any order. A missing risk approval might block access; a missing starting measure might block an honest comparison. Put those blockers ahead of the activities they unlock, then connect evidence collection, controls, operating handoffs, and leader reviews. Give each action a named owner, due date, dependency, and decision it makes possible. Ask risk, finance, and measurement owners to review the order. Work on your own sequence now; if an approval is unresolved, show it as a dependency, not an accomplished action.
 
-Transition: Gather the sequenced plan and every earlier output in Assemble the Pilot Decision Package.
+Transition: With the first actions ordered, let's collect the evidence and open items into one decision package.
 
 Audience question: Which action must happen first, and what decision does it unlock?
 
-Response guidance: If an action has no owner or date, say, “It is not yet sequenced; complete those fields.”
+Response guidance: If an action has no owner or due date, say, “We can't rely on it yet. Who will take it and when will they bring it back?” Give teams room to sequence their work.
 
-Payoff: Participants produce a sequenced action plan and review dates.
+Payoff: You have an actionable order of work that shows what each step unlocks.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s42-sequence-the-first-actions
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s43-sequence-the-first-actions
 -->
 
 ---
@@ -1843,11 +1884,11 @@ class: mc
 
 # Assemble the Pilot Decision Package
 
-<div class="mc-meta"><span>S43 · Pilot decision</span><span>16:30–16:44 · 14 min</span></div>
+<div class="mc-meta"><span>S44 · Pilot decision</span><span>16:33–16:47 · 14 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S43">
+<div class="mc-stack" data-slide-id="S44">
   <div class="mc-package-grid">
     <b>mission</b><b>ROI path</b><b>expected value</b><b>usage/cost starting point</b><b>control map</b>
     <b>three comparisons</b><b>funding</b><b>operating charter</b><b>pilot + executive scorecards</b><b>gates</b><b>30/60/90 plan</b>
@@ -1859,17 +1900,17 @@ class: mc
 <!--
 Timebox: 14 minutes
 
-Talk track: What is missing from the decision package? Use two minutes to frame the mission, ROI path, expected value, usage and cost starting point, control map, three comparisons, funding, operating charter, scorecards, gates, and 30/60/90 plan. Then protect twelve minutes to assemble it and keep unresolved evidence, authority, and dependencies visible.
+Talk track: If the decision maker opened your pilot package now, what could they decide and what would still be missing? This grid brings the mission and value hypothesis together with costs, controls, comparison records, ownership, scorecards, decision gates, and the action plan. It is not an instruction to fill unknown fields with guesses. Look especially at the bottom strip: unresolved evidence, authority, and dependencies must be as easy to find as the recommendation. Have the pilot owner assemble the package and ask funding, policy, and scale authorities what they still need before making their respective decisions. Leave space for the team to bring its material together.
 
-Transition: Bring the package to Present, Challenge, and Decide.
+Transition: Now we'll use the package for a readout that can be challenged, not just presented.
 
 Audience question: Which unresolved item could block the next decision?
 
-Response guidance: If a gap is hidden to make the package look complete, say, “Restore it and name the owner who will resolve it.”
+Response guidance: If a missing approval is presented as complete, say, “Show the gap and name who can resolve it.” Allow time to assemble the package rather than talking over the work.
 
-Payoff: Participants assemble a complete pilot investment package with unresolved items visible.
+Payoff: You have a decision-ready package that makes its remaining gaps explicit.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s43-assemble-the-pilot-decision-package
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s44-assemble-the-pilot-decision-package
 -->
 
 ---
@@ -1881,11 +1922,11 @@ class: mc
 
 # Present, Challenge, and Decide
 
-<div class="mc-meta"><span>S44 · Executive readout</span><span>16:44–17:00 · 16 min</span></div>
+<div class="mc-meta"><span>S45 · Executive readout</span><span>16:47–17:03 · 16 min</span></div>
 
 ::content::
 
-<div class="mc-stack" data-slide-id="S44">
+<div class="mc-stack" data-slide-id="S45">
   <p>Present the recommendation. Challenge the evidence. Record the next decision.</p>
   <div class="mc-decision-strip"><b>Stop</b><b>Revise</b><b>Fund</b><b>Scale</b></div>
   <div class="mc-final-sentence">For workflow ___, we will test ROI path ___ through pilot ___, within boundary ___, funded by ___, governed by ___, measured using ___, and reviewed on ___ by decision authority ___ to decide whether to stop, revise, fund, or scale.</div>
@@ -1895,15 +1936,15 @@ class: mc
 <!--
 Timebox: 16 minutes
 
-Talk track: Who will present the recommendation, and who holds the decision authority? Use two minutes to frame the final readout. Present the recommendation, challenge the evidence, and record the next decision: stop, revise, fund, or scale. Every group must complete the statement exactly as displayed. Then protect fourteen minutes for participant readout and challenge. Record dissent, missing evidence, dependencies, owners, and the next review. Do not invent consensus. A decision to revise or stop is a valid outcome when the evidence does not support funding or scale.
+Talk track: What can your evidence support today, and who is authorized to decide the next step? This screen gives you a choice, not a requirement to fund or scale. Please present your recommendation and invite a challenge to its finish line, evidence, cost, controls, or attribution. Every group should complete the exact statement displayed so the workflow, ROI path, pilot boundary, funding, governance, measures, review, and decision authority remain connected. Record dissent, missing evidence, dependencies, owners, and the next review without inventing consensus. Stop or revise is a responsible decision if the evidence does not yet justify funding or scale.
 
-Transition: End with the recorded decision, accountable owner, and next review rather than an implied consensus.
+Transition: Close on the recorded next decision, its actual authority, and the next review—not an implied agreement.
 
 Audience question: What is the next decision, and who has authority to make it?
 
-Response guidance: If authority or a review date is missing, say, “Keep that dependency unresolved and name who will confirm it.” If a benefit is presented as achieved, say, “Return to the ROI hypothesis and evidence required.”
+Response guidance: If no one has the authority or a review date, say, “Record that gap and name who will confirm it.” If a hoped-for benefit is described as achieved, ask, “What accepted outcome and comparison support that claim?” Let every group complete its statement.
 
-Payoff: Participants complete the final pilot investment statement and record an explicit next decision.
+Payoff: You leave with the required final pilot statement and a recorded next decision or an explicit unresolved decision dependency.
 
-Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s44-present-challenge-and-decide
+Sources: content/modules/01-copilot-value-lab/mission-control-source.md#s45-present-challenge-and-decide
 -->

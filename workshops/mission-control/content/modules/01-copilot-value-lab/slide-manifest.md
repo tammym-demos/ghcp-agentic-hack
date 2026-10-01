@@ -15,11 +15,12 @@ S06/S09, the completion-boundary and leverage-loss activities move to S10/S11,
 the ROI section is retimed within its 60 minutes, and IDs are renumbered so
 they match visible positions. Historical records keep their original IDs.
 
-This is the exact ID, title, order, minute, clock, layout, source,
-responsibility, and output contract. All
-47 rows are visible and have non-zero minutes. D02 and D03 authorize bounded
-local deck implementation; representative and integration acceptance remain
-separate human decisions.
+The 47-row baseline above is preserved as historical approval. The owner
+subsequently approved one AIC wrap-up at S29 and a three-minute extension to
+17:03; the Workshop Production Coordinator records those decisions separately.
+This is the revised exact ID, title, order, minute, clock, layout, source,
+responsibility, and output text-only contract: all 48 rows are visible and
+have non-zero minutes. The current deck still requires separate integration.
 
 | # | ID | Exact source title | Minutes | Clock | Layout | Governing source | Responsibility where useful | Output |
 | ---: | --- | --- | ---: | --- | --- | --- | --- | --- |
@@ -53,23 +54,24 @@ separate human decisions.
 | 28 | S26 | Context Selection Practice and Evidence Review | 9 | 13:21-13:30 | two-panel | mission-control-source.md#s26-context-selection-practice-and-evidence-review | Lead P2/P4; Evidence P3/P7; Review P5/P6; Decide P1/P2 | Comparison record 2 |
 | 29 | S27 | Tool-and-Permission Demonstration | 6 | 13:30-13:36 | two-panel | mission-control-source.md#s27-tool-and-permission-demonstration | Selected non-interactive native safety sequence | Comparison criteria |
 | 30 | S28 | Tool-and-Permission Practice and Evidence Review | 9 | 13:36-13:45 | two-panel | mission-control-source.md#s28-tool-and-permission-practice-and-evidence-review | Lead P2/P4; Evidence P3/P7; Review P5/P6; Decide P1/P5 | Comparison record 3 |
-| 31 | S29 | Choose the Funding Purpose | 9 | 13:45-13:54 | single-panel | mission-control-source.md#s29-choose-the-funding-purpose | Lead P6/P1; Evidence P3/P7; Review P2/P4/P5; Decide P6 | Funding purpose |
-| 32 | S30 | Choose Central Funding, Showback, or Chargeback | 9 | 13:54-14:03 | single-panel | mission-control-source.md#s30-choose-central-funding-showback-or-chargeback | Lead P6; Evidence P3/P7; Review P1/P2/P4/P5; Decide P6/P1 | Funding/reporting approach |
-| 33 | S31 | Rank the Portfolio | 12 | 14:03-14:15 | single-panel | mission-control-source.md#s31-rank-the-portfolio | Lead P6/P1; Evidence P2/P3/P7; Review P4/P5; Decide P1/P6 | Ranked portfolio |
-| 34 | U03 | Break | 15 | 14:15-14:30 | section | mission-control-source.md#u03-break | — | Full protected break |
-| 35 | S32 | Assign Recommend, Decide, Fund, Approve, Execute | 10 | 14:30-14:40 | two-panel | mission-control-source.md#s32-assign-recommend-decide-fund-approve-execute | Lead P1/P2; Evidence P3/P4/P5/P6; Review P7; Decide named authorities | Charter part 1 |
-| 36 | S33 | Assign Enable, Monitor, Review, Renew, Retire, Escalate | 10 | 14:40-14:50 | two-panel | mission-control-source.md#s33-assign-enable-monitor-review-renew-retire-escalate | Lead P2/P3; Evidence P4/P5/P6/P7; Review P1; Decide named authorities | Charter part 2 |
-| 37 | S34 | Stress-Test the Operating Model | 10 | 14:50-15:00 | single-panel | mission-control-source.md#s34-stress-test-the-operating-model | Named response authorities | Stress-test result |
-| 38 | S35 | Complete the Ownership and Decision Map | 15 | 15:00-15:15 | single-panel | mission-control-source.md#s35-complete-the-ownership-and-decision-map | Lead P1/P2; Evidence P3-P7; Review/Decide named authorities | Operating charter |
-| 39 | S36 | Connect the Change to an Accepted Outcome | 8 | 15:15-15:23 | two-panel | mission-control-source.md#s36-connect-the-change-to-an-accepted-outcome | — | Outcome evidence chain |
-| 40 | S37 | Make the Comparison Fair | 8 | 15:23-15:31 | single-panel | mission-control-source.md#s37-make-the-comparison-fair | — | Comparison design |
-| 41 | S38 | Build the Seven-Measure Pilot Scorecard | 10 | 15:31-15:41 | single-panel | mission-control-source.md#s38-build-the-seven-measure-pilot-scorecard | Lead P7/P1/P6; Evidence P2/P3/P4; Review P5; Decide P1 | Pilot scorecard |
-| 42 | S39 | Build the Executive Scorecard | 9 | 15:41-15:50 | two-panel | mission-control-source.md#s39-build-the-executive-scorecard | Lead P1/P7/P6; Evidence P2/P3/P4; Review P5; Decide P1/P6 | Executive scorecard |
-| 43 | S40 | Set Stop, Revise, Fund, and Scale Gates | 10 | 15:50-16:00 | single-panel | mission-control-source.md#s40-set-stop-revise-fund-and-scale-gates | Named gate owners and authorities | Decision gates |
-| 44 | S41 | Set the 30/60/90 Review Points | 14 | 16:00-16:14 | single-panel | mission-control-source.md#s41-set-the-30-60-90-review-points | Named action owners and authorities | Review points |
-| 45 | S42 | Sequence the First Actions | 16 | 16:14-16:30 | single-panel | mission-control-source.md#s42-sequence-the-first-actions | Lead P2/P1; Evidence all owners; Review P5/P6/P7; Decide action authorities | Sequenced plan |
-| 46 | S43 | Assemble the Pilot Decision Package | 14 | 16:30-16:44 | single-panel | mission-control-source.md#s43-assemble-the-pilot-decision-package | Lead P1/pilot owner; Evidence P2-P7; Review funding/policy/scale authorities | Pilot package |
-| 47 | S44 | Present, Challenge, and Decide | 16 | 16:44-17:00 | single-panel | mission-control-source.md#s44-present-challenge-and-decide | Lead P1/pilot owner; Evidence P2-P7; Decide named authorities | Final statement and decision |
+| 31 | S29 | Use Copilot AI Credits Wisely | 3 | 13:45-13:48 | single-panel | mission-control-source.md#s29-use-copilot-ai-credits-wisely | Instruction-only synthesis; no new practice | AIC-aware criterion, no new comparison record |
+| 32 | S30 | Choose the Funding Purpose | 9 | 13:48-13:57 | single-panel | mission-control-source.md#s30-choose-the-funding-purpose | Lead P6/P1; Evidence P3/P7; Review P2/P4/P5; Decide P6 | Funding purpose |
+| 33 | S31 | Choose Central Funding, Showback, or Chargeback | 9 | 13:57-14:06 | single-panel | mission-control-source.md#s31-choose-central-funding-showback-or-chargeback | Lead P6; Evidence P3/P7; Review P1/P2/P4/P5; Decide P6/P1 | Funding/reporting approach |
+| 34 | S32 | Rank the Portfolio | 12 | 14:06-14:18 | single-panel | mission-control-source.md#s32-rank-the-portfolio | Lead P6/P1; Evidence P2/P3/P7; Review P4/P5; Decide P1/P6 | Ranked portfolio |
+| 35 | U03 | Break | 15 | 14:18-14:33 | section | mission-control-source.md#u03-break | — | Full protected break |
+| 36 | S33 | Assign Recommend, Decide, Fund, Approve, Execute | 10 | 14:33-14:43 | two-panel | mission-control-source.md#s33-assign-recommend-decide-fund-approve-execute | Lead P1/P2; Evidence P3/P4/P5/P6; Review P7; Decide named authorities | Charter part 1 |
+| 37 | S34 | Assign Enable, Monitor, Review, Renew, Retire, Escalate | 10 | 14:43-14:53 | two-panel | mission-control-source.md#s34-assign-enable-monitor-review-renew-retire-escalate | Lead P2/P3; Evidence P4/P5/P6/P7; Review P1; Decide named authorities | Charter part 2 |
+| 38 | S35 | Stress-Test the Operating Model | 10 | 14:53-15:03 | single-panel | mission-control-source.md#s35-stress-test-the-operating-model | Named response authorities | Stress-test result |
+| 39 | S36 | Complete the Ownership and Decision Map | 15 | 15:03-15:18 | single-panel | mission-control-source.md#s36-complete-the-ownership-and-decision-map | Lead P1/P2; Evidence P3-P7; Review/Decide named authorities | Operating charter |
+| 40 | S37 | Connect the Change to an Accepted Outcome | 8 | 15:18-15:26 | two-panel | mission-control-source.md#s37-connect-the-change-to-an-accepted-outcome | — | Outcome evidence chain |
+| 41 | S38 | Make the Comparison Fair | 8 | 15:26-15:34 | single-panel | mission-control-source.md#s38-make-the-comparison-fair | — | Comparison design |
+| 42 | S39 | Build the Seven-Measure Pilot Scorecard | 10 | 15:34-15:44 | single-panel | mission-control-source.md#s39-build-the-seven-measure-pilot-scorecard | Lead P7/P1/P6; Evidence P2/P3/P4; Review P5; Decide P1 | Pilot scorecard |
+| 43 | S40 | Build the Executive Scorecard | 9 | 15:44-15:53 | two-panel | mission-control-source.md#s40-build-the-executive-scorecard | Lead P1/P7/P6; Evidence P2/P3/P4; Review P5; Decide P1/P6 | Executive scorecard |
+| 44 | S41 | Set Stop, Revise, Fund, and Scale Gates | 10 | 15:53-16:03 | single-panel | mission-control-source.md#s41-set-stop-revise-fund-and-scale-gates | Named gate owners and authorities | Decision gates |
+| 45 | S42 | Set the 30/60/90 Review Points | 14 | 16:03-16:17 | single-panel | mission-control-source.md#s42-set-the-30-60-90-review-points | Named action owners and authorities | Review points |
+| 46 | S43 | Sequence the First Actions | 16 | 16:17-16:33 | single-panel | mission-control-source.md#s43-sequence-the-first-actions | Lead P2/P1; Evidence all owners; Review P5/P6/P7; Decide action authorities | Sequenced plan |
+| 47 | S44 | Assemble the Pilot Decision Package | 14 | 16:33-16:47 | single-panel | mission-control-source.md#s44-assemble-the-pilot-decision-package | Lead P1/pilot owner; Evidence P2-P7; Review funding/policy/scale authorities | Pilot package |
+| 48 | S45 | Present, Challenge, and Decide | 16 | 16:47-17:03 | single-panel | mission-control-source.md#s45-present-challenge-and-decide | Lead P1/pilot owner; Evidence P2-P7; Decide named authorities | Final statement and decision |
 
 ## Exact section arithmetic
 
@@ -80,8 +82,8 @@ separate human decisions.
   **45 minutes / 4 slides**.
 - Governance and controls: 10 + 10 + 10 + 15 =
   **45 minutes / 4 slides**.
-- Guided optimization lab: 6 + 9 + 6 + 9 + 6 + 9 =
-  **45 minutes / 6 slides**.
+- Guided optimization lab: 6 + 9 + 6 + 9 + 6 + 9 + 3 =
+  **48 minutes / 7 slides** (27 instruction, 21 participant work).
 - Investment and portfolio decisions: 9 + 9 + 12 =
   **30 minutes / 3 slides**.
 - Enterprise operating model: 10 + 10 + 10 + 15 =
@@ -90,20 +92,20 @@ separate human decisions.
 - 30/60/90 action plan: 14 + 16 = **30 minutes / 2 slides**.
 - Pilot decision and executive readout: 14 + 16 =
   **30 minutes / 2 slides**.
-- Facilitated: 30 + 60 + 45 + 45 + 45 + 30 + 45 + 45 + 30 + 30 =
-  **405 minutes / 44 slides**.
+- Facilitated: 30 + 60 + 45 + 45 + 48 + 30 + 45 + 45 + 30 + 30 =
+  **408 minutes / 45 slides**.
 - Utilities: U01 15 + U02 45 + U03 15 =
   **75 minutes / 3 slides**.
-- Elapsed: 405 + 75 = **480 minutes**, continuously **09:00-17:00**.
-- Visible count: 44 S-slides + 3 U-slides = **47 rows**.
+- Elapsed: 408 + 75 = **483 minutes**, continuously **09:00-17:03**.
+- Visible count: 45 S-slides + 3 U-slides = **48 rows**.
 
 The metadata split is also exact:
 
-- Instruction by section: 13 + 31 + 22 + 31 + 24 + 11 + 15 + 15 + 5 + 4 =
-  **171 minutes**.
+- Instruction by section: 13 + 31 + 22 + 31 + 27 + 11 + 15 + 15 + 5 + 4 =
+  **174 minutes**.
 - Protected participant work: 17 + 29 + 23 + 14 + 21 + 19 + 30 + 30 + 25 +
   26 = **234 minutes**.
-- 171 + 234 = **405 facilitated minutes**. Mission, media, separate
+- 174 + 234 = **408 facilitated minutes**. Mission, media, separate
   setup/transition, and contingency allocations are zero.
 
 ## Outcome, practice, and reuse coverage
@@ -114,18 +116,18 @@ The metadata split is also exact:
 | ROI fundamentals | S05-S11, S13 | S12-S14 paths, limit, hypothesis | Released Mission Control; owner-supplied Engineering Value deck for S06-S09 |
 | Usage and economics | S15-S17 | S18 starting point | Five named Foundations surfaces; rejected worksheet only where identified |
 | Governance and controls | S19-S22 | S22 separate control-map activity | Owner-permitted governance teaching copy; bounded rejected control-map idea |
-| Fair optimization | S23/S25/S27 | S24/S26/S28 records | Foundations model/least-privilege surfaces; bounded rejected comparison structure |
-| Investment and portfolio | S29-S30 | S31 ranked decision | Released Mission Control investment concepts |
-| Operating model | S32-S34 | S35 charter | Bounded rejected charter/stress-test structure |
-| Prove ROI | S36-S37 | S38-S40 scorecards/gates | Released Mission Control scorecard and gates |
-| Action and readout | S41 | S42-S44 plan/package/decision | Released readout; bounded rejected 30/60/90 structure |
+| Fair optimization and AIC-aware wrap-up | S23/S25/S27/S29 | S24/S26/S28 records; no new S29 practice | Foundations model/least-privilege surfaces; bounded rejected comparison structure; GitHub Copilot billing/docs reviewed 2026-09-24 |
+| Investment and portfolio | S30-S31 | S32 ranked decision | Released Mission Control investment concepts |
+| Operating model | S33-S35 | S36 charter | Bounded rejected charter/stress-test structure |
+| Prove ROI | S37-S38 | S39-S41 scorecards/gates | Released Mission Control scorecard and gates |
+| Action and readout | S42 | S43-S45 plan/package/decision | Released readout; bounded rejected 30/60/90 structure |
 
 P1-P7 all appear in decision responsibilities. Labels are omitted from
 instruction-only rows rather than repeated decoratively.
 
 ## Required final statement
 
-S44 must display exactly:
+S45 must display exactly:
 
 `For workflow ___, we will test ROI path ___ through pilot ___, within boundary ___, funded by ___, governed by ___, measured using ___, and reviewed on ___ by decision authority ___ to decide whether to stop, revise, fund, or scale.`
 
@@ -135,8 +137,10 @@ Notes compliance is governed by
 `.github/skills/slide-contract-review/SKILL.md`; this manifest does not author
 notes or `slides.md`. Every visible row later requires one notes comment with
 the exact row timebox and the required seven non-empty sections in order.
-Narration must protect participant-work time. S19-S22 explanation and limits
-belong in notes and must not rewrite their visible teaching copy.
+S29 will require `Timebox: 3 minutes`; this contract does not author its
+presenter notes. Narration must protect participant-work time. S19-S22
+explanation and limits belong in notes and must not rewrite their visible
+teaching copy.
 
 All visible text, formulas, prompts, tables, and diagrams remain native editable
 content. The released opening image may be reused unchanged. No governance
@@ -145,11 +149,14 @@ fake UI, new character artwork, or generated media is permitted.
 
 S17 is the selected facilitator-led CLI demonstration with a clearly labeled
 synthetic receipt fallback. S23, S25, and S27 are selected native synthetic
-treatments and require no live product environment. Current pricing,
-entitlements, quotas, model availability, controls, and enforcement behavior
-require future current sourcing.
+treatments and require no live product environment. New S29 is native text,
+three minutes of instruction only, and adds no practice or media. Current
+pricing, entitlements, quotas, model availability, controls, and enforcement
+behavior require future current sourcing.
 
 D02 and D03 authorized bounded implementation, and D11 accepted the integrated
 deck. Those decisions do not authorize future content changes, media, paid
 action, push, pull request, release, deployment, publication, or participant
-outcome claims.
+outcome claims. The owner has separately approved this new S29 teaching and
+48-row contract; those approvals do not accept a future integrated deck or
+authorize the other actions listed above.

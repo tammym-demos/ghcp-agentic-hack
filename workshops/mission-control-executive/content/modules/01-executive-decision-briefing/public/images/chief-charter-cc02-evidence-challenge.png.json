@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "kind": "local-deterministic-image",
+  "id": "chief-charter-cc02-evidence-challenge",
+  "source": "content/modules/01-executive-decision-briefing/media/public-provenance/chief-charter-cc02-evidence-challenge.md",
+  "createdAt": "2026-09-22T22:42:44.363Z",
+  "reviewStatus": "approved",
+  "location": "content/modules/01-executive-decision-briefing/public/images/chief-charter-cc02-evidence-challenge.png",
+  "sha256": "1ebcc2748bb82d49c970eaadc347d8563989f88d8981f878fbbe3a1be74b57fa",
+  "width": 1360,
+  "height": 768,
+  "sourceCandidateSha256": "0e0e26af4dbce5adf3c45202308c7ceb39f5e75241ae31c8e1c97bf144547e24",
+  "transformManifestSha256": "6164937befabb41e08f40311f53b9c6f8bcd336ef463e48a6a029828fa479c1f",
+  "candidateAcceptanceDecision": "mce-d57-cc02-local-derivative-acceptance",
+  "publicationDecision": "mce-d58-accepted-chief-image-publication"
+}

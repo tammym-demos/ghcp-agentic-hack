@@ -2103,10 +2103,44 @@
       ]
     },
     {
+      "id": "mission-control-executive",
+      "title": "Mission Control: Executive AI Value Decision Briefing",
+      "description": "A decision-first executive briefing for testing whether evidence supports stopping, revising, funding, or scaling one bounded AI-development change.",
+      "duration": "45 minutes: 30-minute briefing plus 15-minute executive decision discussion",
+      "format": "custom",
+      "level": "mixed",
+      "tags": [
+        "github-copilot",
+        "ai-governance",
+        "executive-decision",
+        "roi"
+      ],
+      "prerequisites": [
+        "One pending stop, revise, fund, or scale decision",
+        "A named decision authority, or an explicit unresolved authority gap",
+        "Familiarity with the workflow and intended business outcome in scope",
+        "Available delivery, quality, risk, cost, and outcome evidence; missing evidence remains unknown"
+      ],
+      "route": "workshops/mission-control-executive/",
+      "deliveryVariants": [],
+      "modules": [
+        {
+          "id": "executive-decision-briefing",
+          "title": "Mission Control: Executive AI Value Decision Briefing",
+          "description": "Test whether accepted results, a fair comparison, named controls, and the full pilot cost support the next decision for one bounded AI-development change.",
+          "duration": "45 minutes: 30-minute briefing plus 15-minute executive decision discussion",
+          "totalMinutes": 45,
+          "status": "draft",
+          "route": "workshops/mission-control-executive/executive-decision-briefing/",
+          "missions": []
+        }
+      ]
+    },
+    {
       "id": "mission-control",
       "title": "Mission Control: AI Development Governance and Value Realization",
       "description": "A full-day decision workshop for connecting AI development use and spending to accepted engineering and business outcomes, practical governance, and an owned pilot decision.",
-      "duration": "09:00-17:00; 405 teaching/group-work minutes plus 75 break/lunch minutes",
+      "duration": "09:00-17:03; 408 teaching/group-work minutes plus 75 break/lunch minutes",
       "format": "one-day",
       "level": "mixed",
       "tags": [
@@ -2125,9 +2159,9 @@
         {
           "id": "copilot-value-lab",
           "title": "Mission Control: AI Development Governance and Value Realization",
-          "description": "Connect AI development use and spending to accepted outcomes, practical governance, fair optimization comparisons, and an owned investment decision, using GitHub Copilot as the main customer-neutral example.",
-          "duration": "Full-day deck, 09:00-17:00, including three break/lunch utilities",
-          "totalMinutes": 480,
+          "description": "Connect AI development use and spending to accepted outcomes, practical governance, fair optimization and AIC-aware comparisons, and an owned investment decision, using GitHub Copilot as the main customer-neutral example.",
+          "duration": "Full-day deck, 09:00-17:03, including three break/lunch utilities",
+          "totalMinutes": 483,
           "status": "draft",
           "route": "workshops/mission-control/copilot-value-lab/",
           "missions": []

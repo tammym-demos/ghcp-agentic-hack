@@ -12,6 +12,13 @@ content approval are recorded in `mc-agvr-d02-contract` and
 `docs/mission-control/revised-deck-plan.md` and
 `docs/mission-control/proposed-agenda-persona-alignment.md`.
 
+The subsequent 47-row contract and content approvals are
+`content/production/decision-log.md#mc-evl-d02-47-row-contract` and
+`content/production/decision-log.md#mc-evl-d04-content-for-notes-revision`.
+The owner has separately approved the one-slide, three-minute AIC extension;
+the Workshop Production Coordinator records the new decisions. This source
+retains prior decision history without assigning an unrecorded decision ID.
+
 GitHub Copilot is the main example. The guidance remains customer-neutral and
 broadly useful for other approved AI development services. No statement in this
 source promises a current price, entitlement, quota, available model, product
@@ -51,14 +58,15 @@ environment, repository, administration screen, or live network is required.
 
 ## Outcomes and governing terms
 
-By 17:00, participants can:
+By 17:03, participants can:
 
 1. distinguish investment, consumption, activity, completed work, accepted
    outcomes, and value, then choose primary and secondary ROI paths;
 2. define a completion boundary, locate leverage losses, and state a testable
    limiting factor and attribution boundary;
 3. create a usage-and-economics starting point and a practical control map;
-4. compare model, context, and tool-permission changes fairly;
+4. compare model, context, and tool-permission changes fairly, then weigh
+   GitHub Copilot AI credits against accepted work, review time, and risk;
 5. rank opportunities, choose funding, and assign operating decision rights;
 6. build pilot and executive scorecards with stop/revise/fund/scale gates; and
 7. present an owned 30/60/90 pilot package and next decision.
@@ -86,26 +94,28 @@ Use these terms before relying on shorthand:
 | 10:45-11:30 | 45 | Usage and economics evidence | S15-S18 |
 | 11:30-12:15 | 45 | Governance and controls | S19-S22 |
 | 12:15-13:00 | 45 | Lunch | U02 |
-| 13:00-13:45 | 45 | Guided optimization lab | S23-S28 |
-| 13:45-14:15 | 30 | Investment and portfolio decisions | S29-S31 |
-| 14:15-14:30 | 15 | Break | U03 |
-| 14:30-15:15 | 45 | Enterprise operating model | S32-S35 |
-| 15:15-16:00 | 45 | Prove ROI | S36-S40 |
-| 16:00-16:30 | 30 | 30/60/90 action plan | S41-S42 |
-| 16:30-17:00 | 30 | Pilot decision and executive readout | S43-S44 |
+| 13:00-13:48 | 48 | Guided optimization lab | S23-S29 |
+| 13:48-14:18 | 30 | Investment and portfolio decisions | S30-S32 |
+| 14:18-14:33 | 15 | Break | U03 |
+| 14:33-15:18 | 45 | Enterprise operating model | S33-S36 |
+| 15:18-16:03 | 45 | Prove ROI | S37-S41 |
+| 16:03-16:33 | 30 | 30/60/90 action plan | S42-S43 |
+| 16:33-17:03 | 30 | Pilot decision and executive readout | S44-S45 |
 
-The 44 workshop slides contain 171 instruction minutes and 234 protected
-participant-work minutes: 171 + 234 = **405**. U01/U02/U03 contain
+The 45 workshop slides contain 174 instruction minutes and 234 protected
+participant-work minutes: 174 + 234 = **408**. U01/U02/U03 contain
 15 + 45 + 15 = **75** break/lunch minutes. Total elapsed time is
-405 + 75 = **480 minutes**, continuously 09:00-17:00. Mission, media playback,
+408 + 75 = **483 minutes**, continuously 09:00-17:03. Mission, media playback,
 separate setup/transition, and contingency budgets are zero.
+The lab remains 21 minutes of participant work; S29 adds only 3 instruction
+minutes, without shortening S23-S28 or any subsequent row.
 
 ## Reuse inventory and native-text boundary
 
 - **Released Mission Control:** opening identity (S01), mission brief (S04),
   completion and leverage-loss concepts (S10-S11), ROI path matching and
-  limiting factors (S12-S13), investment approach (S29), pilot scorecard and
-  gates (S38-S40), and final readout (S43-S44).
+  limiting factors (S12-S13), investment approach (S30), pilot scorecard and
+  gates (S39-S41), and final readout (S44-S45).
 - **Owner-supplied Engineering Value deck, reference only:** Matt Gunter
   supplied "Intro to Engineering Value with GitHub and AI" on 2026-09-22 as
   the teaching source for S06 (its slides 2-5), S07 (slide 6), S08 (slide 7),
@@ -119,10 +129,10 @@ separate setup/transition, and contingency budgets are zero.
   `Model Routing: Match the Task` (S23), and `Least-Privilege Delegation`
   (S27). Reuse approved source and editable treatment, not screenshot pixels.
 - **Rejected 39-slide work, optional and bounded:** facts/assumptions/unknowns
-  (S14, S18, S24, S26, S28, S37); starting-evidence worksheet (S18);
+  (S14, S18, S24, S26, S28, S38); starting-evidence worksheet (S18);
   capability-versus-policy and control-map activity (S19-S22); fictional
-  comparison structure (S23-S28); operating charter and stress test (S32-S35);
-  and 30/60/90 structure (S41-S42). None inherits approval.
+  comparison structure (S23-S28); operating charter and stress test (S33-S36);
+  and 30/60/90 structure (S42-S43). None inherits approval.
 
 All titles, labels, formulas, tables, prompts, and diagrams are native editable
 text/HTML/SVG in any later implementation. Preserve the released opening image
@@ -141,6 +151,8 @@ fields and evidence limits.
 S23, S25, and S27 use the selected native synthetic treatments. They require no
 live product environment and make no claims about current model availability,
 controls, prices, quotas, or measured improvement.
+S29 is a native-text, instruction-only wrap-up of those three comparisons; it
+adds no exercise or new live product dependency.
 
 <a id="s01-mission-control-ai-development-governance-and-value-realization"></a>
 
@@ -831,11 +843,65 @@ Responsibility: **Lead P2/P4 · Evidence P3/P7 · Review P5/P6 · Decide P1/P5**
 
 Output: controlled tool/permission comparison record 3 of 3.
 
+<a id="s29-use-copilot-ai-credits-wisely"></a>
+
+## S29 Use Copilot AI Credits Wisely
+
+**13:45-13:48, 3 minutes: 3 instruction, 0 participant work.**
+
+Visible teaching copy (single-panel native text, including the visible label):
+
+> **Use Copilot AI Credits Wisely**
+> S29 · Guided optimization lab | 13:45–13:48 · 3 min
+>
+> Here, **AIC** means GitHub Copilot AI credits: a billing unit, not a token count.
+> 1. Match an approved model to a bounded task; verify the accepted result.
+> 2. Send only current, relevant context; remove repeats and stale material.
+> 3. Ask for the needed output and acceptance check; inspect before retrying.
+> 4. Check model-specific input, output and applicable cached-token rates.
+>
+> **Payoff:** Same task and checks; weigh AIC, review time and risk against accepted work.
+
+Teach this as a three-minute synthesis of S23-S28, not a fourth comparison
+exercise. Ask which of the three records preserved accepted work and the
+human safety checkpoint without unnecessary context or retries. If someone
+chooses the fewest tokens alone, return to completion, developer intervention,
+quality, review time, and risk; record unavailable AIC as unknown, not zero.
+Carry the defensible comparison into S30's funding-purpose decision.
+
+Source/claim boundary (official GitHub Docs directly reviewed 2026-09-24):
+
+- [GitHub Copilot billing](https://docs.github.com/en/billing/concepts/product-billing/github-copilot-billing)
+  defines AI credits as a usage-based billing unit, with plan-dependent
+  allowances. "AIC" is local shorthand for GitHub Copilot AI credits, not an
+  assertion that AIC is an official product acronym or a token count.
+- [Models and pricing for GitHub Copilot](https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing)
+  explains model-specific input, output, and cached-token accounting; some
+  models also have applicable cache-write rates. Do not treat cached tokens
+  as automatically free, turn byte or token counts alone into AIC or a bill,
+  equate AIC with premium requests, or assert a current model, plan allowance,
+  price, discount, or savings percentage. Recheck applicable usage and rates
+  at delivery; a prompt/file byte count is not a billing receipt.
+- S23-S28 govern the fixed workflow, boundary, task, acceptance rules, three
+  comparison records, and human safety check. Shorter inputs, fewer retries,
+  and model routing are practices to test at equal accepted quality and
+  safety, not guarantees of lower AIC or business value. The observed
+  `docs/lessons-learned/illustrated-native-animation-and-cost.md` records a
+  missed forecast despite substantial cached input: its local CLI usage is
+  not a reconciled Copilot invoice, and separately billed Azure image-provider
+  charges remain outside Copilot AIC.
+
+Output: an AIC-aware criterion for reviewing the three existing comparison
+records and making the next funding choice; no fourth record or new practice
+time.
+
+<!-- Historical 47-row S29 anchor retained as an alias for prior links. -->
 <a id="s29-choose-the-funding-purpose"></a>
+<a id="s30-choose-the-funding-purpose"></a>
 
-## S29 Choose the Funding Purpose
+## S30 Choose the Funding Purpose
 
-**13:45-13:54, 9 minutes: 4 instruction, 5 participant work.**
+**13:48-13:57, 9 minutes: 4 instruction, 5 participant work.**
 
 Visible teaching copy:
 
@@ -850,10 +916,11 @@ Responsibility: **Lead P6/P1 · Evidence P3/P7 · Review P2/P4/P5 · Decide P6**
 Output: a funding purpose and complete cost-category checklist.
 
 <a id="s30-choose-central-funding-showback-or-chargeback"></a>
+<a id="s31-choose-central-funding-showback-or-chargeback"></a>
 
-## S30 Choose Central Funding, Showback, or Chargeback
+## S31 Choose Central Funding, Showback, or Chargeback
 
-**13:54-14:03, 9 minutes: 4 instruction, 5 participant work.**
+**13:57-14:06, 9 minutes: 4 instruction, 5 participant work.**
 
 Visible teaching copy:
 
@@ -867,10 +934,11 @@ Responsibility: **Lead P6 · Evidence P3/P7 · Review P1/P2/P4/P5 · Decide P6/P
 Output: a funding/reporting approach, owner, and review threshold.
 
 <a id="s31-rank-the-portfolio"></a>
+<a id="s32-rank-the-portfolio"></a>
 
-## S31 Rank the Portfolio
+## S32 Rank the Portfolio
 
-**14:03-14:15, 12 minutes: 3 instruction, 9 participant work.**
+**14:06-14:18, 12 minutes: 3 instruction, 9 participant work.**
 
 Visible teaching copy:
 
@@ -887,22 +955,23 @@ Output: ranked opportunities, budget owner, thresholds, and funding decision.
 
 ## U03 Break
 
-**14:15-14:30, 15 minutes: no instruction or participant work.**
+**14:18-14:33, 15 minutes: no instruction or participant work.**
 
 Visible copy:
 
 > **Break**
-> Please return at **14:30**.
+> Please return at **14:33**.
 
 Release the room for the full break. No required decision repair.
 
 Output: the full protected break.
 
 <a id="s32-assign-recommend-decide-fund-approve-execute"></a>
+<a id="s33-assign-recommend-decide-fund-approve-execute"></a>
 
-## S32 Assign Recommend, Decide, Fund, Approve, Execute
+## S33 Assign Recommend, Decide, Fund, Approve, Execute
 
-**14:30-14:40, 10 minutes: 4 instruction, 6 participant work.**
+**14:33-14:43, 10 minutes: 4 instruction, 6 participant work.**
 
 Visible teaching copy:
 
@@ -916,10 +985,11 @@ named authority**.
 Output: first half of the operating charter with no unnamed authority.
 
 <a id="s33-assign-enable-monitor-review-renew-retire-escalate"></a>
+<a id="s34-assign-enable-monitor-review-renew-retire-escalate"></a>
 
-## S33 Assign Enable, Monitor, Review, Renew, Retire, Escalate
+## S34 Assign Enable, Monitor, Review, Renew, Retire, Escalate
 
-**14:40-14:50, 10 minutes: 4 instruction, 6 participant work.**
+**14:43-14:53, 10 minutes: 4 instruction, 6 participant work.**
 
 Visible teaching copy:
 
@@ -932,10 +1002,11 @@ named authority**.
 Output: second half of the operating charter and handoffs.
 
 <a id="s34-stress-test-the-operating-model"></a>
+<a id="s35-stress-test-the-operating-model"></a>
 
-## S34 Stress-Test the Operating Model
+## S35 Stress-Test the Operating Model
 
-**14:50-15:00, 10 minutes: 4 instruction, 6 participant work.**
+**14:53-15:03, 10 minutes: 4 instruction, 6 participant work.**
 
 Visible teaching copy:
 
@@ -949,10 +1020,11 @@ any broken handoff.
 Output: stress-test result and unresolved ownership gaps.
 
 <a id="s35-complete-the-ownership-and-decision-map"></a>
+<a id="s36-complete-the-ownership-and-decision-map"></a>
 
-## S35 Complete the Ownership and Decision Map
+## S36 Complete the Ownership and Decision Map
 
-**15:00-15:15, 15 minutes: 3 instruction, 12 participant work.**
+**15:03-15:18, 15 minutes: 3 instruction, 12 participant work.**
 
 Visible teaching copy:
 
@@ -966,10 +1038,11 @@ authority**.
 Output: a complete operating charter with dependencies and escalation path.
 
 <a id="s36-connect-the-change-to-an-accepted-outcome"></a>
+<a id="s37-connect-the-change-to-an-accepted-outcome"></a>
 
-## S36 Connect the Change to an Accepted Outcome
+## S37 Connect the Change to an Accepted Outcome
 
-**15:15-15:23, 8 minutes: 4 instruction, 4 participant work.**
+**15:18-15:26, 8 minutes: 4 instruction, 4 participant work.**
 
 Visible teaching copy:
 
@@ -986,10 +1059,11 @@ outcome.
 Output: an evidence chain from change to accepted business outcome.
 
 <a id="s37-make-the-comparison-fair"></a>
+<a id="s38-make-the-comparison-fair"></a>
 
-## S37 Make the Comparison Fair
+## S38 Make the Comparison Fair
 
-**15:23-15:31, 8 minutes: 3 instruction, 5 participant work.**
+**15:26-15:34, 8 minutes: 3 instruction, 5 participant work.**
 
 Visible teaching copy:
 
@@ -1004,10 +1078,11 @@ the result.
 Output: a fair comparison design and stated limitation.
 
 <a id="s38-build-the-seven-measure-pilot-scorecard"></a>
+<a id="s39-build-the-seven-measure-pilot-scorecard"></a>
 
-## S38 Build the Seven-Measure Pilot Scorecard
+## S39 Build the Seven-Measure Pilot Scorecard
 
-**15:31-15:41, 10 minutes: 3 instruction, 7 participant work.**
+**15:34-15:44, 10 minutes: 3 instruction, 7 participant work.**
 
 Visible teaching copy:
 
@@ -1021,10 +1096,11 @@ Responsibility: **Lead P7/P1/P6 · Evidence P2/P3/P4 · Review P5 · Decide P1**
 Output: a seven-measure pilot scorecard with missing evidence visible.
 
 <a id="s39-build-the-executive-scorecard"></a>
+<a id="s40-build-the-executive-scorecard"></a>
 
-## S39 Build the Executive Scorecard
+## S40 Build the Executive Scorecard
 
-**15:41-15:50, 9 minutes: 3 instruction, 6 participant work.**
+**15:44-15:53, 9 minutes: 3 instruction, 6 participant work.**
 
 Visible teaching copy:
 
@@ -1038,10 +1114,11 @@ Responsibility: **Lead P1/P7/P6 · Evidence P2/P3/P4 · Review P5 · Decide P1/P
 Output: an executive scorecard mapped to the pilot evidence.
 
 <a id="s40-set-stop-revise-fund-and-scale-gates"></a>
+<a id="s41-set-stop-revise-fund-and-scale-gates"></a>
 
-## S40 Set Stop, Revise, Fund, and Scale Gates
+## S41 Set Stop, Revise, Fund, and Scale Gates
 
-**15:50-16:00, 10 minutes: 2 instruction, 8 participant work.**
+**15:53-16:03, 10 minutes: 2 instruction, 8 participant work.**
 
 Visible teaching copy:
 
@@ -1055,10 +1132,11 @@ A scale gate cannot rely only on adoption, usage, access, or generated output.
 Output: owned thresholds and decision checkpoints.
 
 <a id="s41-set-the-30-60-90-review-points"></a>
+<a id="s42-set-the-30-60-90-review-points"></a>
 
-## S41 Set the 30/60/90 Review Points
+## S42 Set the 30/60/90 Review Points
 
-**16:00-16:14, 14 minutes: 3 instruction, 11 participant work.**
+**16:03-16:17, 14 minutes: 3 instruction, 11 participant work.**
 
 Visible teaching copy:
 
@@ -1072,10 +1150,11 @@ These are review horizons, not promised result dates.
 Output: owned 30-, 60-, and 90-day review points.
 
 <a id="s42-sequence-the-first-actions"></a>
+<a id="s43-sequence-the-first-actions"></a>
 
-## S42 Sequence the First Actions
+## S43 Sequence the First Actions
 
-**16:14-16:30, 16 minutes: 2 instruction, 14 participant work.**
+**16:17-16:33, 16 minutes: 2 instruction, 14 participant work.**
 
 Visible teaching copy:
 
@@ -1089,10 +1168,11 @@ each action authority**.
 Output: a sequenced action plan and operating/executive review dates.
 
 <a id="s43-assemble-the-pilot-decision-package"></a>
+<a id="s44-assemble-the-pilot-decision-package"></a>
 
-## S43 Assemble the Pilot Decision Package
+## S44 Assemble the Pilot Decision Package
 
-**16:30-16:44, 14 minutes: 2 instruction, 12 participant work.**
+**16:33-16:47, 14 minutes: 2 instruction, 12 participant work.**
 
 Visible teaching copy:
 
@@ -1107,10 +1187,11 @@ and scale authorities · Decide designated authorities**.
 Output: a complete pilot investment package with unresolved items visible.
 
 <a id="s44-present-challenge-and-decide"></a>
+<a id="s45-present-challenge-and-decide"></a>
 
-## S44 Present, Challenge, and Decide
+## S45 Present, Challenge, and Decide
 
-**16:44-17:00, 16 minutes: 2 instruction, 14 participant work.**
+**16:47-17:03, 16 minutes: 2 instruction, 14 participant work.**
 
 Visible teaching copy:
 
@@ -1148,3 +1229,6 @@ accepted the integrated animation expansion. Those decisions do not authorize
 future content changes, media generation, character artwork, paid action,
 push, pull request, release, deployment, publication, or participant-outcome
 claims.
+The later 47-row approvals and the separately owner-approved S29 content and
+48-row contract do not imply acceptance of the as-yet-unintegrated new slide
+or authorize any of those other actions.
