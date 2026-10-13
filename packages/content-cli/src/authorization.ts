@@ -1,12 +1,25 @@
 import { mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
+import fsExtra from "fs-extra";
+import matter from "gray-matter";
 import {
-  mediaActionRequestSchema, workEnvelopeSchema,
+  mediaActionRequestSchema, workflowPolicySchema, workEnvelopeSchema, workshopRequirementsSchema,
   type MediaActionRequest, type ProductionDecision
 } from "@ghcp/content-schema";
 import { loadProductionState } from "./lifecycle.js";
-import { activeDecision, canonical, localFile, readDecisions, section, sha256, workBaselineHash } from "./production-records.js";
+import {
+  activeDecision,
+  canonical,
+  localFile,
+  readDecisions,
+  section,
+  sha256,
+  textSha256,
+  workBaselineHash
+} from "./production-records.js";
 import { candidatesRoot, repositoryRoot, workshopsRoot } from "./paths.js";
+
+const { pathExists } = fsExtra;
 
 export type AuthorizationRoots = { repositoryRoot: string; workshopsRoot: string; candidatesRoot: string };
 const defaults: AuthorizationRoots = { repositoryRoot, workshopsRoot, candidatesRoot };
@@ -102,6 +115,167 @@ export async function inspectAuthorization(request: MediaActionRequest, roots = 
   return authority(mediaActionRequestSchema.parse(request), roots);
 }
 
+async function standingImageAuthority(request: MediaActionRequest, roots: AuthorizationRoots) {
+  if (request.kind !== "generate-image") throw new Error("Standing authority applies only to image generation");
+  const { state } = await loadProductionState(request.workshopId, roots);
+  if (state.lifecycleVersion !== 3) throw new Error("Standing image authority requires lifecycleVersion 3");
+  if (state.sessionStatus !== "active" || state.blockers.length) {
+    throw new Error("Production paused, blocked or awaiting human; inspect only");
+  }
+  if (state.environment !== "local" || !["drafting", "local-review"].includes(state.phase)) {
+    throw new Error("Standing image authority ends when the complete local draft is approved");
+  }
+  if (!state.requirements) throw new Error("Lifecycle-v3 image generation requires a requirements baseline");
+  const workshopRoot = path.join(roots.workshopsRoot, request.workshopId);
+  const requirementsPath = await localFile(workshopRoot, state.requirements.path);
+  const requirementsRaw = await readFile(requirementsPath, "utf8");
+  const requirementsHash = textSha256(requirementsRaw);
+  if (requirementsHash !== state.requirements.sha256) throw new Error("Workshop requirements changed; refresh intake before generation");
+  // Standing authority is scoped to imagery the requirements actually ask for.
+  const requirements = workshopRequirementsSchema.parse(matter(requirementsRaw).data);
+  if (requirements.id !== request.workshopId) throw new Error("Requirements workshop id does not match the image request");
+  if (!requirements.modules.some(module => module.id === request.moduleId)) {
+    throw new Error(`Image request targets module "${request.moduleId}", which the requirements do not declare`);
+  }
+  const role = requirements.imageRoles.find(entry => entry.id === request.assetId && entry.module === request.moduleId);
+  if (!role) {
+    throw new Error(`Image request "${request.assetId}" is not a declared image role for module "${request.moduleId}"`);
+  }
+  const { promptHashes, referencePath, ...requestConstraints } = role.request;
+  const requestReferencePath = referencePath
+    ? path.relative(roots.repositoryRoot, await localFile(workshopRoot, referencePath)).split(path.sep).join("/")
+    : undefined;
+  const expectedRequest = {
+    kind: "generate-image",
+    workshopId: request.workshopId,
+    moduleId: request.moduleId,
+    cycleId: request.cycleId,
+    assetId: request.assetId,
+    ...requestConstraints,
+    referencePath: requestReferencePath,
+    promptHash: request.promptHash,
+    candidates: 1,
+    variants: 1
+  };
+  if (!promptHashes.includes(request.promptHash) || canonical(expectedRequest) !== canonical(request)) {
+    throw new Error(`Image request "${request.assetId}" does not match its declared request constraints`);
+  }
+  const sourcePath = await localFile(workshopRoot, request.source);
+  if (sha256(await readFile(sourcePath)) !== request.sourceHash) throw new Error("Image source changed after request inspection");
+  const policy = workflowPolicySchema.parse(JSON.parse(
+    await readFile(path.join(roots.repositoryRoot, ".github", "workshop-workflow.json"), "utf8")
+  ));
+  return {
+    policy,
+    requirementsHash,
+    authorityHash: sha256(canonical({
+      workshopId: request.workshopId,
+      moduleId: request.moduleId,
+      cycleId: request.cycleId,
+      roleId: role.id,
+      requirementsHash,
+      maxCandidatesPerBatch: policy.imageGeneration.maxCandidatesPerBatch
+    }))
+  };
+}
+
+async function authorizedStandingImageAction<T>(
+  request: MediaActionRequest,
+  perform: (evidence: ActionAuthorizationEvidence) => Promise<T>,
+  roots: AuthorizationRoots
+): Promise<T> {
+  const initial = await standingImageAuthority(request, roots);
+  const cycle = path.join(roots.candidatesRoot, request.workshopId, request.moduleId, request.cycleId);
+  const journal = path.join(cycle, "authorizations");
+  await mkdir(journal, { recursive: true });
+  const lock = path.join(journal, ".reservation-lock");
+  try { await mkdir(lock); } catch (error) {
+    if (error instanceof Error && "code" in error && error.code === "EEXIST") {
+      throw new Error("Image batch reservation busy or uncertain after crash; inspect, do not retry");
+    }
+    throw error;
+  }
+  let recordPath = "";
+  let record: Record<string, unknown> = {};
+  try {
+    const current = await standingImageAuthority(request, roots);
+    if (current.authorityHash !== initial.authorityHash) throw new Error("Image batch authority changed during reservation");
+    const records = await Promise.all((await readdir(journal)).filter(name => name.endsWith(".json"))
+      .map(async name => JSON.parse(await readFile(path.join(journal, name), "utf8")) as Record<string, unknown>));
+    const batch = records.filter(entry =>
+      entry.authority === "lifecycle-v3-image-batch" && entry.authorityHash === current.authorityHash);
+    if (batch.some(entry => entry.status !== "succeeded")) {
+      throw new Error("Failed or uncertain prior image call stops the remaining batch");
+    }
+    if (batch.length >= current.policy.imageGeneration.maxCandidatesPerBatch) {
+      throw new Error(`Image batch limit of ${current.policy.imageGeneration.maxCandidatesPerBatch} candidates reached`);
+    }
+    const requestHash = sha256(canonical(request));
+    recordPath = path.join(journal, `standing-image--${requestHash}.json`);
+    record = {
+      schemaVersion: 1,
+      authority: "lifecycle-v3-image-batch",
+      authorityHash: current.authorityHash,
+      requirementsHash: current.requirementsHash,
+      request,
+      requestHash,
+      status: "reserved",
+      reservedAt: new Date().toISOString()
+    };
+    try { await writeFile(recordPath, JSON.stringify(record, null, 2), { flag: "wx" }); }
+    catch (error) {
+      if (error instanceof Error && "code" in error && error.code === "EEXIST") {
+        throw new Error("Duplicate image request or uncertain prior reservation; never silently retry");
+      }
+      throw error;
+    }
+  } finally {
+    await rm(lock, { recursive: true });
+  }
+  try {
+    const current = await standingImageAuthority(request, roots);
+    if (current.authorityHash !== initial.authorityHash) throw new Error("Image batch authority changed before execution");
+    const requestHash = sha256(canonical(request));
+    const result = await perform({
+      initiative: `requirements-${request.workshopId}`,
+      envelopeId: `standing-${request.cycleId}`,
+      envelopeHash: current.authorityHash,
+      decisionId: "standing-image-policy",
+      requestHash
+    });
+    let output: Record<string, unknown> | undefined;
+    if (typeof result === "string" && await pathExists(result)) {
+      const manifestBytes = await readFile(result);
+      const manifest = JSON.parse(manifestBytes.toString("utf8")) as { location?: unknown };
+      if (typeof manifest.location === "string") {
+        const candidatePath = path.resolve(roots.repositoryRoot, manifest.location);
+        if (await pathExists(candidatePath)) {
+          output = {
+            manifestHash: sha256(manifestBytes),
+            candidateHash: sha256(await readFile(candidatePath)),
+            manifestPath: path.relative(roots.repositoryRoot, result).split(path.sep).join("/"),
+            candidatePath: manifest.location
+          };
+        }
+      }
+    }
+    await writeFile(recordPath, JSON.stringify({
+      ...record,
+      status: "succeeded",
+      output,
+      completedAt: new Date().toISOString()
+    }, null, 2));
+    return result;
+  } catch (error) {
+    await writeFile(recordPath, JSON.stringify({
+      ...record,
+      status: "uncertain",
+      completedAt: new Date().toISOString()
+    }, null, 2));
+    throw error;
+  }
+}
+
 // Exclusive mkdir serializes reservations across processes. A crash retains its lock
 // or reserved action; neither is automatically cleared/refunded on restart.
 export async function authorizedAction<T>(
@@ -110,6 +284,12 @@ export async function authorizedAction<T>(
   roots: AuthorizationRoots = defaults
 ): Promise<T> {
   const request = mediaActionRequestSchema.parse(rawRequest);
+  if (request.kind === "generate-image") {
+    const { state } = await loadProductionState(request.workshopId, roots);
+    if (state.lifecycleVersion === 3) {
+      return authorizedStandingImageAction(request, perform, roots);
+    }
+  }
   const initial = await authority(request, roots);
   const cycle = path.join(roots.candidatesRoot, request.workshopId, request.moduleId, request.cycleId);
   const journal = path.join(cycle, "authorizations");

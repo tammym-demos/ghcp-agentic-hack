@@ -176,7 +176,7 @@ export const deliveryVariantSchema = z.object({
 export const workshopSchema = baseContent
   .extend({
     kind: z.literal("workshop"),
-    lifecycleVersion: z.literal(2).optional(),
+    lifecycleVersion: z.union([z.literal(2), z.literal(3)]).optional(),
     description: z.string().min(1),
     format: z.enum(["one-hour", "one-day", "two-day", "custom"]),
     duration: z.string().min(1),
@@ -201,10 +201,25 @@ export const workshopSchema = baseContent
     modules: z.array(id).min(1),
     tags: z.array(z.string().min(1)).default([]),
     researchSources: z.array(researchSource).default([]),
+    readinessGuide: z.object({
+      title: z.string().min(1),
+      path: relativePath.refine((value) => value.endsWith(".html"), {
+        message: "Readiness guides must be HTML documents"
+      }),
+      deliveryVariant: id.optional()
+    }).optional(),
     leaderboard: workshopLeaderboardSchema.optional(),
     lastReviewed: dateString
   })
   .superRefine((workshop, context) => {
+    if (workshop.readinessGuide?.deliveryVariant &&
+      !workshop.deliveryVariants?.some((variant) => variant.id === workshop.readinessGuide?.deliveryVariant)) {
+      context.addIssue({
+        code: "custom",
+        path: ["readinessGuide", "deliveryVariant"],
+        message: "Readiness guide must reference a declared delivery variant"
+      });
+    }
     if (workshop.deliveryVariants) {
       const variantIds = new Set<string>();
       workshop.deliveryVariants.forEach((variant, index) => {
@@ -228,13 +243,13 @@ export const workshopSchema = baseContent
       });
     }
 
-    if (workshop.lifecycleVersion !== 2) return;
+    if (workshop.lifecycleVersion !== 2 && workshop.lifecycleVersion !== 3) return;
     const hasLegacySchedule = workshop.totalMinutes !== undefined && workshop.schedule && workshop.runOfShow;
     if (!hasLegacySchedule && !workshop.deliveryVariants) {
       context.addIssue({
         code: "custom",
         path: ["deliveryVariants"],
-        message: "Lifecycle v2 requires either legacy totalMinutes, schedule, and runOfShow or deliveryVariants"
+        message: `Lifecycle v${workshop.lifecycleVersion} requires either legacy totalMinutes, schedule, and runOfShow or deliveryVariants`
       });
       return;
     }
@@ -599,7 +614,7 @@ export const productionStateSchema = z
     schemaVersion: z.literal(1),
     kind: z.literal("production-state"),
     workshop: id,
-    lifecycleVersion: z.literal(2),
+    lifecycleVersion: z.union([z.literal(2), z.literal(3)]),
     phase: z.enum([
       "idea",
       "discovery",
@@ -610,7 +625,13 @@ export const productionStateSchema = z
       "deploying",
       "verification",
       "published",
-      "cleanup"
+      "cleanup",
+      "drafting",
+      "local-review",
+      "test-publishing",
+      "test-review",
+      "production-publishing",
+      "maintenance"
     ]),
     sessionStatus: z.enum(["active", "paused", "awaiting-human", "blocked"]),
     activeTracks: z
@@ -654,6 +675,15 @@ export const productionStateSchema = z
     lastValidatedCommit: z.string().regex(/^[a-f0-9]{40}$/),
     checkpointId: id,
     updatedAt: dateTimeString,
+    requirements: z.object({
+      path: relativePath,
+      sha256: z.string().regex(/^[a-f0-9]{64}$/)
+    }).strict().optional(),
+    environment: z.enum(["local", "test", "production", "maintenance"]).optional(),
+    imageBatch: z.object({
+      limit: z.number().int().positive(),
+      used: z.number().int().nonnegative()
+    }).strict().optional(),
     pausedAt: dateTimeString.optional(),
     pauseReason: z.string().min(1).optional()
   })
@@ -663,6 +693,13 @@ export const productionStateSchema = z
         code: "custom",
         path: ["pausedAt"],
         message: "Paused production state requires pausedAt and pauseReason"
+      });
+    }
+    if (state.lifecycleVersion === 3 && !state.requirements) {
+      context.addIssue({
+        code: "custom",
+        path: ["requirements"],
+        message: "Lifecycle v3 production state requires a requirements baseline"
       });
     }
   });

@@ -1,4 +1,5 @@
 import { readFile, stat } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import path from "node:path";
 import { parseSync } from "@slidev/parser";
 import fg from "fast-glob";
@@ -31,6 +32,10 @@ export interface MarkdownDocument<T> {
   filePath: string;
   data: T;
   body: string;
+}
+
+function textSha256(value: string): string {
+  return createHash("sha256").update(value.replace(/\r\n?/g, "\n")).digest("hex");
 }
 
 export interface WorkshopCatalogEntry {
@@ -419,6 +424,13 @@ export async function loadCatalog(repositoryRoot: string): Promise<ContentCatalo
         `${entry.workshop.filePath}: workshop id "${entry.workshop.data.id}" must match folder "${path.basename(entry.root)}"`
       );
     }
+    const readinessGuide = entry.workshop.data.readinessGuide;
+    if (readinessGuide) {
+      const resolved = resolveWorkshopPath(entry.root, readinessGuide.path);
+      if (!resolved || !(await existingPath(resolved))) {
+        issues.push(`${entry.workshop.filePath}: readinessGuide.path references missing file "${readinessGuide.path}"`);
+      }
+    }
     const moduleIds = new Set(entry.modules.map(({ data }) => data.id));
     const declaredIds = new Set(entry.workshop.data.modules);
     if (moduleIds.size !== entry.modules.length) {
@@ -481,14 +493,38 @@ export async function loadCatalog(repositoryRoot: string): Promise<ContentCatalo
       }
     }
 
-    if (entry.workshop.data.lifecycleVersion === 2) {
+    const lifecycleVersion = entry.workshop.data.lifecycleVersion;
+    if (lifecycleVersion === 2 || lifecycleVersion === 3) {
       if (!entry.productionState) {
-        issues.push(`${entry.workshop.filePath}: lifecycle v2 requires content/production/production-state.md`);
+        issues.push(`${entry.workshop.filePath}: lifecycle v${lifecycleVersion} requires content/production/production-state.md`);
       } else {
+        if (entry.productionState.data.lifecycleVersion !== lifecycleVersion) {
+          issues.push(
+            `${entry.productionState.filePath}: lifecycle v${entry.productionState.data.lifecycleVersion} must match workshop lifecycle v${lifecycleVersion}`
+          );
+        }
         if (entry.productionState.data.workshop !== entry.workshop.data.id) {
           issues.push(
             `${entry.productionState.filePath}: workshop "${entry.productionState.data.workshop}" must match "${entry.workshop.data.id}"`
           );
+        }
+        if (lifecycleVersion === 3) {
+          const requirements = entry.productionState.data.requirements;
+          if (!requirements) {
+            issues.push(`${entry.productionState.filePath}: lifecycle-v3 requirements baseline is required`);
+          } else {
+            const requirementsPath = resolveWorkshopPath(entry.root, requirements.path);
+            if (!requirementsPath) {
+              issues.push(`${entry.productionState.filePath}: requirements path escapes the workshop root`);
+            } else if (!(await existingPath(requirementsPath))) {
+              issues.push(`${entry.productionState.filePath}: lifecycle-v3 requirements file does not exist`);
+            } else {
+              const requirementsHash = textSha256(await readFile(requirementsPath, "utf8"));
+              if (requirementsHash !== requirements.sha256) {
+                issues.push(`${entry.productionState.filePath}: lifecycle-v3 requirements hash does not match`);
+              }
+            }
+          }
         }
         const lifecycleArtifacts = [
           ...entry.productionState.data.approvedArtifacts,
@@ -507,7 +543,7 @@ export async function loadCatalog(repositoryRoot: string): Promise<ContentCatalo
 
       for (const module of entry.modules) {
         if (module.data.totalMinutes === undefined || !module.data.timing) {
-          issues.push(`${module.filePath}: lifecycle v2 requires totalMinutes and timing`);
+          issues.push(`${module.filePath}: lifecycle v${lifecycleVersion} requires totalMinutes and timing`);
         }
       }
       const moduleMinutes = entry.modules.reduce((total, module) => total + (module.data.totalMinutes ?? 0), 0);

@@ -45,11 +45,18 @@
         "content/modules/01-executive-decision-briefing/components/ExecutiveMotion.vue"
       ],
       "tests": []
+    },
+    "workflow-first-ai-decisions/workflow-opportunity-briefing": {
+      "files": [
+        "content/modules/01-workflow-opportunity-briefing/style.css"
+      ],
+      "tests": []
     }
   },
   "workshops": {
     "ghcp-dev-hack": {
       "files": [
+        "artifacts/customer/customer-hackathon-readiness-checklist.html",
         "artifacts/leaderboard-kit/.gitignore",
         "artifacts/leaderboard-kit/.github/ISSUE_TEMPLATE/leaderboard-submission.yml",
         "artifacts/leaderboard-kit/.github/workflows/publish-leaderboard.yml",

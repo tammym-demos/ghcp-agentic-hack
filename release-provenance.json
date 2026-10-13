@@ -1,9 +1,11 @@
 {
-  "releaseId": "workshop-portfolio-2026-10-01-r8",
-  "sourceCommit": "4d690f1d952a009e73147b8fbf7782b62039363d",
+  "releaseId": "workshop-portfolio-2026-10-13-r9",
+  "sourceCommit": "75ecc4af415dfe51e23f0c8b90b784e85f2fd71c",
   "workshops": [
     "ghcp-dev-hack",
+    "mission-control-executive",
     "mission-control",
-    "mission-control-executive"
+    "token-optimization",
+    "workflow-first-ai-decisions"
   ]
 }

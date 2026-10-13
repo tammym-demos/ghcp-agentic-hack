@@ -62,12 +62,38 @@ import {
   validateRollbackTarget,
   verifyReleaseRoutes
 } from "./release.js";
+import { intakeWorkshop } from "./intake.js";
+import { approveLocalDraft, approveTestDraft } from "./approvals.js";
 
 const envFile = path.join(repositoryRoot, ".env");
 if (existsSync(envFile)) loadEnvFile(envFile);
 
 const program = new Command();
 program.name("content").description("Author, validate, generate, and build workshop content");
+
+program.command("intake")
+  .argument("<requirements-file>")
+  .description("Validate a workshop requirements Markdown file and initialize or refresh its draft")
+  .action(async (requirementsFile) => {
+    console.log(JSON.stringify(await intakeWorkshop(requirementsFile), null, 2));
+  });
+
+const approve = program.command("approve").description("Record environment approval already decided by the workshop owner");
+approve.command("local")
+  .argument("<workshop-id>")
+  .requiredOption("--approver <name>")
+  .description("Accept the local draft and authorize its scoped test pull request")
+  .action(async (workshopId, options) => {
+    console.log(JSON.stringify(await approveLocalDraft(workshopId, options.approver), null, 2));
+  });
+approve.command("test")
+  .argument("<workshop-id>")
+  .requiredOption("--approver <name>")
+  .requiredOption("--url <private-test-url>")
+  .description("Accept the exact private test commit and prepare its approved production release")
+  .action(async (workshopId, options) => {
+    console.log(JSON.stringify(await approveTestDraft(workshopId, options.approver, options.url), null, 2));
+  });
 
 program.command("record-decision")
   .argument("<workshop-id>").argument("<decision-json>")

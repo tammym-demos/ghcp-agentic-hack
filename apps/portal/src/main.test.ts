@@ -430,6 +430,156 @@ describe("landing page features", () => {
   });
 });
 
+describe("landing page duration groups", () => {
+  const tokenOptimization: CatalogWorkshop = {
+    ...workshop,
+    id: "token-optimization",
+    title: "Token Optimization: Get More Verified Progress from Every AI Credit",
+    route: "workshops/token-optimization/",
+    format: "one-hour",
+    duration: "60 minutes",
+    totalMinutes: 60
+  };
+  const executive: CatalogWorkshop = {
+    ...workshop,
+    id: "mission-control-executive",
+    title: "Executive AI Value Decision Briefing",
+    route: "workshops/mission-control-executive/",
+    format: "custom",
+    duration: "45 minutes",
+    totalMinutes: 45
+  };
+  const fullDay: CatalogWorkshop = {
+    ...workshop,
+    id: "mission-control",
+    title: "Mission Control full-day workshop",
+    format: "one-day",
+    duration: "Full-day agenda",
+    totalMinutes: 483
+  };
+
+  it("groups the 60-minute token workshop and 45-minute briefing before full-day workshops", () => {
+    const source = [fullDay, tokenOptimization, executive];
+    const html = renderLandingPage(source);
+    const shortSection = html.split('aria-labelledby="catalog-short-heading"')[1]!.split("</section>")[0]!;
+    const daySection = html.split('aria-labelledby="catalog-full-day-heading"')[1]!.split("</section>")[0]!;
+
+    expect(html).toContain("<span>3 available</span>");
+    expect(shortSection).toContain("One hour or less");
+    expect(shortSection).toContain("<span>2 available</span>");
+    expect(shortSection).toContain(tokenOptimization.title);
+    expect(shortSection).toContain(executive.title);
+    expect(shortSection).toContain(`href="${import.meta.env.BASE_URL}${tokenOptimization.route}"`);
+    expect(shortSection).not.toContain(fullDay.title);
+    expect(daySection).toContain("Full-day workshops");
+    expect(daySection).toContain("<span>1 available</span>");
+    expect(daySection).toContain(fullDay.title);
+    expect(daySection).not.toContain(executive.title);
+    expect(html.indexOf("catalog-short-heading")).toBeLessThan(html.indexOf("catalog-full-day-heading"));
+    expect(html).not.toContain("Other workshop formats");
+    expect(source).toEqual([fullDay, tokenOptimization, executive]);
+  });
+
+  it("groups delivery options individually and preserves their routes without a parent card", () => {
+    const withVariants: CatalogWorkshop = {
+      ...fullDay,
+      id: "delivery-workshop",
+      title: "Parent workshop",
+      readinessGuide: {
+        title: "Two-day hackathon readiness guide",
+        route: "workshops/delivery-workshop/resources/readiness/",
+        deliveryVariant: "option-2"
+      },
+      deliveryVariants: [60, 424, 900].map((totalMinutes, index) => ({
+        id: `option-${index}`,
+        title: `Option ${index}`,
+        description: "Delivery option",
+        route: `workshops/delivery-workshop/variants/option-${index}/`,
+        totalMinutes,
+        days: Array.from({ length: index === 2 ? 2 : 1 }, (_, day) => ({
+          id: `day-${day}`,
+          title: `Day ${day + 1}`,
+          start: "09:00",
+          end: "17:00",
+          totalMinutes: 480,
+          agenda: []
+        })),
+        modulePhases: []
+      }))
+    };
+    const html = renderLandingPage([withVariants]);
+    const shortSection = html.split('aria-labelledby="catalog-short-heading"')[1]!.split("</section>")[0]!;
+    const daySection = html.split('aria-labelledby="catalog-full-day-heading"')[1]!.split("</section>")[0]!;
+
+    expect(shortSection).toContain("Option 0");
+    expect(shortSection).not.toContain("Option 1");
+    expect(daySection).toContain("Option 1");
+    expect(daySection).toContain("Option 2");
+    expect(daySection).toContain("2 days");
+    expect(daySection).toContain("<span>2 available</span>");
+    expect(daySection).toContain("Two-day hackathon readiness guide (opens in new tab)");
+    expect(daySection).toContain(`href="${import.meta.env.BASE_URL}workshops/delivery-workshop/resources/readiness/"`);
+    expect(daySection).toContain('target="_blank" rel="noopener noreferrer"');
+    expect(daySection.match(/Two-day hackathon readiness guide/g)).toHaveLength(1);
+    const variantCards = renderWorkshopCards([withVariants]);
+    expect(variantCards[0]).not.toContain("catalog-readiness");
+    expect(variantCards[1]).not.toContain("catalog-readiness");
+    expect(variantCards[2]).toContain("Two-day hackathon readiness guide");
+    expect(variantCards[2]!.indexOf("catalog-readiness")).toBeGreaterThan(variantCards[2]!.indexOf("View workshop"));
+    expect(shortSection).not.toContain("catalog-readiness");
+    expect(html).toContain("<span>3 available</span>");
+    expect(html).not.toContain("Parent workshop");
+    for (const variant of withVariants.deliveryVariants) {
+      expect(html).toContain(`href="${import.meta.env.BASE_URL}${variant.route}"`);
+    }
+  });
+
+  it("keeps custom and untimed workshops visible without parsing duration text", () => {
+    const other: CatalogWorkshop = {
+      ...executive,
+      title: "Longer custom session",
+      totalMinutes: 90,
+      duration: "One hour or less"
+    };
+    const untimed = { ...workshop, title: "Untimed workshop", duration: "45 minutes" };
+    const html = renderLandingPage([other, untimed]);
+
+    expect(html).toContain('id="catalog-other-heading">Other workshop formats</h2>');
+    expect(html).toContain(other.title);
+    expect(html).toContain(untimed.title);
+    expect(html).not.toContain('id="catalog-short-heading"');
+    expect(html).not.toContain('id="catalog-full-day-heading"');
+  });
+
+  it("uses declared formats when timing is absent and hides empty sections", () => {
+    const html = renderLandingPage([
+      { ...tokenOptimization, totalMinutes: undefined },
+      { ...fullDay, format: "two-day", totalMinutes: undefined }
+    ]);
+    expect(html).toContain('id="catalog-short-heading"');
+    expect(html).toContain('id="catalog-full-day-heading"');
+    expect(html).not.toContain('id="catalog-other-heading"');
+
+    const empty = renderLandingPage([]);
+    expect(empty).toContain("<span>0 available</span>");
+    expect(empty).not.toContain('class="catalog-group"');
+    expect(empty).not.toContain("catalog-readiness");
+  });
+
+  it("only shows guides for selected full-day workshops and escapes their titles", () => {
+    const html = renderLandingPage([{
+      ...fullDay,
+      readinessGuide: { title: "<Readiness>", route: "workshops/test/resources/readiness/" }
+    }]);
+    expect(html).toContain("&lt;Readiness&gt; (opens in new tab)");
+    expect(renderLandingPage([fullDay])).not.toContain("catalog-readiness");
+    expect(renderLandingPage([{
+      ...tokenOptimization,
+      readinessGuide: { title: "Short guide", route: "workshops/test/resources/readiness/" }
+    }])).not.toContain("Short guide");
+  });
+});
+
 describe("mission progress helpers", () => {
   it("parses saved mission progress and keeps only valid string evidence", () => {
     expect(parseMissionProgress(JSON.stringify({

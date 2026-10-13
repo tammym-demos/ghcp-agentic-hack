@@ -3,9 +3,10 @@ import { mkdir, mkdtemp, readFile, readdir, rm, symlink, writeFile } from "node:
 import os from "node:os";
 import path from "node:path";
 import { promisify } from "node:util";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { loadCatalog, releaseManifestSchema } from "@ghcp/content-schema";
 import { repositoryRoot } from "./paths.js";
+import { createPortalCatalog } from "./catalog.js";
 import {
   approveRelease,
   exportPublicRelease,
@@ -15,7 +16,8 @@ import {
   recordReleaseVerification,
   resolveLatestApprovedManifest,
   validateApprovedRelease,
-  validateRollbackTarget
+  validateRollbackTarget,
+  verifyDeployedReleaseProvenance
 } from "./release.js";
 
 const execFileAsync = promisify(execFile);
@@ -42,9 +44,32 @@ const sidecarMetadataCases: Array<[boolean, SidecarMetadataCase]> = [
 if (process.platform !== "win32") sidecarMetadataCases.push([true, "redirected-file"]);
 
 afterEach(async () => {
+  vi.unstubAllGlobals();
   await Promise.all(temporaryDirectories.splice(0).map((root) =>
     rm(root, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 })
   ));
+});
+
+it("requires deployed provenance to match both release id and source commit", async () => {
+  const manifest = releaseManifestSchema.parse({
+    schemaVersion: 1,
+    kind: "release-manifest",
+    id: "current-release",
+    title: "Current release",
+    status: "approved",
+    commit: "a".repeat(40),
+    createdAt: "2026-10-02T12:00:00.000Z",
+    approvedBy: "Owner",
+    approvedAt: "2026-10-02T12:05:00.000Z",
+    workshops: [{ id: "test-workshop", modules: ["introduction"] }]
+  });
+  vi.stubGlobal("fetch", vi.fn(async () => new Response(JSON.stringify({
+    releaseId: "previous-release",
+    sourceCommit: manifest.commit
+  }), { status: 200 })));
+
+  await expect(verifyDeployedReleaseProvenance(manifest, "https://example.test/"))
+    .rejects.toThrow("does not match current-release");
 });
 
 it("normalizes Windows manifest paths for GitHub Actions", () => {
@@ -545,6 +570,13 @@ workshops:
     ));
 
     expect(exportedCatalog.workshops[0]?.modules.map((module) => module.data.id)).toEqual(["introduction"]);
+    expect(createPortalCatalog(exportedCatalog, "production").workshops[0]).toMatchObject({
+      id: "test-workshop",
+      format: "custom",
+      totalMinutes: 30
+    });
+    expect(exportedCatalog.workshops[0]?.workshop.data.schedule).toBeUndefined();
+    expect(exportedCatalog.workshops[0]?.workshop.data.runOfShow).toBeUndefined();
     expect(exportedWorkshop).not.toContain("lifecycleVersion");
     if (sidecarMetadataCase === "input-reference-restricted") {
       expect(exportedSidecar.inputReference).toBeUndefined();

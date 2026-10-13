@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "opt-opening-chief",
+  "kind": "image",
+  "provider": "mai-image-2.6",
+  "deployment": "MAI-Image-2.6",
+  "promptHash": "3784397d19db10f99742eebf1c6c35df336ac45aba887fbae524fa0b94097b7c",
+  "prompt": "STYLE GUIDE: Native Warm Editorial 2D on a soft off-white stage. All teaching text, tables, and diagrams are native Slidev HTML or CSS. Character-world accents are reference edits of approved art only; no text, numbers, logos, UI, or GitHub marks appear in pixels.\n\nUSER PROMPT: Edit the supplied approved character image into a single-character scene. Keep only Chief Morgan Charter, exactly as drawn in the reference: same face, brown-and-gray French-twist updo, black cat-eye glasses, deep-green trouser suit, ivory blouse, dark green shoes, line work, shading and proportions. Remove Agent Mergewell, Riley Relay and Purrmission from the picture.\r\n\r\nPlace Chief standing on the viewer-left third of a wide landscape frame, full figure from head to shoes, facing slightly toward the right with a warm welcoming expression. One arm is extended outward and open-palmed, gesturing toward the empty space on the right side of the frame as if presenting it. Leave the right half of the picture as clean, empty, soft off-white stage with only a faint grounding line, so a native overlay can be placed there later.\r\n\r\nKeep the reference illustration style, soft off-white background, lighting, a soft elliptical grounding shadow under her feet, and generous margins on all edges.\r\n\r\nShow only one person. No props, scenery, furniture, text, lettering, numbers, logos, watermarks, brand marks, interfaces or mascots.",
+  "source": "content/modules/01-token-optimization-essentials/token-optimization-source.md",
+  "createdAt": "2026-10-09T19:51:21.182Z",
+  "reviewStatus": "approved",
+  "location": "content/modules/01-token-optimization-essentials/public/images/token-opening-chief-v1.png",
+  "width": 1248,
+  "height": 832,
+  "inputReference": {
+    "path": "workshops/token-optimization/content/modules/01-token-optimization-essentials/public/images/workflow-team-shallow-depth-v7.png",
+    "hash": "38557dd55052a46fbb07bf31c9fe2d1d4fc70e4feaeda70edfa6c75375cc25fb",
+    "contentType": "image/png"
+  },
+  "generationAuthorization": {
+    "initiative": "requirements-token-optimization",
+    "envelopeId": "standing-c1",
+    "envelopeHash": "19c07ca5fb90ed6259ed52c3e18d5f900b3931ffa4bc3dc4e638120570eacdf2",
+    "decisionId": "standing-image-policy",
+    "requestHash": "fa1e6435cd76abbef4f7be3002009a78ccd58cf242c9a8191901720c32a00055"
+  },
+  "integratedUnder": {
+    "authority": "lifecycle-v3-local-draft",
+    "requirementsHash": "81fdcb03fbf54bacc471b7a98263c10797f3c012a87097ba476240a29e9d0f7c"
+  }
+}

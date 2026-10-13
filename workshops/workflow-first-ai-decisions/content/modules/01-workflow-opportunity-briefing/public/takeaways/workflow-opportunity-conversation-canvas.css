@@ -1,0 +1,136 @@
+:root {
+  color: #20221f;
+  background: #ece8de;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0.35in;
+}
+
+.canvas {
+  width: 10.3in;
+  min-height: 7.3in;
+  margin: 0 auto;
+  padding: 0.25in;
+  border: 2px solid #23483f;
+  border-radius: 14px;
+  background: #fffdf7;
+}
+
+header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 0.2in;
+  margin-bottom: 0.14in;
+  padding-bottom: 0.1in;
+  border-bottom: 3px solid #c56b36;
+}
+
+h1 {
+  margin: 0;
+  color: #183b34;
+  font-size: 20pt;
+  line-height: 1.05;
+}
+
+header p {
+  margin: 0;
+  font-size: 9pt;
+  font-weight: 700;
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.1in;
+}
+
+section {
+  min-height: 0.55in;
+  padding: 0.1in 0.12in;
+  border: 1.5px solid #6e766f;
+  border-radius: 8px;
+  background: #fff;
+}
+
+section.wide {
+  grid-column: 1 / -1;
+}
+
+h2 {
+  margin: 0 0 0.04in;
+  color: #23483f;
+  font-size: 10pt;
+  line-height: 1.1;
+}
+
+p {
+  margin: 0;
+  font-size: 8.7pt;
+  line-height: 1.25;
+}
+
+.write {
+  min-height: 0.22in;
+  margin-top: 0.06in;
+  border-bottom: 1px solid #9a9e99;
+}
+
+footer {
+  margin-top: 0.12in;
+  color: #4e544f;
+  font-size: 8pt;
+  line-height: 1.25;
+}
+
+@page {
+  size: landscape;
+  margin: 0.25in;
+}
+
+@media print {
+  :root,
+  body {
+    background: #fff;
+  }
+
+  body {
+    padding: 0;
+  }
+
+  .canvas {
+    width: 100%;
+    min-height: 0;
+    break-inside: avoid;
+  }
+}
+
+@media (max-width: 800px) {
+  body {
+    padding: 12px;
+  }
+
+  .canvas {
+    width: 100%;
+  }
+
+  header {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .fields {
+    grid-template-columns: 1fr;
+  }
+
+  section.wide {
+    grid-column: auto;
+  }
+}

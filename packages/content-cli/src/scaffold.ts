@@ -21,6 +21,11 @@ async function createExclusive(filePath: string, contents: string): Promise<void
 
 type ScaffoldRoots = { repositoryRoot: string; workshopsRoot: string };
 const defaultRoots: ScaffoldRoots = { repositoryRoot, workshopsRoot };
+type ScaffoldWorkshopOptions = {
+  createDefaultModule?: boolean;
+  lifecycleVersion?: 2 | 3;
+  requirements?: { path: string; sha256: string };
+};
 
 async function findModule(workshopId: string, moduleId: string, root: string): Promise<{
   filePath: string;
@@ -39,7 +44,8 @@ async function findModule(workshopId: string, moduleId: string, root: string): P
 export async function scaffoldWorkshop(
   id: string,
   title: string,
-  roots: ScaffoldRoots = defaultRoots
+  roots: ScaffoldRoots = defaultRoots,
+  options: ScaffoldWorkshopOptions = {}
 ): Promise<void> {
   assertId(id);
   const root = path.join(roots.workshopsRoot, id);
@@ -51,8 +57,8 @@ export async function scaffoldWorkshop(
 schemaVersion: 1
 kind: workshop
 id: ${id}
-title: ${title}
-lifecycleVersion: 2
+title: ${JSON.stringify(title)}
+lifecycleVersion: ${options.lifecycleVersion ?? 2}
 description: Describe the workshop outcome.
 format: custom
 duration: 1 hour
@@ -104,28 +110,35 @@ Describe the workshop narrative and intended experience.
 schemaVersion: 1
 kind: production-state
 workshop: ${id}
-lifecycleVersion: 2
-phase: idea
+lifecycleVersion: ${options.lifecycleVersion ?? 2}
+phase: ${options.lifecycleVersion === 3 ? "drafting" : "idea"}
 sessionStatus: active
 activeTracks: []
 currentInitiative: workshop-scaffolding
 contextRefs: []
 currentOwner: Workshop Production Coordinator
-nextOwner: Human
-nextHumanGate: Scope approval
-resumeTask: scope-definition
+nextOwner: ${options.lifecycleVersion === 3 ? "Workshop Content Architect" : "Human"}
+nextHumanGate: ${options.lifecycleVersion === 3 ? "Local draft approval" : "Scope approval"}
+resumeTask: ${options.lifecycleVersion === 3 ? "produce-local-draft" : "scope-definition"}
 approvedArtifacts: []
 blockers: []
 timing:
   totalMinutes: 60
   allocatedMinutes: 60
   source: content/production/experience-plan.md
-paidGeneration: not-approved
+paidGeneration: ${options.lifecycleVersion === 3 ? "approved-for-listed-actions" : "not-approved"}
 releaseState: not-ready
 branch: ${snapshot.branch}
 lastValidatedCommit: ${snapshot.commit}
 checkpointId: checkpoint-initial
 updatedAt: ${now.toISOString()}
+${options.requirements ? `requirements:
+  path: ${options.requirements.path}
+  sha256: ${options.requirements.sha256}
+environment: local
+imageBatch:
+  limit: 3
+  used: 0` : ""}
 ---
 
 # ${title} Production State
@@ -141,6 +154,34 @@ Record explicit human decisions, superseded baselines, gate outcomes, and reopen
 Use the structured production-decision format in docs/production-action-controls.md for new CLI-controlled actions. Record each actual human decision once; never backfill historical consent.
 `
   );
+  if (options.lifecycleVersion === 3) {
+    await createExclusive(
+      path.join(root, "content", "production", "production-ledger.md"),
+      `---
+workshop: ${id}
+lastUpdated: ${now.toISOString()}
+initiatives: 1
+open: 1
+published: 0
+---
+
+# ${title} Production Ledger
+
+## Initiatives
+
+### workshop-scaffolding
+
+- **Type:** requirements intake and local draft production.
+- **Status:** active.
+- **Baseline:** repository \`${snapshot.branch}\` at \`${snapshot.commit}\`.
+- **Authority:** \`requirements.md\` and its hash in \`production-state.md\`.
+- **Outcome:** produce the complete local workshop result for local review.
+- **Ownership:** Workshop Production Coordinator owns intake and lifecycle;
+  specialist ownership is assigned by artifact.
+- **Next:** produce the local draft and collect deterministic review evidence.
+`
+    );
+  }
   await createExclusive(
     path.join(root, "content", "production", "source-pack.md"),
     `# ${title} Source Pack
@@ -213,7 +254,9 @@ Use this artifact for initiative preflights and post-module process reviews. Kee
 - Next human decisions:
 `
   );
-  await scaffoldModule(id, "01-introduction", "introduction", "Introduction", roots.workshopsRoot);
+  if (options.createDefaultModule !== false) {
+    await scaffoldModule(id, "01-introduction", "introduction", "Introduction", roots.workshopsRoot);
+  }
 }
 
 export async function scaffoldModule(
@@ -236,7 +279,7 @@ export async function scaffoldModule(
 schemaVersion: 1
 kind: module
 id: ${id}
-title: ${title}
+title: ${JSON.stringify(title)}
 description: Describe the module outcome.
 duration: 1 hour
 totalMinutes: 60
@@ -268,7 +311,7 @@ Add author notes and module context.
     path.join(root, "slides.md"),
     `---
 theme: ghcp
-title: ${title}
+title: ${JSON.stringify(title)}
 transition: slide-left
 ---
 
@@ -300,7 +343,7 @@ Use this index to locate current prompts, review cycles, approved references, pa
 schemaVersion: 1
 kind: complex-topic-plan
 id: ${id}-complex-topics
-title: ${title} Complex Topics
+title: ${JSON.stringify(`${title} Complex Topics`)}
 module: ${id}
 topics: []
 status: draft
@@ -329,7 +372,7 @@ export async function scaffoldLab(workshopId: string, group: string, id: string,
 schemaVersion: 1
 kind: lab
 id: ${id}
-title: ${title}
+title: ${JSON.stringify(title)}
 duration: 30 minutes
 prerequisites: []
 validation:
@@ -368,7 +411,7 @@ export async function scaffoldMission(
 schemaVersion: 1
 kind: mission
 id: ${id}
-title: ${title}
+title: ${JSON.stringify(title)}
 module: ${moduleId}
 durationMinutes: 20
 objectiveRefs:
@@ -421,7 +464,7 @@ export async function scaffoldLocation(
 schemaVersion: 1
 kind: location
 id: ${id}
-title: ${title}
+title: ${JSON.stringify(title)}
 description: Describe the location's teaching and narrative role.
 visualTraits:
   - Add a stable environmental trait.
@@ -450,7 +493,7 @@ export async function scaffoldStoryboard(workshopId: string, id: string, title: 
 schemaVersion: 1
 kind: storyboard
 id: ${id}
-title: ${title}
+title: ${JSON.stringify(title)}
 purpose: Describe the learning purpose of this clip.
 targetDurationSeconds: 10
 aspectRatio: "16:9"
@@ -501,7 +544,7 @@ export async function scaffoldCharacter(workshopId: string, id: string, title: s
 schemaVersion: 1
 kind: character
 id: ${id}
-title: ${title}
+title: ${JSON.stringify(title)}
 description: Describe the character's role and visual identity.
 visualTraits:
   - Add a stable visual trait

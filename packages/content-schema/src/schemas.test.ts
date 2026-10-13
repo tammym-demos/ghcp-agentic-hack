@@ -44,12 +44,36 @@ describe("workshopSchema", () => {
       prerequisites: [],
       modules: ["foundations"],
       tags: ["copilot"],
+      readinessGuide: {
+        title: "Two-day readiness guide",
+        path: "artifacts/customer/readiness.html"
+      },
       status: "draft",
       lastReviewed: "2026-07-28"
     });
 
     expect(result.success).toBe(true);
   });
+
+  it.each(["../readiness.html", "/readiness.html", "artifacts\\readiness.html", "artifacts/readiness.md"])(
+    "rejects invalid readiness guide path %s",
+    (guidePath) => {
+      expect(workshopSchema.safeParse({
+        schemaVersion: 1,
+        kind: "workshop",
+        id: "test-workshop",
+        title: "Workshop",
+        description: "Description",
+        format: "one-day",
+        duration: "One day",
+        level: "mixed",
+        audience: ["Developers"],
+        modules: ["intro"],
+        lastReviewed: "2026-10-13",
+        readinessGuide: { title: "Readiness guide", path: guidePath }
+      }).success).toBe(false);
+    }
+  );
 
   it("rejects non-kebab-case ids", () => {
     const result = workshopSchema.safeParse({
@@ -112,6 +136,11 @@ describe("workshopSchema", () => {
       audience: ["Developers"],
       modules: ["intro"],
       defaultDeliveryVariant: "one-day",
+      readinessGuide: {
+        title: "Readiness guide",
+        path: "artifacts/customer/readiness.html",
+        deliveryVariant: "one-day"
+      },
       deliveryVariants: [
         {
           id: "one-day",
@@ -150,6 +179,18 @@ describe("workshopSchema", () => {
     });
 
     expect(result.success).toBe(true);
+    if (!result.success) throw new Error("Delivery variant fixture is invalid");
+    const invalid = workshopSchema.safeParse({
+      ...result.data,
+      readinessGuide: {
+        ...result.data.readinessGuide,
+        deliveryVariant: "unknown"
+      }
+    });
+    expect(invalid.success).toBe(false);
+    if (!invalid.success) {
+      expect(invalid.error.issues.some((issue) => issue.path.join(".") === "readinessGuide.deliveryVariant")).toBe(true);
+    }
   });
 
   it("rejects gaps in delivery variant agendas", () => {
@@ -221,6 +262,25 @@ describe("productionStateSchema", () => {
 
   it("requires a reason and timestamp when paused", () => {
     expect(productionStateSchema.safeParse(state).success).toBe(false);
+  });
+
+  it("requires lifecycle-v3 state to record its authoritative requirements baseline", () => {
+    expect(productionStateSchema.safeParse({
+      ...state,
+      lifecycleVersion: 3,
+      phase: "drafting",
+      sessionStatus: "active"
+    }).success).toBe(false);
+    expect(productionStateSchema.safeParse({
+      ...state,
+      lifecycleVersion: 3,
+      phase: "drafting",
+      sessionStatus: "active",
+      requirements: {
+        path: "requirements.md",
+        sha256: "a".repeat(64)
+      }
+    }).success).toBe(true);
   });
 
   describe("missionSchema", () => {

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "opt-context-riley",
+  "kind": "image",
+  "provider": "mai-image-2.6",
+  "deployment": "MAI-Image-2.6",
+  "promptHash": "b395b3ccfcc997d57c24366b2b21975c100b4409c6d821a1f91ff6a93162186d",
+  "prompt": "STYLE GUIDE: Native Warm Editorial 2D on a soft off-white stage. All teaching text, tables, and diagrams are native Slidev HTML or CSS. Character-world accents are reference edits of approved art only; no text, numbers, logos, UI, or GitHub marks appear in pixels.\n\nUSER PROMPT: Edit the supplied approved character image into a two-panel before-and-after scene of Riley Relay only. Keep Riley exactly as drawn in the reference: same face, shoulder-length dark hair, purple hair clip, charcoal coat with purple lining and cuffs, cream high-neck top, dark trousers, silver-and-purple mechanical forearms and hands, mechanical lower legs and dark shoes, line work and proportions. Remove Chief Morgan Charter, Agent Mergewell and Purrmission from the picture.\r\n\r\nWide landscape frame split into two equal halves by a faint, soft vertical gap.\r\nLEFT HALF: Riley stands bent slightly under the weight of a bulging shoulder bag stuffed with many loose sheets of blank paper and plain folders spilling out, with a strained, tired expression and a few blank papers drifting around her.\r\nRIGHT HALF: the same Riley stands upright and relieved, smiling, carrying a slim light bag with only a few neat blank folders, shoulders relaxed.\r\n\r\nAll paper and folders are completely blank, with no writing, no lines of text, no numbers and no symbols. Leave generous clean off-white space above each half for native overlays.\r\n\r\nKeep the reference illustration style, soft off-white background, lighting, soft elliptical grounding shadows, and generous margins on all edges.\r\n\r\nShow only Riley (twice, once per half) and the bags and blank paper. No scenery, furniture, text, lettering, numbers, logos, watermarks, brand marks, interfaces or mascots.",
+  "source": "content/modules/01-token-optimization-essentials/token-optimization-source.md",
+  "createdAt": "2026-10-09T19:51:58.985Z",
+  "reviewStatus": "approved",
+  "location": "content/modules/01-token-optimization-essentials/public/images/token-context-riley-v1.png",
+  "width": 1248,
+  "height": 832,
+  "inputReference": {
+    "path": "workshops/token-optimization/content/modules/01-token-optimization-essentials/public/images/workflow-team-shallow-depth-v7.png",
+    "hash": "38557dd55052a46fbb07bf31c9fe2d1d4fc70e4feaeda70edfa6c75375cc25fb",
+    "contentType": "image/png"
+  },
+  "generationAuthorization": {
+    "initiative": "requirements-token-optimization",
+    "envelopeId": "standing-c1",
+    "envelopeHash": "a20bb6d283969aa4952b1b939ccde5d47a13544fc9bb5bbe8c45c9c890c090a6",
+    "decisionId": "standing-image-policy",
+    "requestHash": "77f1d691fd36b54eedc1ed93620236a9f9db4a772af9ca9d69855fc699e74a59"
+  },
+  "integratedUnder": {
+    "authority": "lifecycle-v3-local-draft",
+    "requirementsHash": "81fdcb03fbf54bacc471b7a98263c10797f3c012a87097ba476240a29e9d0f7c"
+  }
+}

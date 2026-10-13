@@ -131,11 +131,17 @@ export interface CatalogWorkshop {
   title: string;
   description: string;
   duration: string;
+  totalMinutes?: number;
   format: string;
   level: string;
   tags: string[];
   prerequisites: string[];
   route: string;
+  readinessGuide?: {
+    title: string;
+    route: string;
+    deliveryVariant?: string;
+  };
   leaderboard?: WorkshopLeaderboard;
   defaultDeliveryVariant?: string;
   deliveryVariants: DeliveryVariant[];
@@ -218,15 +224,30 @@ function renderCatalog(): void {
 }
 
 export function renderLandingPage(catalogWorkshops: CatalogWorkshop[]): string {
-  const cards = renderWorkshopCards(catalogWorkshops);
+  const cards = workshopCards(catalogWorkshops);
+  const groups = [
+    { id: "short", title: "One hour or less" },
+    { id: "full-day", title: "Full-day workshops" },
+    { id: "other", title: "Other workshop formats" }
+  ];
   return `
-    ${hero("GitHub Copilot learning experiences", "Choose a workshop", "Hands-on modules for building practical, verifiable GitHub Copilot skills.", "", "hero--landing")}
+    ${hero("GitHub Copilot learning experiences", "Choose a workshop", "Choose a short session or a full-day workshop to build practical, verifiable GitHub Copilot skills.", "", "hero--landing")}
     <section class="catalog" aria-labelledby="catalog-heading">
       <div class="catalog__heading">
         <h2 id="catalog-heading">Workshop catalog</h2>
         <span>${cards.length} available</span>
       </div>
-      <div class="workshop-grid">${cards.join("")}</div>
+      ${groups.map((group) => {
+        const groupCards = cards.filter((card) => card.group === group.id);
+        if (groupCards.length === 0) return "";
+        return `<section class="catalog-group" aria-labelledby="catalog-${group.id}-heading">
+          <div class="catalog__heading">
+            <h2 id="catalog-${group.id}-heading">${group.title}</h2>
+            <span>${groupCards.length} available</span>
+          </div>
+          <div class="workshop-grid">${groupCards.map((card) => card.html).join("")}</div>
+        </section>`;
+      }).join("")}
       ${renderResources()}
       ${renderCharacterTeam(catalogWorkshops)}
     </section>
@@ -234,14 +255,46 @@ export function renderLandingPage(catalogWorkshops: CatalogWorkshop[]): string {
 }
 
 export function renderWorkshopCards(catalogWorkshops: CatalogWorkshop[]): string[] {
-  return prioritizeMissionControl(catalogWorkshops).flatMap((workshop) =>
-    workshop.deliveryVariants.length > 0
-      ? workshop.deliveryVariants.map((variant) => renderWorkshopCard(
-        { ...variant, tags: workshop.tags },
-        [`${variant.days.length} day${variant.days.length === 1 ? "" : "s"}`, formatMinutes(variant.totalMinutes), workshop.level]
-      ))
-      : [renderWorkshopCard(workshop, [workshop.duration, workshop.level])]
-  );
+  return workshopCards(catalogWorkshops).map((card) => card.html);
+}
+
+function workshopCardGroup(
+  format: string,
+  totalMinutes?: number,
+  dayCount = 0
+): "short" | "full-day" | "other" {
+  if (totalMinutes !== undefined ? totalMinutes <= 60 : format === "one-hour") return "short";
+  if (format === "one-day" || format === "two-day" || dayCount > 1) return "full-day";
+  return "other";
+}
+
+function workshopCards(catalogWorkshops: CatalogWorkshop[]) {
+  return prioritizeMissionControl(catalogWorkshops).flatMap((workshop) => {
+    const guide = workshop.readinessGuide;
+    const guideVariant = guide?.deliveryVariant ?? workshop.defaultDeliveryVariant ?? workshop.deliveryVariants[0]?.id;
+    if (workshop.deliveryVariants.length > 0) {
+      return workshop.deliveryVariants.map((variant) => {
+        const group = workshopCardGroup(workshop.format, variant.totalMinutes, variant.days.length);
+        return {
+          group,
+          html: renderWorkshopCard(
+            { ...variant, tags: workshop.tags },
+            [`${variant.days.length} day${variant.days.length === 1 ? "" : "s"}`, formatMinutes(variant.totalMinutes), workshop.level],
+            group === "full-day" && variant.id === guideVariant ? guide : undefined
+          )
+        };
+      });
+    }
+    const group = workshopCardGroup(workshop.format, workshop.totalMinutes);
+    return [{
+      group,
+      html: renderWorkshopCard(
+        workshop,
+        [workshop.duration, workshop.level],
+        group === "full-day" && !guide?.deliveryVariant ? guide : undefined
+      )
+    }];
+  });
 }
 
 function prioritizeMissionControl(catalogWorkshops: CatalogWorkshop[]): CatalogWorkshop[] {
@@ -284,7 +337,8 @@ function renderCharacterTeam(catalogWorkshops: CatalogWorkshop[]): string {
 
 function renderWorkshopCard(
   entry: Pick<CatalogWorkshop, "title" | "description" | "route" | "tags">,
-  details: string[]
+  details: string[],
+  guide?: CatalogWorkshop["readinessGuide"]
 ): string {
   return `
     <article class="workshop-card">
@@ -295,6 +349,10 @@ function renderWorkshopCard(
       <div class="module-list__actions">
         <a class="button-link" href="${url(entry.route)}">View workshop</a>
       </div>
+      ${guide ? `<aside class="catalog-readiness" aria-label="Customer workshop planning">
+        <p>Planning a customer workshop? Review the setup, prerequisites, and agenda together.</p>
+        <a class="button-link" href="${url(guide.route)}" target="_blank" rel="noopener noreferrer">${escapeHtml(guide.title)} (opens in new tab)</a>
+      </aside>` : ""}
     </article>
   `;
 }

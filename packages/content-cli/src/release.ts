@@ -6,6 +6,7 @@ import { promisify } from "node:util";
 import fsExtra from "fs-extra";
 import matter from "gray-matter";
 import {
+  environmentApprovalSchema,
   loadCatalog,
   releaseManifestSchema,
   type ContentCatalog,
@@ -14,6 +15,7 @@ import {
 import { gitSnapshot } from "./lifecycle.js";
 import { createPortalCatalog } from "./catalog.js";
 import { repositoryRoot } from "./paths.js";
+import { textSha256 } from "./production-records.js";
 import {
   assertPinnedEntry,
   isPublicExportLocation,
@@ -59,15 +61,44 @@ export async function loadReleaseManifest(
  * it could otherwise redirect a release to a different commit or module set than the one reviewed.
  * Unrelated working-tree changes remain allowed; only the manifest must be clean.
  */
-async function assertManifestCommitted(root: string, filePath: string): Promise<void> {
+async function assertFileCommitted(root: string, filePath: string, label: string): Promise<void> {
   const relative = path.relative(root, filePath).split(path.sep).join("/");
+  try {
+    await execFileAsync("git", ["ls-files", "--error-unmatch", "--", relative], { cwd: root });
+  } catch {
+    throw new Error(`${label} ${relative} must be committed before release validation`);
+  }
   const { stdout } = await execFileAsync("git", ["status", "--porcelain", "--", relative], {
     cwd: root
   });
   if (stdout.trim()) {
     throw new Error(
-      `Release manifest ${relative} has uncommitted changes. Commit the manifest so the promoted release matches the reviewed one.`
+      `${label} ${relative} has uncommitted changes. Commit it so the promoted release matches the reviewed evidence.`
     );
+  }
+}
+
+async function assertDeploymentStateChangeOnly(
+  root: string,
+  filePath: string,
+  manifest: ReleaseManifest
+): Promise<void> {
+  const relative = path.relative(root, filePath).split(path.sep).join("/");
+  const { stdout } = await execFileAsync("git", ["status", "--porcelain", "--", relative], { cwd: root });
+  if (!stdout.trim()) return;
+  if (manifest.status !== "deploying" && manifest.status !== "verified") {
+    throw new Error(`Release manifest ${relative} has uncommitted changes outside deployment state`);
+  }
+  let committed: ReleaseManifest;
+  try {
+    const raw = (await execFileAsync("git", ["show", `HEAD:${relative}`], { cwd: root })).stdout;
+    committed = releaseManifestSchema.parse(matter(raw).data);
+  } catch {
+    throw new Error(`Release manifest ${relative} must have a committed baseline before verification`);
+  }
+  const stripDeployment = ({ status: _status, deployment: _deployment, ...immutable }: ReleaseManifest) => immutable;
+  if (JSON.stringify(stripDeployment(committed)) !== JSON.stringify(stripDeployment(manifest))) {
+    throw new Error(`Release manifest ${relative} has uncommitted changes outside deployment state`);
   }
 }
 
@@ -125,13 +156,18 @@ export function filterCatalogForRelease(
 
 export async function validateApprovedRelease(
   manifestOption: string,
-  root = repositoryRoot
+  root = repositoryRoot,
+  options: { allowDeploymentStateChanges?: boolean } = {}
 ): Promise<ReleaseManifest> {
   const { manifest, filePath } = await loadReleaseManifest(manifestOption, root);
   if (manifest.status !== "approved" && manifest.status !== "deploying" && manifest.status !== "verified") {
     throw new Error(`Release manifest must be approved before deployment, received ${manifest.status}`);
   }
-  await assertManifestCommitted(root, filePath);
+  if (options.allowDeploymentStateChanges) {
+    await assertDeploymentStateChangeOnly(root, filePath, manifest);
+  } else {
+    await assertFileCommitted(root, filePath, "Release manifest");
+  }
   const snapshot = await gitSnapshot(root);
   try {
     await execFileAsync("git", ["merge-base", "--is-ancestor", manifest.commit, snapshot.commit], {
@@ -140,6 +176,50 @@ export async function validateApprovedRelease(
   } catch {
     throw new Error(`Release content commit ${manifest.commit} is not an ancestor of ${snapshot.commit}`);
   }
+  await withManifestWorktree(root, manifest.commit, async (sourceRoot) => {
+    // Legacy release fixtures may validate lifecycle state without carrying a workshop catalog.
+    // If the pinned commit has content, its lifecycle checks must not depend on the mutable checkout.
+    const pinnedWorkshopsPath = path.join(sourceRoot, "workshops");
+    if (!(await pathExists(pinnedWorkshopsPath))) {
+      if (await pathExists(path.join(root, "workshops"))) {
+        throw new Error(`Release workshop catalog is missing at pinned commit ${manifest.commit}`);
+      }
+      return;
+    }
+    const catalog = await loadCatalog(sourceRoot);
+    for (const manifestWorkshop of manifest.workshops) {
+      const entry = catalog.workshops.find((candidate) => candidate.workshop.data.id === manifestWorkshop.id);
+      if (!entry) {
+        throw new Error(`Release workshop ${manifestWorkshop.id} does not exist at pinned commit ${manifest.commit}`);
+      }
+      if (entry.workshop.data.lifecycleVersion !== 3) continue;
+      const approvalPath = path.join(
+        root, "workshops", entry.workshop.data.id, "content", "production", "approvals",
+        `test--${manifest.commit}.json`
+      );
+      if (!(await pathExists(approvalPath))) {
+        throw new Error(`Lifecycle-v3 release requires test approval for workshop ${entry.workshop.data.id}`);
+      }
+      await assertFileCommitted(root, approvalPath, "Test approval");
+      const approval = environmentApprovalSchema.parse(JSON.parse(await readFile(approvalPath, "utf8")));
+      const requirementsHash = textSha256(await readFile(path.join(entry.root, "requirements.md")));
+      if (approval.environment !== "test") {
+        throw new Error(`Lifecycle-v3 approval for workshop ${entry.workshop.data.id} is not a test approval`);
+      }
+      if (approval.workshop !== entry.workshop.data.id) {
+        throw new Error(`Lifecycle-v3 test approval belongs to workshop ${approval.workshop}, not ${entry.workshop.data.id}`);
+      }
+      if (approval.commit !== manifest.commit) {
+        throw new Error(`Lifecycle-v3 test approval targets ${approval.commit}, not release commit ${manifest.commit}`);
+      }
+      if (approval.requirementsHash !== requirementsHash) {
+        throw new Error(`Lifecycle-v3 test approval uses a different requirements baseline for workshop ${entry.workshop.data.id}`);
+      }
+      if (JSON.stringify(approval.modules) !== JSON.stringify(manifestWorkshop.modules)) {
+        throw new Error(`Lifecycle-v3 test approval modules do not match release manifest for workshop ${entry.workshop.data.id}`);
+      }
+    }
+  });
   return manifest;
 }
 
@@ -499,7 +579,6 @@ export async function exportPublicRelease(
       await ensureDir(outputWorkshopRoot);
       const {
         lifecycleVersion: _lifecycleVersion,
-        totalMinutes: _totalMinutes,
         schedule: _schedule,
         runOfShow: _runOfShow,
         ...publicWorkshopData
@@ -554,18 +633,40 @@ export async function exportPublicRelease(
   });
 }
 
+export async function verifyDeployedReleaseProvenance(
+  manifest: ReleaseManifest,
+  siteUrl: string
+): Promise<void> {
+  const base = siteUrl.endsWith("/") ? siteUrl : `${siteUrl}/`;
+  const provenanceUrl = new URL("release-provenance.json", base);
+  const response = await fetch(provenanceUrl, { redirect: "follow" });
+  if (!response.ok) {
+    throw new Error(`Release provenance returned ${response.status}: ${provenanceUrl}`);
+  }
+  const provenance = await response.json() as {
+    releaseId?: unknown;
+    sourceCommit?: unknown;
+  };
+  if (provenance.releaseId !== manifest.id || provenance.sourceCommit !== manifest.commit) {
+    throw new Error(
+      `Deployed release provenance does not match ${manifest.id} at ${manifest.commit}`
+    );
+  }
+}
+
 export async function verifyReleaseRoutes(
   manifestOption: string,
   siteUrl: string,
   catalog?: ContentCatalog,
   root = repositoryRoot
 ): Promise<string[]> {
-  const manifest = await validateApprovedRelease(manifestOption, root);
+  const manifest = await validateApprovedRelease(manifestOption, root, { allowDeploymentStateChanges: true });
   // Routes must describe the approved content, so the catalog defaults to the pinned commit.
   const releaseCatalog =
     catalog ?? (await withManifestWorktree(root, manifest.commit, (sourceRoot) => loadCatalog(sourceRoot)));
   const selected = filterCatalogForRelease(releaseCatalog, manifest);
   const base = siteUrl.endsWith("/") ? siteUrl : `${siteUrl}/`;
+  await verifyDeployedReleaseProvenance(manifest, base);
   const routes = [
     base,
     ...selected.workshops.flatMap((entry) =>
