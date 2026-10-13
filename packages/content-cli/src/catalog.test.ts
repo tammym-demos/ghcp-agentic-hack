@@ -1,9 +1,20 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { type ContentCatalog } from "@ghcp/content-schema";
+import { loadCatalog, type ContentCatalog } from "@ghcp/content-schema";
+import { repositoryRoot } from "./paths.js";
 import { workshopRunOfShow } from "./lifecycle.js";
 import { createPortalCatalog, resolveWorkshopEnvironment } from "./catalog.js";
 
 describe("reference content", () => {
+  it("preserves the two-day delivery target for the customer readiness guide", async () => {
+    const generated = createPortalCatalog(await loadCatalog(repositoryRoot));
+    const workshop = generated.workshops.find((entry) => entry.id === "ghcp-dev-hack");
+    expect(workshop?.readinessGuide).toEqual({
+      title: "Two-day hackathon readiness guide",
+      route: "workshops/ghcp-dev-hack/resources/readiness/",
+      deliveryVariant: "two-day"
+    });
+  });
+
   it("includes scored mission catalog fields when authored content provides them", () => {
     const catalog = {
       workshops: [
@@ -20,6 +31,11 @@ describe("reference content", () => {
               description: "Test workshop",
               format: "custom",
               duration: "1 hour",
+              totalMinutes: 60,
+              readinessGuide: {
+                title: "Two-day readiness guide",
+                path: "artifacts/customer/readiness.html"
+              },
               level: "basic",
               audience: ["Developers"],
               prerequisites: [],
@@ -137,6 +153,11 @@ describe("reference content", () => {
     } as ContentCatalog;
 
     const generated = createPortalCatalog(catalog);
+    expect(generated.workshops[0]?.totalMinutes).toBe(60);
+    expect(generated.workshops[0]?.readinessGuide).toEqual({
+      title: "Two-day readiness guide",
+      route: "workshops/test/resources/readiness/"
+    });
     expect(generated.workshops[0]?.modules[0]?.missions[0]).toMatchObject({
       goal: "Build a verified case file",
       completionPoints: 10,
@@ -228,6 +249,8 @@ describe("reference content", () => {
     const generated = createPortalCatalog(catalog);
 
     expect(generated.workshops[0]?.route).toBe("workshops/test/");
+    expect(generated.workshops[0]?.totalMinutes).toBeUndefined();
+    expect(generated.workshops[0]?.readinessGuide).toBeUndefined();
     expect(generated.workshops[0]?.deliveryVariants[0]).toMatchObject({
       route: "workshops/test/variants/compact/",
       totalMinutes: 60,

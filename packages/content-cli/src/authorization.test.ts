@@ -33,6 +33,216 @@ describe("exact media work envelopes", () => {
     await expect(authorizedAction(f.requests[0]!, provider, f.roots)).rejects.toThrow(/exhausted|Duplicate/);
     expect(provider).toHaveBeenCalledTimes(1);
   });
+
+  describe("lifecycle-v3 standing image batches", () => {
+    const requirementsDocument = `---
+schemaVersion: 1
+kind: workshop-requirements
+id: demo
+title: Demo Workshop
+description: Demonstrate standing image authority.
+audience: [Developers]
+durationMinutes: 60
+outcomes: [Generate approved imagery]
+modules:
+  - id: module
+    title: Module
+    minutes: 60
+    outcomes: [Explain the workflow]
+imageRoles:
+  - id: image-0
+    module: module
+    purpose: Open the module
+    request:
+      provider: gpt-image-2
+      deployment: test
+      endpoint: https://example.invalid
+      source: content/source.md
+      sourceHash: 41cf6794ba4200b839c53531555f0f3998df4cbb01a4d5cb0b94e3ca5e23947d
+      promptHashes:
+        - 2dfde0f3ee7e9a78ac497839dbaa4e6cf044df753fe929b3a5438f445c2b2e6e
+        - f56fbd5cf31b32e55b2007293ee077d82df57d2290c783ffd200a53f72e9615e
+        - ce28c94d2165b4d4110e89bad1808c0f29f112e1687ad6b2b54f525c1aad725d
+        - 80329d953ec7b168277098306793ebcf29f1163ee4ddd0ee7a53902220b14e77
+        - f2ba0c213503b5b754bd0ee9a45aa821b9eedfc137c838efc9e097e22edee4b2
+        - 3ae812fa7da02e92f19b4b7ea2ce550ed0034d36fda2b4c05f83677d9e7e6fab
+      width: 1024
+      height: 1024
+      outputFormat: png
+  - id: image-1
+    module: module
+    purpose: Explain the concept
+    request:
+      provider: gpt-image-2
+      deployment: test
+      endpoint: https://example.invalid
+      source: content/source.md
+      sourceHash: 41cf6794ba4200b839c53531555f0f3998df4cbb01a4d5cb0b94e3ca5e23947d
+      promptHashes:
+        - 9f442d082ba5f65df152567707d134356fd27fd043fb699e4486a5dbb7c8b298
+      width: 1024
+      height: 1024
+      outputFormat: png
+  - id: image-2
+    module: module
+    purpose: Summarize the module
+    request:
+      provider: gpt-image-2
+      deployment: test
+      endpoint: https://example.invalid
+      source: content/source.md
+      sourceHash: 41cf6794ba4200b839c53531555f0f3998df4cbb01a4d5cb0b94e3ca5e23947d
+      promptHashes:
+        - 3f47e40154e654374d186fdfe1c6e53b0c7bcfbbc55f5ead46bab934050ec2c7
+      width: 1024
+      height: 1024
+      outputFormat: png
+  - id: image-3
+    module: module
+    purpose: Close the module
+    request:
+      provider: gpt-image-2
+      deployment: test
+      endpoint: https://example.invalid
+      source: content/source.md
+      sourceHash: 41cf6794ba4200b839c53531555f0f3998df4cbb01a4d5cb0b94e3ca5e23947d
+      promptHashes:
+        - d547527472093c69475cba66772df3585bce212e47af00211d9ee0907b323d31
+      width: 1024
+      height: 1024
+      outputFormat: png
+      referencePath: content/reference.png
+      referenceHash: ${sha256("reference")}
+acceptanceCriteria: [The production routes respond successfully]
+---
+`;
+
+    async function standingFixture() {
+      const root = path.resolve("node_modules", `authorization-v3-${crypto.randomUUID()}`);
+      directories.push(root);
+      const roots = {
+        repositoryRoot: root,
+        workshopsRoot: path.join(root, "workshops"),
+        candidatesRoot: path.join(root, "generated", "candidates")
+      };
+      const workshopRoot = path.join(roots.workshopsRoot, "demo");
+      await mkdir(path.join(workshopRoot, "content", "production"), { recursive: true });
+      await mkdir(path.join(root, ".github"), { recursive: true });
+      await writeFile(path.join(root, ".github", "workshop-workflow.json"), JSON.stringify({
+        schemaVersion: 1,
+        imageGeneration: { maxCandidatesPerBatch: 3 }
+      }));
+      await writeFile(path.join(workshopRoot, "requirements.md"), requirementsDocument);
+      await writeFile(path.join(workshopRoot, "content", "source.md"), "source");
+      await writeFile(path.join(workshopRoot, "content", "reference.png"), "reference");
+      await writeFile(path.join(workshopRoot, "content", "production", "production-state.md"), matter.stringify("", {
+        schemaVersion: 1,
+        kind: "production-state",
+        workshop: "demo",
+        lifecycleVersion: 3,
+        phase: "drafting",
+        sessionStatus: "active",
+        activeTracks: [],
+        currentInitiative: "requirements-demo",
+        contextRefs: [],
+        currentOwner: "Slidev Deck Producer",
+        nextOwner: "Workshop Production Coordinator",
+        nextHumanGate: "Local draft approval",
+        resumeTask: "produce-local-draft",
+        approvedArtifacts: [],
+        blockers: [],
+        timing: { totalMinutes: 60, allocatedMinutes: 60, source: "content/source.md" },
+        paidGeneration: "approved-for-listed-actions",
+        releaseState: "not-ready",
+        branch: "test",
+        lastValidatedCommit: "a".repeat(40),
+        checkpointId: "checkpoint-initial",
+        updatedAt: "2026-10-02T12:00:00.000Z",
+        requirements: { path: "requirements.md", sha256: sha256(requirementsDocument) },
+        environment: "local",
+        imageBatch: { limit: 3, used: 0 }
+      }));
+      const request = (assetId: string, promptSeed = assetId) => mediaActionRequestSchema.parse({
+        kind: "generate-image",
+        workshopId: "demo",
+        moduleId: "module",
+        cycleId: "batch",
+        assetId,
+        provider: "gpt-image-2",
+        deployment: "test",
+        endpoint: "https://example.invalid",
+        source: "content/source.md",
+        sourceHash: sha256("source"),
+        promptHash: sha256(`prompt-${promptSeed}`),
+        referencePath: assetId === "image-3" ? "workshops/demo/content/reference.png" : undefined,
+        referenceHash: assetId === "image-3" ? sha256("reference") : undefined,
+        width: 1024,
+        height: 1024,
+        outputFormat: "png",
+        candidates: 1,
+        variants: 1
+      });
+      return { roots, request };
+    }
+
+    it("normalizes declared workshop-relative image references to repository-relative requests", async () => {
+      const { roots, request } = await standingFixture();
+      await expect(authorizedAction(request("image-3"), async () => "candidate", roots))
+        .resolves.toBe("candidate");
+    });
+
+    it("ends standing image generation after local approval", async () => {
+      const { roots, request } = await standingFixture();
+      const statePath = path.join(
+        roots.workshopsRoot, "demo", "content", "production", "production-state.md"
+      );
+      const state = matter(await readFile(statePath, "utf8"));
+      await writeFile(statePath, matter.stringify(state.content, {
+        ...state.data,
+        phase: "test-publishing",
+        environment: "test"
+      }));
+      const provider = vi.fn();
+      await expect(authorizedAction(request("image-0"), provider, roots))
+        .rejects.toThrow("complete local draft is approved");
+      expect(provider).not.toHaveBeenCalled();
+    });
+
+    it("allows three candidates per declared asset and blocks a fourth without per-action decisions", async () => {
+      const { roots, request } = await standingFixture();
+      for (const candidate of ["a", "b", "c"]) {
+        await expect(authorizedAction(request("image-0", `image-0-${candidate}`), async () => "candidate", roots))
+          .resolves.toBe("candidate");
+      }
+      const provider = vi.fn();
+      await expect(authorizedAction(request("image-0", "image-0-d"), provider, roots)).rejects.toThrow("limit of 3");
+      expect(provider).not.toHaveBeenCalled();
+      await expect(authorizedAction(request("image-1"), async () => "candidate", roots)).resolves.toBe("candidate");
+    });
+
+    it("stops only the failed asset batch and leaves other declared assets generatable", async () => {
+      const { roots, request } = await standingFixture();
+      await expect(authorizedAction(request("image-0"), async () => { throw new Error("provider down"); }, roots))
+        .rejects.toThrow("provider down");
+      const provider = vi.fn();
+      await expect(authorizedAction(request("image-0", "image-0-retry"), provider, roots))
+        .rejects.toThrow("stops the remaining batch");
+      expect(provider).not.toHaveBeenCalled();
+      await expect(authorizedAction(request("image-1"), async () => "candidate", roots)).resolves.toBe("candidate");
+    });
+
+    it("rejects imagery the requirements never declared", async () => {
+      const { roots, request } = await standingFixture();
+      const provider = vi.fn();
+      await expect(authorizedAction(request("undeclared-image"), provider, roots))
+        .rejects.toThrow("not a declared image role");
+      expect(provider).not.toHaveBeenCalled();
+      const otherModule = { ...request("image-0"), moduleId: "other-module" };
+      await expect(authorizedAction(otherModule as never, provider, roots))
+        .rejects.toThrow("requirements do not declare");
+      expect(provider).not.toHaveBeenCalled();
+    });
+  });
   it.each(["promptHash", "referenceHash", "deployment", "width", "sourceHash", "endpoint", "assetId"])("rejects changed %s before invoking provider", async key => {
     const f = await fixture();
     const request = { ...f.requests[0], [key]: key === "width" ? 1536 : key.endsWith("Hash") ? "b".repeat(64) : "changed" };

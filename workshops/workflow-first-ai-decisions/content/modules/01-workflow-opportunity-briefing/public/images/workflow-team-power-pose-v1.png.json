@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "workflow-team-power-pose-v1",
+  "kind": "image",
+  "provider": "gpt-image-2",
+  "deployment": "gpt-image-2",
+  "promptHash": "1f423e0d86229c710c798c1ee1546ac2dcc80359a834f4520f296a0d4b8e2a01",
+  "prompt": "STYLE GUIDE: Native Warm Editorial 2D on a soft off-white stage. All teaching text and workflow diagrams remain native; configured image-provider metadata does not require generated images.\n\nUSER PROMPT: Warm Editorial 2D vector cartoon illustration on a soft off-white background. Three original workshop characters and a cat stand together in a confident, grounded team stance, facing the viewer, evenly spaced in a single row.\r\n\r\nShared stance for all three people: feet planted about shoulder-width apart, both hands resting on the hips with elbows bowed outward, shoulders squared and drawn back, chin level, calm assured smiles. Full figures visible from head to shoes, standing on a plain pale ground with soft contact shadows.\r\n\r\nLeft character: a man in his fifties with dark wavy hair heavily streaked with silver-grey, short grey stubble, dark rectangular glasses, wearing an open charcoal-grey knee-length coat with a thin green edge trim over a black zip top, black trousers, and black leather shoes.\r\n\r\nCentre character: a woman in her forties with dark brown hair in a neat high bun with a visible grey streak, dark rectangular glasses, wearing a tailored dark forest-green trouser suit over a cream collared blouse, and dark green low-heeled shoes.\r\n\r\nRight character: a younger woman with black shoulder-length hair and a small purple hair clip, wearing an open charcoal knee-length coat with purple lining and purple cuffs over a cream high-neck top, dark wide trousers with a black belt, and black shoes. She has articulated polished silver prosthetic forearms and hands, and visible articulated silver prosthetic lower legs.\r\n\r\nA small black cat with bright green eyes and a green collar tag sits upright and alert in the centre foreground between the people, tail curled around its paws.\r\n\r\nStyle: clean even line art, flat cel shading with gentle soft shadow, muted desaturated palette of charcoal, forest green, cream and violet accents, consistent character proportions, generous clear margin around the group.\r\n\r\nStrictly no text, no lettering, no numbers, no logos, no brand marks, no user interface panels, no screens, no props, and no background scenery.",
+  "source": "content/modules/01-workflow-opportunity-briefing/workflow-first-source.md",
+  "createdAt": "2026-10-05T14:53:16.456Z",
+  "reviewStatus": "approved",
+  "location": "content/modules/01-workflow-opportunity-briefing/public/images/workflow-team-power-pose-v1.png",
+  "width": 1536,
+  "height": 1024,
+  "generationAuthorization": {
+    "initiative": "requirements-workflow-first-ai-decisions",
+    "envelopeId": "standing-power-pose-r2-b",
+    "envelopeHash": "0b32b0c2639371b2e5027569b3077d809aedf910a76b3ff7a09fc70819e18e27",
+    "decisionId": "standing-image-policy",
+    "requestHash": "b9d890a1e56c6cb626bda7a6b2fe809afb5234c1dd23e01fd7bdcfca27c6f3bd"
+  },
+  "providerAuthentication": {
+    "account": "tmcclell@mngenvmcap960375.onmicrosoft.com",
+    "tenantId": "924c6472-260b-4770-8394-3dd799bdfea5",
+    "verificationTiming": "post-generation"
+  },
+  "integratedUnder": {
+    "authority": "lifecycle-v3-local-draft",
+    "requirementsHash": "04f36a0ac6b041114adf9e436403c27c53c57686af88b5c1c8f43b0cd37f3e72"
+  }
+}

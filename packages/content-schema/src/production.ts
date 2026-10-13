@@ -10,7 +10,7 @@ export const productionDecisionSchema = z.object({
   id,
   initiative: id,
   supersedes: id.optional(),
-  gate: z.enum(["scope", "contract", "content", "concept", "story", "look", "paid-action", "candidate", "publication", "mission", "integration", "local-release-candidate", "release", "deployment-verification", "feedback-outcome"]),
+  gate: z.enum(["scope", "contract", "content", "concept", "story", "look", "paid-action", "candidate", "publication", "mission", "integration", "local-release-candidate", "release", "deployment-verification", "feedback-outcome", "local-draft", "test-draft"]),
   decision: z.enum(["approved", "not-applicable", "declined", "revoked"]),
   baselineHash: hash,
   requestHash: hash.optional(),

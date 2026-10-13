@@ -15,10 +15,18 @@ afterEach(async () => {
 it("declares the exact selected runtime import closure without copying proof or review trees", async () => {
   const catalog = await loadCatalog(repositoryRoot);
   expect(catalog.workshops.map(workshop => workshop.workshop.data.id).sort())
-    .toEqual(["ghcp-dev-hack", "mission-control", "mission-control-executive"]);
+    .toEqual([
+      "ghcp-dev-hack",
+      "mission-control",
+      "mission-control-executive",
+      "token-optimization",
+      "workflow-first-ai-decisions"
+    ]);
   const plan = await publicExportPlan(repositoryRoot, catalog);
   if (!plan) throw new Error("Current snapshot must declare public export files");
   const files = new Set(plan.files);
+  expect(files.has("workshops/ghcp-dev-hack/artifacts/customer/customer-hackathon-readiness-checklist.html")).toBe(true);
+  expect(files.has("workshops/ghcp-dev-hack/artifacts/customer/customer-workshop-readiness-checklist-one-day.html")).toBe(false);
   for (const file of plan.files.filter(file => /\.(vue|mjs|css)$/.test(file))) {
     const source = await readFile(path.join(repositoryRoot, file), "utf8");
     for (const match of source.matchAll(/(?:from\s+|import\s+|src=)["'](\.[^"']+)["']/g)) {
@@ -71,6 +79,29 @@ it("declares the exact selected runtime import closure without copying proof or 
   const prefix = "workshops/mission-control-executive/content/modules/01-executive-decision-briefing/components/";
   expect(plan.files.filter(file => file.startsWith(prefix)).sort())
     .toEqual(referencedComponents.map(component => `${prefix}${component}.vue`));
+
+  const workflowFirst = catalog.workshops.find(
+    workshop => workshop.workshop.data.id === "workflow-first-ai-decisions"
+  );
+  const workflowFirstModule = workflowFirst?.modules.find(
+    module => module.data.id === "workflow-opportunity-briefing"
+  );
+  if (!workflowFirst || !workflowFirstModule) throw new Error("Workflow opportunity briefing must be selected");
+  const workflowFirstSlides = await readFile(
+    path.join(workflowFirst.root, workflowFirstModule.data.slides),
+    "utf8"
+  );
+  const workflowFirstComponents = [...new Set(
+    [...workflowFirstSlides.matchAll(/<([A-Z][A-Za-z0-9]*)\b/g)].map(match => match[1]!)
+  )].sort();
+  expect(workflowFirstComponents).toEqual([]);
+  const workflowFirstPrefix =
+    "workshops/workflow-first-ai-decisions/content/modules/01-workflow-opportunity-briefing/";
+  expect(plan.files.filter(file => file.startsWith(workflowFirstPrefix) &&
+    /\.(?:vue|css)$/.test(file)).sort()).toEqual([
+      ...workflowFirstComponents.map(component => `${workflowFirstPrefix}components/${component}.vue`),
+      `${workflowFirstPrefix}style.css`
+    ].sort());
 });
 
 it("uses the legacy plan only when declarations are absent, not malformed or unreadable", async () => {

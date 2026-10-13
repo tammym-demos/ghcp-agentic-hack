@@ -9,6 +9,7 @@ description: >-
   stopping, revising, funding, or scaling one bounded AI-development change.
 format: custom
 duration: '45 minutes: 30-minute briefing plus 15-minute executive decision discussion'
+totalMinutes: 45
 level: mixed
 audience:
   - Executive sponsor and investment authority

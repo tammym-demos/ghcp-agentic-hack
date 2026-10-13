@@ -7,6 +7,11 @@ export function sha256(value: string | Uint8Array): string {
   return createHash("sha256").update(value).digest("hex");
 }
 
+export function textSha256(value: string | Uint8Array): string {
+  const text = typeof value === "string" ? value : Buffer.from(value).toString("utf8");
+  return sha256(text.replace(/\r\n?/g, "\n"));
+}
+
 export function canonical(value: unknown): string {
   if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
   if (value !== null && typeof value === "object") {

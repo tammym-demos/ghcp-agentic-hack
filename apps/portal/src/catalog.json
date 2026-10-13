@@ -6,6 +6,7 @@
       "title": "GitHub Copilot Developer Hack",
       "description": "Build practical GitHub Copilot skills through progressive, hands-on modules.",
       "duration": "7 hours 4 minutes",
+      "totalMinutes": 424,
       "format": "one-day",
       "level": "mixed",
       "tags": [
@@ -20,6 +21,11 @@
         "Visual Studio Code"
       ],
       "route": "workshops/ghcp-dev-hack/",
+      "readinessGuide": {
+        "title": "Two-day hackathon readiness guide",
+        "route": "workshops/ghcp-dev-hack/resources/readiness/",
+        "deliveryVariant": "two-day"
+      },
       "leaderboard": {
         "optional": true,
         "aliasOnly": true,
@@ -2107,6 +2113,7 @@
       "title": "Mission Control: Executive AI Value Decision Briefing",
       "description": "A decision-first executive briefing for testing whether evidence supports stopping, revising, funding, or scaling one bounded AI-development change.",
       "duration": "45 minutes: 30-minute briefing plus 15-minute executive decision discussion",
+      "totalMinutes": 45,
       "format": "custom",
       "level": "mixed",
       "tags": [
@@ -2141,6 +2148,7 @@
       "title": "Mission Control: AI Development Governance and Value Realization",
       "description": "A full-day decision workshop for connecting AI development use and spending to accepted engineering and business outcomes, practical governance, and an owned pilot decision.",
       "duration": "09:00-17:03; 408 teaching/group-work minutes plus 75 break/lunch minutes",
+      "totalMinutes": 483,
       "format": "one-day",
       "level": "mixed",
       "tags": [
@@ -2164,6 +2172,62 @@
           "totalMinutes": 483,
           "status": "draft",
           "route": "workshops/mission-control/copilot-value-lab/",
+          "missions": []
+        }
+      ]
+    },
+    {
+      "id": "token-optimization",
+      "title": "Token Optimization: Get More Verified Progress from Every AI Credit",
+      "description": "A one-hour lecture on how tokens, context, caching, model choice, workflow shape, and usage controls determine GitHub Copilot AI Credit consumption, with a lead and admin view.",
+      "duration": "60 minutes",
+      "totalMinutes": 60,
+      "format": "one-hour",
+      "level": "mixed",
+      "tags": [
+        "github-copilot"
+      ],
+      "prerequisites": [],
+      "route": "workshops/token-optimization/",
+      "deliveryVariants": [],
+      "modules": [
+        {
+          "id": "token-optimization-essentials",
+          "title": "Token Optimization: Get More Verified Progress from Every AI Credit",
+          "description": "Trace a request from harness-assembled context to billed tokens and back to a cost decision.",
+          "duration": "60 minutes",
+          "totalMinutes": 60,
+          "status": "draft",
+          "route": "workshops/token-optimization/token-optimization-essentials/",
+          "missions": []
+        }
+      ]
+    },
+    {
+      "id": "workflow-first-ai-decisions",
+      "title": "Workflow First: Making Better Automation and AI Decisions",
+      "description": "A publication-safe, developer-focused journey for planning a bounded workflow to get a repository building and all critical tests passing.",
+      "duration": "60 minutes",
+      "totalMinutes": 60,
+      "format": "one-hour",
+      "level": "mixed",
+      "tags": [
+        "workflow-design",
+        "automation",
+        "ai-decision-making"
+      ],
+      "prerequisites": [],
+      "route": "workshops/workflow-first-ai-decisions/",
+      "deliveryVariants": [],
+      "modules": [
+        {
+          "id": "workflow-opportunity-briefing",
+          "title": "Workflow First: Making Better Automation and AI Decisions",
+          "description": "Plan a bounded workflow for getting a repository building and all critical tests passing.",
+          "duration": "60 minutes",
+          "totalMinutes": 60,
+          "status": "draft",
+          "route": "workshops/workflow-first-ai-decisions/workflow-opportunity-briefing/",
           "missions": []
         }
       ]

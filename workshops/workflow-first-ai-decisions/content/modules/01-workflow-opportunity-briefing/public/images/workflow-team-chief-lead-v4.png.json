@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "workflow-team-chief-lead-v4",
+  "kind": "image",
+  "provider": "mai-image-2.6",
+  "deployment": "MAI-Image-2.6",
+  "promptHash": "aef624d9f83a4b4ea7b8e30a71e8e7c7b3cf6989669ccf82ecade278a6995d4e",
+  "prompt": "STYLE GUIDE: Native Warm Editorial 2D on a soft off-white stage. All teaching text and workflow diagrams remain native; configured image-provider metadata does not require generated images.\n\nUSER PROMPT: Edit the supplied approved character image into a two-row team portrait. Keep the four characters exactly as drawn in the reference: same faces, hair, glasses, skin tones, wardrobe, colors, mechanical limbs, line work, shading and proportions.\r\n\r\nGive all three people the same confident stance: facing the viewer, shoulders squared, chin level, calm assured smile, feet planted about shoulder-width apart, and both hands resting on the hips with elbows bowed outward.\r\n\r\nStage them in two clearly separated rows:\r\n\r\nFRONT ROW, nearest the viewer\r\n- Chief Morgan Charter stands alone in the horizontal centre of the picture, lower in the frame than the other two people, with her shoes near the bottom margin. Her complete figure is unobstructed from head to shoes. Keep her exact face, brown-and-gray French-twist updo, black cat-eye glasses, deep-green trouser suit, ivory blouse and dark green shoes.\r\n- Purrmission the black cat sits upright on the ground directly beside Chief's viewer-left shoe, facing the viewer, with clear space around the cat. Keep the exact black fur, green eyes, green collar with a round tag and curled tail.\r\n\r\nBACK ROW, further from the viewer\r\n- Agent Mergewell stands on the viewer-left side, placed higher in the frame so his shoes are level with Chief's hip. His body is positioned outward from Chief so his head, torso and hands stay fully visible; Chief's nearer shoulder overlaps and hides only the inner edge of his coat. Keep his exact face, salt-and-pepper spiky hair, rectangular glasses, gray stubble, charcoal long coat with green trim, dark clothing and biological hands.\r\n- Riley Relay stands on the viewer-right side, mirrored, placed higher in the frame so her shoes are level with Chief's hip. Her body is positioned outward from Chief so her head, torso and both mechanical hands stay fully visible; Chief's nearer shoulder overlaps and hides only the inner edge of her coat. Keep her exact face, shoulder-length dark hair, purple hair clip, charcoal coat with purple lining and cuffs, cream high-neck top, dark trousers, silver-and-purple mechanical forearms and hands, mechanical lower legs and dark shoes.\r\n\r\nChief is the first figure the viewer notices because she stands alone in front, centred and lowest in the frame. Draw all three people at the same drawing scale; do not shrink or enlarge anyone.\r\n\r\nKeep the reference illustration style, soft off-white background, lighting, grounding shadows under each figure, landscape framing and generous margins on all edges.\r\n\r\nShow only these three people and one cat. No props, scenery, furniture, text, lettering, numbers, logos, watermarks, brand marks, interfaces or mascots.",
+  "source": "content/modules/01-workflow-opportunity-briefing/workflow-first-source.md",
+  "createdAt": "2026-10-05T16:15:02.934Z",
+  "reviewStatus": "approved",
+  "location": "content/modules/01-workflow-opportunity-briefing/public/images/workflow-team-chief-lead-v4.png",
+  "width": 1248,
+  "height": 832,
+  "inputReference": {
+    "path": "workshops/workflow-first-ai-decisions/content/modules/01-workflow-opportunity-briefing/public/images/mission-control-opening-team-v7.png",
+    "hash": "e05909a60b5fa2669d56e37849d29a4e6100c43ad666652f043ec5bb4aa6e8f9",
+    "contentType": "image/png"
+  },
+  "generationAuthorization": {
+    "initiative": "requirements-workflow-first-ai-decisions",
+    "envelopeId": "standing-chief-lead-r1-b",
+    "envelopeHash": "bf9e8d52cef86d78f6bee3ddf6712ed3cc31d220f846db4fbfdb95263d2263bf",
+    "decisionId": "standing-image-policy",
+    "requestHash": "c5b465a6c398ec9002efd27ae155d5178af0ce748e150bee75c4ece1887aec9d"
+  },
+  "integratedUnder": {
+    "authority": "lifecycle-v3-local-draft",
+    "requirementsHash": "f17b57574ecc77746dfda3e1cb31be7e3904920477a64b968b5adf188572c119"
+  }
+}

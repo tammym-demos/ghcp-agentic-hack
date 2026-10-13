@@ -1,8 +1,9 @@
 import path from "node:path";
 import fsExtra from "fs-extra";
 import { loadCatalog } from "@ghcp/content-schema";
-import { generatePortalCatalog } from "./catalog.js";
+import { generatePortalCatalog, readinessGuideRoute } from "./catalog.js";
 import { outputRoot, repositoryRoot } from "./paths.js";
+import { gitSnapshot } from "./lifecycle.js";
 import { run } from "./process.js";
 import {
   filterCatalogForRelease,
@@ -43,9 +44,10 @@ export function siteRoutes(catalog: Awaited<ReturnType<typeof loadCatalog>>): st
   return [
     "",
     ...portalDetailRoutes(catalog),
-    ...catalog.workshops.flatMap((entry) =>
-      entry.modules.map((module) => `workshops/${entry.workshop.data.id}/${module.data.id}/`)
-    )
+    ...catalog.workshops.flatMap((entry) => [
+      ...entry.modules.map((module) => `workshops/${entry.workshop.data.id}/${module.data.id}/`),
+      ...(entry.workshop.data.readinessGuide ? [readinessGuideRoute(entry.workshop.data.id)] : [])
+    ])
   ];
 }
 
@@ -72,6 +74,18 @@ export async function buildSite(releaseManifestOption = process.env.GHCP_RELEASE
   }
   const routes = siteRoutes(catalog);
   await writeJson(path.join(outputRoot, "site-routes.json"), { routes }, { spaces: 2 });
+  if (!releaseManifestOption) {
+    const snapshot = await gitSnapshot(repositoryRoot);
+    await writeJson(
+      path.join(outputRoot, "review-provenance.json"),
+      {
+        sourceCommit: snapshot.commit,
+        branch: snapshot.branch,
+        dirty: snapshot.dirtyFiles.length > 0
+      },
+      { spaces: 2 }
+    );
+  }
   if (releaseId && releaseCommit) {
     await writeJson(
       path.join(outputRoot, "release-routes.json"),
@@ -86,6 +100,12 @@ export async function buildSite(releaseManifestOption = process.env.GHCP_RELEASE
 
   for (const entry of catalog.workshops) {
     const workshopId = entry.workshop.data.id;
+    const readinessGuide = entry.workshop.data.readinessGuide;
+    if (readinessGuide) {
+      const output = path.join(outputRoot, ...readinessGuideRoute(workshopId).split("/").filter(Boolean));
+      await ensureDir(output);
+      await copy(path.join(entry.root, readinessGuide.path), path.join(output, "index.html"));
+    }
     const assets = path.join(entry.root, "assets");
     if (!releaseManifestOption && (await pathExists(assets))) {
       await copy(assets, path.join(outputRoot, "workshops", workshopId, "assets"));

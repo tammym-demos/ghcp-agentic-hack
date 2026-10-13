@@ -16,6 +16,10 @@ export function resolveWorkshopEnvironment(value = process.env.WORKSHOP_ENVIRONM
   return value === "production" ? "production" : "test";
 }
 
+export function readinessGuideRoute(workshopId: string): string {
+  return `workshops/${workshopId}/resources/readiness/`;
+}
+
 export function createPortalCatalog(catalog: ContentCatalog, environment = resolveWorkshopEnvironment()) {
   return {
     environment,
@@ -117,11 +121,19 @@ export function createPortalCatalog(catalog: ContentCatalog, environment = resol
         title: entry.workshop.data.title,
         description: entry.workshop.data.description,
         duration: entry.workshop.data.duration,
+        totalMinutes: entry.workshop.data.totalMinutes,
         format: entry.workshop.data.format,
         level: entry.workshop.data.level,
         tags: entry.workshop.data.tags,
         prerequisites: entry.workshop.data.prerequisites,
         route: `workshops/${workshopId}/`,
+        readinessGuide: entry.workshop.data.readinessGuide
+          ? {
+            title: entry.workshop.data.readinessGuide.title,
+            route: readinessGuideRoute(workshopId),
+            deliveryVariant: entry.workshop.data.readinessGuide.deliveryVariant
+          }
+          : undefined,
         leaderboard,
         defaultDeliveryVariant: entry.workshop.data.defaultDeliveryVariant,
         deliveryVariants,

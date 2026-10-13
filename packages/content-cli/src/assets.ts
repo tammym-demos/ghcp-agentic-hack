@@ -22,7 +22,8 @@ import {
 } from "@ghcp/content-schema";
 import { candidatesRoot, repositoryRoot, workshopsRoot } from "./paths.js";
 import { assertCandidateAccepted, authorizedAction, type ActionAuthorizationEvidence, type AuthorizationRoots } from "./authorization.js";
-import { canonical, localFile } from "./production-records.js";
+import { canonical, localFile, textSha256 } from "./production-records.js";
+import { loadProductionState } from "./lifecycle.js";
 
 const { ensureDir, pathExists, readJson, writeFile, writeJson } = fsExtra;
 
@@ -476,6 +477,80 @@ export async function promoteImage(
   const request = await candidateRequest(resolvedManifestPath, candidateImage, "publish-image", normalizedTarget, roots);
   if (digest(candidateBytes) !== request.candidateHash || digest(manifestBytes) !== request.manifestHash) {
     throw new Error("Candidate changed while preparing publication; inspect the exact evidence again");
+  }
+  const { state } = await loadProductionState(workshopId, actionRoots(roots));
+  if (state.lifecycleVersion === 3) {
+    if (state.sessionStatus !== "active" || state.blockers.length) {
+      throw new Error("Production paused or blocked; image integration is not allowed");
+    }
+    if (state.environment !== "local" || !["drafting", "local-review"].includes(state.phase)) {
+      throw new Error("Image integration ends when the complete local draft is approved");
+    }
+    const authorization = raw.generationAuthorization as Record<string, unknown> | undefined;
+    if (!authorization || authorization.decisionId !== "standing-image-policy" ||
+        typeof authorization.requestHash !== "string") {
+      throw new Error("Lifecycle-v3 promotion requires a candidate generated under standing image authority");
+    }
+    if (!state.requirements) throw new Error("Lifecycle-v3 promotion requires a requirements baseline");
+    const requirementsFile = path.resolve(workshopRoot, ...state.requirements.path.split("/"));
+    if (!(await pathExists(requirementsFile)) || textSha256(await readFile(requirementsFile)) !== state.requirements.sha256) {
+      throw new Error("Workshop requirements changed after generation; refresh intake before promotion");
+    }
+    // A manifest marker is self-asserted; resolve the succeeded reservation it claims.
+    const journalPath = path.join(
+      roots.candidatesRoot, workshopId, request.moduleId, request.cycleId,
+      "authorizations", `standing-image--${authorization.requestHash}.json`
+    );
+    if (!(await pathExists(journalPath))) {
+      throw new Error("Standing image authorization record is missing for this candidate");
+    }
+    const record = JSON.parse(await readFile(journalPath, "utf8")) as Record<string, unknown>;
+    if (record.authority !== "lifecycle-v3-image-batch" || record.status !== "succeeded") {
+      throw new Error("Standing image authorization record is not a succeeded image batch call");
+    }
+    if (record.requestHash !== authorization.requestHash ||
+        digest(canonical(record.request)) !== authorization.requestHash) {
+      throw new Error("Standing image authorization record does not match its recorded request");
+    }
+    if (record.authorityHash !== authorization.envelopeHash) {
+      throw new Error("Candidate was generated under a different standing image authority");
+    }
+    if (record.requirementsHash !== state.requirements.sha256) {
+      throw new Error("Candidate was generated under a superseded requirements baseline");
+    }
+    const output = record.output as Record<string, unknown> | undefined;
+    if (!output || output.manifestHash !== digest(manifestBytes) ||
+        output.candidateHash !== digest(candidateBytes) ||
+        output.manifestPath !== path.relative(roots.repositoryRoot ?? repositoryRoot, resolvedManifestPath).split(path.sep).join("/") ||
+        output.candidatePath !== manifest.location) {
+      throw new Error("Standing image authorization record does not match the generated candidate output");
+    }
+    const generated = record.request as Record<string, unknown>;
+    if (generated.kind !== "generate-image" || generated.workshopId !== workshopId ||
+        generated.moduleId !== request.moduleId || generated.cycleId !== request.cycleId ||
+        generated.assetId !== manifest.id || generated.promptHash !== manifest.promptHash ||
+        generated.source !== manifest.source) {
+      throw new Error("Standing image authorization record does not match the candidate manifest");
+    }
+    await ensureDir(path.dirname(target));
+    const actualParent = await import("node:fs/promises").then(fs => fs.realpath(path.dirname(target)));
+    const actualWorkshop = await import("node:fs/promises").then(fs => fs.realpath(workshopRoot));
+    if (!actualParent.startsWith(`${actualWorkshop}${path.sep}`)) {
+      throw new Error("Target escapes workshop through a symlink");
+    }
+    await writeFile(target, candidateBytes, { flag: "wx" });
+    const integrated = {
+      ...raw,
+      reviewStatus: "approved",
+      location: normalizedTarget,
+      integratedUnder: {
+        authority: "lifecycle-v3-local-draft",
+        requirementsHash: state.requirements?.sha256
+      }
+    };
+    await writeJson(`${target}.json`, integrated, { spaces: 2 });
+    await writeJson(resolvedManifestPath, integrated, { spaces: 2 });
+    return;
   }
   const acceptance = await assertCandidateAccepted(request, actionRoots(roots));
   await authorizedAction(request, async (authorization) => {

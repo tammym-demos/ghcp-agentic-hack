@@ -7,6 +7,7 @@ kind: workshop
 description: 'Build practical GitHub Copilot skills through progressive, hands-on modules.'
 format: one-day
 duration: 7 hours 4 minutes
+totalMinutes: 424
 defaultDeliveryVariant: one-day
 deliveryVariants:
   - id: one-day
@@ -716,6 +717,10 @@ researchSources:
     notes: >-
       Verified rollback as a CLI-specific capability supporting reversibility
       guidance.
+readinessGuide:
+  title: Two-day hackathon readiness guide
+  path: artifacts/customer/customer-hackathon-readiness-checklist.html
+  deliveryVariant: two-day
 leaderboard:
   optional: true
   aliasOnly: true

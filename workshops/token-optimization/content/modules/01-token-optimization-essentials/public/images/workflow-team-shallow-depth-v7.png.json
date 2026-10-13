@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "id": "workflow-team-shallow-depth-v7",
+  "kind": "image",
+  "provider": "mai-image-2.6",
+  "deployment": "MAI-Image-2.6",
+  "promptHash": "4b7a56757624024bfea8254056d0fba277e9cb4464a880808968d1544fd41404",
+  "prompt": "STYLE GUIDE: Native Warm Editorial 2D on a soft off-white stage. All teaching text and workflow diagrams remain native; configured image-provider metadata does not require generated images.\n\nUSER PROMPT: Edit the supplied approved character image with only a small staging adjustment. Preserve the exact illustration, poses and character features. Do not redesign, redraw, restyle or change the expression, clothing, hair, glasses, hands, mechanical limbs, cat or color palette.\r\n\r\nKeep Chief Morgan Charter centred in front with both hands on her hips. Increase Chief's complete figure uniformly to approximately 108 percent of its current drawn height, preserving her exact body proportions. Keep her shoes near the bottom margin and her full figure inside the frame.\r\n\r\nKeep Agent Mergewell's exact current pose on the viewer-left and Riley Relay's exact current pose on the viewer-right. Place both of them in a shallow back row approximately one foot behind Chief:\r\n- move their complete figures slightly lower in the composition so the group remains compact;\r\n- position their heads slightly below Chief's head;\r\n- keep their shoes on a shared back-row grounding line slightly higher in the frame than Chief's shoes;\r\n- let Chief's shoulders overlap only the inner edges of their coats;\r\n- preserve both complete faces, torsos, hands and shoes.\r\n\r\nKeep Purrmission in the exact current seated pose beside Chief's viewer-left shoe, with the same black fur, green eyes, green collar, round tag and curled tail.\r\n\r\nThe result should read as one compact group on two shallow ground planes: Chief slightly taller and clearly in front, Mergewell and Riley only about one foot behind her. Retain the current eye-level camera, soft off-white background, landscape framing, line work, lighting, shading and soft elliptical grounding shadows. Keep generous margins on every edge.\r\n\r\nShow only these three people and one cat. No props, scenery, furniture, text, lettering, numbers, logos, watermarks, brand marks, interfaces or mascots.",
+  "source": "content/research/reused-provenance/workflow-first-source.md",
+  "createdAt": "2026-10-05T16:59:10.139Z",
+  "reviewStatus": "approved",
+  "location": "content/modules/01-token-optimization-essentials/public/images/workflow-team-shallow-depth-v7.png",
+  "width": 1248,
+  "height": 832,
+  "inputReference": {
+    "path": "workshops/workflow-first-ai-decisions/content/modules/01-workflow-opportunity-briefing/public/images/workflow-team-chief-lead-v4.png",
+    "hash": "c9c4e8d69f3daf31fa14229377f2f3f534aca0fa1cee62eae5d452485f127e84",
+    "contentType": "image/png"
+  },
+  "generationAuthorization": {
+    "initiative": "requirements-workflow-first-ai-decisions",
+    "envelopeId": "standing-shallow-depth-r1-c",
+    "envelopeHash": "45521b48dd552133b8143c36f27e73c87116e91740cb41196bf31db0380c18e0",
+    "decisionId": "standing-image-policy",
+    "requestHash": "abd19aa6b967a52223c3e65fde11857966057b96d71390dfa52f834041a469e0"
+  },
+  "integratedUnder": {
+    "authority": "lifecycle-v3-local-draft",
+    "requirementsHash": "c444ec0bbc16fb7fbe51a513c774f903cbbe059fc38ec9dff3e524e6806098bf"
+  },
+  "reusedFrom": {
+    "workshop": "workflow-first-ai-decisions",
+    "module": "01-workflow-opportunity-briefing",
+    "asset": "workflow-team-shallow-depth-v7",
+    "note": "Approved image reused unchanged; no new generation. Original generation provenance above is preserved as recorded in the originating workshop.",
+    "reusedInto": "workshops/token-optimization/content/modules/01-token-optimization-essentials/public/images/workflow-team-shallow-depth-v7.png",
+    "originalLocation": "workshops/workflow-first-ai-decisions/content/modules/01-workflow-opportunity-briefing/public/images/workflow-team-shallow-depth-v7.png",
+    "originalSource": "workshops/workflow-first-ai-decisions/content/modules/01-workflow-opportunity-briefing/workflow-first-source.md",
+    "originalSourceSha256": "64a3601e7bb49b58ca95093a184c072175ca604ad4dc1670a0eed0531845d8bc",
+    "sourceNote": "source resolves to a byte-identical verbatim copy of the original generation source, kept only so the sidecar validator can resolve it; it is not a token-optimization source."
+  }
+}

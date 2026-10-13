@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Customer planning checklist, prerequisites, module topics, and agenda for the two-day GitHub Copilot Developer Hack.">
+  <title>GitHub Copilot Developer Hack Readiness Checklist</title>
+  <style>
+    :root {
+      --ink: #1f2328;
+      --muted: #59636e;
+      --line: #d1d9e0;
+      --canvas: #f6f8fa;
+      --dark: #0d1117;
+      --green: #1a7f37;
+      --green-soft: #dafbe1;
+      --blue: #0969da;
+      --purple: #8250df;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 32px 16px;
+      background: var(--canvas);
+      color: var(--ink);
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.55;
+    }
+
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 12px 32px rgba(31, 35, 40, .08);
+    }
+
+    header {
+      padding: 30px 42px 28px;
+      background: var(--dark);
+      color: #fff;
+    }
+
+    .brand {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 18px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #30363d;
+      color: #b1bac4;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    header h1 {
+      max-width: 760px;
+      margin: 0 0 8px;
+      font-size: clamp(30px, 5vw, 44px);
+      line-height: 1.08;
+      letter-spacing: -.03em;
+    }
+
+    header p { margin: 0; color: #b1bac4; font-size: 16px; }
+    .accent { height: 5px; background: linear-gradient(90deg, var(--green), var(--blue), var(--purple)); }
+    main { padding: 12px 42px 42px; }
+
+    h2 {
+      margin: 34px 0 15px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--green-soft);
+      color: var(--green);
+      font-size: 21px;
+    }
+
+    h3 { margin: 23px 0 9px; font-size: 16px; }
+    p { margin: 8px 0 14px; }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .summary div {
+      padding: 14px;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      background: #161b22;
+    }
+
+    .summary strong { display: block; color: #fff; font-size: 18px; }
+    .summary span { color: #8c959f; font-size: 12px; }
+
+    .note {
+      padding: 13px 16px;
+      border-left: 4px solid var(--green);
+      border-radius: 7px;
+      background: var(--green-soft);
+      color: #164b28;
+      font-size: 14px;
+    }
+
+    .checklist {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      min-height: 82px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--green);
+      border-radius: 8px;
+    }
+
+    .box {
+      flex: 0 0 auto;
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      border: 2px solid var(--green);
+      border-radius: 4px;
+    }
+
+    .checklist strong { display: block; font-size: 14px; }
+    .checklist span span { display: block; color: var(--muted); font-size: 12.5px; }
+
+    .modules {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .module {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    .module h3 { margin-top: 0; }
+    .meta { color: var(--muted); font-size: 12px; font-weight: 700; text-transform: uppercase; }
+    ul { padding-left: 21px; }
+    li + li { margin-top: 6px; }
+    .module ul { color: var(--muted); font-size: 13px; }
+
+    .mission {
+      padding-top: 11px;
+      border-top: 1px solid var(--line);
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    table {
+      width: 100%;
+      margin-bottom: 22px;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+
+    th, td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th { background: var(--ink); color: #fff; }
+    tbody tr:nth-child(even) { background: var(--canvas); }
+    td:first-child { width: 142px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+    td:last-child { width: 84px; color: var(--muted); text-align: right; white-space: nowrap; }
+
+    .agenda-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: baseline;
+      margin-top: 24px;
+    }
+
+    .agenda-title h3 { margin-bottom: 7px; }
+    .agenda-title span { color: var(--muted); font-size: 13px; }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 42px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 760px) {
+      body { padding: 0; }
+      .page { border: 0; border-radius: 0; }
+      header, main, footer { padding-left: 20px; padding-right: 20px; }
+      .summary, .checklist, .modules { grid-template-columns: 1fr; }
+      .agenda-title { display: block; }
+      table, tbody, tr, td { display: block; width: 100%; }
+      thead { display: none; }
+      tr { padding: 10px 0; border-bottom: 1px solid var(--line); }
+      td, td:first-child, td:last-child { width: 100%; padding: 2px 0; border: 0; text-align: left; }
+    }
+
+    @media print {
+      body { padding: 0; background: #fff; }
+      .page { border: 0; box-shadow: none; }
+      header, th, .accent, .summary div { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      .module, .checklist li { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand"><span>Microsoft + GitHub</span><span>Developer Hackathon</span></div>
+      <h1>GitHub Copilot Developer Hack Readiness Checklist</h1>
+      <p>Customer planning guide for the two-day workshop, team hack, and project readout.</p>
+      <div class="summary">
+        <div><strong>2 days</strong><span>Workshop plus hack day</span></div>
+        <div><strong>9:00 AM-4:00 PM</strong><span>Daily event hours</span></div>
+        <div><strong>3 modules</strong><span>With hands-on missions</span></div>
+      </div>
+    </header>
+    <div class="accent"></div>
+
+    <main>
+      <h2>Planning Checklist</h2>
+      <ul class="checklist">
+        <li><span class="box"></span><span><strong>Confirm dates and event hours</strong><span>Reserve both days from 9:00 AM-4:00 PM, including setup and participant arrival time.</span></span></li>
+        <li><span class="box"></span><span><strong>Confirm venue and capacity</strong><span>Provide team seating, presentation space, accessible facilities, and room for facilitators.</span></span></li>
+        <li><span class="box"></span><span><strong>Confirm audio and video</strong><span>Validate projection, microphones, adapters, screen sharing, and any approved recording plan.</span></span></li>
+        <li><span class="box"></span><span><strong>Confirm power</strong><span>Provide an outlet for every participant laptop plus safe extension and charging capacity.</span></span></li>
+        <li><span class="box"></span><span><strong>Confirm GitHub.com access</strong><span>Participants should be able to access GitHub.com if needed.</span></span></li>
+        <li><span class="box"></span><span><strong>Confirm meals and breaks</strong><span>Plan Day 1 lunch for 12:00 PM-12:45 PM and Day 2 lunch for 12:00 PM-1:00 PM, plus scheduled breaks.</span></span></li>
+        <li><span class="box"></span><span><strong>Finalize participant count</strong><span>Confirm attendee names, roles, accessibility needs, in-person or remote status, and team capacity.</span></span></li>
+        <li><span class="box"></span><span><strong>Confirm on-site contacts</strong><span>Identify the event owner, facilities contact, IT/network contact, security desk, and escalation path.</span></span></li>
+        <li><span class="box"></span><span><strong>Confirm visitor access</strong><span>Document registration, badges, arrival instructions, building hours, parking, and after-hours restrictions.</span></span></li>
+        <li><span class="box"></span><span><strong>Confirm leadership involvement</strong><span>Assign an executive kickoff speaker and leaders for Day 2 readouts, recognition, and next-step sponsorship.</span></span></li>
+        <li><span class="box"></span><span><strong>Send participant invitation</strong><span>Include the agenda, venue or Teams link, prerequisites, setup deadline, contacts, and hack preparation instructions.</span></span></li>
+        <li><span class="box"></span><span><strong>Define remote participation</strong><span>Use one persistent collaboration room per team and require in-room members to join digitally for shared access.</span></span></li>
+        <li><span class="box"></span><span><strong>Define team formation</strong><span>Choose pre-formed or day-of teams, identify team leads, and balance engineering skills and business context.</span></span></li>
+        <li><span class="box"></span><span><strong>Confirm hack projects</strong><span>Select developer-work projects with an achievable scope, an accessible GitHub.com repository, a clear problem statement, and measurable impact assumptions.</span></span></li>
+        <li><span class="box"></span><span><strong>Define safety and data boundaries</strong><span>Identify prohibited data, secrets, production systems, destructive actions, and required human approvals.</span></span></li>
+        <li><span class="box"></span><span><strong>Confirm readout format</strong><span>Each team presents the problem, scope, estimated dollar impact and assumptions, next actions, and a short demo.</span></span></li>
+        <li><span class="box"></span><span><strong>Set judging and awards</strong><span>If used, publish criteria, judges, timing, prizes, and how technical evidence and business impact are evaluated.</span></span></li>
+        <li><span class="box"></span><span><strong>Prepare facilitation support</strong><span>Assign workshop facilitators, mission support, hack mentors, timekeepers, and readout coordinators.</span></span></li>
+      </ul>
+
+      <h2>Participant Prerequisites</h2>
+      <ul>
+        <li>A GitHub Copilot license</li>
+        <li>GitHub CLI</li>
+        <li>GitHub Desktop app</li>
+        <li>VS Code</li>
+      </ul>
+
+      <h2>Day 1 Learning Modules</h2>
+      <div class="modules">
+        <article class="module">
+          <div class="meta">75 min instruction + 45 min mission</div>
+          <h3>Foundations</h3>
+          <ul>
+            <li>Copilot across VS Code, CLI, GitHub.com, cloud, and app surfaces</li>
+            <li>Enterprise safety and human accountability</li>
+            <li>Chat references, inline completions, and inline chat</li>
+            <li>Choosing Ask, Plan, or Agent for the task</li>
+            <li>Tokens, GitHub AI Credits, usage visibility, and model routing</li>
+            <li>Context windows, context drift, recovery, and hygiene</li>
+            <li>Autonomy and least-privilege delegation</li>
+          </ul>
+          <div class="mission">Mission: Apply context, prompting, and least-privilege practices</div>
+        </article>
+
+        <article class="module">
+          <div class="meta">75 min instruction + 45 min mission</div>
+          <h3>Agentic Development</h3>
+          <ul>
+            <li>Instructions, memory boundaries, context hierarchy, and strong prompts</li>
+            <li>Developer, software agent, reusable skill, custom agent, and tool responsibilities</li>
+            <li>Preparing bounded work that is worth delegating</li>
+            <li>Observable loops, planning, tool control points, progress checks, stopping, and recovery</li>
+            <li>Repository checkpoints, GitHub Actions, pull requests, and cloud-agent handoffs</li>
+            <li>Security evidence, code review, GitHub Code Quality, and human acceptance</li>
+            <li>AI-credit controls and evidence-based optimization</li>
+          </ul>
+          <div class="mission">Mission: Delegate and verify a bounded agent task</div>
+        </article>
+
+        <article class="module">
+          <div class="meta">60 min instruction + 30 min mission</div>
+          <h3>Advanced Workflows</h3>
+          <ul>
+            <li>Multiagent, subagent, and parallel execution patterns</li>
+            <li>Trusted discovery and evaluation of ecosystem resources</li>
+            <li>Governed hooks, extensions, MCP, APIs, CLIs, and plugins</li>
+            <li>Agent skills and MCP context in Copilot code review</li>
+            <li>Debugging agent behavior with narrowed context and observable evidence</li>
+            <li>Maintainable distribution, deployment, and operational governance</li>
+            <li>Day 2 capability discovery and hack readiness</li>
+          </ul>
+          <div class="mission">Mission: Orchestrate, integrate, and debug with evidence</div>
+        </article>
+      </div>
+
+      <h2>Updated Two-Day Agenda</h2>
+      <div class="agenda-title"><h3>Day 1 - GitHub Workshop</h3><span>9:00 AM-4:00 PM</span></div>
+      <table>
+        <thead><tr><th>Time</th><th>Activity</th><th>Minutes</th></tr></thead>
+        <tbody>
+          <tr><td>9:00 AM-9:15 AM</td><td>Executive kickoff</td><td>15</td></tr>
+          <tr><td>9:15 AM-10:30 AM</td><td><strong>Foundations:</strong> Copilot surfaces, safety, interaction modes, cost, and context</td><td>75</td></tr>
+          <tr><td>10:30 AM-10:45 AM</td><td>Break</td><td>15</td></tr>
+          <tr><td>10:45 AM-11:30 AM</td><td><strong>Mission:</strong> Apply context, prompting, and least-privilege practices</td><td>45</td></tr>
+          <tr><td>11:30 AM-12:00 PM</td><td><strong>Agentic Development:</strong> Instructions, memory, context, prompts, agents, skills, and tools</td><td>30</td></tr>
+          <tr><td>12:00 PM-12:45 PM</td><td>Lunch</td><td>45</td></tr>
+          <tr><td>12:45 PM-1:30 PM</td><td><strong>Agentic Development:</strong> Observable loops, repository checkpoints, cloud agents, optimization, AI-credit controls, and human acceptance</td><td>45</td></tr>
+          <tr><td>1:30 PM-2:15 PM</td><td><strong>Mission:</strong> Delegate and verify a bounded agent task</td><td>45</td></tr>
+          <tr><td>2:15 PM-3:00 PM</td><td><strong>Advanced Workflows:</strong> Multiagent orchestration and trusted integrations</td><td>45</td></tr>
+          <tr><td>3:00 PM-3:15 PM</td><td>Break</td><td>15</td></tr>
+          <tr><td>3:15 PM-3:30 PM</td><td><strong>Advanced Workflows:</strong> Debugging evidence, deployment, and operations</td><td>15</td></tr>
+          <tr><td>3:30 PM-4:00 PM</td><td><strong>Mission:</strong> Orchestrate, integrate, and debug with evidence</td><td>30</td></tr>
+        </tbody>
+      </table>
+
+      <div class="agenda-title"><h3>Day 2 - GitHub Hack Day</h3><span>9:00 AM-4:00 PM</span></div>
+      <table>
+        <thead><tr><th>Time</th><th>Activity</th><th>Minutes</th></tr></thead>
+        <tbody>
+          <tr><td>9:00 AM-10:30 AM</td><td>Team hack work</td><td>90</td></tr>
+          <tr><td>10:30 AM-10:45 AM</td><td>Break</td><td>15</td></tr>
+          <tr><td>10:45 AM-12:00 PM</td><td>Team hack work</td><td>75</td></tr>
+          <tr><td>12:00 PM-1:00 PM</td><td>Lunch</td><td>60</td></tr>
+          <tr><td>1:00 PM-2:15 PM</td><td>Team hack work</td><td>75</td></tr>
+          <tr><td>2:15 PM-2:30 PM</td><td>Break and readout preparation</td><td>15</td></tr>
+          <tr><td>2:30 PM-4:00 PM</td><td>Team project readouts and short demos</td><td>90</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Hack Project and Readout Guidance</h2>
+      <h3>Good project sources</h3>
+      <ul>
+        <li>Engineering-manager nominations, technical debt, backlog or sprint work, and developer-productivity improvements.</li>
+        <li>Projects should be relevant to real developer work, safe to modify, and small enough to show verified progress in the available hack time.</li>
+        <li>Teams should know the repository, success criteria, constraints, test path, and required reviewers before Day 2 begins.</li>
+      </ul>
+
+      <h3>Readout structure</h3>
+      <ul>
+        <li>Problem statement and why it matters.</li>
+        <li>Project scope and what the team completed.</li>
+        <li>Estimated impact in dollars, including assumptions and confidence limits.</li>
+        <li>Technical evidence: changes, tests, review findings, and remaining risk.</li>
+        <li>Next-step actions and accountable owner.</li>
+        <li>Short demo.</li>
+      </ul>
+
+      <p class="note"><strong>Large-group option:</strong> for audiences above roughly 100 participants, use parallel heats or track-based readouts and send finalists or track winners to the main-stage session.</p>
+    </main>
+
+    <footer>
+      <span>GitHub Copilot Developer Hack readiness and planning</span>
+      <span>Updated from the current workshop delivery contract</span>
+    </footer>
+  </div>
+</body>
+</html>

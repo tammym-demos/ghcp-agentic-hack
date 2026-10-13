@@ -78,6 +78,28 @@ afterEach(async () => {
 });
 
 describe("loadCatalog", () => {
+  it.each([true, false])("validates readiness guide file existence (%s)", async (exists) => {
+    const { root } = await createGeneratedModuleFixture({
+      slides: `---\ntitle: Introduction\n---\n# Introduction\n${validSpeakerNotes(1)}`,
+      manifest: "| # | Exact source title | Minutes |\n| --- | --- | --- |\n| 1 | Introduction | 1 |"
+    });
+    const workshopRoot = path.join(root, "workshops", "test-workshop");
+    const workshopFile = path.join(workshopRoot, "workshop.md");
+    const source = await readFile(workshopFile, "utf8");
+    await writeFile(workshopFile, source.replace(
+      "lastReviewed: 2026-07-28",
+      "lastReviewed: 2026-07-28\nreadinessGuide:\n  title: Readiness guide\n  path: artifacts/customer/readiness.html"
+    ));
+    if (exists) {
+      await mkdir(path.join(workshopRoot, "artifacts", "customer"), { recursive: true });
+      await writeFile(path.join(workshopRoot, "artifacts", "customer", "readiness.html"), "<h1>Readiness guide</h1>");
+      const catalog = await loadCatalog(root);
+      expect(catalog.workshops[0]?.workshop.data.readinessGuide?.path).toBe("artifacts/customer/readiness.html");
+    } else {
+      await expect(loadCatalog(root)).rejects.toThrow("readinessGuide.path references missing file");
+    }
+  });
+
   it("validates character references even when a workshop has no storyboard", async () => {
     const root = await mkdtemp(path.join(os.tmpdir(), "ghcp-content-"));
     temporaryDirectories.push(root);
@@ -134,6 +156,49 @@ status: draft
     );
 
     await expect(loadCatalog(root)).rejects.toBeInstanceOf(ContentValidationError);
+  });
+
+  it("applies lifecycle checks to v3 workshops, not only v2", async () => {
+    const root = await mkdtemp(path.join(os.tmpdir(), "ghcp-content-"));
+    temporaryDirectories.push(root);
+    const workshop = path.join(root, "workshops", "test-workshop");
+    await mkdir(path.join(workshop, "content", "modules", "01-intro"), { recursive: true });
+    await writeFile(
+      path.join(workshop, "workshop.md"),
+      `---
+schemaVersion: 1
+kind: workshop
+id: test-workshop
+lifecycleVersion: 3
+title: Test Workshop
+description: Test lifecycle validation.
+format: custom
+duration: 1 hour
+level: basic
+audience: [Developers]
+modules: [intro]
+lastReviewed: 2026-07-28
+---
+`
+    );
+    await writeFile(
+      path.join(workshop, "content", "modules", "01-intro", "module.md"),
+      `---
+schemaVersion: 1
+kind: module
+id: intro
+title: Introduction
+description: Introductory module.
+duration: 1 hour
+objectives: [Learn the basics]
+slides: content/modules/01-intro/slides.md
+status: draft
+---
+`
+    );
+    await writeFile(path.join(workshop, "content", "modules", "01-intro", "slides.md"), "# Slides");
+
+    await expect(loadCatalog(root)).rejects.toThrow(/Lifecycle v3 requires|lifecycle v3 requires/);
   });
 
   it("rejects storyboard references that point to the wrong content kind", async () => {

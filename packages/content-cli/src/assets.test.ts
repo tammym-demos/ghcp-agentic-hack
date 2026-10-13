@@ -3,6 +3,8 @@ import { mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
+import matter from "gray-matter";
+import { mediaActionRequestSchema } from "@ghcp/content-schema";
 import {
   candidateCycleDirectory,
   candidateRequest,
@@ -13,6 +15,7 @@ import {
   validateImageDimensions,
   videoReferenceContentType
 } from "./assets.js";
+import { canonical, sha256 } from "./production-records.js";
 import { authorizationFixture } from "./authorization-fixture.js";
 
 const temporaryRoots: string[] = [];
@@ -215,6 +218,214 @@ describe("promoteImage", () => {
     await expect(readFile(path.join(workshopRoot, "assets", "images", "agentic", "test.png"))).resolves.toEqual(
       onePixelPng
     );
+  });
+});
+
+describe("lifecycle-v3 image promotion", () => {
+  const requirementsDocument = `---
+schemaVersion: 1
+kind: workshop-requirements
+id: demo
+title: Demo Workshop
+description: Demonstrate standing image authority.
+audience: [Developers]
+durationMinutes: 60
+outcomes: [Generate approved imagery]
+modules:
+  - id: module
+    title: Module
+    minutes: 60
+    outcomes: [Explain the workflow]
+imageRoles:
+  - id: test-image
+    module: module
+    purpose: Open the module
+    request:
+      provider: gpt-image-2
+      deployment: test
+      endpoint: https://example.invalid
+      source: content/source.md
+      sourceHash: 41cf6794ba4200b839c53531555f0f3998df4cbb01a4d5cb0b94e3ca5e23947d
+      promptHashes:
+        - 731dd58f0e65495ca8e72b8686ed2b55e431a9f1731bc55fabdda73326ed5c9d
+      width: 1024
+      height: 1024
+      outputFormat: png
+acceptanceCriteria: [The production routes respond successfully]
+---
+`;
+
+  async function standingCandidate() {
+    const root = await temporaryRoot();
+    const candidatesRoot = path.join(root, "generated", "candidates");
+    const workshopsRoot = path.join(root, "workshops");
+    const workshopRoot = path.join(workshopsRoot, "demo");
+    const candidateRoot = path.join(candidatesRoot, "demo", "module", "batch", "images");
+    const journalRoot = path.join(candidatesRoot, "demo", "module", "batch", "authorizations");
+    const source = "content/source.md";
+    const imagePath = path.join(candidateRoot, "test.png");
+    const manifestPath = `${imagePath}.json`;
+
+    await mkdir(path.join(workshopRoot, "content", "production"), { recursive: true });
+    await mkdir(candidateRoot, { recursive: true });
+    await mkdir(journalRoot, { recursive: true });
+    await writeFile(path.join(workshopRoot, "requirements.md"), requirementsDocument);
+    await writeFile(path.join(workshopRoot, source), "prompt");
+    await writeFile(imagePath, onePixelPng);
+    await writeFile(path.join(workshopRoot, "content", "production", "production-state.md"), matter.stringify("", {
+      schemaVersion: 1,
+      kind: "production-state",
+      workshop: "demo",
+      lifecycleVersion: 3,
+      phase: "drafting",
+      sessionStatus: "active",
+      activeTracks: [],
+      currentInitiative: "requirements-demo",
+      contextRefs: [],
+      currentOwner: "Slidev Deck Producer",
+      nextOwner: "Workshop Production Coordinator",
+      nextHumanGate: "Local draft approval",
+      resumeTask: "produce-local-draft",
+      approvedArtifacts: [],
+      blockers: [],
+      timing: { totalMinutes: 60, allocatedMinutes: 60, source },
+      paidGeneration: "approved-for-listed-actions",
+      releaseState: "not-ready",
+      branch: "test",
+      lastValidatedCommit: "a".repeat(40),
+      checkpointId: "checkpoint-initial",
+      updatedAt: "2026-10-02T12:00:00.000Z",
+      requirements: { path: "requirements.md", sha256: sha256(requirementsDocument) },
+      environment: "local",
+      imageBatch: { limit: 3, used: 0 }
+    }));
+
+    const generateRequest = mediaActionRequestSchema.parse({
+      kind: "generate-image",
+      workshopId: "demo",
+      moduleId: "module",
+      cycleId: "batch",
+      assetId: "test-image",
+      provider: "gpt-image-2",
+      deployment: "test",
+      endpoint: "https://example.invalid",
+      source,
+      sourceHash: sha256("prompt"),
+      promptHash: sha256("prompt-test-image"),
+      width: 1024,
+      height: 1024,
+      outputFormat: "png",
+      candidates: 1,
+      variants: 1
+    });
+    const requestHash = sha256(canonical(generateRequest));
+    const authorityHash = sha256(canonical({ authority: "standing", requirements: sha256(requirementsDocument) }));
+    await writeFile(manifestPath, JSON.stringify({
+      schemaVersion: 1,
+      id: "test-image",
+      kind: "image",
+      provider: "gpt-image-2",
+      deployment: "test",
+      promptHash: generateRequest.promptHash,
+      source,
+      createdAt: "2026-10-02T12:00:00.000Z",
+      reviewStatus: "candidate",
+      location: imagePath,
+      width: 1,
+      height: 1,
+      generationAuthorization: {
+        initiative: "requirements-demo",
+        envelopeId: "standing-batch",
+        envelopeHash: authorityHash,
+        decisionId: "standing-image-policy",
+        requestHash
+      }
+    }));
+
+    const journalPath = path.join(journalRoot, `standing-image--${requestHash}.json`);
+    const record = {
+      schemaVersion: 1,
+      authority: "lifecycle-v3-image-batch",
+      authorityHash,
+      requirementsHash: sha256(requirementsDocument),
+      request: generateRequest,
+      requestHash,
+      output: {
+        manifestHash: sha256(await readFile(manifestPath)),
+        candidateHash: sha256(await readFile(imagePath)),
+        manifestPath: path.relative(root, manifestPath).split(path.sep).join("/"),
+        candidatePath: imagePath
+      },
+      status: "succeeded",
+      reservedAt: "2026-10-02T12:00:00.000Z",
+      completedAt: "2026-10-02T12:00:05.000Z"
+    };
+    const roots = { candidatesRoot, workshopsRoot, repositoryRoot: root };
+    return { root, roots, workshopRoot, manifestPath, journalPath, record };
+  }
+
+  it("requires a succeeded standing authorization record that matches the candidate", async () => {
+    const fixture = await standingCandidate();
+    await expect(promoteImage(fixture.manifestPath, "assets/images/module/test.png", fixture.roots))
+      .rejects.toThrow("authorization record is missing");
+
+    await writeFile(fixture.journalPath, JSON.stringify({ ...fixture.record, status: "uncertain" }));
+    await expect(promoteImage(fixture.manifestPath, "assets/images/module/test.png", fixture.roots))
+      .rejects.toThrow("not a succeeded image batch call");
+
+    await writeFile(fixture.journalPath, JSON.stringify(fixture.record));
+    await promoteImage(fixture.manifestPath, "assets/images/module/test.png", fixture.roots);
+    const approved = JSON.parse(
+      await readFile(path.join(fixture.workshopRoot, "assets", "images", "module", "test.png.json"), "utf8")
+    );
+    expect(approved.reviewStatus).toBe("approved");
+    expect(approved.integratedUnder.authority).toBe("lifecycle-v3-local-draft");
+  });
+
+  it("ends lifecycle-v3 image integration after local approval", async () => {
+    const fixture = await standingCandidate();
+    await writeFile(fixture.journalPath, JSON.stringify(fixture.record));
+    const statePath = path.join(
+      fixture.workshopRoot, "content", "production", "production-state.md"
+    );
+    const state = matter(await readFile(statePath, "utf8"));
+    await writeFile(statePath, matter.stringify(state.content, {
+      ...state.data,
+      phase: "test-publishing",
+      environment: "test"
+    }));
+    await expect(promoteImage(fixture.manifestPath, "assets/images/module/test.png", fixture.roots))
+      .rejects.toThrow("complete local draft is approved");
+  });
+
+  it("rejects a candidate whose generated output identity was changed", async () => {
+    const fixture = await standingCandidate();
+    await writeFile(fixture.journalPath, JSON.stringify({
+      ...fixture.record,
+      output: { ...fixture.record.output, candidateHash: "b".repeat(64) }
+    }));
+    await expect(promoteImage(fixture.manifestPath, "assets/images/module/test.png", fixture.roots))
+      .rejects.toThrow("generated candidate output");
+  });
+
+  it("rejects a candidate recorded under a superseded requirements baseline", async () => {
+    const fixture = await standingCandidate();
+    await writeFile(fixture.journalPath, JSON.stringify({
+      ...fixture.record,
+      requirementsHash: "b".repeat(64)
+    }));
+    await expect(promoteImage(fixture.manifestPath, "assets/images/module/test.png", fixture.roots))
+      .rejects.toThrow("superseded requirements baseline");
+  });
+
+  it("rejects a hand-edited authorization record", async () => {
+    const fixture = await standingCandidate();
+    await writeFile(fixture.journalPath, JSON.stringify({
+      ...fixture.record,
+      request: { ...fixture.record.request, promptHash: "c".repeat(64) }
+    }));
+    await expect(promoteImage(fixture.manifestPath, "assets/images/module/test.png", fixture.roots))
+      .rejects.toThrow("does not match its recorded request");
   });
 });
 

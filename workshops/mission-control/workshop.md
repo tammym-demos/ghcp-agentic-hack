@@ -10,6 +10,7 @@ description: >-
   pilot decision.
 format: one-day
 duration: '09:00-17:03; 408 teaching/group-work minutes plus 75 break/lunch minutes'
+totalMinutes: 483
 level: mixed
 audience:
   - Business and application outcome owners
