@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "purrmission-team-cover",
+  "kind": "image",
+  "provider": "gpt-image-2",
+  "deployment": "gpt-image-2",
+  "promptHash": "199ba5e473551a30eddea0916ca7b5fb4ae21bdde1a70c6831f026cc12a3f677",
+  "prompt": "Create one original four-character team portrait in a warm editorial 2D illustration style. Soft off-white background, clean rounded outlines with gentle line-weight variation, restrained warm shadows, neutral charcoal, deep green and small purple accents. Landscape 1536 by 1024. No words or marks anywhere.\r\n\r\nPut an ordinary sleek black cat closest to the viewer, centered in the lower foreground, standing confidently on all four paws with a gently curled tail. This original cat is Purrmission: bright green observant eyes, green collar with one small plain round tag. Natural feline anatomy, no wings, tentacles, hands or clothes. The cat is clearly in front of the three figures but not oversized.\r\n\r\nBehind the cat, show exactly three distinct full-length adult figures in a shallow arc, all looking toward the viewer with warm, quietly confident expressions. This is a grounded team power portrait, not a superhero scene. Use comfortable balanced stances and relaxed hands. Keep all heads, hands, legs, shoes, and the cat's tail within generous frame margins.\r\n\r\nLEFT: Agent Mergewell, an original adult HUMAN field engineer. Light tan skin, thick rectangular glasses, expressive eyebrows, wild dark-to-silver inventor hair, short neat evenly distributed dark-to-silver stubble. Mid-length charcoal technical coat with subtle green seam accents, compact shoulder tool pod, dark trousers, practical shoes. Endearing eccentric warmth. No hat, moustache, goatee, shaped beard or recognizable celebrity likeness.\r\n\r\nCENTER: Chief Charter, an original mature HUMAN executive. Brown eyes, black cat-eye glasses, brown-dominant hair with roughly one-third natural gray in a professional updo or French twist. Deep-green tailored suit with ivory blouse. Composed, credible, warm, direct eye contact, realistic mature adult proportions. No uniform, rank insignia, robotic anatomy or exaggerated approval gesture.\r\n\r\nRIGHT: Riley Relay, an original explicitly ADULT NONHUMAN personified software agent. Adult human face, natural dark shoulder-length hair, one small purple temple status light, subtle synthetic neck seam. Long tailored charcoal coat with restrained purple lining and cuff accents over a plain warm-white crew-neck top. Cropped charcoal trousers and practical black loafers. Both refined mechanical forearms and hands emerge clearly from ordinary sleeves; both robotic lower legs are clearly visible between trouser hems and shoes. Restrained purple illumination at articulated joints. Attentive, gently curious, slightly shy but self-possessed, professionally capable. Keep Riley's mechanical hands and lower legs unobscured by the cat or other figures. She is not a safety guardian or permission authority.\r\n\r\nKeep the background empty except for a light grounding shadow. No scenery, interface, devices with screens, signs, text, letters, numbers, pseudo-writing, symbols, badges, logos, watermarks, official marks or product artwork. No GitHub mascot, Octocat, Mona, Invertocat, Copilot mascot or any protected character. No copied composition or character likeness from entertainment properties. No armor, weapons, capes, superhero styling, photorealism, infantilization, servant framing, malformed anatomy or extra limbs. The complete image contains exactly three adult figures and one ordinary black cat. All title and character labels will be added separately as native slide text.",
+  "source": "content/research/reused-provenance/team-cover.md",
+  "createdAt": "2026-10-16T15:07:47.187Z",
+  "reviewStatus": "approved",
+  "location": "content/modules/01-purrmission-to-proceed/public/images/purrmission-team-cover.png",
+  "width": 1536,
+  "height": 1024,
+  "generationAuthorization": {
+    "initiative": "requirements-secure-by-design",
+    "envelopeId": "standing-team-cover-20261016",
+    "envelopeHash": "738b5fbb638f802463c107bd64c93d2726eed87b95c04762e96f56b19d64679f",
+    "decisionId": "standing-image-policy",
+    "requestHash": "3770cdb56613c313cffdd79e8504b36c4afb9e1b367d5026b1626d65eb70502d"
+  },
+  "integratedUnder": {
+    "authority": "lifecycle-v3-local-draft",
+    "requirementsHash": "fdac50c54ca06e3563cc8e57c03aa1092d77f62b4336c40b948dcc2dd31a32c9"
+  },
+  "reusedFrom": {
+    "workshop": "secure-by-design",
+    "module": "01-security-and-alignment",
+    "asset": "purrmission-team-cover",
+    "note": "Approved character artwork reused unchanged; original generation provenance preserved.",
+    "reusedInto": "workshops/purrmission-to-proceed/content/modules/01-purrmission-to-proceed/public/images/purrmission-team-cover.png"
+  }
+}

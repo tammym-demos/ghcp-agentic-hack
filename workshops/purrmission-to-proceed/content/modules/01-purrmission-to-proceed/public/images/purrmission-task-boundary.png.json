@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "purrmission-task-boundary",
+  "kind": "image",
+  "provider": "gpt-image-2",
+  "deployment": "gpt-image-2",
+  "promptHash": "052f1f4ecfd389f3d57b230eb9fd51bde1a15f9adaf5778b8b51e4c83b132d3c",
+  "prompt": "Create an original warm editorial 2D illustration, landscape 1536 by 1024, soft off-white background, clean charcoal outlines, gentle warm shadows, restrained deep green accents. Simple composition, few large shapes, generous empty margins. It must remain readable when contained at about 270 by 180 pixels, with teaching text added separately outside the artwork.\r\n\r\nShow one ordinary sleek black cat with bright green eyes, a green collar and one small plain round tag, natural feline anatomy, four paws and a gently curled tail. This original cat stands attentively beside a low rectangular wooden frame lying flat on the ground, like a simple project sorting area. The cat is not inside a cage. Show the whole cat and frame with all edges comfortably inside the picture.\r\n\r\nWithin the frame are three large plain matching wooden project pieces, loosely grouped. Outside the frame, clearly separated by an open gap, lie two different unrelated pieces: a rounded clay lump and a simple short coil of cord. Use a slightly elevated view so inside versus outside is immediately clear without any text. The cat looks toward the boundary thoughtfully, not guarding a fortress. The low frame is merely an ordinary movable physical marker: no wall, gate, lock, shield, alarm, magical glow, force field or suggestion of technical enforcement. Keep the arrangement calm and spacious, not dramatic or restrictive.\r\n\r\nNo people, extra animals, clothing on the cat, wings, tentacles, human hands, oversized head or cartoon mascot anatomy. No text, letters, numbers, labels, pseudo-writing, signs, screens, interfaces, code, icons, checkmarks, logos, watermarks, badges or product artwork. No copied source pixels or composition, protected characters, GitHub mascots, photorealism, superhero styling or approval imagery. Keep everything grounded, understated and original.",
+  "source": "content/research/reused-provenance/additional-character-art.md",
+  "createdAt": "2026-10-16T15:19:21.138Z",
+  "reviewStatus": "approved",
+  "location": "content/modules/01-purrmission-to-proceed/public/images/purrmission-task-boundary.png",
+  "width": 1536,
+  "height": 1024,
+  "generationAuthorization": {
+    "initiative": "requirements-secure-by-design",
+    "envelopeId": "standing-additional-character-art-20261016",
+    "envelopeHash": "322aa4339555bd9bbf6598739c565fce61461256a397f63687a018252eac5759",
+    "decisionId": "standing-image-policy",
+    "requestHash": "b22b1fd61ec8ed707fc77845c93c24d1405948837d28633e235f5b1c6d8aab11"
+  },
+  "integratedUnder": {
+    "authority": "lifecycle-v3-local-draft",
+    "requirementsHash": "dbe860eef776958473e0f3a58f0e090c91cc66304b22441f9597c52f8615bde8"
+  },
+  "reusedFrom": {
+    "workshop": "secure-by-design",
+    "module": "01-security-and-alignment",
+    "asset": "purrmission-task-boundary",
+    "note": "Approved character artwork reused unchanged; original generation provenance preserved.",
+    "reusedInto": "workshops/purrmission-to-proceed/content/modules/01-purrmission-to-proceed/public/images/purrmission-task-boundary.png"
+  }
+}

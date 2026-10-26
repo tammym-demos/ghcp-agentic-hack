@@ -8,100 +8,14 @@ description: 'Build practical GitHub Copilot skills through progressive, hands-o
 format: one-day
 duration: 7 hours 4 minutes
 totalMinutes: 424
-defaultDeliveryVariant: one-day
+defaultDeliveryVariant: two-day
 deliveryVariants:
-  - id: one-day
-    title: GitHub Workshop
-    description: >-
-      Complete the three learning modules and Agent Mergewell missions in one
-      focused day.
-    days:
-      - id: day-one
-        title: GitHub Workshop
-        start: '09:00'
-        end: '16:04'
-        agenda:
-          - id: executive-kickoff
-            type: kickoff
-            title: Executive kickoff
-            start: '09:00'
-            end: '09:15'
-          - id: foundations-content
-            type: module-content
-            title: >-
-              Foundations: Copilot surfaces, safety, interaction modes, cost,
-              and context
-            start: '09:15'
-            end: '10:32'
-            module: foundations
-          - id: morning-break
-            type: break
-            title: Break
-            start: '10:32'
-            end: '10:47'
-          - id: foundations-mission
-            type: mission
-            title: 'Mission: Apply context, prompting, and least-privilege practices'
-            start: '10:47'
-            end: '11:32'
-            module: foundations
-          - id: agentic-content-one
-            type: module-content
-            title: >-
-              Agentic Development: Instructions, memory, context, prompts,
-              agents, skills, and tools
-            start: '11:32'
-            end: '12:00'
-            module: agentic
-          - id: lunch
-            type: lunch
-            title: Lunch
-            start: '12:00'
-            end: '12:45'
-          - id: agentic-content-two
-            type: module-content
-            title: >-
-              Agentic Development: Observable loops, repository checkpoints,
-              cloud agents, optimization, and human acceptance
-            start: '12:45'
-            end: '13:34'
-            module: agentic
-          - id: agentic-mission
-            type: mission
-            title: 'Mission: Delegate and verify a bounded agent task'
-            start: '13:34'
-            end: '14:19'
-            module: agentic
-          - id: advanced-content-one
-            type: module-content
-            title: >-
-              Advanced Workflows: Multiagent orchestration and trusted
-              integrations
-            start: '14:19'
-            end: '15:04'
-            module: advanced
-          - id: afternoon-break
-            type: break
-            title: Break
-            start: '15:04'
-            end: '15:19'
-          - id: advanced-content-two
-            type: module-content
-            title: 'Advanced Workflows: Debugging evidence, deployment, and operations'
-            start: '15:19'
-            end: '15:34'
-            module: advanced
-          - id: advanced-mission
-            type: mission
-            title: 'Mission: Orchestrate, integrate, and debug with evidence'
-            start: '15:34'
-            end: '16:04'
-            module: advanced
   - id: two-day
     title: GHCP Hack (2 Day)
     description: >-
       Complete the learning day, then apply the practices during a full team
       hack day and project readout.
+    archiveOnProduction: true
     days:
       - id: day-one
         title: GitHub Workshop
@@ -737,6 +651,7 @@ leaderboard:
       submissionUrl: >-
         https://github.com/tammym-demos/ghcp-dev-hack-leaderboard/issues/new?template=leaderboard-submission.yml
       standingsUrl: 'https://tammym-demos.github.io/ghcp-dev-hack-leaderboard/'
+archiveOnProduction: true
 lastReviewed: '2026-09-10'
 ---
 # GitHub Copilot Developer Hack

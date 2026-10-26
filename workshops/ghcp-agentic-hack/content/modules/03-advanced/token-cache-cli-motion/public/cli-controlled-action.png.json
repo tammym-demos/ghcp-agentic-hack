@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "cli-controlled-action",
+  "kind": "image",
+  "provider": "gpt-image-2",
+  "deployment": "gpt-image-2",
+  "promptHash": "58a8887173472ff0a3896ade73462f1607588e6da83133741b6bda2c8bcf5f8e",
+  "prompt": "Human-centered 2D editorial cartoon, warm editorial illustration style, soft off-white background, slightly richer color palette with warm coat shadows, expressive face detail on characters, clean rounded outlines with gentle weight variation, GitHub-green and Copilot-purple accents, light grounding shadow under characters, professional but approachable and likable tone.\r\n\r\nOriginal character Agent Mergewell: human field agent in a mid-length charcoal technical coat with GitHub-green seam accents, concealed mechanical deployment points at coat, wrist, forearm, and shoulder, thick rectangular glasses, wild Einstein-inspired inventor hair with dark-to-silver tones, light tan skin, clean-shaven face, warm expressive face, endearing goofy professor-inventor demeanor. Show only the one task-specific gadget currently invoked.\r\n\r\nBlack cat Purrmission with bright observant green eyes, minimal green collar tag with small hexagonal detail, proportional and expressive, rendered in the same warm editorial style as Agent Mergewell.\r\n\r\nScene: Exactly one Agent Mergewell and exactly one Purrmission at one terminal-native operations bench with no deployed gadget. A single dark blank terminal console shape anchors the left side without any screen content or interface details. One open current-directory tray containing a repository branch object and one tool-result gear feeds into a single blank purple action cartridge. Mergewell holds that proposed action cartridge over a transparent review tray and inspects three large side-effect shapes attached to it before execution. On the right, one execution lever remains physically separated behind one closed green gate, and Purrmission appears only once with one paw firmly holding that gate shut. Use one straight left-to-right path: local evidence, proposed action, human review, closed execution gate. Do not include branching pipes, multiple machines, commands, letters, punctuation, paper, screens with content, interface panels, text-like marks, repeated characters, or logos.\r\n\r\nFrame for a vertical-safe right pane: keep the single operation path and both characters inside the center 75% width and center 80% height. Subject mass should fill 75-85% of frame height, with clear separation between proposal and execution, soft negative space near all edges, and no critical detail in the outer 10%.\r\n\r\nNo model-generated logos, no mascots, no Octocat, no GitHub Copilot mascot, no generated readable text, no code, no fake or real product UI, no Inspector Gadget likeness, no Albert Einstein portrait recreation, no cluttered backgrounds.",
+  "source": "content/modules/01-foundations/media/prompts/images/cli-controlled-action-v3.txt",
+  "createdAt": "2026-08-04T20:28:30.713Z",
+  "reviewStatus": "approved",
+  "location": "assets/images/foundations/cli-controlled-action.png",
+  "width": 1792,
+  "height": 1024
+}

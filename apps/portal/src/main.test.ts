@@ -413,6 +413,50 @@ describe("landing page features", () => {
     expect(source[0]).toBe(existingWorkshop);
   });
 
+  it("places ghcp-agentic-hack at the very top of the landing page and renders archived workshops at the bottom", () => {
+    const newHack: CatalogWorkshop = {
+      ...workshop,
+      id: "ghcp-agentic-hack",
+      title: "GitHub Copilot Agentic Hack",
+      route: "workshops/ghcp-agentic-hack/",
+      format: "one-day",
+      duration: "7 hours 4 minutes",
+      totalMinutes: 424,
+      deliveryVariants: [{
+        id: "two-day",
+        title: "GitHub Copilot Agentic Hack (2 Day)",
+        description: "Updated 2-day hack",
+        route: "workshops/ghcp-agentic-hack/variants/two-day/",
+        totalMinutes: 844,
+        days: [],
+        modulePhases: []
+      }]
+    };
+    const legacyArchived: CatalogWorkshop = {
+      ...workshop,
+      id: "ghcp-dev-hack",
+      title: "GitHub Copilot Developer Hack (Legacy)",
+      archived: true,
+      deliveryVariants: [{
+        id: "two-day",
+        title: "GHCP Hack (2 Day)",
+        description: "Archived 2-day hack",
+        route: "workshops/ghcp-dev-hack/variants/two-day/",
+        archived: true,
+        totalMinutes: 844,
+        days: [],
+        modulePhases: []
+      }]
+    };
+    const html = renderLandingPage([legacyArchived, missionControl, newHack]);
+    expect(html.indexOf("GitHub Copilot Agentic Hack (2 Day)")).toBeLessThan(html.indexOf(missionControl.title));
+    expect(html.indexOf(missionControl.title)).toBeLessThan(html.indexOf("GHCP Hack (2 Day)"));
+    expect(html).toContain('id="catalog-featured-heading">Featured workshop</h2>');
+    expect(html).toContain('id="catalog-archived-heading">Archived workshops</h2>');
+    expect(html).toContain("workshop-card--archived");
+    expect(html).toContain("<span>Archived</span>");
+  });
+
   it("replaces role cards with official app and Awesome Copilot resources", () => {
     const html = renderLandingPage([missionControl]);
     expect(html).not.toContain("Skills by role persona");

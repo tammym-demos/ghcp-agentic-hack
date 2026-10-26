@@ -13,7 +13,7 @@
     "content": "pnpm --filter @ghcp/content-cli content",
     "typecheck": "pnpm -r typecheck",
     "validate": "pnpm --filter @ghcp/content-cli content validate",
-    "test": "pnpm -r test && node --test \"workshops/ghcp-dev-hack/artifacts/leaderboard-kit/test/leaderboard.test.mjs\" \"workshops/ghcp-dev-hack/content/modules/01-foundations/token-cache-cli-motion/sequence.test.mjs\""
+    "test": "pnpm -r test && node --test \"workshops/ghcp-agentic-hack/artifacts/leaderboard-kit/test/leaderboard.test.mjs\" \"workshops/ghcp-agentic-hack/content/modules/03-advanced/token-cache-cli-motion/sequence.test.mjs\" \"workshops/ghcp-dev-hack/artifacts/leaderboard-kit/test/leaderboard.test.mjs\" \"workshops/ghcp-dev-hack/content/modules/01-foundations/token-cache-cli-motion/sequence.test.mjs\""
   },
   "devDependencies": {
     "@types/node": "^22.15.30",

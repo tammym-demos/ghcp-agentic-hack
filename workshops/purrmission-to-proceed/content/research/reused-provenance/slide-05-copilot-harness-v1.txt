@@ -1,0 +1,11 @@
+Human-centered 2D editorial cartoon, warm editorial illustration style, soft off-white background, slightly richer color palette with warm coat shadows, expressive face detail on characters, clean rounded outlines with gentle weight variation, GitHub-green and Copilot-purple accents, light grounding shadow under characters, professional but approachable and likable tone.
+
+Original character Agent Mergewell: mid-length charcoal technical coat with GitHub-green seam accents, compact shoulder tool pod with modular attachments, thick rectangular glasses, wild Einstein-inspired inventor hair with dark-to-silver tones, light tan skin, clean-shaven face, warm expressive face, endearing goofy professor-inventor demeanor.
+
+Black cat Purrmission with bright observant green eyes, minimal green collar tag with small hexagonal detail, proportional and expressive, rendered in the same warm editorial style as Agent Mergewell.
+
+Scene: Agent Mergewell assembles an exploded field rig from four visually distinct parts: a sturdy host frame, a compact context pack, modular tool attachments, and an outer protective guardrail ring. Purrmission sits beside the guardrail ring with one paw holding it in place. The parts align around a simple glowing operation core, making the environment around Copilot tangible without labels or product UI. Single focal composition.
+
+Frame for a vertical-safe right pane: keep primary subjects inside the center 70% width and center 80% height, with subject mass filling 75-85% of frame height and soft negative space near all edges.
+
+No logos, no mascots, no Octocat, no GitHub Copilot mascot, no generated readable text beyond single-word prop labels, no real product UI, no Inspector Gadget likeness, no Albert Einstein portrait recreation, no cluttered backgrounds.

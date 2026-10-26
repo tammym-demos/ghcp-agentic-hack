@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "evidence-streams-desk",
+  "kind": "image",
+  "provider": "gpt-image-2",
+  "deployment": "gpt-image-2",
+  "promptHash": "896e4dc1f557464cb0d72a4a0ed204c942a7d0a542abf5cd15343e2e5ce75713",
+  "prompt": "Create one presentation-scale, text-free illustration for Slide 24, \"Code Quality, Copilot Review, and Human Acceptance.\"\r\n\r\nTEACHING JOB AND ACCEPTED V4 COMPOSITION\r\nRetain the accepted v4 four separate equal evidence lanes, final review desk, downstream unlabeled decision control, and Purrmission boundary. Agent Mergewell inspects all four streams and alone accepts, revises, rejects, or merges. Purrmission signals the consequential boundary. The evidence has already been returned, so Riley Relay remains off-frame and no generic collaborator is depicted. No gadget.\r\n\r\nCANONICAL CHARACTER LOCK\r\nMergewell is the accountable adult human field agent: light tan skin; short neat evenly distributed dark-to-silver stubble appropriate to an adult field agent; thick rectangular glasses; wild dark-to-silver inventor hair; expressive brows and warm goofy professor-inventor demeanor; mid-thigh charcoal technical coat with green seams; dark trousers; practical shoes; compact quiet shoulder pod.\r\nRiley is the bounded adult nonhuman software collaborator in the module's role model, but she is not depicted in this accepted composition. She performed only delegated work and returned evidence; she never validates, approves, accepts, or merges. Do not substitute a generic collaborator.\r\nPurrmission is the proportional sleek black cat safety guardian with bright observant green eyes and minimal green collar tag with small hexagonal detail. She signals safety, never decides, and never touches the control.\r\n\r\nCOMPOSITION AND NATIVE BOUNDARY\r\nFull-width landscape 1536x1024 on soft off-white. Keep four lanes distinct, Mergewell behind the desk, and exactly one Purrmission low beside the downstream boundary. Keep all inside center 84 percent width and 82 percent height with 7 percent clearance. Leave native-label zones clear.\r\n\r\nAPPROVED STYLE BLOCK — VERBATIM\r\nHuman-centered 2D editorial cartoon, warm editorial illustration style, soft off-white background, slightly richer color palette with warm coat shadows, expressive face detail on characters, clean rounded outlines with gentle weight variation, GitHub-green and Copilot-purple accents, light grounding shadow under characters, professional but approachable and likable tone.\r\n\r\nHARD NEGATIVE CONSTRAINTS\r\nNo moustache, goatee, shaped beard, full beard, long beard, heavy beard, patchy facial hair, or changing facial-hair style. No text, checkmarks, UI, logos, mascots, copyrighted likenesses, merged evidence, all-green state, automatic acceptance, Riley depiction, generic collaborator, duplicated Purrmission, cat decision, cat touching the decision control, extra characters, malformed anatomy, or photorealism.",
+  "source": "content/research/reused-provenance/evidence-streams-human-acceptance-stubble-v3.txt",
+  "createdAt": "2026-08-11T18:17:53.511Z",
+  "reviewStatus": "approved",
+  "location": "content/modules/01-purrmission-to-proceed/public/images/evidence-streams-desk.png",
+  "width": 1536,
+  "height": 1024,
+  "reusedFrom": {
+    "workshop": "ghcp-dev-hack",
+    "module": "02-agentic",
+    "asset": "evidence-streams-human-acceptance",
+    "note": "Approved Purrmission image reused unchanged; original generation provenance preserved.",
+    "reusedInto": "workshops/purrmission-to-proceed/content/modules/01-purrmission-to-proceed/public/images/evidence-streams-desk.png"
+  }
+}

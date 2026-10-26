@@ -259,9 +259,9 @@ describe("reference content", () => {
   });
 
   describe("workshop timing", () => {
-    it("renders the loop-intro 424-minute run of show with other allocations preserved", async () => {
+    it("renders the two-day 844-minute run of show with Day 1 424-minute allocations preserved", async () => {
       const runOfShow = await workshopRunOfShow("ghcp-dev-hack", "09:00");
-      expect(runOfShow).toContain("Total: 424 minutes");
+      expect(runOfShow).toContain("Total: 844 minutes across 2 day(s)");
       expect(runOfShow).toContain(
         "| GitHub Workshop | 09:15 | 10:32 | 77 | module-content | Foundations: Copilot surfaces, safety, interaction modes, cost, and context | foundations |"
       );

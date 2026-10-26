@@ -91,6 +91,8 @@ export const deliveryVariantSchema = z.object({
   id,
   title: z.string().min(1),
   description: z.string().min(1),
+  archived: z.boolean().optional(),
+  archiveOnProduction: z.boolean().optional(),
   days: z
     .array(
       z
@@ -209,6 +211,8 @@ export const workshopSchema = baseContent
       deliveryVariant: id.optional()
     }).optional(),
     leaderboard: workshopLeaderboardSchema.optional(),
+    archived: z.boolean().optional(),
+    archiveOnProduction: z.boolean().optional(),
     lastReviewed: dateString
   })
   .superRefine((workshop, context) => {

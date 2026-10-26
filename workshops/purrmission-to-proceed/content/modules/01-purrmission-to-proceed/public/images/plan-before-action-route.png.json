@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "plan-before-action-route",
+  "kind": "image",
+  "provider": "gpt-image-2",
+  "deployment": "gpt-image-2",
+  "promptHash": "aafcdd16a22560752c6738199eeb3483bbac9ae121bb9e0a70e25df659e18cf0",
+  "prompt": "Create one presentation-scale, text-free illustration for Slide 11, \"Planning Before Action.\"\r\n\r\nTEACHING JOB AND ACCEPTED V4 COMPOSITION\r\nRetain the accepted v4 unfolded-route-map composition. Riley Relay presents a proposed repository-change route with four physical waypoints, one risk point, and a stop barrier before the final waypoint. Agent Mergewell studies the route before any edit begins. Riley waits for his boundary decision. No Purrmission or gadget.\r\n\r\nCANONICAL CHARACTER LOCK\r\nMergewell is the accountable adult human field agent: average-height practical silhouette; light tan skin; clean-shaven canonical face; thick rectangular glasses; wild dark-to-silver inventor hair; expressive brows and warm goofy professor-inventor demeanor; mid-thigh charcoal technical coat with green seams; dark trousers; practical shoes; compact quiet shoulder pod. He reviews scope, risk, checks, and stops.\r\nRiley is the adult nonhuman software collaborator: canonical adult face; natural dark shoulder-length hair; purple temple status light; synthetic neck seam; charcoal long coat with purple accents; warm-white top; charcoal cropped trousers; black loafers; clearly visible mechanical forearms/hands and robotic lower legs; refined purple-lit joints. She proposes the bounded plan, asks, and waits; she never approves it or starts early.\r\n\r\nCOMPOSITION AND NATIVE BOUNDARY\r\nRight-pane landscape 1536x1024 on soft off-white. Keep both characters and complete blank map in center 70 percent width and 80 percent height, filling 75–85 percent height. Leave upper-right native-label space.\r\n\r\nAPPROVED STYLE BLOCK — VERBATIM\r\nHuman-centered 2D editorial cartoon, warm editorial illustration style, soft off-white background, slightly richer color palette with warm coat shadows, expressive face detail on characters, clean rounded outlines with gentle weight variation, GitHub-green and Copilot-purple accents, light grounding shadow under characters, professional but approachable and likable tone.\r\n\r\nHARD NEGATIVE CONSTRAINTS\r\nNo text, filenames, map writing, UI, logos, mascots, copyrighted likenesses, Inspector Gadget cues, Einstein portrait recreation, editing already underway, approval cue, extra characters, hidden Riley mechanics, malformed anatomy, or photorealism.",
+  "source": "content/research/reused-provenance/plan-before-action-route-riley-v2.txt",
+  "createdAt": "2026-08-11T16:21:02.953Z",
+  "reviewStatus": "approved",
+  "location": "content/modules/01-purrmission-to-proceed/public/images/plan-before-action-route.png",
+  "width": 1536,
+  "height": 1024,
+  "reusedFrom": {
+    "workshop": "ghcp-dev-hack",
+    "module": "02-agentic",
+    "asset": "plan-before-action-route",
+    "note": "Approved character artwork reused unchanged; original generation provenance preserved.",
+    "reusedInto": "workshops/purrmission-to-proceed/content/modules/01-purrmission-to-proceed/public/images/plan-before-action-route.png"
+  }
+}

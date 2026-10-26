@@ -265,7 +265,8 @@ export async function prepareRelease(
   workshopId: string,
   catalog: ContentCatalog,
   root = repositoryRoot,
-  now = new Date()
+  now = new Date(),
+  contentCommit?: string
 ): Promise<string> {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(releaseId)) {
     throw new Error("Release id must use lowercase kebab-case");
@@ -276,6 +277,14 @@ export async function prepareRelease(
   if (snapshot.dirtyFiles.length > 0) {
     throw new Error("Release preparation requires a clean worktree and an exact reviewed commit");
   }
+  const releaseCommit = contentCommit ?? snapshot.commit;
+  try {
+    await execFileAsync("git", ["merge-base", "--is-ancestor", releaseCommit, snapshot.commit], {
+      cwd: root
+    });
+  } catch {
+    throw new Error(`Release content commit ${releaseCommit} is not an ancestor of ${snapshot.commit}`);
+  }
   const relativePath = path.join("releases", `${releaseId}.md`);
   const filePath = path.join(root, relativePath);
   if (await pathExists(filePath)) throw new Error(`Release manifest already exists: ${relativePath}`);
@@ -285,7 +294,7 @@ export async function prepareRelease(
     id: releaseId,
     title: `${workshop.workshop.data.title} release`,
     status: "draft",
-    commit: snapshot.commit,
+    commit: releaseCommit,
     createdAt: now.toISOString(),
     workshops: [
       {

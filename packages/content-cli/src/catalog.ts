@@ -72,13 +72,24 @@ export function createPortalCatalog(catalog: ContentCatalog, environment = resol
           })
         };
       });
+      const workshopArchived = Boolean(
+        entry.workshop.data.archived ||
+        (entry.workshop.data.archiveOnProduction && environment === "production")
+      );
       const deliveryVariants = (entry.workshop.data.deliveryVariants ?? []).map((variant) => {
         const agenda = variant.days.flatMap((day) => day.agenda);
+        const variantArchived = Boolean(
+          workshopArchived ||
+          variant.archived ||
+          (variant.archiveOnProduction && environment === "production")
+        );
         return {
           id: variant.id,
           title: variant.title,
           description: variant.description,
           route: `workshops/${workshopId}/variants/${variant.id}/`,
+          ...(variantArchived ? { archived: true } : {}),
+          ...(variant.archiveOnProduction ? { archiveOnProduction: true } : {}),
           totalMinutes: agenda.reduce((total, block) => total + elapsedMinutes(block.start, block.end), 0),
           days: variant.days.map((day) => ({
             id: day.id,
@@ -127,6 +138,8 @@ export function createPortalCatalog(catalog: ContentCatalog, environment = resol
         tags: entry.workshop.data.tags,
         prerequisites: entry.workshop.data.prerequisites,
         route: `workshops/${workshopId}/`,
+        ...(workshopArchived ? { archived: true } : {}),
+        ...(entry.workshop.data.archiveOnProduction ? { archiveOnProduction: true } : {}),
         readinessGuide: entry.workshop.data.readinessGuide
           ? {
             title: entry.workshop.data.readinessGuide.title,
