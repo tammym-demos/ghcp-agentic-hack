@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "pull-request-evidence-handoff",
+  "kind": "image",
+  "provider": "gpt-image-2",
+  "deployment": "gpt-image-2",
+  "promptHash": "c61a5b516b26dde30116d2b251bcc2cbb9364b7a80e634c7696eafcb9a40eeb4",
+  "prompt": "Create one presentation-scale, text-free illustration for Slide 17, \"Pull Requests as Agent Handoffs.\"\r\n\r\nTEACHING JOB AND ACCEPTED V4 COMPOSITION\r\nRetain the accepted v4 evidence-handoff composition. Riley Relay returns one structured blank folio containing three distinct forms—changed work, check result, and open question—to Agent Mergewell at the human review side. Riley has no merge control. Mergewell evaluates and owns acceptance or rejection. No Purrmission or gadget.\r\n\r\nCANONICAL CHARACTER LOCK\r\nMergewell is the accountable adult human field agent: light tan skin; clean-shaven canonical face; thick rectangular glasses; wild dark-to-silver inventor hair; expressive brows and warm goofy professor-inventor demeanor; mid-thigh charcoal technical coat with green seams; dark trousers; practical shoes; compact quiet shoulder pod.\r\nRiley is the adult nonhuman software collaborator: canonical adult face; natural dark shoulder-length hair; purple temple status light; synthetic neck seam; charcoal long tailored coat with purple lining/cuffs; warm-white crew-neck top; charcoal cropped trousers; black loafers; both mechanical forearms/hands and both robotic lower legs visible; refined joints with restrained purple light. Her handoff is attentive and self-possessed. She performs only bounded software work, returns evidence, and waits; she never approves, validates, accepts, merges, or makes the final decision.\r\n\r\nCOMPOSITION AND NATIVE BOUNDARY\r\nRight-pane landscape 1536x1024 on soft off-white. Riley at center-left, complete folio at center, Mergewell at right review margin. Keep grouping inside center 70 percent width and 80 percent height, filling 75–85 percent height. Leave clean native-label space.\r\n\r\nAPPROVED STYLE BLOCK — VERBATIM\r\nHuman-centered 2D editorial cartoon, warm editorial illustration style, soft off-white background, slightly richer color palette with warm coat shadows, expressive face detail on characters, clean rounded outlines with gentle weight variation, GitHub-green and Copilot-purple accents, light grounding shadow under characters, professional but approachable and likable tone.\r\n\r\nHARD NEGATIVE CONSTRAINTS\r\nNo text, glyphs, checkmarks, UI, logos, mascots, copyrighted likenesses, automatic integration, collaborator authority, extra characters, hidden Riley mechanics, malformed anatomy, or photorealism.",
+  "source": "content/research/reused-provenance/pull-request-evidence-handoff-riley-v2.txt",
+  "createdAt": "2026-08-11T16:57:18.409Z",
+  "reviewStatus": "approved",
+  "location": "content/modules/01-purrmission-to-proceed/public/images/pull-request-evidence-handoff.png",
+  "width": 1536,
+  "height": 1024,
+  "reusedFrom": {
+    "workshop": "ghcp-dev-hack",
+    "module": "02-agentic",
+    "asset": "pull-request-evidence-handoff",
+    "note": "Approved character artwork reused unchanged; original generation provenance preserved.",
+    "reusedInto": "workshops/purrmission-to-proceed/content/modules/01-purrmission-to-proceed/public/images/pull-request-evidence-handoff.png"
+  }
+}

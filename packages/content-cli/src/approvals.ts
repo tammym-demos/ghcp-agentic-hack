@@ -1,5 +1,8 @@
+import { execFile } from "node:child_process";
+import os from "node:os";
 import path from "node:path";
-import { readFile, writeFile } from "node:fs/promises";
+import { mkdtemp, readFile, readdir, rm, writeFile } from "node:fs/promises";
+import { promisify } from "node:util";
 import fsExtra from "fs-extra";
 import matter from "gray-matter";
 import {
@@ -11,12 +14,24 @@ import {
 import { repositoryRoot, workshopsRoot } from "./paths.js";
 import { gitSnapshot, loadProductionState } from "./lifecycle.js";
 import { textSha256 } from "./production-records.js";
+import { siteRoutes } from "./build.js";
 import { approveRelease, prepareRelease } from "./release.js";
 
 const { ensureDir, pathExists } = fsExtra;
+const execFileAsync = promisify(execFile);
 
 type ApprovalRoots = { repositoryRoot: string; workshopsRoot: string };
+type CommandRunner = (command: string, args: string[], cwd: string) => Promise<string>;
 const defaults: ApprovalRoots = { repositoryRoot, workshopsRoot };
+
+async function runCommand(command: string, args: string[], cwd: string): Promise<string> {
+  const { stdout } = await execFileAsync(command, args, {
+    cwd,
+    maxBuffer: 8 * 1024 * 1024,
+    windowsHide: true
+  });
+  return stdout;
+}
 
 function releaseId(workshopId: string, now: Date): string {
   const stamp = now.toISOString().replace(/\D/g, "").slice(0, 14);
@@ -134,16 +149,281 @@ export async function approveLocalDraft(
   };
 }
 
-async function verifyPrivateCommit(url: string, expectedCommit: string): Promise<void> {
-  const endpoint = new URL("review-provenance.json", url.endsWith("/") ? url : `${url}/`);
-  const response = await fetch(endpoint);
-  if (!response.ok) throw new Error(`Private test provenance returned HTTP ${response.status}: ${endpoint}`);
-  const provenance = await response.json() as { sourceCommit?: unknown; dirty?: unknown };
-  if (provenance.sourceCommit !== expectedCommit) {
-    throw new Error(`Private test serves ${String(provenance.sourceCommit)} but approval targets ${expectedCommit}`);
+type PrivateTestEvidence = {
+  sourceCommit?: unknown;
+  dirty?: unknown;
+};
+
+function privateSiteBase(input: string): URL {
+  const url = new URL(input);
+  if (url.protocol !== "https:") throw new Error("Private test URL must use HTTPS");
+  const moduleRouteIndex = url.pathname.indexOf("/workshops/");
+  if (moduleRouteIndex >= 0) {
+    url.pathname = url.pathname.slice(0, moduleRouteIndex + 1);
+  } else if (!url.pathname.endsWith("/")) {
+    url.pathname = `${url.pathname}/`;
+  }
+  url.search = "";
+  url.hash = "";
+  return url;
+}
+
+function normalizedSiteUrl(input: string): string {
+  const url = new URL(input);
+  if (url.protocol !== "https:") throw new Error("Private test URL must use HTTPS");
+  const pathname = url.pathname.endsWith("/") ? url.pathname : `${url.pathname}/`;
+  return `${url.origin}${pathname}`;
+}
+
+function validatePrivateSiteEvidence(
+  provenance: PrivateTestEvidence,
+  routes: unknown,
+  requiredRoutes: string[],
+  source: string
+): string {
+  if (typeof provenance.sourceCommit !== "string" || !/^[0-9a-f]{40}$/i.test(provenance.sourceCommit)) {
+    throw new Error(`${source} does not report a valid 40-character source commit`);
   }
   if (provenance.dirty !== false) {
-    throw new Error("Private test provenance must report a clean worktree");
+    throw new Error(`${source} must report a clean source worktree`);
+  }
+  if (!Array.isArray(routes) || routes.some((route) => typeof route !== "string")) {
+    throw new Error(`${source} does not report a valid route list`);
+  }
+  for (const route of requiredRoutes) {
+    if (!routes.includes(route)) throw new Error(`${source} is missing required route ${route}`);
+  }
+  return provenance.sourceCommit;
+}
+
+type WorkflowRun = {
+  headSha: string;
+  headBranch: string;
+  event: string;
+  status: string;
+  conclusion: string | null;
+};
+
+type PagesDeployment = {
+  id: number;
+  ref: string;
+  sha: string;
+  environment: string;
+};
+
+type PagesDeploymentStatus = {
+  state: string;
+  environment: string;
+  environment_url: string | null;
+  target_url: string | null;
+};
+
+type WorkflowStep = { name: string; conclusion: string | null };
+type WorkflowJob = {
+  databaseId: number;
+  name: string;
+  conclusion: string | null;
+  steps: WorkflowStep[];
+};
+
+function hasSuccessfulStep(job: WorkflowJob | undefined, name: string): boolean {
+  return job?.steps.some((step) => step.name === name && step.conclusion === "success") ?? false;
+}
+
+async function privateSiteCommitFromActions(
+  url: string,
+  requiredRoutes: string[],
+  root: string,
+  commandRunner: CommandRunner
+): Promise<string> {
+  const remote = (await commandRunner("git", ["remote", "get-url", "origin"], root)).trim();
+  const repositoryMatch = /(?:github\.com[:/])([^/]+\/[^/]+?)(?:\.git)?$/i.exec(remote);
+  if (!repositoryMatch?.[1]) {
+    throw new Error(`Could not identify a GitHub repository from origin remote: ${remote || "(empty)"}`);
+  }
+  const repository = repositoryMatch[1];
+  const deploymentOutput = await commandRunner("gh", [
+    "api",
+    `repos/${repository}/deployments?environment=github-pages&per_page=1`
+  ], root);
+  const deployments = JSON.parse(deploymentOutput) as PagesDeployment[];
+  const deployment = deployments[0];
+  if (!deployment) throw new Error(`No GitHub Pages deployment exists for ${repository}`);
+  if (
+    deployment.environment !== "github-pages" ||
+    deployment.ref !== "main" ||
+    !/^[0-9a-f]{40}$/i.test(deployment.sha)
+  ) {
+    throw new Error("The latest GitHub Pages deployment does not identify a valid main commit");
+  }
+  const statusOutput = await commandRunner("gh", [
+    "api",
+    `repos/${repository}/deployments/${deployment.id}/statuses?per_page=1`
+  ], root);
+  const statuses = JSON.parse(statusOutput) as PagesDeploymentStatus[];
+  const deploymentStatus = statuses[0];
+  if (
+    deploymentStatus?.state !== "success" ||
+    deploymentStatus.environment !== "github-pages" ||
+    !deploymentStatus.environment_url ||
+    !deploymentStatus.target_url
+  ) {
+    throw new Error("The latest GitHub Pages deployment does not have a successful active status");
+  }
+  if (normalizedSiteUrl(deploymentStatus.environment_url) !== normalizedSiteUrl(privateSiteBase(url).toString())) {
+    throw new Error(
+      `The active GitHub Pages deployment URL does not match the supplied URL: ${deploymentStatus.environment_url}`
+    );
+  }
+
+  const targetUrl = new URL(deploymentStatus.target_url);
+  const targetPath = targetUrl.pathname.split("/").filter(Boolean);
+  if (
+    targetUrl.origin !== "https://github.com" ||
+    targetPath.length !== 7 ||
+    targetPath[0] !== repository.split("/")[0] ||
+    targetPath[1] !== repository.split("/")[1] ||
+    targetPath[2] !== "actions" ||
+    targetPath[3] !== "runs" ||
+    !/^\d+$/.test(targetPath[4] ?? "") ||
+    targetPath[5] !== "job" ||
+    !/^\d+$/.test(targetPath[6] ?? "")
+  ) {
+    throw new Error("The active GitHub Pages deployment does not identify its exact workflow job");
+  }
+  const runId = Number(targetPath[4]);
+  const deployJobId = Number(targetPath[6]);
+
+  const runOutput = await commandRunner("gh", [
+    "run", "view", String(runId),
+    "--repo", repository,
+    "--json", "headBranch,headSha,event,status,conclusion,jobs"
+  ], root);
+  const run = JSON.parse(runOutput) as WorkflowRun & { jobs: WorkflowJob[] };
+  if (
+    run.event !== "push" ||
+    run.headBranch !== "main" ||
+    run.headSha !== deployment.sha ||
+    run.status !== "completed" ||
+    run.conclusion !== "success"
+  ) {
+    throw new Error("The active Pages deployment does not match its successful main workflow run");
+  }
+  const buildJob = run.jobs.find((job) => job.name === "build");
+  const deployJob = run.jobs.find((job) => job.databaseId === deployJobId && job.name === "deploy");
+  if (buildJob?.conclusion !== "success" || deployJob?.conclusion !== "success") {
+    throw new Error("The active Pages deployment's workflow run did not complete build and deployment successfully");
+  }
+  for (const step of [
+    "Run pnpm typecheck",
+    "Run pnpm test",
+    "Run pnpm validate",
+    "Build complete review site",
+    "Verify built routes",
+    "Upload Pages artifact"
+  ]) {
+    if (!hasSuccessfulStep(buildJob, step)) {
+      throw new Error(`The active Pages deployment's run lacks successful evidence for "${step}"`);
+    }
+  }
+  if (!hasSuccessfulStep(deployJob, "Deploy GitHub Pages")) {
+    throw new Error("The active Pages deployment's run lacks a successful GitHub Pages deployment step");
+  }
+
+  const deploymentLog = await commandRunner("gh", [
+    "run", "view", String(runId),
+    "--repo", repository,
+    "--job", String(deployJobId),
+    "--log"
+  ], root);
+  const deploymentVersion = /"pages_build_version":\s*"([0-9a-f]{40})"/i.exec(deploymentLog)?.[1];
+  const deployedCommit = /Created deployment for ([0-9a-f]{40}), ID:/i.exec(deploymentLog)?.[1];
+  const deployedUrl = /Evaluated environment url:\s*(https:\/\/\S+)/i.exec(deploymentLog)?.[1];
+  if (!deploymentVersion || !deployedCommit || !deployedUrl || !/Reported success!/i.test(deploymentLog)) {
+    throw new Error("The active Pages deployment log lacks successful commit and URL evidence");
+  }
+  if (deploymentVersion !== deployment.sha || deployedCommit !== deployment.sha) {
+    throw new Error("The active Pages deployment artifact does not match its exact source commit");
+  }
+  if (normalizedSiteUrl(deployedUrl) !== normalizedSiteUrl(deploymentStatus.environment_url)) {
+    throw new Error(`The active Pages deployment log URL does not match its status URL: ${deployedUrl}`);
+  }
+  if (requiredRoutes.length === 0) throw new Error("Test approval requires at least one required workshop route");
+
+  const artifactDirectory = await mkdtemp(path.join(os.tmpdir(), "ghcp-private-pages-"));
+  try {
+    await commandRunner("gh", [
+      "run", "download", String(runId),
+      "--repo", repository,
+      "--name", "github-pages",
+      "--dir", artifactDirectory
+    ], root);
+    const artifactFiles = await readdir(artifactDirectory);
+    const tarFile = artifactFiles.find((file) => file.endsWith(".tar"));
+    if (!tarFile) throw new Error("The active Pages workflow artifact does not contain its site archive");
+    const archivePath = path.join(artifactDirectory, tarFile);
+    const provenanceOutput = await commandRunner(
+      "tar",
+      ["-xOf", archivePath, "./review-provenance.json"],
+      root
+    );
+    const routesOutput = await commandRunner(
+      "tar",
+      ["-xOf", archivePath, "./site-routes.json"],
+      root
+    );
+    const provenance = JSON.parse(provenanceOutput) as PrivateTestEvidence;
+    const routeEvidence = JSON.parse(routesOutput) as { routes?: unknown };
+    const artifactCommit = validatePrivateSiteEvidence(
+      provenance,
+      routeEvidence.routes,
+      requiredRoutes,
+      "Active Pages deployment artifact"
+    );
+    if (artifactCommit !== deployment.sha) {
+      throw new Error("The active Pages artifact provenance does not match its deployment commit");
+    }
+  } finally {
+    await rm(artifactDirectory, { recursive: true, force: true });
+  }
+
+  return deployment.sha;
+}
+
+export async function verifyPrivateCommit(
+  url: string,
+  root: string,
+  requiredRoutes: string[],
+  commandRunner: CommandRunner = runCommand
+): Promise<string> {
+  const baseUrl = privateSiteBase(url);
+  let directFailure = "private-site JSON evidence is not anonymously readable";
+  let provenanceResponse: Response | undefined;
+  try {
+    provenanceResponse = await fetch(new URL("review-provenance.json", baseUrl));
+  } catch (error) {
+    directFailure = error instanceof Error ? error.message : String(error);
+  }
+  if (provenanceResponse?.ok && provenanceResponse.headers.get("content-type")?.includes("application/json")) {
+    const provenance = await provenanceResponse.json() as PrivateTestEvidence;
+    const routesResponse = await fetch(new URL("site-routes.json", baseUrl));
+    if (!routesResponse.ok) {
+      throw new Error(`Private test route list returned HTTP ${routesResponse.status}`);
+    }
+    const routeEvidence = await routesResponse.json() as { routes?: unknown };
+    return validatePrivateSiteEvidence(provenance, routeEvidence.routes, requiredRoutes, "Private test site");
+  }
+  if (provenanceResponse) {
+    directFailure = `private-site provenance returned HTTP ${provenanceResponse.status} or was not JSON`;
+  }
+
+  try {
+    return await privateSiteCommitFromActions(url, requiredRoutes, root, commandRunner);
+  } catch (error) {
+    const actionsFailure = error instanceof Error ? error.message : String(error);
+    throw new Error(
+      `Could not verify the private test site directly (${directFailure}); authenticated GitHub deployment verification failed (${actionsFailure})`
+    );
   }
 }
 
@@ -171,17 +451,68 @@ export async function approveTestDraft(
   }
   if (localApproval.requirementsHash !== hash) throw new Error("Requirements changed after local approval");
   const state = (await loadProductionState(workshopId, roots)).state;
-  if (state.lifecycleVersion !== 3 || !["test-publishing", "test-review"].includes(state.phase)) {
+  if (
+    state.lifecycleVersion !== 3 ||
+    !["test-publishing", "test-review", "production-publishing"].includes(state.phase)
+  ) {
     throw new Error(`Test approval requires a lifecycle-v3 published test draft, received ${state.phase}`);
   }
   if (!["active", "awaiting-human"].includes(state.sessionStatus) || state.blockers.length) {
     throw new Error("Test approval requires an unpaused, unblocked production state; resume or clear blockers first");
   }
   assertRequirementsBaseline(state, hash);
-  await verifyPrivateCommit(url, snapshot.commit);
-
+  const requiredRoutes = requirements.modules.map(
+    (module) => `workshops/${workshopId}/${module.id}/`
+  );
   const catalog = await loadCatalog(roots.repositoryRoot);
-  const manifestPath = await prepareRelease(releaseId(workshopId, now), workshopId, catalog, roots.repositoryRoot, now);
+  const builtRoutes = siteRoutes(catalog);
+  for (const route of requiredRoutes) {
+    if (!builtRoutes.includes(route)) {
+      throw new Error(`The current workshop catalog is missing required test route ${route}`);
+    }
+  }
+  const testedCommit = await verifyPrivateCommit(url, roots.repositoryRoot, requiredRoutes);
+  if (!/^[0-9a-f]{40}$/i.test(testedCommit)) {
+    throw new Error("Private test verification did not return a valid exact source commit");
+  }
+  const immutableApprovalPath = path.join(
+    workshopRoot,
+    "content",
+    "production",
+    "approvals",
+    `test--${testedCommit}.json`
+  );
+  if (await pathExists(immutableApprovalPath)) {
+    throw new Error(`Test approval already exists for commit ${testedCommit}`);
+  }
+  const { stdout: changedWorkshopFiles } = await execFileAsync(
+    "git",
+    [
+      "diff",
+      "--name-only",
+      `${testedCommit}..${snapshot.commit}`,
+      "--",
+      `workshops/${workshopId}`,
+      `:(exclude)workshops/${workshopId}/content/production/**`,
+      "packages/content-cli/src/build.ts",
+      ".github/workflows/pages.yml"
+    ],
+    { cwd: roots.repositoryRoot }
+  );
+  if (changedWorkshopFiles.trim()) {
+    throw new Error(
+      `Workshop content or private-site build behavior changed after the private test commit ${testedCommit}; new test approval is required:\n${changedWorkshopFiles.trim()}`
+    );
+  }
+
+  const manifestPath = await prepareRelease(
+    releaseId(workshopId, now),
+    workshopId,
+    catalog,
+    roots.repositoryRoot,
+    now,
+    testedCommit
+  );
   await approveRelease(manifestPath, approver, roots.repositoryRoot, now);
   const approval = environmentApprovalSchema.parse({
     schemaVersion: 1,
@@ -189,7 +520,7 @@ export async function approveTestDraft(
     workshop: workshopId,
     environment: "test",
     requirementsHash: hash,
-    commit: snapshot.commit,
+    commit: testedCommit,
     approvedBy: approver.trim(),
     approvedAt: now.toISOString(),
     url,
@@ -208,6 +539,6 @@ export async function approveTestDraft(
   return {
     approvalPath: path.relative(roots.repositoryRoot, approvalPath).split(path.sep).join("/"),
     manifestPath,
-    commit: snapshot.commit
+    commit: testedCommit
   };
 }

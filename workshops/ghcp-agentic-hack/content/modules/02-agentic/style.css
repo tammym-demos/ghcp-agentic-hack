@@ -1,0 +1,1935 @@
+/* Approved A13 intro only. Fixed hierarchy; title above content sibling;
+   all core text clears the persistent lower-left navigation. */
+.slidev-layout.agentic-loop-intro-slide.ghcp-single-panel {
+  position: relative; display: block; padding: 0;
+  color: #24211f; background: #fffdf7;
+  font-family: "Mona Sans", "Segoe UI", Arial, sans-serif;
+}
+.slidev-layout.agentic-loop-intro-slide .ghcp-single-panel__title {
+  position: absolute; left: 40px; top: 24px; right: 40px; z-index: 2;
+}
+.slidev-layout.agentic-loop-intro-slide.ghcp-single-panel .ghcp-single-panel__title h1 {
+  margin: 0; color: #24211f; font: 700 32px/38px "Mona Sans", "Segoe UI", Arial, sans-serif;
+  letter-spacing: 0;
+}
+.slidev-layout.agentic-loop-intro-slide .ghcp-single-panel__content {
+  position: absolute; inset: 0; padding: 0; border: 0; border-radius: 0;
+  box-shadow: none; background: transparent; --ghcp-content-scale: 1 !important;
+}
+.agentic-loop-intro-slide .loop-intro {
+  position: absolute; left: 40px; right: 40px; top: 76px;
+}
+.slidev-layout.agentic-loop-intro-slide.ghcp-single-panel .ghcp-single-panel__content p {
+  margin: 0; color: #24211f; font-size: 20px; line-height: 24px;
+}
+.slidev-layout.agentic-loop-intro-slide.ghcp-single-panel .ghcp-single-panel__content h2 {
+  margin: 0 0 6px; color: #493073; font-size: 19px; line-height: 22px;
+  font-weight: 700; letter-spacing: 0;
+}
+.agentic-loop-intro-slide .loop-intro-zones {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px 12px; margin-top: 12px;
+}
+.agentic-loop-intro-slide .loop-intro-zone {
+  padding: 10px 12px; border: 1px solid #d8cfc2; border-top: 4px solid #624099;
+  border-radius: 9px; background: #f8f1e7;
+}
+.slidev-layout.agentic-loop-intro-slide.ghcp-single-panel .loop-intro-zone p + h2 {
+  margin-top: 12px;
+}
+.agentic-loop-intro-slide .loop-intro-human { border-top-color: #27633e; background: #edf4eb; }
+.slidev-layout.agentic-loop-intro-slide.ghcp-single-panel .loop-intro-human h2 { color: #27633e; }
+.agentic-loop-intro-slide .loop-intro-boundary {
+  grid-column: 1 / -1; display: grid; grid-template-columns: 310px 1fr; gap: 12px;
+  border-top-color: #74401f; background: #fbf0df;
+}
+.slidev-layout.agentic-loop-intro-slide.ghcp-single-panel .loop-intro-boundary h2 { color: #74401f; }
+.agentic-loop-intro-slide .loop-intro-takeaway {
+  display: grid; grid-template-columns: 112px 1fr; gap: 12px; margin-top: 8px;
+  padding-top: 8px; border-top: 1px solid #b8ab9b;
+}
+
+/* Approved G stills only: map the nominal 960x540 frame uniformly onto
+   Slidev's inherited 980x552 page. Do not alter retained slide geometry. */
+.slidev-layout.agentic-request-slide.ghcp-single-panel {
+  position: relative;
+  display: block;
+  width: 960px;
+  height: 540px;
+  top: 0.375px;
+  padding: 0;
+  transform: scale(1.0208333333333333);
+  transform-origin: top left;
+  background: #fff;
+  color: #1f2328;
+  font-family: "Mona Sans", "Segoe UI", Arial, sans-serif;
+}
+.slidev-layout.agentic-request-slide .ghcp-single-panel__title {
+  position: absolute;
+  left: 48px;
+  top: 24px;
+  width: 864px;
+  height: 68px;
+  z-index: 1;
+}
+.slidev-layout.agentic-request-slide .ghcp-single-panel__title h1 {
+  margin: 0;
+  font: 700 32px/36px "Mona Sans", "Segoe UI", Arial, sans-serif;
+  letter-spacing: 0;
+  color: #1f2328;
+}
+.slidev-layout.agentic-request-slide.agentic-request-long-title .ghcp-single-panel__title h1 {
+  font-size: 28px;
+  line-height: 32px;
+  max-width: 690px;
+}
+.slidev-layout.agentic-request-slide .ghcp-single-panel__content {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  --ghcp-content-scale: 1 !important;
+}
+
+.agentic-slide,
+.agentic-priority-slide {
+  --ink: #24211f;
+  --muted: #625b54;
+  --line: #d8cfc2;
+  --paper: #fffdf7;
+  --paper-2: #f8f1e7;
+  --rail: #403a36;
+  --purple: #7650b7;
+  --green: #287a45;
+  --amber: #9a6700;
+  --red: #b4232d;
+}
+
+.agentic-surface {
+  width: 90%;
+  padding: 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: #fffdf7;
+  box-shadow: 0 14px 28px rgb(31 35 40 / 9%);
+}
+
+.agentic-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+  width: 94%;
+}
+
+.agentic-grid--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.agentic-stack {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.agentic-card,
+.agentic-step {
+  padding: 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  color: var(--ink);
+  background: #fff;
+}
+
+.agentic-card b,
+.agentic-card span {
+  display: block;
+}
+
+.agentic-card span {
+  margin-top: 0.2rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.3;
+}
+
+.agentic-purple {
+  border-color: var(--purple);
+  background: #f3f0ff;
+}
+
+.agentic-green {
+  border-color: var(--green);
+  background: #dafbe1;
+}
+
+.agentic-amber {
+  border-color: var(--amber);
+  background: #fff8c5;
+}
+
+.agentic-red {
+  border-color: #cf222e;
+  background: #ffebe9;
+}
+
+.agentic-arrow {
+  color: var(--purple);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.agentic-flow {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0.35rem;
+  width: 96%;
+}
+
+.agentic-step {
+  display: grid;
+  flex: 1;
+  align-content: center;
+  min-width: 0;
+  text-align: center;
+}
+
+.agentic-step b {
+  font-size: 0.88rem;
+}
+
+.agentic-step span {
+  margin-top: 0.2rem;
+  color: var(--muted);
+  font-size: 0.7rem;
+  line-height: 1.25;
+}
+
+.agentic-callout {
+  margin-top: 0.75rem;
+  padding: 0.7rem;
+  border-left: 4px solid #0969da;
+  border-radius: 0.55rem;
+  background: #f6f8fa;
+}
+
+.agentic-safety {
+  border-left-color: var(--amber);
+  background: #fff8c5;
+}
+
+.agentic-code {
+  width: 92%;
+  padding: 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  background: #f6f8fa;
+  font: 600 0.76rem/1.5 ui-monospace, SFMono-Regular, Consolas, monospace;
+  white-space: pre-wrap;
+}
+
+.agentic-kicker {
+  color: var(--purple);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.agentic-decision {
+  padding: 0.75rem;
+  border-radius: 0.7rem;
+  color: #fff;
+  background: var(--green);
+  font-weight: 800;
+  text-align: center;
+}
+
+.agentic-priority-slide.ghcp-two-panel,
+.agentic-priority-slide.ghcp-single-panel {
+  background: linear-gradient(135deg, #fffdf8 0%, #fff 58%, #faf4ea 100%);
+}
+
+.agentic-priority-slide .ghcp-two-panel__text,
+.agentic-priority-slide .ghcp-two-panel__visual,
+.agentic-priority-slide .ghcp-single-panel__content {
+  border-color: var(--line);
+  background: rgb(255 253 247 / 92%);
+}
+
+.agentic-priority-slide .ghcp-two-panel__visual {
+  box-shadow: 0 18px 34px rgb(77 61 45 / 10%);
+}
+
+.agentic-priority-slide .agentic-surface {
+  width: calc(100% - 2.4rem);
+  max-height: calc(100% - 2.4rem);
+  padding: 1rem;
+  border-color: var(--line);
+  background: linear-gradient(145deg, var(--paper), var(--paper-2));
+  box-shadow: 0 16px 30px rgb(77 61 45 / 11%), inset 0 1px 0 #fff;
+}
+
+.agentic-priority-slide .agentic-card,
+.agentic-priority-slide .agentic-step {
+  border-color: var(--line);
+  background: var(--paper);
+  box-shadow: 0 5px 12px rgb(77 61 45 / 7%);
+}
+
+.agentic-priority-slide .agentic-purple {
+  border-color: #a78bce;
+  background: #f4effb;
+}
+
+.agentic-priority-slide .agentic-green {
+  border-color: #79a989;
+  background: #eef8ef;
+}
+
+.agentic-priority-slide .agentic-amber {
+  border-color: #c59a3a;
+  background: #fff6d8;
+}
+
+.agentic-priority-slide .agentic-red {
+  border-color: #cb7278;
+  background: #fff0ee;
+}
+
+.agentic-priority-slide .agentic-callout {
+  border: 1px solid var(--line);
+  border-left: 5px solid #3f78a8;
+  background: #f3f7fa;
+  box-shadow: 0 4px 10px rgb(77 61 45 / 6%);
+}
+
+.agentic-priority-slide .agentic-callout.agentic-safety {
+  border-left-color: var(--amber);
+  background: #fff6d8;
+}
+
+.agentic-priority-slide .agentic-decision {
+  border: 1px solid #1e6337;
+  border-radius: 0.55rem;
+  background: #276f42;
+  box-shadow: 0 5px 0 #184b2b;
+  letter-spacing: 0.025em;
+}
+
+.agentic-role-card {
+  position: relative;
+  padding-left: 1rem;
+  border-left-width: 7px !important;
+}
+
+.agentic-role-card--human,
+.agentic-role-card--authority {
+  border-left-color: var(--green) !important;
+}
+
+.agentic-role-card--software {
+  border-left-color: var(--purple) !important;
+}
+
+.agentic-role-tag,
+.agentic-stream-tag,
+.agentic-gate-label,
+.agentic-route-condition {
+  display: block;
+  margin-bottom: 0.28rem;
+  color: var(--muted);
+  font-size: 0.62rem;
+  font-weight: 850;
+  letter-spacing: 0.075em;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.agentic-route-link {
+  display: grid;
+  grid-template-columns: 1.4rem auto;
+  align-items: center;
+  gap: 0.35rem;
+  margin-left: 1.15rem;
+  color: var(--purple);
+  font-size: 0.67rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.agentic-route-link span {
+  display: grid;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  background: var(--paper);
+  place-items: center;
+}
+
+.agentic-route-link--return {
+  color: var(--green);
+}
+
+.agentic-operating-route {
+  gap: 0.42rem;
+}
+
+.agentic-loop-plate {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  align-content: center;
+  gap: 0.8rem;
+  height: 100%;
+}
+
+.agentic-loop-route {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.agentic-loop-route .agentic-step {
+  position: relative;
+  min-height: 5.6rem;
+  padding: 1rem 0.55rem 0.7rem;
+  border-top: 5px solid var(--rail);
+  border-radius: 0.7rem;
+  text-align: left;
+}
+
+.agentic-loop-route .agentic-step:not(:last-child)::after {
+  position: absolute;
+  z-index: 2;
+  top: 42%;
+  right: -0.52rem;
+  color: var(--rail);
+  font-weight: 900;
+  content: "→";
+}
+
+.agentic-loop-route .agentic-step b {
+  display: block;
+  font-size: 0.92rem;
+}
+
+.agentic-loop-route .agentic-step span {
+  display: block;
+  margin-top: 0.28rem;
+  font-size: 0.69rem;
+  line-height: 1.25;
+}
+
+.agentic-loop-route .agentic-step--adjust {
+  border-top-color: var(--purple);
+}
+
+.agentic-loop-route .agentic-step--verify {
+  border-top-color: var(--green);
+}
+
+.agentic-branch-zone {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  align-items: start;
+  gap: 0.7rem;
+}
+
+.agentic-result-branch {
+  position: relative;
+  grid-column: 1;
+  padding: 0.65rem 0.75rem 0.7rem;
+  border: 1px dashed #9d8f83;
+  border-radius: 0.7rem;
+  background: #fbf7f0;
+}
+
+.agentic-result-branch::before {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: var(--muted);
+  font-size: 0.63rem;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  content: "Observed result changes the route";
+}
+
+.agentic-branch-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.agentic-branch-list li {
+  padding: 0.42rem 0.3rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.69rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.agentic-branch-list li:nth-child(3) {
+  border-width: 3px;
+  border-style: double;
+}
+
+.agentic-branch-list li:nth-child(4) {
+  border-radius: 0.25rem;
+}
+
+.agentic-verifier {
+  grid-column: 2;
+  padding: 0.58rem 0.65rem;
+  border-left: 5px solid var(--green);
+  border-radius: 0.5rem;
+  background: #eef8ef;
+  font-size: 0.7rem;
+  line-height: 1.25;
+}
+
+.agentic-gate-stack {
+  position: relative;
+  gap: 0.6rem;
+}
+
+.agentic-gate-stack::before {
+  position: absolute;
+  z-index: 0;
+  top: 0.5rem;
+  bottom: 3.7rem;
+  left: 1.25rem;
+  border-left: 4px solid var(--rail);
+  content: "";
+}
+
+.agentic-gate-stack > * {
+  position: relative;
+  z-index: 1;
+}
+
+.agentic-gate-card {
+  display: grid;
+  grid-template-columns: 2.15rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.agentic-gate-shape {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid currentColor;
+  background: #fff;
+  font-size: 0.75rem;
+  font-weight: 900;
+  place-items: center;
+}
+
+.agentic-gate-card--allowed .agentic-gate-shape {
+  border-radius: 50%;
+  color: var(--green);
+}
+
+.agentic-gate-card--ask .agentic-gate-shape {
+  color: var(--amber);
+  transform: rotate(45deg);
+}
+
+.agentic-gate-card--ask .agentic-gate-shape span {
+  transform: rotate(-45deg);
+}
+
+.agentic-gate-card--blocked .agentic-gate-shape {
+  border-radius: 0.2rem;
+  color: var(--red);
+}
+
+.agentic-gate-card--ask {
+  border-width: 2px !important;
+  box-shadow: 0 0 0 4px rgb(154 103 0 / 10%), 0 7px 14px rgb(77 61 45 / 8%) !important;
+}
+
+.agentic-gate-card--ask .agentic-gate-label {
+  color: var(--amber);
+}
+
+.agentic-security-plate {
+  display: grid;
+  grid-template-columns: minmax(8.5rem, 0.8fr) 1.1rem minmax(0, 2.8fr) 1.1rem minmax(8.5rem, 0.8fr);
+  align-items: center;
+  gap: 0.65rem;
+  height: 100%;
+}
+
+.agentic-security-origin,
+.agentic-security-review {
+  padding: 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  background: var(--paper);
+  box-shadow: 0 5px 12px rgb(77 61 45 / 7%);
+}
+
+.agentic-security-origin {
+  border-top: 5px solid var(--purple);
+}
+
+.agentic-security-review {
+  border-top: 5px solid var(--green);
+}
+
+.agentic-security-origin b,
+.agentic-security-review b {
+  display: block;
+  font-size: 0.86rem;
+}
+
+.agentic-security-origin span,
+.agentic-security-review span {
+  display: block;
+  margin-top: 0.3rem;
+  color: var(--muted);
+  font-size: 0.68rem;
+  line-height: 1.3;
+}
+
+.agentic-security-connector {
+  color: var(--rail);
+  font-size: 1.15rem;
+  font-weight: 900;
+  text-align: center;
+}
+
+.agentic-security-lanes {
+  display: grid;
+  gap: 0.48rem;
+  padding: 0.6rem;
+  border-block: 2px dashed #9d8f83;
+  background: #fbf7f0;
+}
+
+.agentic-security-lane {
+  display: grid;
+  grid-template-columns: 5.8rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--line);
+  background: #fff;
+}
+
+.agentic-security-lane:nth-child(1) {
+  border-radius: 999px;
+}
+
+.agentic-security-lane:nth-child(2) {
+  border-radius: 0.65rem;
+}
+
+.agentic-security-lane:nth-child(3) {
+  border-radius: 0.2rem;
+}
+
+.agentic-security-lane .agentic-route-condition {
+  margin: 0;
+  color: var(--amber);
+}
+
+.agentic-security-lane b {
+  display: block;
+  font-size: 0.78rem;
+}
+
+.agentic-security-lane span {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--muted);
+  font-size: 0.64rem;
+  line-height: 1.25;
+}
+
+.agentic-evidence-plate {
+  display: grid;
+  grid-template-rows: 1fr auto auto;
+  gap: 0.72rem;
+  height: 100%;
+}
+
+.agentic-evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.72rem;
+  width: 100%;
+}
+
+.agentic-evidence-card {
+  min-width: 0;
+  padding: 0.85rem;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  box-shadow: 0 7px 14px rgb(77 61 45 / 8%);
+}
+
+.agentic-evidence-card:nth-child(1) {
+  border-top: 6px solid #557b9e;
+  border-radius: 0.85rem;
+}
+
+.agentic-evidence-card:nth-child(2) {
+  border-top: 6px double #6c7e53;
+  border-radius: 0.35rem;
+}
+
+.agentic-evidence-card:nth-child(3) {
+  border-top: 6px solid #8b6cae;
+  border-radius: 0.85rem 0.2rem 0.85rem 0.2rem;
+}
+
+.agentic-evidence-card:nth-child(4) {
+  border-top: 6px dashed #a16c49;
+  border-radius: 0.2rem 0.85rem 0.2rem 0.85rem;
+}
+
+.agentic-evidence-card b {
+  display: block;
+  font-size: 0.78rem;
+  line-height: 1.2;
+}
+
+.agentic-evidence-card span:last-child {
+  display: block;
+  margin-top: 0.38rem;
+  color: var(--muted);
+  font-size: 0.67rem;
+  line-height: 1.3;
+}
+
+.agentic-evidence-plate .agentic-callout,
+.agentic-evidence-plate .agentic-decision {
+  margin: 0;
+}
+
+.agentic-priority-slide .agentic-operating-route {
+  padding: 0.82rem;
+}
+
+.agentic-priority-slide .agentic-operating-route .agentic-card {
+  padding: 0.52rem 0.72rem;
+}
+
+.agentic-priority-slide .agentic-operating-route .agentic-card span {
+  font-size: 0.7rem;
+}
+
+.agentic-priority-slide .agentic-operating-route .agentic-route-link {
+  font-size: 0.61rem;
+}
+
+.agentic-priority-slide .agentic-callout {
+  margin-top: 0.5rem;
+  padding: 0.55rem 0.65rem;
+  font-size: 0.82rem;
+  line-height: 1.25;
+}
+
+.agentic-static-stage {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border-radius: 0.8rem;
+  background: var(--paper);
+}
+
+.agentic-static-stage > img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.agentic-static-overlay {
+  position: absolute;
+  inset: 5%;
+  z-index: 1;
+  display: flex;
+  gap: 0.38rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  pointer-events: none;
+}
+
+.agentic-static-overlay--top {
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.agentic-static-overlay--bottom {
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.agentic-static-overlay--grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: space-between;
+}
+
+.agentic-static-overlay--five {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  align-content: start;
+}
+
+.agentic-static-overlay--six {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  align-content: start;
+}
+
+.agentic-static-chip {
+  padding: 0.3rem 0.42rem;
+  border: 1px solid rgb(64 58 54 / 38%);
+  border-radius: 0.45rem;
+  color: var(--ink);
+  background: rgb(255 253 247 / 92%);
+  box-shadow: 0 3px 9px rgb(36 33 31 / 12%);
+  font-size: 0.64rem;
+  font-weight: 800;
+  line-height: 1.16;
+  list-style: none;
+  text-align: center;
+}
+
+.agentic-static-chip--purple {
+  border-color: #8d70bd;
+  background: rgb(244 239 251 / 94%);
+}
+
+.agentic-static-chip--green {
+  border-color: #5d956e;
+  background: rgb(238 248 239 / 94%);
+}
+
+.agentic-static-chip--amber {
+  border-color: #b78b2b;
+  background: rgb(255 246 216 / 95%);
+}
+
+.agentic-static-chip--red {
+  border-color: #bd6269;
+  background: rgb(255 240 238 / 95%);
+}
+
+.agentic-static-chip b,
+.agentic-static-chip span {
+  display: block;
+}
+
+.agentic-static-chip span {
+  margin-top: 0.14rem;
+  font-size: 0.56rem;
+  font-weight: 650;
+}
+
+.agentic-static-band {
+  position: absolute;
+  right: 5%;
+  bottom: 5%;
+  left: 5%;
+  z-index: 2;
+  padding: 0.38rem 0.55rem;
+  border: 1px solid rgb(64 58 54 / 38%);
+  border-radius: 0.45rem;
+  color: var(--ink);
+  background: rgb(255 253 247 / 94%);
+  box-shadow: 0 3px 9px rgb(36 33 31 / 12%);
+  font-size: 0.58rem;
+  font-weight: 800;
+  line-height: 1.18;
+  text-align: center;
+}
+
+.agentic-static-band--decision {
+  border-color: #1e6337;
+  color: #fff;
+  background: rgb(39 111 66 / 96%);
+}
+
+.agentic-static-band--safety {
+  bottom: 14%;
+  border-color: #b78b2b;
+  background: rgb(255 246 216 / 95%);
+}
+
+.agentic-static-stage--with-band .agentic-static-overlay {
+  bottom: 18%;
+}
+
+.agentic-static-stage--dense .agentic-static-chip {
+  padding: 0.25rem 0.34rem;
+  font-size: 0.58rem;
+}
+
+.agentic-static-stage--dense .agentic-static-chip span {
+  font-size: 0.52rem;
+}
+
+/* Keep module treatment stable when Slidev loads scoped layout CSS later. */
+.slidev-layout.agentic-priority-slide.ghcp-two-panel,
+.slidev-layout.agentic-priority-slide.ghcp-single-panel {
+  background: linear-gradient(135deg, #fffdf8 0%, #fff 58%, #faf4ea 100%);
+}
+
+.slidev-layout.agentic-priority-slide .ghcp-two-panel__text,
+.slidev-layout.agentic-priority-slide .ghcp-two-panel__visual,
+.slidev-layout.agentic-priority-slide .ghcp-single-panel__content {
+  border-color: var(--line);
+  background: rgb(255 253 247 / 92%);
+}
+
+.slidev-layout.agentic-priority-slide .ghcp-two-panel__visual {
+  box-shadow: 0 18px 34px rgb(77 61 45 / 10%);
+}
+
+.agentic-static-stage .agentic-static-chip code {
+  padding: 0.08em 0.32em;
+  border: 1px solid #d0d7de;
+  border-radius: 0.35em;
+  color: #24292f !important;
+  background: #eaeef2 !important;
+  font-size: 0.88em;
+}
+
+/* Keep the complete four-card agenda inside its text panel. */
+.agentic-agenda-slide .ghcp-two-panel__text {
+  padding: 1.25rem;
+}
+
+.agentic-agenda-slide .ghcp-two-panel__text > .agentic-stack {
+  gap: 0.38rem;
+}
+
+.agentic-agenda-slide .ghcp-two-panel__text > .agentic-stack .agentic-card {
+  padding: 0.55rem 0.65rem;
+}
+
+.agentic-agenda-slide .ghcp-two-panel__text > .agentic-stack .agentic-card b {
+  font-size: 0.92rem;
+  line-height: 1.18;
+}
+
+.agentic-agenda-slide .ghcp-two-panel__text > .agentic-stack .agentic-card span {
+  margin-top: 0.12rem;
+  font-size: 0.7rem;
+  line-height: 1.22;
+}
+
+/* Render `/init` as title text without changing inline code in slide content. */
+.agentic-init-title-slide .ghcp-single-panel__title h1 code {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: inherit !important;
+  background: transparent !important;
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+/*
+ * Preserve the approved panel-fit results without relying on the earlier
+ * stylesheet/observer load race. These values are scoped to the four slides
+ * whose content-fit variables differed in the forensic build comparison.
+ */
+.slidev-page-10 .ghcp-single-panel__content,
+.slidev-page-20 .ghcp-single-panel__content {
+  --ghcp-content-scale: 0.68 !important;
+}
+
+.slidev-page-12 .ghcp-two-panel__text {
+  --ghcp-panel-scale: 0.856 !important;
+}
+
+.slidev-page-19 .ghcp-two-panel__text {
+  --ghcp-panel-scale: 1 !important;
+}
+
+/* J-authorized A30 fit repair. No ordinal selectors or shared auto-fit change.
+   Reserve real space for the complete route, including its focus outline. */
+.slidev-layout.agentic-mission-slide.ghcp-single-panel {
+  padding: 32px 48px;
+  gap: 16px;
+}
+
+.slidev-layout.agentic-mission-slide .ghcp-single-panel__title h1 {
+  font-size: 36px;
+  line-height: 40px;
+}
+
+.slidev-layout.agentic-mission-slide .ghcp-single-panel__content {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 12px;
+  padding: 16px 24px;
+}
+
+.agentic-mission-slide .ghcp-single-panel__content h3 {
+  margin: 0;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.agentic-mission-slide .agentic-grid {
+  width: 100%;
+  gap: 10px;
+}
+
+.agentic-mission-slide .agentic-card {
+  padding: 10px 12px;
+}
+
+.agentic-mission-slide .agentic-card b,
+.agentic-mission-slide .agentic-card span {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.agentic-mission-slide .agentic-decision {
+  display: block;
+  padding: 12px;
+  color: #fff;
+  font-size: 16px;
+  line-height: 22px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.agentic-mission-slide .agentic-decision:focus-visible {
+  outline: 3px solid #0969da;
+  outline-offset: 3px;
+}
+
+/* 2026-09-14 bounded formatting pass. Eager module-local overrides reuse the
+   approved paper/ink/role palette and shared single-/two-panel structures.
+   Native request diagrams retain their exact 960x540 coordinate contract. */
+:root .slidev-layout.ghcp-two-panel,
+:root .slidev-layout.ghcp-single-panel:not(.agentic-request-slide) {
+  --ink: #24211f;
+  --muted: #625b54;
+  --line: #d8cfc2;
+  --paper: #fffdf7;
+  --paper-2: #f8f1e7;
+  --rail: #403a36;
+  --purple: #7650b7;
+  --green: #287a45;
+  --amber: #9a6700;
+  --red: #b4232d;
+  padding: 32px 48px;
+  gap: 18px;
+  color: #24211f;
+  background: #fffdf7;
+}
+.slidev-layout.ghcp-two-panel .ghcp-two-panel__title h1,
+.slidev-layout.ghcp-single-panel:not(.agentic-request-slide) .ghcp-single-panel__title h1 {
+  color: #24211f;
+  font-size: 36px;
+  line-height: 40px;
+  letter-spacing: -0.025em;
+}
+.slidev-layout.ghcp-two-panel .ghcp-two-panel__panels {
+  gap: 24px;
+}
+.slidev-layout.agentic-slide.agentic-priority-slide .ghcp-two-panel__panels {
+  grid-template-columns: minmax(0, 42fr) minmax(0, 58fr);
+}
+.slidev-layout.ghcp-two-panel .ghcp-two-panel__text {
+  padding: 24px;
+  border-color: #d8cfc2;
+  background: #fffdf7;
+}
+.slidev-layout.ghcp-two-panel .ghcp-two-panel__visual,
+.slidev-layout.ghcp-single-panel:not(.agentic-request-slide) .ghcp-single-panel__content {
+  border-color: #d8cfc2;
+  background: #f8f1e7;
+  box-shadow: 0 8px 20px rgb(77 61 45 / 8%);
+}
+.slidev-layout.ghcp-single-panel:not(.agentic-request-slide) .ghcp-single-panel__content {
+  padding: 16px 24px;
+}
+.slidev-layout.ghcp-two-panel .ghcp-two-panel__text :is(p, li),
+.slidev-layout.ghcp-single-panel:not(.agentic-request-slide) .ghcp-single-panel__content :is(p, li) {
+  color: #403a36;
+}
+.slidev-layout.ghcp-two-panel .ghcp-two-panel__text :is(h2, strong),
+.slidev-layout.ghcp-single-panel:not(.agentic-request-slide) .ghcp-single-panel__content :is(h2, h3, strong) {
+  color: #24211f;
+}
+.slidev-layout .agentic-card,
+.slidev-layout .agentic-step {
+  border-color: #d8cfc2;
+  background: #fffdf7;
+}
+.slidev-layout .agentic-purple { border-color: #a78bce; background: #f4effb; }
+.slidev-layout .agentic-green { border-color: #79a989; background: #eef8ef; }
+.slidev-layout .agentic-amber { border-color: #c59a3a; background: #fff6d8; }
+.slidev-layout .agentic-red { border-color: #cb7278; background: #fff0ee; }
+.slidev-layout .agentic-callout {
+  color: #24211f;
+  border-left-color: #7650b7;
+  background: #f4effb;
+}
+.slidev-layout .agentic-callout.agentic-safety {
+  border-left-color: #9a6700;
+  background: #fff6d8;
+}
+.slidev-layout .agentic-surface { background: #fffdf7; }
+.slidev-layout .agentic-code { color: #24211f; background: #fffdf7; }
+.slidev-layout.agentic-agenda-slide .ghcp-two-panel__text { padding: 20px; }
+
+/* Preserve both official files, proportions and clear space inside the copy
+   pane. Percentage caps prevent the theme's fixed widths crossing its edge. */
+.slidev-layout.agentic-slide.agentic-priority-slide .workshop-cover-logos {
+  width: 100%;
+  gap: 16px;
+}
+.slidev-layout.agentic-slide.agentic-priority-slide .workshop-cover-logos__github {
+  max-width: 54%;
+  height: auto;
+}
+.slidev-layout.agentic-slide.agentic-priority-slide .workshop-cover-logos__microsoft {
+  max-width: 40%;
+  height: auto;
+}
+
+/* Palette only: no request-region positions, text metrics or Details behavior
+   change. Keep the A13 table/footer gap and the A27 long-title treatment. */
+.slidev-layout.agentic-request-slide.ghcp-single-panel {
+  color: #24211f;
+  background: #fffdf7;
+}
+.slidev-layout.agentic-request-slide .ghcp-single-panel__title h1,
+.slidev-layout.agentic-request-slide .request-still,
+.slidev-layout.agentic-request-slide .request-still .request-mechanisms :is(th, td) {
+  color: #24211f;
+}
+.slidev-layout.agentic-request-slide .request-heading,
+.slidev-layout.agentic-request-slide .request-connector {
+  color: #624099;
+}
+.slidev-layout.agentic-request-slide .request-mechanisms tbody tr:nth-child(odd) {
+  background: #f8f1e7;
+}
+.slidev-layout.agentic-request-slide .request-controls button {
+  color: #24211f;
+  background: #f4effb;
+  border-color: #7650b7;
+}
+.slidev-layout.agentic-request-slide .request-caveats {
+  color: #625b54;
+}
+
+/* Native labels occupy their own rows, never a character's face or mechanics.
+   The original rasters remain whole, unmodified and contained in the middle
+   row. The opening has no labels and keeps its proven representative framing. */
+.slidev-layout .agentic-static-stage:has(.agentic-static-overlay) {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  gap: 10px;
+  padding: 16px;
+}
+.slidev-layout .agentic-static-stage:has(.agentic-static-overlay) > img {
+  position: static;
+  grid-row: 2;
+  min-height: 0;
+  object-fit: contain;
+}
+.slidev-layout .agentic-static-stage .agentic-static-overlay,
+.slidev-layout .agentic-static-stage .agentic-static-band {
+  position: static;
+  inset: auto;
+  width: 100%;
+  min-width: 0;
+}
+.slidev-layout .agentic-static-stage .agentic-static-overlay { grid-row: 1; }
+.slidev-layout .agentic-static-stage .agentic-static-overlay--bottom,
+.slidev-layout .agentic-static-stage .agentic-static-band { grid-row: 3; }
+.slidev-layout .agentic-static-stage .agentic-static-band--decision { grid-row: 4; }
+.slidev-layout .agentic-static-stage .agentic-static-chip {
+  min-width: 0;
+  box-shadow: none;
+}
+
+/* 2026-09-14 character correction: only explicit A04/A05/A10 wrappers.
+   Keep the existing controller for qualified Details, focus and re-entry.
+   Replace its legacy main with the complete native character-world main.
+   No original teaching is removed from the replacement or Details. */
+.character-correction {
+  position: absolute;
+  inset: 0;
+  color: #24211f;
+  font: 18px/24px "Mona Sans", "Segoe UI", Arial, sans-serif;
+}
+.character-correction .request-main { display: none; }
+.character-correction:has(.request-still:not([data-view="main"])) .character-main { display: none; }
+.character-correction .character-main {
+  position: absolute;
+  left: 48px;
+  top: 96px;
+  width: 864px;
+  height: 340px;
+  display: grid;
+  grid-template-columns: 536px 308px;
+  gap: 20px;
+}
+.character-correction .character-dossier,
+.character-correction .character-field {
+  min-width: 0;
+  min-height: 0;
+  border: 1px solid #d8cfc2;
+  border-radius: 16px;
+  background: #f8f1e7;
+  overflow: hidden;
+}
+.character-correction .character-dossier { padding: 14px 16px; }
+.character-correction .character-dossier h2 {
+  margin: 0 0 10px;
+  color: #287a45;
+  font: 700 22px/26px "Mona Sans", "Segoe UI", Arial, sans-serif;
+}
+.character-correction .character-scope { margin-bottom: 6px; }
+.character-correction .character-scope b,
+.character-correction .character-scope code,
+.character-correction .character-brief > * { display: block; }
+.character-correction code {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #24211f;
+  font: 18px/24px Consolas, monospace;
+}
+.character-correction .character-rule {
+  padding: 6px 10px;
+  border-left: 3px solid #287a45;
+  background: #eef8ef;
+}
+.character-correction .character-field {
+  display: grid;
+  grid-template-rows: 184px 1fr;
+  background: #fffdf7;
+}
+.character-correction .character-art { min-height: 0; padding: 8px; }
+.character-correction .character-art img { width: 100%; height: 100%; object-fit: contain; }
+.character-correction .character-brief {
+  padding: 8px 12px;
+  border-top: 1px solid #d8cfc2;
+  background: #f4effb;
+}
+.character-correction .character-brief b { color: #624099; }
+.character-correction--instructions .character-field { grid-template-rows: 150px 1fr; }
+.character-correction .request-still { pointer-events: none; }
+.character-correction .request-controls,
+.character-correction .request-details { pointer-events: auto; }
+.character-correction .request-controls {
+  top: 410px;
+  left: 620px;
+  right: 48px;
+  justify-content: flex-end;
+}
+.character-correction .request-details {
+  top: 96px;
+  padding: 18px 20px;
+  border: 1px solid #d8cfc2;
+  border-radius: 16px;
+  background: #f8f1e7;
+  width: 864px;
+  min-height: 298px;
+}
+.character-correction .request-caveats { color: #403a36; }
+
+/* 2026-09-14 bounded readability repair. Slidev's :not(pre) > code
+   beats .character-correction code (type specificity); scoped theme h2
+   ties the old heading selector and wins by order. Explicit target ancestry
+   wins both without !important, shared changes, or auto-fit font reduction. */
+.slidev-layout.agentic-request-slide .character-correction code {
+  background: transparent;
+  color: #24211f;
+  padding: 0;
+  border: 0;
+  font: 400 18px/24px Consolas, monospace;
+}
+.slidev-layout.agentic-request-slide .character-correction .character-dossier h2 {
+  margin: 0 0 10px;
+  color: #287a45;
+  font: 700 22px/26px "Mona Sans", "Segoe UI", Arial, sans-serif;
+}
+.character-correction .character-scope--inline b { display: inline; }
+.character-correction--instructions .character-main { height: 328px; }
+.slidev-layout.agentic-request-slide .character-correction .request-caveats {
+  top: 432px;
+  color: #403a36;
+}
+
+/* Conditional continuation: A05/A10 only. Separate body, pointer controls,
+   caveats and existing nav; keep unchanged qualified Details controller. */
+.character-correction--activation .character-main,
+.character-correction--skills .character-main { height: 308px; }
+.character-correction--activation .character-field,
+.character-correction--skills .character-field { grid-template-rows: 132px 1fr; }
+.character-correction .character-mismatch { margin-bottom: 8px; }
+.character-correction .character-checks { margin-bottom: 8px; }
+.character-correction .character-stages { margin: 8px 0; }
+.character-correction .character-condition { color: #624099; padding-left: 24px; }
+.slidev-layout.agentic-request-slide .character-correction .request-controls {
+  top: 408px;
+  left: 620px;
+  right: 48px;
+  justify-content: flex-end;
+}
+.slidev-layout.agentic-request-slide .character-correction .request-details {
+  top: 96px;
+  left: 48px;
+  width: 864px;
+  min-height: 308px;
+  padding: 18px 20px;
+  border: 1px solid #d8cfc2;
+  border-radius: 16px;
+  background: #f8f1e7;
+}
+.slidev-layout.agentic-request-slide .character-correction--activation .request-caveats,
+.slidev-layout.agentic-request-slide .character-correction--skills .request-caveats {
+  top: 432px;
+}
+
+/* A11 only: native text anchored to the unchanged 1536x1024 dossier.
+   Its own aspect-ratio frame removes object-fit letterbox ambiguity and
+   bypasses the inherited static-overlay grid without changing that grid.
+   Text backplates are opaque for measurable contrast, inset from drawn edges.
+   All label x coordinates start at 704, beyond Riley's hand (x <= 660). */
+.slidev-layout.ghcp-two-panel:has(.agentic-specialist-dossier) .ghcp-two-panel__panels {
+  grid-template-columns: 270px minmax(0, 1fr);
+  gap: 16px;
+}
+.slidev-layout.ghcp-two-panel:has(.agentic-specialist-dossier) .ghcp-two-panel__text {
+  padding: 18px;
+  gap: 8px;
+}
+.slidev-layout.ghcp-two-panel:has(.agentic-specialist-dossier) .ghcp-two-panel__text h2 {
+  font-size: 22px;
+  line-height: 26px;
+}
+.slidev-layout.ghcp-two-panel:has(.agentic-specialist-dossier) .ghcp-two-panel__text li {
+  font-size: 18px;
+  line-height: 24px;
+  margin: 8px 0;
+}
+.slidev-layout .agentic-specialist-dossier {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  flex: none;
+}
+.slidev-layout .agentic-specialist-dossier > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.slidev-layout .agentic-specialist-dossier .specialist-compartment {
+  position: absolute;
+  left: 45.833333%;
+  width: 35.416667%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: #24211f;
+  background: #fff8ed;
+  font: 18px/22px "Mona Sans", "Segoe UI", Arial, sans-serif;
+  text-align: center;
+}
+.slidev-layout .agentic-specialist-dossier .specialist-compartment b {
+  color: #24211f;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+}
+.slidev-layout .agentic-specialist-dossier .specialist-compartment span {
+  display: block;
+  white-space: nowrap;
+}
+.slidev-layout .agentic-specialist-dossier .specialist-compartment--role {
+  top: 10.742188%;
+  height: 19.53125%;
+}
+.slidev-layout .agentic-specialist-dossier .specialist-compartment--may {
+  top: 35.644531%;
+  height: 19.921875%;
+}
+.slidev-layout .agentic-specialist-dossier .specialist-compartment--stop {
+  top: 61.523438%;
+  height: 24.414063%;
+}
+
+/* Owner T8 plain-English revision only. Preserve the inherited title/frame.
+   Keep optional controls right of the measured persistent navigation. */
+.slidev-layout.agentic-request-slide .request-still[data-scene="T8"] .t8-takeaway {
+  top: 100px;
+}
+.slidev-layout.agentic-request-slide .request-still[data-scene="T8"] .t8-takeaway .request-heading {
+  font-size: 24px;
+  line-height: 28px;
+  margin-bottom: 4px;
+}
+.slidev-layout.agentic-request-slide .request-still[data-scene="T8"] .t8-story {
+  top: 174px;
+}
+.slidev-layout.agentic-request-slide .request-still[data-scene="T8"] .t8-settings {
+  top: 264px;
+}
+.slidev-layout.agentic-request-slide .request-still[data-scene="T8"] .t8-guards {
+  top: 328px;
+}
+.slidev-layout.agentic-request-slide .request-still[data-scene="T8"] .request-caveats {
+  top: 416px;
+  color: #403a36;
+}
+.slidev-layout.agentic-request-slide .request-still[data-scene="T8"] .request-controls {
+  left: 600px;
+  right: 48px;
+  top: 484px;
+  height: 32px;
+}
+.slidev-layout.agentic-request-slide .request-still[data-scene="T8"] .request-controls button {
+  height: 32px;
+}
+.slidev-layout.agentic-request-slide .request-still[data-scene="T8"] .request-details {
+  top: 108px;
+}
+.slidev-layout.agentic-request-slide .request-still[data-scene="T8"] .request-details .request-line {
+  margin-bottom: 4px;
+}
+
+/* Approved A25 only: native 980x552 geometry, no auto-shrinking or shared nav changes. */
+.slidev-layout.agentic-optimization-slide.ghcp-single-panel {
+  position: relative;
+  display: block;
+  padding: 0;
+  color: #24211f;
+  background: #fffdf7;
+  font-family: "Mona Sans", "Segoe UI", Arial, sans-serif;
+}
+.slidev-layout.agentic-optimization-slide .ghcp-single-panel__title {
+  position: absolute;
+  z-index: 1;
+  left: 48px;
+  top: 24px;
+  width: 884px;
+}
+.slidev-layout.agentic-optimization-slide .ghcp-single-panel__title h1 {
+  margin: 0;
+  color: #24211f;
+  font: 700 36px/40px "Mona Sans", "Segoe UI", Arial, sans-serif;
+  letter-spacing: 0;
+}
+.slidev-layout.agentic-optimization-slide .ghcp-single-panel__content {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  --ghcp-content-scale: 1 !important;
+}
+.agentic-optimization-slide .optimization-six-tips {
+  color: #24211f;
+  font-size: 19px;
+  line-height: 22px;
+}
+.agentic-optimization-slide .optimization-roles {
+  position: absolute;
+  left: 48px;
+  top: 68px;
+  color: #554b43;
+  font-size: 19px;
+  line-height: 22px;
+}
+.agentic-optimization-slide .optimization-cards {
+  position: absolute;
+  left: 48px;
+  top: 98px;
+  width: 884px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(3, 104px);
+  gap: 8px 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.slidev-layout.agentic-optimization-slide .optimization-cards li {
+  min-width: 0;
+  margin: 0;
+  padding: 6px 9px;
+  border: 1px solid #d8cfc2;
+  border-radius: 10px;
+  background: #f8f1e7;
+}
+.slidev-layout.agentic-optimization-slide .optimization-cards h2 {
+  margin: 0 0 3px;
+  color: #24211f;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 23px;
+}
+.agentic-optimization-slide .optimization-number { color: #624099; }
+.slidev-layout.agentic-optimization-slide .optimization-cards p {
+  margin: 0;
+  color: #24211f;
+  font-size: 19px;
+  line-height: 22px;
+}
+.agentic-optimization-slide .optimization-takeaway {
+  position: absolute;
+  left: 48px;
+  top: 437px;
+  width: 884px;
+  color: #493073;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 25px;
+}
+.agentic-optimization-slide .optimization-qualification {
+  position: absolute;
+  left: 48px;
+  top: 464px;
+  width: 884px;
+  color: #554b43;
+  font-size: 18.5px;
+  line-height: 22px;
+}
+.agentic-optimization-slide .optimization-controls {
+  position: absolute;
+  right: 48px;
+  top: 504px;
+}
+.agentic-optimization-slide .optimization-controls button {
+  padding: 6px 14px;
+  border: 1px solid #624099;
+  border-radius: 8px;
+  color: #493073;
+  background: #f4effb;
+  font: 700 19px/24px "Mona Sans", "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+}
+.agentic-optimization-slide .optimization-controls button:focus-visible {
+  outline: 3px solid #493073;
+  outline-offset: 3px;
+}
+.agentic-optimization-slide .optimization-example {
+  position: absolute;
+  left: 48px;
+  top: 108px;
+  width: 884px;
+  height: 304px;
+  padding: 24px;
+  border: 1px solid #d8cfc2;
+  border-left: 5px solid #624099;
+  border-radius: 12px;
+  background: #f8f1e7;
+}
+.slidev-layout.agentic-optimization-slide .optimization-example h2 {
+  margin: 0 0 20px;
+  color: #493073;
+  font-size: 23px;
+  line-height: 28px;
+}
+.slidev-layout.agentic-optimization-slide .optimization-example blockquote {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: #24211f;
+  font-size: 28px;
+  line-height: 36px;
+}
+.slidev-layout.agentic-optimization-slide .optimization-example p {
+  margin: 20px 0 0;
+  color: #554b43;
+  font-size: 20px;
+  line-height: 26px;
+}
+
+/* Approved A26 only: three readable review rows, supporting unchanged raster.
+   Same fixed native canvas pattern as A25; title must paint above content. */
+.slidev-layout.agentic-review-slide.ghcp-single-panel {
+  position: relative;
+  display: block;
+  padding: 0;
+  color: #24211f;
+  background: #fffdf7;
+  font-family: "Mona Sans", "Segoe UI", Arial, sans-serif;
+}
+.slidev-layout.agentic-review-slide .ghcp-single-panel__title {
+  position: absolute;
+  z-index: 1;
+  left: 40px;
+  top: 24px;
+  width: 900px;
+}
+.slidev-layout.agentic-review-slide .ghcp-single-panel__title h1 {
+  margin: 0;
+  color: #24211f;
+  font: 700 30px/36px "Mona Sans", "Segoe UI", Arial, sans-serif;
+  letter-spacing: 0;
+}
+.slidev-layout.agentic-review-slide .ghcp-single-panel__content {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  --ghcp-content-scale: 1 !important;
+}
+.agentic-review-slide .review-stages {
+  position: absolute;
+  left: 40px;
+  top: 86px;
+  width: 660px;
+  display: grid;
+  gap: 8px;
+}
+.agentic-review-slide .review-stage {
+  padding: 8px 12px;
+  border: 1px solid #d8cfc2;
+  border-left: 4px solid #624099;
+  border-radius: 9px;
+  background: #f8f1e7;
+}
+.agentic-review-slide .review-stage:last-child { border-left-color: #27633e; }
+.slidev-layout.agentic-review-slide .review-stage h2 {
+  margin: 0 0 4px;
+  color: #493073;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 23px;
+}
+.slidev-layout.agentic-review-slide .review-stage:last-child h2 { color: #27633e; }
+.slidev-layout.agentic-review-slide .review-stage ul {
+  margin: 0;
+  padding-left: 21px;
+  list-style: disc;
+}
+.slidev-layout.agentic-review-slide .review-stage li {
+  margin: 0;
+  padding: 0;
+  color: #24211f;
+  font-size: 19px;
+  line-height: 22px;
+}
+.agentic-review-slide .review-support {
+  position: absolute;
+  left: 714px;
+  top: 104px;
+  width: 226px;
+  margin: 0;
+}
+.agentic-review-slide .review-support img {
+  display: block;
+  width: 226px;
+  height: 238px;
+  object-fit: cover;
+  object-position: right center;
+  border-radius: 10px;
+}
+.agentic-review-slide .review-support figcaption {
+  margin-top: 16px;
+  color: #554b43;
+  font-size: 19px;
+  line-height: 24px;
+}
+.agentic-review-slide .review-support strong { color: #27633e; }
+
+/* Approved A19 only: full-width native stages, no art or shared layout change. */
+.slidev-layout.agentic-actions-slide.ghcp-single-panel {
+  position: relative;
+  display: block;
+  padding: 0;
+  color: #24211f;
+  background: #fffdf7;
+  font-family: "Mona Sans", "Segoe UI", Arial, sans-serif;
+}
+.slidev-layout.agentic-actions-slide .ghcp-single-panel__title {
+  position: absolute;
+  left: 40px;
+  top: 28px;
+  right: 40px;
+  z-index: 2;
+}
+.slidev-layout.agentic-actions-slide .ghcp-single-panel__title h1 {
+  margin: 0;
+  color: #24211f;
+  font: 700 32px/38px "Mona Sans", "Segoe UI", Arial, sans-serif;
+  letter-spacing: 0;
+}
+.slidev-layout.agentic-actions-slide .ghcp-single-panel__content {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  --ghcp-content-scale: 1 !important;
+}
+.agentic-actions-slide .actions-stages {
+  position: absolute;
+  left: 40px;
+  right: 40px;
+  top: 88px;
+  display: grid;
+  gap: 10px;
+}
+.agentic-actions-slide .actions-stage {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 14px;
+  align-items: start;
+  padding: 10px 18px;
+  border: 1px solid #d8cfc2;
+  border-left: 4px solid #624099;
+  border-radius: 10px;
+  background: #f8f1e7;
+}
+.agentic-actions-slide .actions-number {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid #624099;
+  border-radius: 50%;
+  color: #493073;
+  background: #f4effb;
+  font-size: 23px;
+  font-weight: 700;
+}
+.slidev-layout.agentic-actions-slide .actions-stage h2 {
+  margin: 0 0 5px;
+  color: #493073;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 25px;
+}
+.slidev-layout.agentic-actions-slide .actions-stage p {
+  margin: 0;
+  color: #24211f;
+  font-size: 21px;
+  line-height: 27px;
+}
+.agentic-actions-slide .actions-stage--human {
+  border-left-color: #27633e;
+  background: #edf4eb;
+}
+.slidev-layout.agentic-actions-slide .actions-stage--human h2 { color: #27633e; }
+.agentic-actions-slide .actions-stage--human .actions-number {
+  color: #27633e;
+  border-color: #27633e;
+  background: #edf4eb;
+}
+.agentic-actions-slide .actions-takeaway {
+  position: absolute;
+  left: 40px;
+  right: 40px;
+  top: 414px;
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 12px;
+  padding-top: 8px;
+  border-top: 1px solid #b8ab9b;
+  color: #554b43;
+}
+.agentic-actions-slide .actions-takeaway strong {
+  font-size: 19px;
+  line-height: 26px;
+}
+.slidev-layout.agentic-actions-slide .actions-takeaway p {
+  margin: 0;
+  color: #24211f;
+  font-size: 21px;
+  line-height: 27px;
+}
+
+/* Approved A17 only: complete native save points above persistent navigation. */
+.slidev-layout.agentic-checkpoint-slide.ghcp-single-panel {
+  position: relative;
+  display: block;
+  padding: 0;
+  color: #24211f;
+  background: #fffdf7;
+  font-family: "Mona Sans", "Segoe UI", Arial, sans-serif;
+}
+.slidev-layout.agentic-checkpoint-slide .ghcp-single-panel__title {
+  position: absolute;
+  left: 40px;
+  top: 28px;
+  right: 40px;
+  z-index: 2;
+}
+.slidev-layout.agentic-checkpoint-slide.ghcp-single-panel .ghcp-single-panel__title h1 {
+  margin: 0;
+  color: #24211f;
+  font: 700 32px/38px "Mona Sans", "Segoe UI", Arial, sans-serif;
+  letter-spacing: 0;
+}
+.slidev-layout.agentic-checkpoint-slide .ghcp-single-panel__content {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  --ghcp-content-scale: 1 !important;
+}
+.slidev-layout.agentic-checkpoint-slide.ghcp-single-panel .ghcp-single-panel__content p {
+  margin: 0;
+  color: #24211f;
+  font-size: 20px;
+  line-height: 24px;
+}
+.slidev-layout.agentic-checkpoint-slide.ghcp-single-panel .ghcp-single-panel__content .checkpoint-framing {
+  position: absolute;
+  left: 40px;
+  top: 78px;
+  right: 40px;
+  font-size: 23px;
+  line-height: 28px;
+}
+.agentic-checkpoint-slide .checkpoint-cards {
+  position: absolute;
+  left: 40px;
+  right: 40px;
+  top: 116px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 96px 96px;
+  gap: 10px 14px;
+}
+.agentic-checkpoint-slide .checkpoint-card {
+  padding: 9px 16px;
+  border: 1px solid #d8cfc2;
+  border-left: 4px solid #624099;
+  border-radius: 10px;
+  background: #f8f1e7;
+}
+.slidev-layout.agentic-checkpoint-slide.ghcp-single-panel .ghcp-single-panel__content h2 {
+  margin: 0 0 5px;
+  color: #493073;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+}
+.agentic-checkpoint-slide .checkpoint-card--saved {
+  border-left-color: #27633e;
+  background: #edf4eb;
+}
+.slidev-layout.agentic-checkpoint-slide.ghcp-single-panel .ghcp-single-panel__content .checkpoint-card--saved h2 { color: #27633e; }
+.agentic-checkpoint-slide .checkpoint-limit,
+.agentic-checkpoint-slide .checkpoint-takeaway {
+  position: absolute;
+  left: 40px;
+  right: 40px;
+  display: grid;
+  grid-template-columns: 172px 1fr;
+  gap: 12px;
+}
+.agentic-checkpoint-slide .checkpoint-limit { top: 332px; }
+.slidev-layout.agentic-checkpoint-slide.ghcp-single-panel .ghcp-single-panel__content .checkpoint-limit h2 { color: #74401f; }
+.agentic-checkpoint-slide .checkpoint-takeaway {
+  top: 412px;
+  padding-top: 8px;
+  border-top: 1px solid #b8ab9b;
+}
+.slidev-layout.agentic-checkpoint-slide.ghcp-single-panel .ghcp-single-panel__content .checkpoint-takeaway h2 { color: #27633e; }
+
+/* Approved A18 only: complete conditional evidence, no automatic gate chain. */
+.slidev-layout.agentic-security-expanded-slide.ghcp-single-panel {
+  position: relative; display: block; padding: 0;
+  color: #24211f; background: #fffdf7;
+  font-family: "Mona Sans", "Segoe UI", Arial, sans-serif;
+}
+.slidev-layout.agentic-security-expanded-slide .ghcp-single-panel__title {
+  position: absolute; left: 40px; top: 28px; right: 40px; z-index: 2;
+}
+.slidev-layout.agentic-security-expanded-slide.ghcp-single-panel .ghcp-single-panel__title h1 {
+  margin: 0; color: #24211f;
+  font: 700 32px/38px "Mona Sans", "Segoe UI", Arial, sans-serif;
+  letter-spacing: 0;
+}
+.slidev-layout.agentic-security-expanded-slide .ghcp-single-panel__content {
+  position: absolute; inset: 0; padding: 0; border: 0; border-radius: 0;
+  box-shadow: none; background: transparent; --ghcp-content-scale: 1 !important;
+}
+.agentic-security-expanded-slide .security-stages {
+  position: absolute; left: 40px; right: 40px; top: 80px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  grid-template-rows: 170px 220px; gap: 10px 14px;
+}
+.agentic-security-expanded-slide .security-stage {
+  padding: 10px 14px; border: 1px solid #d8cfc2;
+  border-top: 4px solid #624099; border-radius: 9px; background: #f8f1e7;
+}
+.slidev-layout.agentic-security-expanded-slide.ghcp-single-panel .ghcp-single-panel__content h2 {
+  margin: 0 0 8px; color: #493073; font-size: 19px;
+  font-weight: 700; line-height: 22px; letter-spacing: 0;
+}
+.slidev-layout.agentic-security-expanded-slide.ghcp-single-panel .ghcp-single-panel__content p {
+  margin: 0; color: #24211f; font-size: 19px; line-height: 23px;
+}
+.slidev-layout.agentic-security-expanded-slide.ghcp-single-panel .ghcp-single-panel__content code {
+  padding: 0; border: 0; border-radius: 0; box-shadow: none;
+  color: #493073; background: transparent; font-size: 19px; line-height: inherit;
+}
+.agentic-security-expanded-slide .security-at { border-top-color: #74401f; }
+.slidev-layout.agentic-security-expanded-slide.ghcp-single-panel .security-at h2 { color: #74401f; }
+.agentic-security-expanded-slide .security-evidence {
+  display: grid; grid-template-columns: .85fr 1.15fr; gap: 12px;
+}
+.agentic-security-expanded-slide .security-evidence > section + section {
+  border-left: 1px solid #b8ab9b; padding-left: 12px;
+}
+.slidev-layout.agentic-security-expanded-slide.ghcp-single-panel .ghcp-single-panel__content h3 {
+  margin: 0 0 4px; color: #493073; font-size: 18.5px;
+  font-weight: 700; line-height: 22px; letter-spacing: 0;
+}
+.slidev-layout.agentic-security-expanded-slide.ghcp-single-panel .ghcp-single-panel__content .security-conditions {
+  margin-top: 4px; padding-top: 2px; border-top: 1px solid #b8ab9b;
+}
+.agentic-security-expanded-slide .security-human {
+  border-top-color: #27633e; background: #edf4eb;
+}
+.slidev-layout.agentic-security-expanded-slide.ghcp-single-panel .security-human h2 { color: #27633e; }

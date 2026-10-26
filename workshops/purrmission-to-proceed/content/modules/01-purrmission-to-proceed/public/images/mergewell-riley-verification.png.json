@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "mergewell-riley-verification",
+  "kind": "image",
+  "provider": "gpt-image-2",
+  "deployment": "gpt-image-2",
+  "promptHash": "7dada375880b807463cb7c44ff5ea389d658487bf8224b06f61be4aecd47f2e8",
+  "prompt": "Create an original warm editorial 2D illustration, landscape 1536 by 1024, soft off-white background, clean charcoal outlines with subtle line-weight variation, gentle warm shadows, charcoal clothing with restrained green and purple accents. Few large shapes, generous empty margins, no scenery. Readable as a contained image at about 270 by 180 pixels. Teaching text will be outside the artwork.\r\n\r\nExactly two full-length adult figures stand side by side, human engineer on the left and nonhuman software-agent metaphor on the right, calmly inspecting one simple unfinished wooden construction resting on a low narrow central pedestal. The object is a plain small structure with a conspicuous missing section. On a separate low surface in the foreground sit three large blank ivory rectangular evidence pieces, physically detached from the proposed object and each other, with clear open gaps and room for missing pieces. These are empty physical tiles, not screens or forms. The composition expresses ongoing inspection and incomplete evidence, never a completed verification or permission to proceed.\r\n\r\nLEFT: Agent Mergewell, an original accountable adult HUMAN field engineer, light tan skin, wild dark-to-silver inventor hair, thick rectangular glasses, neat short evenly distributed dark-to-silver stubble. Charcoal mid-length technical coat with subtle green seams and a compact shoulder tool pod, dark trousers and practical shoes. No hat, shaped beard or celebrity likeness. Thoughtful concerned expression. One open hand hovers near the unfinished object as he examines the gap; his other hand rests naturally at his side. The human remains the responsible evaluator, not a passive spectator.\r\n\r\nRIGHT: Riley Relay, an original explicitly ADULT NONHUMAN personified software agent, adult human face, natural dark shoulder-length hair, small purple temple light, subtle synthetic neck seam. Long charcoal coat with restrained purple lining and cuff accents over a plain warm-white top, cropped charcoal trousers and black loafers. Both mechanical forearms and articulated hands are clearly visible below the sleeves, both robotic lower legs clearly visible between the trouser hems and shoes. Thoughtfully attentive, gently curious and self-possessed, assisting inspection rather than directing or granting permission. Her hands are relaxed and unobscured. Keep both figures at comparable adult scale, all heads, hands, legs and shoes entirely in frame. The low central props must not hide Riley's mechanical limbs.\r\n\r\nBoth figures look down toward the unfinished object and detached blank evidence pieces. No smiles of success, cheers, celebratory poses, thumbs-up, handshake, sign-off, stamp, checkmark, seal, finished puzzle, approval gesture or transfer of decision authority to Riley. No text, numbers, letters, pseudo-writing, labels, interfaces, screens, code, diagrams, icons, badges, logos, watermarks, product marks or protected characters. No copied source pixels, entertainment likeness, GitHub mascot, weapons, armor, superhero styling, infantilization, servant framing, photorealism, extra limbs or malformed anatomy.",
+  "source": "content/research/reused-provenance/additional-character-art.md",
+  "createdAt": "2026-10-16T15:20:07.121Z",
+  "reviewStatus": "approved",
+  "location": "content/modules/01-purrmission-to-proceed/public/images/mergewell-riley-verification.png",
+  "width": 1536,
+  "height": 1024,
+  "generationAuthorization": {
+    "initiative": "requirements-secure-by-design",
+    "envelopeId": "standing-additional-character-art-20261016",
+    "envelopeHash": "edf36f1401dcef32154707566a6718d68bd488984544c7b9c724f2b26f9f3eca",
+    "decisionId": "standing-image-policy",
+    "requestHash": "3c49ab056d0808e7967ffe11dc045b343c0ebbb220e6d5153582cd059f1a8979"
+  },
+  "integratedUnder": {
+    "authority": "lifecycle-v3-local-draft",
+    "requirementsHash": "dbe860eef776958473e0f3a58f0e090c91cc66304b22441f9597c52f8615bde8"
+  },
+  "reusedFrom": {
+    "workshop": "secure-by-design",
+    "module": "01-security-and-alignment",
+    "asset": "mergewell-riley-verification",
+    "note": "Approved character artwork reused unchanged; original generation provenance preserved.",
+    "reusedInto": "workshops/purrmission-to-proceed/content/modules/01-purrmission-to-proceed/public/images/mergewell-riley-verification.png"
+  }
+}

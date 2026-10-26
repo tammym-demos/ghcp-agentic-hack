@@ -106,6 +106,8 @@ interface DeliveryVariant {
   title: string;
   description: string;
   route: string;
+  archived?: boolean;
+  archiveOnProduction?: boolean;
   totalMinutes: number;
   days: DeliveryDay[];
   modulePhases: Array<{
@@ -137,6 +139,8 @@ export interface CatalogWorkshop {
   tags: string[];
   prerequisites: string[];
   route: string;
+  archived?: boolean;
+  archiveOnProduction?: boolean;
   readinessGuide?: {
     title: string;
     route: string;
@@ -226,9 +230,11 @@ function renderCatalog(): void {
 export function renderLandingPage(catalogWorkshops: CatalogWorkshop[]): string {
   const cards = workshopCards(catalogWorkshops);
   const groups = [
+    { id: "featured", title: "Featured workshop" },
     { id: "short", title: "One hour or less" },
     { id: "full-day", title: "Full-day workshops" },
-    { id: "other", title: "Other workshop formats" }
+    { id: "other", title: "Other workshop formats" },
+    { id: "archived", title: "Archived workshops" }
   ];
   return `
     ${hero("GitHub Copilot learning experiences", "Choose a workshop", "Choose a short session or a full-day workshop to build practical, verifiable GitHub Copilot skills.", "", "hero--landing")}
@@ -261,49 +267,79 @@ export function renderWorkshopCards(catalogWorkshops: CatalogWorkshop[]): string
 function workshopCardGroup(
   format: string,
   totalMinutes?: number,
-  dayCount = 0
-): "short" | "full-day" | "other" {
+  dayCount = 0,
+  options: { workshopId?: string; archived?: boolean } = {}
+): "featured" | "short" | "full-day" | "other" | "archived" {
+  if (options.archived) return "archived";
+  if (options.workshopId === "ghcp-agentic-hack") return "featured";
   if (totalMinutes !== undefined ? totalMinutes <= 60 : format === "one-hour") return "short";
   if (format === "one-day" || format === "two-day" || dayCount > 1) return "full-day";
   return "other";
 }
 
 function workshopCards(catalogWorkshops: CatalogWorkshop[]) {
-  return prioritizeMissionControl(catalogWorkshops).flatMap((workshop) => {
+  return prioritizeWorkshops(catalogWorkshops).flatMap((workshop) => {
     const guide = workshop.readinessGuide;
     const guideVariant = guide?.deliveryVariant ?? workshop.defaultDeliveryVariant ?? workshop.deliveryVariants[0]?.id;
     if (workshop.deliveryVariants.length > 0) {
       return workshop.deliveryVariants.map((variant) => {
-        const group = workshopCardGroup(workshop.format, variant.totalMinutes, variant.days.length);
+        const isArchived = Boolean(workshop.archived || variant.archived);
+        const group = workshopCardGroup(workshop.format, variant.totalMinutes, variant.days.length, {
+          workshopId: workshop.id,
+          archived: isArchived
+        });
+        const details = [
+          ...(isArchived ? ["Archived"] : []),
+          `${variant.days.length} day${variant.days.length === 1 ? "" : "s"}`,
+          formatMinutes(variant.totalMinutes),
+          workshop.level
+        ];
+        const isFullDayEligible =
+          group === "full-day" || group === "featured" || (group === "archived" && (workshop.format === "one-day" || workshop.format === "two-day" || variant.days.length > 1));
         return {
           group,
           html: renderWorkshopCard(
-            { ...variant, tags: workshop.tags },
-            [`${variant.days.length} day${variant.days.length === 1 ? "" : "s"}`, formatMinutes(variant.totalMinutes), workshop.level],
-            group === "full-day" && variant.id === guideVariant ? guide : undefined
+            { ...variant, tags: workshop.tags, archived: isArchived },
+            details,
+            isFullDayEligible && variant.id === guideVariant ? guide : undefined
           )
         };
       });
     }
-    const group = workshopCardGroup(workshop.format, workshop.totalMinutes);
+    const isArchived = Boolean(workshop.archived);
+    const group = workshopCardGroup(workshop.format, workshop.totalMinutes, 0, {
+      workshopId: workshop.id,
+      archived: isArchived
+    });
+    const details = [
+      ...(isArchived ? ["Archived"] : []),
+      workshop.duration,
+      workshop.level
+    ];
+    const isFullDayEligible =
+      group === "full-day" || group === "featured" || (group === "archived" && (workshop.format === "one-day" || workshop.format === "two-day"));
     return [{
       group,
       html: renderWorkshopCard(
-        workshop,
-        [workshop.duration, workshop.level],
-        group === "full-day" && !guide?.deliveryVariant ? guide : undefined
+        { ...workshop, archived: isArchived },
+        details,
+        isFullDayEligible && !guide?.deliveryVariant ? guide : undefined
       )
     }];
   });
 }
 
-function prioritizeMissionControl(catalogWorkshops: CatalogWorkshop[]): CatalogWorkshop[] {
+function prioritizeWorkshops(catalogWorkshops: CatalogWorkshop[]): CatalogWorkshop[] {
+  const priorityRank = (workshop: CatalogWorkshop): number => {
+    if (workshop.archived) return 3;
+    if (workshop.id === "ghcp-agentic-hack") return 0;
+    if (workshop.id === "mission-control") return 1;
+    return 2;
+  };
   return catalogWorkshops
     .map((workshop, index) => ({ workshop, index }))
     .sort((left, right) => {
-      const leftPriority = left.workshop.id === "mission-control" ? 0 : 1;
-      const rightPriority = right.workshop.id === "mission-control" ? 0 : 1;
-      return leftPriority - rightPriority || left.index - right.index;
+      return priorityRank(left.workshop) - priorityRank(right.workshop) || left.index - right.index;
     })
     .map(({ workshop }) => workshop);
 }
@@ -336,12 +372,12 @@ function renderCharacterTeam(catalogWorkshops: CatalogWorkshop[]): string {
 }
 
 function renderWorkshopCard(
-  entry: Pick<CatalogWorkshop, "title" | "description" | "route" | "tags">,
+  entry: Pick<CatalogWorkshop, "title" | "description" | "route" | "tags" | "archived">,
   details: string[],
   guide?: CatalogWorkshop["readinessGuide"]
 ): string {
   return `
-    <article class="workshop-card">
+    <article class="workshop-card${entry.archived ? " workshop-card--archived" : ""}">
       ${metadata(details)}
       <h3><a class="title-link" href="${url(entry.route)}">${escapeHtml(entry.title)}</a></h3>
       <p>${escapeHtml(entry.description)}</p>
@@ -413,8 +449,9 @@ export function renderWorkshopPage(workshop: CatalogWorkshop): string {
     ? workshop.modules.filter((module) => module.status === "published")
     : workshop.modules;
   const hasVariants = workshop.deliveryVariants.length > 0;
+  const eyebrowText = workshop.archived ? "Archived workshop" : "Workshop";
   return `<div class="workshop-detail">
-    ${hero("Workshop", workshop.title, workshop.description, `<a class="back-link" href="${url("")}">← All workshops</a>`)}
+    ${hero(eyebrowText, workshop.title, workshop.description, `<a class="back-link" href="${url("")}">← All workshops</a>`)}
     <section class="catalog detail-grid${hasVariants ? "" : " detail-grid--single"}">
       ${hasVariants ? `<div>
         <div class="catalog__heading"><h2>Delivery options</h2><span>${workshop.deliveryVariants.length}</span></div>
@@ -441,10 +478,11 @@ function renderVariantDetail(workshopId: string, variantId: string): void {
   const workshop = workshops.find((candidate) => candidate.id === workshopId);
   const variant = workshop?.deliveryVariants.find((candidate) => candidate.id === variantId);
   if (!workshop || !variant) return renderNotFound();
+  const isArchived = Boolean(workshop.archived || variant.archived);
   app!.innerHTML = `
-    ${hero("Delivery variant", variant.title, variant.description, `<a class="back-link" href="${url(workshop.route)}">← ${escapeHtml(workshop.title)}</a>`)}
+    ${hero(isArchived ? "Archived delivery variant" : "Delivery variant", variant.title, variant.description, `<a class="back-link" href="${url(workshop.route)}">← ${escapeHtml(workshop.title)}</a>`)}
     <section class="catalog">
-      ${metadata([formatMinutes(variant.totalMinutes), `${variant.days.length} day${variant.days.length === 1 ? "" : "s"}`])}
+      ${metadata([...(isArchived ? ["Archived"] : []), formatMinutes(variant.totalMinutes), `${variant.days.length} day${variant.days.length === 1 ? "" : "s"}`])}
       <section class="detail-section">
         <h2>Modules and missions</h2>
         <ol class="module-list">${workshop.modules.map(renderModule).join("")}</ol>

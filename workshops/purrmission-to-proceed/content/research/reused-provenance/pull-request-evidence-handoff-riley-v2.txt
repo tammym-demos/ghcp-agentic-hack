@@ -1,0 +1,17 @@
+Create one presentation-scale, text-free illustration for Slide 17, "Pull Requests as Agent Handoffs."
+
+TEACHING JOB AND ACCEPTED V4 COMPOSITION
+Retain the accepted v4 evidence-handoff composition. Riley Relay returns one structured blank folio containing three distinct forms—changed work, check result, and open question—to Agent Mergewell at the human review side. Riley has no merge control. Mergewell evaluates and owns acceptance or rejection. No Purrmission or gadget.
+
+CANONICAL CHARACTER LOCK
+Mergewell is the accountable adult human field agent: light tan skin; clean-shaven canonical face; thick rectangular glasses; wild dark-to-silver inventor hair; expressive brows and warm goofy professor-inventor demeanor; mid-thigh charcoal technical coat with green seams; dark trousers; practical shoes; compact quiet shoulder pod.
+Riley is the adult nonhuman software collaborator: canonical adult face; natural dark shoulder-length hair; purple temple status light; synthetic neck seam; charcoal long tailored coat with purple lining/cuffs; warm-white crew-neck top; charcoal cropped trousers; black loafers; both mechanical forearms/hands and both robotic lower legs visible; refined joints with restrained purple light. Her handoff is attentive and self-possessed. She performs only bounded software work, returns evidence, and waits; she never approves, validates, accepts, merges, or makes the final decision.
+
+COMPOSITION AND NATIVE BOUNDARY
+Right-pane landscape 1536x1024 on soft off-white. Riley at center-left, complete folio at center, Mergewell at right review margin. Keep grouping inside center 70 percent width and 80 percent height, filling 75–85 percent height. Leave clean native-label space.
+
+APPROVED STYLE BLOCK — VERBATIM
+Human-centered 2D editorial cartoon, warm editorial illustration style, soft off-white background, slightly richer color palette with warm coat shadows, expressive face detail on characters, clean rounded outlines with gentle weight variation, GitHub-green and Copilot-purple accents, light grounding shadow under characters, professional but approachable and likable tone.
+
+HARD NEGATIVE CONSTRAINTS
+No text, glyphs, checkmarks, UI, logos, mascots, copyrighted likenesses, automatic integration, collaborator authority, extra characters, hidden Riley mechanics, malformed anatomy, or photorealism.

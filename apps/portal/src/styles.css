@@ -215,6 +215,12 @@ h1 {
   box-shadow: 0 16px 44px rgb(31 35 40 / 10%);
 }
 
+.workshop-card--archived {
+  border-style: dashed;
+  background: #f6f8fa;
+  box-shadow: none;
+}
+
 .workshop-card h3 {
   margin-bottom: 0.75rem;
   font-size: clamp(1.75rem, 4vw, 2.5rem);

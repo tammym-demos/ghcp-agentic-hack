@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "approval-boundary-gate",
+  "kind": "image",
+  "provider": "gpt-image-2",
+  "deployment": "gpt-image-2",
+  "promptHash": "2150d3f9a7dfe82878e8f6acaca3fec8ed7e2eadb4fbf031234333a36679b411",
+  "prompt": "Create one presentation-scale, text-free illustration for Slide 12, \"Approval Boundaries.\"\r\n\r\nTEACHING JOB AND ACCEPTED V4 COMPOSITION\r\nRetain the accepted v4 dominant gate with three differently shaped slots. Riley Relay waits beyond the gate with one plain consequential request token stopped at the middle boundary. Purrmission marks the stop line. Agent Mergewell alone may allow, narrow, reject, or stop before action. No gadget.\r\n\r\nCANONICAL CHARACTER LOCK\r\nMergewell is the accountable adult human field agent: light tan skin; clean-shaven canonical face; thick rectangular glasses; wild dark-to-silver inventor hair; expressive brows and warm goofy professor-inventor demeanor; mid-thigh charcoal technical coat with green seams; dark trousers; practical shoes; compact quiet shoulder pod.\r\nRiley is the adult nonhuman software collaborator with canonical adult face, dark shoulder-length hair, purple temple light, synthetic neck seam, charcoal long coat with purple lining/cuffs, warm-white top, charcoal cropped trousers, black loafers, visible mechanical forearms/hands and robotic lower legs, and restrained purple-lit joints. She performs only bounded software work, pauses, and asks; she never grants permission, approves, validates, accepts, or merges.\r\nPurrmission is the proportional sleek black cat safety guardian with bright observant green eyes and a minimal green collar tag with a small hexagonal detail. She signals the boundary but never decides or operates the gate.\r\n\r\nCOMPOSITION AND NATIVE BOUNDARY\r\nRight-pane landscape 1536x1024 on soft off-white. Mergewell at left decision margin, Purrmission low at stop line, Riley beyond gate at right. Keep complete gate and all characters in center 70 percent width and 80 percent height. Leave upper-right label space.\r\n\r\nAPPROVED STYLE BLOCK — VERBATIM\r\nHuman-centered 2D editorial cartoon, warm editorial illustration style, soft off-white background, slightly richer color palette with warm coat shadows, expressive face detail on characters, clean rounded outlines with gentle weight variation, GitHub-green and Copilot-purple accents, light grounding shadow under characters, professional but approachable and likable tone.\r\n\r\nHARD NEGATIVE CONSTRAINTS\r\nNo text, UI, logos, mascots, copyrighted likenesses, Inspector Gadget cues, Einstein portrait recreation, action already occurring, cat or Riley decision, extra characters, hidden Riley mechanics, malformed anatomy, or photorealism.",
+  "source": "content/research/reused-provenance/approval-boundary-human-decision-riley-v2.txt",
+  "createdAt": "2026-08-11T16:43:28.999Z",
+  "reviewStatus": "approved",
+  "location": "content/modules/01-purrmission-to-proceed/public/images/approval-boundary-gate.png",
+  "width": 1536,
+  "height": 1024,
+  "reusedFrom": {
+    "workshop": "ghcp-dev-hack",
+    "module": "02-agentic",
+    "asset": "approval-boundary-human-decision",
+    "note": "Approved Purrmission image reused unchanged; original generation provenance preserved.",
+    "reusedInto": "workshops/purrmission-to-proceed/content/modules/01-purrmission-to-proceed/public/images/approval-boundary-gate.png"
+  }
+}

@@ -16,9 +16,11 @@ it("declares the exact selected runtime import closure without copying proof or 
   const catalog = await loadCatalog(repositoryRoot);
   expect(catalog.workshops.map(workshop => workshop.workshop.data.id).sort())
     .toEqual([
+      "ghcp-agentic-hack",
       "ghcp-dev-hack",
       "mission-control",
       "mission-control-executive",
+      "purrmission-to-proceed",
       "token-optimization",
       "workflow-first-ai-decisions"
     ]);
