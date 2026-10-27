@@ -4,10 +4,11 @@ import { useSlideContext } from "@slidev/client";
 import { BEATS, DURATION, layersFor, motionFor, promptStackFor, stratumPath } from "../lib/manufacturing-context-sequence.mjs";
 
 const plate = `${import.meta.env.BASE_URL}images/foundations-context-funnel-wider-neck-v2.png`;
+const props = defineProps<{ embedded?: boolean }>();
 const { $slidev } = useSlideContext();
 // Fit the accepted 960x540 composition to this deck's canvas, not its panels.
 // This is one uniform transform; all intrinsic art/text geometry stays locked.
-const canvasScale = $slidev.configs.canvasWidth / 960;
+const canvasScale = computed(() => props.embedded ? 1 : $slidev.configs.canvasWidth / 960);
 const reduced = ref(false);
 const paused = ref(false);
 const running = ref(false);
@@ -76,7 +77,7 @@ const entry = "M340 -180 H1035 V95 L972 132 L927 216 L778 397 C746 432 737 445 7
 
 <template>
   <main class="proof" :style="{ transform: `scale(${canvasScale})`, transformOrigin: 'top left' }" :class="{ reduced }" :data-step="step" :data-running="running" :data-paused="paused" :data-elapsed="Math.round(elapsed)">
-    <slot><h1>Context Window: What Competes for Space</h1></slot>
+    <slot v-if="!embedded"><h1>Context Window: What Competes for Space</h1></slot>
 
     <!-- Include the COMPLETE headline travel envelope in the SVG viewport.
          No overflow-visible text, textLength mutation, or compositor repaint hack. -->

@@ -2,10 +2,11 @@ import path from "node:path";
 import { mkdir, mkdtemp, readFile, rm, symlink, writeFile } from "node:fs/promises";
 import os from "node:os";
 import { afterEach, expect, it } from "vitest";
-import { loadCatalog } from "@ghcp/content-schema";
+import { loadCatalog, releaseManifestSchema } from "@ghcp/content-schema";
 import { repositoryRoot } from "./paths.js";
 import { assertPinnedEntry, parseExportDeclarations, publicExportPlan, publicPackageScripts } from "./public-export.js";
 import { planLeaderboardPublish } from "./leaderboard.js";
+import { filterCatalogForRelease } from "./release.js";
 
 const roots: string[] = [];
 afterEach(async () => {
@@ -104,6 +105,41 @@ it("declares the exact selected runtime import closure without copying proof or 
       ...workflowFirstComponents.map(component => `${workflowFirstPrefix}components/${component}.vue`),
       `${workflowFirstPrefix}style.css`
     ].sort());
+});
+
+it.each([
+  { label: "the complete workshop", modules: ["foundations", "agentic", "advanced"] },
+  { label: "Foundations only", modules: ["foundations"] },
+  { label: "Agentic only", modules: ["agentic"] },
+  { label: "Advanced only", modules: ["advanced"] }
+])("keeps imported Bureau styles when exporting $label", async ({ modules }) => {
+  const catalog = filterCatalogForRelease(await loadCatalog(repositoryRoot), releaseManifestSchema.parse({
+    schemaVersion: 1,
+    kind: "release-manifest",
+    id: "bureau-style-regression",
+    title: "Bureau style regression",
+    status: "draft",
+    commit: "a".repeat(40),
+    createdAt: "2026-10-26T00:00:00.000Z",
+    workshops: [{ id: "ghcp-agentic-hack", modules }]
+  }));
+  const plan = await publicExportPlan(repositoryRoot, catalog);
+  if (!plan) throw new Error("Bureau exports require explicit dependency declarations");
+  const files = new Set(plan.files);
+  const prefix = "workshops/ghcp-agentic-hack/";
+  expect(files.has(`${prefix}content/styles/slides.css`)).toBe(true);
+  expect(files.has(`${prefix}content/modules/01-foundations/styles/index.css`))
+    .toBe(modules.includes("foundations"));
+  const workshop = catalog.workshops[0]!;
+  for (const module of workshop.modules) {
+    const stylesheet = path.posix.join(path.posix.dirname(module.data.slides),
+      module.data.id === "foundations" ? "styles/index.css" : "style.css");
+    const source = await readFile(path.join(workshop.root, stylesheet), "utf8");
+    for (const match of source.matchAll(/@import\s+["'](\.[^"']+)["']/g)) {
+      const dependency = path.posix.normalize(path.posix.join(path.posix.dirname(stylesheet), match[1]!));
+      expect(files.has(`${prefix}${dependency}`), `${stylesheet} imports undeclared ${dependency}`).toBe(true);
+    }
+  }
 });
 
 it("uses the legacy plan only when declarations are absent, not malformed or unreadable", async () => {

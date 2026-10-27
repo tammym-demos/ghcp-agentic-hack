@@ -46,7 +46,7 @@ assets:
   - assets/brand/github/GitHub_Copilot_Lockup_Black_Clearspace.svg
   - assets/brand/microsoft/microsoft-logo.png
   - assets/brand/vscode/code-stable.png
-  - content/modules/01-foundations/public/images/foundation-welcome-trio-camera-ready-v3.png
+  - content/modules/01-foundations/public/images/purrmission-team-cover.png
   - content/modules/01-foundations/public/images/session-route.png
   - content/modules/01-foundations/public/images/copilot-surfaces-harness-choice-human-lock-v3.png
   - content/modules/01-foundations/public/images/copilot-harness.png
@@ -70,4 +70,3 @@ status: draft
 # Foundations: Anatomy of a Coding Harness
 
 First Day at the Accountable Engineering Bureau: onboard new developers to coding agent harnesses, the Four Harness Rings, built-in modes, slash commands, tools, skills, permissions, tokens, and usage controls.
-

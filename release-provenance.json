@@ -1,6 +1,6 @@
 {
-  "releaseId": "workshop-portfolio-2026-10-26-r11",
-  "sourceCommit": "adcc29e082405bb3ba948aadc7d8a112e6928480",
+  "releaseId": "workshop-portfolio-2026-10-26-r12",
+  "sourceCommit": "71d3de2511b2b1971f3f9500dee764b7a74b5de5",
   "workshops": [
     "ghcp-agentic-hack",
     "ghcp-dev-hack",

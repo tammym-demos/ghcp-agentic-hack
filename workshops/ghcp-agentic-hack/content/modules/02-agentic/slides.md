@@ -3,7 +3,9 @@ theme: ghcp
 title: "Module 2: Agentic Development Across the SDLC"
 info: |
   Walk a feature across the entire SDLC: Holistic Workflow-First planning, Purrmission's Four Planning Proofs, project customization, test-driven agentic loops, the Four Security Evidence Lenses, and exact-commit release management.
-layout: two-panel
+layout: bureau-two-panel
+defaults:
+  class: bureau-slide
 transition: slide-left
 mdc: true
 ---
@@ -43,7 +45,7 @@ Sources: content/modules/02-agentic/module.md; content/modules/02-agentic/slide-
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -76,7 +78,7 @@ Sources: content/modules/02-agentic/slide-manifest.md
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -110,7 +112,7 @@ Sources: workshops/purrmission-to-proceed/requirements.md; https://docs.github.c
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -144,7 +146,7 @@ Sources: workshops/workflow-first-ai-decisions/workshop.md; https://docs.github.
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -178,7 +180,7 @@ Sources: https://docs.github.com/en/copilot/tutorials/optimize-ai-usage
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -211,7 +213,7 @@ Sources: workshops/purrmission-to-proceed/requirements.md
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -244,7 +246,7 @@ Sources: https://docs.github.com/en/copilot/reference/custom-instructions-suppor
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -277,7 +279,7 @@ Sources: workshops/purrmission-to-proceed/requirements.md
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -311,7 +313,7 @@ Sources: https://docs.github.com/en/copilot/tutorials/optimize-ai-usage; https:/
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -344,7 +346,7 @@ Sources: https://docs.github.com/en/copilot/concepts/agents/copilot-memory; http
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -379,7 +381,7 @@ Sources: https://docs.github.com/en/copilot/concepts/agents/about-agent-skills
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -413,7 +415,7 @@ Sources: https://docs.github.com/en/copilot/reference/custom-agents-configuratio
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -448,7 +450,7 @@ Sources: https://github.blog/changelog/2026-08-12-agent-plugins-1-0-in-vs-code-c
 -->
 
 ---
-layout: single-panel
+layout: bureau-single-panel
 ---
 
 ::title::
@@ -480,7 +482,7 @@ Sources: workshops/purrmission-to-proceed/requirements.md
 -->
 
 ---
-layout: single-panel
+layout: bureau-single-panel
 ---
 
 ::title::
@@ -506,7 +508,7 @@ Sources: content/modules/02-agentic/module.md; https://docs.github.com/en/copilo
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -540,7 +542,7 @@ Sources: https://docs.github.com/en/copilot/tutorials/optimize-ai-usage
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -575,7 +577,7 @@ Sources: https://docs.github.com/en/copilot/concepts/agents/hooks
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -610,7 +612,7 @@ Sources: https://docs.github.com/en/copilot/how-tos/copilot-cli/use-copilot-cli/
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -644,7 +646,7 @@ Sources: https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cl
 -->
 
 ---
-layout: single-panel
+layout: bureau-single-panel
 ---
 
 ::title::
@@ -670,7 +672,7 @@ Sources: workshops/purrmission-to-proceed/requirements.md
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -704,7 +706,7 @@ Sources: https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -738,7 +740,7 @@ Sources: content/modules/02-agentic/module.md
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -772,7 +774,7 @@ Sources: https://github.blog/changelog/2026-08-27-actions-retention-will-cover-c
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -806,7 +808,7 @@ Sources: https://github.blog/changelog/2026-10-02-copilot-code-review-api-suppor
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -840,7 +842,7 @@ Sources: https://docs.github.com/en/repositories/configuring-branches-and-merges
 -->
 
 ---
-layout: single-panel
+layout: bureau-single-panel
 ---
 
 ::title::
@@ -866,7 +868,7 @@ Sources: workshops/purrmission-to-proceed/requirements.md
 -->
 
 ---
-layout: single-panel
+layout: bureau-single-panel
 ---
 
 ::title::
@@ -898,7 +900,7 @@ Sources: workshops/purrmission-to-proceed/requirements.md
 -->
 
 ---
-layout: single-panel
+layout: bureau-single-panel
 ---
 
 ::title::
@@ -929,7 +931,7 @@ Sources: content/modules/02-agentic/module.md
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::

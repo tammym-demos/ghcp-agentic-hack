@@ -1,0 +1,161 @@
+html:root .slidev-layout.bureau-slide:is(.ghcp-two-panel, .ghcp-single-panel) {
+  padding: 24px 32px 48px;
+  gap: 14px;
+  color: #24211f;
+  background: #fffdf7;
+}
+
+html:root .slidev-layout.bureau-slide :is(.ghcp-two-panel__title, .ghcp-single-panel__title) h1 {
+  margin: 0;
+  color: #24211f;
+  font-size: 30px;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+html:root .slidev-layout.bureau-slide .ghcp-slide-subtitle {
+  display: block;
+  margin-top: 5px;
+  color: #625b54;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+html:root .slidev-layout.bureau-slide .ghcp-two-panel__panels {
+  gap: 20px;
+}
+
+html:root .slidev-layout.bureau-slide :is(.ghcp-two-panel__text, .ghcp-two-panel__visual, .ghcp-single-panel__content) {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  border-color: #d8cfc2;
+}
+
+html:root .slidev-layout.bureau-slide .ghcp-two-panel__text {
+  gap: 6px;
+  padding: 18px;
+  background: #fffdf7;
+}
+
+html:root .slidev-layout.bureau-slide .ghcp-two-panel__text > * {
+  flex-shrink: 0;
+}
+
+html:root .slidev-layout.bureau-slide .ghcp-two-panel__text h2 {
+  margin: 0 0 5px;
+  font-size: calc(18px * var(--ghcp-panel-scale));
+  line-height: 1.2;
+}
+
+html:root .slidev-layout.bureau-slide .ghcp-two-panel__text :is(p, li) {
+  margin: 0.3em 0;
+  font-size: calc(16px * var(--ghcp-panel-scale));
+  line-height: 1.3;
+}
+
+html:root .slidev-layout.bureau-slide .ghcp-two-panel__text :is(ul, ol) {
+  margin: 0;
+  padding-left: 18px;
+}
+
+html:root .slidev-layout.bureau-slide .ghcp-two-panel__text ol > li {
+  list-style: decimal outside !important;
+}
+
+html:root .slidev-layout.bureau-slide .ghcp-two-panel__visual > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+html:root .slidev-layout.bureau-slide .ghcp-two-panel__visual > section {
+  width: 100%;
+}
+
+html:root .slidev-layout.bureau-slide .ghcp-single-panel__content {
+  padding: 14px 18px;
+  background: #fffdf7;
+}
+
+html:root .slidev-layout.bureau-slide .ghcp-single-panel__content > :is(p, ul, ol) {
+  margin: 0.4em 0;
+}
+
+html:root .slidev-layout.bureau-slide .ghcp-single-panel__content > :is(p, ul, ol),
+html:root .slidev-layout.bureau-slide .ghcp-single-panel__content > :is(ul, ol) li {
+  font-size: calc(16px * var(--ghcp-content-scale));
+  line-height: 1.3;
+}
+
+html:root .slidev-layout.bureau-slide :is(.ghcp-two-panel__text, .ghcp-single-panel__content) :is(p, li, td, th) > code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+html:root .slidev-layout.bureau-slide .workshop-cover-logos {
+  width: 100%;
+  min-height: 36px;
+  gap: 12px;
+}
+
+html:root .slidev-layout.bureau-slide .workshop-cover-logos__github {
+  max-width: 56%;
+}
+
+html:root .slidev-layout.bureau-slide .workshop-cover-logos__microsoft {
+  max-width: 40%;
+}
+
+html:root .slidev-layout.bureau-slide .harness-cockpit__header,
+html:root .slidev-layout.bureau-slide .harness-cockpit__controls,
+html:root .slidev-layout.bureau-slide .tool-workbench__actions {
+  flex-wrap: wrap;
+}
+
+html:root .slidev-layout.bureau-slide .token-scene .usage-row {
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+}
+
+html:root .slidev-layout.bureau-slide .token-scene .teaching {
+  font-size: 14px;
+}
+
+html:root .slidev-layout.bureau-slide .token-scene .model-boundary {
+  left: 32%;
+  width: 0;
+}
+
+html:root .slidev-layout.bureau-slide .token-scene .model-boundary span {
+  top: 50%;
+  left: -14px;
+  width: auto;
+  font-size: 10px;
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+  transform: translateY(-50%) rotate(180deg);
+}
+
+html:root .slidev-layout.bureau-slide .token-scene .packet {
+  animation-name: bureau-packet-move;
+  transform: translateX(8px);
+}
+
+@keyframes bureau-packet-move {
+  0% { opacity: 0; transform: translateX(-12px); }
+  55% { opacity: 1; transform: none; }
+  100% { opacity: 1; transform: translateX(8px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:root .slidev-layout.bureau-slide .token-scene .reduced-steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    font-size: 11px;
+    line-height: 1.2;
+    text-align: center;
+  }
+}

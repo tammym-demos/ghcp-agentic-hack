@@ -1,0 +1,20 @@
+Foundations opening artwork recovery, 2026-10-26
+
+The workshop owner identified this surviving image as the missing Foundations
+opener: Mergewell, Chief Charter, and Riley Relay in a lineup, with Purrmission
+standing in front. Reuse the approved image unchanged; no new generation.
+
+Immediate source:
+workshops/purrmission-to-proceed/content/modules/01-purrmission-to-proceed/public/images/purrmission-team-cover.png
+
+Original generation: secure-by-design, 2026-10-16, gpt-image-2.
+The adjacent JSON sidecar preserves the original prompt, prompt hash, creation
+date, provider, dimensions, and generation authorization. Its source and location
+describe this workshop-local copy; integratedUnder records the current draft.
+
+The image contains exactly three adult figures and one black cat. All four are
+fully visible. Slide titles, character descriptions, and official product marks
+remain native and separate from the image. Local recovery is not release approval.
+
+Recovery boundary: this restores identified artwork, not the unlocated October 24
+VS Code Agents-window session or its five-harness mission revisions.

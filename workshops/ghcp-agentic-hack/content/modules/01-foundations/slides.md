@@ -3,7 +3,9 @@ theme: ghcp
 title: "GitHub Copilot Foundations"
 info: |
   First Day at the Accountable Engineering Bureau: onboarding to coding agent harnesses, built-in agents, slash commands, tools, skills, permissions, tokens, and usage controls.
-layout: two-panel
+layout: bureau-two-panel
+defaults:
+  class: bureau-slide
 transition: slide-left
 mdc: true
 ---
@@ -26,8 +28,8 @@ mdc: true
 
 ::visual::
 <img
-  src="/images/foundation-welcome-trio-camera-ready-v3.png"
-  alt="Agent Mergewell welcoming new developers beside Riley Relay, the synthetic collaborator, and Purrmission, the black cat boundary guardian"
+  src="/images/purrmission-team-cover.png"
+  alt="Agent Mergewell, Chief Morgan Charter, and Riley Relay welcoming new developers, with Purrmission, the black cat boundary guardian, standing in front"
 />
 
 <!--
@@ -47,7 +49,7 @@ Sources: content/modules/01-foundations/module.md; content/characters/agent-merg
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -79,7 +81,7 @@ Sources: content/modules/01-foundations/slide-manifest.md; content/modules/01-fo
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -113,7 +115,7 @@ Sources: https://docs.github.com/en/copilot/about-github-copilot/what-is-github-
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -149,7 +151,7 @@ Sources: https://docs.github.com/en/copilot/about-github-copilot/what-is-github-
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -182,7 +184,7 @@ Sources: https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode; https:
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -215,7 +217,7 @@ Sources: https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode; https:
 -->
 
 ---
-layout: single-panel
+layout: bureau-single-panel
 ---
 
 ::title::
@@ -247,7 +249,7 @@ Sources: https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -279,7 +281,7 @@ Sources: https://docs.github.com/en/copilot/tutorials/optimize-ai-usage; https:/
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -311,7 +313,7 @@ Sources: https://docs.github.com/en/copilot/concepts/agents/about-agent-skills; 
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -345,7 +347,7 @@ Sources: https://docs.github.com/en/copilot/how-tos/copilot-cli/use-copilot-cli/
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -379,7 +381,7 @@ Sources: https://docs.github.com/en/copilot/concepts/security-governance-and-net
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -410,7 +412,7 @@ Sources: content/modules/01-foundations/module.md; content/characters/agent-merg
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -446,7 +448,7 @@ Sources: https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode; https:
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -478,7 +480,7 @@ Sources: https://docs.github.com/en/copilot/reference/copilot-billing/models-and
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -510,7 +512,7 @@ Sources: https://docs.github.com/en/copilot/reference/copilot-billing/models-and
 -->
 
 ---
-layout: single-panel
+layout: bureau-single-panel
 ---
 
 ::title::
@@ -545,14 +547,16 @@ Sources: https://github.blog/changelog/2026-08-31-github-copilot-in-vs-code-augu
 -->
 
 ---
-layout: single-panel
+layout: bureau-single-panel
 ---
 
 ::title::
 # Context Window Competition and Context Rot
 ::content::
 
-<ManufacturingContextFunnel />
+<SlideCanvas :width="960" :height="540">
+  <ManufacturingContextFunnel embedded />
+</SlideCanvas>
 
 <!--
 Timebox: 4 minutes
@@ -571,7 +575,7 @@ Sources: https://docs.github.com/en/copilot/concepts/agents/copilot-cli/context-
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -605,7 +609,7 @@ Sources: https://docs.github.com/en/copilot/tutorials/optimize-ai-usage
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -637,7 +641,7 @@ Sources: https://docs.github.com/en/copilot/concepts/models/auto-model-selection
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -670,7 +674,7 @@ Sources: https://docs.github.com/en/copilot/how-tos/copilot-cli/use-copilot-cli/
 -->
 
 ---
-layout: single-panel
+layout: bureau-single-panel
 ---
 
 ::title::
@@ -705,7 +709,7 @@ Sources: https://docs.github.com/en/copilot/tutorials/optimize-ai-usage
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -739,7 +743,7 @@ Sources: content/missions/foundations/context-and-prompts.md
 -->
 
 ---
-layout: single-panel
+layout: bureau-single-panel
 ---
 
 ::title::
@@ -770,7 +774,7 @@ Sources: content/modules/01-foundations/module.md
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
