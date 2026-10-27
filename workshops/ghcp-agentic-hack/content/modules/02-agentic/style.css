@@ -1,3 +1,5 @@
+@import "../../styles/slides.css";
+
 /* Approved A13 intro only. Fixed hierarchy; title above content sibling;
    all core text clears the persistent lower-left navigation. */
 .slidev-layout.agentic-loop-intro-slide.ghcp-single-panel {

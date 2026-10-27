@@ -5,7 +5,7 @@ Total module timing: **77 instruction minutes + 45 mission minutes = 122 minutes
 
 | # | Minutes | Topic | Type | Exact source title | Visual / Component |
 |---:|---:|---|---|---|---|
-| 1 | 1 | Bureau welcome | Cover | GitHub Copilot Foundations | Approved trio cover still + native lockups |
+| 1 | 1 | Bureau welcome | Cover | GitHub Copilot Foundations | Reused four-character team cover still + native lockups |
 | 2 | 1 | Timed route | Agenda | Session Agenda | Approved session route still |
 | 3 | 2 | Harness anatomy | Motion | What Is a Coding Agent Harness? | `HarnessRingsCockpit.vue` (4-Ring Cockpit) |
 | 4 | 3 | Supported harnesses | Content | Harnesses That Work with GitHub Copilot | Approved surfaces still + native IDE/CLI/App/Cloud grid |

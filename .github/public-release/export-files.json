@@ -54,6 +54,7 @@
     },
     "ghcp-agentic-hack/foundations": {
       "files": [
+        "content/modules/01-foundations/styles/index.css",
         "content/modules/01-foundations/components/HarnessRingsCockpit.vue",
         "content/modules/01-foundations/components/ToolCallWorkbenchFlow.vue"
       ],
@@ -104,6 +105,7 @@
     },
     "ghcp-agentic-hack": {
       "files": [
+        "content/styles/slides.css",
         "artifacts/customer/customer-hackathon-readiness-checklist.html",
         "artifacts/leaderboard-kit/.gitignore",
         "artifacts/leaderboard-kit/.github/ISSUE_TEMPLATE/leaderboard-submission.yml",

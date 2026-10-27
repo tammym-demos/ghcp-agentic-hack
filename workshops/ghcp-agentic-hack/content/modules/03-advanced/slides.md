@@ -3,7 +3,9 @@ theme: ghcp
 title: "Module 3: Advanced — Under the Hood & At Scale"
 info: |
   Lift the glass floor beneath the Bureau workbench to see how LLMs and KV prefix caches work under the hood, then scale across subagents, /fleet, Git worktrees, Work IQ MCP, indirect prompt-injection defense, and production integration.
-layout: two-panel
+layout: bureau-two-panel
+defaults:
+  class: bureau-slide
 transition: slide-left
 mdc: true
 ---
@@ -43,7 +45,7 @@ Sources: content/modules/03-advanced/module.md; content/modules/03-advanced/slid
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -75,7 +77,7 @@ Sources: content/modules/03-advanced/slide-manifest.md
 -->
 
 ---
-layout: single-panel
+layout: bureau-single-panel
 ---
 
 ::title::
@@ -108,7 +110,7 @@ Sources: workshops/ghcp-dev-hack/content/modules/01-foundations/context-caching.
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -142,7 +144,7 @@ Sources: workshops/ghcp-dev-hack/content/modules/01-foundations/context-caching.
 -->
 
 ---
-layout: single-panel
+layout: bureau-single-panel
 ---
 
 ::title::
@@ -168,7 +170,7 @@ Sources: workshops/ghcp-dev-hack/content/modules/01-foundations/context-caching.
 -->
 
 ---
-layout: single-panel
+layout: bureau-single-panel
 ---
 
 ::title::
@@ -194,7 +196,7 @@ Sources: workshops/ghcp-dev-hack/content/modules/01-foundations/token-cache-cli-
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -229,7 +231,7 @@ Sources: https://github.blog/changelog/2026-09-30-hydrafusion-in-vs-code-and-the
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -264,7 +266,7 @@ Sources: https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-age
 -->
 
 ---
-layout: single-panel
+layout: bureau-single-panel
 ---
 
 ::title::
@@ -290,7 +292,7 @@ Sources: https://docs.github.com/en/copilot/tutorials/optimize-ai-usage; https:/
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -325,7 +327,7 @@ Sources: https://docs.github.com/en/copilot/concepts/agents/copilot-cli/fleet; h
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -358,7 +360,7 @@ Sources: https://git-scm.com/docs/git-worktree; https://github.blog/changelog/20
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -392,7 +394,7 @@ Sources: https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/w
 -->
 
 ---
-layout: single-panel
+layout: bureau-single-panel
 ---
 
 ::title::
@@ -418,7 +420,7 @@ Sources: workshops/purrmission-to-proceed/requirements.md
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -453,7 +455,7 @@ Sources: https://github.blog/changelog/2026-07-29-copilot-code-review-agent-skil
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -485,7 +487,7 @@ Sources: https://github.blog/changelog/2026-10-02-copilot-code-review-api-suppor
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -519,7 +521,7 @@ Sources: https://code.visualstudio.com/docs/agents/run/agents-window; https://gi
 -->
 
 ---
-layout: single-panel
+layout: bureau-single-panel
 ---
 
 ::title::
@@ -551,7 +553,7 @@ Sources: content/modules/03-advanced/module.md; https://docs.github.com/en/copil
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::
@@ -586,7 +588,7 @@ Sources: content/modules/03-advanced/module.md; content/missions/advanced/cross-
 -->
 
 ---
-layout: single-panel
+layout: bureau-single-panel
 ---
 
 ::title::
@@ -617,7 +619,7 @@ Sources: content/missions/advanced/cross-cutting-change.md
 -->
 
 ---
-layout: two-panel
+layout: bureau-two-panel
 ---
 
 ::title::

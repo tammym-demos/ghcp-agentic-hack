@@ -54,6 +54,7 @@ acceptanceCriteria:
   - Day 1 totals 424 minutes (77m + 45m Foundations, 77m + 45m Agentic, 60m + 30m Advanced, 15m kickoff, 75m breaks); 2-day variant totals 844 minutes.
   - Foundations (24 slides), Agentic (29 slides), and Advanced (20 slides) match their slide manifests and carry ordered 7-section speaker notes on every visible slide.
   - All 12 hero motion graphics and interactive walkthroughs render natively with reduced-motion support.
+  - Every slide separates its headline and subtitle at the first colon that is not part of a time, preserves the full title wording, and keeps text, labels, and controls inside their panels.
 ---
 
 # GitHub Copilot Developer Hack (`ghcp-agentic-hack`) Requirements

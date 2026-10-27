@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 
 const bloatedTools = ref(false);
 const step = ref(4);
 const running = ref(false);
 const reduced = ref(false);
+const headroom = computed(() => 100 - 8 - (bloatedTools.value ? 32 : 4) - 16 - (step.value >= 4 ? 12 : 4));
 let timer = 0;
 
 const flowSteps = [
@@ -74,14 +75,19 @@ onBeforeUnmount(() => {
       </div>
     </div>
 
-    <div class="tool-meter" aria-label="Context window occupancy bar">
-      <span class="tool-meter__sys" style="flex: 8">System (8%)</span>
-      <span class="tool-meter__schemas" :style="{ flex: bloatedTools ? 32 : 4 }">
-        Tool Schemas ({{ bloatedTools ? "32% — Purrmission Alert!" : "4% Lean" }})
-      </span>
-      <span class="tool-meter__files" style="flex: 16">Files &amp; Prompt (16%)</span>
-      <span class="tool-meter__results" :style="{ flex: step >= 4 ? 12 : 4 }">Tool Results ({{ step >= 4 ? "12%" : "4%" }})</span>
-      <span class="tool-meter__free" :style="{ flex: (bloatedTools ? 44 : 72) - (step >= 4 ? 8 : 0) }">Headroom</span>
+    <div class="tool-meter" aria-hidden="true">
+      <span class="tool-meter__sys" style="flex: 8" />
+      <span class="tool-meter__schemas" :style="{ flex: bloatedTools ? 32 : 4 }" />
+      <span class="tool-meter__files" style="flex: 16" />
+      <span class="tool-meter__results" :style="{ flex: step >= 4 ? 12 : 4 }" />
+      <span class="tool-meter__free" :style="{ flex: headroom }" />
+    </div>
+    <div class="tool-meter-key" aria-label="Context window occupancy">
+      <span>System <strong>8%</strong></span>
+      <span>Tool Schemas <strong>{{ bloatedTools ? "32% — Purrmission Alert!" : "4% Lean" }}</strong></span>
+      <span>Files &amp; Prompt <strong>16%</strong></span>
+      <span>Tool Results <strong>{{ step >= 4 ? "12%" : "4%" }}</strong></span>
+      <span>Headroom <strong>{{ headroom }}%</strong></span>
     </div>
 
     <div class="tool-lanes">
@@ -147,7 +153,7 @@ onBeforeUnmount(() => {
 }
 .tool-meter {
   display: flex;
-  height: 26px;
+  height: 12px;
   border: 1px solid #24292f;
   border-radius: 0.4rem;
   overflow: hidden;
@@ -158,10 +164,21 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 0.25rem;
-  white-space: nowrap;
+  min-width: 0;
   overflow: hidden;
   transition: flex 300ms ease;
+}
+.tool-meter-key {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.35rem;
+  color: #57606a;
+  font-size: 9px;
+  line-height: 1.2;
+}
+.tool-meter-key strong {
+  display: block;
+  color: #24292f;
 }
 .tool-meter__sys { background: #eaeef2; color: #24292f; }
 .tool-meter__schemas { background: #8250df; color: #ffffff; }

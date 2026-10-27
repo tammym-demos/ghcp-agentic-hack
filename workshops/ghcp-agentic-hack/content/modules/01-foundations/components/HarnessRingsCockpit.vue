@@ -120,14 +120,14 @@ onBeforeUnmount(() => {
           />
         </g>
         <circle cx="220" cy="210" r="50" fill="#24292f" stroke="#8250df" stroke-width="3" />
-        <text x="220" y="204" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="800">LLM MODEL</text>
-        <text x="220" y="221" text-anchor="middle" fill="#d8b9ff" font-size="9.5" font-weight="600">Tokens In → Out</text>
+        <text x="220" y="204" text-anchor="middle" fill="#ffffff" style="font-size: 18px" font-weight="800">LLM MODEL</text>
+        <text x="220" y="221" text-anchor="middle" fill="#d8b9ff" style="font-size: 12px" font-weight="600">Tokens In → Out</text>
 
         <g v-if="step >= 4" class="BlockedImpulse">
           <path d="M 35 65 L 82 102" stroke="#cf222e" stroke-width="3" stroke-dasharray="4 3" />
           <circle cx="86" cy="105" r="11" fill="#cf222e" />
-          <text x="86" y="109" text-anchor="middle" fill="#fff" font-size="11" font-weight="800">✕</text>
-          <text x="22" y="54" fill="#cf222e" font-size="10" font-weight="700">Unapproved action blocked at Ring 4</text>
+          <text x="86" y="109" text-anchor="middle" fill="#fff" style="font-size: 16px" font-weight="800">✕</text>
+          <text x="22" y="54" fill="#cf222e" style="font-size: 16px" font-weight="700">Unapproved action blocked at Ring 4</text>
         </g>
       </svg>
 
