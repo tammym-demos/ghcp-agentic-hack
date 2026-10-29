@@ -15,7 +15,7 @@ deliveryVariants:
     description: >-
       Complete the learning day, then apply the practices during a full team
       hack day and project readout.
-    archiveOnProduction: true
+    archived: true
     days:
       - id: day-one
         title: GitHub Workshop
@@ -651,7 +651,7 @@ leaderboard:
       submissionUrl: >-
         https://github.com/tammym-demos/ghcp-dev-hack-leaderboard/issues/new?template=leaderboard-submission.yml
       standingsUrl: 'https://tammym-demos.github.io/ghcp-dev-hack-leaderboard/'
-archiveOnProduction: true
+archived: true
 lastReviewed: '2026-09-10'
 ---
 # GitHub Copilot Developer Hack

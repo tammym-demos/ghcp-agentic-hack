@@ -1,21 +1,25 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import {
   buildCaseFileText,
   calculateMissionScore,
+  createBrowserStorage,
   getMissionStorageKey,
   buildSubmissionUrl,
   getAliasStorageKey,
   isScoredMission,
   loadMissionProgress,
+  loadMissionHarness,
   normalizeMission,
   parseMissionProgress,
   renderModule,
   renderLandingPage,
   renderWorkshopCards,
   renderWorkshopPage,
+  renderVariantPage,
   renderLeaderboardPointer,
   renderMissionBackLink,
   renderMissionSubmission,
+  renderScoredMission,
   richText,
   summarizeWorkshopScores,
   type CatalogMission,
@@ -200,6 +204,43 @@ const workshop: CatalogWorkshop = {
 };
 
 describe("mission rich text", () => {
+  it("simplifies timed pages while keeping legacy details", () => {
+    const legacy = normalizeMission(createMission("layout", "Layout"));
+    if (!isScoredMission(legacy)) throw new Error("Expected scored fixture");
+    const module = workshop.modules[0]!;
+    const oldHtml = renderScoredMission(workshop, module, legacy);
+    expect(oldHtml).toContain("<blockquote>Scene 1</blockquote>");
+    expect(oldHtml).toContain("Then work through these steps");
+    const timed = {
+      ...legacy,
+      debriefMinutes: 5,
+      coreClues: legacy.coreClues.map(clue => ({ ...clue, durationMinutes: 10 })),
+      starterFile: { name: "lab.html", content: "<h1>Lab</h1>" }
+    };
+    const html = renderScoredMission(workshop, module, timed);
+    expect(html).toContain("Your 45-minute plan");
+    expect(html).toContain("Core 1 — 10 min");
+    expect(html).toContain("Finish and debrief — 5 min");
+    expect(html).toContain("Explain the evidence.");
+    expect(html).not.toContain("<blockquote>");
+    expect(html).not.toContain("Then work through these steps");
+    for (const label of ["Starter file — copy only", "Save a note (optional", "Bonus work (only", "Optional leaderboard", "Workshop totals"]) expect(html).toContain(`<summary>${label}`);
+    expect(html).not.toContain("<details open");
+    expect(html).toContain('id="mission-reset"');
+  });
+
+  it("requires a harness before revealing scored mission work", () => {
+    const mission = normalizeMission(createMission("gated", "Gated mission"));
+    if (!isScoredMission(mission)) throw new Error("Expected scored fixture");
+    const html = renderScoredMission(workshop, workshop.modules[0]!, mission);
+    const gate = html.indexOf('<div id="mission-work" hidden>');
+    expect(gate).toBeGreaterThan(html.indexOf('class="mission-harness-picker"'));
+    expect(gate).toBeLessThan(html.indexOf("<h2>Prepare your practice task</h2>"));
+    expect(gate).toBeLessThan(html.indexOf('data-clue-card="gated-core-1"'));
+    expect(html).toContain('aria-controls="mission-work" required');
+    expect(html).toContain("Your choice carries into later modules");
+  });
+
   it("renders a double-backtick span containing a literal backtick", () => {
     expect(richText("Open the terminal with `` Ctrl+` `` and run it there.")).toBe(
       "Open the terminal with <code>Ctrl+`</code> and run it there."
@@ -300,6 +341,29 @@ describe("workshop detail layout", () => {
     expect(html).toContain("Foundations slides");
     expect(html).not.toContain("Agentic Development slides");
     expect(renderWorkshopPage({ ...workshop, modules: [] })).toContain("<h2>Modules</h2><span>0</span>");
+  });
+
+  it("renders curated external resources as safe new-tab links", () => {
+    const article = {
+      title: "GitHub Universe 2026: Evolving every layer of the stack",
+      url: "https://github.blog/news-insights/company-news/github-universe-2026-evolving-every-layer-of-the-stack/"
+    };
+    const linkedWorkshop = { ...workshop, externalLinks: [article] };
+    const variant = {
+      id: "two-day",
+      title: "Two-day workshop",
+      description: "A learning day and a hack day",
+      route: `${workshop.route}variants/two-day/`,
+      totalMinutes: 844,
+      days: [],
+      modulePhases: []
+    };
+    for (const html of [renderWorkshopPage(linkedWorkshop), renderVariantPage(linkedWorkshop, variant)]) {
+      expect(html).toContain("<h2 id=\"workshop-resources-heading\">Related resources</h2>");
+      expect(html).toContain(`href="${article.url}" target="_blank" rel="noopener noreferrer"`);
+      expect(html).toContain(`aria-label="${article.title} (opens in new tab)"`);
+    }
+    expect(renderVariantPage(workshop, variant)).not.toContain('id="workshop-resources-heading"');
   });
 });
 
@@ -452,7 +516,11 @@ describe("landing page features", () => {
     expect(html.indexOf("GitHub Copilot Agentic Hack (2 Day)")).toBeLessThan(html.indexOf(missionControl.title));
     expect(html.indexOf(missionControl.title)).toBeLessThan(html.indexOf("GHCP Hack (2 Day)"));
     expect(html).toContain('id="catalog-featured-heading">Featured workshop</h2>');
-    expect(html).toContain('id="catalog-archived-heading">Archived workshops</h2>');
+    expect(html).toContain('<summary class="catalog-group__summary"><h2 id="catalog-archived-heading" class="catalog__heading">Archived<span>1 item</span></h2></summary>');
+    expect(html).toContain('<details class="catalog-group catalog-group--archived" aria-labelledby="catalog-archived-heading">');
+    expect(html).not.toContain('<details class="catalog-group catalog-group--archived" aria-labelledby="catalog-archived-heading" open>');
+    expect(html).toMatch(/id="catalog-heading">Workshop catalog<\/h2>\s*<span>2 available<\/span>/);
+    expect(html).toContain("<span>1 item</span>");
     expect(html).toContain("workshop-card--archived");
     expect(html).toContain("<span>Archived</span>");
   });
@@ -625,6 +693,79 @@ describe("landing page duration groups", () => {
 });
 
 describe("mission progress helpers", () => {
+  it("defers a denied browser storage getter until guarded storage operations", () => {
+    const getter = vi.fn(() => { throw new Error("Storage getter denied"); });
+    vi.stubGlobal("window", Object.defineProperty({}, "localStorage", { get: getter }));
+    try {
+      const storage = createBrowserStorage();
+      expect(getter).not.toHaveBeenCalled();
+      expect(loadMissionProgress(storage, "mission").warning).toContain("Storage getter denied");
+      expect(() => storage.setItem("mission", "value")).toThrow("Storage getter denied");
+      expect(() => storage.removeItem("mission")).toThrow("Storage getter denied");
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
+
+  const harnesses = [
+    { id: "copilot-cli", title: "CLI", description: "CLI", instructions: ["Open folder."] },
+    { id: "ide-extension", title: "VS Code", description: "IDE", instructions: ["Open folder."] },
+    { id: "future-harness", title: "Future", description: "Future", instructions: ["Open folder."] }
+  ];
+  const advancedMission = { ...createMission("advanced-mission", "Advanced"), harnesses };
+  const threeModules = {
+    ...workshop,
+    modules: [...workshop.modules, {
+      ...workshop.modules[1]!, id: "advanced", missions: [advancedMission]
+    }]
+  };
+  const savedChoice = (harness: string) => JSON.stringify({ harness, completed: [], evidence: {}, followUp: "" });
+  const earlierChoices = () => createStorage({
+    [getMissionStorageKey(workshop.id, "foundations", foundationsMission.id)]: savedChoice("copilot-cli"),
+    [getMissionStorageKey(workshop.id, "agentic", agenticMission.id)]: savedChoice("ide-extension")
+  });
+  const noProgress: MissionProgress = { completed: [], evidence: {}, followUp: "" };
+
+  it("does not pick a default or inherit a later module's harness", () => {
+    expect(loadMissionHarness(threeModules, "foundations", foundationsMission, noProgress, earlierChoices()).harness).toBeUndefined();
+    expect(loadMissionHarness(threeModules, "advanced", advancedMission, noProgress, createStorage()).harness).toBeUndefined();
+  });
+
+  it("carries Foundations forward, then prefers a later module's changed choice", () => {
+    expect(loadMissionHarness(threeModules, "agentic", { ...agenticMission, harnesses }, noProgress, earlierChoices()).harness).toBe("copilot-cli");
+    expect(loadMissionHarness(threeModules, "advanced", advancedMission, noProgress, earlierChoices()).harness).toBe("ide-extension");
+  });
+
+  it("preserves this mission's own saved choice and supports future harness ids", () => {
+    expect(loadMissionHarness(threeModules, "advanced", advancedMission, { ...noProgress, harness: "future-harness" }, earlierChoices()).harness).toBe("future-harness");
+  });
+
+  it("skips unavailable harnesses and warns when this mission's saved choice is stale", () => {
+    expect(loadMissionHarness(threeModules, "advanced", { ...advancedMission, harnesses: harnesses.slice(0, 1) }, noProgress, earlierChoices()).harness).toBe("copilot-cli");
+    expect(loadMissionHarness(threeModules, "foundations", foundationsMission, { ...noProgress, harness: "retired" }, createStorage())).toMatchObject({
+      warning: expect.stringContaining("saved harness is not available")
+    });
+  });
+
+  it("does not inherit across workshops or invent a choice when storage is corrupt or blocked", () => {
+    expect(loadMissionHarness({ ...threeModules, id: "other-workshop" }, "advanced", advancedMission, noProgress, earlierChoices()).harness).toBeUndefined();
+    const corrupt = createStorage({
+      [getMissionStorageKey(workshop.id, "foundations", foundationsMission.id)]: "{bad"
+    });
+    expect(loadMissionHarness(threeModules, "agentic", agenticMission, noProgress, corrupt)).toMatchObject({
+      warning: expect.stringContaining("Local progress could not be loaded")
+    });
+    const blocked: StorageLike = {
+      getItem() { throw new Error("Storage blocked"); },
+      setItem() { throw new Error("Storage blocked"); },
+      removeItem() { throw new Error("Storage blocked"); }
+    };
+    const result = loadMissionHarness(threeModules, "advanced", advancedMission, noProgress, blocked);
+    expect(result.harness).toBeUndefined();
+    expect(result.warning).toContain("Storage blocked");
+    expect(() => loadMissionHarness(threeModules, "missing-module", advancedMission, noProgress, corrupt)).toThrow('Unknown mission module "missing-module"');
+  });
+
   it("parses saved mission progress and keeps only valid string evidence", () => {
     expect(parseMissionProgress(JSON.stringify({
       harness: "copilot-cli",
@@ -850,7 +991,41 @@ describe("leaderboard surfaces", () => {
     expect(markup).toContain('id="mission-alias-input"');
     expect(markup).toContain("Your leaderboard alias");
     expect(markup).toContain("Pick a made-up alias, not your real name.");
-    expect(markup).toContain("never transmitted");
+    expect(markup).toContain("The submission link carries your alias and totals to the form");
+  });
+
+  it("explains account-free submissions without GitHub issue instructions", () => {
+    const mission = {
+      leaderboard: {
+        optional: true, aliasOnly: true, instructions: [],
+        submission: { moduleOption: "Foundations", steps: ["Check your totals."] }
+      }
+    } as unknown as CatalogMission;
+    const markup = renderMissionSubmission({
+      leaderboard: { ...leaderboard, submissionMode: "account-free", submissionUrl: "https://scores.test/api/submit" }
+    }, mission);
+    expect(markup).toContain("No GitHub account is needed");
+    expect(markup).toContain("private recovery key");
+    expect(markup).toContain("correct or withdraw");
+    expect(markup).not.toContain("the issue you open");
+    expect(markup).not.toContain("edit the existing GitHub issue");
+    expect(markup).not.toContain("use event id");
+    expect(buildSubmissionUrl("https://scores.test/api/submit", {
+      eventId: "ghcp-agentic-hack", moduleOption: "Foundations", core: 45, bonus: 10, alias: "night-shift-42"
+    })).toContain("/api/submit?event-id=");
+  });
+
+  it.each(["github", undefined] as const)("preserves GitHub correction and withdrawal guidance in %s mode", (submissionMode) => {
+    const markup = renderMissionSubmission({ leaderboard: { ...leaderboard, submissionMode } }, {
+      leaderboard: {
+        optional: true, aliasOnly: true, instructions: [],
+        submission: { moduleOption: "Agentic", steps: [] }
+      }
+    });
+    expect(markup).toContain("edit the existing GitHub issue");
+    expect(markup).toContain("close that issue");
+    expect(markup).not.toContain("private recovery key");
+    expect(markup).not.toContain("Use the same browser for every module");
   });
 
   it("keeps the alias key workshop-scoped so every module reuses one alias", () => {

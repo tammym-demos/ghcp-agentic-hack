@@ -910,18 +910,18 @@ layout: bureau-single-panel
 <div style="display:grid;place-items:center;height:320px;text-align:center">
   <div>
     <p style="font-size:1.6rem;font-weight:800;color:#6639ba;margin-bottom:0.5rem">Live SDLC Walkthrough</p>
-    <p style="font-size:1.15rem;color:#57606a">4 Planning Proofs · Verifying <code>/instructions</code>, <code>SKILL.md</code> &amp; <code>.agent.md</code> · Running <code>/security-review</code> &amp; Release Check</p>
+    <p style="font-size:1.15rem;color:#57606a">4 Planning Proofs · One Instruction · One Local Skill · Failing Checks to Verified Handoff</p>
   </div>
 </div>
 
 <!--
 Timebox: 0 minutes
 
-Talk track: Quick live look at the four files you are about to build in your case folder—`.github/copilot-instructions.md`, `.github/agents/case-writer.agent.md`, `.github/skills/case-summary/SKILL.md`, and a path-scoped `.instructions.md`—and how to verify each one loaded.
+Talk track: Show the five-line brief, one concise `.github/copilot-instructions.md`, and `.github/skills/case-check/SKILL.md`. Run a failing browser check before changing the filter. Distinguish a file saved on disk, a file actually read, and a check the participant actually ran.
 
 Transition: Let's launch `Case File Ω-2`!
 
-Audience question: Ready to build your SDLC customization suite and run the loop?
+Audience question: Which negative check must fail before you ask for the implementation?
 
 Response guidance: Advance immediately to Slide 29 and start the 45-minute mission timer.
 
@@ -940,11 +940,12 @@ layout: bureau-two-panel
 
 - **Open the Portal Mission Page:** `Your Mission: Hand Off Work with Confidence` (`45 minutes`)
 - **5 Core SDLC Operations (50 pts; 40 pts completes):**
-  1. **Operation Open the Case (`10 pts`):** Write `.github/copilot-instructions.md` and prove it changes behavior
-  2. **Operation Write the Brief (`10 pts`):** Create a specialist custom agent at `.github/agents/case-writer.agent.md` and run it
-  3. **Operation Verify the Evidence (`10 pts`):** Package a reusable skill at `.github/skills/case-summary/SKILL.md`
-  4. **Operation Close the Handoff (`10 pts`):** Write an `applyTo` instruction rule scoped to Markdown files only
-  5. **Operation Watch the Loop (`10 pts`):** Run a multi-step job, audit the plan against the 4 Planning Proofs, and record where you step in
+  1. **Open the Case (`6 min`, `10 pts`):** Write a five-line brief and run the initial negative checks
+  2. **Write the Brief (`7 min`, `10 pts`):** Save one concise instruction and inspect whether it was read
+  3. **Verify the Evidence (`7 min`, `10 pts`):** Write a local check skill; distinguish actual browser output from a claim
+  4. **Close the Handoff (`13 min`, `10 pts`):** Implement the filter without changing tests; rerun current and earlier checks
+  5. **Watch the Loop (`7 min`, `10 pts`):** Save a handoff with results, restore point, and unresolved release evidence
+- **Debrief: 5 min.** Custom agents and simulated release selection are optional.
 
 ::visual::
 <img src="/images/cloud-agent-bounded-brief.png" alt="Agent Mergewell, Riley Relay, and Purrmission launching the 45-minute Agentic SDLC mission" />
@@ -956,11 +957,11 @@ Talk track: Your 45-minute Agentic SDLC mission starts now! Reopen your `copilot
 
 Transition: After the mission debrief, we will enter Act III—Module 3: Under the Hood of LLMs & Multi-Agent Scale.
 
-Audience question: Which of the four customization artifacts changed Riley's output most visibly in your harness?
+Audience question: What evidence would let another developer continue without trusting the agent's summary?
 
 Response guidance: Use this question during the final 5 minutes of the mission block for the group debrief.
 
-Payoff: Learners build and verify repository instructions, a custom agent, a skill, and path-scoped `applyTo` rules inside an observable agentic loop.
+Payoff: Learners use a bounded brief, concise instruction, local skill, negative checks, regression checks, and an honest handoff in one developer workflow.
 
 Sources: content/missions/agentic/agent-task.md
 -->

@@ -71,10 +71,24 @@ function mergedBudget(existing: unknown, minutes: number): Budget {
 
 // The workshop schedule must cover every module budget it aggregates, so an authored
 // distribution survives only while it still does; otherwise it is derived from the modules.
-function workshopSchedule(existing: unknown, totalMinutes: number, moduleBudgets: Budget[]): Budget {
+function workshopSchedule(
+  existing: unknown,
+  totalMinutes: number,
+  moduleBudgets: Budget[],
+  runOfShow: WorkshopRequirements["runOfShow"]
+): Budget {
   const aggregate = defaultBudget(0);
   for (const budget of moduleBudgets) {
     for (const key of budgetKeys) aggregate[key] += budget[key];
+  }
+  for (const block of runOfShow ?? []) {
+    if (block.type === "setup" || block.type === "transition") {
+      aggregate.setupAndTransitionsMinutes += block.minutes;
+    } else if (block.type === "break") {
+      aggregate.breaksMinutes += block.minutes;
+    } else if (block.type === "contingency") {
+      aggregate.contingencyMinutes += block.minutes;
+    }
   }
   const authored = mergedBudget(existing, totalMinutes);
   if (budgetKeys.every((key) => authored[key] >= aggregate[key])) return authored;
@@ -103,8 +117,8 @@ function workshopFrontmatter(
     format: requirements.format,
     duration: `${requirements.durationMinutes} minutes`,
     totalMinutes: requirements.durationMinutes,
-    schedule: workshopSchedule(existing.schedule, requirements.durationMinutes, moduleBudgets),
-    runOfShow: requirements.modules.map((module) => ({
+    schedule: workshopSchedule(existing.schedule, requirements.durationMinutes, moduleBudgets, requirements.runOfShow),
+    runOfShow: requirements.runOfShow ?? requirements.modules.map((module) => ({
       id: module.id,
       type: "module",
       title: module.title,

@@ -44,7 +44,8 @@ const leaderboardEnvironment = z.object({
     .string()
     .regex(/^[A-Za-z0-9][A-Za-z0-9._-]*\/[A-Za-z0-9][A-Za-z0-9._-]*$/, "Use an owner/repository reference"),
   submissionUrl: httpsUrl,
-  standingsUrl: httpsUrl
+  standingsUrl: httpsUrl,
+  submissionMode: z.enum(["github", "account-free"]).optional()
 });
 
 export const leaderboardEnvironmentSchema = leaderboardEnvironment;
@@ -68,6 +69,14 @@ export const timingBudgetSchema = z.object({
   setupAndTransitionsMinutes: z.number().int().nonnegative(),
   breaksMinutes: z.number().int().nonnegative(),
   contingencyMinutes: z.number().int().nonnegative()
+});
+
+export const runOfShowBlockSchema = z.object({
+  id,
+  type: z.enum(["module", "break", "setup", "transition", "contingency"]),
+  title: z.string().min(1),
+  minutes: z.number().int().positive(),
+  module: id.optional()
 });
 
 const clockTime = z.string().regex(/^(?:[01]\d|2[0-3]):[0-5]\d$/, "Use 24-hour HH:mm format");
@@ -186,23 +195,17 @@ export const workshopSchema = baseContent
     schedule: timingBudgetSchema.optional(),
     defaultDeliveryVariant: id.optional(),
     deliveryVariants: z.array(deliveryVariantSchema).min(1).optional(),
-    runOfShow: z
-      .array(
-        z.object({
-          id,
-          type: z.enum(["module", "break", "setup", "transition", "contingency"]),
-          title: z.string().min(1),
-          minutes: z.number().int().positive(),
-          module: id.optional()
-        })
-      )
-      .optional(),
+    runOfShow: z.array(runOfShowBlockSchema).optional(),
     level: z.enum(["basic", "intermediate", "advanced", "mixed"]),
     audience: z.array(z.string().min(1)).min(1),
     prerequisites: z.array(z.string().min(1)).default([]),
     modules: z.array(id).min(1),
     tags: z.array(z.string().min(1)).default([]),
     researchSources: z.array(researchSource).default([]),
+    externalLinks: z.array(z.object({
+      title: z.string().min(1),
+      url: httpsUrl
+    })).optional(),
     readinessGuide: z.object({
       title: z.string().min(1),
       path: relativePath.refine((value) => value.endsWith(".html"), {
@@ -358,6 +361,7 @@ const missionRouteSchema = z.object({
 const missionClueSchema = z.object({
   id,
   title: z.string().min(1),
+  durationMinutes: z.number().int().positive().optional(),
   points: z.number().int().positive(),
   objectiveRef: z.string().min(1),
   scene: z.string().min(1),
@@ -375,6 +379,7 @@ export const missionSchema = baseContent
     kind: z.literal("mission"),
     module: id,
     durationMinutes: z.number().int().positive(),
+    debriefMinutes: z.number().int().positive().optional(),
     objectiveRefs: z.array(z.string().min(1)).min(1),
     prerequisites: z.array(z.string().min(1)).default([]),
     startingState: z.string().min(1),
@@ -495,6 +500,22 @@ export const missionSchema = baseContent
     }
 
     const corePoints = mission.coreClues.reduce((total, clue) => total + clue.points, 0);
+    if (mission.debriefMinutes !== undefined) {
+      if (mission.coreClues.some((clue) => clue.durationMinutes === undefined)) {
+        context.addIssue({
+          code: "custom",
+          path: ["coreClues"],
+          message: "A timed mission requires a duration for every core clue"
+        });
+      } else if (mission.coreClues.reduce((total, clue) => total + (clue.durationMinutes ?? 0), 0)
+          + mission.debriefMinutes !== mission.durationMinutes) {
+        context.addIssue({
+          code: "custom",
+          path: ["durationMinutes"],
+          message: "Core clue minutes plus debrief must equal the mission duration"
+        });
+      }
+    }
     if (mission.completionPoints !== undefined && mission.completionPoints > corePoints) {
       context.addIssue({
         code: "custom",

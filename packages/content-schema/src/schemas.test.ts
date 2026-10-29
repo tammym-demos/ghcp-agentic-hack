@@ -44,6 +44,10 @@ describe("workshopSchema", () => {
       prerequisites: [],
       modules: ["foundations"],
       tags: ["copilot"],
+      externalLinks: [{
+        title: "GitHub Universe announcement",
+        url: "https://github.blog/news-insights/company-news/"
+      }],
       readinessGuide: {
         title: "Two-day readiness guide",
         path: "artifacts/customer/readiness.html"
@@ -53,6 +57,25 @@ describe("workshopSchema", () => {
     });
 
     expect(result.success).toBe(true);
+  });
+
+  it("rejects insecure workshop external links", () => {
+    const result = workshopSchema.safeParse({
+      schemaVersion: 1,
+      kind: "workshop",
+      id: "test-workshop",
+      title: "Workshop",
+      description: "Description",
+      format: "one-day",
+      duration: "One day",
+      level: "mixed",
+      audience: ["Developers"],
+      modules: ["intro"],
+      externalLinks: [{ title: "Article", url: "http://example.com/article" }],
+      lastReviewed: "2026-10-28"
+    });
+
+    expect(result.success).toBe(false);
   });
 
   it.each(["../readiness.html", "/readiness.html", "artifacts\\readiness.html", "artifacts/readiness.md"])(
@@ -595,6 +618,31 @@ describe("leaderboard declarations", () => {
     });
 
     expect(result.success).toBe(true);
+  });
+
+  it("accepts an account-free test endpoint without changing legacy production mode", () => {
+    const result = workshopSchema.safeParse({
+      ...workshopBase,
+      leaderboard: {
+        optional: true, aliasOnly: true, eventId: "ghcp-dev-hack",
+        environments: {
+          ...environments,
+          test: { ...environments.test, submissionMode: "account-free", submissionUrl: "https://scores.example/api/submit" }
+        }
+      }
+    });
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.leaderboard?.environments.test.submissionMode).toBe("account-free");
+      expect(result.data.leaderboard?.environments.production.submissionMode).toBeUndefined();
+    }
+    expect(workshopSchema.safeParse({
+      ...workshopBase,
+      leaderboard: {
+        optional: true, aliasOnly: true, eventId: "ghcp-dev-hack",
+        environments: { ...environments, test: { ...environments.test, submissionMode: "unknown" } }
+      }
+    }).success).toBe(false);
   });
 
   it("requires both environments and https URLs", () => {

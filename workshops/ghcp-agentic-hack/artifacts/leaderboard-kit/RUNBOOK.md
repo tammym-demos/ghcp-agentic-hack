@@ -1,5 +1,73 @@
 # Facilitator leaderboard runbook
 
+## Account-free Azure route
+
+The active workshop uses one shared Azure backend and score store in one
+subscription for both private-test and public workshop sites, with
+`submissionMode: account-free`. There are no separate test and production
+backends. The backend is deployed separately from the sites; its source
+and deployment tooling are not included in this event-repository kit or in
+public workshop-site exports.
+
+### Setup and handoff
+
+1. Have the deployment owner maintain the shared backend from the authoring
+   workspace, using Node.js 22, managed identity, private Blob storage, and
+   approved networking. Do not provision another backend for public-site
+   rollout. Do not enable public storage or shared keys to work
+   around a deployment failure.
+2. Obtain the HTTPS API base URL ending in `/api`. Check `/config`, `/submit`,
+   `/board`, and `/standings`, and confirm the configured event time zone.
+   The backend selects the event date; each day has a separate board.
+3. Set this event repository's `LEADERBOARD_API_URL` Actions variable to that
+   base URL, then dispatch the publish workflow. Keep its GitHub Issues read
+   access: the build preserves sanitized legacy archives at `events/<date>/`
+   and their index at `events/`, including a populated switch-day issue board.
+   Root entry points redirect to the live backend; `submit.html` preserves
+   participant prefills. Azure's `/api/events` indexes account-free events.
+4. Configure both workshop-site environments with the same submission URL
+   `<apiUrl>/submit`, standings URL `<apiUrl>/board`, and mode `account-free`.
+   Both sites share daily scores; backend updates affect both immediately.
+5. Before participants use it, save and withdraw a synthetic score. Confirm
+   it appears and disappears, and verify facilitator access separately.
+   Withdraw all rehearsal scores before participant use.
+
+### Participant ownership and facilitator operations
+
+Participants use one made-up alias and the same browser for every module.
+The form holds a private recovery key; participants can copy it privately and
+restore it in another browser. Reopen the form to correct or withdraw a module.
+Changed scores need fresh verification. Lost keys cannot be recovered or
+reassigned; use a new alias or ask a facilitator to withdraw an abandoned score.
+Evidence, identities, prompts, diffs, and repository content stay local.
+
+Authorized facilitators retrieve the function key through approved Azure tooling.
+Send it only in the `x-functions-key` header, never in URLs, participant code,
+source files, or public output. The following routes accept JSON and an explicit
+`?date=YYYY-MM-DD` in the configured workshop time zone:
+
+| Route | Body |
+| --- | --- |
+| `POST /api/facilitator/verify` | `alias`, module id, exact reviewed `core` and `bonus`, and boolean `verified` |
+| `POST /api/facilitator/withdraw` | `alias`, module id, exact reviewed `core` and `bonus` |
+| `POST /api/facilitator/close` | `{ "closed": true }` to close; `false` to reopen |
+
+Module ids are `foundations`, `agentic`, and `advanced`. A 409 means the score
+changed: read the current totals and review them again before retrying.
+Past events are read-only for participants; facilitators can still adjust
+verification or withdraw an unwanted submission. Tied highest eligible verified
+totals remain co-winners.
+
+Anonymous intake is not proof of identity and cannot prevent multiple keys.
+Limits are 500 aliases per event and 20 writes per key per rolling minute.
+Ask the deployment owner for gateway abuse protection before untrusted public
+use. For availability errors, check managed-identity permissions, private
+networking/DNS, and backend logs without collecting participant keys or evidence.
+
+## Legacy GitHub route
+
+The GitHub issue operations below apply only to legacy environments.
+
 Operating guide for running the optional alias-only workshop leaderboard during a
 `ghcp-dev-hack` delivery. Pair it with `README.md`, which documents the kit
 itself.

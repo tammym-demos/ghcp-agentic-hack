@@ -117,9 +117,14 @@
         "artifacts/leaderboard-kit/fixtures/sample-issues.json",
         "artifacts/leaderboard-kit/src/leaderboard.mjs",
         "artifacts/leaderboard-kit/src/build-leaderboard.mjs",
-        "artifacts/leaderboard-kit/test/leaderboard.test.mjs"
+        "artifacts/leaderboard-kit/src/live-site.mjs",
+        "artifacts/leaderboard-kit/test/leaderboard.test.mjs",
+        "artifacts/leaderboard-kit/test/live-site.test.mjs"
       ],
-      "tests": ["artifacts/leaderboard-kit/test/leaderboard.test.mjs"]
+      "tests": [
+        "artifacts/leaderboard-kit/test/leaderboard.test.mjs",
+        "artifacts/leaderboard-kit/test/live-site.test.mjs"
+      ]
     }
   }
 }

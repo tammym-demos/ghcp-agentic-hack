@@ -6,7 +6,7 @@ title: 'Advanced Workflows: Under the Hood of LLMs & Multi-Agent Scale'
 description: >-
   Open the engine hood on how LLMs and KV prefix caches work (tokens,
   embeddings, causal self-attention, probability suspect lineup), then apply
-  that architecture to HydraFusion, subagents, parallel CLI /fleet, Git
+  that architecture to Copilot Fusion, subagents, parallel CLI /fleet, Git
   worktrees vs. Stacked PRs, Work IQ MCP, indirect prompt-injection defense, and
   scale operations.
 duration: 1 hour 30 minutes
@@ -22,6 +22,7 @@ timing:
 objectives:
   - Select appropriate multiagent, subagent, and parallel execution patterns
   - Evaluate ecosystem resources and integration surfaces before enterprise use
+  - Explain how Copilot Fusion selects an execution pattern and model or models for a task without assuming guaranteed quality, latency, or cost gains
   - Apply agent skills and MCP context to governed Copilot code review workflows
   - Debug agent behavior using narrowed context and observable evidence
   - Evaluate agent outcomes against explicit acceptance criteria and recover to a known state
@@ -50,7 +51,8 @@ assets:
   - assets/brand/github/GitHub_Lockup_Black_Clearspace.svg
   - assets/brand/microsoft/microsoft-logo.png
   - content/modules/03-advanced/public/images/accountable-trio-cover-anchor.png
-  - content/modules/03-advanced/public/images/parallel-integration-yard-anchor.png
+  - >-
+    content/modules/03-advanced/public/images/parallel-integration-yard-anchor.png
   - content/modules/03-advanced/public/images/role-return-merge-gate-anchor.png
   - content/modules/03-advanced/public/images/token-cache-purrmission-v1.png
   - content/modules/03-advanced/public/images/token-lead-chief-v1.png
@@ -60,4 +62,3 @@ status: draft
 # Advanced Workflows: Under the Hood of LLMs & Multi-Agent Scale
 
 Lift the glass floor beneath the Bureau workbench to see how LLMs and KV prefix caches actually work, then scale across subagents, `/fleet`, Git worktrees, and enterprise defense.
-

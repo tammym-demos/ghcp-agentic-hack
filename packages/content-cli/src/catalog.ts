@@ -46,6 +46,7 @@ export function createPortalCatalog(catalog: ContentCatalog, environment = resol
               id: mission.data.id,
               title: mission.data.title,
               durationMinutes: mission.data.durationMinutes,
+              debriefMinutes: mission.data.debriefMinutes,
               route: `workshops/${workshopId}/${module.data.id}/missions/${mission.data.id}/`,
               objectiveRefs: mission.data.objectiveRefs,
               prerequisites: mission.data.prerequisites,
@@ -124,7 +125,8 @@ export function createPortalCatalog(catalog: ContentCatalog, environment = resol
             environment,
             repository: workshopLeaderboard.environments[environment].repository,
             submissionUrl: workshopLeaderboard.environments[environment].submissionUrl,
-            standingsUrl: workshopLeaderboard.environments[environment].standingsUrl
+            standingsUrl: workshopLeaderboard.environments[environment].standingsUrl,
+            submissionMode: workshopLeaderboard.environments[environment].submissionMode
           }
         : undefined;
       return {
@@ -137,6 +139,7 @@ export function createPortalCatalog(catalog: ContentCatalog, environment = resol
         level: entry.workshop.data.level,
         tags: entry.workshop.data.tags,
         prerequisites: entry.workshop.data.prerequisites,
+        externalLinks: entry.workshop.data.externalLinks,
         route: `workshops/${workshopId}/`,
         ...(workshopArchived ? { archived: true } : {}),
         ...(entry.workshop.data.archiveOnProduction ? { archiveOnProduction: true } : {}),

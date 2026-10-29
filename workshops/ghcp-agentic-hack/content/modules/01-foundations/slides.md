@@ -781,14 +781,15 @@ layout: bureau-two-panel
 # Your Mission Starts Now: Context, Cost & Control
 ::text::
 
-- **Open the Portal Mission Page:** `Foundations Mission: Context, Cost & Control` (`45 minutes`)
+- **Portal:** `Foundations Mission: Context, Cost & Control` (`45 minutes`)
 - **6 Core Experiments (50 pts):**
-  1. Pick your harness & create `copilot-case-file/case-notes.md` (`5 pts`)
-  2. Compare a vague prompt vs. a specific grounded prompt (`10 pts`)
-  3. Inspect active context (`/context` / References) vs. excluded files (`10 pts`)
-  4. Ground one file deliberately (`#file` / path) and prove inclusion (`5 pts`)
-  5. Read your AI Credits receipt (`/usage` / footer), test a second model, and write a switching rule (`10 pts`)
-  6. Run the same job interactively and unattended, test undo (`/rewind`), and record your boundary (`10 pts`)
+  1. Open the browser lab and save a restore copy (`5 min`, `5 pts`)
+  2. Ask for an explanation, then a bounded plan (`7 min`, `10 pts`)
+  3. Supply one rules file and prove it was read (`6 min`, `10 pts`)
+  4. Start fresh with an explicit handoff (`5 min`, `5 pts`)
+  5. Inspect usage; interpret the labeled sample receipt (`5 min`, `10 pts`)
+  6. Approve one fix, run checks, and rehearse restore (`12 min`, `10 pts`)
+- **Debrief: 5 min.** Bonus work uses spare time only.
 
 ::visual::
 <img src="/images/mission-readiness.png" alt="Agent Mergewell and Purrmission launching the 45-minute Foundations mission" />
@@ -800,11 +801,11 @@ Talk track: Your 45-minute mission starts now! Open the Foundations Mission page
 
 Transition: After the mission debrief and break, we will reconvene for Module 2: Agentic Development Across the SDLC.
 
-Audience question: Which harness did you pick for Experiment 1, and what was the most surprising thing you saw in `/context` or `/usage`?
+Audience question: What proved your rules file was read, and what did you check before keeping the fix?
 
 Response guidance: Use this question during the final 5 minutes of the 45-minute block for a crisp group debrief.
 
-Payoff: Learners complete six hands-on experiments proving they can operate the harness, control context and cost, and enforce permissions.
+Payoff: Learners explain and plan a bounded change, supply context deliberately, interpret usage, and verify and restore a supervised edit.
 
 Sources: content/missions/foundations/context-and-prompts.md
 -->

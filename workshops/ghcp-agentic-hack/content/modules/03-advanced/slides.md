@@ -52,7 +52,7 @@ layout: bureau-two-panel
 # Session Agenda
 ::text::
 
-- **1 · Under the Hood: How LLMs & Prefix Caches Work — 15 min:** Token IDs, vector embeddings, causal self-attention, the Probability Suspect Lineup (`AttentionLineupBoard`), KV prefix caching, and `HydraFusion` / Ollama
+- **1 · Under the Hood: How LLMs & Prefix Caches Work — 15 min:** Token IDs, vector embeddings, causal self-attention, the Probability Suspect Lineup (`AttentionLineupBoard`), KV prefix caching, Copilot Fusion, and Ollama
 - **2 · Multi-Agent Orchestration & Isolation — 14 min:** Lowest-sufficient complexity, subagents protecting the parent KV cache, CLI `/fleet` & `/tasks`, and Git worktrees vs. Stacked PRs
 - **3 · Enterprise Defense, Debugging & Integration — 29 min:** Work IQ remote MCP, indirect prompt-injection defense, shared Review/Cloud MCP governance, Lead/Admin lens, VS Code Agents Window, and parallel integration
 - **4 · Mission (`Case File Ω-3`) — 2 min launch + 30 min mission:** Orchestrate, defend, debug, and sign the final verdict
@@ -200,14 +200,15 @@ layout: bureau-two-panel
 ---
 
 ::title::
-# What Breaks the KV Cache & Multi-Model Architectures (HydraFusion & Ollama)
+# What Breaks the KV Cache & Multi-Model Architectures (Copilot Fusion & Ollama)
 ::text::
 
 - **Why Early Prefix Mutations Break the KV Cache:**
   - Causal attention flows left-to-right: mutating token #50 invalidates every KV matrix from #50 onward!
   - **Top Invalidators:** (1) Switching models mid-task (different weights/KV space), (2) Editing system/repo instructions mid-session, (3) Adding/removing MCP tool schemas, (4) Reordering early context
-- **Multi-Model Routing with `HydraFusion` (Research Preview in VS Code & App):**
-  - Orchestrates multiple models via **Single**, **Cascade** (fast draft $\rightarrow$ stronger escalation), and **Critique** (cross-model review) modes
+- **Task-Based Model and Execution Orchestration with `Copilot Fusion` (Generally Available):**
+  - Evaluates the task and selects an execution pattern and one or more models
+  - Patterns include **Single**, **Cascade**, and **Critique**; Fusion is available in VS Code, Copilot CLI, the Copilot app, and JetBrains
 - **Local CLI Models via Ollama (`Copilot CLI 1.0.94-0+`):**
   - Run `/model` in Copilot CLI to discover local **Ollama** models for local experimentation (note: discovery does not imply full offline mode)
 
@@ -217,7 +218,7 @@ layout: bureau-two-panel
 <!--
 Timebox: 3 minutes
 
-Talk track: Now you know the exact mathematical reason Purrmission bolted awake when our rookie toggled MCP tools and swapped models in the middle of Turn 3! Because every token's KV state depends on all tokens to its left, changing the system instructions or tool schemas near the top of the prompt invalidates the cached KV matrices for the entire conversation that follows. Keep your setup stable inside a task! When you *do* want multi-model strength without manual model-thrashing, explore **HydraFusion** (research preview in VS Code and the Copilot App), which coordinates models using Single, Cascade, or Critique strategies. And in Copilot CLI, `/model` can now discover local Ollama models on your machine.
+Talk track: Now you know the exact mathematical reason Purrmission bolted awake when our rookie toggled MCP tools and swapped models in the middle of Turn 3! Because every token's KV state depends on all tokens to its left, changing the system instructions or tool schemas near the top of the prompt invalidates the cached KV matrices for the conversation that follows. Keep your setup stable inside a task. Copilot Fusion is now generally available in VS Code, Copilot CLI, the Copilot app, and JetBrains. It evaluates a task and selects an execution pattern and one or more models. Single, Cascade, and Critique are examples of those patterns—not guarantees of lower cost, less latency, or better results. In Copilot CLI, `/model` can also discover local Ollama models on your machine.
 
 Transition: Equipped with this deep mental model of context windows and KV caches, let's see why Subagents are an architectural superpower!
 
@@ -225,9 +226,9 @@ Audience question: Why does appending a new user message at the *end* of a conve
 
 Response guidance: Appending at the end leaves all earlier token positions unchanged; mutating the tool definitions near the beginning changes every subsequent token's attention context.
 
-Payoff: Learners can explain KV cache invalidation mechanically and know when to evaluate HydraFusion or local Ollama models.
+Payoff: Learners can explain KV cache invalidation and describe Copilot Fusion's task-based orchestration without mistaking it for a guaranteed quality, latency, or cost improvement.
 
-Sources: https://github.blog/changelog/2026-09-30-hydrafusion-in-vs-code-and-the-github-copilot-app/; https://github.blog/changelog/2026-10-07-discover-local-models-in-github-copilot-cli/
+Sources: https://docs.github.com/en/copilot/concepts/models/copilot-fusion; https://github.blog/changelog/2026-09-30-hydrafusion-in-vs-code-and-the-github-copilot-app/; https://github.blog/changelog/2026-10-07-discover-local-models-in-github-copilot-cli/
 -->
 
 ---
@@ -464,7 +465,7 @@ layout: bureau-two-panel
 
 - **Chief Charter's Three Organizational Levers:**
   1. **Budgets & AI Credit Monitoring:** Track organization/team GitHub AI Credit consumption alongside **accepted engineering outcomes** (merged PR quality, lead time, defect escape rate—not raw token volume)
-  2. **Model & Preview Enablement Policy:** Govern which GA models (e.g., `Claude Haiku 5.5`) and research previews (`HydraFusion`) are enabled for the organization
+  2. **Model & Feature Enablement Policy:** Govern organization access to supported models and product capabilities such as Copilot Fusion
   3. **Code Review Effort & Approval Policy:** Configure default Copilot Code Review effort (**Balanced** default since Sep 28 / Oct 2 vs. **Lite**) and keep human `CODEOWNERS` required for merge
 
 ::visual::
@@ -473,7 +474,7 @@ layout: bureau-two-panel
 <!--
 Timebox: 3 minutes
 
-Talk track: Chief Morgan Charter brings the Lead and Admin Lens. Whether you are a tech lead today or growing into one, remember how individual developer habits connect to organizational controls. Admins and leads manage three levers: AI credit budgets and usage dashboards; model and preview enablement policies (such as enabling `Claude Haiku 5.5` or `HydraFusion`); and repository/organization Code Review settings (where Balanced is now the default effort level and Lite is available for lighter passes). Above all, Chief Charter measures success by *verified, accepted engineering outcomes*—never by who burned the most or fewest credits.
+Talk track: Chief Morgan Charter brings the Lead and Admin Lens. Whether you are a tech lead today or growing into one, remember how individual developer habits connect to organizational controls. Admins and leads manage three levers: AI credit budgets and usage dashboards; model and product-feature availability, including Copilot Fusion; and repository or organization Code Review settings, where Balanced is the default effort level and Lite is available for lighter passes. Above all, Chief Charter measures success by *verified, accepted engineering outcomes*—never by who burned the most or fewest credits.
 
 Transition: When a complex multi-agent or cross-surface workflow behaves unexpectedly, where do we look for debugging telemetry?
 
@@ -598,14 +599,14 @@ layout: bureau-single-panel
 <div style="display:grid;place-items:center;height:320px;text-align:center">
   <div>
     <p style="font-size:1.6rem;font-weight:800;color:#6639ba;margin-bottom:0.5rem">Live Advanced Briefing</p>
-    <p style="font-size:1.15rem;color:#57606a">Read-Only Reviewer Agent · Provenance Audit · Prompt-Injection Trap Defense · Final Case Export</p>
+    <p style="font-size:1.15rem;color:#57606a">Two Bounded Lanes · Local Skill Review · Untrusted Input · Checked Integration and Restore</p>
   </div>
 </div>
 
 <!--
 Timebox: 0 minutes
 
-Talk track: Quick orientation for Case File Omega-3: you will build a read-only reviewer agent, audit a community skill's provenance, test a seeded prompt-injection trap inside a fixture file to see Purrmission's boundary hold, and sign your final keep-or-drop verdict.
+Talk track: Show two lane briefs with one shared array contract. Review the local skill rather than downloading a community package. Explain the genuine read-only route and the labeled inspect-only fallback. Integrate changes sequentially, then demonstrate the restore copy.
 
 Transition: Let's launch the 30-minute capstone mission!
 
@@ -628,11 +629,12 @@ layout: bureau-two-panel
 
 - **Open the Portal Mission Page:** `Advanced Workflow Evidence Mission` (`30 minutes`)
 - **5 Core Operations (`Case File Ω-3` — 50 pts; 40 pts completes):**
-  1. **Operation Split the Squad (`10 pts`):** Build a second custom agent (`case-reviewer.agent.md`) with read-only tools that never edits files
-  2. **Operation Vet the Surface (`10 pts`):** Audit a community skill's provenance (author, commit date, SHA, permissions) before installation
-  3. **Operation Govern the Review (`10 pts`):** Install the skill with two written boundary limits and wire it to your reviewer
-  4. **Operation Break and Fix / Injection Trap (`10 pts`):** Test a seeded prompt-injection / failure fixture, observe the symptom, and verify the boundary holds
-  5. **Operation Ship the Decision (`10 pts`):** Record your final keep-or-drop verdict, rollback step, and cumulative workshop score!
+  1. **Split the Squad (`4 min`, `10 pts`):** Define filter and summary lanes with one shared array contract
+  2. **Vet the Surface (`4 min`, `10 pts`):** Inspect the local skill's source and limits; use the supplied fallback if needed
+  3. **Govern the Review (`4 min`, `10 pts`):** Treat seeded instructions as untrusted data; record the actual permission boundary
+  4. **Break and Fix (`11 min`, `10 pts`):** Integrate lanes sequentially; run targeted, combined, and regression checks
+  5. **Ship the Decision (`4 min`, `10 pts`):** Rehearse restore and record a human keep-or-drop decision
+- **Debrief: 3 min.** One session is enough; do not install integrations.
 
 ::visual::
 <img src="/images/accountable-trio-cover-anchor.png" alt="Agent Mergewell, Riley Relay, and Purrmission launching the final 30-minute Advanced mission" />
@@ -644,9 +646,9 @@ Talk track: Your 30-minute capstone mission starts now! Open the Advanced Workfl
 
 Transition: Begin the 30-minute mission timer and circulate for coaching and final debrief.
 
-Audience question: When your reviewer agent encounters the seeded instruction inside the untrusted fixture file in Operation 4, did your tool boundary hold?
+Audience question: Did you exercise a real read-only boundary or inspect a proposal, and what did your restore check prove?
 
-Response guidance: Use this question during the final debrief to celebrate how learners enforced least-privilege tool boundaries against untrusted input.
+Response guidance: Use the final three-minute debrief to distinguish exercised boundaries from inspect-only observations. Neither an agent summary nor participation points establish production readiness.
 
 Payoff: Learners complete the three-module investigative arc and export their verified end-to-end SDLC case file.
 
