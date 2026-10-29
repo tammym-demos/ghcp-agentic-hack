@@ -205,6 +205,8 @@ workshops:
     temporaryDirectories.push(root);
     await mkdir(path.join(root, ".github", "public-release"), { recursive: true });
     await mkdir(path.join(root, "apps", "portal", "src"), { recursive: true });
+    await mkdir(path.join(root, "apps", "decks"), { recursive: true });
+    await mkdir(path.join(root, "apps", "leaderboard-api", "src"), { recursive: true });
     await mkdir(path.join(root, "packages"), { recursive: true });
     await mkdir(path.join(root, "scripts"), { recursive: true });
     await mkdir(path.join(root, "workshops", "test-workshop", "content", "modules", "01-intro", "public"), {
@@ -230,6 +232,9 @@ workshops:
     await writeFile(path.join(root, "scripts", "preview-local.mjs"), "");
     // Git does not track empty directories, so a worktree-pinned export only sees committed files.
     await writeFile(path.join(root, "apps", "portal", "src", "main.ts"), "export {};\n");
+    await writeFile(path.join(root, "apps", "decks", "README.md"), "# Deck app\n");
+    await writeFile(path.join(root, "apps", "leaderboard-api", "src", "service.ts"),
+      'import "../../../workshops/ghcp-agentic-hack/artifacts/leaderboard-kit/src/leaderboard.mjs";\n');
     await writeFile(path.join(root, "packages", "README.md"), "# Packages\n");
     await mkdir(path.join(root, "packages", "example", "private-tests"), { recursive: true });
     await writeFile(path.join(root, "packages", "example", "private-tests", "archive.test.mjs"), "private history");
@@ -628,6 +633,7 @@ workshops:
       expect(await readFile(path.join(output, relative))).toEqual(await readFile(path.join(root, relative)));
     }
     for (const file of [
+      "apps/leaderboard-api/src/service.ts",
       "packages/example/private-tests/archive.test.mjs",
       "workshops/test-workshop/content/modules/01-intro/motion/private-proof.md",
       "workshops/test-workshop/content/modules/01-intro/review/screenshot.png",

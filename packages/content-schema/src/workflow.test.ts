@@ -21,6 +21,25 @@ const requirements = {
   acceptanceCriteria: ["The production routes respond successfully"]
 };
 
+const scheduledRequirements = {
+  ...requirements,
+  durationMinutes: 424,
+  modules: [
+    { ...requirements.modules[0], minutes: 122 },
+    { ...requirements.modules[1], minutes: 122 },
+    { id: "advanced", title: "Advanced", minutes: 90, outcomes: ["Integrate verified work"] }
+  ],
+  runOfShow: [
+    { id: "kickoff", type: "setup", title: "Kickoff", minutes: 15 },
+    { id: "foundations", type: "module", title: "Foundations", minutes: 122, module: "foundations" },
+    { id: "morning-break", type: "break", title: "Break", minutes: 15 },
+    { id: "practice", type: "module", title: "Practice", minutes: 122, module: "practice" },
+    { id: "lunch", type: "break", title: "Lunch", minutes: 45 },
+    { id: "afternoon-break", type: "break", title: "Break", minutes: 15 },
+    { id: "advanced", type: "module", title: "Advanced", minutes: 90, module: "advanced" }
+  ]
+};
+
 describe("workshop requirements", () => {
   it("accepts a timed brief and defaults optional workflow fields", () => {
     const parsed = workshopRequirementsSchema.parse(requirements);
@@ -35,6 +54,62 @@ describe("workshop requirements", () => {
       modules: [requirements.modules[0], requirements.modules[0]],
       imageRoles: [{ id: "hero", module: "missing", purpose: "Set the scene" }]
     })).toThrow();
+  });
+
+  it("accounts for 334 module minutes, 15 kickoff minutes, and 75 break minutes", () => {
+    const parsed = workshopRequirementsSchema.parse(scheduledRequirements);
+    expect(parsed.durationMinutes).toBe(424);
+    expect(parsed.modules.reduce((total, module) => total + module.minutes, 0)).toBe(334);
+    expect(parsed.runOfShow).toEqual(scheduledRequirements.runOfShow);
+  });
+
+  it("accepts split module blocks whose minutes sum to the module budget", () => {
+    const parsed = workshopRequirementsSchema.parse({
+      ...scheduledRequirements,
+      runOfShow: scheduledRequirements.runOfShow.flatMap((block) =>
+        block.id === "foundations" ? [
+          { ...block, id: "foundations-content", minutes: 77 },
+          { ...block, id: "foundations-mission", minutes: 45 }
+        ] : [block])
+    });
+    expect(parsed.runOfShow?.filter((block) => block.module === "foundations")).toHaveLength(2);
+  });
+
+  it("rejects run-of-show timing drift and per-module reallocations", () => {
+    expect(() => workshopRequirementsSchema.parse({
+      ...scheduledRequirements,
+      durationMinutes: 425
+    })).toThrow("Run-of-show minutes");
+    expect(() => workshopRequirementsSchema.parse({
+      ...scheduledRequirements,
+      runOfShow: scheduledRequirements.runOfShow.map((block) => ({
+        ...block,
+        minutes: block.id === "foundations" ? 121 : block.id === "practice" ? 123 : block.minutes
+      }))
+    })).toThrow("must equal its module budget");
+  });
+
+  it("rejects invalid run-of-show references, missing modules, and duplicate ids", () => {
+    expect(() => workshopRequirementsSchema.parse({
+      ...scheduledRequirements,
+      runOfShow: scheduledRequirements.runOfShow.map((block) =>
+        block.id === "foundations" ? { ...block, module: "missing" } : block)
+    })).toThrow("must reference a declared module");
+    expect(() => workshopRequirementsSchema.parse({
+      ...scheduledRequirements,
+      runOfShow: scheduledRequirements.runOfShow.map((block) =>
+        block.id === "kickoff" ? { ...block, module: "foundations" } : block)
+    })).toThrow("Non-module blocks cannot reference a module");
+    expect(() => workshopRequirementsSchema.parse({
+      ...scheduledRequirements,
+      runOfShow: scheduledRequirements.runOfShow.map((block) =>
+        block.id === "foundations" ? { ...block, type: "break", module: undefined } : block)
+    })).toThrow("must equal its module budget");
+    expect(() => workshopRequirementsSchema.parse({
+      ...scheduledRequirements,
+      runOfShow: scheduledRequirements.runOfShow.map((block) =>
+        block.id === "afternoon-break" ? { ...block, id: "morning-break" } : block)
+    })).toThrow("block ids must be unique");
   });
 
   it("requires image reference paths and hashes to be declared together", () => {

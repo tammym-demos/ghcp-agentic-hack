@@ -585,16 +585,16 @@ export async function loadCatalog(repositoryRoot: string): Promise<ContentCatalo
           const moduleBlocks = entry.workshop.data.runOfShow.filter((block) => block.type === "module");
           for (const module of entry.modules) {
             const matchingBlocks = moduleBlocks.filter((block) => block.module === module.data.id);
-            if (matchingBlocks.length !== 1) {
+            if (matchingBlocks.length === 0) {
               issues.push(
-                `${entry.workshop.filePath}: runOfShow must contain exactly one module block for "${module.data.id}"`
+                `${entry.workshop.filePath}: runOfShow must contain at least one module block for "${module.data.id}"`
               );
             } else if (
               module.data.totalMinutes !== undefined &&
-              matchingBlocks[0]?.minutes !== module.data.totalMinutes
+              matchingBlocks.reduce((total, block) => total + block.minutes, 0) !== module.data.totalMinutes
             ) {
               issues.push(
-                `${entry.workshop.filePath}: runOfShow block for "${module.data.id}" must equal ${module.data.totalMinutes} minutes`
+                `${entry.workshop.filePath}: runOfShow blocks for "${module.data.id}" must equal ${module.data.totalMinutes} minutes`
               );
             }
           }

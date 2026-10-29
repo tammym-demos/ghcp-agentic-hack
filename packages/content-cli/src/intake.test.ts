@@ -197,4 +197,81 @@ acceptanceCriteria: ["The production routes respond successfully"]
     expect(updated.data.generation.expectedSlides).toBe(12);
     expect(updated.content.trim()).toBe("Authored module notes.");
   });
+
+  it("preserves explicit kickoff and break blocks across intake and budget reconciliation", async () => {
+    const root = await mkdtemp(path.join(os.tmpdir(), "ghcp-intake-agenda-"));
+    directories.push(root);
+    await execFileAsync("git", ["init"], { cwd: root });
+    await execFileAsync("git", ["config", "user.email", "test@example.com"], { cwd: root });
+    await execFileAsync("git", ["config", "user.name", "Test"], { cwd: root });
+    await writeFile(path.join(root, "seed.txt"), "seed");
+    await execFileAsync("git", ["add", "."], { cwd: root });
+    await execFileAsync("git", ["commit", "-m", "Initial"], { cwd: root });
+    await writeFile(path.join(root, "brief.md"), `---
+schemaVersion: 1
+kind: workshop-requirements
+id: rapid-workshop
+title: Rapid Workshop
+description: Preserve the full agenda.
+audience: [Developers]
+durationMinutes: 150
+outcomes: [Ship a tested workshop]
+modules:
+  - id: foundations
+    title: Foundations
+    minutes: 60
+    outcomes: [Explain the workflow]
+runOfShow:
+  - { id: kickoff, type: setup, title: Kickoff, minutes: 15 }
+  - { id: foundations-content, type: module, title: Foundations content, minutes: 30, module: foundations }
+  - { id: breaks, type: break, title: Breaks, minutes: 75 }
+  - { id: foundations-mission, type: module, title: Foundations mission, minutes: 30, module: foundations }
+acceptanceCriteria: [The complete agenda is preserved]
+---
+`);
+    const roots = { repositoryRoot: root, workshopsRoot: path.join(root, "workshops") };
+    await intakeWorkshop("brief.md", roots);
+    const catalog = await loadCatalog(root);
+    const original = catalog.workshops[0]!.workshop.data;
+    const moduleTiming = catalog.workshops[0]!.modules[0]!.data.timing!;
+    expect(original.totalMinutes).toBe(150);
+    expect(original.schedule).toEqual({
+      ...moduleTiming,
+      setupAndTransitionsMinutes: moduleTiming.setupAndTransitionsMinutes + 15,
+      breaksMinutes: moduleTiming.breaksMinutes + 75
+    });
+    const modulePath = path.join(root, "workshops", "rapid-workshop", "content", "modules", "01-foundations", "module.md");
+    const module = matter(await readFile(modulePath, "utf8"));
+    await writeFile(modulePath, matter.stringify(module.content, {
+      ...module.data,
+      timing: {
+        instructionMinutes: 40,
+        missionMinutes: 20,
+        discussionMinutes: 0,
+        mediaPlaybackMinutes: 0,
+        setupAndTransitionsMinutes: 0,
+        breaksMinutes: 0,
+        contingencyMinutes: 0
+      }
+    }));
+
+    await intakeWorkshop("brief.md", roots);
+    const refreshed = (await loadCatalog(root)).workshops[0]!.workshop.data;
+    expect(refreshed.runOfShow).toEqual(original.runOfShow);
+    expect(refreshed.schedule).toMatchObject({
+      instructionMinutes: 40, missionMinutes: 20, setupAndTransitionsMinutes: 15, breaksMinutes: 75
+    });
+    expect(Object.values(refreshed.schedule!).reduce((total, minutes) => total + minutes, 0)).toBe(150);
+
+    const workshopPath = path.join(root, "workshops", "rapid-workshop", "workshop.md");
+    const workshop = matter(await readFile(workshopPath, "utf8"));
+    await writeFile(workshopPath, matter.stringify(workshop.content, {
+      ...workshop.data,
+      runOfShow: refreshed.runOfShow!.map((block) => ({
+        ...block,
+        minutes: block.id === "foundations-mission" ? 29 : block.id === "breaks" ? 76 : block.minutes
+      }))
+    }));
+    await expect(loadCatalog(root)).rejects.toThrow('runOfShow blocks for "foundations" must equal 60 minutes');
+  });
 });

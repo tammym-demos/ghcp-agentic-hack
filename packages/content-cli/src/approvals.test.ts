@@ -127,18 +127,26 @@ id: rapid-workshop
 title: Rapid Workshop
 description: Build and ship a workshop quickly.
 audience: [Developers]
-durationMinutes: 60
+durationMinutes: 150
 outcomes: [Ship a tested workshop]
 modules:
   - id: foundations
     title: Foundations
     minutes: 60
     outcomes: [Explain the workflow]
+runOfShow:
+  - { id: kickoff, type: setup, title: Kickoff, minutes: 15 }
+  - { id: foundations, type: module, title: Foundations, minutes: 60, module: foundations }
+  - { id: breaks, type: break, title: Breaks, minutes: 75 }
 acceptanceCriteria: [The production routes respond successfully]
 ---
 `);
     const roots = { repositoryRoot: root, workshopsRoot: path.join(root, "workshops") };
     await intakeWorkshop("brief.md", roots);
+    const workshop = matter(await readFile(path.join(root, "workshops", "rapid-workshop", "workshop.md"), "utf8"));
+    expect(workshop.data.totalMinutes).toBe(150);
+    expect(workshop.data.schedule).toMatchObject({ setupAndTransitionsMinutes: 20, breaksMinutes: 75 });
+    expect(workshop.data.runOfShow[0]).toMatchObject({ type: "setup", minutes: 15 });
     const statePath = path.join(
       root, "workshops", "rapid-workshop", "content", "production", "production-state.md"
     );

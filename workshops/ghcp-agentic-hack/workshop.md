@@ -9,104 +9,11 @@ description: >-
   harnesses, ship a feature across the full SDLC with Purrmission's planning and
   security gates, and master LLM internals, KV prefix caching, and multi-agent
   scale.
-format: one-day
+format: two-day
 duration: 7 hours 4 minutes
 totalMinutes: 424
 defaultDeliveryVariant: two-day
 deliveryVariants:
-  - id: one-day
-    title: GitHub Copilot Developer Workshop (1 Day)
-    description: >-
-      Complete the three SDLC learning modules and Agent Mergewell missions in
-      one focused day.
-    days:
-      - id: day-one
-        title: GitHub Copilot Developer Workshop
-        start: '09:00'
-        end: '16:04'
-        agenda:
-          - id: executive-kickoff
-            type: kickoff
-            title: Executive kickoff
-            start: '09:00'
-            end: '09:15'
-          - id: foundations-content
-            type: module-content
-            title: >-
-              Foundations: Coding agent harnesses, slash commands, tools,
-              permissions, tokens, and usage controls
-            start: '09:15'
-            end: '10:32'
-            module: foundations
-          - id: morning-break
-            type: break
-            title: Break
-            start: '10:32'
-            end: '10:47'
-          - id: foundations-mission
-            type: mission
-            title: >-
-              Mission: Operate the harness, inspect context & usage, and enforce
-              permissions
-            start: '10:47'
-            end: '11:32'
-            module: foundations
-          - id: agentic-content-one
-            type: module-content
-            title: >-
-              Agentic SDLC: Holistic planning, Spec & ADR, the 4 Planning
-              Proofs, and project customization
-            start: '11:32'
-            end: '12:00'
-            module: agentic
-          - id: lunch
-            type: lunch
-            title: Lunch
-            start: '12:00'
-            end: '12:45'
-          - id: agentic-content-two
-            type: module-content
-            title: >-
-              Agentic SDLC: Test-driven loops, 4 Security & Review Lenses,
-              CI/CD, and exact-commit release
-            start: '12:45'
-            end: '13:34'
-            module: agentic
-          - id: agentic-mission
-            type: mission
-            title: 'Mission: Plan, build, verify, and prepare a feature for release'
-            start: '13:34'
-            end: '14:19'
-            module: agentic
-          - id: advanced-content-one
-            type: module-content
-            title: >-
-              Advanced Workflows: How LLMs and KV prefix caches work under the
-              hood, subagents, /fleet, and worktrees
-            start: '14:19'
-            end: '15:04'
-            module: advanced
-          - id: afternoon-break
-            type: break
-            title: Break
-            start: '15:04'
-            end: '15:19'
-          - id: advanced-content-two
-            type: module-content
-            title: >-
-              Advanced Workflows: Work IQ MCP, indirect prompt-injection
-              defense, and scale operations
-            start: '15:19'
-            end: '15:34'
-            module: advanced
-          - id: advanced-mission
-            type: mission
-            title: >-
-              Mission: Trace LLM probabilities, block prompt injection, and
-              integrate parallel work
-            start: '15:34'
-            end: '16:04'
-            module: advanced
   - id: two-day
     title: GitHub Copilot Developer Hack (2 Day)
     description: >-
@@ -319,7 +226,27 @@ researchSources:
     url: >-
       https://github.blog/changelog/2026-09-30-hydrafusion-in-vs-code-and-the-github-copilot-app/
     reviewedAt: '2026-10-23'
-    notes: 'Verified research-preview multi-model Single, Cascade, and Critique modes.'
+    notes: >-
+      Historical launch title retained as provenance. The current product name
+      is Copilot Fusion; use current documentation for availability and
+      behavior.
+  - type: other
+    title: Copilot Fusion in GitHub Copilot
+    url: 'https://docs.github.com/en/copilot/concepts/models/copilot-fusion'
+    reviewedAt: '2026-10-28'
+    notes: >-
+      Verified general availability in VS Code, Copilot CLI, the GitHub Copilot
+      app, and JetBrains. Fusion evaluates the task and selects an execution
+      pattern and one or more models; do not imply guaranteed quality, latency,
+      or cost gains.
+  - type: other
+    title: 'GitHub Universe 2026: Evolving every layer of the stack'
+    url: >-
+      https://github.blog/news-insights/company-news/github-universe-2026-evolving-every-layer-of-the-stack/
+    reviewedAt: '2026-10-28'
+    notes: >-
+      Announcement article reviewed for Copilot Fusion naming and product
+      context; summarize rather than quote.
   - type: github-changelog
     title: 'Copilot code review: API support and new default effort level'
     url: >-
@@ -340,6 +267,10 @@ researchSources:
       https://github.blog/changelog/2026-10-07-discover-local-models-in-github-copilot-cli/
     reviewedAt: '2026-10-23'
     notes: Verified /model discovery of Ollama local models in Copilot CLI.
+externalLinks:
+  - title: 'GitHub Universe 2026: Evolving every layer of the stack'
+    url: >-
+      https://github.blog/news-insights/company-news/github-universe-2026-evolving-every-layer-of-the-stack/
 readinessGuide:
   title: Two-day hackathon readiness guide
   path: artifacts/customer/customer-hackathon-readiness-checklist.html
@@ -352,15 +283,15 @@ leaderboard:
   environments:
     test:
       repository: mfm-se-dev-org/ghcp-dev-hack-leaderboard
-      submissionUrl: >-
-        https://github.com/mfm-se-dev-org/ghcp-dev-hack-leaderboard/issues/new?template=leaderboard-submission.yml
-      standingsUrl: 'https://expert-adventure-386owy8.pages.github.io/'
+      submissionUrl: 'https://ghcp-leaderboard-test-fq3vdsmhkyf7i.azurewebsites.net/api/submit'
+      standingsUrl: 'https://ghcp-leaderboard-test-fq3vdsmhkyf7i.azurewebsites.net/api/board'
+      submissionMode: account-free
     production:
       repository: tammym-demos/ghcp-dev-hack-leaderboard
-      submissionUrl: >-
-        https://github.com/tammym-demos/ghcp-dev-hack-leaderboard/issues/new?template=leaderboard-submission.yml
-      standingsUrl: 'https://tammym-demos.github.io/ghcp-dev-hack-leaderboard/'
-lastReviewed: '2026-10-23'
+      submissionUrl: 'https://ghcp-leaderboard-test-fq3vdsmhkyf7i.azurewebsites.net/api/submit'
+      standingsUrl: 'https://ghcp-leaderboard-test-fq3vdsmhkyf7i.azurewebsites.net/api/board'
+      submissionMode: account-free
+lastReviewed: '2026-10-28'
 ---
 # GitHub Copilot Developer Hack
 

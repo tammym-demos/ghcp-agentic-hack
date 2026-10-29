@@ -322,7 +322,8 @@ const PUBLIC_WORKSPACE_PATHS = [
   "pnpm-lock.yaml",
   "pnpm-workspace.yaml",
   "tsconfig.base.json",
-  "apps",
+  "apps/decks",
+  "apps/portal",
   "packages",
   "scripts"
 ];

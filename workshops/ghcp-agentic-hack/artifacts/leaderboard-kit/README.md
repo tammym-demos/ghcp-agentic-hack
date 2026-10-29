@@ -4,9 +4,13 @@ Self-contained event-repository template for an optional workshop-wide leaderboa
 
 ## What this kit does
 
-- Accepts participant submissions through a GitHub Issue Form.
+- Supports account-free submissions through a separately deployed Azure Functions
+  app; see [setup and API operations](./RUNBOOK.md#account-free-azure-route).
+- Keeps the GitHub Issue Form as the legacy route until an environment is switched.
 - Rebuilds standings on issue open, edit, label change, reopen, close, or manual dispatch.
-- Uses a deterministic Node.js 22 script only; no Copilot, no AI scoring, no runtime npm dependencies.
+- Uses deterministic Node.js 22 scoring; no Copilot or AI scoring. The static
+  Issues-based builder needs no runtime npm dependencies; the optional Azure app
+  uses pinned Azure SDKs.
 - Publishes a sanitized GitHub Pages artifact containing:
   - `index.html`
   - `leaderboard.json`
@@ -69,6 +73,14 @@ The kit enforces these approved workshop rules:
 - Maximum cumulative score: `180`
 
 ## Participant operations
+
+For an account-free event, use the score form from the mission page. It selects
+the current day automatically, accepts the prefilled module totals, and asks for
+two acknowledgements. Reuse the same browser and alias for all modules. Save the
+private recovery key if you might switch browsers. Reopen the form to correct or
+withdraw a module. Changes clear facilitator verification.
+
+For legacy GitHub events:
 
 - Participants submit one issue per module with the issue form.
 - Participants do **not** need `workflow_dispatch`, `repository_dispatch`, personal access tokens, or other repository credentials.

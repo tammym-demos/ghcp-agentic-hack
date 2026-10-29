@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { runOfShowBlockSchema } from "./schemas.js";
 
 const id = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
 const hash = z.string().regex(/^[a-f0-9]{64}$/);
@@ -26,6 +27,7 @@ export const workshopRequirementsSchema = z.object({
     minutes: z.number().int().positive(),
     outcomes: z.array(z.string().min(1)).min(1)
   }).strict()).min(1),
+  runOfShow: z.array(runOfShowBlockSchema.strict()).min(1).optional(),
   sources: z.array(relativePath).default([]),
   characterWorld: relativePath.optional(),
   visualStyle: z.string().min(1).optional(),
@@ -58,13 +60,39 @@ export const workshopRequirementsSchema = z.object({
       message: "Module ids must be unique"
     });
   }
-  const allocated = requirements.modules.reduce((total, module) => total + module.minutes, 0);
+  const allocated = requirements.runOfShow
+    ? requirements.runOfShow.reduce((total, block) => total + block.minutes, 0)
+    : requirements.modules.reduce((total, module) => total + module.minutes, 0);
   if (allocated !== requirements.durationMinutes) {
     context.addIssue({
       code: "custom",
       path: ["durationMinutes"],
-      message: `Module minutes (${allocated}) must equal durationMinutes (${requirements.durationMinutes})`
+      message: `${requirements.runOfShow ? "Run-of-show" : "Module"} minutes (${allocated}) must equal durationMinutes (${requirements.durationMinutes})`
     });
+  }
+  if (requirements.runOfShow) {
+    const blockIds = new Set<string>();
+    const moduleMinutes = new Map(requirements.modules.map((module) => [module.id, 0]));
+    requirements.runOfShow.forEach((block, index) => {
+      if (blockIds.has(block.id)) {
+        context.addIssue({ code: "custom", path: ["runOfShow", index, "id"], message: "Run-of-show block ids must be unique" });
+      }
+      blockIds.add(block.id);
+      if (block.type === "module") {
+        if (!block.module || !moduleMinutes.has(block.module)) {
+          context.addIssue({ code: "custom", path: ["runOfShow", index, "module"], message: "Module blocks must reference a declared module" });
+        } else {
+          moduleMinutes.set(block.module, moduleMinutes.get(block.module)! + block.minutes);
+        }
+      } else if (block.module) {
+        context.addIssue({ code: "custom", path: ["runOfShow", index, "module"], message: "Non-module blocks cannot reference a module" });
+      }
+    });
+    for (const module of requirements.modules) {
+      if (moduleMinutes.get(module.id) !== module.minutes) {
+        context.addIssue({ code: "custom", path: ["runOfShow"], message: `Run-of-show minutes for "${module.id}" must equal its module budget (${module.minutes})` });
+      }
+    }
   }
   for (const [index, role] of requirements.imageRoles.entries()) {
     if (Boolean(role.request.referencePath) !== Boolean(role.request.referenceHash)) {

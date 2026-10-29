@@ -1,10 +1,26 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { loadCatalog, type ContentCatalog } from "@ghcp/content-schema";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+import matter from "gray-matter";
+import { loadCatalog, workshopRequirementsSchema, type ContentCatalog } from "@ghcp/content-schema";
 import { repositoryRoot } from "./paths.js";
 import { workshopRunOfShow } from "./lifecycle.js";
 import { createPortalCatalog, resolveWorkshopEnvironment } from "./catalog.js";
 
 describe("reference content", () => {
+  it("uses the same account-free leaderboard for both active workshop sites", async () => {
+    const catalog = await loadCatalog(repositoryRoot);
+    for (const environment of ["test", "production"] as const) {
+      const generated = createPortalCatalog(catalog, environment);
+      const workshop = generated.workshops.find((entry) => entry.id === "ghcp-agentic-hack");
+      expect(workshop?.leaderboard).toMatchObject({
+        submissionMode: "account-free",
+        submissionUrl: "https://ghcp-leaderboard-test-fq3vdsmhkyf7i.azurewebsites.net/api/submit",
+        standingsUrl: "https://ghcp-leaderboard-test-fq3vdsmhkyf7i.azurewebsites.net/api/board"
+      });
+    }
+  });
+
   it("preserves the two-day delivery target for the customer readiness guide", async () => {
     const generated = createPortalCatalog(await loadCatalog(repositoryRoot));
     const workshop = generated.workshops.find((entry) => entry.id === "ghcp-dev-hack");
@@ -13,6 +29,59 @@ describe("reference content", () => {
       route: "workshops/ghcp-dev-hack/resources/readiness/",
       deliveryVariant: "two-day"
     });
+  });
+
+  it("includes curated external workshop links in the portal catalog", async () => {
+    const generated = createPortalCatalog(await loadCatalog(repositoryRoot));
+    const workshop = generated.workshops.find((entry) => entry.id === "ghcp-agentic-hack");
+
+    expect(workshop?.externalLinks).toContainEqual({
+      title: "GitHub Universe 2026: Evolving every layer of the stack",
+      url: "https://github.blog/news-insights/company-news/github-universe-2026-evolving-every-layer-of-the-stack/"
+    });
+  });
+
+  it("keeps only the two-day delivery option for the active workshop", async () => {
+    const generated = createPortalCatalog(await loadCatalog(repositoryRoot));
+    const workshop = generated.workshops.find((entry) => entry.id === "ghcp-agentic-hack");
+
+    expect(workshop?.deliveryVariants.map((variant) => variant.id)).toEqual(["two-day"]);
+  });
+
+  it.each(["authored", "public-export"])("keeps the retained day-one agenda order in the %s catalog", async (catalogKind) => {
+    const catalog = await loadCatalog(repositoryRoot);
+    const entry = catalog.workshops.find((workshop) => workshop.workshop.data.id === "ghcp-agentic-hack");
+    if (!entry) throw new Error("Active workshop fixture is missing");
+    if (catalogKind === "public-export") {
+      delete entry.workshop.data.lifecycleVersion;
+      delete entry.workshop.data.runOfShow;
+    }
+    const requirements = workshopRequirementsSchema.parse(matter(
+      await readFile(path.join(entry.root, "requirements.md"), "utf8")
+    ).data);
+    const day = createPortalCatalog(catalog).workshops
+      .find((workshop) => workshop.id === "ghcp-agentic-hack")
+      ?.deliveryVariants.find((variant) => variant.id === "two-day")?.days[0];
+    if (!day) throw new Error("Active two-day agenda fixture is missing");
+    if (entry.workshop.data.lifecycleVersion) {
+      expect(entry.workshop.data.runOfShow).toEqual(requirements.runOfShow);
+    }
+    expect(requirements.runOfShow?.map(({ id, minutes, module }) => ({ id, minutes, module })))
+      .toEqual(day.agenda.map(({ id, minutes, module }) => ({ id, minutes, module })));
+    expect(day.totalMinutes).toBe(424);
+  });
+
+  it("preserves every existing mission objective through requirements intake", async () => {
+    const catalog = await loadCatalog(repositoryRoot);
+    const entry = catalog.workshops.find((workshop) => workshop.workshop.data.id === "ghcp-agentic-hack");
+    if (!entry) throw new Error("Active workshop fixture is missing");
+    const requirements = workshopRequirementsSchema.parse(matter(
+      await readFile(path.join(entry.root, "requirements.md"), "utf8")
+    ).data);
+    for (const mission of entry.missions) {
+      expect(requirements.modules.find((module) => module.id === mission.data.module)?.outcomes)
+        .toEqual(expect.arrayContaining(mission.data.objectiveRefs));
+    }
   });
 
   it("includes scored mission catalog fields when authored content provides them", () => {
@@ -77,6 +146,7 @@ describe("reference content", () => {
               title: "Scored mission",
               module: "foundations",
               durationMinutes: 45,
+              debriefMinutes: 5,
               objectiveRefs: ["Use bounded context"],
               prerequisites: [],
               startingState: "Ready",
@@ -102,6 +172,7 @@ describe("reference content", () => {
               }],
               coreClues: [{
                 id: "clue-1",
+                durationMinutes: 40,
                 title: "First clue",
                 points: 10,
                 objectiveRef: "Use bounded context",
@@ -162,6 +233,8 @@ describe("reference content", () => {
       goal: "Build a verified case file",
       completionPoints: 10,
       bonusPointCap: 10,
+      debriefMinutes: 5,
+      coreClues: [expect.objectContaining({ durationMinutes: 40 })],
       starterFile: {
         name: "case-file.md"
       },
@@ -357,6 +430,15 @@ describe("workshop leaderboard environments", () => {
       repository: environments.production.repository,
       standingsUrl: environments.production.standingsUrl
     });
+  });
+
+  it("passes account-free mode through only for the selected environment", () => {
+    const scoped = structuredClone(catalog);
+    const target = scoped.workshops[0]?.workshop.data.leaderboard;
+    if (!target) throw new Error("Missing leaderboard fixture.");
+    target.environments.test.submissionMode = "account-free";
+    expect(createPortalCatalog(scoped, "test").workshops[0]?.leaderboard?.submissionMode).toBe("account-free");
+    expect(createPortalCatalog(scoped, "production").workshops[0]?.leaderboard?.submissionMode).toBeUndefined();
   });
 
   it("falls back to the test environment for unknown values", () => {

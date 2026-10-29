@@ -68,4 +68,3 @@ status: draft
 # Agentic Development Across the SDLC
 
 Take a feature from holistic planning and Purrmission's Four Planning Proofs through project customization, test-driven agentic loops, the Four Security Evidence Lenses, and exact-commit production release management.
-
