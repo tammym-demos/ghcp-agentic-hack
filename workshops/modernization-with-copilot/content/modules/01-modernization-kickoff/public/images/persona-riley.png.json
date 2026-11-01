@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "persona-riley",
+  "kind": "local-deterministic-image",
+  "source": "content/modules/01-modernization-kickoff/media/avatar-artwork-provenance.md",
+  "createdAt": "2026-10-31T14:33:33.241Z",
+  "reviewStatus": "approved",
+  "location": "content/modules/01-modernization-kickoff/public/images/persona-riley.png",
+  "sha256": "29cf7cf2cf7c16dbe1424a5b9853437b4f762210290fdd4def9504b4073462cd",
+  "width": 512,
+  "height": 512,
+  "sourceCandidateSha256": "29cf7cf2cf7c16dbe1424a5b9853437b4f762210290fdd4def9504b4073462cd",
+  "transformManifestSha256": "81825a21bad41e3d832de9d7e683c39dad01621610760a6d191c09c719788aa7",
+  "candidateAcceptanceDecision": "owner-selected-circular-portraits-20261031",
+  "publicationDecision": "owner-requested-local-draft-use-20261031"
+}

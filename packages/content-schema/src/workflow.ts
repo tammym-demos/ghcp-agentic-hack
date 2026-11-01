@@ -20,16 +20,22 @@ export const workshopRequirementsSchema = z.object({
   level: z.enum(["basic", "intermediate", "advanced", "mixed"]).default("mixed"),
   format: z.enum(["one-hour", "one-day", "two-day", "custom"]).default("custom"),
   durationMinutes: z.number().int().positive(),
+  durationLabel: z.string().trim().min(1).optional(),
   outcomes: z.array(z.string().min(1)).min(1),
   modules: z.array(z.object({
     id,
     title: z.string().min(1),
     minutes: z.number().int().positive(),
+    durationLabel: z.string().trim().min(1).optional(),
     outcomes: z.array(z.string().min(1)).min(1)
   }).strict()).min(1),
   runOfShow: z.array(runOfShowBlockSchema.strict()).min(1).optional(),
   sources: z.array(relativePath).default([]),
   characterWorld: relativePath.optional(),
+  briefEditor: z.object({
+    title: z.string().min(1),
+    description: z.string().min(1)
+  }).strict().optional(),
   visualStyle: z.string().min(1).optional(),
   imageRoles: z.array(z.object({
     id,

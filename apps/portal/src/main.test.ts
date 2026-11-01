@@ -365,6 +365,22 @@ describe("workshop detail layout", () => {
     }
     expect(renderVariantPage(workshop, variant)).not.toContain('id="workshop-resources-heading"');
   });
+
+  it("links a separate brief editor from the workshop resources", () => {
+    const linkedWorkshop = {
+      ...workshop,
+      briefEditor: {
+        title: "Modernization Starting Brief",
+        description: "Responses stay in the open page only.",
+        route: "workshops/modernization-with-copilot/brief/"
+      }
+    };
+    const html = renderWorkshopPage(linkedWorkshop);
+    expect(html).toContain("<h3>Modernization Starting Brief</h3>");
+    expect(html).toContain(`href="${import.meta.env.BASE_URL}workshops/modernization-with-copilot/brief/"`);
+    expect(html).toContain("Open brief editor");
+    expect(html).toContain("Responses stay in the open page only.");
+  });
 });
 
 describe("workshop catalog cards", () => {

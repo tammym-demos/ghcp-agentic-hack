@@ -2,3 +2,4 @@ packages:
   - apps/*
   - packages/*
 
+useNodeVersion: 22.22.0

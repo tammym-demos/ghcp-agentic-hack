@@ -106,8 +106,9 @@ function workshopFrontmatter(
   reviewedAt: string,
   moduleBudgets: Budget[]
 ): Record<string, unknown> {
+  const { briefEditor: _previousBriefEditor, ...preserved } = existing;
   return {
-    ...existing,
+    ...preserved,
     schemaVersion: 1,
     kind: "workshop",
     id: requirements.id,
@@ -115,7 +116,7 @@ function workshopFrontmatter(
     lifecycleVersion: 3,
     description: requirements.description,
     format: requirements.format,
-    duration: `${requirements.durationMinutes} minutes`,
+    duration: requirements.durationLabel ?? `${requirements.durationMinutes} minutes`,
     totalMinutes: requirements.durationMinutes,
     schedule: workshopSchedule(existing.schedule, requirements.durationMinutes, moduleBudgets, requirements.runOfShow),
     runOfShow: requirements.runOfShow ?? requirements.modules.map((module) => ({
@@ -128,6 +129,7 @@ function workshopFrontmatter(
     level: requirements.level,
     audience: requirements.audience,
     modules: requirements.modules.map((module) => module.id),
+    ...(requirements.briefEditor ? { briefEditor: requirements.briefEditor } : {}),
     lastReviewed: reviewedAt
   };
 }
@@ -157,7 +159,7 @@ function moduleFrontmatter(
     id: module.id,
     title: module.title,
     description: module.outcomes[0],
-    duration: `${module.minutes} minutes`,
+    duration: module.durationLabel ?? `${module.minutes} minutes`,
     totalMinutes: module.minutes,
     timing: mergedBudget(existing.timing, module.minutes),
     objectives: module.outcomes,

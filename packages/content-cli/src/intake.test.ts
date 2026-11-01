@@ -6,6 +6,8 @@ import { promisify } from "node:util";
 import { afterEach, describe, expect, it } from "vitest";
 import matter from "gray-matter";
 import { loadCatalog } from "@ghcp/content-schema";
+import { portalDetailRoutes } from "./build.js";
+import { createPortalCatalog } from "./catalog.js";
 import { intakeWorkshop } from "./intake.js";
 import { workshopContext } from "./lifecycle.js";
 
@@ -37,11 +39,16 @@ title: Rapid Workshop
 description: Build and ship a workshop quickly.
 audience: [Developers]
 durationMinutes: 60
+durationLabel: "Flexible workshop"
+briefEditor:
+  title: "Initial brief"
+  description: "Fill a brief."
 outcomes: [Ship a tested workshop]
 modules:
   - id: foundations
     title: Foundations
     minutes: 30
+    durationLabel: "Flexible introduction"
     outcomes: [Explain the workflow]
   - id: practice
     title: Practice
@@ -63,7 +70,14 @@ acceptanceCriteria: [The production routes respond successfully]
     const catalog = await loadCatalog(root);
     const entry = catalog.workshops[0]!;
     expect(entry.workshop.data.lifecycleVersion).toBe(3);
+    expect(entry.workshop.data.duration).toBe("Flexible workshop");
+    expect(entry.workshop.data.totalMinutes).toBe(60);
+    expect(entry.workshop.data.briefEditor).toEqual({ title: "Initial brief", description: "Fill a brief." });
+    expect(portalDetailRoutes(catalog)).toContain("workshops/rapid-workshop/brief/");
+    expect(createPortalCatalog(catalog).workshops[0]?.briefEditor?.title).toBe("Initial brief");
     expect(entry.modules.map((module) => module.data.id)).toEqual(["foundations", "practice"]);
+    expect(entry.modules[0]?.data.duration).toBe("Flexible introduction");
+    expect(entry.modules[1]?.data.duration).toBe("30 minutes");
     expect(entry.productionState?.data.phase).toBe("drafting");
     const context = await workshopContext("rapid-workshop", undefined, roots);
     expect(context.initiative).toBe("workshop-scaffolding");
@@ -74,6 +88,34 @@ acceptanceCriteria: [The production routes respond successfully]
     ));
     expect(state.data.requirements.path).toBe("requirements.md");
     expect(state.data.imageBatch).toEqual({ limit: 3, used: 0 });
+    await writeFile(
+      requirementsPath,
+      (await readFile(requirementsPath, "utf8"))
+        .replace("Flexible workshop", "Updated flexible workshop")
+        .replace("Flexible introduction", "Updated flexible introduction")
+        .replace("Initial brief", "Updated brief")
+    );
+    await intakeWorkshop("brief.md", roots, new Date("2026-10-02T12:02:00.000Z"));
+    const refreshed = (await loadCatalog(root)).workshops[0]!;
+    expect(refreshed.workshop.data.duration).toBe("Updated flexible workshop");
+    expect(refreshed.modules[0]?.data.duration).toBe("Updated flexible introduction");
+    expect(refreshed.workshop.data.briefEditor?.title).toBe("Updated brief");
+
+    await writeFile(
+      requirementsPath,
+      (await readFile(requirementsPath, "utf8")).replace(
+        'briefEditor:\n  title: "Updated brief"\n  description: "Fill a brief."\n',
+        ""
+      )
+    );
+    await intakeWorkshop("brief.md", roots, new Date("2026-10-02T12:03:00.000Z"));
+    const withoutEditor = await loadCatalog(root);
+    const workshop = matter(await readFile(path.join(root, "workshops", "rapid-workshop", "workshop.md"), "utf8"));
+    expect(workshop.data).not.toHaveProperty("briefEditor");
+    expect(withoutEditor.workshops[0]?.workshop.data.briefEditor).toBeUndefined();
+    expect(createPortalCatalog(withoutEditor).workshops[0]?.briefEditor).toBeUndefined();
+    expect(portalDetailRoutes(withoutEditor)).not.toContain("workshops/rapid-workshop/brief/");
+
     const canonicalRequirements = path.join(root, "workshops", "rapid-workshop", "requirements.md");
     await writeFile(
       canonicalRequirements,
@@ -180,6 +222,7 @@ acceptanceCriteria: ["The production routes respond successfully"]
     expect(matter(await readFile(statePath, "utf8")).data.sessionStatus).toBe("blocked");
     const refreshedWorkshop = matter(await readFile(workshopPath, "utf8"));
     expect(refreshedWorkshop.content.trim()).toBe("Authored workshop narrative.");
+    expect(refreshedWorkshop.data.duration).toBe("60 minutes");
     expect(refreshedWorkshop.data.tags).toEqual(["github-copilot", "curated"]);
     expect(refreshedWorkshop.data.researchSources).toEqual(["content/production/source-pack.md"]);
     expect(refreshedWorkshop.data.prerequisites).toEqual(["Bring a laptop"]);
@@ -187,6 +230,7 @@ acceptanceCriteria: ["The production routes respond successfully"]
 
     const refreshedModule = matter(await readFile(modulePath, "utf8"));
     expect(refreshedModule.content.trim()).toBe("Authored module notes.");
+    expect(refreshedModule.data.duration).toBe("60 minutes");
     expect(refreshedModule.data.prerequisites).toEqual(["Install the CLI"]);
     expect(refreshedModule.data.generation.expectedSlides).toBe(12);
 

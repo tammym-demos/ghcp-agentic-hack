@@ -9,6 +9,7 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "jsdom": "27.0.1",
     "vite": "^7.0.4"
   }
 }

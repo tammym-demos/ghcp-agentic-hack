@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "persona-morgan",
+  "kind": "local-deterministic-image",
+  "source": "content/modules/01-modernization-kickoff/media/avatar-artwork-provenance.md",
+  "createdAt": "2026-10-31T14:33:33.241Z",
+  "reviewStatus": "approved",
+  "location": "content/modules/01-modernization-kickoff/public/images/persona-morgan.png",
+  "sha256": "5a9db586595e3baf50e7603ee6e5cc3137017e205d22fa30f99e35e42a47085a",
+  "width": 512,
+  "height": 512,
+  "sourceCandidateSha256": "5a9db586595e3baf50e7603ee6e5cc3137017e205d22fa30f99e35e42a47085a",
+  "transformManifestSha256": "81825a21bad41e3d832de9d7e683c39dad01621610760a6d191c09c719788aa7",
+  "candidateAcceptanceDecision": "owner-selected-circular-portraits-20261031",
+  "publicationDecision": "owner-requested-local-draft-use-20261031"
+}
