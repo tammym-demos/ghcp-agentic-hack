@@ -16,7 +16,8 @@ describe("deckBase", () => {
           workshop: {
             data: {
               id: "workshop",
-              deliveryVariants: [{ id: "one-day" }, { id: "two-day" }]
+              deliveryVariants: [{ id: "one-day" }, { id: "two-day" }],
+              briefEditor: { title: "Brief editor", description: "Fill a brief." }
             }
           },
           modules: [{
@@ -34,6 +35,7 @@ describe("deckBase", () => {
 
       expect(portalDetailRoutes(catalog)).toEqual([
         "workshops/workshop/",
+        "workshops/workshop/brief/",
         "workshops/workshop/variants/one-day/",
         "workshops/workshop/variants/two-day/",
         "workshops/workshop/foundations/missions/first-mission/"
@@ -51,7 +53,8 @@ describe("deckBase", () => {
         workshop: {
           data: {
             id: "workshop",
-            deliveryVariants: [{ id: "one-day" }]
+            deliveryVariants: [{ id: "one-day" }],
+            briefEditor: { title: "Brief editor", description: "Fill a brief." }
           }
         },
         modules: [{
@@ -70,6 +73,7 @@ describe("deckBase", () => {
     expect(siteRoutes(catalog)).toEqual([
       "",
       "workshops/workshop/",
+      "workshops/workshop/brief/",
       "workshops/workshop/variants/one-day/",
       "workshops/workshop/foundations/missions/first-mission/",
       "workshops/workshop/foundations/"

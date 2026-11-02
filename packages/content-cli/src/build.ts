@@ -1,7 +1,7 @@
 import path from "node:path";
 import fsExtra from "fs-extra";
 import { loadCatalog } from "@ghcp/content-schema";
-import { generatePortalCatalog, readinessGuideRoute } from "./catalog.js";
+import { briefEditorRoute, generatePortalCatalog, readinessGuideRoute } from "./catalog.js";
 import { outputRoot, repositoryRoot } from "./paths.js";
 import { gitSnapshot } from "./lifecycle.js";
 import { run } from "./process.js";
@@ -23,6 +23,7 @@ export function portalDetailRoutes(catalog: Awaited<ReturnType<typeof loadCatalo
     const workshopId = entry.workshop.data.id;
     return [
       `workshops/${workshopId}/`,
+      ...(entry.workshop.data.briefEditor ? [briefEditorRoute(workshopId)] : []),
       ...(entry.workshop.data.deliveryVariants ?? []).map(
         (variant) => `workshops/${workshopId}/variants/${variant.id}/`
       ),

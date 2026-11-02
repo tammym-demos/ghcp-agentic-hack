@@ -47,6 +47,39 @@ describe("workshop requirements", () => {
     expect(parsed.imageRoles).toEqual([]);
   });
 
+  it("accepts nonempty workshop and module duration labels", () => {
+    const labeled = {
+      ...requirements,
+      durationLabel: "Flexible workshop",
+      modules: [
+        { ...requirements.modules[0], durationLabel: "Flexible introduction" },
+        requirements.modules[1]
+      ]
+    };
+    const parsed = workshopRequirementsSchema.parse(labeled);
+    expect(parsed.durationLabel).toBe("Flexible workshop");
+    expect(parsed.modules[0]?.durationLabel).toBe("Flexible introduction");
+    expect(workshopRequirementsSchema.safeParse({ ...labeled, durationLabel: "  " }).success).toBe(false);
+    expect(workshopRequirementsSchema.safeParse({
+      ...labeled,
+      modules: [{ ...labeled.modules[0], durationLabel: "" }, labeled.modules[1]]
+    }).success).toBe(false);
+  });
+
+  it("accepts separate browser-editor metadata without customer response content", () => {
+    const parsed = workshopRequirementsSchema.parse({
+      ...requirements,
+      briefEditor: {
+        title: "Starting Brief",
+        description: "A temporary in-browser editor."
+      }
+    });
+    expect(parsed.briefEditor).toEqual({
+      title: "Starting Brief",
+      description: "A temporary in-browser editor."
+    });
+  });
+
   it("rejects duplicate modules, timing drift, and unknown image-role modules", () => {
     expect(() => workshopRequirementsSchema.parse({
       ...requirements,

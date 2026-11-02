@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "purrmission-seated-source",
+  "kind": "image",
+  "provider": "mai-image-2.5",
+  "deployment": "MAI-Image-2.5",
+  "promptHash": "0b46e570edb76b3b7ee7b115cb53266acbaab4836862e6ea01b44b27f075b3b8",
+  "source": "content/modules/01-modernization-kickoff/media/avatar-artwork-provenance.md",
+  "createdAt": "2026-08-13T19:15:26.341Z",
+  "reviewStatus": "approved",
+  "location": "content/modules/01-modernization-kickoff/media/references/purrmission-seated-source.png",
+  "width": 1248,
+  "height": 832,
+  "reusedFrom": {
+    "workshop": "purrmission-to-proceed",
+    "module": "01-purrmission-to-proceed",
+    "asset": "foundation-welcome-trio",
+    "sha256": "0bc5a16a7aaf59164861a9c5f3ecb3fdc2e443546f96641ace9400183b358888"
+  }
+}

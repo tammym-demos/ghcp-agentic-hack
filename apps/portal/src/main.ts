@@ -1,4 +1,5 @@
 import catalog from "./catalog.json";
+import { attachBriefEditor, renderBriefEditor } from "./brief-editor.js";
 import "./styles.css";
 
 export interface MissionHarness {
@@ -153,6 +154,11 @@ export interface CatalogWorkshop {
     route: string;
     deliveryVariant?: string;
   };
+  briefEditor?: {
+    title: string;
+    description: string;
+    route: string;
+  };
   leaderboard?: WorkshopLeaderboard;
   defaultDeliveryVariant?: string;
   deliveryVariants: DeliveryVariant[];
@@ -229,6 +235,8 @@ function bootPortal(): void {
     renderCatalog();
   } else if (route[0] === "workshops" && route.length === 2) {
     renderWorkshopDetail(route[1] ?? "");
+  } else if (route[0] === "workshops" && route[2] === "brief" && route.length === 3) {
+    renderBriefEditorDetail(route[1] ?? "");
   } else if (route[0] === "workshops" && route[2] === "variants" && route.length === 4) {
     renderVariantDetail(route[1] ?? "", route[3] ?? "");
   } else if (route[0] === "workshops" && route[3] === "missions" && route.length === 5) {
@@ -506,12 +514,34 @@ export function renderWorkshopPage(workshop: CatalogWorkshop): string {
 
 function renderWorkshopResources(workshop: CatalogWorkshop): string {
   const externalLinks = workshop.externalLinks ?? [];
-  return externalLinks.length ? `<section class="catalog detail-section" aria-labelledby="workshop-resources-heading">
+  const editor = workshop.briefEditor;
+  return externalLinks.length || editor ? `<section class="catalog detail-section" aria-labelledby="workshop-resources-heading">
       <h2 id="workshop-resources-heading">Related resources</h2>
+      ${editor ? `<article class="catalog-readiness">
+        <p class="eyebrow">Companion artifact</p>
+        <h3>${escapeHtml(editor.title)}</h3>
+        <p>${escapeHtml(editor.description)}</p>
+        <a class="button-link" href="${url(editor.route)}">Open brief editor</a>
+        <p>Responses stay in the open page only. Refreshing or closing loses unsaved work. Use the browser's print dialog to retain a PDF through the customer's approved channel.</p>
+      </article>` : ""}
+      ${externalLinks.length ? `
       <ul class="workshop-resource-list">${externalLinks.map((link) => `
         <li><a href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(link.title)} (opens in new tab)">${escapeHtml(link.title)} <span aria-hidden="true">↗</span></a></li>`).join("")}
-      </ul>
+      </ul>` : ""}
     </section>` : "";
+}
+
+function renderBriefEditorDetail(workshopId: string): void {
+  const workshop = workshops.find((candidate) => candidate.id === workshopId);
+  const editor = workshop?.briefEditor;
+  if (!workshop || !editor) return renderNotFound();
+  app!.innerHTML = renderBriefEditor({
+    title: editor.title,
+    description: editor.description,
+    workshopTitle: workshop.title,
+    workshopRoute: url(workshop.route)
+  });
+  attachBriefEditor(app!, workshop.title);
 }
 
 function renderVariantDetail(workshopId: string, variantId: string): void {

@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "operation": "Local deterministic crop and high-quality bicubic resampling; the circular mask and labels are native slide elements.",
+  "providerCalls": 0,
+  "outputDimensions": [512, 512],
+  "portraits": [
+    {
+      "id": "persona-morgan",
+      "source": "content/modules/01-modernization-kickoff/public/images/purrmission-team-cover.png",
+      "sourceSha256": "5149aca7c9261ae483ae8b9a3ee73a281ead6357df436d5a9361b38537544e7a",
+      "sourceCrop": { "x": 650, "y": 23, "width": 300, "height": 300 },
+      "outputSha256": "5a9db586595e3baf50e7603ee6e5cc3137017e205d22fa30f99e35e42a47085a"
+    },
+    {
+      "id": "persona-mergewell",
+      "source": "content/modules/01-modernization-kickoff/public/images/purrmission-team-cover.png",
+      "sourceSha256": "5149aca7c9261ae483ae8b9a3ee73a281ead6357df436d5a9361b38537544e7a",
+      "sourceCrop": { "x": 338, "y": 12, "width": 310, "height": 310 },
+      "outputSha256": "4216b2a71ebbdc1cc3eb13aa4bbff0e878aaa5a58aebd22fcfd8f7c528a89924"
+    },
+    {
+      "id": "persona-riley",
+      "source": "content/modules/01-modernization-kickoff/public/images/purrmission-team-cover.png",
+      "sourceSha256": "5149aca7c9261ae483ae8b9a3ee73a281ead6357df436d5a9361b38537544e7a",
+      "sourceCrop": { "x": 940, "y": 68, "width": 300, "height": 300 },
+      "outputSha256": "29cf7cf2cf7c16dbe1424a5b9853437b4f762210290fdd4def9504b4073462cd"
+    },
+    {
+      "id": "persona-purrmission",
+      "source": "content/modules/01-modernization-kickoff/media/references/purrmission-seated-source.png",
+      "sourceSha256": "0bc5a16a7aaf59164861a9c5f3ecb3fdc2e443546f96641ace9400183b358888",
+      "sourceCrop": { "x": 560, "y": 460, "width": 215, "height": 305 },
+      "destination": { "x": 108, "y": 45, "width": 296, "height": 420 },
+      "backgroundRgb": [245, 237, 224],
+      "outputSha256": "60899ae7ad3fd8402ac48f40728fef2c07bbc32cf044cbf35384633b54eb92f7"
+    }
+  ]
+}

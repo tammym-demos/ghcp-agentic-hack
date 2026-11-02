@@ -3786,6 +3786,38 @@
       ]
     },
     {
+      "id": "modernization-with-copilot",
+      "title": "Modernizing the Unknown with GitHub Copilot",
+      "description": "Identify why modernization is being considered, then plan the human work required to delegate bounded tasks to agents with verified context, alignment, safeguards, and evidence. Follow the service through investment, execution, and observed outcomes using a hypothetical legacy application and GitHub Copilot as a bounded helper. Capture authorized answers in a separate temporary browser brief and print through the customer's approved process.",
+      "duration": "Flexible (180-minute facilitation estimate)",
+      "totalMinutes": 180,
+      "format": "custom",
+      "level": "mixed",
+      "tags": [
+        "github-copilot"
+      ],
+      "prerequisites": [],
+      "route": "workshops/modernization-with-copilot/",
+      "briefEditor": {
+        "title": "Modernization Starting Brief",
+        "description": "Select the reasons modernization is being considered, prioritize the top three, and plan bounded work for agents with context, guardrails, and evidence alongside the six decision-loop statements. Answers stay in this open page; the editor does not send or save them. Print through the browser using the customer's approved process.",
+        "route": "workshops/modernization-with-copilot/brief/"
+      },
+      "deliveryVariants": [],
+      "modules": [
+        {
+          "id": "modernization-kickoff",
+          "title": "Modernizing the Unknown with GitHub Copilot",
+          "description": "Describe the service, users, business outcome, dependencies, and evidence needed before choosing a modernization solution.",
+          "duration": "Flexible (180-minute facilitation estimate)",
+          "totalMinutes": 180,
+          "status": "draft",
+          "route": "workshops/modernization-with-copilot/modernization-kickoff/",
+          "missions": []
+        }
+      ]
+    },
+    {
       "id": "purrmission-to-proceed",
       "title": "Purrmission to Proceed: Security, Evidence, and Guardrails from Planning to Deployment",
       "description": "A 45-minute narrative-driven session starring Purrmission, Agent Mergewell, and Riley Relay on what planning evidence must be true before you trust agent work, how to configure and verify Copilot harness controls, and how /security-review, GitHub Advanced Security, Copilot Code Review, and deployment guardrails protect production.",

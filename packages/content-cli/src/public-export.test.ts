@@ -21,6 +21,7 @@ it("declares the exact selected runtime import closure without copying proof or 
       "ghcp-dev-hack",
       "mission-control",
       "mission-control-executive",
+      "modernization-with-copilot",
       "purrmission-to-proceed",
       "token-optimization",
       "workflow-first-ai-decisions"

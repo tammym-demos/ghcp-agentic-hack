@@ -31,6 +31,22 @@ describe("reference content", () => {
     });
   });
 
+  it("publishes the modernization workshop's separate in-browser brief editor route", async () => {
+    const generated = createPortalCatalog(await loadCatalog(repositoryRoot));
+    const workshop = generated.workshops.find((entry) => entry.id === "modernization-with-copilot");
+
+    expect(workshop?.format).toBe("custom");
+    expect(workshop?.duration).toContain("Flexible");
+    expect(workshop?.totalMinutes).toBe(180);
+    expect(workshop?.modules.find((module) => module.id === "modernization-kickoff")?.duration)
+      .toContain("Flexible");
+    expect(workshop?.briefEditor).toEqual({
+      title: "Modernization Starting Brief",
+      description: expect.stringContaining("open page"),
+      route: "workshops/modernization-with-copilot/brief/"
+    });
+  });
+
   it("includes curated external workshop links in the portal catalog", async () => {
     const generated = createPortalCatalog(await loadCatalog(repositoryRoot));
     const workshop = generated.workshops.find((entry) => entry.id === "ghcp-agentic-hack");

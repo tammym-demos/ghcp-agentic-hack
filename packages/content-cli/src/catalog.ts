@@ -20,6 +20,10 @@ export function readinessGuideRoute(workshopId: string): string {
   return `workshops/${workshopId}/resources/readiness/`;
 }
 
+export function briefEditorRoute(workshopId: string): string {
+  return `workshops/${workshopId}/brief/`;
+}
+
 export function createPortalCatalog(catalog: ContentCatalog, environment = resolveWorkshopEnvironment()) {
   return {
     environment,
@@ -148,6 +152,12 @@ export function createPortalCatalog(catalog: ContentCatalog, environment = resol
             title: entry.workshop.data.readinessGuide.title,
             route: readinessGuideRoute(workshopId),
             deliveryVariant: entry.workshop.data.readinessGuide.deliveryVariant
+          }
+          : undefined,
+        briefEditor: entry.workshop.data.briefEditor
+          ? {
+            ...entry.workshop.data.briefEditor,
+            route: briefEditorRoute(workshopId)
           }
           : undefined,
         leaderboard,

@@ -206,6 +206,10 @@ export const workshopSchema = baseContent
       title: z.string().min(1),
       url: httpsUrl
     })).optional(),
+    briefEditor: z.object({
+      title: z.string().min(1),
+      description: z.string().min(1)
+    }).strict().optional(),
     readinessGuide: z.object({
       title: z.string().min(1),
       path: relativePath.refine((value) => value.endsWith(".html"), {

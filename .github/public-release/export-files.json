@@ -52,6 +52,20 @@
       ],
       "tests": []
     },
+    "modernization-with-copilot/modernization-kickoff": {
+      "files": [
+        "content/modules/01-modernization-kickoff/components/StoryPanel.vue",
+        "content/modules/01-modernization-kickoff/global-bottom.vue",
+        "content/modules/01-modernization-kickoff/media/avatar-artwork-provenance.md",
+        "content/modules/01-modernization-kickoff/media/workflow-team-shallow-depth-v7.provenance.md",
+        "content/modules/01-modernization-kickoff/media/avatar-artwork-transform.json",
+        "content/modules/01-modernization-kickoff/media/avatar-artwork-purrmission-original.json",
+        "content/modules/01-modernization-kickoff/media/references/purrmission-seated-source.png",
+        "content/modules/01-modernization-kickoff/media/references/purrmission-seated-source.png.json",
+        "content/modules/01-modernization-kickoff/tests/story-contract.test.mjs"
+      ],
+      "tests": ["content/modules/01-modernization-kickoff/tests/story-contract.test.mjs"]
+    },
     "ghcp-agentic-hack/foundations": {
       "files": [
         "content/modules/01-foundations/styles/index.css",

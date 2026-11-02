@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "persona-mergewell",
+  "kind": "local-deterministic-image",
+  "source": "content/modules/01-modernization-kickoff/media/avatar-artwork-provenance.md",
+  "createdAt": "2026-10-31T14:33:33.241Z",
+  "reviewStatus": "approved",
+  "location": "content/modules/01-modernization-kickoff/public/images/persona-mergewell.png",
+  "sha256": "4216b2a71ebbdc1cc3eb13aa4bbff0e878aaa5a58aebd22fcfd8f7c528a89924",
+  "width": 512,
+  "height": 512,
+  "sourceCandidateSha256": "4216b2a71ebbdc1cc3eb13aa4bbff0e878aaa5a58aebd22fcfd8f7c528a89924",
+  "transformManifestSha256": "81825a21bad41e3d832de9d7e683c39dad01621610760a6d191c09c719788aa7",
+  "candidateAcceptanceDecision": "owner-selected-circular-portraits-20261031",
+  "publicationDecision": "owner-requested-local-draft-use-20261031"
+}
