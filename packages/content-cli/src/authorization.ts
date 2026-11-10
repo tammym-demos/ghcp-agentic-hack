@@ -4,7 +4,7 @@ import fsExtra from "fs-extra";
 import matter from "gray-matter";
 import {
   mediaActionRequestSchema, workflowPolicySchema, workEnvelopeSchema, workshopRequirementsSchema,
-  type MediaActionRequest, type ProductionDecision
+  type MediaActionRequest, type ProductionDecision, type WorkshopRequirements
 } from "@ghcp/content-schema";
 import { loadProductionState } from "./lifecycle.js";
 import {
@@ -115,6 +115,43 @@ export async function inspectAuthorization(request: MediaActionRequest, roots = 
   return authority(mediaActionRequestSchema.parse(request), roots);
 }
 
+export async function assertDeclaredImageRequest(
+  request: MediaActionRequest,
+  requirements: WorkshopRequirements,
+  workshopRoot: string,
+  root: string
+) {
+  if (request.kind !== "generate-image") throw new Error("Declared image roles require an image-generation request");
+  if (requirements.id !== request.workshopId) throw new Error("Requirements workshop id does not match the image request");
+  if (!requirements.modules.some(module => module.id === request.moduleId)) {
+    throw new Error(`Image request targets module "${request.moduleId}", which the requirements do not declare`);
+  }
+  const role = requirements.imageRoles.find(entry => entry.id === request.assetId && entry.module === request.moduleId);
+  if (!role) {
+    throw new Error(`Image request "${request.assetId}" is not a declared image role for module "${request.moduleId}"`);
+  }
+  const { promptHashes, referencePath, ...requestConstraints } = role.request;
+  const requestReferencePath = referencePath
+    ? path.relative(root, await localFile(workshopRoot, referencePath)).split(path.sep).join("/")
+    : undefined;
+  const expectedRequest = {
+    kind: "generate-image",
+    workshopId: request.workshopId,
+    moduleId: request.moduleId,
+    cycleId: request.cycleId,
+    assetId: request.assetId,
+    ...requestConstraints,
+    referencePath: requestReferencePath,
+    promptHash: request.promptHash,
+    candidates: 1,
+    variants: 1
+  };
+  if (!promptHashes.includes(request.promptHash) || canonical(expectedRequest) !== canonical(request)) {
+    throw new Error(`Image request "${request.assetId}" does not match its declared request constraints`);
+  }
+  return role;
+}
+
 async function standingImageAuthority(request: MediaActionRequest, roots: AuthorizationRoots) {
   if (request.kind !== "generate-image") throw new Error("Standing authority applies only to image generation");
   const { state } = await loadProductionState(request.workshopId, roots);
@@ -133,33 +170,7 @@ async function standingImageAuthority(request: MediaActionRequest, roots: Author
   if (requirementsHash !== state.requirements.sha256) throw new Error("Workshop requirements changed; refresh intake before generation");
   // Standing authority is scoped to imagery the requirements actually ask for.
   const requirements = workshopRequirementsSchema.parse(matter(requirementsRaw).data);
-  if (requirements.id !== request.workshopId) throw new Error("Requirements workshop id does not match the image request");
-  if (!requirements.modules.some(module => module.id === request.moduleId)) {
-    throw new Error(`Image request targets module "${request.moduleId}", which the requirements do not declare`);
-  }
-  const role = requirements.imageRoles.find(entry => entry.id === request.assetId && entry.module === request.moduleId);
-  if (!role) {
-    throw new Error(`Image request "${request.assetId}" is not a declared image role for module "${request.moduleId}"`);
-  }
-  const { promptHashes, referencePath, ...requestConstraints } = role.request;
-  const requestReferencePath = referencePath
-    ? path.relative(roots.repositoryRoot, await localFile(workshopRoot, referencePath)).split(path.sep).join("/")
-    : undefined;
-  const expectedRequest = {
-    kind: "generate-image",
-    workshopId: request.workshopId,
-    moduleId: request.moduleId,
-    cycleId: request.cycleId,
-    assetId: request.assetId,
-    ...requestConstraints,
-    referencePath: requestReferencePath,
-    promptHash: request.promptHash,
-    candidates: 1,
-    variants: 1
-  };
-  if (!promptHashes.includes(request.promptHash) || canonical(expectedRequest) !== canonical(request)) {
-    throw new Error(`Image request "${request.assetId}" does not match its declared request constraints`);
-  }
+  const role = await assertDeclaredImageRequest(request, requirements, workshopRoot, roots.repositoryRoot);
   const sourcePath = await localFile(workshopRoot, request.source);
   if (sha256(await readFile(sourcePath)) !== request.sourceHash) throw new Error("Image source changed after request inspection");
   const policy = workflowPolicySchema.parse(JSON.parse(

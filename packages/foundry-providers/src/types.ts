@@ -14,6 +14,7 @@ export interface GeneratedImage {
   bytes: Uint8Array;
   contentType: string;
   revisedPrompt?: string;
+  provenance?: Record<string, unknown>;
 }
 
 export const maiImageProviderNames = ["mai-image-2.5", "mai-image-2.6"] as const;
@@ -23,6 +24,7 @@ export type MaiImageProviderName = (typeof maiImageProviderNames)[number];
 export const imageProviderNames = [
   "gpt-image-2",
   "flux-2-pro",
+  "comfyui-qwen21",
   ...maiImageProviderNames
 ] as const;
 

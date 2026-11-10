@@ -196,15 +196,15 @@ coreClues:
       - harness: ide-extension
         instructions:
           - 'Use the Add Context button, or type `#` and pick `team-rules.md`.'
-          - 'Ask: "What is the team rule for case notes?"'
+          - 'Type this into the Chat box: "What is the team rule for case notes?"'
       - harness: copilot-cli
         instructions:
           - Name `team-rules.md` directly in your message.
-          - 'Ask: "Read team-rules.md. What is the team rule for case notes?"'
+          - 'Type this at the `copilot` prompt: "Read team-rules.md. What is the team rule for case notes?"'
       - harness: copilot-app
         instructions:
           - Confirm `team-rules.md` shows in the files area.
-          - 'Ask: "What is the team rule for case notes?"'
+          - 'Type this into the chat area: "What is the team rule for case notes?"'
     verify: Copilot's answer contains the unusual rule, which only exists in the new file.
     evidence: 'I added ___ to the context. Copilot then knew: ___.'
     hints:

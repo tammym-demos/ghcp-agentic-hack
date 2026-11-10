@@ -1,0 +1,198 @@
+{
+  "schemaVersion": 1,
+  "id": "intro-chief-morgan-reference",
+  "kind": "image",
+  "provider": "comfyui-qwen21",
+  "deployment": "qwen_image_2.1_int8_convrot.safetensors",
+  "promptHash": "6c4994aadd29b768d3d2ccbf8ed8caa7097146bbdb9287432dfed48f93b3c0d2",
+  "prompt": "Using the supplied team portrait as the identity reference, create a standalone full-body character study of only the adult woman on the right, Chief Morgan Charter. Preserve her face, cat-eye glasses, brown-and-gray hair in an updo, deep-green tailored suit, ivory blouse and dark shoes. She stands neutrally with relaxed hands, a composed expression and a welcoming smile. Show her complete body and both feet, centered with breathing room on the same soft off-white stage and a subtle warm ground shadow. Keep the original warm 2D editorial illustration style, proportions, palette and clean rounded lines. Remove the other people and cat completely; leave no fragments or duplicate limbs. Do not add writing, labels, logos, marks, interfaces, watermarks, or recognizable protected characters.",
+  "providerProvenance": {
+    "comfyuiVersion": "0.42.1",
+    "workflowHash": "5c65619e28a140a7b345ae9a2592b812f1b6fc22dcec31aa7061d1527531a516",
+    "referenceHash": "da37f68ec5932225ed5b5f49e75d847eac7b294d8329457ad1abaf84b6dc0f77",
+    "queueRequest": {
+      "prompt": {
+        "1": {
+          "class_type": "LoadImage",
+          "inputs": {
+            "image": "ghcp-intro-character-references/reference-da37f68ec5932225-7146fba0-9623-49ea-93ff-83b89326767b.png"
+          }
+        },
+        "2": {
+          "class_type": "UNETLoader",
+          "inputs": {
+            "unet_name": "qwen_image_2.1_int8_convrot.safetensors",
+            "weight_dtype": "default"
+          }
+        },
+        "3": {
+          "class_type": "CLIPLoader",
+          "inputs": {
+            "clip_name": "qwen3vl_8b_int8_convrot.safetensors",
+            "type": "qwen_image",
+            "device": "default"
+          }
+        },
+        "4": {
+          "class_type": "VAELoader",
+          "inputs": {
+            "vae_name": "qwen_image_2.1_vae_bf16.safetensors"
+          }
+        },
+        "5": {
+          "class_type": "TextEncodeQwenImage21",
+          "inputs": {
+            "clip": [
+              "3",
+              0
+            ],
+            "vae": [
+              "4",
+              0
+            ],
+            "images.image_1": [
+              "1",
+              0
+            ],
+            "prompt": "Using the supplied team portrait as the identity reference, create a standalone full-body character study of only the adult woman on the right, Chief Morgan Charter. Preserve her face, cat-eye glasses, brown-and-gray hair in an updo, deep-green tailored suit, ivory blouse and dark shoes. She stands neutrally with relaxed hands, a composed expression and a welcoming smile. Show her complete body and both feet, centered with breathing room on the same soft off-white stage and a subtle warm ground shadow. Keep the original warm 2D editorial illustration style, proportions, palette and clean rounded lines. Remove the other people and cat completely; leave no fragments or duplicate limbs. Do not add writing, labels, logos, marks, interfaces, watermarks, or recognizable protected characters.",
+            "negative_prompt": "Text, letters, logos, trademarks, interfaces, watermarks, extra characters, duplicated or malformed limbs, photorealism, 3D rendering.",
+            "resolution": 0
+          }
+        },
+        "7": {
+          "class_type": "QwenImage21Cache",
+          "inputs": {
+            "model": [
+              "2",
+              0
+            ],
+            "device": "auto",
+            "dtype": "default"
+          }
+        },
+        "8": {
+          "class_type": "KSampler",
+          "inputs": {
+            "model": [
+              "7",
+              0
+            ],
+            "positive": [
+              "5",
+              0
+            ],
+            "negative": [
+              "5",
+              1
+            ],
+            "latent_image": [
+              "5",
+              2
+            ],
+            "seed": 646225256900657,
+            "steps": 40,
+            "cfg": 1,
+            "sampler_name": "euler",
+            "scheduler": "simple",
+            "denoise": 1
+          }
+        },
+        "9": {
+          "class_type": "VAEDecode",
+          "inputs": {
+            "samples": [
+              "8",
+              0
+            ],
+            "vae": [
+              "4",
+              0
+            ]
+          }
+        },
+        "10": {
+          "class_type": "SaveImage",
+          "inputs": {
+            "images": [
+              "9",
+              0
+            ],
+            "filename_prefix": "ghcp-intro-character-references/character-reference-885226b8-c7ea-4f02-aa07-89f5a40cc254"
+          }
+        }
+      },
+      "client_id": "885226b8-c7ea-4f02-aa07-89f5a40cc254"
+    },
+    "queueResponse": {
+      "prompt_id": "4a676704-059d-4de8-9d50-16b7789e0845",
+      "number": 5,
+      "node_errors": {}
+    },
+    "status": {
+      "status_str": "success",
+      "completed": true,
+      "messages": [
+        [
+          "execution_start",
+          {
+            "prompt_id": "4a676704-059d-4de8-9d50-16b7789e0845",
+            "timestamp": 1794070507863
+          }
+        ],
+        [
+          "execution_cached",
+          {
+            "nodes": [
+              "2",
+              "3",
+              "4",
+              "7"
+            ],
+            "prompt_id": "4a676704-059d-4de8-9d50-16b7789e0845",
+            "timestamp": 1794070507886
+          }
+        ],
+        [
+          "execution_success",
+          {
+            "prompt_id": "4a676704-059d-4de8-9d50-16b7789e0845",
+            "timestamp": 1794070601660
+          }
+        ]
+      ]
+    },
+    "output": {
+      "filename": "character-reference-885226b8-c7ea-4f02-aa07-89f5a40cc254_00001_.png",
+      "subfolder": "ghcp-intro-character-references",
+      "type": "output",
+      "metadata": {
+        "kind": "image",
+        "width": 1536,
+        "height": 1024
+      },
+      "id": "223230d7-58da-48bb-8401-48e67dbb4667"
+    }
+  },
+  "source": "content/modules/01-foundations/media/comfyui-intro-character-references.json",
+  "createdAt": "2026-11-07T16:56:42.409Z",
+  "reviewStatus": "approved",
+  "location": "content/modules/01-foundations/media/references/intro-chief-morgan-anchor.png",
+  "width": 1536,
+  "height": 1024,
+  "inputReference": {
+    "path": "workshops/ghcp-agentic-hack/content/modules/01-foundations/public/images/team-portrait-purrmission-final.png",
+    "hash": "da37f68ec5932225ed5b5f49e75d847eac7b294d8329457ad1abaf84b6dc0f77",
+    "contentType": "image/png"
+  },
+  "generationAuthorization": {
+    "initiative": "requirements-ghcp-agentic-hack",
+    "envelopeId": "standing-intro-character-anchors-v1",
+    "envelopeHash": "2f5aad685ac117b269ee5b2242c27bb9346eabc16f472d47a37e3948db3216f1",
+    "decisionId": "standing-image-policy",
+    "requestHash": "1fd556fdd076b80d1bc8e575531dcc9aea81e33c825f4865ab84734cbdc53527"
+  },
+  "integratedUnder": {
+    "authority": "lifecycle-v3-local-draft",
+    "requirementsHash": "5d593a53466d9335be933d38160ff96211b84685cdd06453a008ce01e116bb45"
+  }
+}

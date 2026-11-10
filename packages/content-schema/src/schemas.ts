@@ -83,6 +83,7 @@ const clockTime = z.string().regex(/^(?:[01]\d|2[0-3]):[0-5]\d$/, "Use 24-hour H
 const agendaBlockType = z.enum([
   "kickoff",
   "module-content",
+  "discussion",
   "mission",
   "break",
   "lunch",
@@ -136,7 +137,8 @@ export const deliveryVariantSchema = z.object({
             if (clockMinutes(block.end) <= clockMinutes(block.start)) {
               context.addIssue({ code: "custom", path: ["agenda", index, "end"], message: "Agenda block end must be after its start" });
             }
-            const requiresModule = block.type === "module-content" || block.type === "mission";
+            const requiresModule =
+              block.type === "module-content" || block.type === "discussion" || block.type === "mission";
             if (requiresModule && !block.module) {
               context.addIssue({
                 code: "custom",
@@ -617,7 +619,18 @@ export const releaseManifestSchema = z
       .object({
         url: z.string().url(),
         deployedAt: dateTimeString,
-        verifiedAt: dateTimeString.optional()
+        verifiedAt: dateTimeString.optional(),
+        evidence: z.object({
+          repository: z.string().regex(/^[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\/(?!\.{1,2}$)[A-Za-z0-9_.-]+$/),
+          commit: z.string().regex(/^[0-9a-f]{40}$/i),
+          tree: z.string().regex(/^[0-9a-f]{40}$/i),
+          deploymentId: z.number().int().positive(),
+          runId: z.number().int().positive(),
+          jobId: z.number().int().positive(),
+          approvedManifestSha256: z.string().regex(/^[0-9a-f]{64}$/i).optional(),
+          logSha256: z.string().regex(/^[0-9a-f]{64}$/i).optional(),
+          liveLogVerifiedAt: dateTimeString.optional()
+        }).optional()
       })
       .optional()
   })
@@ -737,7 +750,7 @@ export const generatedAssetSchema = z.object({
   schemaVersion: z.literal(1),
   id,
   kind: z.enum(["image", "video"]),
-  provider: z.enum(["gpt-image-2", "flux-2-pro", "mai-image-2.5", "mai-image-2.6", "sora-2"]),
+  provider: z.enum(["gpt-image-2", "flux-2-pro", "mai-image-2.5", "mai-image-2.6", "comfyui-qwen21", "sora-2"]),
   deployment: z.string().min(1),
   promptHash: z.string().regex(/^[a-f0-9]{64}$/),
   source: relativePath,
@@ -747,6 +760,7 @@ export const generatedAssetSchema = z.object({
   width: z.number().int().positive().optional(),
   height: z.number().int().positive().optional(),
   durationSeconds: z.number().positive().optional(),
+  providerProvenance: z.record(z.string(), z.unknown()).optional(),
   inputReference: z
     .object({
       path: relativePath,

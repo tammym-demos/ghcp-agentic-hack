@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  generatedAssetSchema,
   localDeterministicImageSchema,
   missionSchema,
   moduleSchema,
@@ -7,6 +8,28 @@ import {
   releaseManifestSchema,
   workshopSchema
 } from "./schemas.js";
+
+describe("generatedAssetSchema", () => {
+  it("accepts existing text provenance and local provider provenance", () => {
+    const base = {
+      schemaVersion: 1,
+      id: "reference-image",
+      kind: "image",
+      deployment: "local-model",
+      promptHash: "0".repeat(64),
+      source: "content/reference.md",
+      createdAt: "2026-11-07T00:00:00.000Z",
+      reviewStatus: "candidate",
+      location: "generated/candidate.png"
+    };
+    expect(generatedAssetSchema.safeParse({
+      ...base, provider: "mai-image-2.5", provenance: "An existing owner-supplied reference."
+    }).success).toBe(true);
+    expect(generatedAssetSchema.parse({
+      ...base, provider: "comfyui-qwen21", providerProvenance: { promptId: "job-1" }
+    }).providerProvenance).toEqual({ promptId: "job-1" });
+  });
+});
 
 describe("localDeterministicImageSchema", () => {
   it("accepts truthful local derivative provenance", () => {
@@ -182,6 +205,14 @@ describe("workshopSchema", () => {
                   type: "module-content",
                   title: "Introduction",
                   start: "09:15",
+                  end: "09:45",
+                  module: "intro"
+                },
+                {
+                  id: "discussion",
+                  type: "discussion",
+                  title: "Discussion",
+                  start: "09:45",
                   end: "10:00",
                   module: "intro"
                 },

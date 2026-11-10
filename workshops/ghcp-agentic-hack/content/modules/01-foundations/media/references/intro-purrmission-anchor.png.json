@@ -1,0 +1,198 @@
+{
+  "schemaVersion": 1,
+  "id": "intro-purrmission-reference",
+  "kind": "image",
+  "provider": "comfyui-qwen21",
+  "deployment": "qwen_image_2.1_int8_convrot.safetensors",
+  "promptHash": "a3508d1c72436fbe0136daf70b8901da03f891131b3458d1283bfb7d08de0b7a",
+  "prompt": "Using the supplied team portrait as the identity reference, create a standalone character study of only Purrmission, the seated black cat in the foreground. Preserve his natural feline proportions, sleek black fur, bright green eyes, small green collar, simple shield-shaped tag and full curved tail. He sits alert and friendly, looking toward the viewer, with all four paws and his tail anatomically plausible. Center the complete cat with breathing room on the same soft off-white stage and a subtle warm ground shadow. Keep the original warm 2D editorial illustration style, proportions, palette and clean rounded lines. Remove all people and their clothing completely; leave no fragments, extra animals or duplicate limbs. Do not add writing, labels, logos, marks, interfaces, watermarks, or recognizable protected mascots.",
+  "providerProvenance": {
+    "comfyuiVersion": "0.42.1",
+    "workflowHash": "5c65619e28a140a7b345ae9a2592b812f1b6fc22dcec31aa7061d1527531a516",
+    "referenceHash": "da37f68ec5932225ed5b5f49e75d847eac7b294d8329457ad1abaf84b6dc0f77",
+    "queueRequest": {
+      "prompt": {
+        "1": {
+          "class_type": "LoadImage",
+          "inputs": {
+            "image": "ghcp-intro-character-references/reference-da37f68ec5932225-a6899f9a-cccf-419f-95a2-6bb6f7412b27.png"
+          }
+        },
+        "2": {
+          "class_type": "UNETLoader",
+          "inputs": {
+            "unet_name": "qwen_image_2.1_int8_convrot.safetensors",
+            "weight_dtype": "default"
+          }
+        },
+        "3": {
+          "class_type": "CLIPLoader",
+          "inputs": {
+            "clip_name": "qwen3vl_8b_int8_convrot.safetensors",
+            "type": "qwen_image",
+            "device": "default"
+          }
+        },
+        "4": {
+          "class_type": "VAELoader",
+          "inputs": {
+            "vae_name": "qwen_image_2.1_vae_bf16.safetensors"
+          }
+        },
+        "5": {
+          "class_type": "TextEncodeQwenImage21",
+          "inputs": {
+            "clip": [
+              "3",
+              0
+            ],
+            "vae": [
+              "4",
+              0
+            ],
+            "images.image_1": [
+              "1",
+              0
+            ],
+            "prompt": "Using the supplied team portrait as the identity reference, create a standalone character study of only Purrmission, the seated black cat in the foreground. Preserve his natural feline proportions, sleek black fur, bright green eyes, small green collar, simple shield-shaped tag and full curved tail. He sits alert and friendly, looking toward the viewer, with all four paws and his tail anatomically plausible. Center the complete cat with breathing room on the same soft off-white stage and a subtle warm ground shadow. Keep the original warm 2D editorial illustration style, proportions, palette and clean rounded lines. Remove all people and their clothing completely; leave no fragments, extra animals or duplicate limbs. Do not add writing, labels, logos, marks, interfaces, watermarks, or recognizable protected mascots.",
+            "negative_prompt": "Text, letters, logos, trademarks, interfaces, watermarks, extra characters, duplicated or malformed limbs, photorealism, 3D rendering.",
+            "resolution": 0
+          }
+        },
+        "7": {
+          "class_type": "QwenImage21Cache",
+          "inputs": {
+            "model": [
+              "2",
+              0
+            ],
+            "device": "auto",
+            "dtype": "default"
+          }
+        },
+        "8": {
+          "class_type": "KSampler",
+          "inputs": {
+            "model": [
+              "7",
+              0
+            ],
+            "positive": [
+              "5",
+              0
+            ],
+            "negative": [
+              "5",
+              1
+            ],
+            "latent_image": [
+              "5",
+              2
+            ],
+            "seed": 646225256900657,
+            "steps": 40,
+            "cfg": 1,
+            "sampler_name": "euler",
+            "scheduler": "simple",
+            "denoise": 1
+          }
+        },
+        "9": {
+          "class_type": "VAEDecode",
+          "inputs": {
+            "samples": [
+              "8",
+              0
+            ],
+            "vae": [
+              "4",
+              0
+            ]
+          }
+        },
+        "10": {
+          "class_type": "SaveImage",
+          "inputs": {
+            "images": [
+              "9",
+              0
+            ],
+            "filename_prefix": "ghcp-intro-character-references/character-reference-9a42a5a3-2a03-4c01-aff2-7cefe478e3fe"
+          }
+        }
+      },
+      "client_id": "9a42a5a3-2a03-4c01-aff2-7cefe478e3fe"
+    },
+    "queueResponse": {
+      "prompt_id": "609ca72d-f87c-464f-b25d-36ec208be149",
+      "number": 6,
+      "node_errors": {}
+    },
+    "status": {
+      "status_str": "success",
+      "completed": true,
+      "messages": [
+        [
+          "execution_start",
+          {
+            "prompt_id": "609ca72d-f87c-464f-b25d-36ec208be149",
+            "timestamp": 1794070605411
+          }
+        ],
+        [
+          "execution_cached",
+          {
+            "nodes": [
+              "2",
+              "3",
+              "4",
+              "7"
+            ],
+            "prompt_id": "609ca72d-f87c-464f-b25d-36ec208be149",
+            "timestamp": 1794070605428
+          }
+        ],
+        [
+          "execution_success",
+          {
+            "prompt_id": "609ca72d-f87c-464f-b25d-36ec208be149",
+            "timestamp": 1794070698485
+          }
+        ]
+      ]
+    },
+    "output": {
+      "filename": "character-reference-9a42a5a3-2a03-4c01-aff2-7cefe478e3fe_00001_.png",
+      "subfolder": "ghcp-intro-character-references",
+      "type": "output",
+      "metadata": {
+        "kind": "image",
+        "width": 1536,
+        "height": 1024
+      },
+      "id": "31a2915f-0f01-4fdc-9d81-eaffac5a7b9f"
+    }
+  },
+  "source": "content/modules/01-foundations/media/comfyui-intro-character-references.json",
+  "createdAt": "2026-11-07T16:58:19.994Z",
+  "reviewStatus": "approved",
+  "location": "content/modules/01-foundations/media/references/intro-purrmission-anchor.png",
+  "width": 1536,
+  "height": 1024,
+  "inputReference": {
+    "path": "workshops/ghcp-agentic-hack/content/modules/01-foundations/public/images/team-portrait-purrmission-final.png",
+    "hash": "da37f68ec5932225ed5b5f49e75d847eac7b294d8329457ad1abaf84b6dc0f77",
+    "contentType": "image/png"
+  },
+  "generationAuthorization": {
+    "initiative": "requirements-ghcp-agentic-hack",
+    "envelopeId": "standing-intro-character-anchors-v1",
+    "envelopeHash": "65e2f23aae3271d28c5af62e9c5ddfb1bb2a6d1dce2a6db3e1f8288bdf52a4de",
+    "decisionId": "standing-image-policy",
+    "requestHash": "198f078d63d2028591daa15bbe1d5631ad6737f1290805f2791408fe7751988d"
+  },
+  "integratedUnder": {
+    "authority": "lifecycle-v3-local-draft",
+    "requirementsHash": "5d593a53466d9335be933d38160ff96211b84685cdd06453a008ce01e116bb45"
+  }
+}

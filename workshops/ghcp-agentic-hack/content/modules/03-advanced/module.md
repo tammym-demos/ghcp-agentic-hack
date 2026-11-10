@@ -3,13 +3,8 @@ schemaVersion: 1
 kind: module
 id: advanced
 title: 'Advanced Workflows: Under the Hood of LLMs & Multi-Agent Scale'
-description: >-
-  Open the engine hood on how LLMs and KV prefix caches work (tokens,
-  embeddings, causal self-attention, probability suspect lineup), then apply
-  that architecture to Copilot Fusion, subagents, parallel CLI /fleet, Git
-  worktrees vs. Stacked PRs, Work IQ MCP, indirect prompt-injection defense, and
-  scale operations.
-duration: 1 hour 30 minutes
+description: 'Select appropriate multiagent, subagent, and parallel execution patterns'
+duration: 90 minutes
 totalMinutes: 90
 timing:
   instructionMinutes: 60
@@ -20,14 +15,32 @@ timing:
   breaksMinutes: 0
   contingencyMinutes: 0
 objectives:
-  - Select appropriate multiagent, subagent, and parallel execution patterns
+  - 'Select appropriate multiagent, subagent, and parallel execution patterns'
   - Evaluate ecosystem resources and integration surfaces before enterprise use
-  - Explain how Copilot Fusion selects an execution pattern and model or models for a task without assuming guaranteed quality, latency, or cost gains
+  - >-
+    Explain how tokenization, vocabulary IDs, vector embeddings,
+    causal-transformer self-attention, and next-token probability sampling work
+    under the hood and why fluent plausibility is never proof of truth
+  - >-
+    Explain how Key-Value (KV) prefix caching reuses intermediate attention
+    state across turns and what invalidates the cache
+  - >-
+    Explain how Copilot Fusion evaluates a task and selects an execution pattern
+    and one or more models without assuming guaranteed quality, latency, or cost
+    gains
+  - >-
+    Select lowest-sufficient orchestration patterns across subagents (protecting
+    the parent KV cache), parallel Copilot CLI /fleet, isolated Git worktrees,
+    and dependency-ordered Stacked PRs
   - Apply agent skills and MCP context to governed Copilot code review workflows
   - Debug agent behavior using narrowed context and observable evidence
-  - Evaluate agent outcomes against explicit acceptance criteria and recover to a known state
-  - Integrate parallel work with dependency ordering, combined validation, rollback, and human acceptance
-  - Plan maintainable distribution, deployment, and Day 2 workflows
+  - >-
+    Evaluate agent outcomes against explicit acceptance criteria and recover to
+    a known state
+  - >-
+    Integrate parallel work with dependency ordering, combined validation,
+    rollback, and human acceptance
+  - 'Plan maintainable distribution, deployment, and Day 2 workflows'
 prerequisites:
   - Foundations module
   - Agentic Development module

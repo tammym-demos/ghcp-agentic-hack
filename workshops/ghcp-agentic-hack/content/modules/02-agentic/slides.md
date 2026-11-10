@@ -353,31 +353,56 @@ layout: bureau-two-panel
 # Packaging SDLC Procedures as Reusable Skills (SKILL.md)
 ::text::
 
-- **Mergewell's Deployable Wrist Gadgets (`.github/skills/<name>/SKILL.md`):**
-  - A **Skill** bundles a YAML frontmatter (`name`, `description`), step-by-step Markdown instructions, and optional helper scripts or templates
-- **On-Demand Context Efficiency:**
-  - Only the short skill metadata is discovered up front; the full `SKILL.md` body and scripts load **only when the skill is invoked**
-- **SDLC Use Cases:**
-  - `api-contract-review`, `db-migration-checklist`, `changelog-and-release-notes`, `a11y-audit`
-- **CLI & App Controls:** Inspect or refresh with `/skills`, `/skills info <name>`, and `/skills reload`
+**Example: `.github/skills/case-check/SKILL.md`**
+
+<div class="agentic-skill-frontmatter">
+
+```yaml
+---
+name: case-check
+description: >-
+  Review dispatch check output
+  and diff. Use before accepting
+  a filter change.
+allowed-tools: read
+---
+```
+
+</div>
+
+- **Copilot CLI:** `allowed-tools` pre-approves; it does not deny other tools. Support varies by harness.
+- **CLI deny (use both):** `--deny-tool=write`<br>
+  `--deny-tool=shell`. Review other tools separately.
+- **Discovery:** A relevant request may select the skill; `/case-check` is explicit invocation.
 
 ::visual::
 <img src="/images/tool-action-workbench.png" alt="Agent Mergewell deploying a modular mechanical skill gadget at the workbench" />
 
+<style>
+.agentic-skill-frontmatter {
+  --slidev-code-font-size: 15px;
+  --slidev-code-line-height: 20px;
+}
+</style>
+
 <!--
 Timebox: 3 minutes
 
-Talk track: Watch Mergewell click his wrist rig: out pops a specialized gadget for the exact task at hand, then folds back away when he's done. In the Copilot harness, that is a Reusable Skill (`.github/skills/<name>/SKILL.md`). Instead of cramming your database migration checklist, API review rubric, and release-note template into `.github/copilot-instructions.md`, package each one as a `SKILL.md`. The harness reads the short description to know when the skill applies, and only loads the full procedure when invoked—keeping your everyday context window fast and cheap.
+Talk track: Look at the `case-check` example. The name matches the folder. The description says what the skill does and when to use it, so Copilot has a useful discovery cue. Keep the procedure in the body, not the description.
+
+The optional `allowed-tools: read` line illustrates Copilot CLI pre-approval. Reading may already be allowed. The line does not deny unlisted tools, and support varies by harness. Do not pre-approve shell for an untrusted skill. To deny the built-in write and shell permission kinds for a separate CLI session, start `copilot --deny-tool=write --deny-tool=shell`. Deny rules take precedence, but review MCP and other tools separately; these two denials are not a complete sandbox.
+
+Copilot may select a relevant skill, but selection is not guaranteed. When selected, the instructions enter context; supporting files are used as needed, and a script does not run merely because it exists. To test discovery, ask for a review of the dispatch check output and diff without naming `case-check`. Inspect the available activity and record selection as observed, not observed, or not observable. If you invoke `/case-check` explicitly, record that separately. A good answer alone does not prove selection. In Copilot CLI, `/skills` lists skills, `/skills info case-check` inspects metadata, and `/skills reload` refreshes discovery.
 
 Transition: Skills define *how* a procedure runs. How do we define *who* runs each stage of the SDLC with least-privilege tools?
 
-Audience question: What repeatable workflow on your team today would make the best first `SKILL.md`?
+Audience question: What should the description say so a relevant task can find this skill without naming it?
 
-Response guidance: PR description/release-note generation, API schema checks, test fixture scaffolding, or security pre-flight reviews are great candidates.
+Response guidance: Listen for both the capability and the situation: review the dispatch lab check output before accepting a filter change. If they offer only a skill name, ask what task should make it relevant.
 
-Payoff: Learners know how to package repeatable SDLC procedures as on-demand `SKILL.md` skills.
+Payoff: Learners can write a useful what-and-when description, distinguish skill pre-approval from tool denial, and record evidence of selection or explicit invocation.
 
-Sources: https://docs.github.com/en/copilot/concepts/agents/about-agent-skills
+Sources: https://docs.github.com/en/copilot/concepts/customizations/agent-skills; https://code.visualstudio.com/docs/agent-customization/agent-skills; https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-skills; https://docs.github.com/en/copilot/how-tos/copilot-cli/use-copilot-cli/allowing-tools
 -->
 
 ---

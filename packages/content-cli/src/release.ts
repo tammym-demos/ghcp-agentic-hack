@@ -2,7 +2,7 @@ import os from "node:os";
 import path from "node:path";
 import { execFile } from "node:child_process";
 import { mkdtemp, readdir as readDirectory, rm } from "node:fs/promises";
-import { promisify } from "node:util";
+import { isDeepStrictEqual, promisify } from "node:util";
 import fsExtra from "fs-extra";
 import matter from "gray-matter";
 import {
@@ -15,7 +15,12 @@ import {
 import { gitSnapshot } from "./lifecycle.js";
 import { createPortalCatalog } from "./catalog.js";
 import { repositoryRoot } from "./paths.js";
-import { textSha256 } from "./production-records.js";
+import { sha256, textSha256 } from "./production-records.js";
+import { isReferenceSheetAsset, referenceSheetReleaseSidecar, validateReferenceSheetSidecars } from "./reference-reuse.js";
+import {
+  normalizePublicSiteUrl,
+  type RecordedPublicDeploymentProof
+} from "./public-deployment.js";
 import {
   assertPinnedEntry,
   isPublicExportLocation,
@@ -89,15 +94,26 @@ async function assertDeploymentStateChangeOnly(
   if (manifest.status !== "deploying" && manifest.status !== "verified") {
     throw new Error(`Release manifest ${relative} has uncommitted changes outside deployment state`);
   }
-  let committed: ReleaseManifest;
+  let committedRaw: string;
   try {
-    const raw = (await execFileAsync("git", ["show", `HEAD:${relative}`], { cwd: root })).stdout;
-    committed = releaseManifestSchema.parse(matter(raw).data);
+    committedRaw = (await execFileAsync("git", ["show", `HEAD:${relative}`], { cwd: root })).stdout;
   } catch {
     throw new Error(`Release manifest ${relative} must have a committed baseline before verification`);
   }
+  const committedDocument = matter(committedRaw);
+  const currentDocument = matter(await readFile(filePath, "utf8"));
+  const committed = releaseManifestSchema.parse(committedDocument.data);
+  if (committed.status !== "approved" && committed.status !== "deploying" && committed.status !== "verified") {
+    throw new Error(`Release manifest ${relative} must have a committed approved baseline before verification`);
+  }
   const stripDeployment = ({ status: _status, deployment: _deployment, ...immutable }: ReleaseManifest) => immutable;
-  if (JSON.stringify(stripDeployment(committed)) !== JSON.stringify(stripDeployment(manifest))) {
+  const stripRawDeployment = ({ status: _status, deployment: _deployment, ...immutable }: Record<string, unknown>) =>
+    JSON.stringify(immutable);
+  if (
+    JSON.stringify(stripDeployment(committed)) !== JSON.stringify(stripDeployment(manifest)) ||
+    stripRawDeployment(committedDocument.data) !== stripRawDeployment(currentDocument.data) ||
+    committedDocument.content.replace(/\r\n/g, "\n") !== currentDocument.content.replace(/\r\n/g, "\n")
+  ) {
     throw new Error(`Release manifest ${relative} has uncommitted changes outside deployment state`);
   }
 }
@@ -223,6 +239,127 @@ export async function validateApprovedRelease(
   return manifest;
 }
 
+export async function resolveApprovedPublicManifest(
+  manifestOption: string,
+  root = repositoryRoot,
+  options: { allowDeploymentStateChanges?: boolean } = {}
+): Promise<{ manifest: ReleaseManifest; raw: string; sha256: string }> {
+  const manifest = await validateApprovedRelease(manifestOption, root, options);
+  const loaded = await loadReleaseManifest(manifestOption, root);
+  if (!isDeepStrictEqual(manifest, loaded.manifest)) {
+    throw new Error("Release manifest changed during approved export reconstruction");
+  }
+  const relative = path.relative(root, loaded.filePath).split(path.sep).join("/");
+  const { stdout } = await execFileAsync(
+    "git", ["log", "--full-history", "-m", "--format=%H", "--diff-filter=AM", "HEAD", "--", relative],
+    { cwd: root }
+  );
+  const revisions = [...new Set(stdout.trim().split(/\r?\n/).filter(Boolean))];
+  const immutable = ({ status: _status, deployment: _deployment, ...data }: Record<string, unknown>) =>
+    JSON.parse(JSON.stringify(data)) as Record<string, unknown>;
+  const expected = immutable(loaded.data);
+  const candidates = new Map<string, { raw: string; sha256: string }>();
+  let latestApproved: string | undefined;
+  // Deployment notes are private; recover only committed approved bytes and never guess between versions.
+  const headRaw = (await execFileAsync("git", ["show", `HEAD:${relative}`], { cwd: root })).stdout;
+  const headData = matter(headRaw).data as Record<string, unknown>;
+  if (headData.status === "approved") {
+    if (headData.deployment !== undefined) {
+      throw new Error(`Committed approved manifest ${relative} must not contain deployment evidence`);
+    }
+    if (!isDeepStrictEqual(immutable(headData), expected)) {
+      throw new Error(`Committed approved manifest ${relative} does not match the release being verified`);
+    }
+    releaseManifestSchema.parse(headData);
+    latestApproved = sha256(headRaw);
+    candidates.set(latestApproved, { raw: headRaw, sha256: latestApproved });
+  }
+  for (const revision of revisions) {
+    const raw = (await execFileAsync("git", ["show", `${revision}:${relative}`], { cwd: root })).stdout;
+    const data = matter(raw).data as Record<string, unknown>;
+    if (data.status !== "approved" || data.deployment !== undefined ||
+        !isDeepStrictEqual(immutable(data), expected)) continue;
+    releaseManifestSchema.parse(data);
+    const digest = sha256(raw);
+    candidates.set(digest, { raw, sha256: digest });
+  }
+  const recorded = manifest.deployment?.evidence?.approvedManifestSha256?.toLowerCase();
+  if (recorded) {
+    const selected = candidates.get(recorded);
+    if (!selected) throw new Error(`Recorded approved manifest version is unavailable for ${relative}`);
+    return { manifest, ...selected };
+  }
+  const currentApproved = latestApproved ? candidates.get(latestApproved) : undefined;
+  if (currentApproved) return { manifest, ...currentApproved };
+  const [onlyCandidate] = candidates.values();
+  if (candidates.size === 1 && onlyCandidate) return { manifest, ...onlyCandidate };
+  if (candidates.size === 0) {
+    throw new Error(`No matching committed approved manifest exists for ${relative}`);
+  }
+  throw new Error(`Multiple approved manifest versions exist for ${relative}; recorded provenance is required`);
+}
+
+export async function resolveRecordedPublicDeploymentProof(
+  manifestOption: string,
+  options: {
+    repository: string;
+    expectedTree: string;
+    siteUrl: string;
+    approvedManifestSha256: string;
+  },
+  root = repositoryRoot
+): Promise<RecordedPublicDeploymentProof> {
+  const { filePath, manifest } = await loadReleaseManifest(manifestOption, root);
+  if (manifest.status !== "verified") {
+    throw new Error("Recorded deployment proof requires a previously verified release");
+  }
+  await assertDeploymentStateChangeOnly(root, filePath, manifest);
+  const [head, main, remote] = await Promise.all([
+    execFileAsync("git", ["rev-parse", "--verify", "HEAD^{commit}"], { cwd: root }),
+    execFileAsync("git", ["rev-parse", "--verify", "refs/remotes/origin/main^{commit}"], { cwd: root }),
+    execFileAsync("git", ["ls-remote", "--exit-code", "origin", "refs/heads/main"], {
+      cwd: root,
+      env: { ...process.env, GIT_TERMINAL_PROMPT: "0" }
+    })
+  ]);
+  const remoteHead = /^([0-9a-f]{40})\s+refs\/heads\/main\s*$/i.exec(remote.stdout)?.[1];
+  if (
+    !remoteHead || head.stdout.trim() !== main.stdout.trim() ||
+    head.stdout.trim().toLowerCase() !== remoteHead.toLowerCase()
+  ) {
+    throw new Error("Recorded deployment proof requires a checkout of protected origin/main");
+  }
+  const relative = path.relative(root, filePath).split(path.sep).join("/");
+  const { stdout } = await execFileAsync("git", ["show", `HEAD:${relative}`], { cwd: root });
+  const committed = releaseManifestSchema.parse(matter(stdout).data);
+  const deployment = committed.deployment;
+  const evidence = deployment?.evidence;
+  if (
+    committed.status !== "verified" || !deployment?.verifiedAt || !evidence?.approvedManifestSha256 ||
+    !evidence.logSha256 || !evidence.liveLogVerifiedAt ||
+    Date.parse(evidence.liveLogVerifiedAt) > Date.parse(deployment.verifiedAt)
+  ) {
+    throw new Error("The committed release has no durable, live-log deployment proof");
+  }
+  if (
+    evidence.repository.toLowerCase() !== options.repository.toLowerCase() ||
+    evidence.tree.toLowerCase() !== options.expectedTree.toLowerCase() ||
+    evidence.approvedManifestSha256.toLowerCase() !== options.approvedManifestSha256.toLowerCase() ||
+    normalizePublicSiteUrl(deployment.url) !== normalizePublicSiteUrl(options.siteUrl)
+  ) {
+    throw new Error("The committed deployment proof does not match the selected release and site");
+  }
+  return {
+    deploymentId: evidence.deploymentId,
+    commit: evidence.commit.toLowerCase(),
+    tree: evidence.tree.toLowerCase(),
+    runId: evidence.runId,
+    jobId: evidence.jobId,
+    logSha256: evidence.logSha256.toLowerCase(),
+    liveLogVerifiedAt: evidence.liveLogVerifiedAt
+  };
+}
+
 /**
  * Checks the approved commit out into a throwaway detached worktree so an export reads exactly the
  * reviewed content. This replaces an earlier working-tree export that had to reject every unrelated
@@ -237,7 +374,8 @@ async function withManifestWorktree<T>(
   const sourceRoot = path.join(container, "source");
   let registered = false;
   try {
-    await execFileAsync("git", ["worktree", "add", "--detach", sourceRoot, commit], { cwd: root });
+    // Keep host autocrlf settings from changing the pinned checkout's text bytes.
+    await execFileAsync("git", ["-c", "core.autocrlf=false", "worktree", "add", "--detach", sourceRoot, commit], { cwd: root });
     registered = true;
     // Git LFS pointers are checked out as pointer files when the worktree skips the smudge filter.
     try {
@@ -394,6 +532,7 @@ function projectPublicMetadata(value: unknown): unknown | typeof OMIT_PUBLIC_MET
 interface WorkshopDependencyPlan {
   dependencies: string[];
   publicSidecars: Map<string, Record<string, unknown>>;
+  publicDocuments: Map<string, string>;
   publicCopies: Map<string, string>;
 }
 
@@ -419,6 +558,7 @@ async function planWorkshopDependencies(
 ): Promise<WorkshopDependencyPlan> {
   const dependencies = new Set<string>();
   const publicSidecars = new Map<string, Record<string, unknown>>();
+  const publicDocuments = new Map<string, string>();
   const publicCopies = new Map<string, string>();
   const addPublicCopy = async (relativePath: string): Promise<string> => {
     const normalized = relativePath.split(path.sep).join("/");
@@ -441,6 +581,14 @@ async function planWorkshopDependencies(
     await assertPinnedEntry(entry.root, normalized);
     dependencies.add(normalized);
 
+    if (normalized === "requirements.md") {
+      const document = matter(await readFile(source, "utf8"));
+      if (Object.hasOwn(document.data, "imageReuseManifests")) {
+        const { imageReuseManifests: _privateReuseManifests, ...publicData } = document.data;
+        publicDocuments.set(normalized, matter.stringify(document.content, publicData));
+      }
+    }
+
     const sidecarRelativePath = `${normalized}.json`;
     const sidecarPath = path.resolve(entry.root, sidecarRelativePath);
     if (!(await pathExists(sidecarPath))) return;
@@ -449,6 +597,13 @@ async function planWorkshopDependencies(
     const sidecar: unknown = JSON.parse(await readFile(sidecarPath, "utf8"));
     if (!isRecord(sidecar)) {
       throw new Error(`Public release sidecar must contain an object: ${sidecarRelativePath}`);
+    }
+    if (sidecar.kind === "confirmed-reference-sheet") {
+      if (!isReferenceSheetAsset(normalized) || sidecar.location !== normalized) {
+        throw new Error(`Public reference sheet sidecar location is invalid: ${sidecarRelativePath}`);
+      }
+      publicSidecars.set(sidecarRelativePath, await referenceSheetReleaseSidecar(entry.root, sidecar));
+      return;
     }
     let publicSource = sidecar.source;
     if (sidecar.source !== undefined) {
@@ -523,7 +678,7 @@ async function planWorkshopDependencies(
       }
     }
   }
-  return { dependencies: [...dependencies], publicSidecars, publicCopies };
+  return { dependencies: [...dependencies], publicSidecars, publicDocuments, publicCopies };
 }
 
 export async function exportPublicRelease(
@@ -542,13 +697,11 @@ export async function exportPublicRelease(
     await ensureDir(output);
   }
 
-  const manifest = await validateApprovedRelease(manifestOption, root);
-  // Captured once, alongside validation, so the bytes copied into the export are provably the same
-  // bytes that selected the commit and module set.
-  const { raw: manifestRaw } = await loadReleaseManifest(manifestOption, root);
+  const { manifest, raw: publicManifest } = await resolveApprovedPublicManifest(manifestOption, root);
 
   return withManifestWorktree(root, manifest.commit, async (sourceRoot) => {
     const completeCatalog = await loadCatalog(sourceRoot);
+    await validateReferenceSheetSidecars(sourceRoot);
     const catalog = filterCatalogForRelease(completeCatalog, manifest);
     const publicPlan = await publicExportPlan(sourceRoot, catalog);
     const workshopDependencies = new Map<string, WorkshopDependencyPlan>();
@@ -603,7 +756,12 @@ export async function exportPublicRelease(
       const dependencyPlan = workshopDependencies.get(pathKey(entry.root));
       for (const dependency of dependencyPlan?.dependencies ?? []) {
         const publicSidecar = dependencyPlan?.publicSidecars.get(dependency);
-        if (publicSidecar) {
+        const publicDocument = dependencyPlan?.publicDocuments.get(dependency);
+        if (publicDocument !== undefined) {
+          const destination = path.join(outputWorkshopRoot, ...dependency.split("/"));
+          await ensureDir(path.dirname(destination));
+          await writeFile(destination, publicDocument, "utf8");
+        } else if (publicSidecar) {
           const destination = path.join(outputWorkshopRoot, ...dependency.split("/"));
           await ensureDir(path.dirname(destination));
           await writeJson(destination, publicSidecar, { spaces: 2 });
@@ -616,17 +774,15 @@ export async function exportPublicRelease(
       }
     }
 
-    // The manifest is read from the checkout because approval is normally recorded after the
-    // reviewed content commit and therefore does not exist inside the pinned worktree. It is
-    // required to be committed and unmodified, so this is not a working-tree escape hatch.
+    // The approved manifest comes from committed history, before private deployment evidence.
     const manifestRelative = path.relative(root, path.resolve(root, manifestOption));
     const manifestTarget = path.join(output, manifestRelative);
     await ensureDir(path.dirname(manifestTarget));
-    await writeFile(manifestTarget, manifestRaw, "utf8");
+    await writeFile(manifestTarget, publicManifest, "utf8");
     await ensureDir(path.join(output, "apps", "portal", "src"));
     await writeJson(
       path.join(output, "apps", "portal", "src", "catalog.json"),
-      createPortalCatalog(catalog),
+      createPortalCatalog(catalog, "production"),
       { spaces: 2 }
     );
     await writeJson(
@@ -820,7 +976,8 @@ export async function recordReleaseDeployment(
 export async function recordReleaseVerification(
   manifestOption: string,
   root = repositoryRoot,
-  now = new Date()
+  now = new Date(),
+  evidence?: NonNullable<NonNullable<ReleaseManifest["deployment"]>["evidence"]>
 ): Promise<ReleaseManifest> {
   const { filePath, manifest, body, data } = await loadReleaseManifest(manifestOption, root);
   if (!manifest.deployment) {
@@ -832,7 +989,11 @@ export async function recordReleaseVerification(
   const verified: ReleaseManifest = {
     ...manifest,
     status: "verified",
-    deployment: { ...manifest.deployment, verifiedAt: now.toISOString() }
+    deployment: {
+      ...manifest.deployment,
+      verifiedAt: now.toISOString(),
+      ...(evidence ? { evidence } : {})
+    }
   };
   await writeReleaseManifest(filePath, verified, body, data);
   return verified;

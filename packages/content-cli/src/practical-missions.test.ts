@@ -146,9 +146,9 @@ describe("practical mission contracts", () => {
 
   it("replaces and re-supplies the continuing brief before the Advanced lanes", () => {
     const actions = missions[2]!.coreClues[0]!.actions.join("\n");
-    expect(actions).toContain("`brief.md`, replace any earlier goal and boundaries");
-    expect(actions).toContain("Allowed: selectAlerts and summarizeAlerts only.");
-    expect(actions).toContain("No-touch: labelFor and all checks.");
-    expect(actions).toContain("Re-supply the updated `brief.md` before requesting snippets.");
+    expect(actions).toContain("`brief.md`, replace any earlier goal and limits");
+    expect(actions).toContain("You may change: selectAlerts and summarizeAlerts only.");
+    expect(actions).toContain("Don't touch: labelFor or any of the checks.");
+    expect(actions).toContain("Attach the updated `brief.md` again before you ask for any code.");
   });
 });

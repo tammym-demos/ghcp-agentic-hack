@@ -1,5 +1,9 @@
 *.mp4 filter=lfs diff=lfs merge=lfs -text
 workshops/modernization-with-copilot/content/modules/01-modernization-kickoff/media/avatar-artwork-transform.json text eol=lf
+workshops/ghcp-agentic-hack/content/modules/01-foundations/media/team-portrait-import.json text eol=lf
+# Historical image requests bind this workflow's exact CRLF bytes.
+workshops/ghcp-agentic-hack/content/modules/01-foundations/media/comfyui-intro-character-references.json -text whitespace=cr-at-eol
+workshops/ghcp-agentic-hack/content/modules/01-foundations/media/intro-character-reference-prompts/*.txt text eol=lf
 workshops/**/assets/images/**/*.png filter=lfs diff=lfs merge=lfs -text
 workshops/**/assets/images/**/*.jpg filter=lfs diff=lfs merge=lfs -text
 workshops/**/assets/images/**/*.jpeg filter=lfs diff=lfs merge=lfs -text
@@ -8,6 +12,11 @@ workshops/**/content/modules/**/media/references/**/*.png filter=lfs diff=lfs me
 workshops/**/content/modules/**/media/references/**/*.jpg filter=lfs diff=lfs merge=lfs -text
 workshops/**/content/modules/**/media/references/**/*.jpeg filter=lfs diff=lfs merge=lfs -text
 workshops/**/content/modules/**/media/references/**/*.webp filter=lfs diff=lfs merge=lfs -text
+workshops/**/content/modules/**/media/reference-reuse-evidence/sources/*.png filter=lfs diff=lfs merge=lfs -text
+workshops/**/content/modules/**/media/reference-reuse-manifest.json text eol=lf
+workshops/**/content/modules/**/media/reference-reuse-evidence/receipts/*.json text eol=lf
+workshops/**/content/modules/**/media/references/reference-sheets/*.svg text eol=lf
+workshops/**/content/modules/**/media/references/reference-sheets/*.svg.json text eol=lf
 workshops/**/content/storyboards/**/references/**/*.png filter=lfs diff=lfs merge=lfs -text
 workshops/**/content/storyboards/**/references/**/*.jpg filter=lfs diff=lfs merge=lfs -text
 workshops/**/content/storyboards/**/references/**/*.jpeg filter=lfs diff=lfs merge=lfs -text

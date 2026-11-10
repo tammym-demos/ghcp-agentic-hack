@@ -10,7 +10,7 @@ description: >-
   security gates, and master LLM internals, KV prefix caching, and multi-agent
   scale.
 format: two-day
-duration: 7 hours 4 minutes
+duration: 424 minutes
 totalMinutes: 424
 defaultDeliveryVariant: two-day
 deliveryVariants:
@@ -267,6 +267,46 @@ researchSources:
       https://github.blog/changelog/2026-10-07-discover-local-models-in-github-copilot-cli/
     reviewedAt: '2026-10-23'
     notes: Verified /model discovery of Ollama local models in Copilot CLI.
+  - type: other
+    title: Agent skills
+    url: 'https://docs.github.com/en/copilot/concepts/customizations/agent-skills'
+    reviewedAt: '2026-11-09'
+    notes: >-
+      Verified that Copilot uses task relevance and skill description to decide
+      when to select a skill, and loads the skill instructions when selected.
+  - type: other
+    title: Use Agent Skills in VS Code
+    url: 'https://code.visualstudio.com/docs/agent-customization/agent-skills'
+    reviewedAt: '2026-11-09'
+    notes: >-
+      Verified that a skill description should state what it does and when to
+      use it; automatic selection is not guaranteed. Distinguish discoverability
+      from explicit invocation and verify actual use. Resource loading and
+      invocation controls can vary by harness.
+  - type: other
+    title: Agent Skills specification
+    url: 'https://agentskills.io/specification'
+    reviewedAt: '2026-11-10'
+    notes: >-
+      The optional allowed-tools field lists pre-approved tools and is
+      experimental; support varies across implementations.
+  - type: other
+    title: Adding agent skills for GitHub Copilot CLI
+    url: >-
+      https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-skills
+    reviewedAt: '2026-11-10'
+    notes: >-
+      Copilot CLI supports optional skill tool pre-approval. Unlisted tools are
+      not automatically denied; review skills before pre-approving shell.
+  - type: other
+    title: Allowing and denying tool use in Copilot CLI
+    url: >-
+      https://docs.github.com/en/copilot/how-tos/copilot-cli/use-copilot-cli/allowing-tools
+    reviewedAt: '2026-11-10'
+    notes: >-
+      CLI permission flags apply to the current session, and deny rules take
+      precedence over allowances. Other available tools and policies still
+      require review.
 externalLinks:
   - title: 'GitHub Universe 2026: Evolving every layer of the stack'
     url: >-
@@ -291,7 +331,7 @@ leaderboard:
       submissionUrl: 'https://ghcp-leaderboard-test-fq3vdsmhkyf7i.azurewebsites.net/api/submit'
       standingsUrl: 'https://ghcp-leaderboard-test-fq3vdsmhkyf7i.azurewebsites.net/api/board'
       submissionMode: account-free
-lastReviewed: '2026-10-28'
+lastReviewed: '2026-11-10'
 ---
 # GitHub Copilot Developer Hack
 

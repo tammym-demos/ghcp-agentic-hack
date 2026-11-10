@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "kind": "confirmed-reference-sheet-release",
+  "id": "agent-mergewell",
+  "location": "content/modules/01-foundations/media/references/reference-sheets/agent-mergewell.svg",
+  "sha256": "0f55f512701c1abaaf4951596e897edff5d2b46dccb2402c5893253367bd77bb",
+  "sourceManifestSha256": "50f2246d4cef11e93e1d94a034487602aadddd0eb0536a41e20be7db23133ecf",
+  "views": [
+    {
+      "assetId": "intro-mergewell-turnaround-front",
+      "isolationSha256": "82a2e3adb859a1141a72a91686bd89704c2b68e33fe2b956fd5f12981afae3f5",
+      "crop": [
+        483,
+        0,
+        982,
+        1002
+      ]
+    },
+    {
+      "assetId": "intro-mergewell-turnaround-front-left",
+      "isolationSha256": "98c8b95bc3bd061a4f6ade6b85864aaa8f66151fcfa48983700b7cbb7cc09ff8",
+      "crop": [
+        444,
+        0,
+        884,
+        996
+      ]
+    },
+    {
+      "assetId": "intro-mergewell-turnaround-left-profile",
+      "isolationSha256": "bf7846db0bd38dad67854d7dbf3d0f07e8317846a41d93e19f301be66aae2b96",
+      "crop": [
+        578,
+        0,
+        878,
+        1004
+      ]
+    },
+    {
+      "assetId": "intro-mergewell-turnaround-rear-left",
+      "isolationSha256": "23e6fcf5b794efb4fdaa462458c6a5f6f244f34261f89c8389648a61b25d073c",
+      "crop": [
+        520,
+        0,
+        898,
+        992
+      ]
+    },
+    {
+      "assetId": "intro-mergewell-turnaround-back",
+      "isolationSha256": "45657a637ac3ca6b6a58675f9071c1a7b83461f2f426c9070f8355a2cee3f6b4",
+      "crop": [
+        527,
+        0,
+        972,
+        1004
+      ]
+    },
+    {
+      "assetId": "intro-mergewell-turnaround-rear-right",
+      "isolationSha256": "8c4bc54d067843e744264d1bfb57cecda2d59ee1f2f2086caeafd58149fee69a",
+      "crop": [
+        545,
+        0,
+        912,
+        1005
+      ]
+    },
+    {
+      "assetId": "intro-mergewell-turnaround-right-profile",
+      "isolationSha256": "45294fcebe65bd0894abd502297c647c0cafd5cabc6be56fc8d6038689662585",
+      "crop": [
+        568,
+        0,
+        863,
+        986
+      ]
+    },
+    {
+      "assetId": "intro-mergewell-turnaround-front-right",
+      "isolationSha256": "5e3be8954b18f5dd53258bafc8ec16afe7c99a41268f33c7a9c6023e7c666d6a",
+      "crop": [
+        444,
+        0,
+        883,
+        996
+      ]
+    }
+  ],
+  "integratedUnder": {
+    "authority": "lifecycle-v3-local-draft",
+    "requirementsHash": "bcb4480faa2e3c0bebc90569e88ecc406902a5118d5a274a9d0c1fd3a99e3cc1"
+  },
+  "evidence": "Source evidence is retained in the private source repository and is not included in the deployed site."
+}

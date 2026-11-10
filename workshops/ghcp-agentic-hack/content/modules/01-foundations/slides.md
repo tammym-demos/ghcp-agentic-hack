@@ -16,10 +16,10 @@ mdc: true
 
 ## Welcome to Your First Day at the Accountable Engineering Bureau
 
-- **Agent Mergewell (he/him):** Senior human field investigator who sets the goal, inspects diffs, and owns every merge
-- **Riley Relay (she/her):** Bounded software-agent collaborator who proposes plans, calls allowed tools, and returns evidence
-- **Purrmission (he/him):** Sleek black cat boundary guardian—asleep on warm cushions when safe, paw on the key ring at boundaries
-- **Chief Morgan Charter (she/her):** Bureau Director who connects GitHub AI Credits (AIC) to verified outcomes
+- **Agent Mergewell:** Senior human field investigator who sets the goal, inspects diffs, and owns every merge
+- **Riley Relay:** Bounded software-agent collaborator who proposes plans, calls allowed tools, and returns evidence
+- **Purrmission:** Sleek black cat boundary guardian—asleep on warm cushions when safe, paw on the key ring at boundaries
+- **Chief Morgan Charter:** Bureau Director who connects GitHub AI Credits (AIC) to verified outcomes
 
 <div class="workshop-cover-logos workshop-cover-logos--foundations" aria-label="GitHub and Microsoft">
   <img class="workshop-cover-logos__github" src="/images/GitHub_Lockup_Black_Clearspace.svg" alt="GitHub" />
@@ -28,14 +28,14 @@ mdc: true
 
 ::visual::
 <img
-  src="/images/purrmission-team-cover.png"
-  alt="Agent Mergewell, Chief Morgan Charter, and Riley Relay welcoming new developers, with Purrmission, the black cat boundary guardian, standing in front"
+  src="/images/team-portrait-purrmission-final.png"
+  alt="Agent Mergewell, Riley Relay, and Chief Morgan Charter welcoming new developers, with Purrmission, the black cat boundary guardian, seated in front"
 />
 
 <!--
 Timebox: 1 minute
 
-Talk track: Welcome to your first day at the Accountable Engineering Bureau! Pretend you just graduated and joined our engineering team. You know how to write code, run tests, and use Git, and maybe in school you pasted code snippets into a web chatbot. Today, Agent Mergewell, Riley Relay, Purrmission—our sleek black cat boundary guardian—and Chief Morgan Charter are onboarding you to professional AI software engineering. Mergewell is human and owns every decision. Riley is our bounded software agent who executes steps and returns evidence. Purrmission sleeps on warm cushions when our setup is clean and plants his paw on the master key ring the moment we cross a boundary.
+Talk track: Welcome to your first day at the Accountable Engineering Bureau! Pretend you just graduated and joined our engineering team. You know how to write code, run tests, and use Git, and maybe in school you pasted code snippets into a web chatbot. Today, Agent Mergewell, Riley Relay, Purrmission—our sleek black cat boundary guardian—and Chief Morgan Charter are onboarding you to professional AI software engineering. Mergewell is the human and owns every decision. Riley is the bounded software agent who executes steps and returns evidence. Purrmission sleeps on warm cushions when the setup is clean and places a paw on the master key ring when a boundary is reached.
 
 Transition: Let's look at our onboarding route for this morning.
 

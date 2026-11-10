@@ -1,9 +1,34 @@
 import { describe, expect, it } from "vitest";
 import {
+  comfyImageWorkflowSchema,
   environmentApprovalSchema,
   workflowPolicySchema,
   workshopRequirementsSchema
 } from "./workflow.js";
+
+describe("local ComfyUI reference workflow", () => {
+  const workflow = {
+    schemaVersion: 1,
+    kind: "comfyui-qwen21-reference",
+    models: { diffusion: "qwen.safetensors", textEncoder: "encoder.safetensors", vae: "vae.safetensors" },
+    sampling: { seed: 42, steps: 40, cfg: 1, sampler: "euler", scheduler: "simple", denoise: 1, referenceResolution: 0 },
+    negativePrompt: "No text."
+  };
+
+  it("accepts a pinned, reference-sized local workflow", () => {
+    expect(comfyImageWorkflowSchema.parse(workflow)).toEqual(workflow);
+  });
+
+  it("rejects model paths, changed resolution, and undeclared workflow fields", () => {
+    expect(comfyImageWorkflowSchema.safeParse({
+      ...workflow, models: { ...workflow.models, diffusion: "../model.safetensors" }
+    }).success).toBe(false);
+    expect(comfyImageWorkflowSchema.safeParse({
+      ...workflow, sampling: { ...workflow.sampling, referenceResolution: 1024 }
+    }).success).toBe(false);
+    expect(comfyImageWorkflowSchema.safeParse({ ...workflow, extra: true }).success).toBe(false);
+  });
+});
 
 const requirements = {
   schemaVersion: 1,
@@ -45,6 +70,22 @@ describe("workshop requirements", () => {
     const parsed = workshopRequirementsSchema.parse(requirements);
     expect(parsed.modules.map((module) => module.id)).toEqual(["foundations", "practice"]);
     expect(parsed.imageRoles).toEqual([]);
+    expect(parsed.imageReuseManifests).toEqual([]);
+  });
+
+  it("binds reuse manifests to a declared module, safe path, and exact hash", () => {
+    const pointer = { module: "foundations", path: "content/reuse.json", sha256: "a".repeat(64) };
+    expect(workshopRequirementsSchema.parse({ ...requirements, imageReuseManifests: [pointer] })
+      .imageReuseManifests).toEqual([pointer]);
+    expect(workshopRequirementsSchema.safeParse({
+      ...requirements, imageReuseManifests: [{ ...pointer, module: "missing" }]
+    }).success).toBe(false);
+    expect(workshopRequirementsSchema.safeParse({
+      ...requirements, imageReuseManifests: [{ ...pointer, path: "../outside.json" }]
+    }).success).toBe(false);
+    expect(workshopRequirementsSchema.safeParse({
+      ...requirements, imageReuseManifests: [pointer, { ...pointer, path: "CONTENT/reuse.json" }]
+    }).success).toBe(false);
   });
 
   it("accepts nonempty workshop and module duration labels", () => {

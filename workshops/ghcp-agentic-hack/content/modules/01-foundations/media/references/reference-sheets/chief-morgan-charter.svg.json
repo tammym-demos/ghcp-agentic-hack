@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "kind": "confirmed-reference-sheet-release",
+  "id": "chief-morgan-charter",
+  "location": "content/modules/01-foundations/media/references/reference-sheets/chief-morgan-charter.svg",
+  "sha256": "12768f7bbce234fbea84da743f1f23ffc046cba20c6902e66698ffbce0d33a02",
+  "sourceManifestSha256": "50f2246d4cef11e93e1d94a034487602aadddd0eb0536a41e20be7db23133ecf",
+  "views": [
+    {
+      "assetId": "intro-chief-morgan-turnaround-front",
+      "isolationSha256": "d6db0fb0052ecaa4b12ca3b0431f218c5cd398f0d6dba3f03a5d6e8c44c250a4",
+      "crop": [
+        534,
+        0,
+        966,
+        998
+      ]
+    },
+    {
+      "assetId": "intro-chief-morgan-turnaround-left-profile",
+      "isolationSha256": "bfeab1214e4552b35195d8ff81b3ee75b35b482ba54382007b87f1439e686633",
+      "crop": [
+        627,
+        0,
+        902,
+        985
+      ]
+    },
+    {
+      "assetId": "intro-chief-morgan-turnaround-rear-left",
+      "isolationSha256": "5331a428eec69aa87dd910d2b7d148eeea6ab781d5a03c5512b718ef9c923d6e",
+      "crop": [
+        591,
+        0,
+        916,
+        982
+      ]
+    },
+    {
+      "assetId": "intro-chief-morgan-turnaround-back",
+      "isolationSha256": "fd8e2d2b56ef80b5e71043b2a5152ddd983af6e1dc038871576fded6ffbafdee",
+      "crop": [
+        573,
+        0,
+        961,
+        983
+      ]
+    },
+    {
+      "assetId": "intro-chief-morgan-turnaround-rear-right",
+      "isolationSha256": "c8ae758378f01ba9c6014b9a8662e5244c0f59816962fbd53a89ed7c3ef2839d",
+      "crop": [
+        601,
+        0,
+        923,
+        983
+      ]
+    },
+    {
+      "assetId": "intro-chief-morgan-turnaround-right-profile",
+      "isolationSha256": "13ae1c64f9b50ddf3d8641bbad611bca0b9e4018f1130287b5ceaa9798cc9a42",
+      "crop": [
+        608,
+        0,
+        888,
+        994
+      ]
+    },
+    {
+      "assetId": "intro-chief-morgan-turnaround-front-right",
+      "isolationSha256": "83e9146d4a1e0c816e3c1b25b08456941ef3449387142677af01ce607850588d",
+      "crop": [
+        572,
+        0,
+        990,
+        991
+      ]
+    }
+  ],
+  "integratedUnder": {
+    "authority": "lifecycle-v3-local-draft",
+    "requirementsHash": "bcb4480faa2e3c0bebc90569e88ecc406902a5118d5a274a9d0c1fd3a99e3cc1"
+  },
+  "evidence": "Source evidence is retained in the private source repository and is not included in the deployed site."
+}

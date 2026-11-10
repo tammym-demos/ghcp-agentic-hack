@@ -26,7 +26,7 @@ evidence:
   - Your loop notes, showing what the agent planned, what it did, and where you would step in
 safetyCheckpoints:
   - Purrmission verifies the case folder is personal, and that no work repository or customer data is in scope.
-  - Purrmission checks every agent and skill file for a narrow job and a written boundary before it is saved.
+  - Purrmission checks every agent and skill file for one narrow job and written limits on what it can and can't do before it is saved.
   - Purrmission pauses any request for unrelated files, package installs, network access, or destructive commands until the human narrows or stops the work.
 corePath:
   - 'Operation Open the Case (10 pts): write `.github/copilot-instructions.md` and see an answer change.'

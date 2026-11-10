@@ -15,11 +15,13 @@ import {
   type ImageProviderName
 } from "@ghcp/foundry-providers";
 import {
+  comfyImageWorkflowSchema,
   generatedAssetSchema,
   localDeterministicImageSchema,
   mediaActionRequestSchema,
   type MediaActionRequest
 } from "@ghcp/content-schema";
+import { ComfyImageProvider } from "./comfyui-image.js";
 import { candidatesRoot, repositoryRoot, workshopsRoot } from "./paths.js";
 import { assertCandidateAccepted, authorizedAction, type ActionAuthorizationEvidence, type AuthorizationRoots } from "./authorization.js";
 import { canonical, localFile, textSha256 } from "./production-records.js";
@@ -54,6 +56,10 @@ export function validateImageDimensions(
     throw new Error(
       "gpt-image-2 dimensions must be 1024x1024, 1536x1024, or 1024x1536"
     );
+  }
+  if (provider === "comfyui-qwen21" &&
+      (width % 32 !== 0 || height % 32 !== 0 || width * height > 2_097_152)) {
+    throw new Error("comfyui-qwen21 dimensions must be multiples of 32 and at most 2,097,152 pixels");
   }
 }
 
@@ -185,18 +191,21 @@ export function imageReferenceContentType(filename: string): "image/jpeg" | "ima
 function imageProvider(name: ImageProviderName): ImageProvider {
   if (name === "gpt-image-2") return new GptImageProvider();
   if (name === "flux-2-pro") return new FluxImageProvider();
+  if (name === "comfyui-qwen21") throw new Error("ComfyUI requires a declared workflow configuration");
   return new MaiImageProvider(name);
 }
 
 function imageDeployment(provider: ImageProviderName): string | undefined {
   if (provider === "gpt-image-2") return process.env.FOUNDRY_GPT_IMAGE_DEPLOYMENT;
   if (provider === "flux-2-pro") return process.env.FOUNDRY_FLUX_DEPLOYMENT;
+  if (provider === "comfyui-qwen21") return process.env.COMFYUI_IMAGE_DEPLOYMENT;
   return process.env.FOUNDRY_MAI_IMAGE_DEPLOYMENT;
 }
 
 function imageEndpoint(provider: ImageProviderName): string | undefined {
   if (provider === "gpt-image-2") return process.env.FOUNDRY_GPT_IMAGE_ENDPOINT;
   if (provider === "flux-2-pro") return process.env.FOUNDRY_FLUX_ENDPOINT;
+  if (provider === "comfyui-qwen21") return process.env.COMFYUI_IMAGE_ENDPOINT;
   return process.env.FOUNDRY_MAI_IMAGE_ENDPOINT;
 }
 
@@ -256,6 +265,7 @@ async function writeImageCandidate(
       promptHash,
       prompt,
       revisedPrompt: image.revisedPrompt,
+      providerProvenance: image.provenance,
       source,
       createdAt: new Date().toISOString(),
       reviewStatus: "candidate",
@@ -314,8 +324,8 @@ export async function generateImageCandidate(options: {
       }
     | undefined;
   if (options.inputReference) {
-    if (!options.provider.startsWith("mai-image-")) {
-      throw new Error("Image editing is currently supported only by the MAI image providers");
+    if (!options.provider.startsWith("mai-image-") && options.provider !== "comfyui-qwen21") {
+      throw new Error("Image editing is supported only by the MAI image providers and comfyui-qwen21");
     }
     const referencePath = path.resolve(repositoryRoot, options.inputReference);
     const relativeReferencePath = path.relative(repositoryRoot, referencePath);
@@ -335,22 +345,27 @@ export async function generateImageCandidate(options: {
     };
   }
   candidateCycleDirectory(candidatesRoot, options.workshopId, options.moduleId, options.cycleId, "images");
+  const sourceBytes = await readFile(sourcePath);
   const request = mediaActionRequestSchema.parse({
     kind: "generate-image", workshopId: options.workshopId, moduleId: options.moduleId,
     cycleId: options.cycleId, assetId: options.assetId, provider: options.provider,
     deployment: imageDeployment(options.provider), endpoint: imageEndpoint(options.provider),
-    source, sourceHash: digest(await readFile(sourcePath)), promptHash: digest(finalPrompt),
+    source, sourceHash: digest(sourceBytes), promptHash: digest(finalPrompt),
     referencePath: inputReference?.path, referenceHash: inputReference?.hash,
     width: options.width, height: options.height, outputFormat: options.outputFormat,
     candidates: 1, variants: 1
   });
   if (options.inspect) return canonical(request);
-  return authorizedAction(request, async (authorization) => {
-  const candidateDirectory = candidateCycleDirectory(candidatesRoot, options.workshopId, options.moduleId, options.cycleId, "images");
-  const candidatePath = path.join(candidateDirectory, `${options.assetId}-${digest(finalPrompt).slice(0, 12)}.${options.outputFormat === "jpeg" ? "jpg" : "png"}`);
-  if (await pathExists(candidatePath) || await pathExists(`${candidatePath}.json`)) throw new Error("Candidate already exists; no provider call made");
-  const provider = imageProvider(options.provider);
-  const image = await provider.generate({
+  let localProvider: ComfyImageProvider | undefined;
+  if (options.provider === "comfyui-qwen21") {
+    const config = comfyImageWorkflowSchema.parse(JSON.parse(sourceBytes.toString("utf8")));
+    if (config.models.diffusion !== request.deployment) {
+      throw new Error("ComfyUI deployment must match the declared workflow diffusion model");
+    }
+    if (!request.endpoint) throw new Error("ComfyUI requires a configured local endpoint");
+    localProvider = new ComfyImageProvider(request.endpoint, config, digest(sourceBytes));
+  }
+  const imageRequest = {
     prompt: finalPrompt,
     width: options.width,
     height: options.height,
@@ -362,26 +377,33 @@ export async function generateImageCandidate(options: {
           contentType: inputReference.contentType
         }
       : undefined
-  });
-  return await writeImageCandidate(
-    options.workshopId,
-    options.moduleId,
-    options.cycleId,
-    options.assetId,
-    source,
-    finalPrompt,
-    provider,
-    image,
-    options.outputFormat,
-    inputReference
-      ? {
-          path: inputReference.path,
-          hash: inputReference.hash,
-          contentType: inputReference.contentType
-        }
-      : undefined,
-    authorization
-  );
+  };
+  localProvider?.validateRequest(imageRequest);
+  return authorizedAction(request, async (authorization) => {
+    const candidateDirectory = candidateCycleDirectory(candidatesRoot, options.workshopId, options.moduleId, options.cycleId, "images");
+    const candidatePath = path.join(candidateDirectory, `${options.assetId}-${digest(finalPrompt).slice(0, 12)}.${options.outputFormat === "jpeg" ? "jpg" : "png"}`);
+    if (await pathExists(candidatePath) || await pathExists(`${candidatePath}.json`)) throw new Error("Candidate already exists; no provider call made");
+    const provider = localProvider ?? imageProvider(options.provider);
+    const image = await provider.generate(imageRequest);
+    return await writeImageCandidate(
+      options.workshopId,
+      options.moduleId,
+      options.cycleId,
+      options.assetId,
+      source,
+      finalPrompt,
+      provider,
+      image,
+      options.outputFormat,
+      inputReference
+        ? {
+            path: inputReference.path,
+            hash: inputReference.hash,
+            contentType: inputReference.contentType
+          }
+        : undefined,
+      authorization
+    );
   });
 }
 

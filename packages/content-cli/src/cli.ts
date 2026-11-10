@@ -56,6 +56,8 @@ import {
   prepareRelease,
   recordReleaseDeployment,
   recordReleaseVerification,
+  resolveApprovedPublicManifest,
+  resolveRecordedPublicDeploymentProof,
   resolveLatestApprovedManifest,
   resolveLatestManifest,
   validateApprovedRelease,
@@ -64,6 +66,11 @@ import {
 } from "./release.js";
 import { intakeWorkshop } from "./intake.js";
 import { approveLocalDraft, approveTestDraft } from "./approvals.js";
+import { reuseReferenceSheets, validateReferenceSheetSidecars } from "./reference-reuse.js";
+import {
+  normalizePublicSiteUrl,
+  verifyStablePublicDeployment
+} from "./public-deployment.js";
 
 const envFile = path.join(repositoryRoot, ".env");
 if (existsSync(envFile)) loadEnvFile(envFile);
@@ -120,6 +127,7 @@ program
   .action(async () => {
     const catalog = await loadCatalog(repositoryRoot);
     const approvedImages = await validateApprovedImageSidecars();
+    const referenceSheets = await validateReferenceSheetSidecars();
     const lifecycleIssues = await validateLifecycleState(
       catalog.workshops.map((entry) => entry.workshop.data.id)
     );
@@ -131,7 +139,7 @@ program
       const detail = lifecycleErrors.map((issue) => `- ${issue.workshopId}: ${issue.message}`).join("\n");
       throw new Error(`Lifecycle state validation failed:\n${detail}`);
     }
-    console.log(`Validated ${catalog.workshops.length} workshop(s) and ${approvedImages} approved image(s).`);
+    console.log(`Validated ${catalog.workshops.length} workshop(s), ${approvedImages} approved image(s), and ${referenceSheets} confirmed reference sheet(s).`);
   });
 
 program
@@ -331,15 +339,67 @@ release
   .command("verify")
   .argument("<manifest>")
   .requiredOption("--url <url>", "Deployed Pages base URL")
-  .option("--record", "Record the verification on the manifest after every route passes")
+  .option("--record", "Record verification only after deployment and route checks pass")
+  .option("--public-repository <owner/repository>", "Public repository whose Pages deployment is being verified")
+  .option("--expected-tree <sha>", "Git tree of the independently reconstructed approved public export")
+  .option("--use-recorded-proof", "Use matching committed live-log proof when the original log is unavailable")
   .description("Smoke-test the portal and every selected module route")
-  .action(async (manifestOption, options) => {
-    const routes = await verifyReleaseRoutes(manifestOption, options.url);
-    console.log(`Verified ${routes.length} release route(s).`);
-    if (options.record) {
-      const manifest = await recordReleaseVerification(manifestOption);
-      console.log(`Recorded verification of ${manifest.id} at ${manifest.deployment?.verifiedAt}.`);
+  .action(async (manifestOption: string, options: {
+    url: string;
+    record?: boolean;
+    publicRepository?: string;
+    expectedTree?: string;
+    useRecordedProof?: boolean;
+  }) => {
+    if (!options.record) {
+      if (options.useRecordedProof) throw new Error("--use-recorded-proof requires --record");
+      const routes = await verifyReleaseRoutes(manifestOption, options.url);
+      console.log(`Verified ${routes.length} release route(s).`);
+      return;
     }
+    if (!options.publicRepository || !options.expectedTree) {
+      throw new Error("Recording verification requires --public-repository and the approved --expected-tree");
+    }
+    const { manifest, sha256: approvedManifestSha256 } = await resolveApprovedPublicManifest(
+      manifestOption,
+      repositoryRoot,
+      { allowDeploymentStateChanges: true }
+    );
+    if (!manifest.deployment) throw new Error("Release verification requires a recorded deployment");
+    if (normalizePublicSiteUrl(manifest.deployment.url) !== normalizePublicSiteUrl(options.url)) {
+      throw new Error("The verification URL does not match the recorded deployment URL");
+    }
+    const recordedProof = options.useRecordedProof
+      ? await resolveRecordedPublicDeploymentProof(manifestOption, {
+        repository: options.publicRepository,
+        expectedTree: options.expectedTree,
+        siteUrl: options.url,
+        approvedManifestSha256
+      })
+      : undefined;
+    if (recordedProof) {
+      console.log(
+        `Using protected-main deployment proof recorded from the live log at ${recordedProof.liveLogVerifiedAt}; the log is not reread.`
+      );
+    }
+    const { result: routes, evidence } = await verifyStablePublicDeployment(
+      options.publicRepository,
+      options.expectedTree,
+      options.url,
+      () => verifyReleaseRoutes(manifestOption, options.url),
+      undefined,
+      undefined,
+      recordedProof
+    );
+    console.log(`Verified ${routes.length} release route(s).`);
+    const verifiedAt = new Date();
+    const verified = await recordReleaseVerification(manifestOption, undefined, verifiedAt, {
+      repository: options.publicRepository,
+      ...evidence,
+      approvedManifestSha256,
+      liveLogVerifiedAt: recordedProof?.liveLogVerifiedAt ?? verifiedAt.toISOString()
+    });
+    console.log(`Recorded verification of ${verified.id} at ${verified.deployment?.verifiedAt}.`);
   });
 release
   .command("rollback")
@@ -377,13 +437,13 @@ generate
   .option("--inspect", "Print exact request identity without authorization or provider calls")
   .option(
     "--provider <provider>",
-    "gpt-image-2, flux-2-pro, mai-image-2.5, or mai-image-2.6",
+    "gpt-image-2, flux-2-pro, mai-image-2.5, mai-image-2.6, or comfyui-qwen21",
     "gpt-image-2"
   )
   .option("--width <pixels>", "image width", "1536")
   .option("--height <pixels>", "image height", "1024")
   .option("--format <format>", "png or jpeg", "png")
-  .option("--input-reference <path>", "PNG or JPEG source image for a MAI image edit")
+  .option("--input-reference <path>", "PNG or JPEG source image for a supported image edit")
   .action(async (workshopId, assetId, options) => {
     try {
       const provider = options.provider as ImageProviderName;
@@ -490,6 +550,17 @@ program
   .option("--inspect", "Print exact request without recording acceptance")
   .description("Record previously human-decided candidate acceptance, separately from publication")
   .action(async (manifest, options) => console.log(await acceptCandidate(manifest, options.mediaFile, undefined, options.inspect)));
+
+program
+  .command("reuse-reference-sheets")
+  .argument("<workshop-id>")
+  .argument("<manifest>")
+  .argument("<local-plan>")
+  .description("Integrate requirements-authorized reference sheets from confirmed local candidates")
+  .action(async (workshopId, manifest, localPlan) => {
+    const result = await reuseReferenceSheets(workshopId, manifest.replace(/\\+/g, "/"), localPlan);
+    console.log(`Integrated ${result.sheets.length} reference sheet(s) from ${result.views} confirmed view(s).`);
+  });
 
 program
   .command("promote-image")

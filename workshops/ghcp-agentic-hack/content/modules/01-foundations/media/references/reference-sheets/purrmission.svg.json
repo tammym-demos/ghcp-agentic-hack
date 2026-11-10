@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "kind": "confirmed-reference-sheet-release",
+  "id": "purrmission",
+  "location": "content/modules/01-foundations/media/references/reference-sheets/purrmission.svg",
+  "sha256": "bea02f73bdaf5c0fb5855d33719fb78f1168aa8d51cc58cf4ae80d82daf9664d",
+  "sourceManifestSha256": "50f2246d4cef11e93e1d94a034487602aadddd0eb0536a41e20be7db23133ecf",
+  "views": [
+    {
+      "assetId": "intro-purrmission-turnaround-front",
+      "isolationSha256": "168a44739c9c0179b6b02581bfeb1d0d1ea1e4288f63ac05a8bd1c2a0d5d81f7",
+      "crop": [
+        502,
+        433,
+        908,
+        960
+      ]
+    },
+    {
+      "assetId": "intro-purrmission-turnaround-front-left",
+      "isolationSha256": "97883a8ac9fdea123a6f1e684533c45115368b6466bcafe8d7dd1ab073d6264c",
+      "crop": [
+        480,
+        352,
+        978,
+        956
+      ]
+    },
+    {
+      "assetId": "intro-purrmission-turnaround-left-profile",
+      "isolationSha256": "072e8ecb751ead395a7667eb6263b3d9a78e37110db1be7dc8dae91cf12531e7",
+      "crop": [
+        435,
+        235,
+        1057,
+        960
+      ]
+    },
+    {
+      "assetId": "intro-purrmission-turnaround-rear-left",
+      "isolationSha256": "496f014df5e39b66c108f3f83d931ef15c71c0399da67cdd1d5b1b5c62e2b987",
+      "crop": [
+        507,
+        260,
+        985,
+        953
+      ]
+    },
+    {
+      "assetId": "intro-purrmission-turnaround-back",
+      "isolationSha256": "73ac42d1180cdf1e3170cac9f1b024a862484d3a39240717e8425876cbb18a18",
+      "crop": [
+        577,
+        271,
+        944,
+        964
+      ]
+    },
+    {
+      "assetId": "intro-purrmission-turnaround-rear-right",
+      "isolationSha256": "b1e64794866375a6ede14c3ebedf7da9a8cc4059de3dcab5e1b5d92e51081a43",
+      "crop": [
+        528,
+        323,
+        960,
+        947
+      ]
+    },
+    {
+      "assetId": "intro-purrmission-turnaround-right-profile",
+      "isolationSha256": "1d25879157333d2448bcbb2f23c98fd0549e095729f7397156a3f1d6c419c1e5",
+      "crop": [
+        456,
+        261,
+        979,
+        953
+      ]
+    },
+    {
+      "assetId": "intro-purrmission-turnaround-front-right",
+      "isolationSha256": "adaa1a3db7cfc28bb1701f8f5df5fdd8850f204c2110fab9131c327bbc86d52b",
+      "crop": [
+        461,
+        336,
+        976,
+        955
+      ]
+    }
+  ],
+  "integratedUnder": {
+    "authority": "lifecycle-v3-local-draft",
+    "requirementsHash": "bcb4480faa2e3c0bebc90569e88ecc406902a5118d5a274a9d0c1fd3a99e3cc1"
+  },
+  "evidence": "Source evidence is retained in the private source repository and is not included in the deployed site."
+}
