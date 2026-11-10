@@ -17,10 +17,13 @@
     "commander": "^14.0.0",
     "fast-glob": "^3.3.3",
     "fs-extra": "^11.3.0",
-    "gray-matter": "^4.0.3"
+    "gray-matter": "^4.0.3",
+    "pngjs": "7.0.0",
+    "saxes": "6.0.0"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
+    "@types/pngjs": "6.0.5",
     "tsx": "^4.20.3"
   }
 }

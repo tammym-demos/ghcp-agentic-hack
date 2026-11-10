@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "id": "intro-mergewell-reference",
+  "kind": "image",
+  "provider": "comfyui-qwen21",
+  "deployment": "qwen_image_2.1_int8_convrot.safetensors",
+  "promptHash": "3a506ee13fda9c60f28434fc44d5fe79d6d36e8919b5d8d7e8654e6f462903ef",
+  "prompt": "Using the supplied team portrait as the identity reference, create a standalone full-body character study of only the adult man on the left, Agent Mergewell. Preserve his face, light tan skin, thick rectangular glasses, wild dark-to-silver inventor hair, short even dark-to-silver stubble, charcoal coat, dark trousers and shoes, and compact shoulder pod. He is human, warm and approachable, standing neutrally with relaxed hands and a small friendly smile. Show his complete body and both feet, centered with breathing room on the same soft off-white stage and a subtle warm ground shadow. Keep the original warm 2D editorial illustration style, proportions, palette and clean rounded lines. Remove the other people and cat completely; leave no fragments or duplicate limbs. Do not add gadgets, writing, labels, logos, marks, interfaces, watermarks, or recognizable protected characters.",
+  "providerProvenance": {
+    "comfyuiVersion": "0.42.1",
+    "workflowHash": "5c65619e28a140a7b345ae9a2592b812f1b6fc22dcec31aa7061d1527531a516",
+    "referenceHash": "da37f68ec5932225ed5b5f49e75d847eac7b294d8329457ad1abaf84b6dc0f77",
+    "queueRequest": {
+      "prompt": {
+        "1": {
+          "class_type": "LoadImage",
+          "inputs": {
+            "image": "ghcp-intro-character-references/reference-da37f68ec5932225-6996e976-eb0d-4036-a8fc-58687d443e35.png"
+          }
+        },
+        "2": {
+          "class_type": "UNETLoader",
+          "inputs": {
+            "unet_name": "qwen_image_2.1_int8_convrot.safetensors",
+            "weight_dtype": "default"
+          }
+        },
+        "3": {
+          "class_type": "CLIPLoader",
+          "inputs": {
+            "clip_name": "qwen3vl_8b_int8_convrot.safetensors",
+            "type": "qwen_image",
+            "device": "default"
+          }
+        },
+        "4": {
+          "class_type": "VAELoader",
+          "inputs": {
+            "vae_name": "qwen_image_2.1_vae_bf16.safetensors"
+          }
+        },
+        "5": {
+          "class_type": "TextEncodeQwenImage21",
+          "inputs": {
+            "clip": [
+              "3",
+              0
+            ],
+            "vae": [
+              "4",
+              0
+            ],
+            "images.image_1": [
+              "1",
+              0
+            ],
+            "prompt": "Using the supplied team portrait as the identity reference, create a standalone full-body character study of only the adult man on the left, Agent Mergewell. Preserve his face, light tan skin, thick rectangular glasses, wild dark-to-silver inventor hair, short even dark-to-silver stubble, charcoal coat, dark trousers and shoes, and compact shoulder pod. He is human, warm and approachable, standing neutrally with relaxed hands and a small friendly smile. Show his complete body and both feet, centered with breathing room on the same soft off-white stage and a subtle warm ground shadow. Keep the original warm 2D editorial illustration style, proportions, palette and clean rounded lines. Remove the other people and cat completely; leave no fragments or duplicate limbs. Do not add gadgets, writing, labels, logos, marks, interfaces, watermarks, or recognizable protected characters.",
+            "negative_prompt": "Text, letters, logos, trademarks, interfaces, watermarks, extra characters, duplicated or malformed limbs, photorealism, 3D rendering.",
+            "resolution": 0
+          }
+        },
+        "7": {
+          "class_type": "QwenImage21Cache",
+          "inputs": {
+            "model": [
+              "2",
+              0
+            ],
+            "device": "auto",
+            "dtype": "default"
+          }
+        },
+        "8": {
+          "class_type": "KSampler",
+          "inputs": {
+            "model": [
+              "7",
+              0
+            ],
+            "positive": [
+              "5",
+              0
+            ],
+            "negative": [
+              "5",
+              1
+            ],
+            "latent_image": [
+              "5",
+              2
+            ],
+            "seed": 646225256900657,
+            "steps": 40,
+            "cfg": 1,
+            "sampler_name": "euler",
+            "scheduler": "simple",
+            "denoise": 1
+          }
+        },
+        "9": {
+          "class_type": "VAEDecode",
+          "inputs": {
+            "samples": [
+              "8",
+              0
+            ],
+            "vae": [
+              "4",
+              0
+            ]
+          }
+        },
+        "10": {
+          "class_type": "SaveImage",
+          "inputs": {
+            "images": [
+              "9",
+              0
+            ],
+            "filename_prefix": "ghcp-intro-character-references/character-reference-34982406-e31f-44f4-8333-0ea5bd9fad67"
+          }
+        }
+      },
+      "client_id": "34982406-e31f-44f4-8333-0ea5bd9fad67"
+    },
+    "queueResponse": {
+      "prompt_id": "73e69143-a876-42d5-a91e-b02b814c38cf",
+      "number": 3,
+      "node_errors": {}
+    },
+    "status": {
+      "status_str": "success",
+      "completed": true,
+      "messages": [
+        [
+          "execution_start",
+          {
+            "prompt_id": "73e69143-a876-42d5-a91e-b02b814c38cf",
+            "timestamp": 1794070300357
+          }
+        ],
+        [
+          "execution_cached",
+          {
+            "nodes": [],
+            "prompt_id": "73e69143-a876-42d5-a91e-b02b814c38cf",
+            "timestamp": 1794070300382
+          }
+        ],
+        [
+          "execution_success",
+          {
+            "prompt_id": "73e69143-a876-42d5-a91e-b02b814c38cf",
+            "timestamp": 1794070402234
+          }
+        ]
+      ]
+    },
+    "output": {
+      "filename": "character-reference-34982406-e31f-44f4-8333-0ea5bd9fad67_00001_.png",
+      "subfolder": "ghcp-intro-character-references",
+      "type": "output",
+      "metadata": {
+        "kind": "image",
+        "width": 1536,
+        "height": 1024
+      },
+      "id": "fe51a7b1-11db-424a-9892-95178f001d34"
+    }
+  },
+  "source": "content/modules/01-foundations/media/comfyui-intro-character-references.json",
+  "createdAt": "2026-11-07T16:53:23.233Z",
+  "reviewStatus": "approved",
+  "location": "content/modules/01-foundations/media/references/intro-mergewell-anchor.png",
+  "width": 1536,
+  "height": 1024,
+  "inputReference": {
+    "path": "workshops/ghcp-agentic-hack/content/modules/01-foundations/public/images/team-portrait-purrmission-final.png",
+    "hash": "da37f68ec5932225ed5b5f49e75d847eac7b294d8329457ad1abaf84b6dc0f77",
+    "contentType": "image/png"
+  },
+  "generationAuthorization": {
+    "initiative": "requirements-ghcp-agentic-hack",
+    "envelopeId": "standing-intro-character-anchors-v1",
+    "envelopeHash": "fcb3d932614ea874277c29f0fe58d731214e7432fad31d338b18b88fefa172a6",
+    "decisionId": "standing-image-policy",
+    "requestHash": "30e8d7cddf3a8a5d64460582164935aa6a899989b51efca920e4e8aef2b343e6"
+  },
+  "integratedUnder": {
+    "authority": "lifecycle-v3-local-draft",
+    "requirementsHash": "5d593a53466d9335be933d38160ff96211b84685cdd06453a008ce01e116bb45"
+  }
+}

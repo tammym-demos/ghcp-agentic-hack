@@ -458,7 +458,7 @@ export async function loadCatalog(repositoryRoot: string): Promise<ContentCatalo
     }
 
     for (const [variantIndex, variant] of (entry.workshop.data.deliveryVariants ?? []).entries()) {
-      const phaseMinutes = new Map<string, { content: number; mission: number }>();
+      const phaseMinutes = new Map<string, { content: number; discussion: number; mission: number }>();
       for (const [dayIndex, day] of variant.days.entries()) {
         for (const [blockIndex, block] of day.agenda.entries()) {
           if (!block.module) continue;
@@ -468,9 +468,10 @@ export async function loadCatalog(repositoryRoot: string): Promise<ContentCatalo
             );
             continue;
           }
-          const aggregate = phaseMinutes.get(block.module) ?? { content: 0, mission: 0 };
+          const aggregate = phaseMinutes.get(block.module) ?? { content: 0, discussion: 0, mission: 0 };
           const minutes = agendaMinutes(block.start, block.end);
           if (block.type === "module-content") aggregate.content += minutes;
+          if (block.type === "discussion") aggregate.discussion += minutes;
           if (block.type === "mission") aggregate.mission += minutes;
           phaseMinutes.set(block.module, aggregate);
         }
@@ -478,11 +479,16 @@ export async function loadCatalog(repositoryRoot: string): Promise<ContentCatalo
       for (const moduleId of entry.workshop.data.modules) {
         const module = entry.modules.find(({ data }) => data.id === moduleId);
         if (!module?.data.timing || module.data.totalMinutes === undefined) continue;
-        const aggregate = phaseMinutes.get(moduleId) ?? { content: 0, mission: 0 };
-        const expectedContent = module.data.totalMinutes - module.data.timing.missionMinutes;
+        const aggregate = phaseMinutes.get(moduleId) ?? { content: 0, discussion: 0, mission: 0 };
+        const expectedContent = module.data.timing.instructionMinutes;
         if (aggregate.content !== expectedContent) {
           issues.push(
             `${entry.workshop.filePath}: delivery variant "${variant.id}" module-content minutes for "${moduleId}" (${aggregate.content}) must equal ${expectedContent}`
+          );
+        }
+        if (aggregate.discussion !== module.data.timing.discussionMinutes) {
+          issues.push(
+            `${entry.workshop.filePath}: delivery variant "${variant.id}" discussion minutes for "${moduleId}" (${aggregate.discussion}) must equal ${module.data.timing.discussionMinutes}`
           );
         }
         if (aggregate.mission !== module.data.timing.missionMinutes) {

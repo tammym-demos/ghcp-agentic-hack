@@ -24,7 +24,7 @@ constraints:
   - Build only inside your own `copilot-case-file` folder. Nothing here needs a work repository.
   - Hints never reduce points, and there is no speed scoring.
 evidence:
-  - A second agent that reviews and never edits, with its written boundary
+  - A second agent that reviews and never edits, with written limits on what it can and can't do
   - Four provenance facts about a community skill, gathered from the GitHub API
   - The installed skill with two written limits wired into the reviewer
   - One deliberate agent failure, the first symptom, and the change that fixed it

@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "kind": "comfyui-qwen21-reference",
+  "models": {
+    "diffusion": "qwen_image_2.1_int8_convrot.safetensors",
+    "textEncoder": "qwen3vl_8b_int8_convrot.safetensors",
+    "vae": "qwen_image_2.1_vae_bf16.safetensors"
+  },
+  "sampling": {
+    "seed": 646225256900657,
+    "steps": 40,
+    "cfg": 1,
+    "sampler": "euler",
+    "scheduler": "simple",
+    "denoise": 1,
+    "referenceResolution": 0
+  },
+  "negativePrompt": "Text, letters, logos, trademarks, interfaces, watermarks, extra characters, duplicated or malformed limbs, photorealism, 3D rendering."
+}

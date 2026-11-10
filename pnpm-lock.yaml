@@ -84,10 +84,19 @@ importers:
       gray-matter:
         specifier: ^4.0.3
         version: 4.0.3
+      pngjs:
+        specifier: 7.0.0
+        version: 7.0.0
+      saxes:
+        specifier: 6.0.0
+        version: 6.0.0
     devDependencies:
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
+      '@types/pngjs':
+        specifier: 6.0.5
+        version: 6.0.5
       tsx:
         specifier: ^4.20.3
         version: 4.23.1
@@ -1484,6 +1493,9 @@ packages:
 
   '@types/node@22.20.1':
     resolution: {integrity: sha1-hOfN9jzaogwTSqMXzMkBqiHhbw4=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@types/node/-/node-22.20.1.tgz}
+
+  '@types/pngjs@6.0.5':
+    resolution: {integrity: sha1-bewvfrgoRUPKTkI/PAmxGfqTnqM=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@types/pngjs/-/pngjs-6.0.5.tgz}
 
   '@types/trusted-types@2.0.7':
     resolution: {integrity: sha1-usywepcLkXB986PoumiWxX6tLRE=, tarball: https://ms-feed-12.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/@types/trusted-types/-/trusted-types-2.0.7.tgz}
@@ -3408,6 +3420,10 @@ packages:
 
   plantuml-encoder@1.4.0:
     resolution: {integrity: sha1-eJkwLPeF3pVr8aFn4VQg/u5Zdfc=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/plantuml-encoder/-/plantuml-encoder-1.4.0.tgz}
+
+  pngjs@7.0.0:
+    resolution: {integrity: sha1-qLdEYCDrvGrHOdtsVBWmXRcJDiY=, tarball: https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/pngjs/-/pngjs-7.0.0.tgz}
+    engines: {node: '>=14.19.0'}
 
   points-on-curve@0.2.0:
     resolution: {integrity: sha1-fbuYxDeRhZQ0KEdhMw+ok8uBtNE=, tarball: https://ms-feed-2.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/points-on-curve/-/points-on-curve-0.2.0.tgz}
@@ -5862,6 +5878,10 @@ snapshots:
     dependencies:
       undici-types: 6.21.0
 
+  '@types/pngjs@6.0.5':
+    dependencies:
+      '@types/node': 22.20.1
+
   '@types/trusted-types@2.0.7':
     optional: true
 
@@ -8161,6 +8181,8 @@ snapshots:
       pathe: 2.0.3
 
   plantuml-encoder@1.4.0: {}
+
+  pngjs@7.0.0: {}
 
   points-on-curve@0.2.0: {}
 

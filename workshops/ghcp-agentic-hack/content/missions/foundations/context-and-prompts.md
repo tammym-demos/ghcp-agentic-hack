@@ -14,18 +14,18 @@ objectiveRefs:
   - Apply the autonomy spectrum and least-privilege delegation before escalating to agentic patterns
 prerequisites:
   - One installed, signed-in, organization-approved Copilot tool and a browser
-startingState: A personal empty folder; no repository, package installation, or local server is needed.
-goal: Fix one small JavaScript bug, prove which context you used, and check the result yourself.
-task: Work through six short steps. Keep the same case folder for the next module.
+startingState: A personal empty folder. You don't need a repository, package installs, or a local server.
+goal: Fix one small JavaScript bug with Copilot, show which file it actually read, and check the result yourself.
+task: Work through six short steps in one practice folder. You'll keep the same folder for the next module.
 constraints:
-  - Use synthetic practice data only. Do not open a work or customer repository.
-  - Do not install packages, enable new integrations, or broaden permissions.
-  - Mode and tool permissions are separate. Do not enable unattended execution for this mission.
+  - Use made-up practice data only. Don't open a work or customer repository.
+  - Don't install packages, turn on new integrations, or give Copilot more permissions.
+  - Choosing a chat mode doesn't set what Copilot is allowed to do. Keep approvals on, and don't let Copilot run unattended.
 evidence:
-  - A tested dispatch-lab.html and an unchanged starter backup
-  - case-notes.md with context, usage, approval, and check observations
+  - A fixed dispatch-lab.html and an untouched backup copy
+  - case-notes.md with your notes on what Copilot read, usage, approvals, and check results
 safetyCheckpoints:
-  - Purrmission checks the folder, allowed edit, and restore copy before any change.
+  - Purrmission checks the folder, what you're allowed to edit, and your backup copy before anything changes.
 corePath:
   - 'Open the lab: 5 min, 5 points.'
   - 'Ask, then plan: 7 min, 10 points.'
@@ -36,18 +36,19 @@ corePath:
 stretchPath:
   - Only use spare time. Stop bonus work when the five-minute debrief starts.
 debrief:
-  - What evidence showed a file was read, rather than merely present on disk?
-  - What did you check before accepting the change?
+  - How could you tell Copilot actually read a file, rather than the file just sitting in your folder?
+  - What did you check before you accepted the change?
 validation:
-  - Foundations checks show 3 PASS and 0 FAIL, or the exact blocked check is recorded.
+  - The Foundations checks show 3 PASS and 0 FAIL, or you've written down exactly which check is stuck.
   - Keep dispatch-lab.html, dispatch-lab.backup.html, team-rules.md, and case-notes.md.
-  - Record the actual point total; forty core points is participation completion, not proof every step worked.
+  - Write down the points you actually earned. Reaching 40 means you finished the mission, not that every step worked.
 casePacket:
-  - '**Start here:** create a personal `copilot-case-file` folder. Choose your tool below. Use its local-folder session, not a cloud workspace.'
-  - '**Practice files:** copy the starter below into `dispatch-lab.html`. Save it, then duplicate it as `dispatch-lab.backup.html`. Create `case-notes.md` for short answers.'
-  - '**Run it:** double-click `dispatch-lab.html` to open it in your browser. Click **Foundations**. After each save, reload this local page and click again. Nothing is sent to a server.'
-  - '**Stuck after two minutes?** Ask Copilot how to do that one step, or pair with someone using the same tool. Record a blocked or paired result honestly; do not install anything.'
-  - '**Earlier draft progress?** Keep old notes separate. Untick earlier completions before scoring these replacement exercises; the exercise ids have not changed.'
+  - '**Start here:** create a personal `copilot-case-file` folder. Choose your tool below and open the folder in it on your own machine, not in a cloud workspace.'
+  - '**Practice files:** copy the starter below into a file called `dispatch-lab.html`. Save it, then make a copy called `dispatch-lab.backup.html`. Create `case-notes.md` for your short answers.'
+  - '**Run it:** double-click `dispatch-lab.html` to open it in your browser, then click **Foundations**. After each save, reload the page and click again. Nothing is sent to a server.'
+  - '**Where to type prompts:** when a step says "Type this into the Copilot chat", use the Chat box in VS Code, the prompt you get after running `copilot` in the CLI, or the prompt box in your Copilot app session.'
+  - '**Stuck for two minutes?** Ask Copilot how to do that one step, or pair with someone using the same tool. If you still can''t finish it, write that down, or note that you paired. Don''t install anything.'
+  - '**Did an earlier version of this mission?** Keep those notes separate, and untick any steps you completed before scoring this version. The step names haven''t changed.'
 starterFile:
   name: dispatch-lab.html
   content: |-
@@ -131,224 +132,227 @@ harnesses:
     title: VS Code
     description: Edit local files with Copilot Chat.
     instructions:
-      - Open the case folder with File > Open Folder. Open Chat with Ctrl+Alt+I (Cmd+Alt+I on Mac).
-      - Create files in Explorer. Save with Ctrl+S (Cmd+S). Use the plus button for a new chat.
-      - Use Ask for explanation, Plan for a proposal, and Agent only after you approve an edit. Inspect the active permission controls; do not choose automatic approval.
+      - Open the case folder with File > Open Folder. Open Chat with Ctrl+Alt+I (Cmd+Alt+I on Mac). You type prompts into the box at the bottom of the Chat view.
+      - Create files in Explorer and save with Ctrl+S (Cmd+S). Click the + button to start a new chat.
+      - 'The mode picker under the chat box sets how Copilot works: Ask explains, Plan proposes, and Agent makes changes. Only switch to Agent after you''ve agreed to an edit. Leave approvals on, and don''t choose automatic approval.'
   - id: copilot-cli
     title: GitHub Copilot CLI
     description: Work in a local terminal session.
     instructions:
-      - In your normal shell, change into the case folder, then run `copilot`. Use a text editor to save the starter HTML.
-      - Slash commands belong inside Copilot; shell commands belong outside it. Use `/exit` to return to the shell.
-      - Use `/new` for fresh context. Keep default restrictions, inspect approval requests, and do not enable autopilot or allow-all flags.
+      - In your normal terminal, go to the case folder and run `copilot`. You type prompts at the prompt it shows you. Save the starter HTML with any text editor.
+      - Commands that start with `/` go to Copilot. Normal terminal commands don't; type `/exit` to get back to your terminal first.
+      - Type `/new` to start a fresh conversation. Keep the default settings, read every approval request, and don't turn on autopilot or allow-all options.
   - id: copilot-app
     title: GitHub Copilot app
     description: Work in a local-folder agent session.
     instructions:
-      - Choose Open local folder, then start a session in the case folder. Confirm the session's actual working location before creating files.
-      - Use the prompt-box mode control. Plan proposes; Interactive works with you. Set tool permissions to Ask every time where available, not Approve all.
-      - Ask for files by exact name and inspect the saved file. Open that local HTML file in your browser; the app's file list is not proof of active context.
+      - Choose Open local folder, pick your case folder, and start a session there. Check that the session shows that folder before you create any files.
+      - 'You type prompts into the box at the bottom of the session. The mode control next to it sets how Copilot works: Plan proposes, and Interactive works step by step with you. If you see tool permissions, choose Ask every time, not Approve all.'
+      - Use exact file names when you ask for files, then open the saved file to check it. Seeing a file in the app's file list doesn't mean Copilot has read it.
 coreClues:
   - id: set-up-the-case
     title: Open the lab
     durationMinutes: 5
     points: 5
     objectiveRef: Explain where GitHub Copilot lives across IDE, terminal, GitHub.com, cloud, and app surfaces and identify enterprise safety responsibilities
-    scene: Mergewell opens a disposable case; Purrmission checks where it lives.
-    outcome: The local lab runs and its original version is safe to restore.
+    scene: Mergewell opens a practice case; Purrmission checks where it lives.
+    outcome: A working copy of the practice lab in your browser, plus a backup you can go back to if a change goes wrong.
     routes:
       - harness: ide-extension
-        instructions: ['Create the three files in Explorer; open `dispatch-lab.html` in your browser.']
+        instructions: ['Create the three files in Explorer, then double-click `dispatch-lab.html` in your file manager to open it in your browser.']
       - harness: copilot-cli
-        instructions: ['Save the files in a text editor before starting `copilot` in this folder.']
+        instructions: ['Save the three files with a text editor before you start `copilot` in this folder.']
       - harness: copilot-app
-        instructions: ['Ask for the starter to be saved as `dispatch-lab.html` in the confirmed local folder; inspect the file before opening it.']
+        instructions: ['Paste the starter into the chat and ask Copilot to save it as `dispatch-lab.html` in your case folder. Open the saved file to check it before you open it in your browser.']
     actions:
-      - Save the starter and its backup, then click Foundations in the browser.
-      - 'In `case-notes.md`, record your tool, local folder, and the failing check. Other check groups belong to later modules.'
-    verify: Foundations shows 2 PASS and 1 FAIL for blank label. The backup opens and shows the same result.
-    evidence: 'Tool: ___. Folder: ___. Failing check: ___. Backup: ___.'
+      - Save the starter as `dispatch-lab.html` and make a copy called `dispatch-lab.backup.html`.
+      - Open `dispatch-lab.html` in your browser and click **Foundations**. One check fails on purpose. That's the bug you'll fix in this mission.
+      - In `case-notes.md`, write down which tool you're using, where your folder is, and the name of the failing check. Ignore the other buttons for now; they're for later modules.
+    verify: Foundations shows 2 PASS and 1 FAIL (blank label), and your backup copy shows the same thing when you open it.
+    evidence: 'Tool: ___. Folder: ___. Failing check: ___. Backup file: ___.'
     hints:
       - Copy the whole starter, including the first and last lines.
-      - Save as .html, not .html.txt. Reload after saving.
-      - A failing blank-label check is the intended starting state.
-    safetyCheckpoint: Keep the practice folder away from real work. No installs or network access are needed.
+      - Save the file as .html, not .html.txt. Reload the page after saving.
+      - A failing blank label check is where you're meant to start.
+    safetyCheckpoint: Keep this practice folder away from real work. You don't need to install anything or go online.
   - id: first-prompts
     title: Ask, then plan
     durationMinutes: 7
     points: 10
     objectiveRef: Apply VS Code chat references, inline completions, inline chat, and Ask/Plan/Agent modes to real engineering tasks
-    scene: Mergewell asks for understanding before granting permission to edit.
-    outcome: An explanation and a small plan, with no changed files.
+    scene: Mergewell wants to understand the bug before he lets anyone change the code.
+    outcome: An explanation of the bug and a plan to fix it, with no files changed yet. Seeing the plan first lets you catch a bad fix before it happens.
     routes:
       - harness: ide-extension
-        instructions: ['Use Ask with `dispatch-lab.html` attached; switch to Plan only if your installation offers it.']
+        instructions: ['Set the mode picker to **Ask** and attach `dispatch-lab.html` by typing `#` and picking the file. For the second prompt, switch to **Plan** if you have it.']
       - harness: copilot-cli
-        instructions: ['Name the HTML file in your prompt. Ask for explanation only, then use Plan mode if available.']
+        instructions: ['Type both prompts at the `copilot` prompt. They name the file, so you don''t need to attach it. For the second prompt, switch to Plan mode if your version has it.']
       - harness: copilot-app
-        instructions: ['Attach the HTML with `@` or the file attachment control. Use Plan; do not authorize execution.']
+        instructions: ['Attach `dispatch-lab.html` with `@` or the attach button, and set the mode to **Plan**. Don''t let it start making changes.']
     actions:
-      - 'Ask: "Read dispatch-lab.html. Why does the blank-label check fail? Explain only. Do not edit or run anything."'
-      - 'Then ask: "Plan the smallest labelFor change. Whitespace-only input must return (untitled); other labels stay trimmed. Name the allowed edit and checks. Do not act."'
-      - Check the plan against all three Foundations cases. Reject any proposal to change the tests.
-    verify: The plan names labelFor only, predicts three passing checks, and no file has changed.
-    evidence: 'Cause: ___. Allowed edit: ___. Checks I expect: ___.'
+      - 'Type this into the Copilot chat: "Look at dispatch-lab.html and explain why the blank label check fails. Don''t change or run anything yet. I just want to understand the problem."'
+      - 'Then type: "What''s the smallest change to the labelFor function that would fix this? If a label is only spaces, it should return (untitled). Any other label should still have its extra spaces trimmed. Tell me what you''d change and which checks should pass afterward, but don''t make the change yet."'
+      - Read the plan. Would all three Foundations checks pass with it? If it suggests changing the checks themselves, say no. The checks are how you'll know the fix works.
+    verify: Copilot has explained the bug, its plan changes only labelFor and expects all three checks to pass, and none of your files have changed.
+    evidence: 'Why it fails: ___. What the plan changes: ___. Checks I expect to pass: ___.'
     hints:
-      - The blank input becomes an empty string after trimming.
-      - Ask explains; a plan is not permission to change a file.
-      - No Plan control? Request a written plan explicitly and record the control as unavailable.
-    safetyCheckpoint: Stop if the tool edits while you asked for explanation or planning. Restore the backup before continuing.
+      - Trimming the spaces from a blank label leaves an empty string, and nothing turns that into (untitled).
+      - Ask mode explains. A plan is a proposal, not permission to change a file.
+      - No Plan option? Ask for a written plan in the chat instead, and note that Plan mode wasn't available.
+    safetyCheckpoint: If Copilot changes a file when you only asked for an explanation or a plan, stop. Copy your backup over the working file before you carry on.
   - id: see-the-context
     title: Prove the file was read
     durationMinutes: 6
     points: 10
     objectiveRef: Detect context rot and apply context window hygiene practices
-    scene: Purrmission wants evidence of a read, not a guess about a folder.
-    outcome: A file reference or tool-read trace plus a correctly quoted practice rule.
+    scene: Purrmission wants to see that Copilot actually read the file, not just that the file is in the folder.
+    outcome: A rules file that Copilot quotes back to you, and a note on what showed you it really read that file. This matters because Copilot can sound right while working from something else.
     routes:
       - harness: ide-extension
-        instructions: ['Attach `team-rules.md` explicitly with Add Context or the file picker; inspect response References.']
+        instructions: ['Attach `team-rules.md` with **Add Context** or by typing `#`. After Copilot answers, expand **References** under its reply to see which files it used.']
       - harness: copilot-cli
-        instructions: ['Ask to read `team-rules.md`; inspect the actual read/tool trace. Use `/context` for session composition, not a full file inventory.']
+        instructions: ['Your prompt asks Copilot to open the file, so watch for the step where it reads `team-rules.md`. (`/context` shows how full the conversation is; it doesn''t list every file.)']
       - harness: copilot-app
-        instructions: ['Attach `team-rules.md` with `@` or the attachment control; inspect the read activity, not just the files area.']
+        instructions: ['Attach `team-rules.md` with `@` or the attach button. Look for the read step in the session activity, not just the file list.']
     actions:
-      - 'Create `team-rules.md` containing: "Practice marker: LANTERN-47. Edit only labelFor until the Foundations checks pass."'
-      - 'Ask: "Read team-rules.md. Quote the marker and the allowed edit. Do not change anything."'
-      - Record what proves the read. If your tool hides it, record that limit; a matching answer alone is not proof of which source supplied it.
-    verify: The answer quotes LANTERN-47 and labelFor; your note distinguishes observed source evidence from an unobservable claim.
-    evidence: 'Marker: ___. Source evidence I saw: ___. Not observable here: ___.'
+      - 'Create `team-rules.md` with this one line: "Practice marker: LANTERN-47. Edit only labelFor until the Foundations checks pass."'
+      - 'Type this into the Copilot chat: "Open team-rules.md and tell me, word for word, the practice marker and which function I''m allowed to edit. Don''t change anything."'
+      - Look for what shows Copilot read the file, such as the file listed under References or a "read file" step. Write it down. If your tool doesn't show this, write that down too. A correct answer on its own doesn't prove where the answer came from.
+    verify: Copilot quotes LANTERN-47 and labelFor, and your note says what you actually saw that shows it read the file, or that your tool didn't show it.
+    evidence: 'Marker: ___. What showed me it read the file: ___. What my tool didn''t show: ___.'
     hints:
-      - Attach one file, not your whole home folder.
-      - A file on disk may be accessible without having entered this request.
-      - Ask which tool read it, then verify the visible trace yourself.
-    safetyCheckpoint: Add synthetic context only. Do not use a private file to test exclusions.
+      - Attach just this one file, not your whole folder.
+      - A file being in your folder doesn't mean Copilot has read it for this question.
+      - Not sure where to look? Ask Copilot how it read the file, then find that step on screen yourself.
+    safetyCheckpoint: Use only made-up practice text here. Don't use a private file to test what Copilot can see.
   - id: add-to-context
     title: Start fresh with a useful handoff
     durationMinutes: 5
     points: 5
     objectiveRef: Detect context rot and apply context window hygiene practices
-    scene: Mergewell carries a short brief into a clean conversation.
-    outcome: A fresh session that still knows the task, boundary, and checks.
+    scene: Mergewell starts a clean conversation and brings a short summary with him, not the whole old chat.
+    outcome: A fresh chat that knows the task, the limits, and the checks because you gave it a three-line summary. Long chats get cluttered, and this is how you start over without losing what matters.
     routes:
       - harness: ide-extension
-        instructions: ['Start a new chat with plus, then attach the HTML and `team-rules.md` again.']
+        instructions: ['Click **+** to start a new chat, then attach `dispatch-lab.html` and `team-rules.md` again.']
       - harness: copilot-cli
-        instructions: ['Use `/new`, confirm the same folder, then explicitly ask to read the two named files.']
+        instructions: ['Type `/new`, check you''re still in the case folder, then name both files in your message.']
       - harness: copilot-app
-        instructions: ['Start another local session in the same folder; verify the working location and attach both files again.']
+        instructions: ['Start a new session in the same folder, check it shows the right folder, then attach both files again.']
     actions:
-      - 'Save three lines in `case-notes.md`: goal, allowed edit, and the three checks. Paste those lines into the new session.'
-      - Ask it to repeat the boundary and marker before acting. Correct any missing context.
-    verify: The fresh reply names labelFor, the blank-label behavior, LANTERN-47, and the checks without relying on the old chat.
-    evidence: 'I carried forward: ___. I had to supply again: ___.'
+      - 'In `case-notes.md`, write three short lines: the goal (fix the blank label), what you''re allowed to edit (labelFor only), and the three Foundations checks.'
+      - 'Start the new chat and paste in those three lines. Then type: "Before you do anything, tell me what you''re allowed to change and what the practice marker is."'
+      - If anything in its answer is missing or wrong, correct it.
+    verify: The new chat names labelFor, says a blank label should become (untitled), quotes LANTERN-47, and lists the checks, all without the old conversation.
+    evidence: 'What I carried over: ___. What I had to add again: ___.'
     hints:
-      - New sessions do not automatically inherit every detail from an old chat.
-      - Carry decisions and constraints, not the whole transcript.
-      - If a constraint is missing, reattach its source before approving work.
-    safetyCheckpoint: A new chat is not proof of cache deletion or permission reset.
+      - A new chat doesn't remember the details of your old one.
+      - Bring the decisions and limits, not the whole conversation.
+      - Copilot didn't know the marker? Check that `team-rules.md` is attached in the new chat.
+    safetyCheckpoint: Starting a new chat only clears the conversation. It doesn't clear any cache or reset permissions.
   - id: credits-and-model
     title: Read a usage signal
     durationMinutes: 5
     points: 10
     objectiveRef: Interpret tokens, GitHub AI Credits, and model-routing tradeoffs for cost-aware daily execution
-    scene: Purrmission checks the meter without buying another run.
-    outcome: One honest usage observation and a sensible model choice for this small fix.
+    scene: Purrmission checks how much has been used so far, without spending more to find out.
+    outcome: One note on what your tool shows about usage, a sensible model choice for this small fix, and practice reading a token receipt.
     routes:
       - harness: ide-extension
-        instructions: ['Inspect available usage/context indicators and the model picker. Do not assume the numbers are account-wide billing.']
+        instructions: ['Look for any usage or context indicator near the chat box, and open the model picker. These numbers may not be your account''s full bill.']
       - harness: copilot-cli
-        instructions: ['Read `/usage` and the selected model. Use `/model` to inspect choices without rerunning the task.']
+        instructions: ['Type `/usage` to see usage for this session, and `/model` to see the model choices. You don''t need to run the task again.']
       - harness: copilot-app
-        instructions: ['Inspect the model control below the prompt and any available usage view; use `/usage` only if offered.']
+        instructions: ['Check the model control below the prompt box and any usage view. Use `/usage` only if the app offers it.']
     actions:
-      - Record a displayed reading and its scope, or write "not shown". Choose an approved lightweight model or Auto for the coming edit; no comparison run is required.
-      - 'Read this **simulated receipt**: total input 1200 tokens, including 800 cached; output 200; reasoning not reported. How many input tokens were uncached?'
-      - Write why these numbers do not establish the AI Credits charged or prove the answer correct.
-    verify: Your note says 400 uncached input tokens, labels the receipt simulated, and separates token counts from cost and correctness.
-    evidence: 'Actual reading/scope: ___. Model choice: ___. Simulated uncached input: ___. This does not prove: ___.'
+      - Write down any usage number your tool shows, and what it covers (this chat, this session, or your account). If it doesn't show one, write "not shown".
+      - Pick a lightweight approved model, or Auto, for the fix in the next step. You don't need to compare models.
+      - 'Read this **made-up receipt**: 1,200 input tokens in total, 800 of them cached; 200 output tokens; reasoning tokens not reported. How many input tokens were not cached?'
+      - Write one line on why these numbers can't tell you how many AI Credits you were charged, or whether the answer was right.
+    verify: Your note says 400 uncached input tokens, labels the receipt as made up, and explains that token counts don't tell you the cost or whether the answer was correct.
+    evidence: 'What my tool showed, and what it covers: ___. Model I picked: ___. Uncached input tokens: ___. These numbers don''t tell me: ___.'
     hints:
-      - Cached input is included in the stated input total, not added again.
-      - Subtract 800 from 1200. Do not invent a hidden reasoning count.
-      - No counters or model choice? Record the limitation and still interpret the supplied receipt.
-    safetyCheckpoint: Do not upgrade, buy credits, or enable a model just for this exercise.
+      - The 800 cached tokens are already part of the 1,200. Don't add them again.
+      - Take 800 away from 1,200. Don't guess at the reasoning tokens.
+      - No usage numbers or model choice in your tool? Write that down and still work out the receipt.
+    safetyCheckpoint: Don't upgrade, buy credits, or turn on a new model for this exercise.
   - id: autopilot-or-not
     title: Make and verify one change
     durationMinutes: 12
     points: 10
     objectiveRef: Apply the autonomy spectrum and least-privilege delegation before escalating to agentic patterns
-    scene: Mergewell approves one edit; Purrmission watches the diff and the restore.
-    outcome: A reviewed label fix, three passing checks, and a tested restore path.
+    scene: Mergewell approves one small edit. Purrmission watches what changes and makes sure he can undo it.
+    outcome: A working fix for the blank label, three passing checks, and proof that your backup really can undo the change.
     routes:
       - harness: ide-extension
-        instructions: ['Select Agent only after approving the plan. Inspect permission requests and the diff; keep changes supervised.']
+        instructions: ['Switch to **Agent** mode now that you''ve agreed the plan. Approve each request only if it matches the plan, and review the changes before you keep them.']
       - harness: copilot-cli
-        instructions: ['Request the approved edit in the current interactive session. Do not enable autopilot; inspect each permission request that appears.']
+        instructions: ['Stay in the same conversation and don''t turn on autopilot. Read each approval request before you say yes.']
       - harness: copilot-app
-        instructions: ['Use Interactive with Ask every time where available. Mode does not by itself configure tool permissions.']
+        instructions: ['Use **Interactive** mode, with Ask every time if you see it. The mode on its own doesn''t set what Copilot is allowed to do.']
     actions:
-      - 'Approve: "Change only labelFor in dispatch-lab.html as planned. Do not change tests, other functions, or files. No commands, installs, or network. Stop if that is insufficient."'
-      - Save, reload the browser lab, and run Foundations. Inspect the diff against the backup; only labelFor should differ.
-      - Save the fixed file as `dispatch-lab.fixed.html`. Restore the backup over the working file and rerun Foundations; confirm the original blank-label failure returns.
-      - Put the fixed copy back, rerun Foundations, and record accept, revise, or stop with a reason.
-    verify: You observed the original failure, 3 PASS after the fix, the same failure after restoration, and 3 PASS again. Tests stayed unchanged.
-    evidence: 'Before: ___. After: ___. Restore result: ___. My decision/reason: ___.'
+      - 'Type this into the Copilot chat: "Go ahead and make the change we planned to labelFor in dispatch-lab.html. Only change that one function. Leave the checks, the other functions, and the other files alone. Don''t run commands, install anything, or go online. If that isn''t enough to fix it, stop and tell me."'
+      - Save, reload the page in your browser, and click **Foundations**. Compare the file with your backup. labelFor should be the only difference.
+      - Now test that you can undo it. Save the fixed file as `dispatch-lab.fixed.html`, copy the backup over `dispatch-lab.html`, reload, and run Foundations again. The blank label check should fail again.
+      - Copy the fixed version back, run Foundations once more, and write down whether you accept the change, want it revised, or are stopping, and why.
+    verify: You've seen the original failure, 3 PASS after the fix, the failure come back after you restored the backup, and 3 PASS again. The checks themselves never changed.
+    evidence: 'Before: ___. After the fix: ___. After restoring the backup: ___. My decision and why: ___.'
     hints:
-      - Trim once, then return the trimmed value or "(untitled)" when it is empty.
-      - Save and reload before every check. A stale browser page is not the saved file.
-      - If the tool cannot edit, make the planned change yourself and label it a manual run. Keep the same checks.
-    safetyCheckpoint: Reject unrelated edits. A passing message from Copilot is not a passing browser check.
+      - Trim the label once. If the result is empty, return "(untitled)"; otherwise return the trimmed label.
+      - Save and reload before every check. An old browser tab still shows the old file.
+      - Copilot can't edit in your tool? Make the planned change yourself, note that it was a manual fix, and run the same checks.
+    safetyCheckpoint: Turn down any change you didn't ask for. Copilot saying the checks pass isn't the same as seeing them pass in your browser.
 bonusClues:
   - id: model-showdown
     title: Inspect a model choice
     durationMinutes: 3
     points: 10
     objectiveRef: Interpret tokens, GitHub AI Credits, and model-routing tradeoffs for cost-aware daily execution
-    scene: Mergewell checks whether a stronger model is actually needed.
-    outcome: A task-based model switching rule, without spending a comparison run.
+    scene: Mergewell checks whether he actually needs a stronger model.
+    outcome: A simple rule for when you'd switch to a stronger model, without spending a run to compare.
     actions:
-      - Inspect available approved models. Name one task harder than this label fix and when you would escalate.
+      - Look at the models you're allowed to use. Name one task harder than this label fix, and say when you'd switch to a stronger model for it.
     routes:
       - harness: ide-extension
-        instructions: ['Inspect the model picker; do not send another prompt just to compare.']
+        instructions: ['Open the model picker. Don''t send another prompt just to compare.']
       - harness: copilot-cli
-        instructions: ['Inspect `/model`, then keep or cancel the selection deliberately.']
+        instructions: ['Type `/model` to see the choices, then keep or cancel your selection on purpose.']
       - harness: copilot-app
-        instructions: ['Inspect the model control below the prompt; do not enable a new provider.']
-    verify: Your rule names a task, a reason to escalate, and a check the stronger model still must pass.
-    evidence: 'Escalate when: ___. Still verify: ___.'
-    hints: ['Start with the smallest sufficient model.', 'A longer reply is not proof of quality.', 'Unavailable models are not a reason to change policy.']
-    safetyCheckpoint: Use approved choices only.
+        instructions: ['Open the model control below the prompt box. Don''t turn on a new provider.']
+    verify: Your rule names a task, why you'd switch, and a check the stronger model's answer still has to pass.
+    evidence: 'I''d switch when: ___. I''d still check: ___.'
+    hints: ['Start with the smallest model that does the job.', 'A longer answer isn''t a better answer.', 'If a model isn''t available to you, that isn''t a reason to change the rules.']
+    safetyCheckpoint: Use only models your organization has approved.
   - id: cross-harness
     title: Inspect the same result in another tool
     durationMinutes: 3
     points: 10
     objectiveRef: Explain where GitHub Copilot lives across IDE, terminal, GitHub.com, cloud, and app surfaces and identify enterprise safety responsibilities
-    scene: Purrmission checks whether another view makes the same evidence clearer.
-    outcome: One comparison of the existing diff or checks, with no new edit.
+    scene: Purrmission checks whether another tool makes the same result easier to check.
+    outcome: One comparison of how your finished fix looks in a second tool, with no new changes.
     actions:
-      - If another approved tool is already installed, open the same local folder and inspect the completed result. Otherwise skip this bonus.
+      - If you already have another approved Copilot tool installed, open the same folder in it and look at your finished fix. If you don't, skip this bonus.
     routes:
       - harness: ide-extension
-        instructions: ['Inspect the file in another already-installed tool; keep it read-only.']
+        instructions: ['Open the file in another tool you already have installed. Look only; don''t change it.']
       - harness: copilot-cli
-        instructions: ['Use an already-installed editor to inspect the file; no new Copilot run is needed.']
+        instructions: ['Open the file in an editor you already have. You don''t need another Copilot run.']
       - harness: copilot-app
-        instructions: ['Open the saved file in an already-installed editor; verify it is the same working path.']
-    verify: Your note names one difference in how the same saved result was inspected.
-    evidence: 'Second tool: ___. Same file/path: ___. Easier to inspect: ___.'
-    hints: ['Compare evidence, not a second implementation.', 'Check the path first.', 'Skip if setup would consume the debrief.']
-    safetyCheckpoint: Do not install a tool or broaden its access for bonus points.
+        instructions: ['Open the saved file in an editor you already have, and check it''s the same file path.']
+    verify: Your note names one thing that was easier or harder to check in the second tool.
+    evidence: 'Second tool: ___. Same file and path: ___. Easier to check there: ___.'
+    hints: ['Compare how you check the result, not a second version of the fix.', 'Check the file path first.', 'Skip it if setting up would eat into the debrief.']
+    safetyCheckpoint: Don't install a tool or give it more access just for bonus points.
 completionPoints: 40
 bonusPointCap: 10
 carryForward:
   artifact: Local developer case folder
   produces:
     - dispatch-lab.html with passing Foundations checks
-    - dispatch-lab.backup.html, team-rules.md, and case-notes.md with actual scores
+    - dispatch-lab.backup.html, team-rules.md, and case-notes.md with your actual scores
   consumes:
     - The copyable starter HTML on this page
-  fallback: Keep blocked work labeled. Agentic has a fresh starter with the label fix supplied and earlier points unearned.
+  fallback: If something stayed stuck, keep it labeled. The Agentic mission has a fresh starter with the label fix already done, but using it doesn't earn the Foundations points.
 leaderboard:
   optional: true
   aliasOnly: true

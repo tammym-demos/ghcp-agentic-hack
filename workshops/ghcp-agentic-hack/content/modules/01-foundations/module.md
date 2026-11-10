@@ -4,11 +4,9 @@ kind: module
 id: foundations
 title: 'Foundations: Anatomy of a Coding Harness'
 description: >-
-  Onboard to GitHub Copilot coding agent harnesses — supported IDE, CLI, desktop
-  app, and cloud surfaces, the Four Harness Rings, built-in agents, slash
-  commands, tools, skills, permission levels, practical tokens, context hygiene,
-  and usage controls.
-duration: 2 hours 2 minutes
+  Explain where GitHub Copilot lives across IDE, terminal, GitHub.com, cloud,
+  and app surfaces and identify enterprise safety responsibilities
+duration: 122 minutes
 totalMinutes: 122
 timing:
   instructionMinutes: 77
@@ -19,11 +17,19 @@ timing:
   breaksMinutes: 0
   contingencyMinutes: 0
 objectives:
-  - Explain where GitHub Copilot lives across IDE, terminal, GitHub.com, cloud, and app surfaces and identify enterprise safety responsibilities
-  - Apply VS Code chat references, inline completions, inline chat, and Ask/Plan/Agent modes to real engineering tasks
-  - Interpret tokens, GitHub AI Credits, and model-routing tradeoffs for cost-aware daily execution
+  - >-
+    Explain where GitHub Copilot lives across IDE, terminal, GitHub.com, cloud,
+    and app surfaces and identify enterprise safety responsibilities
+  - >-
+    Apply VS Code chat references, inline completions, inline chat, and
+    Ask/Plan/Agent modes to real engineering tasks
+  - >-
+    Interpret tokens, GitHub AI Credits, and model-routing tradeoffs for
+    cost-aware daily execution
   - Detect context rot and apply context window hygiene practices
-  - Apply the autonomy spectrum and least-privilege delegation before escalating to agentic patterns
+  - >-
+    Apply the autonomy spectrum and least-privilege delegation before escalating
+    to agentic patterns
 prerequisites: []
 sourceDocuments:
   - requirements.md
@@ -46,9 +52,24 @@ assets:
   - assets/brand/github/GitHub_Copilot_Lockup_Black_Clearspace.svg
   - assets/brand/microsoft/microsoft-logo.png
   - assets/brand/vscode/code-stable.png
-  - content/modules/01-foundations/public/images/purrmission-team-cover.png
+  - >-
+    content/modules/01-foundations/public/images/team-portrait-purrmission-final.png
+  - content/modules/01-foundations/media/references/intro-mergewell-anchor.png
+  - content/modules/01-foundations/media/references/intro-riley-anchor.png
+  - >-
+    content/modules/01-foundations/media/references/intro-chief-morgan-anchor.png
+  - content/modules/01-foundations/media/references/intro-purrmission-anchor.png
+  - >-
+    content/modules/01-foundations/media/references/reference-sheets/agent-mergewell.svg
+  - >-
+    content/modules/01-foundations/media/references/reference-sheets/riley-relay.svg
+  - >-
+    content/modules/01-foundations/media/references/reference-sheets/chief-morgan-charter.svg
+  - >-
+    content/modules/01-foundations/media/references/reference-sheets/purrmission.svg
   - content/modules/01-foundations/public/images/session-route.png
-  - content/modules/01-foundations/public/images/copilot-surfaces-harness-choice-human-lock-v3.png
+  - >-
+    content/modules/01-foundations/public/images/copilot-surfaces-harness-choice-human-lock-v3.png
   - content/modules/01-foundations/public/images/copilot-harness.png
   - content/modules/01-foundations/public/images/vscode-grounding.png
   - content/modules/01-foundations/public/images/cli-controlled-action.png
@@ -57,7 +78,8 @@ assets:
   - content/modules/01-foundations/public/images/interaction-autonomy.png
   - content/modules/01-foundations/public/images/model-routing-evidence.png
   - content/modules/01-foundations/public/images/context-drift.png
-  - content/modules/01-foundations/public/images/foundations-context-funnel-wider-neck-v2.png
+  - >-
+    content/modules/01-foundations/public/images/foundations-context-funnel-wider-neck-v2.png
   - content/modules/01-foundations/public/images/least-privilege-key.png
   - content/modules/01-foundations/public/images/mission-readiness.png
   - content/modules/01-foundations/public/images/token-opening-chief-v1.png

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "operation": "Remove PNG text metadata without changing image pixels or other PNG chunks.",
+  "providerCalls": 0,
+  "source": {
+    "description": "User-supplied team portrait selected for the intro and Foundations cover.",
+    "sha256": "1be8341ae29b8a57c961dd58ca00002a23263cf91b5e8c5716af5d78de67a27f",
+    "width": 1536,
+    "height": 1024,
+    "embeddedWorkflow": "ComfyUI",
+    "embeddedImageModel": "qwen_image_2.1_int8_convrot.safetensors",
+    "embeddedSamplerSeed": 646225256900657,
+    "embeddedInstructionSha256": "50134fa2918730df94c54cb5ef76625a518d12eca965f2ed884125b2bc577eff",
+    "finalModelPrompt": "Not independently recovered; the embedded workflow uses a generated prompt.",
+    "referenceRights": "Not independently verified."
+  },
+  "output": {
+    "location": "content/modules/01-foundations/public/images/team-portrait-purrmission-final.png",
+    "sha256": "da37f68ec5932225ed5b5f49e75d847eac7b294d8329457ad1abaf84b6dc0f77",
+    "width": 1536,
+    "height": 1024,
+    "removedChunks": ["tEXt", "tEXt"]
+  }
+}

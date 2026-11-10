@@ -78,6 +78,12 @@ describe("videoReferenceContentType", () => {
 });
 
 describe("validateImageDimensions", () => {
+  it("limits the local Qwen image provider to aligned, bounded dimensions", () => {
+    expect(() => validateImageDimensions("comfyui-qwen21", 1536, 1024)).not.toThrow();
+    expect(() => validateImageDimensions("comfyui-qwen21", 1535, 1024)).toThrow("multiples of 32");
+    expect(() => validateImageDimensions("comfyui-qwen21", 2048, 2048)).toThrow("2,097,152");
+  });
+
   it.each([
     [1024, 1024],
     [1536, 1024],

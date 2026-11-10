@@ -689,10 +689,16 @@ deliveryVariants:
             start: "09:00"
             end: "09:20"
             module: intro
+          - id: discussion
+            type: discussion
+            title: Discussion
+            start: "09:20"
+            end: "09:30"
+            module: intro
           - id: mission
             type: mission
             title: Mission
-            start: "09:20"
+            start: "09:30"
             end: "10:00"
             module: intro
 lastReviewed: 2026-08-05
@@ -727,6 +733,9 @@ status: draft
 
     await expect(loadCatalog(root)).rejects.toThrow(
       'delivery variant "compact" module-content minutes for "intro" (20) must equal 30'
+    );
+    await expect(loadCatalog(root)).rejects.toThrow(
+      'delivery variant "compact" discussion minutes for "intro" (10) must equal 0'
     );
   });
 });

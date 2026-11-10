@@ -65,6 +65,10 @@ describe("createMaiImageRequestBody", () => {
 });
 
 describe("imageProviderNames", () => {
+  it("exposes the opt-in local ComfyUI provider", () => {
+    expect(imageProviderNames).toContain("comfyui-qwen21");
+  });
+
   it("exposes both MAI image providers so provenance records the model actually used", () => {
     expect(imageProviderNames).toContain("mai-image-2.5");
     expect(imageProviderNames).toContain("mai-image-2.6");

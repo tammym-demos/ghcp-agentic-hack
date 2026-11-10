@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "kind": "confirmed-reference-sheet-release",
+  "id": "riley-relay",
+  "location": "content/modules/01-foundations/media/references/reference-sheets/riley-relay.svg",
+  "sha256": "f451b267cb7c78acb65fcdf348b88f6c7a7607ce02e6549447d87c5cea24f19d",
+  "sourceManifestSha256": "50f2246d4cef11e93e1d94a034487602aadddd0eb0536a41e20be7db23133ecf",
+  "views": [
+    {
+      "assetId": "intro-riley-turnaround-front",
+      "isolationSha256": "70c8ac3bb7966e6d08c43def8efd3c6ddca791b2731d0e6874e359ecbc1dc16a",
+      "crop": [
+        528,
+        0,
+        934,
+        998
+      ]
+    },
+    {
+      "assetId": "intro-riley-turnaround-front-left",
+      "isolationSha256": "bfba51c709e75ff48bb1719832dd6f7c46aec174c0b2c731e73de9ec24e98067",
+      "crop": [
+        490,
+        0,
+        948,
+        998
+      ]
+    },
+    {
+      "assetId": "intro-riley-turnaround-left-profile",
+      "isolationSha256": "e018b0708b8c884c2fc9a991ae3525bb894e6558275222c7c1e596d68d636261",
+      "crop": [
+        597,
+        0,
+        905,
+        990
+      ]
+    },
+    {
+      "assetId": "intro-riley-turnaround-rear-left",
+      "isolationSha256": "8952923c37481a9c2a0fb062c3e56a9ca5bfebf6a1debc6efc11e8531d1ccfe7",
+      "crop": [
+        588,
+        0,
+        923,
+        984
+      ]
+    },
+    {
+      "assetId": "intro-riley-turnaround-back",
+      "isolationSha256": "69753b9a606798179a9bd893fa24c57c3c14dbfdc98d24c27155731f52994ea5",
+      "crop": [
+        575,
+        0,
+        948,
+        977
+      ]
+    },
+    {
+      "assetId": "intro-riley-turnaround-rear-right",
+      "isolationSha256": "e1a6575277fd5a60e5891f1990d6b5b5d44311c932f4bcc273f2c46804e88180",
+      "crop": [
+        575,
+        0,
+        935,
+        986
+      ]
+    },
+    {
+      "assetId": "intro-riley-turnaround-right-profile",
+      "isolationSha256": "2e36560a4f26dd3211f9272a51ec3fd8d8844521ccc2df971ae7533cc602d5d5",
+      "crop": [
+        612,
+        0,
+        895,
+        991
+      ]
+    },
+    {
+      "assetId": "intro-riley-turnaround-front-right",
+      "isolationSha256": "43234f5013402af16465450bdd4801f7f0f9f1ad5deb6156eb36c48965ffc040",
+      "crop": [
+        563,
+        0,
+        1001,
+        995
+      ]
+    }
+  ],
+  "integratedUnder": {
+    "authority": "lifecycle-v3-local-draft",
+    "requirementsHash": "bcb4480faa2e3c0bebc90569e88ecc406902a5118d5a274a9d0c1fd3a99e3cc1"
+  },
+  "evidence": "Source evidence is retained in the private source repository and is not included in the deployed site."
+}

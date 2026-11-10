@@ -10,6 +10,30 @@ const relativePath = z.string().min(1).refine((value) =>
   value.split("/").every((part) => part !== "." && part !== ".." && part !== "")
 );
 
+const safetensorsName = z.string().regex(/^[a-zA-Z0-9][a-zA-Z0-9._-]*\.safetensors$/);
+
+export const comfyImageWorkflowSchema = z.object({
+  schemaVersion: z.literal(1),
+  kind: z.literal("comfyui-qwen21-reference"),
+  models: z.object({
+    diffusion: safetensorsName,
+    textEncoder: safetensorsName,
+    vae: safetensorsName
+  }).strict(),
+  sampling: z.object({
+    seed: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER),
+    steps: z.number().int().min(1).max(80),
+    cfg: z.number().min(0).max(20),
+    sampler: z.literal("euler"),
+    scheduler: z.literal("simple"),
+    denoise: z.literal(1),
+    referenceResolution: z.literal(0)
+  }).strict(),
+  negativePrompt: z.string()
+}).strict();
+
+export type ComfyImageWorkflow = z.infer<typeof comfyImageWorkflowSchema>;
+
 export const workshopRequirementsSchema = z.object({
   schemaVersion: z.literal(1),
   kind: z.literal("workshop-requirements"),
@@ -54,6 +78,11 @@ export const workshopRequirementsSchema = z.object({
       height: z.number().int().positive(),
       outputFormat: z.enum(["png", "jpeg"])
     }).strict()
+  }).strict()).default([]),
+  imageReuseManifests: z.array(z.object({
+    module: id,
+    path: relativePath,
+    sha256: hash
   }).strict()).default([]),
   exclusions: z.array(z.string().min(1)).default([]),
   acceptanceCriteria: z.array(z.string().min(1)).min(1)
@@ -115,6 +144,24 @@ export const workshopRequirementsSchema = z.object({
         message: `Image role references unknown module "${role.module}"`
       });
     }
+  }
+  const reusePaths = new Set<string>();
+  for (const [index, reuse] of requirements.imageReuseManifests.entries()) {
+    if (!moduleIds.includes(reuse.module)) {
+      context.addIssue({
+        code: "custom",
+        path: ["imageReuseManifests", index, "module"],
+        message: `Image reuse manifest references unknown module "${reuse.module}"`
+      });
+    }
+    if (reusePaths.has(reuse.path.toLowerCase())) {
+      context.addIssue({
+        code: "custom",
+        path: ["imageReuseManifests", index, "path"],
+        message: "Image reuse manifest paths must be unique"
+      });
+    }
+    reusePaths.add(reuse.path.toLowerCase());
   }
 });
 

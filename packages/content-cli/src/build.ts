@@ -5,13 +5,14 @@ import { briefEditorRoute, generatePortalCatalog, readinessGuideRoute } from "./
 import { outputRoot, repositoryRoot } from "./paths.js";
 import { gitSnapshot } from "./lifecycle.js";
 import { run } from "./process.js";
+import { isReferenceSheetAsset, referenceSheetReleaseSidecar, validateReferenceSheetSidecars } from "./reference-reuse.js";
 import {
   filterCatalogForRelease,
   loadReleaseManifest,
   validateApprovedRelease
 } from "./release.js";
 
-const { copy, ensureDir, pathExists, writeJson } = fsExtra;
+const { copy, ensureDir, pathExists, readJson, writeJson } = fsExtra;
 
 export function deckBase(workshopId: string, moduleId: string, pagesBase = "/"): string {
   const normalizedBase = pagesBase.endsWith("/") ? pagesBase : `${pagesBase}/`;
@@ -54,6 +55,7 @@ export function siteRoutes(catalog: Awaited<ReturnType<typeof loadCatalog>>): st
 
 export async function buildSite(releaseManifestOption = process.env.GHCP_RELEASE_MANIFEST): Promise<void> {
   const completeCatalog = await loadCatalog(repositoryRoot);
+  await validateReferenceSheetSidecars(repositoryRoot);
   let catalog = completeCatalog;
   let releaseId: string | undefined;
   let releaseCommit: string | undefined;
@@ -110,14 +112,21 @@ export async function buildSite(releaseManifestOption = process.env.GHCP_RELEASE
     const assets = path.join(entry.root, "assets");
     if (!releaseManifestOption && (await pathExists(assets))) {
       await copy(assets, path.join(outputRoot, "workshops", workshopId, "assets"));
-    } else if (releaseManifestOption) {
-      const selectedAssets = new Set(entry.modules.flatMap((module) => module.data.assets));
-      for (const relativeAsset of selectedAssets) {
-        const source = path.join(entry.root, ...relativeAsset.split("/"));
-        const destination = path.join(outputRoot, "workshops", workshopId, ...relativeAsset.split("/"));
-        await copy(source, destination);
-        const sidecar = `${source}.json`;
-        if (await pathExists(sidecar)) await copy(sidecar, `${destination}.json`);
+    }
+    const selectedAssets = new Set(entry.modules.flatMap((module) => module.data.assets));
+    for (const relativeAsset of selectedAssets) {
+      const referenceSheet = isReferenceSheetAsset(relativeAsset);
+      if (!releaseManifestOption && !referenceSheet) continue;
+      const source = path.join(entry.root, ...relativeAsset.split("/"));
+      const destination = path.join(outputRoot, "workshops", workshopId, ...relativeAsset.split("/"));
+      await copy(source, destination);
+      const sidecar = `${source}.json`;
+      if (await pathExists(sidecar)) {
+        if (referenceSheet) {
+          await writeJson(`${destination}.json`, await referenceSheetReleaseSidecar(entry.root, await readJson(sidecar)), { spaces: 2 });
+        } else {
+          await copy(sidecar, `${destination}.json`);
+        }
       }
     }
     for (const module of entry.modules) {

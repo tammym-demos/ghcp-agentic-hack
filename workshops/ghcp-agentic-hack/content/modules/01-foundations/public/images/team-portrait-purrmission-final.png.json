@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "team-portrait-purrmission-final",
+  "kind": "local-deterministic-image",
+  "source": "content/modules/01-foundations/media/team-portrait-import.json",
+  "createdAt": "2026-11-07T16:32:43.464Z",
+  "reviewStatus": "approved",
+  "location": "content/modules/01-foundations/public/images/team-portrait-purrmission-final.png",
+  "sha256": "da37f68ec5932225ed5b5f49e75d847eac7b294d8329457ad1abaf84b6dc0f77",
+  "width": 1536,
+  "height": 1024,
+  "sourceCandidateSha256": "da37f68ec5932225ed5b5f49e75d847eac7b294d8329457ad1abaf84b6dc0f77",
+  "transformManifestSha256": "0be54d314c650103cd903f8bd4c82b153ff14a116f9fe94dc539c7667a34f66c",
+  "candidateAcceptanceDecision": "user-selected-team-portrait-20261107",
+  "publicationDecision": "user-requested-foundations-cover-local-draft-20261107",
+  "selectionScope": "Local draft image selection, not lifecycle or production approval.",
+  "provenanceStatus": "Original reference rights and final generated prompt require review."
+}

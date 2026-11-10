@@ -15,7 +15,7 @@ Total module timing: **77 instruction minutes + 45 mission minutes = 122 minutes
 | 8 | Planning Proof 3 & 4: Negative Tests and Hard Stop Conditions | `Purrmission to Proceed` | Write failing negative/boundary tests first (preventing self-confirming tests) and arm hard stops | 2 |
 | 9 | A Map, Not a Manual: Scoping Repository and Path Instructions | `Token Optimization` | Structure `.github/copilot-instructions.md`, `applyTo` rules, `AGENTS.md`, and `/init` concisely | 3 |
 | 10 | Copilot Memory vs. Durable SDLC Artifacts | SDLC Phase 2 | Separate `/memory` controls (on, off, show) from versioned Git specs, ADRs, and instruction files | 2 |
-| 11 | Packaging SDLC Procedures as Reusable Skills (SKILL.md) | SDLC Phase 2 | Deploy Mergewell's wrist gadgets: on-demand `SKILL.md` workflows for API checks and release notes | 3 |
+| 11 | Packaging SDLC Procedures as Reusable Skills (SKILL.md) | SDLC Phase 2 | Illustrate skill frontmatter, relevance-based discovery, and CLI pre-approval versus session denial | 3 |
 | 12 | Role Separation with Custom Agents (.agent.md) | SDLC Phase 2 | Define *Spec Architect*, *Implementer*, *QA Test Writer*, and *Read-Only Reviewer* with minimal `tools:` | 3 |
 | 13 | Connecting the SDLC Workbench: MCP Servers and Agent Plugins 1.0 | Changelog Aug 2026 | Wire governed MCP servers (Tools, Resources, Prompts) and portable Agent Plugins 1.0 (GA) | 3 |
 | 14 | The Pre-Flight Planning Audit: From Vague Ticket to Signed Brief | `Purrmission to Proceed` | Side-by-side transformation of a raw feature ticket into a signed pre-flight contract | 3 |
